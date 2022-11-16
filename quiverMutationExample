@@ -1,0 +1,12 @@
+from quiverExamples import *
+from quiverMutation import *
+
+pathAlg = pathAlgebraClass.PathAlgebra()
+pathAlg.add_paths_from([[1,2,3,4,5,6,7]])
+pathAlg.add_rels_from([[[1,2,3,4,5]],[[4,5,6,7]]])#
+mutationVertexList = [3,2,1,5,1,2,3,4]
+firstDisplayedStep = 0 
+quiverMutation(pathAlg, mutationVertexList, firstDisplayedStep)
+
+# Set firstDisplayedStep to k to skip displaying the quivers for the k first steps of the mutation graphically.
+# Default is 0, which displays all steps. Set to len(mutationVertexList) to display only the final result.
