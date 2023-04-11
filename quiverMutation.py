@@ -1237,7 +1237,10 @@ def cartanMatrix(pathAlg):
 
 def coxeterPoly(pathAlg):
     cartanMat = cartanMatrix(pathAlg)
+<<<<<<< HEAD
     print(np.matrix(cartanMat))
+=======
+>>>>>>> origin/didrik-first-branch
     cartanMatInvTrans = cartanMat.inv().transpose()
     coxeterMatrix = -cartanMatInvTrans*cartanMat
     coxeterPolynomial = coxeterMatrix.charpoly()
@@ -2209,6 +2212,7 @@ def quiverMutation(pathAlgebra, mutationVertexList, firstDisplayedStep = 0):
         if i + 1 >= firstDisplayedStep:
             plotQuiver(pathAlgebra)
     return pathAlgebra
+<<<<<<< HEAD
 
 def onePointExtension(pathAlgebra, arrowToAdd, relsToAdd = []):
     extendedPathAlg = pathAlgebra
@@ -2335,3 +2339,5 @@ def coxeterPolyForCanonicalAlgebra(pathAlg):
     coxeterMatrix = -cartanMatInvTrans*cartanMat
     coxeterPolynomial = coxeterMatrix.charpoly()
     return coxeterPolynomial
+=======
+>>>>>>> origin/didrik-first-branch
