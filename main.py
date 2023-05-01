@@ -43,11 +43,11 @@ if mode == 1:
 
 elif mode == 2: # Investigate mutation sequence
     pathAlg = pathAlgebraClass.PathAlgebra()
-    pathAlg.add_paths_from([[1,2,5,6,7,8,9,10],[3,2],[4,2]])
-    pathAlg.add_rels_from([])#
+    pathAlg.add_paths_from([[1,2,3,4,5,6,7,8,9,10,11,12]])
+    pathAlg.add_rels_from([[[1,2,3,4,5,6,7]],[[2,3,4,5,6,7,8]],[[3,4,5,6,7,8,9]],[[4,5,6,7,8,9,10]],[[5,6,7,8,9,10,11]],[[6,7,8,9,10,11,12]]])#
     #pathAlg = convertLineFromCSVnotation(len(pathAlg.vertices()), '1;2;3;4;5;6|3;4;5;6;7;8|5;6;7;8;9;10')
 
-    mutationVertexList = [] #
+    mutationVertexList = [1,1,-12,-12,3,3] #
     l = len(mutationVertexList)
     firstDisplayStep = 0 # 0 if you want to display all mutation steps, len(mutationVertexList) if you only want the last
     #pathAlg = onePointExtension(pathAlg, [11,5], [[[11,5,6]]])
