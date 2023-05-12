@@ -2440,35 +2440,47 @@ def count_quipusV1(length):
             if len(deg3_vertices) > 3:
                 #deg3_subgraph = nx.Graph()
                 #nx.add_path(deg3_subgraph, dfs_shortest_path(tree, deg3_vertices[0], deg3_vertices[1]))
-                deg3_path = dfs_shortest_path(tree, deg3_vertices[0], deg3_vertices[1])
-                deg3_subgraph_edges = [(deg3_path[x], deg3_path[x+1]) for x in range(len(deg3_path)-1)]
-                #for v1 in deg3_vertices[2:]:
-                #    path_to_add = nx.Graph()
-                #    #nx.add_path(path_to_add, dfs_shortest_path(tree, deg3_vertices[0], v1))
-                #    nx.add_path(path_to_add, bfs_shortest_path_to_subgraph(tree, v1, deg3_subgraph))
-                #    deg3_subgraph = nx.compose(deg3_subgraph, path_to_add)
+                deg3_path = dfs_shortest_path(tree, deg3_vertices[0], deg3_vertices[-1])
+                #deg3_subgraph_edges = [(deg3_path[x], deg3_path[x+1]) for x in range(len(deg3_path)-1)]
+                ##for v1 in deg3_vertices[2:]:
+                ##    path_to_add = nx.Graph()
+                ##    #nx.add_path(path_to_add, dfs_shortest_path(tree, deg3_vertices[0], v1))
+                ##    nx.add_path(path_to_add, bfs_shortest_path_to_subgraph(tree, v1, deg3_subgraph))
+                ##    deg3_subgraph = nx.compose(deg3_subgraph, path_to_add)
 
-                deg3_vertices_not_checked = deg3_vertices.copy()
-                for i in range(2, len(deg3_vertices)):
+                deg3_vertices_not_checked = [x for x in deg3_vertices if x not in deg3_path]
+                for i in range(1, len(deg3_vertices)-1):
                     v1 = deg3_vertices[i]
                     if v1 in deg3_vertices_not_checked:
-                        #path_as_list = bfs_shortest_path_to_subgraph(tree, v1, deg3_subgraph)
-                        path_as_list = bfs_shortest_path_to_subgraph_edges(tree, v1, deg3_subgraph_edges)
+                        ##path_as_list = bfs_shortest_path_to_subgraph(tree, v1, deg3_subgraph)
+                        #path_as_list = bfs_shortest_path_to_subgraph_edges(tree, v1, deg3_subgraph_edges)
+                        path_as_list = bfs_shortest_path_to_subgraph_path(tree, v1, deg3_path)
                         if len(path_as_list) > 1:
-                            connection_point_degree = sum(edge.count(path_as_list[-1]) for edge in deg3_subgraph_edges)
-                            if connection_point_degree == 2:
+                            if path_as_list[-1] == deg3_path[0]:
+                                #print(path_as_list, deg3_path)
+                                deg3_path = path_as_list[:-1] + deg3_path
+                                #print(path_as_list, deg3_path)
+                            elif path_as_list[-1] == deg3_path[-1]:
+                                deg3_path.extend(reversed(path_as_list[:-1]))
+                            else:
+                                #print(deg3_path)
+                                #print(path_as_list)
                                 is_quipu = False
                                 break
-                            #path_to_add = nx.Graph()
-                            #nx.add_path(path_to_add, path_as_list)
-                            #deg3_subgraph = nx.compose(deg3_subgraph, path_to_add)
-                            deg3_subgraph_edges.extend([(path_as_list[x], path_as_list[x+1]) for x in range(len(path_as_list)-1)])
+                            #connection_point_degree = sum(edge.count(path_as_list[-1]) for edge in deg3_subgraph_edges)
+                            #if connection_point_degree == 2:
+                            #    is_quipu = False
+                            #    break
+                            ##path_to_add = nx.Graph()
+                            ##nx.add_path(path_to_add, path_as_list)
+                            ##deg3_subgraph = nx.compose(deg3_subgraph, path_to_add)
+                            #deg3_subgraph_edges.extend([(path_as_list[x], path_as_list[x+1]) for x in range(len(path_as_list)-1)])
                             path_as_set = set(path_as_list)
                             deg3_vertices_not_checked = [x for x in deg3_vertices_not_checked if not x in path_as_set]
 
-                #max_deg_for_deg3_subgraph = max(deg3_subgraph.degree, key=itemgetter(1))[1]
-                #if max_deg_for_deg3_subgraph >= 3:
-                #    is_quipu = False
+                ##max_deg_for_deg3_subgraph = max(deg3_subgraph.degree, key=itemgetter(1))[1]
+                ##if max_deg_for_deg3_subgraph >= 3:
+                ##    is_quipu = False
         if is_quipu:
             num_quipus += 1
     return num_quipus
@@ -2523,6 +2535,22 @@ def bfs_shortest_path_to_subgraph_edges(tree, start_node, subgraph_edges):
                 if edge not in subgraph_edges and (edge[1], edge[0]) not in subgraph_edges:
                     queue.append((neighbor, path + [neighbor]))
 
+    return None
+
+def bfs_shortest_path_to_subgraph_path(tree, start_node, subgraph_path):
+    queue = [(start_node, [start_node])]
+    visited = set()
+    while queue:
+        node, path = queue.pop(0)
+
+        if node in subgraph_path:
+            return path
+
+        visited.add(node)
+        for neighbor in tree.neighbors(node):
+            #print(neighbor)
+            if neighbor not in visited:
+                queue.append((neighbor, path + [neighbor]))
     return None
 
 

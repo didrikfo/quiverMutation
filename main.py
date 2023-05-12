@@ -85,7 +85,7 @@ elif mode == 3:
     #for i in range(2,len(number_of_quipus)):
     #    print(number_of_quipus[i], 'quipus of length', i )
     #print('Total runtime', time.time() - startTime)
-
+    print('Code started running at', time.strftime('%H:%M:%S',  time.gmtime(time.time()+7200)))
     for length in range(2,35):
         startTime = time.time()
         #quipus = generateAllQuipusGPT(length)
