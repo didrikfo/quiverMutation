@@ -26,7 +26,7 @@ from nodepy import rooted_trees as rt
 
 now = datetime.now() # current date and time
 
-mode = 2
+mode = 3
 
 # mode 1: Mutation search
 # mode 2: investigate mutation sequence
@@ -43,11 +43,11 @@ if mode == 1:
 
 elif mode == 2: # Investigate mutation sequence
     pathAlg = pathAlgebraClass.PathAlgebra()
-    pathAlg.add_paths_from([[1,2,3,4,5,6,7,8,9,10,11,12]])
-    pathAlg.add_rels_from([[[1,2,3,4,5,6,7]],[[2,3,4,5,6,7,8]],[[3,4,5,6,7,8,9]],[[4,5,6,7,8,9,10]],[[5,6,7,8,9,10,11]],[[6,7,8,9,10,11,12]]])#
+    pathAlg.add_paths_from([[1,2,3,4,5,6,7,8]])
+    pathAlg.add_rels_from([[[1,2,3]],[[2,3,4]],[[3,4,5]],[[4,5,6]],[[5,6,7,8]]])#
     #pathAlg = convertLineFromCSVnotation(len(pathAlg.vertices()), '1;2;3;4;5;6|3;4;5;6;7;8|5;6;7;8;9;10')
 
-    mutationVertexList = [1,1,-12,-12,3,3] #
+    mutationVertexList = [1,1,-4,-6,-6,-6,-8,-4,-8,5,7,4,3,1,1,2] #
     l = len(mutationVertexList)
     firstDisplayStep = 0 # 0 if you want to display all mutation steps, len(mutationVertexList) if you only want the last
     #pathAlg = onePointExtension(pathAlg, [11,5], [[[11,5,6]]])
@@ -80,112 +80,127 @@ elif mode == 2: # Investigate mutation sequence
             if i+1 >= firstDisplayStep:
                 plotQuiver(pathAlg)
 elif mode == 3:
-    displayTrees = False
+    #startTime = time.time()
+    #number_of_quipus = count_quipus(18)
+    #for i in range(2,len(number_of_quipus)):
+    #    print(number_of_quipus[i], 'quipus of length', i )
+    #print('Total runtime', time.time() - startTime)
 
-    h1quipus = generateAllHeightOneQuipus(17)
-
-    print(len(h1quipus), ' length one quipus in ', time.time() - startTime, 's')
-
-    saveQuipusToCSV(h1quipus, 'quipusCSVTest', overwrirteFile=True)
-
-    i = 1
-    s = 1
-    while s > 0:
-        s = sum(1 for Q in h1quipus if len(Q) == i)
-        print(s, 'height one quipus of length ', i, ' in ', time.time() - startTime, 's')
-        i += 1
+    for length in range(2,35):
+        startTime = time.time()
+        #quipus = generateAllQuipusGPT(length)
+        numberOfQuipusOfLength = count_quipusV1(length)
+        endTime = time.time()
+        print(numberOfQuipusOfLength, 'quipus of length', length,  'generated in', endTime - startTime, 's')
 
 
-    quipusLists = generateAllQuipusUpToLength(40)
-    open('test_quipu_file.txt', 'w+').close()
-    with open('test_quipu_file.txt', "a") as f:
-        for quipuList in quipusLists:
-            f.write('Edges of quipus of length {0}:\n'.format(len(quipuList[0])))
-            for quipu in quipuList:
-                f.write('{0}\n'.format(quipu.edges))
-            f.write('\n')
-        f.close()
+    if False:
+        displayTrees = False
 
-#    for quipuList in quipusLists:
-#        print('Quipus of length ', len(quipuList[0].nodes))
-#        for quipu in quipuList:
-#            print(quipu.edges)
-#            nx.draw(quipu)
-#            plt.show()
+        h1quipus = generateAllHeightOneQuipus(17)
+
+        print(len(h1quipus), ' length one quipus in ', time.time() - startTime, 's')
+
+        saveQuipusToCSV(h1quipus, 'quipusCSVTest', overwrirteFile=True)
+
+        i = 1
+        s = 1
+        while s > 0:
+            s = sum(1 for Q in h1quipus if len(Q) == i)
+            print(s, 'height one quipus of length ', i, ' in ', time.time() - startTime, 's')
+            i += 1
 
 
-    for n in range(23, 40):
-        if False:
-            trees = list(nx.generators.nonisomorphic_trees(n))
-            quipus = []
-            for tree in trees:
+        quipusLists = generateAllQuipusUpToLength(40)
+        open('test_quipu_file.txt', 'w+').close()
+        with open('test_quipu_file.txt', "a") as f:
+            for quipuList in quipusLists:
+                f.write('Edges of quipus of length {0}:\n'.format(len(quipuList[0])))
+                for quipu in quipuList:
+                    f.write('{0}\n'.format(quipu.edges))
+                f.write('\n')
+            f.close()
+
+    #    for quipuList in quipusLists:
+    #        print('Quipus of length ', len(quipuList[0].nodes))
+    #        for quipu in quipuList:
+    #            print(quipu.edges)
+    #            nx.draw(quipu)
+    #            plt.show()
+
+
+        for n in range(23, 40):
+            if False:
+                trees = list(nx.generators.nonisomorphic_trees(n))
+                quipus = []
+                for tree in trees:
+                        maxDeg = 0
+                        for deg in tree.degree:
+                            if deg[1] > maxDeg:
+                                maxDeg = deg[1]
+                        if maxDeg <= 3:
+                            deg3Vertices = []
+                            for v in tree.nodes:
+                                if tree.degree(v) == 3:
+                                    deg3Vertices.append(v)
+                            longestDeg3Path = []
+                            for v1 in deg3Vertices:
+                                for v2 in deg3Vertices[deg3Vertices.index(v1):]:
+                                    pathBetween = nx.shortest_path(tree, v1,v2)
+                                    if len(pathBetween) > len(longestDeg3Path):
+                                        longestDeg3Path = pathBetween
+                            isQuipu = True
+                            for v in deg3Vertices:
+                                if not v in longestDeg3Path:
+                                    isQuipu = False
+                                    break
+                            if isQuipu:
+                                quipus.append(tree)
+    ###
+            if False:
+                trees = list(nx.generators.nonisomorphic_trees(n))
+                quipus = []
+                for tree in trees:
+                    isQuipu = False
                     maxDeg = 0
                     for deg in tree.degree:
                         if deg[1] > maxDeg:
                             maxDeg = deg[1]
                     if maxDeg <= 3:
+                        isQuipu = True
+                        deg3SubGraph = nx.Graph()
                         deg3Vertices = []
                         for v in tree.nodes:
                             if tree.degree(v) == 3:
                                 deg3Vertices.append(v)
-                        longestDeg3Path = []
-                        for v1 in deg3Vertices:
-                            for v2 in deg3Vertices[deg3Vertices.index(v1):]:
-                                pathBetween = nx.shortest_path(tree, v1,v2)
-                                if len(pathBetween) > len(longestDeg3Path):
-                                    longestDeg3Path = pathBetween
-                        isQuipu = True
-                        for v in deg3Vertices:
-                            if not v in longestDeg3Path:
+                        if len(deg3Vertices) > 3:
+                            nx.add_path(deg3SubGraph, nx.shortest_path(tree,deg3Vertices[0],deg3Vertices[1]))
+                            for v1 in deg3Vertices[2:]:
+                                pathToAddAsGraph = nx.Graph()
+                                nx.add_path(pathToAddAsGraph, nx.shortest_path(tree, deg3Vertices[0], v1))
+                                deg3SubGraph = nx.compose(deg3SubGraph, pathToAddAsGraph)
+                            correspondingPathGraph = nx.path_graph(len(deg3SubGraph))
+                            if not nx.is_isomorphic(deg3SubGraph, correspondingPathGraph):
                                 isQuipu = False
-                                break
-                        if isQuipu:
-                            quipus.append(tree)
-###
-        if False:
-            trees = list(nx.generators.nonisomorphic_trees(n))
-            quipus = []
-            for tree in trees:
-                isQuipu = False
-                maxDeg = 0
-                for deg in tree.degree:
-                    if deg[1] > maxDeg:
-                        maxDeg = deg[1]
-                if maxDeg <= 3:
-                    isQuipu = True
-                    deg3SubGraph = nx.Graph()
-                    deg3Vertices = []
-                    for v in tree.nodes:
-                        if tree.degree(v) == 3:
-                            deg3Vertices.append(v)
-                    if len(deg3Vertices) > 3:
-                        nx.add_path(deg3SubGraph, nx.shortest_path(tree,deg3Vertices[0],deg3Vertices[1]))
-                        for v1 in deg3Vertices[2:]:
-                            pathToAddAsGraph = nx.Graph()
-                            nx.add_path(pathToAddAsGraph, nx.shortest_path(tree, deg3Vertices[0], v1))
-                            deg3SubGraph = nx.compose(deg3SubGraph, pathToAddAsGraph)
-                        correspondingPathGraph = nx.path_graph(len(deg3SubGraph))
-                        if not nx.is_isomorphic(deg3SubGraph, correspondingPathGraph):
-                            isQuipu = False
-                if isQuipu:
-                    quipus.append(tree)
-        #numberOfTrees = len(quipus)
-        #print('Generated ', len(quipus), ' quipus of length ', n)
-###
-        if displayTrees:
-            nRows = int(np.ceil(np.sqrt(numberOfTrees) * np.sqrt(2))) - 1
-            nCols = int(np.floor(np.sqrt(numberOfTrees) * (1 / np.sqrt(2)))) + 1
-            # nRows = numberOfTrees
-            fig, axes = plt.subplots(nrows=nRows, ncols=nCols)
-            ax = axes.flatten()
-            for i in range(nRows * nCols):
-                if i < numberOfTrees:
-                    nx.draw_networkx(quipus[i], ax=ax[i], node_size=10, with_labels=False)
-                    coxPoly = coxPolyOfTree(trees[i])
-                    # ax[i].title.set_text(coxPoly.as_expr())
-                ax[i].set_axis_off()
-            plt.subplot_tool()
-            plt.show()
+                    if isQuipu:
+                        quipus.append(tree)
+            #numberOfTrees = len(quipus)
+            #print('Generated ', len(quipus), ' quipus of length ', n)
+    ###
+            if displayTrees:
+                nRows = int(np.ceil(np.sqrt(numberOfTrees) * np.sqrt(2))) - 1
+                nCols = int(np.floor(np.sqrt(numberOfTrees) * (1 / np.sqrt(2)))) + 1
+                # nRows = numberOfTrees
+                fig, axes = plt.subplots(nrows=nRows, ncols=nCols)
+                ax = axes.flatten()
+                for i in range(nRows * nCols):
+                    if i < numberOfTrees:
+                        nx.draw_networkx(quipus[i], ax=ax[i], node_size=10, with_labels=False)
+                        coxPoly = coxPolyOfTree(trees[i])
+                        # ax[i].title.set_text(coxPoly.as_expr())
+                    ax[i].set_axis_off()
+                plt.subplot_tool()
+                plt.show()
 elif mode == 4: # Investigate mutation sequence
     pathAlg = pathAlgebraClass.PathAlgebra()
     pathAlg.add_paths_from([[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]])
