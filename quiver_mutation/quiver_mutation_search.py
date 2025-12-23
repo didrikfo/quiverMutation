@@ -4,9 +4,17 @@ import math
 import time
 import networkx as nx
 import numpy as np
-import path_algebra_class
-from quiver_mutation_line import line_quiver_example, save_line_path_alg_mutation, mutation_list_line_cleanup, create_mutation_class_csv, import_mutation_class_csv, save_line_relations_and_mutations_to_csv, mutation_search_depth_first
-from quiver_mutation_io import print_path_algebra, read_mutations_from_file
+from . import path_algebra_class
+from .quiver_mutation_line import (
+    create_mutation_class_csv,
+    import_mutation_class_csv,
+    line_quiver_example,
+    mutation_list_line_cleanup,
+    mutation_search_depth_first,
+    save_line_path_alg_mutation,
+    save_line_relations_and_mutations_to_csv,
+)
+from .quiver_mutation_io import print_path_algebra, read_mutations_from_file
 
 def find_mutation_classes_for_line(lineLength, lineName, n_max = 5, manualDFdepth = 1, importAlreadyDoneSearches = False):
     start = time.time()

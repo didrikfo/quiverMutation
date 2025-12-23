@@ -6,12 +6,18 @@ import math
 import time
 import networkx as nx
 import numpy as np
-import path_algebra_class
-from quiver_mutation_algebra import coxeter_poly
-from quiver_mutation_core import quiver_mutation_at_vertex, quiver_mutation_at_vertices
-from quiver_mutation_io import print_path_algebra, read_mutations_from_file, read_relations_from_file
-from quiver_mutation_relations import all_rels_between_vertices, is_illegal_relation, non_minimal_out_rels, number_of_paths_up_to_rels, reduce_path_algebra
-from quiver_mutation_utils import rel_set_to_string
+from . import path_algebra_class
+from .quiver_mutation_algebra import coxeter_poly
+from .quiver_mutation_core import quiver_mutation_at_vertex, quiver_mutation_at_vertices
+from .quiver_mutation_io import print_path_algebra, read_mutations_from_file, read_relations_from_file
+from .quiver_mutation_relations import (
+    all_rels_between_vertices,
+    is_illegal_relation,
+    non_minimal_out_rels,
+    number_of_paths_up_to_rels,
+    reduce_path_algebra,
+)
+from .quiver_mutation_utils import rel_set_to_string
 
 def mutation_search_depth_first(pathAlg, depth, mutationVertices = [], quiverName = 'quiver', vertexRelabeling = {}, printOutput = True):
     vertices = list(pathAlg.vertices())

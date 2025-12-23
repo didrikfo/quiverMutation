@@ -1,8 +1,8 @@
 import tempfile
 import unittest
 
-import path_algebra_class
-from quiver_mutation_polars_io import (
+from quiver_mutation import path_algebra_class
+from quiver_mutation.quiver_mutation_polars_io import (
     dataframe_to_mutation_list,
     mutation_list_to_dataframe,
     read_mutation_list_csv,
