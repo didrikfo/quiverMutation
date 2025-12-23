@@ -1,38 +1,41 @@
-[build-system]
-requires = ["setuptools>=68"]
-build-backend = "setuptools.build_meta"
-
 [project]
 name = "quiverMutation"
 version = "0.1.0"
-description = "Tool for performing mutation of quivers with relations, corresponding to tilting mutation of their path algebras."
+description = "Tools for mutating quivers with relations and working with their path algebras."
 readme = "README.md"
-authors = [{ name = "quiverMutation contributors" }]
-requires-python = ">=3.9"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Unknown" }]
+
 dependencies = [
-    "matplotlib",
-    "networkx",
-    "numpy",
-    "sympy",
+  "matplotlib==3.9.2",
+  "networkx==3.3",
+  "nodepy==1.0.1",
+  "numpy==2.1.1",
+  "polars==1.7.1",
+  "sympy==1.13.3",
 ]
 
 [project.optional-dependencies]
-test = [
-    "pytest",
-]
+test = ["pytest==8.3.3"]
 
 [tool.setuptools]
 py-modules = [
-    "main",
-    "pathAlgebraClass",
-    "quiverExamples",
-    "quiverMutation",
-    "quiver_mutation_algebra",
-    "quiver_mutation_core",
-    "quiver_mutation_io",
-    "quiver_mutation_line",
-    "quiver_mutation_quipus",
-    "quiver_mutation_relations",
-    "quiver_mutation_search",
-    "quiver_mutation_utils",
+  "main",
+  "pathAlgebraClass",
+  "quiverExamples",
+  "quiverMutation",
+  "quiver_mutation_algebra",
+  "quiver_mutation_core",
+  "quiver_mutation_io",
+  "quiver_mutation_line",
+  "quiver_mutation_polars_io",
+  "quiver_mutation_quipus",
+  "quiver_mutation_relations",
+  "quiver_mutation_search",
+  "quiver_mutation_utils",
 ]
+
+[build-system]
+requires = ["setuptools==75.1.0", "wheel==0.44.0"]
+build-backend = "setuptools.build_meta"
