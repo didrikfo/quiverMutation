@@ -19,6 +19,23 @@ dependencies = [
 [project.optional-dependencies]
 test = ["pytest==8.3.3"]
 
+[tool.setuptools]
+py-modules = [
+  "main",
+  "pathAlgebraClass",
+  "quiverExamples",
+  "quiverMutation",
+  "quiver_mutation_algebra",
+  "quiver_mutation_core",
+  "quiver_mutation_io",
+  "quiver_mutation_line",
+  "quiver_mutation_polars_io",
+  "quiver_mutation_quipus",
+  "quiver_mutation_relations",
+  "quiver_mutation_search",
+  "quiver_mutation_utils",
+]
+
 [build-system]
 requires = ["setuptools==75.1.0", "wheel==0.44.0"]
 build-backend = "setuptools.build_meta"
