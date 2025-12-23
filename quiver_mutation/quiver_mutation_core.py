@@ -1,11 +1,16 @@
 import copy
 import networkx as nx
-import path_algebra_class
-from quiver_mutation_io import print_path_algebra
-from quiver_mutation_relations import all_minimal_rels_between_vertices, all_rels_between_vertices, is_sub_rel_of, reduce_path_algebra, zeroize_rels
-from quiver_mutation_utils import list_intersection, get_vertex_numbering_key_from_value
-from quiver_mutation_algebra import coxeter_poly, cartan_matrix
-from quiver_mutation_io import plot_quiver
+from . import path_algebra_class
+from .quiver_mutation_io import plot_quiver, print_path_algebra
+from .quiver_mutation_relations import (
+    all_minimal_rels_between_vertices,
+    all_rels_between_vertices,
+    is_sub_rel_of,
+    reduce_path_algebra,
+    zeroize_rels,
+)
+from .quiver_mutation_utils import get_vertex_numbering_key_from_value, list_intersection
+from .quiver_mutation_algebra import cartan_matrix, coxeter_poly
 
 def quiver_mutation_at_vertex(pathAlg, vertex):
     oldQuiver = pathAlg.quiver

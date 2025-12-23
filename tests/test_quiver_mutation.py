@@ -1,7 +1,7 @@
 import copy
 import unittest
 
-import quiver_examples as qe
+from quiver_mutation import quiver_examples as qe
 import quiver_mutation as qm
 
 

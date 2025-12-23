@@ -1,9 +1,9 @@
 import copy
 import itertools
 import networkx as nx
-import path_algebra_class
-from quiver_mutation_io import print_path_algebra
-from quiver_mutation_utils import powerset, sublist_exists
+from . import path_algebra_class
+from .quiver_mutation_io import print_path_algebra
+from .quiver_mutation_utils import powerset, sublist_exists
 
 def non_minimal_out_rels(pathAlg, vertex):
     nonMinOutRels = []

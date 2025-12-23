@@ -3,7 +3,7 @@ from typing import Any, Dict, Iterable, List, Tuple
 
 import polars as pl
 
-import path_algebra_class
+from . import path_algebra_class
 
 
 def path_algebra_to_dict(path_alg: path_algebra_class.PathAlgebra) -> Dict[str, Any]:

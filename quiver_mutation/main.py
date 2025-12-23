@@ -11,11 +11,11 @@ import copy
 
 import numpy as np
 
-import path_algebra_class
+from . import path_algebra_class
 import glob
 import csv
-from quiver_examples import *
-from quiver_mutation import *
+from .quiverExamples import *
+from .quiverMutation import *
 from datetime import datetime
 import sympy
 from sympy.interactive.printing import init_printing

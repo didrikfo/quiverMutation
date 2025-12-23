@@ -3,7 +3,7 @@ import copy
 import os
 import matplotlib.pyplot as plt
 import networkx as nx
-import path_algebra_class
+from . import path_algebra_class
 
 def print_path_algebra(pathAlg):
     print('Vertices: ', pathAlg.quiver.nodes)
