@@ -1,17 +1,17 @@
 import copy
 import itertools
 import networkx as nx
-import pathAlgebraClass
-from quiver_mutation_io import printPathAlgebra
-from quiver_mutation_utils import powerset, sublistExists
+import path_algebra_class
+from quiver_mutation_io import print_path_algebra
+from quiver_mutation_utils import powerset, sublist_exists
 
-def nonMinimalOutRels(pathAlg, vertex):
+def non_minimal_out_rels(pathAlg, vertex):
     nonMinOutRels = []
     pathAlgCopy = copy.deepcopy(pathAlg)
     for rel in pathAlgCopy.out_rels(vertex):
-        nonMinOutRels.extend(extendRel(pathAlgCopy, rel))
+        nonMinOutRels.extend(extend_rel(pathAlgCopy, rel))
     for ar in pathAlgCopy.out_arrows(vertex):
-        deeperOutRels = nonMinimalOutRels(pathAlgCopy, ar[1])
+        deeperOutRels = non_minimal_out_rels(pathAlgCopy, ar[1])
         for dRel in deeperOutRels:
             extendedRel = []
             for dRelPath in dRel:
@@ -49,12 +49,12 @@ def nonMinimalOutRels(pathAlg, vertex):
             uniqueNonMinOutRels.append(sorted(nonMinRel))
     return uniqueNonMinOutRels
 
-def allRelsBetweenVertices(pathAlg, startVertex,endVertex):
+def all_rels_between_vertices(pathAlg, startVertex,endVertex):
     pathAlgCopy = copy.deepcopy(pathAlg)
     relsBetween = pathAlgCopy.rels_between(startVertex, endVertex)
     #allRelsBetween= pathAlgCopy.rels_between(startVertex, endVertex)
     for ar in pathAlgCopy.out_arrows(startVertex):
-        dRelsBetween = allRelsBetweenVertices(pathAlg, ar[1], endVertex)
+        dRelsBetween = all_rels_between_vertices(pathAlg, ar[1], endVertex)
         for rel in dRelsBetween:
             newRel = []
             for relPath in rel:
@@ -88,7 +88,7 @@ def allRelsBetweenVertices(pathAlg, startVertex,endVertex):
         for rel in allRelsBetween:
             for relPath in rel:
                 for relSet in relSetsToApply:
-                    newRelPaths = applyRelSetToPath(relPath, relSet)
+                    newRelPaths = apply_rel_set_to_path(relPath, relSet)
                     relToAdd = sorted(rel[:rel.index(relPath)] + rel[rel.index(relPath) + 1:] + newRelPaths)
                     if not relToAdd in allRelsBetween and not any(relToAdd.count(x) > 1 for x in relToAdd) and relToAdd != []:
                         allRelsBetween.append(copy.deepcopy(relToAdd))
@@ -97,7 +97,7 @@ def allRelsBetweenVertices(pathAlg, startVertex,endVertex):
         relSetsToApply = [[copy.deepcopy(newRel)] for newRel in newRels]
     return allRelsBetween
 
-def allMinimalRelsBetweenVertices(pathAlg, startVertex,endVertex):
+def all_minimal_rels_between_vertices(pathAlg, startVertex,endVertex):
     pathAlgCopy = copy.deepcopy(pathAlg)
     relsBetween = pathAlgCopy.rels_between(startVertex, endVertex)
     allRelsBetween= pathAlgCopy.rels_between(startVertex, endVertex)
@@ -127,13 +127,13 @@ def allMinimalRelsBetweenVertices(pathAlg, startVertex,endVertex):
         relSetsToApply.extend(newRelSetsToApply)
         for relPath in rel:
             for relSet in relSetsToApply:
-                newRelPaths = applyRelSetToPath(relPath, relSet)
+                newRelPaths = apply_rel_set_to_path(relPath, relSet)
                 relToAdd = sorted(rel[:rel.index(relPath)] + rel[rel.index(relPath) + 1:] + newRelPaths)
                 if not relToAdd in allRelsBetween and not any(relToAdd.count(x) > 1 for x in relToAdd) and relToAdd != []:
                     allRelsBetween.append(relToAdd)
     return allRelsBetween
 
-def extendRel(pathAlg, rel):
+def extend_rel(pathAlg, rel):
     vertex = rel[0][-1]
     extendedRels = [rel]
     outArrows = pathAlg.out_arrows(vertex)
@@ -143,11 +143,11 @@ def extendRel(pathAlg, rel):
             extendedRelPath = relPath + [ar[1]]
             extendedRel.append(extendedRelPath)
         extendedRels.append(extendedRel)
-        deeperExtendedRels = extendRel(pathAlg, extendedRel)
+        deeperExtendedRels = extend_rel(pathAlg, extendedRel)
         extendedRels.extend(deeperExtendedRels)
     return extendedRels
 
-def isSubRelOf(potentialSubRel, relation):
+def is_sub_rel_of(potentialSubRel, relation):
     isSubRel = True
     for relPath in potentialSubRel:
         if not relPath in relation:
@@ -155,16 +155,16 @@ def isSubRelOf(potentialSubRel, relation):
             break
     return isSubRel
 
-def reducePathAlgebra(pathAlg):
+def reduce_path_algebra(pathAlg):
     quiver = pathAlg.quiver
-    redPathAlg = pathAlgebraClass.PathAlgebra()
+    redPathAlg = path_algebra_class.PathAlgebra()
     redPathAlg.add_vertices_from(quiver.nodes)
     redPathAlg.add_arrows_from(quiver.edges(keys=True))
     for rel in pathAlg.rels:
-        if isIllegalRelation(pathAlg, rel):
+        if is_illegal_relation(pathAlg, rel):
             pathAlg.rels.remove(rel)
     redPathAlg.add_rels_from(pathAlg.rels)
-    redPathAlg = removeDuplicateRelPaths(redPathAlg)
+    redPathAlg = remove_duplicate_rel_paths(redPathAlg)
     noChange = False
     while not noChange:
         noChange = True
@@ -197,7 +197,7 @@ def reducePathAlgebra(pathAlg):
                 for relPath in rel:
                     newPaths = []
                     if bool(removedRel[0]):
-                        if sublistExists(relPath, removedRel[0]):
+                        if sublist_exists(relPath, removedRel[0]):
                             for leftoverPath in removedRel[1]:
                                 newPath = copy.deepcopy(relPath[:relPath.index(removedRel[0][1])] + leftoverPath[1:-1] + relPath[relPath.index(removedRel[0][1]):])
                                 newPaths.append(newPath)
@@ -217,21 +217,21 @@ def reducePathAlgebra(pathAlg):
                 redRels.remove([])
         redPathAlg.clear_rels()
         redPathAlg.add_rels_from(redRels)
-        redPathAlg = removeDuplicateRelPaths(redPathAlg)
-    redPathAlg = removeDuplicateRels(redPathAlg)
-    redPathAlg = removeNonminimalZeroRels(redPathAlg, applyCommutativityRels=False)
-    removeRedundantRelations(redPathAlg)
-    removeExistingSubrelations(redPathAlg)
+        redPathAlg = remove_duplicate_rel_paths(redPathAlg)
+    redPathAlg = remove_duplicate_rels(redPathAlg)
+    redPathAlg = remove_nonminimal_zero_rels(redPathAlg, applyCommutativityRels=False)
+    remove_redundant_relations(redPathAlg)
+    remove_existing_subrelations(redPathAlg)
     noChange = False
     while not noChange:
         numberOfRelsBeforeRed = len(redPathAlg.rels)
-        removeRedundantRelations(redPathAlg)
+        remove_redundant_relations(redPathAlg)
         if numberOfRelsBeforeRed == len(redPathAlg.rels):
             noChange = True
-    redPathAlg = removeNonminimalZeroRels(redPathAlg)
+    redPathAlg = remove_nonminimal_zero_rels(redPathAlg)
     return redPathAlg
 
-def removeNonminimalZeroRels(pathAlg, applyCommutativityRels = True):
+def remove_nonminimal_zero_rels(pathAlg, applyCommutativityRels = True):
     rels = pathAlg.rels
     minimalRels = []
     commutativityRels = []
@@ -254,7 +254,7 @@ def removeNonminimalZeroRels(pathAlg, applyCommutativityRels = True):
         removeRel = False
         for relSetToApply in relSetsToApply:
             if applyCommutativityRels:
-                rel1Equivalent = applyRelSetToPath(rel1[0], relSetToApply)
+                rel1Equivalent = apply_rel_set_to_path(rel1[0], relSetToApply)
             else:
                 rel1Equivalent = rel1
             for rel2 in zeroRels:
@@ -273,7 +273,7 @@ def removeNonminimalZeroRels(pathAlg, applyCommutativityRels = True):
     pathAlg.rels = minimalRels
     return pathAlg
 
-def reduceCommutativityRels(pathAlg):
+def reduce_commutativity_rels(pathAlg):
     for rel in pathAlg.rels:
         if len(rel) > 1:
             relLength = len(rel[0])
@@ -300,7 +300,7 @@ def reduceCommutativityRels(pathAlg):
                 pathAlg.rels[pathAlg.rels.index(rel)] = newRel
     return pathAlg
 
-def removeDuplicateRels(pathAlg):
+def remove_duplicate_rels(pathAlg):
     uniqueRels = []
     for rel in pathAlg.rels:
         uniqueRel = []
@@ -312,7 +312,7 @@ def removeDuplicateRels(pathAlg):
     pathAlg.rels = uniqueRels
     return pathAlg
 
-def removeDuplicateRelPaths(pathAlg):
+def remove_duplicate_rel_paths(pathAlg):
     uniqueRels = []
     for rel in pathAlg.rels:
         uniqueRelPaths = []
@@ -324,7 +324,7 @@ def removeDuplicateRelPaths(pathAlg):
     pathAlg.add_rels_from(uniqueRels)
     return pathAlg
 
-def minimizeCommutingRelation(pathAlg, relation):
+def minimize_commuting_relation(pathAlg, relation):
     if len(relation) >= 2:
         return pathAlg
     verticesBetween = []
@@ -335,7 +335,7 @@ def minimizeCommutingRelation(pathAlg, relation):
     rels = []
     for i in verticesBetween:
         for j in verticesBetween:
-            for rel in allRelsBetweenVertices(pathAlg, i, j):
+            for rel in all_rels_between_vertices(pathAlg, i, j):
                 rels.append(rel)
     replaceCommutingPartWith = []
     for rel in rels:
@@ -365,7 +365,7 @@ def minimizeCommutingRelation(pathAlg, relation):
         pathAlg.rels[pathAlg.rels.index(relation)][0][relation[0].index(replaceCommutingPartWith[0]):relation[0].index(replaceCommutingPartWith[-1])+1] = replaceCommutingPartWith
     return pathAlg
 
-def removeRedundantRelations(pathAlg):
+def remove_redundant_relations(pathAlg):
     #sort relations by increasing length of their longest path, then by increasing number of paths
     shortestRelsList = sorted(pathAlg.rels, key=lambda x: (len(max(x, key=len)), len(x)))
     necesarryRels = []
@@ -377,7 +377,7 @@ def removeRedundantRelations(pathAlg):
             removeRel = False
             for relPath in rel:
                 for relsToApply in relSetsToApply[1:]:
-                    newPaths = applyRelSetToPath(relPath, relsToApply)
+                    newPaths = apply_rel_set_to_path(relPath, relsToApply)
                     if sorted(newPaths) == sorted( rel[:rel.index(relPath)] + rel[rel.index(relPath) + 1:]):
                         relsToRemove.append(rel)
                         removeRel = True
@@ -389,7 +389,7 @@ def removeRedundantRelations(pathAlg):
     pathAlg.rels = sorted(necesarryRels)
     return
 
-def removeExistingSubrelations(pathAlg):
+def remove_existing_subrelations(pathAlg):
     reducedRels = []
     for rel in sorted(pathAlg.rels, key=len):
         subRelExists = False
@@ -408,7 +408,7 @@ def removeExistingSubrelations(pathAlg):
     pathAlg.rels = reducedRels
     return
 
-def zeroizeRels(rels):
+def zeroize_rels(rels):
     zeroRels = []
     nonZeroRels = []
     for rel in rels:
@@ -422,7 +422,7 @@ def zeroizeRels(rels):
         for relPath in rel:
             isZeroPath = False
             for zeroRel in zeroRels:
-                if sublistExists(relPath, zeroRel[0]):
+                if sublist_exists(relPath, zeroRel[0]):
                     rel.remove(relPath)
                     isZeroPath = True
                     break
@@ -430,7 +430,7 @@ def zeroizeRels(rels):
     zeroizedRelsReduced = [rel for rel in zeroizedRels if rel != []]
     return zeroizedRelsReduced
 
-def isIllegalRelation(pathAlgebra, relation):
+def is_illegal_relation(pathAlgebra, relation):
     isIllegal = False
     for n in range(1, len(relation)):
         if relation[n] == []:
@@ -455,17 +455,17 @@ def isIllegalRelation(pathAlgebra, relation):
         print('ILLEGAL RELATION!')
         print('The relation {0} '.format(relation))
         print('is illegal in the following path algebra:')
-        printPathAlgebra(pathAlgebra)
+        print_path_algebra(pathAlgebra)
         # input('Press enter to continue...')
     return isIllegal
 
-def replaceSubPath(pathAlg, path, oldSubPath, newSubPath):
+def replace_sub_path(pathAlg, path, oldSubPath, newSubPath):
     newPath = path[:]
-    if sublistExists(path, oldSubPath):
+    if sublist_exists(path, oldSubPath):
         newPath[path.index(oldSubPath[0]):path.index(oldSubPath[-1])] = newSubPath
         if not nx.is_path(pathAlg.quiver, newPath):
             print('New path is not a path in the quiver!\n')
-            printPathAlgebra(pathAlg)
+            print_path_algebra(pathAlg)
             print('Path: ', path)
             print('Old subpath: ', oldSubPath)
             print('New subpath: ', newSubPath)
@@ -473,24 +473,24 @@ def replaceSubPath(pathAlg, path, oldSubPath, newSubPath):
             return path
     else:
         print('Problem trying to replace subpath!\n')
-        printPathAlgebra(pathAlg)
+        print_path_algebra(pathAlg)
         print('Path: ', path)
         print('Old subpath: ', oldSubPath)
         print('New subpath: ', newSubPath)
         input('Press enter to continue...')
     return newPath
 
-def applyCommutativityRelSetToPath(path, relSet):
+def apply_commutativity_rel_set_to_path(path, relSet):
     newPath = path[:]
     for rel in relSet:
         if len(rel) == 2:
-            if sublistExists(path, rel[0]):
+            if sublist_exists(path, rel[0]):
                 newPath[newPath.index(rel[0][0]):newPath.index(rel[0][-1])] = rel[1][:-1]
-            elif sublistExists(path, rel[1]):
+            elif sublist_exists(path, rel[1]):
                 newPath[newPath.index(rel[1][0]):newPath.index(rel[1][-1])] = rel[0][:-1]
     return newPath
 
-def applyRelSetToPath(path, relSet):
+def apply_rel_set_to_path(path, relSet):
     relSetCopy = copy.deepcopy(relSet)
     stillUnusedRels = True
     newPaths = [path[:]]
@@ -503,7 +503,7 @@ def applyRelSetToPath(path, relSet):
             for newPath in tempNewPaths:
                 for i in range(len(rel)):
                     if not (len(rel) == 1 and path == rel[0]):
-                        if sublistExists(newPath, rel[i]):
+                        if sublist_exists(newPath, rel[i]):
                             for relPath in rel[:i] + rel[i + 1:]:
                                 if not newPath[:newPath.index(rel[i][0])] + relPath[:-1] + newPath[newPath.index(rel[i][-1]):] in newPaths:
                                     newPaths.append(newPath[:newPath.index(rel[i][0])] + relPath[:-1] + newPath[newPath.index(rel[i][-1]):])
@@ -520,16 +520,16 @@ def applyRelSetToPath(path, relSet):
             stillUnusedRels = True
     return newPaths
 
-def pathHasZeroRel(path, relSet):
+def path_has_zero_rel(path, relSet):
     hasZeroRel = False
     for rel in relSet:
         if len(rel) == 1:
-            if sublistExists(path, rel[0]):
+            if sublist_exists(path, rel[0]):
                 hasZeroRel = True
                 break
     return hasZeroRel
 
-def numberOfPathsUpToRels(pathAlg, source, target):
+def number_of_paths_up_to_rels(pathAlg, source, target):
     allPaths = nx.all_simple_paths(pathAlg.quiver, source, target)
     differentPaths = []
     numberOfDifferentPaths = 0
@@ -547,11 +547,11 @@ def numberOfPathsUpToRels(pathAlg, source, target):
             if not relSetPermutationList in allRelSets:
                 allRelSets.append(relSetPermutationList)
     for path in allPaths:
-        pathIsZero = pathHasZeroRel(path, rels)
+        pathIsZero = path_has_zero_rel(path, rels)
         isSamePath = False
         for dPath in differentPaths:
             for relSet in allRelSets:
-                cPath = applyRelSetToPath(path, relSet)[0]
+                cPath = apply_rel_set_to_path(path, relSet)[0]
                 if cPath == dPath[0]:
                     isSamePath = True
                     if pathIsZero:

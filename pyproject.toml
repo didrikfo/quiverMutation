@@ -22,9 +22,9 @@ test = ["pytest==8.3.3"]
 [tool.setuptools]
 py-modules = [
   "main",
-  "pathAlgebraClass",
-  "quiverExamples",
-  "quiverMutation",
+  "path_algebra_class",
+  "quiver_examples",
+  "quiver_mutation",
   "quiver_mutation_algebra",
   "quiver_mutation_core",
   "quiver_mutation_io",

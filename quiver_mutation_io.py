@@ -3,15 +3,15 @@ import copy
 import os
 import matplotlib.pyplot as plt
 import networkx as nx
-import pathAlgebraClass
+import path_algebra_class
 
-def printPathAlgebra(pathAlg):
+def print_path_algebra(pathAlg):
     print('Vertices: ', pathAlg.quiver.nodes)
     print('Arrows: ', pathAlg.quiver.edges)
     print('Relations: ', pathAlg.rels, '\n')
     return
 
-def plotQuiver(pathAlg, showPlot = True, saveToFile = False, fileName = 'quiverPlot.png', folder = ''):
+def plot_quiver(pathAlg, showPlot = True, saveToFile = False, fileName = 'quiverPlot.png', folder = ''):
     try:
         os.mkdir(folder)
     except OSError:
@@ -27,8 +27,8 @@ def plotQuiver(pathAlg, showPlot = True, saveToFile = False, fileName = 'quiverP
         plt.show()
     return
 
-def readMutationsFromFile(fileName):
-    rPathAlg = pathAlgebraClass.PathAlgebra()
+def read_mutations_from_file(fileName):
+    rPathAlg = path_algebra_class.PathAlgebra()
     mutationList = []
     with open(fileName, 'r') as f:
         line = f.readline()
@@ -73,7 +73,7 @@ def readMutationsFromFile(fileName):
             line = f.readline()
     return mutationList
 
-def readRelationsFromFile(fileName):
+def read_relations_from_file(fileName):
     relationSetList = []
     with open(fileName, 'r') as f:
         line = f.readline()

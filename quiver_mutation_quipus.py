@@ -7,7 +7,7 @@ import numpy as np
 import sympy
 from sympy.matrices import Matrix
 
-def generateAllQuipusUpToLength( length ):
+def generate_all_quipus_up_to_length( length ):
     timeStart = time.time()
     quipusOfAllLengths = [[nx.path_graph(1)]]
     pathGraphs = []
@@ -48,7 +48,7 @@ def generateAllQuipusUpToLength( length ):
         print('Generated ', len(quipusOfThisLength), ' quipus of length ', i+2, ' in ',  timeEnd - timeStart, 's.')
     return quipusOfAllLengths
 
-def generateAllHeightOneQuipus( mainStringLength, mainStringLengthStart = 1 ):
+def generate_all_height_one_quipus( mainStringLength, mainStringLengthStart = 1 ):
     startTime = time.time()
     heightOneQuipusWithDupes = [nx.path_graph(1)]
     for i in range(mainStringLengthStart,mainStringLength):
@@ -87,7 +87,7 @@ def generateAllHeightOneQuipus( mainStringLength, mainStringLengthStart = 1 ):
             heightOneQuipus.append(Q1)
     return heightOneQuipus
 
-def saveQuipusToCSV( quipusList, fileName, overwrirteFile = True ):
+def save_quipus_to_csv( quipusList, fileName, overwrirteFile = True ):
     if overwrirteFile:
         open(fileName, 'w+').close()
     with open(fileName, 'a') as f:
@@ -96,7 +96,7 @@ def saveQuipusToCSV( quipusList, fileName, overwrirteFile = True ):
         f.close()
     return
 
-def generateAllQuipus( length ):
+def generate_all_quipus( length ):
     trees = list(nx.generators.nonisomorphic_trees(length))
     quipus = []
     for tree in trees:
@@ -127,7 +127,7 @@ def generateAllQuipus( length ):
             quipus.append(tree)
     return quipus
 
-def generateAllQuipusGPT(length):
+def generate_all_quipus_gpt(length):
     quipus = []
     for tree in nx.generators.nonisomorphic_trees(length):
         maxDeg = max(dict(tree.degree()).values())
@@ -178,7 +178,7 @@ def generate_quipus(length):
         if is_quipu:
             yield tree
 
-def count_quipusV1(length):
+def count_quipus_v1(length):
     num_quipus = 0
     for tree in nx.generators.nonisomorphic_trees(length):
         is_quipu = False
