@@ -11,11 +11,11 @@ import copy
 
 import numpy as np
 
-import pathAlgebraClass
+import path_algebra_class
 import glob
 import csv
-from quiverExamples import *
-from quiverMutation import *
+from quiver_examples import *
+from quiver_mutation import *
 from datetime import datetime
 import sympy
 from sympy.interactive.printing import init_printing
@@ -39,46 +39,46 @@ startTime = time.time()
 
 
 if mode == 1:
-    mutationSearch(lineLength = 12, mutationDepthStart = 2, startRow = 30000)
+    mutation_search(lineLength = 12, mutationDepthStart = 2, startRow = 30000)
 
 elif mode == 2: # Investigate mutation sequence
-    pathAlg = pathAlgebraClass.PathAlgebra()
+    pathAlg = path_algebra_class.PathAlgebra()
     pathAlg.add_paths_from([[1,2,3,4,5,6,7,8]])
     pathAlg.add_rels_from([[[1,2,3]],[[2,3,4]],[[3,4,5]],[[4,5,6]],[[5,6,7,8]]])#
-    #pathAlg = convertLineFromCSVnotation(len(pathAlg.vertices()), '1;2;3;4;5;6|3;4;5;6;7;8|5;6;7;8;9;10')
+    #pathAlg = convert_line_from_csvnotation(len(pathAlg.vertices()), '1;2;3;4;5;6|3;4;5;6;7;8|5;6;7;8;9;10')
 
     mutationVertexList = [1,1,-4,-6,-6,-6,-8,-4,-8,5,7,4,3,1,1,2] #
     l = len(mutationVertexList)
     firstDisplayStep = 0 # 0 if you want to display all mutation steps, len(mutationVertexList) if you only want the last
-    #pathAlg = onePointExtension(pathAlg, [11,5], [[[11,5,6]]])
-    pathAlg = quiverMutation(pathAlg, mutationVertexList, firstDisplayStep)
+    #pathAlg = one_point_extension(pathAlg, [11,5], [[[11,5,6]]])
+    pathAlg = quiver_mutation(pathAlg, mutationVertexList, firstDisplayStep)
 
-    #pathAlg = onePointExtension(pathAlg, [11, 13], [[[5,6,7,12,1,8,9,10,11,13]]])
+    #pathAlg = one_point_extension(pathAlg, [11, 13], [[[5,6,7,12,1,8,9,10,11,13]]])
     #mutationVertexList = [-13, -13, -11, -11]  #
-    #quiverMutation(pathAlg, mutationVertexList, firstDisplayStep)
+    #quiver_mutation(pathAlg, mutationVertexList, firstDisplayStep)
 
     if False:
-        baseCoxPol = coxeterPoly(pathAlg)
-        print(coxeterPoly(pathAlg))
-        printPathAlgebra(pathAlg)
+        baseCoxPol = coxeter_poly(pathAlg)
+        print(coxeter_poly(pathAlg))
+        print_path_algebra(pathAlg)
         if firstDisplayStep == 0:
-            plotQuiver(pathAlg)
+            plot_quiver(pathAlg)
         for i in range(len(mutationVertexList)):
             if mutationVertexList[i] >= 0:
-                pathAlg = quiverMutationAtVertex(pathAlg, mutationVertexList[i])
+                pathAlg = quiver_mutation_at_vertex(pathAlg, mutationVertexList[i])
             else:
-                pathAlg = leftQuiverMutationAtVertex(pathAlg, -mutationVertexList[i])
-            pathAlg = reducePathAlgebra(pathAlg)
-            currentCoxPol = coxeterPoly(pathAlg)
-            cartMat = cartanMatrix(pathAlg)
+                pathAlg = left_quiver_mutation_at_vertex(pathAlg, -mutationVertexList[i])
+            pathAlg = reduce_path_algebra(pathAlg)
+            currentCoxPol = coxeter_poly(pathAlg)
+            cartMat = cartan_matrix(pathAlg)
             print(np.matrix(cartMat))
             if currentCoxPol != baseCoxPol:
                 print('COXETER POLYNOMIAL HAS CHANGED!')
             print('Mutations: ', mutationVertexList[0:i+1])
             print(currentCoxPol)
-            printPathAlgebra(pathAlg)
+            print_path_algebra(pathAlg)
             if i+1 >= firstDisplayStep:
-                plotQuiver(pathAlg)
+                plot_quiver(pathAlg)
 elif mode == 3:
     #startTime = time.time()
     #number_of_quipus = count_quipus(18)
@@ -88,8 +88,8 @@ elif mode == 3:
     print('Code started running at', time.strftime('%H:%M:%S',  time.gmtime(time.time()+7200)))
     for length in range(2,35):
         startTime = time.time()
-        #quipus = generateAllQuipusGPT(length)
-        numberOfQuipusOfLength = count_quipusV1(length)
+        #quipus = generate_all_quipus_gpt(length)
+        numberOfQuipusOfLength = count_quipus_v1(length)
         endTime = time.time()
         print(numberOfQuipusOfLength, 'quipus of length', length,  'generated in', endTime - startTime, 's')
 
@@ -97,11 +97,11 @@ elif mode == 3:
     if False:
         displayTrees = False
 
-        h1quipus = generateAllHeightOneQuipus(17)
+        h1quipus = generate_all_height_one_quipus(17)
 
         print(len(h1quipus), ' length one quipus in ', time.time() - startTime, 's')
 
-        saveQuipusToCSV(h1quipus, 'quipusCSVTest', overwrirteFile=True)
+        save_quipus_to_csv(h1quipus, 'quipusCSVTest', overwrirteFile=True)
 
         i = 1
         s = 1
@@ -111,7 +111,7 @@ elif mode == 3:
             i += 1
 
 
-        quipusLists = generateAllQuipusUpToLength(40)
+        quipusLists = generate_all_quipus_up_to_length(40)
         open('test_quipu_file.txt', 'w+').close()
         with open('test_quipu_file.txt', "a") as f:
             for quipuList in quipusLists:
@@ -196,32 +196,32 @@ elif mode == 3:
                 for i in range(nRows * nCols):
                     if i < numberOfTrees:
                         nx.draw_networkx(quipus[i], ax=ax[i], node_size=10, with_labels=False)
-                        coxPoly = coxPolyOfTree(trees[i])
+                        coxPoly = cox_poly_of_tree(trees[i])
                         # ax[i].title.set_text(coxPoly.as_expr())
                     ax[i].set_axis_off()
                 plt.subplot_tool()
                 plt.show()
 elif mode == 4: # Investigate mutation sequence
-    pathAlg = pathAlgebraClass.PathAlgebra()
+    pathAlg = path_algebra_class.PathAlgebra()
     pathAlg.add_paths_from([[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]])
     pathAlg.add_rels_from([[[3,4,5,6,7,8,9,10,11,12]],[[8,9,10,11,12,13,14,15,16]],[[15,16,17]],[[16,17,18]]])#
-    #pathAlg = onePointExtension(pathAlg, [18,21], [[[7,8,9,10,11,12,13,14,15,16,17,18,21]]])
+    #pathAlg = one_point_extension(pathAlg, [18,21], [[[7,8,9,10,11,12,13,14,15,16,17,18,21]]])
     mutationVertexList = [8,8,9,9,10,10]
     l = len(mutationVertexList)
     firstDisplayStep = l-2 # 0 to display all mutation steps, len(mutationVertexList) only the last, np.infty none
-    pathAlg = quiverMutation(pathAlg, mutationVertexList, firstDisplayStep)
+    pathAlg = quiver_mutation(pathAlg, mutationVertexList, firstDisplayStep)
 
-    #pathAlg = onePointExtension(pathAlg, [17,19], [[[5,6,7,8,16,17,19]]])
+    #pathAlg = one_point_extension(pathAlg, [17,19], [[[5,6,7,8,16,17,19]]])
     #mutationVertexList = [-19,-19,-17,-17,-18,-18,-10,-11,-12,-13,-14,-15,-16,-16,-16]
     #firstDisplayStep = len(mutationVertexList) # 0 to display all mutation steps, len(mutationVertexList) only the last, np.infty none
-    #pathAlg = quiverMutation(pathAlg, mutationVertexList, firstDisplayStep)
+    #pathAlg = quiver_mutation(pathAlg, mutationVertexList, firstDisplayStep)
 
-#createMutationClassCSV(13)
-#expandAllClassesWithEasyRels(12, startRow = 30500)
+#create_mutation_class_csv(13)
+#expand_all_classes_with_easy_rels(12, startRow = 30500)
 
 if False:
     n = 11
-    AnCoxPols = generateAllCoxeterPolynomials(n)
+    AnCoxPols = generate_all_coxeter_polynomials(n)
     treeMatrices = nx.generators.nonisomorphic_trees(n, 'matrix')
     for matrixAsList in treeMatrices:
         tree = nx.from_numpy_matrix(np.matrix(matrixAsList))
@@ -230,8 +230,8 @@ if False:
         print(np.matrix(mat))
         matInvTrans = mat.inv().transpose()
         coxeterMatrix = -matInvTrans * mat
-        coxeterPolynomial = coxeterMatrix.charpoly()
-        print(coxeterPolynomial.as_expr())
+        coxeter_polynomial = coxeterMatrix.charpoly()
+        print(coxeter_polynomial.as_expr())
         print()
         plt.show()
 
@@ -239,40 +239,40 @@ if False:
 
 
 if False:
-    pathAlg = lineQuiverExample(9, [2, 3, 4, 4, 0, 3, 0])
+    pathAlg = line_quiver_example(9, [2, 3, 4, 4, 0, 3, 0])
     quiverName = 'A9_2344030'
     open('{0}DF.txt'.format(quiverName), 'w').close()
-    mutationSearchDepthFirst(pathAlg, 6, [], quiverName)
-    mutList = readMutationsFromFile('{0}DF.txt'.format(quiverName))
-    cleanMutList = mutationListLineCleanup(mutList)
+    mutation_search_depth_first(pathAlg, 6, [], quiverName)
+    mutList = read_mutations_from_file('{0}DF.txt'.format(quiverName))
+    cleanMutList = mutation_list_line_cleanup(mutList)
     open('{0}.txt'.format(quiverName), 'w').close()
     for mut in cleanMutList:
         print('Mutations: {0}'.format(mut[1]))
         print('Relations: {0}'.format(mut[0].rels))
-        saveLinePathAlgMutation(mut[0], mut[1], mut[2], '{0}.txt'.format(quiverName))
+        save_line_path_alg_mutation(mut[0], mut[1], mut[2], '{0}.txt'.format(quiverName))
 
 
 
 if False:
     quiverName = 'A6_3300test'
-    pathAlg = lineQuiverExample(6, [3,3,0,0], {1: 3, 2: 4, 3: 5, 4: 6, 5: 2, 6: 1})
+    pathAlg = line_quiver_example(6, [3,3,0,0], {1: 3, 2: 4, 3: 5, 4: 6, 5: 2, 6: 1})
     open('{0}DF.txt'.format(quiverName), 'w').close()
-    mutationSearchDepthFirst(pathAlg, 8, [], quiverName)
-    mutList1 = readMutationsFromFile('{0}DF.txt'.format(quiverName))
-    cleanMutList1 = mutationListLineCleanup(mutList1)
+    mutation_search_depth_first(pathAlg, 8, [], quiverName)
+    mutList1 = read_mutations_from_file('{0}DF.txt'.format(quiverName))
+    cleanMutList1 = mutation_list_line_cleanup(mutList1)
     open('{0}.txt'.format(quiverName), 'w').close()
     for mut in cleanMutList1:
         print('Mutations: {0}'.format(mut[1]))
         print('Relations: {0}'.format(mut[0].rels))
-        saveLinePathAlgMutation(mut[0], mut[1], mut[2], '{0}.txt'.format(quiverName))
-    saveLineRelationsAndMutationsToFile(quiverName, saveNumbering=True)
+        save_line_path_alg_mutation(mut[0], mut[1], mut[2], '{0}.txt'.format(quiverName))
+    save_line_relations_and_mutations_to_file(quiverName, saveNumbering=True)
 
 if False:
-    mutClasses = readMutationClassesFromFile(7, 'A7MutationClasses.txt')
+    mutClasses = read_mutation_classes_from_file(7, 'A7MutationClasses.txt')
     print('Number of mutation classes: ', len(mutClasses))
     for mutClass in mutClasses:
         for pathAlg in mutClass:
-            coxPoly = coxeterPoly(pathAlg)
+            coxPoly = coxeter_poly(pathAlg)
             print(coxPoly, pathAlg.rels)
         print()
 
@@ -283,26 +283,26 @@ if False:
         nMax = 10
         DFdepth = 4
         quiverName = 'A' + str(lineLength)
-        findMutationClassesForLine(lineLength, quiverName, nMax, DFdepth, True) #(lineLength, name, n_max, importAlreadyDoneSearches)
-        generateAllCoxeterPolynomials(lineLength)
+        find_mutation_classes_for_line(lineLength, quiverName, nMax, DFdepth, True) #(lineLength, name, n_max, importAlreadyDoneSearches)
+        generate_all_coxeter_polynomials(lineLength)
     elif mode == 2: # Debug mutation search
         pathAlg = A7_40030
         print([])
-        baseCoxPol = coxeterPoly(pathAlg)
-        print(coxeterPoly(pathAlg))
-        printPathAlgebra(pathAlg)
+        baseCoxPol = coxeter_poly(pathAlg)
+        print(coxeter_poly(pathAlg))
+        print_path_algebra(pathAlg)
         mutationVertexList = [1, 4, 2, 3, 2, 1, 5, 2]
         for i in range(len(mutationVertexList)):
-            pathAlg = quiverMutationAtVertex(pathAlg, mutationVertexList[i])
-            pathAlg = reducePathAlgebra(pathAlg)
-            currentCoxPol = coxeterPoly(pathAlg)
-            cartMat = cartanMatrix(pathAlg)
+            pathAlg = quiver_mutation_at_vertex(pathAlg, mutationVertexList[i])
+            pathAlg = reduce_path_algebra(pathAlg)
+            currentCoxPol = coxeter_poly(pathAlg)
+            cartMat = cartan_matrix(pathAlg)
             print(np.matrix(cartMat))
             if currentCoxPol != baseCoxPol:
                 print('COXETER POLYNOMIAL HAS CHANGED!')
             print('Mutations: ', mutationVertexList[0:i+1])
             print(currentCoxPol)
-            printPathAlgebra(pathAlg)
+            print_path_algebra(pathAlg)
     elif mode == 3: # Investigate mutation class
         lineLength = len(mutClasses[0][0].vertices())
         for mutClass in mutClasses:
@@ -313,27 +313,27 @@ if False:
                 relSetNumber = ''.join(relSetNumberAsList)
                 pathAlgName = 'A{0}_{1}'.format(lineLength, relSetNumber)
                 open('{0}.txt'.format(pathAlgName), 'w+').close()
-                mutationSearchDepthFirst(pathAlg, 8, [], pathAlgName)
-                mutListDF = readMutationsFromFile('{0}DF.txt'.format(pathAlgName))
-                mutList = mutationListLineCleanup(mutListDF)
+                mutation_search_depth_first(pathAlg, 8, [], pathAlgName)
+                mutListDF = read_mutations_from_file('{0}DF.txt'.format(pathAlgName))
+                mutList = mutation_list_line_cleanup(mutListDF)
                 open('{0}.txt'.format(pathAlgName), 'w+').close()
                 for mut in mutList:
-                    saveLinePathAlgMutation(mut[0], mut[1], mut[2], '{0}.txt'.format(pathAlgName))
-                saveLineRelationsToFile(pathAlgName)
+                    save_line_path_alg_mutation(mut[0], mut[1], mut[2], '{0}.txt'.format(pathAlgName))
+                save_line_relations_to_file(pathAlgName)
 
 
 
 
-# mutationSearchDepthFirst(A5_0, 6, [], 'A5_0')
-# mutListDF = readMutationsFromFile('{0}DF.txt'.format('A5_0'))
+# mutation_search_depth_first(A5_0, 6, [], 'A5_0')
+# mutListDF = read_mutations_from_file('{0}DF.txt'.format('A5_0'))
 # open('{0}M.txt'.format('A5_0'), 'w+').close()
 # for mut in mutListDF:
 #     print(mut[0].rels)
-#     saveLinePathAlgMutation(mut[0], mut[1], mut[2], 'A5_0M.txt')
+#     save_line_path_alg_mutation(mut[0], mut[1], mut[2], 'A5_0M.txt')
 
 
 
-#A4relations = findMutationClassesForLine(9, 'A9', 9, 6)
+#A4relations = find_mutation_classes_for_line(9, 'A9', 9, 6)
 
 if False:
     start = time.time()
@@ -342,14 +342,14 @@ if False:
     quiverName = 'A6_303'
     myQuiverWrels = A6_303
     open('{0}DF.txt'.format(quiverName), 'w+').close()
-    mutationSearchDepthFirst(myQuiverWrels, 5, [], quiverName, vertexRelabeling)
+    mutation_search_depth_first(myQuiverWrels, 5, [], quiverName, vertexRelabeling)
     print('\nFirst search done! \n')
 
     print("//////////////////////////////////////////////////////////////////////////////////////////")
 
 
-    mutListDF = readMutationsFromFile('{0}DF.txt'.format(quiverName))
-    mutList = mutationListLineCleanup(mutListDF)
+    mutListDF = read_mutations_from_file('{0}DF.txt'.format(quiverName))
+    mutList = mutation_list_line_cleanup(mutListDF)
     n_max = 7
     DFdepth = 3
     lapTimeStart = time.time()
@@ -374,12 +374,12 @@ if False:
             else:
                 print('Mutations: ', mut[1])
                 printQuiver(mut[0])
-                mutationSearchDepthFirst(mut[0], DFdepth + math.ceil(n/2), mut[1], quiverName, mut[2])
+                mutation_search_depth_first(mut[0], DFdepth + math.ceil(n/2), mut[1], quiverName, mut[2])
         lapTimeEnd = time.time()
         print('Lap time for lap {0}: {1} s'.format(n, lapTimeEnd - lapTimeStart))
         lapTimeStart = time.time()
-        mutListDF = readMutationsFromFile('{0}DF.txt'.format(quiverName))
-        mutList = mutationListLineCleanup(mutListDF)
+        mutListDF = read_mutations_from_file('{0}DF.txt'.format(quiverName))
+        mutList = mutation_list_line_cleanup(mutListDF)
         checkedAlready = []
         open('{0}L{1}.txt'.format(quiverName, n), 'w+').close()
         for mut in mutList:
@@ -405,31 +405,31 @@ if False:
         showPlot = False
         rootFolder = '/Users/didrikfo/OneDrive - NTNU/PhD/QuiverMutation'
         folder = rootFolder + '/' + fileName + 'm' + ''.join(map(str, mutationList)) + '/'
-        plotQuiver(myQuiverWrels, showPlot, saveToFile, fileName, folder)
+        plot_quiver(myQuiverWrels, showPlot, saveToFile, fileName, folder)
         fileName = fileName + 'm'
         for i in range(0, len(mutationList)):
             print(mutationList[:i+1])
-            myQuiverWrels = quiverMutationAtVertex(myQuiverWrels, mutationList[i])
+            myQuiverWrels = quiver_mutation_at_vertex(myQuiverWrels, mutationList[i])
             myQuiverWrels = reduceQuiver(myQuiverWrels)
             printQuiver(myQuiverWrels)
             fileName = fileName + str(mutationList[i])
-            plotQuiver(myQuiverWrels, showPlot, saveToFile, fileName, folder)
+            plot_quiver(myQuiverWrels, showPlot, saveToFile, fileName, folder)
 
 
-#generateListOfRelations(['A6_0L7', 'A6_24L7', 'A6_2mL7', 'A6_23L7', 'A6_303L7'], 'A6')
+#generate_list_of_relations(['A6_0L7', 'A6_24L7', 'A6_2mL7', 'A6_23L7', 'A6_303L7'], 'A6')
 
 
 if False:
     quiverWrels = A8_223000
     print([])
-    print(coxeterPoly(quiverWrels))
+    print(coxeter_poly(quiverWrels))
     printQuiver(quiverWrels)
     mutationVertexList = [7, 6, 1, 1, 1, 1, 2, 2, 2, 6, 3, 3, 5, 4, 5, 4, 4, 3, 8, 8, 3, 3, 7, 1, 2, 2, 1, 7]
     for i in range(len(mutationVertexList)):
-        quiverWrels = quiverMutationAtVertex(quiverWrels, mutationVertexList[i])
+        quiverWrels = quiver_mutation_at_vertex(quiverWrels, mutationVertexList[i])
         quiverWrels = reduceQuiver(quiverWrels)
         print(mutationVertexList[0:i+1])
-        print(coxeterPoly(quiverWrels))
+        print(coxeter_poly(quiverWrels))
         printQuiver(quiverWrels)
 
 
@@ -437,19 +437,19 @@ if False:
 # mutationVertexList = [2, 5, 5, 4, 4, 9, 2, 2, 8, 8, 4, 9, 2, 1, 1, 1, 1, 3, 3, 3, 6, 7, 6, 7, 2, 1, 3, 7, 6, 4, 4, 5, 5, 8]
 # myQuiverWrels = A9_4
 # for v in mutationVertexList:
-#     myQuiverWrels = quiverMutationAtVertex(myQuiverWrels, v)
+#     myQuiverWrels = quiver_mutation_at_vertex(myQuiverWrels, v)
 #     myQuiverWrels = reduceQuiver(myQuiverWrels)
 #     printQuiver(myQuiverWrels)
-# mutList = readMutationsFromFile('A9_4L6.txt')
+# mutList = read_mutations_from_file('A9_4L6.txt')
 # newMut = (myQuiverWrels, mutationVertexList, {1:6, 2:7, 3:3, 4:1, 5:2, 6:9, 7:8, 8:5, 9:4})
 # mutList.append(newMut)
-# mutationList = mutationListLineCleanup(mutList)
+# mutationList = mutation_list_line_cleanup(mutList)
 # open('A9mutClass1.txt', 'w+').close()
 # for mut in mutationList:
 #     saveLineQuiverMutation(mut[0], mut[1], mut[2], 'A9mutClass1.txt')
 
-# mutList1 = readMutationsFromFile('A9mutClass1.txt')
-# mutList2 = readMutationsFromFile('A9mutClass2.txt')
+# mutList1 = read_mutations_from_file('A9mutClass1.txt')
+# mutList2 = read_mutations_from_file('A9mutClass2.txt')
 # for mut1 in mutList1:
 #     for mut2 in mutList2:
 #         if mut1[0]['rels'].edges == mut2[0]['rels'].edges:
@@ -469,26 +469,26 @@ if False:
 # showPlot = False
 # rootFolder = '/Users/didrikfo/OneDrive - NTNU/PhD/QuiverMutation'
 # folder = rootFolder + '/' + fileName + 'm' + ''.join(map(str, mutationList)) + '/'
-# plotQuiver(myQuiverWrels, showPlot, saveToFile, fileName, folder)
+# plot_quiver(myQuiverWrels, showPlot, saveToFile, fileName, folder)
 # fileName = fileName + 'm'
 # for i in range(0, len(mutationList)):
 #     print(mutationList[:i+1])
-#     myQuiverWrels = quiverMutationAtVertex(myQuiverWrels, mutationList[i])
+#     myQuiverWrels = quiver_mutation_at_vertex(myQuiverWrels, mutationList[i])
 #     myQuiverWrels = reduceQuiver(myQuiverWrels)
 #     printQuiver(myQuiverWrels)
 #     fileName = fileName + str(mutationList[i])
-#     plotQuiver(myQuiverWrels, showPlot, saveToFile, fileName, folder)
+#     plot_quiver(myQuiverWrels, showPlot, saveToFile, fileName, folder)
 
 
 # end = time.time()
 # print('Runtime: ', end - start, 's')
 
-# mutList = readMutationsFromFile('SA5L2.txt')
+# mutList = read_mutations_from_file('SA5L2.txt')
 # open('SA5DualMutations.txt', 'w+').close()
 # for mut1 in mutList:
 #     mutIndex = mutList.index(mut1)
 #     for mut2 in mutList[mutIndex:]:
-#         if isRelationDualLineQuiver(mut1[0], mut2[0]):
+#         if is_relation_dual_line_quiver(mut1[0], mut2[0]):
 #             with open('SA5DualMutations.txt', "a") as f:
 #                 f.write('Mutations: {0}\n'.format(mut1[1]))
 #                 f.write('Numbering: {0}\n'.format(mut1[2]))

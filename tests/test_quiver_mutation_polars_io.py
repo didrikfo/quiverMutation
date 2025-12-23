@@ -1,7 +1,7 @@
 import tempfile
 import unittest
 
-import pathAlgebraClass
+import path_algebra_class
 from quiver_mutation_polars_io import (
     dataframe_to_mutation_list,
     mutation_list_to_dataframe,
@@ -12,7 +12,7 @@ from quiver_mutation_polars_io import (
 
 class TestQuiverMutationPolarsIO(unittest.TestCase):
     def setUp(self):
-        path_alg = pathAlgebraClass.PathAlgebra()
+        path_alg = path_algebra_class.PathAlgebra()
         path_alg.add_vertices_from([1, 2, 3])
         path_alg.add_arrows_from([(1, 2), (2, 3)])
         path_alg.add_rels_from([[[1, 2, 3]]])

@@ -2,29 +2,29 @@ import numpy as np
 import networkx as nx
 import sympy
 from sympy.matrices import Matrix, eye
-from quiver_mutation_relations import numberOfPathsUpToRels
+from quiver_mutation_relations import number_of_paths_up_to_rels
 
-def cartanMatrix(pathAlg):
+def cartan_matrix(pathAlg):
     quiv = pathAlg.quiver
     vertices = quiv.nodes
-    cartanMatrix = eye(len(vertices), len(vertices))
+    cartan_matrix = eye(len(vertices), len(vertices))
     for i in vertices:
         for j in vertices:
             if i == j:
-                cartanMatrix[j-1,i-1] = numberOfPathsUpToRels(pathAlg, i, j) + 1
+                cartan_matrix[j-1,i-1] = number_of_paths_up_to_rels(pathAlg, i, j) + 1
             else:
-                cartanMatrix[j-1,i-1] = numberOfPathsUpToRels(pathAlg, i, j)
-    return cartanMatrix
+                cartan_matrix[j-1,i-1] = number_of_paths_up_to_rels(pathAlg, i, j)
+    return cartan_matrix
 
-def coxeterPoly(pathAlg):
-    cartanMat = cartanMatrix(pathAlg)
+def coxeter_poly(pathAlg):
+    cartanMat = cartan_matrix(pathAlg)
     print(np.matrix(cartanMat))
     cartanMatInvTrans = cartanMat.inv().transpose()
     coxeterMatrix = -cartanMatInvTrans*cartanMat
-    coxeterPolynomial = coxeterMatrix.charpoly()
-    return coxeterPolynomial
+    coxeter_polynomial = coxeterMatrix.charpoly()
+    return coxeter_polynomial
 
-def generateAllCoxeterPolynomials(length):
+def generate_all_coxeter_polynomials(length):
 
     # generate Kupisch series
     kupisch = [[[1]]]
@@ -46,34 +46,34 @@ def generateAllCoxeterPolynomials(length):
     print('Number of different Coxeter polynomials: ' ,len(polynomials))
     return polynomials
 
-def coxPolyOfTree(tree):
+def cox_poly_of_tree(tree):
     adjMat = sympy.Matrix(nx.adjacency_matrix(tree).todense(), dtype=int)
     triuMat = np.triu(Matrix(adjMat))
     mat = sympy.Matrix(triuMat, dtype=int) + sympy.eye(len(tree))#sympy.Matrix(np.triu(Matrix(matrixAsList))) + sympy.eye(n)
     print(np.matrix(mat))
     matInvTrans = mat.inv().transpose()
     coxeterMatrix = -matInvTrans * mat
-    coxeterPolynomial = coxeterMatrix.charpoly()
-    #print(coxeterPolynomial.as_expr())
-    return coxeterPolynomial
+    coxeter_polynomial = coxeterMatrix.charpoly()
+    #print(coxeter_polynomial.as_expr())
+    return coxeter_polynomial
 
-def cartanMatrixForCanonicalAlgebra(pathAlg):
+def cartan_matrix_for_canonical_algebra(pathAlg):
     quiv = pathAlg.quiver
     vertices = quiv.nodes
-    cartanMatrix = eye(len(vertices), len(vertices))
+    cartan_matrix = eye(len(vertices), len(vertices))
     for i in vertices:
         for j in vertices:
             if i == j:
-                cartanMatrix[j-1,i-1] = 1
+                cartan_matrix[j-1,i-1] = 1
             else:
                 allPaths = list(nx.all_simple_paths(pathAlg.quiver, i, j))
-                cartanMatrix[j-1,i-1] = min(len(allPaths), 2)
-    return cartanMatrix
+                cartan_matrix[j-1,i-1] = min(len(allPaths), 2)
+    return cartan_matrix
 
-def coxeterPolyForCanonicalAlgebra(pathAlg):
-    cartanMat = cartanMatrixForCanonicalAlgebra(pathAlg)
+def coxeter_poly_for_canonical_algebra(pathAlg):
+    cartanMat = cartan_matrix_for_canonical_algebra(pathAlg)
     print(np.matrix(cartanMat))
     cartanMatInvTrans = cartanMat.inv().transpose()
     coxeterMatrix = -cartanMatInvTrans*cartanMat
-    coxeterPolynomial = coxeterMatrix.charpoly()
-    return coxeterPolynomial
+    coxeter_polynomial = coxeterMatrix.charpoly()
+    return coxeter_polynomial

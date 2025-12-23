@@ -3,10 +3,10 @@ from typing import Any, Dict, Iterable, List, Tuple
 
 import polars as pl
 
-import pathAlgebraClass
+import path_algebra_class
 
 
-def path_algebra_to_dict(path_alg: pathAlgebraClass.PathAlgebra) -> Dict[str, Any]:
+def path_algebra_to_dict(path_alg: path_algebra_class.PathAlgebra) -> Dict[str, Any]:
     return {
         "vertices": list(path_alg.quiver.nodes),
         "arrows": list(path_alg.quiver.edges),
@@ -14,8 +14,8 @@ def path_algebra_to_dict(path_alg: pathAlgebraClass.PathAlgebra) -> Dict[str, An
     }
 
 
-def dict_to_path_algebra(data: Dict[str, Any]) -> pathAlgebraClass.PathAlgebra:
-    path_alg = pathAlgebraClass.PathAlgebra()
+def dict_to_path_algebra(data: Dict[str, Any]) -> path_algebra_class.PathAlgebra:
+    path_alg = path_algebra_class.PathAlgebra()
     vertices = data.get("vertices", [])
     arrows = data.get("arrows", [])
     relations = data.get("relations", [])
@@ -38,7 +38,7 @@ def _deserialize(value: Any) -> Any:
 
 
 def mutation_list_to_dataframe(
-    mutation_list: Iterable[Tuple[pathAlgebraClass.PathAlgebra, List[int], Dict[int, int]]],
+    mutation_list: Iterable[Tuple[path_algebra_class.PathAlgebra, List[int], Dict[int, int]]],
     serialize: bool = False,
 ) -> pl.DataFrame:
     rows = []
@@ -63,7 +63,7 @@ def _coerce_numbering_keys(numbering: Dict[Any, Any]) -> Dict[int, Any]:
 def dataframe_to_mutation_list(
     dataframe: pl.DataFrame,
     serialized: bool | None = None,
-) -> List[Tuple[pathAlgebraClass.PathAlgebra, List[int], Dict[int, int]]]:
+) -> List[Tuple[path_algebra_class.PathAlgebra, List[int], Dict[int, int]]]:
     if serialized is None:
         serialized = any(
             dtype == pl.Utf8
@@ -73,7 +73,7 @@ def dataframe_to_mutation_list(
     for row in dataframe.iter_rows(named=True):
         if serialized:
             row = {key: _deserialize(value) for key, value in row.items()}
-        path_alg = pathAlgebraClass.PathAlgebra()
+        path_alg = path_algebra_class.PathAlgebra()
         path_alg.add_vertices_from(row.get("vertices", []))
         path_alg.add_arrows_from([tuple(arrow) for arrow in row.get("arrows", [])])
         path_alg.add_rels_from(row.get("relations", []))
@@ -94,7 +94,7 @@ def read_mutation_dataframe_csv(file_name: str) -> pl.DataFrame:
 
 
 def write_mutation_list_csv(
-    mutation_list: Iterable[Tuple[pathAlgebraClass.PathAlgebra, List[int], Dict[int, int]]],
+    mutation_list: Iterable[Tuple[path_algebra_class.PathAlgebra, List[int], Dict[int, int]]],
     file_name: str,
 ) -> None:
     dataframe = mutation_list_to_dataframe(mutation_list, serialize=True)
@@ -103,6 +103,6 @@ def write_mutation_list_csv(
 
 def read_mutation_list_csv(
     file_name: str,
-) -> List[Tuple[pathAlgebraClass.PathAlgebra, List[int], Dict[int, int]]]:
+) -> List[Tuple[path_algebra_class.PathAlgebra, List[int], Dict[int, int]]]:
     dataframe = pl.read_csv(file_name)
     return dataframe_to_mutation_list(dataframe, serialized=True)

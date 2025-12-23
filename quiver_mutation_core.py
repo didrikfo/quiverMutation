@@ -1,22 +1,22 @@
 import copy
 import networkx as nx
-import pathAlgebraClass
-from quiver_mutation_io import printPathAlgebra
-from quiver_mutation_relations import allMinimalRelsBetweenVertices, allRelsBetweenVertices, isSubRelOf, reducePathAlgebra, zeroizeRels
-from quiver_mutation_utils import listIntersection, getVertexNumberingKeyFromValue
-from quiver_mutation_algebra import coxeterPoly, cartanMatrix
-from quiver_mutation_io import plotQuiver
+import path_algebra_class
+from quiver_mutation_io import print_path_algebra
+from quiver_mutation_relations import all_minimal_rels_between_vertices, all_rels_between_vertices, is_sub_rel_of, reduce_path_algebra, zeroize_rels
+from quiver_mutation_utils import list_intersection, get_vertex_numbering_key_from_value
+from quiver_mutation_algebra import coxeter_poly, cartan_matrix
+from quiver_mutation_io import plot_quiver
 
-def quiverMutationAtVertex(pathAlg, vertex):
+def quiver_mutation_at_vertex(pathAlg, vertex):
     oldQuiver = pathAlg.quiver
     vertices = pathAlg.vertices()
-    mutPathAlg = pathAlgebraClass.PathAlgebra()
+    mutPathAlg = path_algebra_class.PathAlgebra()
     mutPathAlg.add_vertices_from(vertices)
     vertexOutArrows = pathAlg.out_arrows(vertex)
     vertexOutRels = pathAlg.out_rels(vertex)
     allMinOutRels = []
     for rel in vertexOutRels:
-        for minOutRel in allMinimalRelsBetweenVertices(pathAlg, vertex, rel[0][-1]):
+        for minOutRel in all_minimal_rels_between_vertices(pathAlg, vertex, rel[0][-1]):
             allMinOutRels.append((minOutRel, vertexOutRels.index(rel)))
     arrowTargetVertices = list(pathAlg.quiver.successors(vertex))
     vertexSuccessors = list(nx.dfs_preorder_nodes(oldQuiver, vertex))
@@ -26,18 +26,18 @@ def quiverMutationAtVertex(pathAlg, vertex):
             vertexSuccessors.remove(ar[1])
     for v in vertexSuccessors:
         predecessors = list(nx.dfs_preorder_nodes(nx.reverse(oldQuiver), v))
-        targetPredecessorsOfVertex = listIntersection(predecessors, arrowTargetVertices)
+        targetPredecessorsOfVertex = list_intersection(predecessors, arrowTargetVertices)
         if bool(targetPredecessorsOfVertex):
             outRelPathsWithRels = []
             for rel in vertexOutRels:
                 outRelPathsWithRels.append([rel, []])
             targetRelAndPathHitByOutRelAndPath = []
             for w in targetPredecessorsOfVertex:
-#                nonMinOutRels = nonMinimalOutRels(pathAlg, w)
+#                nonMinOutRels = non_minimal_out_rels(pathAlg, w)
                 nonMinOutRels = []
                 for w_succ in list(nx.dfs_preorder_nodes(oldQuiver, w))[1:]:
-                    nonMinOutRels.extend(allRelsBetweenVertices(pathAlg, w, w_succ))
-#                nonMinOutRelsZeroized = zeroizeRels(nonMinOutRels)
+                    nonMinOutRels.extend(all_rels_between_vertices(pathAlg, w, w_succ))
+#                nonMinOutRelsZeroized = zeroize_rels(nonMinOutRels)
                 for targetOutRel in nonMinOutRels:
                     if targetOutRel[0][-1] == v:
                         equivMinOutRelsUsedForTargetOutRel = []
@@ -122,10 +122,10 @@ def quiverMutationAtVertex(pathAlg, vertex):
                 legitRule7Relation = True
                 removeRel = []
                 for rel in mutPathAlg.rels:
-                    if isSubRelOf(rule7Rel, rel):
+                    if is_sub_rel_of(rule7Rel, rel):
                         legitRule7Relation = False
                         break
-                    elif isSubRelOf(rel, rule7Rel):
+                    elif is_sub_rel_of(rel, rule7Rel):
                         removeRel = rel
                         break
                 if bool(removeRel):
@@ -188,25 +188,25 @@ def quiverMutationAtVertex(pathAlg, vertex):
                 if vertex in relPath[:]:
                     relPath.remove(vertex)
             mutPathAlg.add_rel(rel)
-    zeroizedRels = zeroizeRels(mutPathAlg.rels)
+    zeroizedRels = zeroize_rels(mutPathAlg.rels)
     mutPathAlg.rels = zeroizedRels
     return mutPathAlg
 
-def quiverMutationAtVertices(pathAlg, vertices : list, printMutationSteps = False):
+def quiver_mutation_at_vertices(pathAlg, vertices : list, printMutationSteps = False):
     for i in range(len(vertices)):
         vertex = vertices[i]
         if vertex > 0:
-            pathAlg = quiverMutationAtVertex(pathAlg, vertex)
+            pathAlg = quiver_mutation_at_vertex(pathAlg, vertex)
         else:
-            pathAlg = leftQuiverMutationAtVertex(pathAlg, -vertex)
-        pathAlg = reducePathAlgebra(pathAlg)
+            pathAlg = left_quiver_mutation_at_vertex(pathAlg, -vertex)
+        pathAlg = reduce_path_algebra(pathAlg)
         if printMutationSteps:
             print('Mutations: ', vertices[:i + 1])
-            printPathAlgebra(pathAlg)
+            print_path_algebra(pathAlg)
     return pathAlg
 
-def dualPathAlgebra( pathAlg ):
-    dualPathAlg = pathAlgebraClass.PathAlgebra()
+def dual_path_algebra( pathAlg ):
+    dualPathAlg = path_algebra_class.PathAlgebra()
     dualPathAlg.add_vertices_from(pathAlg.vertices())
     for arrow in pathAlg.arrows():
         dualPathAlg.add_arrow(arrow[1], arrow[0])
@@ -217,48 +217,48 @@ def dualPathAlgebra( pathAlg ):
         dualPathAlg.add_rel(dualRel)
     return dualPathAlg
 
-def leftQuiverMutationAtVertex(pathAlg, vertex):
-    dualPathAlg = dualPathAlgebra(pathAlg)
-    mutDualPathAlg = quiverMutationAtVertex(dualPathAlg, vertex)
-    leftMutPathAlg = dualPathAlgebra(mutDualPathAlg)
+def left_quiver_mutation_at_vertex(pathAlg, vertex):
+    dualPathAlg = dual_path_algebra(pathAlg)
+    mutDualPathAlg = quiver_mutation_at_vertex(dualPathAlg, vertex)
+    leftMutPathAlg = dual_path_algebra(mutDualPathAlg)
     return leftMutPathAlg
 
-def reverseMutationSequence(mutationVertices, vertexNumbering):
+def reverse_mutation_sequence(mutationVertices, vertexNumbering):
     reverseMutationVertices = []
     for n in range(len(mutationVertices) - 1, -1, -1):
-        reverseMutationVertices.append(-getVertexNumberingKeyFromValue(vertexNumbering, mutationVertices[n]))
+        reverseMutationVertices.append(-get_vertex_numbering_key_from_value(vertexNumbering, mutationVertices[n]))
     return reverseMutationVertices
 
-def reverseMutationFromSequence(pathAlg, mutationVertices, vertexNumbering):
-    reverseMutationVertices = reverseMutationSequence(mutationVertices, vertexNumbering)
-    return quiverMutationAtVertices(pathAlg, reverseMutationVertices)
+def reverse_mutation_from_sequence(pathAlg, mutationVertices, vertexNumbering):
+    reverseMutationVertices = reverse_mutation_sequence(mutationVertices, vertexNumbering)
+    return quiver_mutation_at_vertices(pathAlg, reverseMutationVertices)
 
-def quiverMutation(pathAlgebra, mutationVertexList, firstDisplayedStep = 0):
+def quiver_mutation(pathAlgebra, mutationVertexList, firstDisplayedStep = 0):
     #
-    baseCoxPol = coxeterPoly(pathAlgebra)
-    print(coxeterPoly(pathAlgebra))
-    printPathAlgebra(pathAlgebra)
+    baseCoxPol = coxeter_poly(pathAlgebra)
+    print(coxeter_poly(pathAlgebra))
+    print_path_algebra(pathAlgebra)
     if firstDisplayedStep == 0:
-        plotQuiver(pathAlgebra)
+        plot_quiver(pathAlgebra)
     for i in range(len(mutationVertexList)):
         if mutationVertexList[i] >= 0:
-            pathAlgebra = quiverMutationAtVertex(pathAlgebra, mutationVertexList[i])
+            pathAlgebra = quiver_mutation_at_vertex(pathAlgebra, mutationVertexList[i])
         else:
-            pathAlgebra = leftQuiverMutationAtVertex(pathAlgebra, -mutationVertexList[i])
-        pathAlgebra = reducePathAlgebra(pathAlgebra)
-        currentCoxPol = coxeterPoly(pathAlgebra)
-        cartMat = cartanMatrix(pathAlgebra)
+            pathAlgebra = left_quiver_mutation_at_vertex(pathAlgebra, -mutationVertexList[i])
+        pathAlgebra = reduce_path_algebra(pathAlgebra)
+        currentCoxPol = coxeter_poly(pathAlgebra)
+        cartMat = cartan_matrix(pathAlgebra)
         print(np.matrix(cartMat))
         if currentCoxPol != baseCoxPol:
             print('COXETER POLYNOMIAL HAS CHANGED!')
         print('Mutations: ', mutationVertexList[0:i + 1])
         print(currentCoxPol)
-        printPathAlgebra(pathAlgebra)
+        print_path_algebra(pathAlgebra)
         if i + 1 >= firstDisplayedStep:
-            plotQuiver(pathAlgebra)
+            plot_quiver(pathAlgebra)
     return pathAlgebra
 
-def onePointExtension(pathAlgebra, arrowToAdd, relsToAdd = []):
+def one_point_extension(pathAlgebra, arrowToAdd, relsToAdd = []):
     extendedPathAlg = pathAlgebra
     extendedPathAlg.add_arrows_from([arrowToAdd])
     extendedPathAlg.add_rels_from(relsToAdd)

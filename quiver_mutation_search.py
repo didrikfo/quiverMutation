@@ -4,15 +4,15 @@ import math
 import time
 import networkx as nx
 import numpy as np
-import pathAlgebraClass
-from quiver_mutation_line import lineQuiverExample, saveLinePathAlgMutation, mutationListLineCleanup, createMutationClassCSV, importMutationClassCSV, saveLineRelationsAndMutationsToCSV, mutationSearchDepthFirst
-from quiver_mutation_io import printPathAlgebra, readMutationsFromFile
+import path_algebra_class
+from quiver_mutation_line import line_quiver_example, save_line_path_alg_mutation, mutation_list_line_cleanup, create_mutation_class_csv, import_mutation_class_csv, save_line_relations_and_mutations_to_csv, mutation_search_depth_first
+from quiver_mutation_io import print_path_algebra, read_mutations_from_file
 
-def findMutationClassesForLine(lineLength, lineName, n_max = 5, manualDFdepth = 1, importAlreadyDoneSearches = False):
+def find_mutation_classes_for_line(lineLength, lineName, n_max = 5, manualDFdepth = 1, importAlreadyDoneSearches = False):
     start = time.time()
     DFgrowthFactor = 1 / math.ceil(lineLength / 2)
     mutationClassFiles = []
-    allPossibleRelSets = generateAllPossibleLineRelations(lineLength)
+    allPossibleRelSets = generate_all_possible_line_relations(lineLength)
     reachedRelSets = []
     allRelsReached = False
     firstUnreachedRelSet = []
@@ -20,14 +20,14 @@ def findMutationClassesForLine(lineLength, lineName, n_max = 5, manualDFdepth = 
     edgeList = []
     for i in range(1, lineLength):
         edgeList.append((i, i+1))
-    pathAlg = pathAlgebraClass.PathAlgebra()
+    pathAlg = path_algebra_class.PathAlgebra()
     pathAlg.add_arrows_from(edgeList)
     relSetNumberAsList = ['0'] * (lineLength - 2)
     if importAlreadyDoneSearches:
         for name in glob.glob('{0}_*Relations.txt'.format(lineName)):
             mutationClassFiles.append(name)
             print('Filename: ', name)
-        reachedAndMissingRels = collectMutationClasses(lineLength, saveToFile=True, printOutput=True)
+        reachedAndMissingRels = collect_mutation_classes(lineLength, saveToFile=True, printOutput=True)
         reachedRelSets = reachedAndMissingRels[0]
         for relSet in reachedRelSets:
             print('relSet: ', relSet)
@@ -56,10 +56,10 @@ def findMutationClassesForLine(lineLength, lineName, n_max = 5, manualDFdepth = 
         DFdepth = max(maxRelLen - 1, math.floor(math.sqrt(lineLength)) + 2, manualDFdepth)
         quiverName = lineName + '_{0}'.format(relSetNumber)
         open('{0}DF.txt'.format(quiverName), 'w+').close()
-        mutationSearchDepthFirst(pathAlg, DFdepth, [], quiverName, vertexRelabeling)
+        mutation_search_depth_first(pathAlg, DFdepth, [], quiverName, vertexRelabeling)
         print('\nFirst search for round done! \n')
-        mutListDF = readMutationsFromFile('{0}DF.txt'.format(quiverName))
-        mutList = mutationListLineCleanup(mutListDF)
+        mutListDF = read_mutations_from_file('{0}DF.txt'.format(quiverName))
+        mutList = mutation_list_line_cleanup(mutListDF)
         lapTimeStart = time.time()
         reachedRelations = []
         for mut in mutList:
@@ -84,30 +84,30 @@ def findMutationClassesForLine(lineLength, lineName, n_max = 5, manualDFdepth = 
                     print('Round {0}, lap {1}'.format(roundCount, n))
                     print('Quiver: ', quiverName)
                     print('Mutations: ', mut[1])
-                    printPathAlgebra(mut[0])
+                    print_path_algebra(mut[0])
                     DFdepthIncreaseByRound = max( -2, -math.floor(roundCount / math.sqrt(lineLength)))
                     DFdepthIncreaseByLap = 0
                     if roundCount > 4:
                         DFdepthIncreaseByLap = math.floor(n * DFgrowthFactor)
                     DFdepth = math.floor(math.sqrt(lineLength)) + 1 + DFdepthIncreaseByLap + DFdepthIncreaseByRound
-                    mutationSearchDepthFirst(mut[0], DFdepth, mut[1], quiverName, mut[2])
+                    mutation_search_depth_first(mut[0], DFdepth, mut[1], quiverName, mut[2])
             lapTimeEnd = time.time()
             print('Lap time for lap {0}: {1} s'.format(n, lapTimeEnd - lapTimeStart))
             lapTimeStart = time.time()
-            mutListDF = readMutationsFromFile('{0}DF.txt'.format(quiverName))
-            mutList = mutationListLineCleanup(mutListDF)
+            mutListDF = read_mutations_from_file('{0}DF.txt'.format(quiverName))
+            mutList = mutation_list_line_cleanup(mutListDF)
             checkedAlready = []
             open('{0}.txt'.format(quiverName), 'w+').close()
             for mut in mutList:
-                saveLinePathAlgMutation(mut[0], mut[1], mut[2], '{0}.txt'.format(quiverName))
+                save_line_path_alg_mutation(mut[0], mut[1], mut[2], '{0}.txt'.format(quiverName))
                 checkedAlready.append(False)
                 if mut[0].rels in reachedRelations:
                     checkedAlready[mutList.index(mut)] = True
                 else:
                     reachedRelations.append(mut[0].rels)
-        saveLineRelationsToFile('{0}'.format(quiverName))
+        save_line_relations_to_file('{0}'.format(quiverName))
         mutationClassFiles.append('{0}Relations.txt'.format(quiverName))
-        reachedRelSetsThisRound = readRelationsFromFile('{0}Relations.txt'.format(quiverName))
+        reachedRelSetsThisRound = read_relations_from_file('{0}Relations.txt'.format(quiverName))
         reachedRelSetsWithDupes = copy.deepcopy(reachedRelSets)
         reachedRelSetsWithDupes.extend((reachedRelSetsThisRound))
         reachedRelSetsWithDupes.sort()
@@ -144,7 +144,7 @@ def findMutationClassesForLine(lineLength, lineName, n_max = 5, manualDFdepth = 
     mutationClassFiles.sort()
     for relFile in mutationClassFiles:
         print(relFile)
-        listOfRelSetLists.append(readRelationsFromFile(relFile))
+        listOfRelSetLists.append(read_relations_from_file(relFile))
     mutationClassAdded = [False]*len(listOfRelSetLists)
     mutationClassesWithDupes = []
     for i in range(len(listOfRelSetLists)):
@@ -212,7 +212,7 @@ def findMutationClassesForLine(lineLength, lineName, n_max = 5, manualDFdepth = 
     print('Total runtime: {0}s'.format(end - start))
     return mutationClassFiles
 
-def generateAllKupischSeries(length):
+def generate_all_kupisch_series(length):
 
     # generate Kupisch series
     kupisch = [[[1]]]
@@ -224,7 +224,7 @@ def generateAllKupischSeries(length):
     print('Number of different possible kupisch series: ',len(kupisch[length - 1]))
     return kupisch
 
-def expandClassWith2Rels(baseLineRelList):
+def expand_class_with_2_rels(baseLineRelList):
     lineLength = len(baseLineRelList) + 2
     expanding2RelSetLists = []
     possible2RelPositions = []
@@ -254,11 +254,11 @@ def expandClassWith2Rels(baseLineRelList):
             expanding2RelSetLists.append(lineRelList)
     expanding2RelSetMutList = []
     for lineRelList in expanding2RelSetLists:
-        pathAlg = lineQuiverExample(lineLength, lineRelList)
+        pathAlg = line_quiver_example(lineLength, lineRelList)
         expanding2RelSetMutList.append((pathAlg, [], {}))
     return expanding2RelSetMutList
 
-def expandClassFurtherWithEqualRelPairs(baseMutList):
+def expand_class_further_with_equal_rel_pairs(baseMutList):
     lineLength = len(baseMutList[0][0].vertices())
     lineRelListsToAdd = []
     expandingRelPairMutList = copy.deepcopy(baseMutList)
@@ -314,13 +314,13 @@ def expandClassFurtherWithEqualRelPairs(baseMutList):
                         lineRelListsToAddFromThisMut.append(lineRelListToAdd.copy())
         lineRelListsToAdd.extend(lineRelListsToAddFromThisMut)
     for lineRelListToAdd in lineRelListsToAdd:
-        pathAlg = lineQuiverExample(lineLength, lineRelListToAdd)
+        pathAlg = line_quiver_example(lineLength, lineRelListToAdd)
         if not (pathAlg, [], {}) in expandingRelPairMutList:
             expandingRelPairMutList.append((pathAlg, [], {}))
     return expandingRelPairMutList
 
-def expandAllClassesWithEasyRels(lineLength, startRow = 0):
-    mutationClassCSV = importMutationClassCSV('A_{0}_mutation_classes.csv'.format(lineLength))
+def expand_all_classes_with_easy_rels(lineLength, startRow = 0):
+    mutationClassCSV = import_mutation_class_csv('A_{0}_mutation_classes.csv'.format(lineLength))
     numberOfCSVrows = len(mutationClassCSV)
     for i in range(startRow + 1, numberOfCSVrows):
         row = mutationClassCSV[i]
@@ -341,18 +341,18 @@ def expandAllClassesWithEasyRels(lineLength, startRow = 0):
                 lineRelList[rel[0] - 1] = len(rel) - 1
             lineNumberStringList = [str(num) for num in lineRelList]
             lineNumberString = "".join(lineNumberStringList)
-            mutListWith2Rels = expandClassWith2Rels(lineRelList)
+            mutListWith2Rels = expand_class_with_2_rels(lineRelList)
             if bool(mutListWith2Rels):
-                mutListWith2RelsAndPairs = expandClassFurtherWithEqualRelPairs(mutListWith2Rels)
-                mutationClassCSV = saveLineRelationsAndMutationsToCSV('A_{0}_mutation_classes.csv'.format(lineLength),
+                mutListWith2RelsAndPairs = expand_class_further_with_equal_rel_pairs(mutListWith2Rels)
+                mutationClassCSV = save_line_relations_and_mutations_to_csv('A_{0}_mutation_classes.csv'.format(lineLength),
                                                                   mutListWith2RelsAndPairs, mutationClassCSV, lineNumberString)
     return
 
-def mutationSearch(lineLength, mutationDepthStart, startRow, createNewCSVfile = False, printMutations = False):
+def mutation_search(lineLength, mutationDepthStart, startRow, createNewCSVfile = False, printMutations = False):
     mutationDepth = mutationDepthStart
     if createNewCSVfile:
-        createMutationClassCSV(lineLength)
-    mutationClassCSV = importMutationClassCSV('A_{0}_mutation_classes.csv'.format(lineLength))
+        create_mutation_class_csv(lineLength)
+    mutationClassCSV = import_mutation_class_csv('A_{0}_mutation_classes.csv'.format(lineLength))
     numberOfCSVrows = len(mutationClassCSV)
     for i in range(numberOfCSVrows):
         row = mutationClassCSV[i + startRow - (numberOfCSVrows - 1)]
@@ -374,21 +374,21 @@ def mutationSearch(lineLength, mutationDepthStart, startRow, createNewCSVfile = 
             lineNumberString = "".join(lineNumberStringList)
             print('Working on class {0}'.format(lineNumberString))
             quiverName = 'A{0}_{1}'.format(lineLength, lineNumberString)
-            pathAlg = lineQuiverExample(lineLength, lineRelList, row[2])
+            pathAlg = line_quiver_example(lineLength, lineRelList, row[2])
             if printMutations:
-                printPathAlgebra(pathAlg)
+                print_path_algebra(pathAlg)
             open('{0}DF.txt'.format(quiverName), 'w').close()
             print('Mutation depth: {0}'.format(mutationDepth))
-            mutationSearchDepthFirst(pathAlg, mutationDepth, [], quiverName, printOutput=printMutations)
-            mutList = readMutationsFromFile('{0}DF.txt'.format(quiverName))
-            cleanMutList = mutationListLineCleanup(mutList, printOutput=printMutations)
+            mutation_search_depth_first(pathAlg, mutationDepth, [], quiverName, printOutput=printMutations)
+            mutList = read_mutations_from_file('{0}DF.txt'.format(quiverName))
+            cleanMutList = mutation_list_line_cleanup(mutList, printOutput=printMutations)
             open('{0}.txt'.format(quiverName), 'w').close()
             for mut in cleanMutList:
                 print('Mutations: {0}'.format(mut[1]))
                 print('Relations: {0}'.format(mut[0].rels))
-                saveLinePathAlgMutation(mut[0], mut[1], mut[2], '{0}.txt'.format(quiverName))
+                save_line_path_alg_mutation(mut[0], mut[1], mut[2], '{0}.txt'.format(quiverName))
             print('Writing class {0} to csv file'.format(lineNumberString))
-            mutationClassCSV = saveLineRelationsAndMutationsToCSV('A_{0}_mutation_classes.csv'.format(lineLength),
+            mutationClassCSV = save_line_relations_and_mutations_to_csv('A_{0}_mutation_classes.csv'.format(lineLength),
                                                                   cleanMutList, mutationClassCSV, lineNumberString)
         mutationDepth = np.maximum(mutationDepthStart - np.floor(np.log10(i+1)), 2)
     return

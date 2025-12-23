@@ -6,14 +6,14 @@ import math
 import time
 import networkx as nx
 import numpy as np
-import pathAlgebraClass
-from quiver_mutation_algebra import coxeterPoly
-from quiver_mutation_core import quiverMutationAtVertex, quiverMutationAtVertices
-from quiver_mutation_io import printPathAlgebra, readMutationsFromFile, readRelationsFromFile
-from quiver_mutation_relations import allRelsBetweenVertices, isIllegalRelation, nonMinimalOutRels, numberOfPathsUpToRels, reducePathAlgebra
-from quiver_mutation_utils import relSetToString
+import path_algebra_class
+from quiver_mutation_algebra import coxeter_poly
+from quiver_mutation_core import quiver_mutation_at_vertex, quiver_mutation_at_vertices
+from quiver_mutation_io import print_path_algebra, read_mutations_from_file, read_relations_from_file
+from quiver_mutation_relations import all_rels_between_vertices, is_illegal_relation, non_minimal_out_rels, number_of_paths_up_to_rels, reduce_path_algebra
+from quiver_mutation_utils import rel_set_to_string
 
-def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = [], quiverName = 'quiver', vertexRelabeling = {}, printOutput = True):
+def mutation_search_depth_first(pathAlg, depth, mutationVertices = [], quiverName = 'quiver', vertexRelabeling = {}, printOutput = True):
     vertices = list(pathAlg.vertices())
     baseQuiver = copy.deepcopy(pathAlg.quiver)
     quiverAtThisDepth = copy.deepcopy(pathAlg.quiver)
@@ -21,7 +21,7 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = [], quiverName =
     allRels = []
     for v in vertices:
         for w in vertices:
-            allRels.extend(allRelsBetweenVertices(pathAlg, v, w))
+            allRels.extend(all_rels_between_vertices(pathAlg, v, w))
     relsAtThisDepth = copy.deepcopy(pathAlg.rels)
     if not bool(vertexRelabeling):
         for vertex in vertices:
@@ -35,7 +35,7 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = [], quiverName =
         print("Mutations: ", mutationVertices)
         print('Numbering: {0}'.format(vertexRelabeling))
         print("Longest path: ", longestPathLength)
-        printPathAlgebra(pathAlg)
+        print_path_algebra(pathAlg)
     fileName = '{0}DF.txt'.format(quiverName)
     with open(fileName, "a") as f:
         if (longestPathLength == len(vertices) - 1) and (len(baseQuiver.edges) == len(vertices) - 1):
@@ -78,15 +78,15 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = [], quiverName =
                 vertexPredecessors = nx.dfs_preorder_nodes(nx.reverse(pathAlg.quiver), vertex)
                 vertexImmideateSuccessors = list(pathAlg.quiver.successors(vertex))
                 for v in vertexPredecessors:
-                    numberOfPathsToVertexUpToRels = numberOfPathsUpToRels(pathAlg, v, vertex)
+                    numberOfPathsToVertexUpToRels = number_of_paths_up_to_rels(pathAlg, v, vertex)
                     for w in vertexImmideateSuccessors:
-                        if numberOfPathsToVertexUpToRels > numberOfPathsUpToRels(pathAlg, v, w):
+                        if numberOfPathsToVertexUpToRels > number_of_paths_up_to_rels(pathAlg, v, w):
                             mutationPossible = False
                             break
                     if not mutationPossible:
                         break
                 # for v in vertexPredecessors:
-                #     for nonMinRel in nonMinimalOutRels(pathAlg, v):
+                #     for nonMinRel in non_minimal_out_rels(pathAlg, v):
                 #         if len(nonMinRel) == 1:
                 #             if nonMinRel[0][-1] in vertexImmideateSuccessors and nonMinRel[0][-2] != vertex:
                 #                 mutationPossible = False
@@ -95,18 +95,18 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = [], quiverName =
                 #         break
             if mutationPossible:
                 mutationVerticesAtDepth.append(vertexRelabeling[vertex])
-                mutPathAlg = quiverMutationAtVertex(pathAlg, vertex)
+                mutPathAlg = quiver_mutation_at_vertex(pathAlg, vertex)
                 for rel in mutPathAlg.rels:
-                    if isIllegalRelation(mutPathAlg, rel):
+                    if is_illegal_relation(mutPathAlg, rel):
                         discardMutation = True
                         break
                 if discardMutation:
                     break
-                mutPathAlg = reducePathAlgebra(mutPathAlg)
-                mutationSearchDepthFirst(copy.deepcopy(mutPathAlg), depth, mutationVerticesAtDepth, quiverName, vertexRelabeling, printOutput)
+                mutPathAlg = reduce_path_algebra(mutPathAlg)
+                mutation_search_depth_first(copy.deepcopy(mutPathAlg), depth, mutationVerticesAtDepth, quiverName, vertexRelabeling, printOutput)
     return
 
-def relabelLineAlgebra(pathAlg, currentRelabeling = {}):
+def relabel_line_algebra(pathAlg, currentRelabeling = {}):
     lineQuiver = pathAlg.quiver
     if not bool(currentRelabeling):
         for vertex in lineQuiver.nodes:
@@ -147,7 +147,7 @@ def relabelLineAlgebra(pathAlg, currentRelabeling = {}):
     pathAlg.rels = newLineRels
     return (pathAlg, newRelabeling)
 
-def saveLinePathAlgMutation(pathAlg, mutationVertices = [], vertexRelabeling = {}, fileName = 'lineQuiver.txt'):
+def save_line_path_alg_mutation(pathAlg, mutationVertices = [], vertexRelabeling = {}, fileName = 'lineQuiver.txt'):
     quiver = pathAlg.quiver
     rels = pathAlg.rels
     vertices = quiver.nodes
@@ -166,7 +166,7 @@ def saveLinePathAlgMutation(pathAlg, mutationVertices = [], vertexRelabeling = {
             f.write('-\n')
     return
 
-def mutationListLineCleanup(mutationList, relabelNodes = True, printOutput = True):
+def mutation_list_line_cleanup(mutationList, relabelNodes = True, printOutput = True):
     modifiedList = []
     for mut in mutationList:
         quiv = copy.deepcopy(mut[0].quiver)
@@ -183,11 +183,11 @@ def mutationListLineCleanup(mutationList, relabelNodes = True, printOutput = Tru
             if relabelNodes:
                 if printOutput:
                     print('Numbering: ', vertexRelabeling)
-                    printPathAlgebra(mut[0])
-                (pathAlg, newVertexRelabeling) = relabelLineAlgebra(mut[0], vertexRelabeling)
+                    print_path_algebra(mut[0])
+                (pathAlg, newVertexRelabeling) = relabel_line_algebra(mut[0], vertexRelabeling)
                 if printOutput:
                     print('Renumbering: ', newVertexRelabeling)
-                    printPathAlgebra(pathAlg)
+                    print_path_algebra(pathAlg)
             else:
                 pathAlg = mut[0]
             rels = copy.deepcopy(pathAlg.rels)
@@ -215,7 +215,7 @@ def mutationListLineCleanup(mutationList, relabelNodes = True, printOutput = Tru
                     modifiedList.insert(index, (pathAlg, mut[1], newVertexRelabeling))
     return modifiedList
 
-def mutationListLineCleanupKeepDupes(mutationList, relabelNodes = True, discardLongerDupes = False):
+def mutation_list_line_cleanup_keep_dupes(mutationList, relabelNodes = True, discardLongerDupes = False):
     modifiedList = []
     for mut in mutationList:
         quiv = copy.deepcopy(mut[0].quiver)
@@ -230,7 +230,7 @@ def mutationListLineCleanupKeepDupes(mutationList, relabelNodes = True, discardL
             isLineQuiver = False
         if isLineQuiver:
             if relabelNodes:
-                (pathAlg, newVertexRelabeling) = relabelLineAlgebra(mut[0], vertexRelabeling)
+                (pathAlg, newVertexRelabeling) = relabel_line_algebra(mut[0], vertexRelabeling)
             else:
                 pathAlg = mut[0]
             rels = copy.deepcopy(pathAlg.rels)
@@ -250,7 +250,7 @@ def mutationListLineCleanupKeepDupes(mutationList, relabelNodes = True, discardL
                     modifiedList.insert(index, (pathAlg, mut[1], newVertexRelabeling))
     return modifiedList
 
-def relationDualLineQuiver(quiverWrels):
+def relation_dual_line_quiver(quiverWrels):
     numberOfVertices = len(quiverWrels['quiver'])
     rels = quiverWrels['rels']
     dualRels = nx.MultiDiGraph()
@@ -260,7 +260,7 @@ def relationDualLineQuiver(quiverWrels):
     dualQuiverWrels = {'quiver' : quiverWrels['quiver'], 'rels' : dualRels}
     return dualQuiverWrels
 
-def isRelationDualLineQuiver(quiverWrels1, quiverWrels2):
+def is_relation_dual_line_quiver(quiverWrels1, quiverWrels2):
     numberOfVertices1 = len(quiverWrels1['quiver'])
     numberOfVertices2 = len(quiverWrels2['quiver'])
     rels1 = quiverWrels1['rels']
@@ -275,8 +275,8 @@ def isRelationDualLineQuiver(quiverWrels1, quiverWrels2):
             isDualQuiver = True
     return isDualQuiver
 
-def saveLineRelationsToFile(fileName):
-    mutationList = readMutationsFromFile('{0}.txt'.format(fileName))
+def save_line_relations_to_file(fileName):
+    mutationList = read_mutations_from_file('{0}.txt'.format(fileName))
     open('{0}Relations.txt'.format(fileName), 'w+').close()
     for mut in mutationList:
         relations = mut[0].rels
@@ -285,8 +285,8 @@ def saveLineRelationsToFile(fileName):
             f.close()
     return
 
-def saveLineRelationsAndMutationsToFile(fileName, saveNumbering = False):
-    mutationList = readMutationsFromFile('{0}.txt'.format(fileName))
+def save_line_relations_and_mutations_to_file(fileName, saveNumbering = False):
+    mutationList = read_mutations_from_file('{0}.txt'.format(fileName))
     open('{0}RelationsAndMutations.txt'.format(fileName), 'w+').close()
     for mut in mutationList:
         mutations = mut[1]
@@ -307,27 +307,27 @@ def saveLineRelationsAndMutationsToFile(fileName, saveNumbering = False):
                 f.close()
     return
 
-def generateListOfRelations(listOfFileNames, combinedFileName = 'allRelations'):
+def generate_list_of_relations(listOfFileNames, combinedFileName = 'allRelations'):
     combinedMutationList = []
     for fileName in listOfFileNames:
-        saveLineRelationsToFile(fileName)
-        mutationList = readMutationsFromFile(fileName + '.txt')
+        save_line_relations_to_file(fileName)
+        mutationList = read_mutations_from_file(fileName + '.txt')
         combinedMutationList.extend(mutationList[:])
-    combinedMutationListClean = mutationListLineCleanup(combinedMutationList)
+    combinedMutationListClean = mutation_list_line_cleanup(combinedMutationList)
     open('{0}.txt'.format(combinedFileName), 'w+').close()
     for mut in combinedMutationListClean:
-        saveLinePathAlgMutation(mut[0], mut[1], mut[2], combinedFileName + '.txt')
-    saveLineRelationsToFile(combinedFileName)
+        save_line_path_alg_mutation(mut[0], mut[1], mut[2], combinedFileName + '.txt')
+    save_line_relations_to_file(combinedFileName)
     return
 
-def generateAllPossibleLineRelations(lineLength):
+def generate_all_possible_line_relations(lineLength):
     lineStart = 1
     lineStop = lineLength
     if lineLength <= 2:
         return [[]]
     elif lineLength == 2:
         return [[], [[[*range(lineStart, lineStop + 1)]]]]
-    relSetList = generateAllPossibleLineRelations(lineLength - 1)
+    relSetList = generate_all_possible_line_relations(lineLength - 1)
     allPossibleRelSets = relSetList[:]
     lastRelStart = 0
     for relSet in relSetList:
@@ -338,7 +338,7 @@ def generateAllPossibleLineRelations(lineLength):
     allPossibleRelSets.sort()
     return allPossibleRelSets
 
-def collectMutationClasses(lineLength, saveToFile = False, printOutput = False):
+def collect_mutation_classes(lineLength, saveToFile = False, printOutput = False):
     lineName = 'A{0}'.format(lineLength)
     open('{0}MutationClasses.txt'.format(lineName), 'w+').close()
     mutationClassFiles = []
@@ -347,7 +347,7 @@ def collectMutationClasses(lineLength, saveToFile = False, printOutput = False):
     mutationClassFiles.sort()
     listOfRelSetLists = []
     for relFile in mutationClassFiles:
-        listOfRelSetLists.append(readRelationsFromFile('{0}'.format(relFile)))
+        listOfRelSetLists.append(read_relations_from_file('{0}'.format(relFile)))
     mutationClassAdded = [False]*len(listOfRelSetLists)
     mutationClassesWithDupes = []
     for i in range(len(listOfRelSetLists)):
@@ -428,7 +428,7 @@ def collectMutationClasses(lineLength, saveToFile = False, printOutput = False):
             numberOfReachedRelSets = numberOfReachedRelSets + len(mutationClass)
             allReachedRelSets.extend(mutationClass)
     allReachedRelSets.sort()
-    allPossibleRelSets = generateAllPossibleLineRelations(lineLength)
+    allPossibleRelSets = generate_all_possible_line_relations(lineLength)
     missingRelSets = []
     for relSet in allPossibleRelSets:
         if not relSet in allReachedRelSets:
@@ -442,14 +442,14 @@ def collectMutationClasses(lineLength, saveToFile = False, printOutput = False):
 
     return (allReachedRelSets, missingRelSets)
 
-def combineLineMutationFiles(lineLength):
+def combine_line_mutation_files(lineLength):
     lineName = 'A{0}'.format(lineLength)
     open('{0}Lines.txt'.format(lineName), 'w+').close()
     mutationClassFiles = []
     for name in glob.glob('{0}_*[0-2].txt'.format(lineName)):
         print(name)
         mutationClassFiles.append(name)
-        oneMutList = readMutationsFromFile(name)
+        oneMutList = read_mutations_from_file(name)
         for mut in oneMutList:
             with open('{0}Lines.txt'.format(lineName), "a") as f:
                 f.write('Mutations: {0}\n'.format(mut[1]))
@@ -458,8 +458,8 @@ def combineLineMutationFiles(lineLength):
                 f.write('Arrows: {0}\n'.format(mut[0].arrows()))
                 f.write('Relations: {0}\n'.format(mut[0].rels))
                 f.write('-\n')
-    reachedAndMissingRelations = collectMutationClasses(lineLength)
-    mutListNotReduced = readMutationsFromFile('{0}Lines.txt'.format(lineName))
+    reachedAndMissingRelations = collect_mutation_classes(lineLength)
+    mutListNotReduced = read_mutations_from_file('{0}Lines.txt'.format(lineName))
     mutList = []
     for mut in mutListNotReduced:
         keepMut = True
@@ -482,14 +482,14 @@ def combineLineMutationFiles(lineLength):
             f.write('-\n')
     return mutList
 
-def makeStandardLineQuiver(lineLength, relationSet):
-    pathAlg = pathAlgebraClass.PathAlgebra()
+def make_standard_line_quiver(lineLength, relationSet):
+    pathAlg = path_algebra_class.PathAlgebra()
     pathAlg.add_vertices_from(range(1, lineLength + 1))
     pathAlg.add_arrows_from([[i, i+1] for i in range(1, lineLength)])
     pathAlg.add_rels_from(relationSet)
     return pathAlg
 
-def readMutationClassesFromFile(lineLength, fileName):
+def read_mutation_classes_from_file(lineLength, fileName):
     quiverList = []
     mutationClasses = []
     with open(fileName, 'r') as f:
@@ -510,23 +510,23 @@ def readMutationClassesFromFile(lineLength, fileName):
                         relStr = relStr + ']]'
                     relList = ast.literal_eval(relStr)
                     rRels.append(relList)
-                quiverList.append(makeStandardLineQuiver(lineLength, rRels))
+                quiverList.append(make_standard_line_quiver(lineLength, rRels))
             line = f.readline()
     return mutationClasses
 
-def combineMutationClasses(lineLength):
-    mutClasses = readMutationClassesFromFile(lineLength, 'A{0}MutationClasses.txt'.format(lineLength))
+def combine_mutation_classes(lineLength):
+    mutClasses = read_mutation_classes_from_file(lineLength, 'A{0}MutationClasses.txt'.format(lineLength))
     print(len(mutClasses))
     coxPolsForClasses = []
     for clas in mutClasses:
-        coxPol = coxeterPoly(clas[0])
+        coxPol = coxeter_poly(clas[0])
         coxPolsForClasses.append(coxPol)
         for quiv in clas[1:]:
-            if coxeterPoly(quiv) != coxPol:
+            if coxeter_poly(quiv) != coxPol:
                 print('DANGER! Coxeter polynomial does not match!')
                 print('Class coxeter polynomial: ', coxPol)
-                print('Quiver coxeter polynomial: ', coxeterPoly(quiv))
-                printPathAlgebra(quiv)
+                print('Quiver coxeter polynomial: ', coxeter_poly(quiv))
+                print_path_algebra(quiv)
                 input('Press enter to continue...')
     potentiallySameClasses = []
     potentiallySameClassFound = []
@@ -550,9 +550,9 @@ def combineMutationClasses(lineLength):
                 quiversInThisClass = []
                 open('A{0}TempFileDF.txt'.format(lineLength), 'w+').close()
                 for quiv in mutClasses[classIndex]:
-                    mutationSearchDepthFirst(quiv, 6, [], 'A{0}TempFile'.format(lineLength), [])
-                mutListDF = readMutationsFromFile('A{0}TempFileDF.txt'.format(lineLength))
-                mutList = mutationListLineCleanup(mutListDF)
+                    mutation_search_depth_first(quiv, 6, [], 'A{0}TempFile'.format(lineLength), [])
+                mutListDF = read_mutations_from_file('A{0}TempFileDF.txt'.format(lineLength))
+                mutList = mutation_list_line_cleanup(mutListDF)
                 isSameClass = False
                 for mut in mutList:
                     quiversInThisClass.append(mut[0])
@@ -563,16 +563,16 @@ def combineMutationClasses(lineLength):
                         if not quiv in quiversInThisCombinedClass:
                             quiversInThisCombinedClass.append(quiv)
 
-def generateAllLineQuiversWithRelations(lineLength):
-    allPossibleLineRelations = generateAllPossibleLineRelations(lineLength)
+def generate_all_line_quivers_with_relations(lineLength):
+    allPossibleLineRelations = generate_all_possible_line_relations(lineLength)
     allLineQuiversWithRelations = []
     for i in range(len(allPossibleLineRelations)):
-        lineQuiver = makeStandardLineQuiver(lineLength, allPossibleLineRelations[i])
+        lineQuiver = make_standard_line_quiver(lineLength, allPossibleLineRelations[i])
         allLineQuiversWithRelations.append(lineQuiver)
     return allLineQuiversWithRelations
 
-def lineQuiverExample(lineLength, relationList, vertexRelabeling = {}):
-    pathAlg = pathAlgebraClass.PathAlgebra()
+def line_quiver_example(lineLength, relationList, vertexRelabeling = {}):
+    pathAlg = path_algebra_class.PathAlgebra()
     if len(relationList) != lineLength - 2:
         print('len(relationList) = ', len(relationList))
         print(lineLength - 2)
@@ -604,12 +604,12 @@ def lineQuiverExample(lineLength, relationList, vertexRelabeling = {}):
         pathAlg.add_rels_from(rels)
     return pathAlg
 
-def createMutationClassCSV(lineLength):
+def create_mutation_class_csv(lineLength):
     csvData = []
-    allLineRels = generateAllPossibleLineRelations(lineLength)
+    allLineRels = generate_all_possible_line_relations(lineLength)
     relSetsAsStrings = []
     for relSet in allLineRels:
-        relSetsAsStrings.append(relSetToString(relSet))
+        relSetsAsStrings.append(rel_set_to_string(relSet))
     #relSetsAsStrings = nestedListToString(allLineRels)
     for relSetStr in relSetsAsStrings:
         print(relSetStr)
@@ -623,7 +623,7 @@ def createMutationClassCSV(lineLength):
 
     return
 
-def importMutationClassCSV(filename):
+def import_mutation_class_csv(filename):
     csvData = []
     with open(filename, newline='') as csvfile:
         csvReader = csv.reader(csvfile, delimiter=',')
@@ -633,7 +633,7 @@ def importMutationClassCSV(filename):
     #for row in csvData:
     return csvData
 
-def saveLineRelationsAndMutationsToCSV(fileName, mutationList, csvData, mutationClassName, printOutput = False):
+def save_line_relations_and_mutations_to_csv(fileName, mutationList, csvData, mutationClassName, printOutput = False):
     baseMutationVertexString = ''
     inputMutationClassName = mutationClassName
     minMutationLength = np.infty
@@ -647,9 +647,9 @@ def saveLineRelationsAndMutationsToCSV(fileName, mutationList, csvData, mutation
         vertexNumbering = mut[2]
         #vertexNumberingList = [vertexNumbering[n] for n in range(1, len(vertexNumbering) + 1)]
         mutationVertices = mut[1]
-        coxPoly = coxeterPoly(mut[0])
+        coxPoly = coxeter_poly(mut[0])
         relSet = mut[0].rels
-        relSetString = relSetToString(relSet)
+        relSetString = rel_set_to_string(relSet)
         for i in range(len(csvData)):
             oldCSVrow = csvData[i]
             mutationLength = len(oldCSVrow[2]) + len(mut[1])
@@ -663,7 +663,7 @@ def saveLineRelationsAndMutationsToCSV(fileName, mutationList, csvData, mutation
                 minusMutationVertexString = ''
                 renumberedReverseMutationVertexString = ''
                 if bool(mut[1]):
-                    reverseMutationVertices = reverseMutationSequence(mutationVertices, vertexNumbering)
+                    reverseMutationVertices = reverse_mutation_sequence(mutationVertices, vertexNumbering)
                     renumberedReverseMutationVerticesAsStringList = []
                     for n in range(len(reverseMutationVertices)):
                         if reverseMutationVertices[n] > 0:
@@ -682,7 +682,7 @@ def saveLineRelationsAndMutationsToCSV(fileName, mutationList, csvData, mutation
                     baseMutationVertexString = oldCSVrow[2]
                 baseVertexNumbering = {}
                 for n in range(1, len(vertexNumbering) + 1):
-                    baseVertexNumbering[n] = oldNumberingList[getVertexNumberingKeyFromValue(vertexNumbering, n) - 1]
+                    baseVertexNumbering[n] = oldNumberingList[get_vertex_numbering_key_from_value(vertexNumbering, n) - 1]
                 minMutationLength = mutationLength
     for mut in mutationList:
         localVertexNumbering = mut[2]
@@ -690,7 +690,7 @@ def saveLineRelationsAndMutationsToCSV(fileName, mutationList, csvData, mutation
         vertexNumberingList = [baseVertexNumbering[localVertexNumbering[n]] for n in range(1, len(baseVertexNumbering) + 1)]
         vertexNumberingString = ';'.join([str(n) for n in vertexNumberingList])
         relSet = mut[0].rels
-        relSetString = relSetToString(relSet)
+        relSetString = rel_set_to_string(relSet)
         newRowAdded = False
         for i in range(len(csvData)):
             oldCSVrow = csvData[i]
@@ -724,8 +724,8 @@ def saveLineRelationsAndMutationsToCSV(fileName, mutationList, csvData, mutation
         writer.writerows(csvData)
     return csvData
 
-def combineMutationClassesInCSVfile(filename, mutationDepth, lineLength):
-    oldCSVdata = importMutationClassCSV(filename)
+def combine_mutation_classes_in_csvfile(filename, mutationDepth, lineLength):
+    oldCSVdata = import_mutation_class_csv(filename)
     newCSVdata = []
     for i in range(len(oldCSVdata)):
         baseRow = oldCSVdata[i]
@@ -739,7 +739,7 @@ def combineMutationClassesInCSVfile(filename, mutationDepth, lineLength):
                 newCSVdata.append(baseRow) #wrong!
                 break
 
-    mutationClassCSV = importMutationClassCSV(filename)
+    mutationClassCSV = import_mutation_class_csv(filename)
     numberOfCSVrows = len(mutationClassCSV)
     for n in range(mutationDepth):
         for i in range(numberOfCSVrows):
@@ -767,23 +767,23 @@ def combineMutationClassesInCSVfile(filename, mutationDepth, lineLength):
                     lineNumberStringList = [str(num) for num in lineRelList]
                     lineNumberString = "".join(lineNumberStringList)
                     quiverName = 'A{0}_{1}'.format(lineLength, lineNumberString)
-                    pathAlg = lineQuiverExample(lineLength, lineRelList, currentRow[2])
-                    printPathAlgebra(pathAlg)
+                    pathAlg = line_quiver_example(lineLength, lineRelList, currentRow[2])
+                    print_path_algebra(pathAlg)
                     open('{0}DF.txt'.format(quiverName), 'w').close()
-                    mutationSearchDepthFirst(pathAlg, mutationDepth, [], quiverName)
-                    mutList = readMutationsFromFile('{0}DF.txt'.format(quiverName))
-                    cleanMutList = mutationListLineCleanup(mutList)
+                    mutation_search_depth_first(pathAlg, mutationDepth, [], quiverName)
+                    mutList = read_mutations_from_file('{0}DF.txt'.format(quiverName))
+                    cleanMutList = mutation_list_line_cleanup(mutList)
                     open('{0}.txt'.format(quiverName), 'w').close()
                     for mut in cleanMutList:
                         print('Mutations: {0}'.format(mut[1]))
                         print('Relations: {0}'.format(mut[0].rels))
-                        saveLinePathAlgMutation(mut[0], mut[1], mut[2], '{0}.txt'.format(quiverName))
+                        save_line_path_alg_mutation(mut[0], mut[1], mut[2], '{0}.txt'.format(quiverName))
                     print('csv data: ', mutationClassCSV)
-                    mutationClassCSV = saveLineRelationsAndMutationsToCSV('A_{0}_mutation_classes.csv'.format(lineLength), cleanMutList, mutationClassCSV, lineNumberString)
+                    mutationClassCSV = save_line_relations_and_mutations_to_csv('A_{0}_mutation_classes.csv'.format(lineLength), cleanMutList, mutationClassCSV, lineNumberString)
                     if mutationClassCSV[j][1] == baseClass:
                         baseQuiverRelations = [int(rel) in baseClass.split('')]
-                        baseQuiver = lineQuiverExample(len(baseQuiverRelations) + 2, baseQuiverRelations)
-                        quiverWithRightNumbering = quiverMutationAtVertices(baseQuiver, )
+                        baseQuiver = line_quiver_example(len(baseQuiverRelations) + 2, baseQuiverRelations)
+                        quiverWithRightNumbering = quiver_mutation_at_vertices(baseQuiver, )
                         mutDictKeys = list()
                         reverseMutationVertices = []
                         for k in range(numberOfCSVrows):
@@ -794,12 +794,12 @@ def combineMutationClassesInCSVfile(filename, mutationDepth, lineLength):
                                 mutationClassCSV[k][2] = mutationClassCSV[j][2] + ';'
     return newCSVdata
 
-def convertLineFromCSVnotation( lineLength, lineInCSVnotation ):
+def convert_line_from_csvnotation( lineLength, lineInCSVnotation ):
     #lineInCSVnotation'1;2;3;4;5|2;3;4;5;6|4;5;6;7;8;9;10'
     listOfRels = []
     listOfRelsAsStr = lineInCSVnotation.split('|')
     for relString in listOfRelsAsStr:
         relAsList = [ int(i) for i in relString.split(';') ]
         listOfRels.append([relAsList])
-    lineQuiver = makeStandardLineQuiver(lineLength, listOfRels)
+    lineQuiver = make_standard_line_quiver(lineLength, listOfRels)
     return lineQuiver

@@ -1,9 +1,9 @@
 import itertools
 
-def listIntersection(lst1, lst2):
+def list_intersection(lst1, lst2):
     return list(set(lst1) & set(lst2))
 
-def sublistExists(list, sublist):
+def sublist_exists(list, sublist):
     for i in range(len(list)-len(sublist)+1):
         if sublist == list[i:i+len(sublist)]:
             return True #return position (i) if you wish
@@ -41,28 +41,28 @@ def divisors(n):
 
 def powerset(iterable):
     "list(powerset([1,2,3])) --> [(), (1,), (2,), (3,), (1,2), (1,3), (2,3), (1,2,3)]"
-    powerList = []
+    power_list = []
     s = list(iterable)
     for tup in itertools.chain.from_iterable(itertools.combinations(s, r) for r in range(len(s)+1)):
-        powerList.append(list(tup))
-    return powerList
+        power_list.append(list(tup))
+    return power_list
 
-def relSetToString(relSet):
-    stringList = []
-    for i in range(len(relSet)):
-        stringInts = [str(int) for int in relSet[i][0]]
-        stringOfInts = ";".join(stringInts)
-        stringList.append(stringOfInts)
-    joinedString = "|".join(stringList)
-    return joinedString
+def rel_set_to_string(rel_set):
+    string_list = []
+    for i in range(len(rel_set)):
+        string_ints = [str(int) for int in rel_set[i][0]]
+        string_of_ints = ";".join(string_ints)
+        string_list.append(string_of_ints)
+    joined_string = "|".join(string_list)
+    return joined_string
 
-def getVertexNumberingKeyFromValue(vertexNumbering, vertex):
-    keyList = list(vertexNumbering.keys())
-    valueList = list(vertexNumbering.values())
+def get_vertex_numbering_key_from_value(vertex_numbering, vertex):
+    key_list = list(vertex_numbering.keys())
+    value_list = list(vertex_numbering.values())
     if vertex > 0:
-        position = valueList.index(vertex)
-        key = keyList[position]
+        position = value_list.index(vertex)
+        key = key_list[position]
     else:
-        position = valueList.index(-vertex)
-        key = -keyList[position]
+        position = value_list.index(-vertex)
+        key = -key_list[position]
     return key
