@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "quiverMutation"
+version = "0.1.0"
+description = "Tool for performing mutation of quivers with relations, corresponding to tilting mutation of their path algebras."
+readme = "README.md"
+authors = [{ name = "quiverMutation contributors" }]
+requires-python = ">=3.9"
+dependencies = [
+    "matplotlib",
+    "networkx",
+    "numpy",
+    "sympy",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+]
+
+[tool.setuptools]
+py-modules = [
+    "main",
+    "pathAlgebraClass",
+    "quiverExamples",
+    "quiverMutation",
+    "quiver_mutation_algebra",
+    "quiver_mutation_core",
+    "quiver_mutation_io",
+    "quiver_mutation_line",
+    "quiver_mutation_quipus",
+    "quiver_mutation_relations",
+    "quiver_mutation_search",
+    "quiver_mutation_utils",
+]
