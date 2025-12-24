@@ -4,8 +4,11 @@ import itertools
 import math
 import networkx as nx
 import numpy as np
+import time
 import sympy
 from sympy.matrices import Matrix
+from operator import itemgetter
+from .utils import powerset
 
 def generate_all_quipus_up_to_length( length ):
     timeStart = time.time()

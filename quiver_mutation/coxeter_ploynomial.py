@@ -2,7 +2,7 @@ import numpy as np
 import networkx as nx
 import sympy
 from sympy.matrices import Matrix, eye
-from .quiver_mutation_relations import number_of_paths_up_to_rels
+from .relations import number_of_paths_up_to_rels
 
 def cartan_matrix(pathAlg):
     quiv = pathAlg.quiver
