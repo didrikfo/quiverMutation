@@ -66,6 +66,47 @@ def test_length_6_classification(tmp_path, monkeypatch):
     assert sorted(len(m) for m in members.values()) == [1, 12, 13, 16]
 
 
+@pytest.mark.slow
+def test_length_7_classification(tmp_path, monkeypatch):
+    """n = 7 is the first length where merging by hand does real work.
+
+    The search leaves 11 classes, which fall into 6 groups by Coxeter
+    polynomial -- exactly the 6 quipus of order 7 in the paper's table.
+    """
+    rows = run_search(tmp_path, monkeypatch, 7, 6)
+    assert len(rows) == 132  # Catalan(6)
+
+    by_poly, members = classes_by_coxeter_polynomial(rows)
+    assert sum(len(names) for names in by_poly.values()) == 11
+    assert len(by_poly) == len(PAPER_CLASSES[7]) == 6
+    assert sorted(len(m) for m in members.values()) == [4, 6, 7, 29, 32, 54]
+
+
+@pytest.mark.slow
+def test_length_8_classification(tmp_path, monkeypatch):
+    """The full n = 8 classification, the largest one the paper prints.
+
+    The search leaves 28 classes, which fall into 11 groups by Coxeter
+    polynomial -- exactly the 11 quipus of order 8 in the paper's table, with
+    every published class landing inside a single group.
+    """
+    rows = run_search(tmp_path, monkeypatch, 8, 6)
+    assert len(rows) == 429  # Catalan(7)
+
+    by_poly, members = classes_by_coxeter_polynomial(rows)
+    assert sum(len(names) for names in by_poly.values()) == 28
+    assert len(by_poly) == len(PAPER_CLASSES[8]) == 11
+    assert sorted(len(m) for m in members.values()) == [
+        1, 4, 9, 10, 13, 26, 40, 64, 64, 65, 133,
+    ]
+    assert sum(len(m) for m in members.values()) == 429
+
+    poly_of = {relations: poly for relations, _c, _p, poly, _n in rows}
+    for label, entries in PAPER_CLASSES[8].items():
+        polys = {poly_of[relation_string(8, *entry)] for entry in entries}
+        assert len(polys) == 1, f"class {label} split across {polys}"
+
+
 @pytest.mark.parametrize("length", [4, 5, 6])
 def test_search_partition_refines_the_published_one(length, tmp_path, monkeypatch):
     """Every LNA the paper puts in one class must land in one Coxeter group.

@@ -105,6 +105,14 @@ proof. It does happen to separate every class for n <= 8.
 * n = 7: the search finds 11 classes with 6 distinct Coxeter polynomials,
   matching the 6 quipus of order 7 in the paper, sizes
   32 + 29 + 54 + 7 + 6 + 4 = 132.
+* n = 8: the search finds 28 classes with 11 distinct Coxeter polynomials,
+  matching the 11 quipus of order 8 in the paper. Every one of the paper's
+  classes lands inside a single group, and the group sizes
+  1 + 4 + 9 + 10 + 13 + 26 + 40 + 64 + 64 + 65 + 133 account for all 429 LNAs.
+  The whole run takes about 7 minutes at depth 6.
+
+Run times at depth 6, after the deepcopy fix: n = 5 a few seconds, n = 6 about
+20 seconds, n = 7 90 seconds, n = 8 7 minutes. Each is pinned as a `slow` test.
 
 ## Known gaps and limitations
 
@@ -135,6 +143,11 @@ proof. It does happen to separate every class for n <= 8.
 * **Results round-trip through text files**, parsed by string slicing at fixed
   offsets in `readMutationsFromFile`. Fragile and slow; the search should hand
   the mutation list to the CSV writer in memory.
+* **`combineMutationClassesInCSVfile` does not work.** It was the start of an
+  automated merge step and was never finished: it has a `#wrong!` marked append,
+  a call to `quiverMutationAtVertices` missing its second argument, and a
+  `baseClass.split('')` that raises. Treat it as a sketch of idea 12, not as
+  code to fix.
 
 ## Backlog
 
