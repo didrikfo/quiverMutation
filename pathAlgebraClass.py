@@ -46,7 +46,8 @@ class PathAlgebra():
             rel.sort()
         self.rels.extend(rels[:])
 
-    def update_quiver(self, newQuiver, newRels = []):
+    def update_quiver(self, newQuiver, newRels = None):
+        newRels = [] if newRels is None else newRels
         self.quiver = newQuiver
         self.rels = newRels
 

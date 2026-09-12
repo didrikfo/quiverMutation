@@ -707,15 +707,65 @@ def plotQuiver(pathAlg, showPlot = True, saveToFile = False, fileName = 'quiverP
         plt.show()
     return
 
-def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = [], quiverName = 'quiver', vertexRelabeling = {}, printOutput = True):
+def allRelsInPathAlgebra(pathAlg):
+    """Every relation between every ordered pair of vertices, minimal or not."""
+    allRels = []
+    vertices = list(pathAlg.vertices())
+    for v in vertices:
+        for w in vertices:
+            allRels.extend(allRelsBetweenVertices(pathAlg, v, w))
+    return allRels
+
+
+def mutationIsPossibleAtVertex(pathAlg, vertex, allRels = None):
+    """Whether the mutation procedure may be applied to pathAlg at vertex.
+
+    This is the admissibility test of theorem 1 in arXiv:2112.08129, as the
+    depth-first search has always applied it:
+
+    * There must be an arrow out of vertex.  P_i* is the cocone of a right
+      approximation of P_i by the other indecomposable projectives, so with no
+      arrow out of i there is nothing to approximate by.
+    * The quiver must have no pair of parallel arrows.  This is a restriction of
+      this implementation rather than of the procedure: a relation is modelled
+      as a set of vertex sequences, which cannot distinguish two arrows with
+      the same source and target.
+    * Hom(P_i*[1], Lambda) = 0, which holds iff every nonzero path ending in i
+      composes nonzero with at least one arrow out of i.  A minimal zero
+      relation whose last arrow starts in i, and whose truncation by that last
+      arrow is itself nonzero, is a witness that it fails.
+
+    Note that the last test is stricter than the paper's condition when vertex
+    has more than one arrow out of it: it rejects the vertex as soon as one
+    arrow out of it kills a nonzero path, where the paper only requires that
+    some arrow out of it does not.  The two agree whenever vertex has a single
+    arrow out of it, which is the only case the linear Nakayama search meets.
+    """
+    if not bool(pathAlg.out_arrows(vertex)):
+        return False
+    for ar in pathAlg.arrows():
+        if ar[2] > 0:
+            return False
+    if allRels is None:
+        allRels = allRelsInPathAlgebra(pathAlg)
+    for rel in allRels:
+        if len(rel) == 1 and rel[0][-2] == vertex and (not [rel[0][:-1]] in allRels):
+            return False
+    return True
+
+
+def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName = 'quiver', vertexRelabeling = None, printOutput = True):
+    # These used to default to [] and {}, which Python evaluates once at
+    # definition time.  The relabeling dict is filled in below and so leaked
+    # between searches: a second search in the same process inherited the
+    # first one's numbering, and crashed as soon as the quiver was longer.
+    mutationVertices = [] if mutationVertices is None else mutationVertices
+    vertexRelabeling = {} if vertexRelabeling is None else dict(vertexRelabeling)
     vertices = list(pathAlg.vertices())
     baseQuiver = copy.deepcopy(pathAlg.quiver)
     quiverAtThisDepth = copy.deepcopy(pathAlg.quiver)
     rels = copy.deepcopy(pathAlg.rels)
-    allRels = []
-    for v in vertices:
-        for w in vertices:
-            allRels.extend(allRelsBetweenVertices(pathAlg, v, w))
+    allRels = allRelsInPathAlgebra(pathAlg)
     relsAtThisDepth = copy.deepcopy(pathAlg.rels)
     if not bool(vertexRelabeling):
         for vertex in vertices:
@@ -752,22 +802,7 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = [], quiverName =
             pathAlg.quiver = copy.deepcopy(quiverAtThisDepth)
             pathAlg.rels = copy.deepcopy(relsAtThisDepth)
             mutationVerticesAtDepth = mutationVertices[:]
-            mutationPossible = True
-            if not bool(pathAlg.out_arrows(vertex)):
-                mutationPossible = False
-            else:
-                for ar in pathAlg.arrows():
-                    if ar[2] > 0:
-                        mutationPossible = False
-                        break
-            if mutationPossible:
-#                for ar in pathAlg.out_arrows(vertex):
-#                    for rel in pathAlg.in_rels(ar[1]):
-#                for relStartVertex in vertices:
-                for rel in allRels:
-                    if len(rel) == 1 and rel[0][-2] == vertex and (not [rel[0][:-1]] in allRels):
-                        mutationPossible = False
-                        break
+            mutationPossible = mutationIsPossibleAtVertex(pathAlg, vertex, allRels)
             if mutationPossible:
                 vertexPredecessors = nx.dfs_preorder_nodes(nx.reverse(pathAlg.quiver), vertex)
                 vertexImmideateSuccessors = list(pathAlg.quiver.successors(vertex))
@@ -830,7 +865,8 @@ def divisors(n):
     for factor in generate(0):
         yield factor
 
-def relabelLineAlgebra(pathAlg, currentRelabeling = {}):
+def relabelLineAlgebra(pathAlg, currentRelabeling = None):
+    currentRelabeling = {} if currentRelabeling is None else dict(currentRelabeling)
     lineQuiver = pathAlg.quiver
     if not bool(currentRelabeling):
         for vertex in lineQuiver.nodes:
@@ -871,7 +907,9 @@ def relabelLineAlgebra(pathAlg, currentRelabeling = {}):
     pathAlg.rels = newLineRels
     return (pathAlg, newRelabeling)
 
-def saveLinePathAlgMutation(pathAlg, mutationVertices = [], vertexRelabeling = {}, fileName = 'lineQuiver.txt'):
+def saveLinePathAlgMutation(pathAlg, mutationVertices = None, vertexRelabeling = None, fileName = 'lineQuiver.txt'):
+    mutationVertices = [] if mutationVertices is None else mutationVertices
+    vertexRelabeling = {} if vertexRelabeling is None else vertexRelabeling
     quiver = pathAlg.quiver
     rels = pathAlg.rels
     vertices = quiver.nodes
@@ -1241,7 +1279,6 @@ def cartanMatrix(pathAlg):
 
 def coxeterPoly(pathAlg):
     cartanMat = cartanMatrix(pathAlg)
-    print(np.matrix(cartanMat))
     cartanMatInvTrans = cartanMat.inv().transpose()
     coxeterMatrix = -cartanMatInvTrans*cartanMat
     coxeterPolynomial = coxeterMatrix.charpoly()
@@ -1724,13 +1761,14 @@ def generateAllLineQuiversWithRelations(lineLength):
         allLineQuiversWithRelations.append(lineQuiver)
     return allLineQuiversWithRelations
 
-def lineQuiverExample(lineLength, relationList, vertexRelabeling = {}):
+def lineQuiverExample(lineLength, relationList, vertexRelabeling = None):
+    vertexRelabeling = {} if vertexRelabeling is None else vertexRelabeling
     pathAlg = pathAlgebraClass.PathAlgebra()
     if len(relationList) != lineLength - 2:
         print('len(relationList) = ', len(relationList))
         print(lineLength - 2)
         print('Error! Invalid relation set.')
-    elif (max(relationList) > lineLength - 1):
+    elif bool(relationList) and (max(relationList) > lineLength - 1):
         print('Error! Invalid relation set.')
     else:
         vertices = list(range(1, lineLength + 1))
@@ -2215,7 +2253,8 @@ def quiverMutation(pathAlgebra, mutationVertexList, firstDisplayedStep = 0):
     return pathAlgebra
 
 
-def onePointExtension(pathAlgebra, arrowToAdd, relsToAdd = []):
+def onePointExtension(pathAlgebra, arrowToAdd, relsToAdd = None):
+    relsToAdd = [] if relsToAdd is None else relsToAdd
     extendedPathAlg = pathAlgebra
     extendedPathAlg.add_arrows_from([arrowToAdd])
     extendedPathAlg.add_rels_from(relsToAdd)

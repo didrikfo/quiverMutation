@@ -26,3 +26,6 @@ build-backend = "setuptools.build_meta"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+markers = [
+  "slow: runs a full mutation class search; takes tens of seconds or more",
+]
