@@ -1,0 +1,11 @@
+README.md
+main.py
+pathAlgebraClass.py
+pyproject.toml
+quiverExamples.py
+quiverMutation.py
+quivermutation.egg-info/PKG-INFO
+quivermutation.egg-info/SOURCES.txt
+quivermutation.egg-info/dependency_links.txt
+quivermutation.egg-info/requires.txt
+quivermutation.egg-info/top_level.txt

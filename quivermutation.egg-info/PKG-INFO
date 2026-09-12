@@ -1,0 +1,17 @@
+Metadata-Version: 2.4
+Name: quivermutation
+Version: 0.1.0
+Summary: Tools for mutating quivers with relations and working with their path algebras.
+Author: Didrik Fosse
+License: MIT
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: matplotlib>=3.9
+Requires-Dist: networkx>=3.3
+Requires-Dist: numpy>=2.1
+Requires-Dist: sympy>=1.13
+Provides-Extra: test
+Requires-Dist: pytest>=8.3; extra == "test"
+
+# quiverMutation
+Tool for performing mutation of quivers with relations, corresponding to tilting mutation of their path algebras.
