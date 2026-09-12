@@ -267,10 +267,13 @@ def nonMinimalOutRels(pathAlg, vertex):
 
 
 def allRelsBetweenVertices(pathAlg, startVertex,endVertex):
-    pathAlgCopy = copy.deepcopy(pathAlg)
-    relsBetween = pathAlgCopy.rels_between(startVertex, endVertex)
-    #allRelsBetween= pathAlgCopy.rels_between(startVertex, endVertex)
-    for ar in pathAlgCopy.out_arrows(startVertex):
+    # This used to deep-copy the whole path algebra, including its networkx
+    # graph, on every one of its recursive calls, which accounted for most of
+    # the run time of a class search.  The quiver is only read here, so the
+    # relations are all that need copying, and rels_between already returns a
+    # fresh list.
+    relsBetween = [copy.deepcopy(rel) for rel in pathAlg.rels_between(startVertex, endVertex)]
+    for ar in pathAlg.out_arrows(startVertex):
         dRelsBetween = allRelsBetweenVertices(pathAlg, ar[1], endVertex)
         for rel in dRelsBetween:
             newRel = []
@@ -285,7 +288,7 @@ def allRelsBetweenVertices(pathAlg, startVertex,endVertex):
                 verticesBetween.append(i)
     for i in verticesBetween:
             if i != endVertex:
-                for rel in pathAlgCopy.rels_between(startVertex, i):
+                for rel in pathAlg.rels_between(startVertex, i):
                     for path in nx.all_simple_paths(pathAlg.quiver, i, endVertex):
                         newRel = []
                         for relPath in rel:
@@ -315,9 +318,10 @@ def allRelsBetweenVertices(pathAlg, startVertex,endVertex):
     return allRelsBetween
 
 def allMinimalRelsBetweenVertices(pathAlg, startVertex,endVertex):
-    pathAlgCopy = copy.deepcopy(pathAlg)
-    relsBetween = pathAlgCopy.rels_between(startVertex, endVertex)
-    allRelsBetween= pathAlgCopy.rels_between(startVertex, endVertex)
+    # As in allRelsBetweenVertices, the quiver is only read, so copying the
+    # relations is enough and copying the graph with it was pure overhead.
+    relsBetween = [copy.deepcopy(rel) for rel in pathAlg.rels_between(startVertex, endVertex)]
+    allRelsBetween = [copy.deepcopy(rel) for rel in pathAlg.rels_between(startVertex, endVertex)]
     verticesBetween = []
     for path in nx.all_simple_paths(pathAlg.quiver, startVertex, endVertex):
         for i in path:
@@ -327,7 +331,7 @@ def allMinimalRelsBetweenVertices(pathAlg, startVertex,endVertex):
     for i in verticesBetween:
         for j in verticesBetween:
             if i != startVertex or j != endVertex:
-                for rel in pathAlgCopy.rels_between(i, j):
+                for rel in pathAlg.rels_between(i, j):
                     if not rel in intermideateRels:
                         intermideateRels.append(rel)
     powerSetOfShorterRels = powerset(intermideateRels)
