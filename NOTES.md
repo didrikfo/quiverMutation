@@ -256,6 +256,22 @@ and `{r}`, which is valid for `p+q+r=0, p+q=0` but not for `p+q+r=0, p-q=0`,
 where it should give `2p+r=0`. `numberOfPathsUpToRels` meanwhile reports 2 for
 that algebra, so the two halves of the code disagree about the same object.
 
+**Reading a relation without coefficients.** `fromPathSet` has to guess the
+signs, and the guess matters:
+
+* one path -- that path is zero, no sign to choose;
+* two paths -- a **difference**, `p - q = 0`. This is what the rest of the repo
+  means: `applyRelSetToPath` substitutes one path for the other, and
+  `numberOfPathsUpToRels` treats a two-path relation as identifying them.
+  Reading it as a sum is not harmless. Three commutativity relations among three
+  parallel paths `p, q, r` become `p = -q`, `r = -q` and `p + r = -2q`, which
+  forces `q = 0` and collapses a Hom space that should be one-dimensional. This
+  showed up as nine apparent failures in the check below, every one of them the
+  sign reading rather than a fault in the code being checked;
+* three or more paths -- a **sum**, which is what step 4 produces. The true signs
+  are not recoverable, and that is the central reason to move the procedure onto
+  coefficients.
+
 **How much of this matters for the published results: none of it so far.**
 `relationAlgebra.cartanMatrixExact` agrees with the existing `cartanMatrix` on
 all 624 LNAs of length <= 8, and on all 8101 quivers reached by walking every

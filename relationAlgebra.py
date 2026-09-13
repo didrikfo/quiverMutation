@@ -57,17 +57,45 @@ def combination(terms):
     return {path: c for path, c in result.items() if c != 0}
 
 
-def fromPathSet(paths):
-    """Read a relation in the set-of-paths model as a sum with every sign +1.
+def asSum(paths):
+    """Read a relation in the set-of-paths model as a sum, every coefficient +1.
 
-    This is the reading the mutation procedure's step 4 produces directly
-    (sum over the arrows out of i of alpha* alpha beta = 0).  It is *a* reading
-    of a relation written without coefficients, not the only one: a two-path
-    relation used as a commutativity relation means the difference, not the sum.
-    The two agree on everything this module computes about dimensions, and
-    differ on which individual paths are zero.
+    This is what step 4 of the mutation procedure produces directly: the sum
+    over the arrows alpha out of i of alpha* alpha beta = 0.
     """
     return combination(tuple(path) for path in paths)
+
+
+def asDifference(paths):
+    """Read a two-path relation as a difference, p - q = 0.
+
+    A relation written as exactly two paths is a commutativity relation
+    throughout this repo: `applyRelSetToPath` substitutes one for the other, and
+    `numberOfPathsUpToRels` treats a two-path relation as identifying them.  So
+    it means p - q, not p + q.
+    """
+    if len(paths) != 2:
+        raise ValueError("a difference needs exactly two paths, got {0}".format(len(paths)))
+    first, second = paths
+    return combination([(tuple(first), 1), (tuple(second), -1)])
+
+
+def fromPathSet(paths):
+    """Read a relation in the set-of-paths model the way this repo means it.
+
+    * One path: that path is zero.  No sign to choose.
+    * Two paths: a commutativity relation, so p - q = 0.  Reading it as p + q
+      instead is not harmless -- three commutativity relations among three
+      parallel paths become p = -q, r = -q and p + r = -2q, which forces q = 0
+      and collapses a Hom space that should have dimension 1.
+    * Three or more: a sum, as step 4 of the procedure produces.  The true signs
+      are not recoverable from the set-of-paths model, which is the central
+      reason to move the procedure onto coefficients.
+    """
+    paths = list(paths)
+    if len(paths) == 2:
+        return asDifference(paths)
+    return asSum(paths)
 
 
 def toPathSet(comb):

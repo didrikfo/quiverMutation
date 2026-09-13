@@ -39,7 +39,7 @@ def test_a_single_arrow_path_is_not_mistaken_for_a_coefficient_pair():
     assert ra.combination([(1, 2)]) == {(1, 2): 1}
     assert ra.combination([((1, 2), 3)]) == {(1, 2): 3}
     assert ra.combination({(1, 2): 3}) == {(1, 2): 3}
-    assert ra.fromPathSet([[1, 2], [1, 3, 2]]) == {(1, 2): 1, (1, 3, 2): 1}
+    assert ra.asSum([[1, 2], [1, 3, 2]]) == {(1, 2): 1, (1, 3, 2): 1}
 
 
 def test_an_inadmissible_relation_reaches_the_cartan_matrix_intact():
@@ -98,6 +98,32 @@ def test_a_combination_must_have_one_source_and_one_target():
 
 
 # -- exact ideal membership ----------------------------------------------
+
+def test_a_two_path_relation_is_read_as_a_difference():
+    """A relation written as two paths means commutativity, so p - q, not p + q.
+
+    Reading it as a sum is not harmless.  Three commutativity relations among
+    three parallel paths p, q, r give p = -q, r = -q and p + r = -2q, which
+    forces q = 0 and collapses a Hom space that should be one-dimensional.  This
+    turned up when checking that reducePathAlgebra preserves the Cartan matrix:
+    nine of 38095 reductions appeared to change it, and every one was this sign
+    reading rather than a fault in the reduction.
+    """
+    p, q, r = (1, 2, 3, 7), (1, 2, 6, 7), (1, 5, 6, 7)
+    assert ra.fromPathSet([p, q]) == {p: 1, q: -1}
+    assert ra.asSum([p, q]) == {p: 1, q: 1}
+    assert ra.fromPathSet([p]) == {p: 1}
+    assert ra.fromPathSet([p, q, r]) == {p: 1, q: 1, r: 1}
+
+    pa = algebra(
+        [(1, 2), (1, 5), (2, 3), (2, 6), (3, 7), (5, 6), (6, 7)],
+        [[p, q], [q, r], [p, r]],
+    )
+    asDifferences = [ra.fromPathSet(rel) for rel in pa.rels]
+    asSums = [ra.asSum(rel) for rel in pa.rels]
+    assert ra.homDimension(pa.quiver, asDifferences, 1, 7) == 1
+    assert ra.homDimension(pa.quiver, asSums, 1, 7) == 0
+
 
 def test_a_zero_relation_propagates_through_chained_commutative_squares():
     """The case the set-of-paths model gets wrong.
