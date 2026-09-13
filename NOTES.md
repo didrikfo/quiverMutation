@@ -337,6 +337,93 @@ Results, all matching the published table with nothing left as a candidate:
 | 7 | 132  | 6       | 54, 32, 29, 7, 6, 4 | ~37s |
 | 8 | 429  | 11      | 133, 65, 64, 64, 40, 26, 13, 10, 9, 4, 1 | ~4min |
 
+### Mutation shortcuts between LNAs
+
+`lnaMoves` holds a table of **local rewrites**: a window of the quiver, what the
+relations inside it become, and the mutation sequence that does it. Applying one
+costs a table lookup where the depth-first search costs a subtree, so a class can
+be expanded without searching.
+
+A rule is `(window width in arrows, relations before, relations after, mutation
+sequence)`, with relation starts and mutation vertices relative to the window's
+first arrow and a negative vertex meaning a left mutation. `movesByRule` applies
+every rule at every position; `closureUnderMoves` takes the orbit, returning for
+each member the mutation path and the vertex numbering, in the shape the search
+produces.
+
+**Composing moves needs the numbering.** `quiverMutationAtVertex` keeps every
+vertex label -- the mutated vertex `i` becomes `i*` but is still called `i` -- so
+labels never permute. What changes is the *order* the labels appear along the
+line, so a rule that wants "the source of the first relation" has to be told
+which label that is now. Note also that `relabelLineAlgebra` renumbers its
+argument **in place**.
+
+#### Three rules that matter
+
+    (5, ((0,3),(1,3)), ((1,3),(2,3)), (-5,-5))
+    (5, ((1,3),(2,3)), ((0,3),(1,3)), (2,2))
+
+Two relations of equal length starting at consecutive vertices -- maximally
+overlapping -- slide along the quiver, provided no other relation shares an arrow
+with their span. Two **right** mutations at the first relation's source move them
+one arrow **left**; two **left** mutations at the second relation's target move
+them one arrow **right**. (Right mutations slide the pair left, not right.)
+
+    (5, ((0,3),(1,3),(3,2)), ((0,2),(1,3),(2,3)), (2,2))
+
+A relation stays put while the meeting point of the two relations around it moves
+one arrow left, under two right mutations at the fixed relation's source.
+
+    (3, ((1,2),), ((0,2),), (2,))
+    (3, ((0,2),), ((1,2),), (-3,))
+
+A lone relation of length 2 slides one arrow under a **single** mutation.
+
+#### How the rules are found, and why verification is the whole job
+
+`discoverMoves` enumerates the short mutation sequences that take one LNA to
+another, describes each as a local rewrite, and reports the descriptions that
+recur across lengths and positions. `verifyMove` then checks a candidate at every
+window position of every LNA over a range of lengths. **Three things have to hold
+and all three are needed:**
+
+1. the result is the predicted LNA;
+2. every mutation in the sequence is admissible where it lands, so the sequence
+   really is a chain of tilting mutations;
+3. the Coxeter polynomial does not move.
+
+Checking only (1) is badly insufficient, and this was learnt the hard way. A
+first pass admitted **38** rules on that basis; the orbits they generated had the
+wrong Coxeter polynomial **6561 times out of 8388**. The reason: a mutation
+outside the admissibility condition still returns a quiver, just not a derived
+equivalent one, so a rewrite can land on exactly the predicted relation lengths
+and be false. With (2) and (3) added, **16 of the 67 candidates survive** -- and
+the current table is checked clean: 1764 orbit members across every LNA of
+lengths 5 to 9, every recorded sequence correct, the Coxeter polynomial constant
+on every orbit.
+
+A second cautionary case: "a lone relation of length 2 may be deleted" is true as
+mathematics (relations of length 2 do not change the class) but false as a
+two-arrow rewrite -- 63 confirmations against 130 failures. It needs a wider
+window.
+
+#### What they buy so far
+
+Seeding the table from the quipu theorem and then expanding along move orbits,
+with no searching at all:
+
+| n | rows | from the theorem | plus move orbits | share of the table |
+|---|---|---|---|---|
+| 7 | 132 | 72 | 91 | 69% |
+| 8 | 429 | 186 | 238 | 55% |
+| 9 | 1430 | 481 | 624 | 44% |
+
+Modest, because the surviving rules mostly keep an LNA inside the "almost
+separate" set the theorem already covers. The rules that would help most are ones
+reaching the heavily overlapping LNAs, which is where the rows needing a search
+still are -- so a deeper `discoverMoves` (longer sequences, wider windows) is the
+next step and is expected to pay.
+
 ### Where the Coxeter polynomial fails, exactly
 
 The Coxeter polynomial of the path algebra of a tree is determined by the tree's

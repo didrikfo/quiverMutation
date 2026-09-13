@@ -1,0 +1,217 @@
+"""Mutation sequence shortcuts between LNAs.
+
+A rule here is a *local rewrite*: a window of the quiver, what the relations
+inside it become, and the mutation sequence that does it.  Nothing goes in
+lnaMoves.VERIFIED_MOVES without verifyMove checking it against the mutation
+engine at every window position of every LNA over a range of lengths, because
+plausible-looking rules are often wrong -- "a lone relation of length 2 may be
+deleted", stated on a two-arrow window, holds 63 times and fails 130 times.
+"""
+
+import itertools
+
+import pytest
+import sympy
+
+import lnaMoves as lm
+import nakayama as nk
+import quiverMutation as qm
+from helpers import quiet
+
+
+# ---------------------------------------------------------------------------
+# The two moves this started from
+# ---------------------------------------------------------------------------
+
+PAIR_SLIDE_RIGHT = (5, ((0, 3), (1, 3)), ((1, 3), (2, 3)), (-5, -5))
+PAIR_SLIDE_LEFT = (5, ((1, 3), (2, 3)), ((0, 3), (1, 3)), (2, 2))
+MEETING_POINT_LEFT = (5, ((0, 3), (1, 3), (3, 2)), ((0, 2), (1, 3), (2, 3)), (2, 2))
+
+
+def test_the_pair_slide_is_in_the_table_both_ways():
+    """Two relations of equal length starting at consecutive vertices slide
+    along the quiver: two right mutations at the first relation's source move
+    them one arrow left, two left mutations at the second relation's target move
+    them one arrow right."""
+    assert PAIR_SLIDE_RIGHT in lm.VERIFIED_MOVES
+    assert PAIR_SLIDE_LEFT in lm.VERIFIED_MOVES
+
+
+def test_the_meeting_point_move_is_in_the_table():
+    """A relation stays put while the meeting point of the two relations around
+    it moves one arrow left, under two right mutations.
+
+    In the form it was described: a relation of length r from v to v+r, one from
+    v-1 to v+r-k and one from v+r-k to v+r+1; afterwards the middle relation is
+    unchanged and the other two meet at v+r-k-1.  With r = 3 and k = 1 that is
+    this entry, and the two mutations are at v rather than v-1.
+    """
+    assert MEETING_POINT_LEFT in lm.VERIFIED_MOVES
+
+    width, before, after, sequence = MEETING_POINT_LEFT
+    # The middle relation is the one that does not move.
+    assert (1, 3) in before and (1, 3) in after
+    # The other two meet one arrow earlier: 0+3 = 3 becomes 0+2 = 2.
+    assert {(0, 3), (3, 2)} <= set(before)
+    assert {(0, 2), (2, 3)} <= set(after)
+
+
+def test_the_pair_slide_walks_a_pair_along_the_quiver():
+    """A_10 with a pair of length-3 relations at the far left reaches every
+    position of that pair."""
+    orbit = lm.closureUnderMoves(10, [3, 3, 0, 0, 0, 0, 0, 0])
+    assert set(orbit) == {
+        "33000000", "03300000", "00330000", "00033000", "00003300", "00000330",
+    }
+
+
+# ---------------------------------------------------------------------------
+# The rule table
+# ---------------------------------------------------------------------------
+
+def test_the_table_is_not_empty_and_has_no_duplicates():
+    assert len(lm.VERIFIED_MOVES) >= 15
+    assert len(set(lm.VERIFIED_MOVES)) == len(lm.VERIFIED_MOVES)
+
+
+@pytest.mark.parametrize("description", lm.VERIFIED_MOVES, ids=str)
+def test_each_rule_is_well_formed(description):
+    width, before, after, sequence = description
+    assert width >= 1
+    assert before != after
+    assert sequence
+    for relations in (before, after):
+        for start, arrows in relations:
+            assert arrows >= 2
+            assert 0 <= start
+            assert start + arrows <= width + 1
+    for vertex in sequence:
+        assert 1 <= abs(vertex) <= width + 1
+
+
+@pytest.mark.slow
+@pytest.mark.parametrize("description", lm.VERIFIED_MOVES, ids=str)
+def test_each_rule_holds_wherever_it_applies(description):
+    """Re-run the verification the table's entries were admitted by."""
+    confirmed, failures = lm.verifyMove(description, range(5, 9))
+    assert confirmed > 0
+    assert failures == []
+
+
+def test_a_plausible_rule_that_is_actually_false_is_rejected():
+    """Deleting a lone length-2 relation, stated on a two-arrow window.
+
+    Relations of length 2 do not change the derived equivalence class, so this
+    looks safe, but on a two-arrow window the rewrite does not see enough of the
+    quiver and is wrong more often than right.  The three-arrow version that
+    slides such a relation *is* in the table.
+    """
+    tooNarrow = (2, ((0, 2),), (), (1,))
+    confirmed, failures = lm.verifyMove(tooNarrow, range(5, 8))
+    assert failures, "this rule is false and must not verify"
+    assert tooNarrow not in lm.VERIFIED_MOVES
+
+
+def test_a_rule_built_from_an_inadmissible_mutation_is_rejected():
+    """Landing on the predicted LNA is not enough.
+
+    A mutation outside the procedure's admissibility condition still produces a
+    quiver, just not a derived equivalent one, so a rewrite can hit exactly the
+    predicted relation lengths and still be false.  This shortening of a
+    length-3 relation to a length-2 one does precisely that: it was discovered,
+    it always produces the predicted result, and every application of it is an
+    illegal mutation.
+    """
+    shortening = (3, ((0, 3),), ((0, 2),), (3, -3))
+    confirmed, failures = lm.verifyMove(shortening, range(5, 8))
+    assert confirmed == 0
+    assert {reason for *_rest, reason in failures} == {"illegal mutation"}
+    assert shortening not in lm.VERIFIED_MOVES
+
+    # Without the admissibility and Coxeter checks it would look perfect.
+    lenient, lenientFailures = lm.verifyMove(shortening, range(5, 8), checkCoxeter=False)
+    assert lenientFailures  # still caught, by the admissibility half
+
+
+def test_every_rule_uses_only_admissible_mutations():
+    """Each entry's sequence must be a chain of genuine tilting mutations."""
+    for description in lm.VERIFIED_MOVES:
+        width, before, _after, _offsets = description
+        placed = False
+        for length in range(width + 2, width + 5):
+            for windowStart in range(1, length):
+                relLengths = [0] * (length - 2)
+                fits = True
+                for start, arrows in before:
+                    position = windowStart + start - 1
+                    if position < 0 or position >= len(relLengths) or windowStart + start + arrows > length:
+                        fits = False
+                        break
+                    relLengths[position] = arrows
+                if not fits or not lm.isAdmissible(length, relLengths):
+                    continue
+                if not lm.matchesAt(length, relLengths, description, windowStart):
+                    continue
+                applied = lm.applyAt(length, relLengths, description, windowStart)
+                if applied is None:
+                    continue
+                _predicted, sequence = applied
+                assert lm.isLegalSequence(
+                    nk.LinearNakayamaAlgebra(length, relLengths), sequence), description
+                placed = True
+            if placed:
+                break
+        assert placed, f"could not place {description} anywhere"
+
+
+# ---------------------------------------------------------------------------
+# Orbits
+# ---------------------------------------------------------------------------
+
+def test_an_orbit_records_a_mutation_path_that_works():
+    for length, rels in [(8, "033000"), (9, "0022022"), (10, "22003300")]:
+        relLengths = [int(c) for c in rels]
+        for name, (sequence, numbering) in lm.closureUnderMoves(length, relLengths).items():
+            if not sequence:
+                continue
+            mutated = quiet(qm.quiverMutationAtVertices,
+                            lm._copy(nk.LinearNakayamaAlgebra(length, relLengths)),
+                            list(sequence))
+            assert lm.className(lm.asRelLengths(mutated, length)) == name, (rels, name, sequence)
+
+
+@pytest.mark.slow
+@pytest.mark.parametrize("length", [5, 6, 7])
+def test_every_orbit_is_inside_one_derived_equivalence_class(length):
+    """The Coxeter polynomial must be constant on an orbit -- every member is
+    reached by an actual mutation sequence, so they are all derived equivalent."""
+    for relLengths in itertools.product(range(0, length), repeat=length - 2):
+        relLengths = list(relLengths)
+        if not lm.isAdmissible(length, relLengths):
+            continue
+        orbit = lm.closureUnderMoves(length, relLengths)
+        if len(orbit) < 2:
+            continue
+        expected = sympy.expand(
+            quiet(qm.coxeterPoly, nk.LinearNakayamaAlgebra(length, relLengths)).as_expr())
+        for name in orbit:
+            got = sympy.expand(quiet(
+                qm.coxeterPoly,
+                nk.LinearNakayamaAlgebra(length, [int(c) for c in name])).as_expr())
+            assert got == expected, (lm.className(relLengths), name)
+
+
+def test_admissibility_matches_the_enumeration():
+    """isAdmissible must accept exactly the LNAs generateAllPossibleLineRelations
+    produces."""
+    for length in range(3, 8):
+        enumerated = {
+            lm.className(qm.relationStringToLineRelLengths(length, qm.relSetToString(relSet)))
+            for relSet in qm.generateAllPossibleLineRelations(length)
+        }
+        byPredicate = {
+            "".join(str(n) for n in candidate)
+            for candidate in itertools.product(range(0, length), repeat=length - 2)
+            if lm.isAdmissible(length, list(candidate))
+        }
+        assert enumerated == byPredicate, length

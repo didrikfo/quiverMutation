@@ -8,6 +8,7 @@ import networkx as nx
 import os
 import pathAlgebraClass
 import mutationClassTable
+import lnaMoves
 import quipuForms
 import relationAlgebra
 import sympy
@@ -2402,7 +2403,71 @@ def hereditaryFormFromTheorem(lineLength, relationString):
     return quipuForms.formatQuipu(parameters)
 
 
-def seedTableFromQuipuTheorem(table, lineLength, printOutput = True):
+def expandClassByMoves(table, lineLength, relationString, className, coxeterPolynomial,
+                       hereditaryForm = ''):
+    """Fill in every LNA reachable from one by the verified moves of lnaMoves.
+
+    Each move is a rewrite on the relation lengths with a mutation sequence that
+    realises it, checked exhaustively against the mutation engine, so the whole
+    orbit belongs to one derived equivalence class with a path to prove it.  This
+    costs a table lookup per move where the depth-first search costs a subtree.
+
+    Returns the number of rows filled in.
+    """
+    relLengths = relationStringToLineRelLengths(lineLength, relationString)
+    orbit = lnaMoves.closureUnderMoves(lineLength, relLengths)
+    filled = 0
+    for name, (sequence, numbering) in orbit.items():
+        reached = lnaMoves.className(relationStringToLineRelLengths(lineLength, relationString))
+        memberString = relSetToString([[list(range(start, start + arrows + 1))]
+                                       for start, arrows in lnaMoves.relationsOf(
+                                           [int(c) for c in name])])
+        row = table.rowFor(memberString)
+        if row is None or bool(row[1]):
+            continue
+        table.assign(memberString, className,
+                     ';'.join(str(v) for v in sequence),
+                     coxeterPolynomial,
+                     ';'.join(str(numbering[p]) for p in range(1, lineLength + 1)),
+                     hereditaryForm)
+        filled += 1
+    return filled
+
+
+def adoptClassesByMoves(table, lineLength, maxRounds = 10):
+    """Give every unclassified LNA the class of any classified LNA in its orbit.
+
+    The outward direction -- expanding a known class along its move orbit --
+    only reaches what the orbit of a *classified* LNA contains.  Running it
+    inward as well catches the LNAs whose own orbit happens to touch something
+    already classified, which is the same relation read the other way and costs
+    the same lookup.
+
+    Returns the number of rows placed.
+    """
+    placed = 0
+    for _round in range(maxRounds):
+        changed = 0
+        for relationString in list(table.unassignedRelationStrings()):
+            relLengths = relationStringToLineRelLengths(lineLength, relationString)
+            orbit = lnaMoves.closureUnderMoves(lineLength, relLengths)
+            for name, (sequence, numbering) in orbit.items():
+                memberString = relSetToString(
+                    [[list(range(start, start + arrows + 1))]
+                     for start, arrows in lnaMoves.relationsOf([int(c) for c in name])])
+                row = table.rowFor(memberString)
+                if row is None or not row[1]:
+                    continue
+                table.assign(relationString, row[1], '', row[3], '', row[5])
+                changed += 1
+                break
+        placed += changed
+        if not changed:
+            break
+    return placed
+
+
+def seedTableFromQuipuTheorem(table, lineLength, printOutput = True, expandByMoves = True):
     """Assign every LNA the quipu theorem covers, before any searching.
 
     Theorem `thm:QuipuToAn` of arXiv:2305.06642 names the derived equivalence
@@ -2420,9 +2485,13 @@ def seedTableFromQuipuTheorem(table, lineLength, printOutput = True):
     n = 12) but the quipus it names do not: it already finds every class of
     every length checked so far.
 
-    Returns the number of rows seeded.
+    With expandByMoves, each seeded LNA also drags in its whole orbit under the
+    verified moves of lnaMoves, which reaches LNAs the theorem does not cover at
+    all -- the ones whose relations overlap too much -- without any searching.
+
+    Returns the number of rows filled in.
     """
-    seeded = 0
+    seeded = expanded = 0
     for row in table.rows():
         if row[1]:
             continue
@@ -2431,14 +2500,23 @@ def seedTableFromQuipuTheorem(table, lineLength, printOutput = True):
             continue
         pathAlg = lineQuiverExample(
             lineLength, relationStringToLineRelLengths(lineLength, row[0]))
+        polynomial = str(coxeterPoly(pathAlg).as_expr())
         table.assign(
-            row[0], form, '', str(coxeterPoly(pathAlg).as_expr()),
+            row[0], form, '', polynomial,
             ';'.join(str(v) for v in range(1, lineLength + 1)), form)
         seeded += 1
+        if expandByMoves:
+            expanded += expandClassByMoves(table, lineLength, row[0], form, polynomial, form)
+    adopted = 0
+    if expandByMoves:
+        adopted = adoptClassesByMoves(table, lineLength)
     if printOutput:
-        print('Seeded {0} of {1} rows from the quipu theorem, giving {2} classes'.format(
-            seeded, len(table), len(table.classNames())))
-    return seeded
+        print('Seeded {0} rows from the quipu theorem, {1} more by expanding those '
+              'classes along move orbits, {2} more by adopting a class through a '
+              'move orbit: {3} of {4} rows in {5} classes, with no search'.format(
+                  seeded, expanded, adopted, seeded + expanded + adopted, len(table),
+                  len(table.classNames())))
+    return seeded + expanded + adopted
 
 
 def annotateHereditaryForms(table, lineLength, maxDepth = 0, printOutput = True):
