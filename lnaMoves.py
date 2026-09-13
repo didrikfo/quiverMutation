@@ -520,15 +520,14 @@ def verifyMove(description, lengths, checkCoxeter = True):
     Returns (confirmed, failures), each failure being
     (length, before, predicted, actual, reason).
     """
-    import itertools
-
     confirmed = 0
     failures = []
     for length in lengths:
-        for relLengths in itertools.product(range(0, length), repeat = length - 2):
-            relLengths = list(relLengths)
-            if not isAdmissible(length, relLengths):
-                continue
+        # Enumerate the admissible LNAs directly.  Filtering the full product of
+        # relation lengths instead means 10^8 tuples at length 10, against the
+        # 4862 LNAs that actually exist there.
+        for algebra in nakayama.LinearNakayamaAlgebra.allOfLength(length):
+            relLengths = algebra.relLengths
             for windowStart in range(1, length):
                 if not matchesAt(length, relLengths, description, windowStart):
                     continue
@@ -613,6 +612,43 @@ VERIFIED_MOVES = [
     (5, ((1, 3), (3, 2)), ((0, 3), (1, 3), (2, 3)), (2, 2)),   # 8 confirmed: window 5 arrows: (1:3) (3:2)  ->  (0:3) (1:3) (2:3)   via [2, 2]
     (5, ((0, 3), (1, 4)), ((0, 4), (2, 3)), (2, -4, -5)),   # 8 confirmed: window 5 arrows: (0:3) (1:4)  ->  (0:4) (2:3)   via [2, -4, -5]
     (5, ((0, 4), (2, 3)), ((0, 3), (1, 4)), (3, 2, -5)),   # 8 confirmed: window 5 arrows: (0:4) (2:3)  ->  (0:3) (1:4)   via [3, 2, -5]
+
+    # Found by discovery at length 8, where a six-arrow window has room to sit
+    # away from both ends, and re-verified over lengths 7 to 10.
+    (6, ((0, 2), (1, 3), (2, 4)), ((0, 3), (1, 3), (2, 3), (3, 3)), (-5, -5)),   # 22 confirmed: window 6 arrows: (0:2) (1:3) (2:4)  ->  (0:3) (1:3) (2:3) (3:3)   via [-5, -5]
+    (6, ((0, 2), (1, 4)), ((0, 3), (1, 4), (2, 4)), (-6, -6)),   # 22 confirmed: window 6 arrows: (0:2) (1:4)  ->  (0:3) (1:4) (2:4)   via [-6, -6]
+    (6, ((0, 2), (1, 4), (2, 4)), ((0, 3), (1, 4), (3, 3)), (-6, -6)),   # 22 confirmed: window 6 arrows: (0:2) (1:4) (2:4)  ->  (0:3) (1:4) (3:3)   via [-6, -6]
+    (6, ((0, 2), (1, 4), (3, 3)), ((0, 3), (1, 4), (4, 2)), (-6, -6)),   # 22 confirmed: window 6 arrows: (0:2) (1:4) (3:3)  ->  (0:3) (1:4) (4:2)   via [-6, -6]
+    (6, ((0, 2), (2, 2), (3, 2)), ((1, 2), (2, 2), (4, 2)), (-3, -6)),   # 22 confirmed: window 6 arrows: (0:2) (2:2) (3:2)  ->  (1:2) (2:2) (4:2)   via [-3, -6]
+    (6, ((0, 2), (2, 2), (4, 2)), ((1, 2), (2, 2), (3, 2)), (-3, 5)),   # 22 confirmed: window 6 arrows: (0:2) (2:2) (4:2)  ->  (1:2) (2:2) (3:2)   via [-3, 5]
+    (6, ((0, 2), (3, 2)), ((1, 2), (4, 2)), (-3, -6)),   # 22 confirmed: window 6 arrows: (0:2) (3:2)  ->  (1:2) (4:2)   via [-3, -6]
+    (6, ((0, 2), (4, 2)), ((1, 2), (3, 2)), (-3, 5)),   # 22 confirmed: window 6 arrows: (0:2) (4:2)  ->  (1:2) (3:2)   via [-3, 5]
+    (6, ((0, 3), (1, 3), (2, 3)), ((0, 4), (2, 3), (3, 3)), (-6, -6)),   # 22 confirmed: window 6 arrows: (0:3) (1:3) (2:3)  ->  (0:4) (2:3) (3:3)   via [-6, -6]
+    (6, ((0, 3), (1, 3), (2, 3), (3, 3)), ((0, 2), (1, 3), (2, 4)), (2, 2)),   # 22 confirmed: window 6 arrows: (0:3) (1:3) (2:3) (3:3)  ->  (0:2) (1:3) (2:4)   via [2, 2]
+    (6, ((0, 3), (1, 3), (2, 3), (3, 3)), ((0, 4), (2, 3), (4, 2)), (-6, -6)),   # 22 confirmed: window 6 arrows: (0:3) (1:3) (2:3) (3:3)  ->  (0:4) (2:3) (4:2)   via [-6, -6]
+    (6, ((0, 3), (1, 3), (2, 4)), ((1, 3), (2, 3), (3, 3)), (-5, -5)),   # 22 confirmed: window 6 arrows: (0:3) (1:3) (2:4)  ->  (1:3) (2:3) (3:3)   via [-5, -5]
+    (6, ((0, 3), (1, 4)), ((0, 4), (1, 4), (2, 4)), (-6, -6)),   # 22 confirmed: window 6 arrows: (0:3) (1:4)  ->  (0:4) (1:4) (2:4)   via [-6, -6]
+    (6, ((0, 3), (1, 4), (2, 4)), ((0, 2), (1, 4)), (2, 2)),   # 22 confirmed: window 6 arrows: (0:3) (1:4) (2:4)  ->  (0:2) (1:4)   via [2, 2]
+    (6, ((0, 3), (1, 4), (2, 4)), ((0, 4), (1, 4), (3, 3)), (-6, -6)),   # 22 confirmed: window 6 arrows: (0:3) (1:4) (2:4)  ->  (0:4) (1:4) (3:3)   via [-6, -6]
+    (6, ((0, 3), (1, 4), (3, 3)), ((0, 2), (1, 4), (2, 4)), (2, 2)),   # 22 confirmed: window 6 arrows: (0:3) (1:4) (3:3)  ->  (0:2) (1:4) (2:4)   via [2, 2]
+    (6, ((0, 3), (1, 4), (3, 3)), ((0, 4), (1, 4), (4, 2)), (-6, -6)),   # 22 confirmed: window 6 arrows: (0:3) (1:4) (3:3)  ->  (0:4) (1:4) (4:2)   via [-6, -6]
+    (6, ((0, 3), (1, 4), (4, 2)), ((0, 2), (1, 4), (3, 3)), (2, 2)),   # 22 confirmed: window 6 arrows: (0:3) (1:4) (4:2)  ->  (0:2) (1:4) (3:3)   via [2, 2]
+    (6, ((0, 4), (1, 4)), ((1, 4), (2, 4)), (-6, -6)),   # 22 confirmed: window 6 arrows: (0:4) (1:4)  ->  (1:4) (2:4)   via [-6, -6]
+    (6, ((0, 4), (1, 4), (2, 4)), ((0, 3), (1, 4)), (2, 2)),   # 22 confirmed: window 6 arrows: (0:4) (1:4) (2:4)  ->  (0:3) (1:4)   via [2, 2]
+    (6, ((0, 4), (1, 4), (2, 4)), ((1, 4), (3, 3)), (-6, -6)),   # 22 confirmed: window 6 arrows: (0:4) (1:4) (2:4)  ->  (1:4) (3:3)   via [-6, -6]
+    (6, ((0, 4), (1, 4), (3, 3)), ((0, 3), (1, 4), (2, 4)), (2, 2)),   # 22 confirmed: window 6 arrows: (0:4) (1:4) (3:3)  ->  (0:3) (1:4) (2:4)   via [2, 2]
+    (6, ((0, 4), (1, 4), (3, 3)), ((1, 4), (4, 2)), (-6, -6)),   # 22 confirmed: window 6 arrows: (0:4) (1:4) (3:3)  ->  (1:4) (4:2)   via [-6, -6]
+    (6, ((0, 4), (1, 4), (4, 2)), ((0, 3), (1, 4), (3, 3)), (2, 2)),   # 22 confirmed: window 6 arrows: (0:4) (1:4) (4:2)  ->  (0:3) (1:4) (3:3)   via [2, 2]
+    (6, ((0, 4), (2, 3), (3, 3)), ((0, 3), (1, 3), (2, 3)), (3, 3)),   # 22 confirmed: window 6 arrows: (0:4) (2:3) (3:3)  ->  (0:3) (1:3) (2:3)   via [3, 3]
+    (6, ((0, 4), (2, 3), (4, 2)), ((0, 3), (1, 3), (2, 3), (3, 3)), (3, 3)),   # 22 confirmed: window 6 arrows: (0:4) (2:3) (4:2)  ->  (0:3) (1:3) (2:3) (3:3)   via [3, 3]
+    (6, ((1, 2), (2, 2), (3, 2)), ((0, 2), (2, 2), (4, 2)), (2, -6)),   # 22 confirmed: window 6 arrows: (1:2) (2:2) (3:2)  ->  (0:2) (2:2) (4:2)   via [2, -6]
+    (6, ((1, 2), (2, 2), (4, 2)), ((0, 2), (2, 2), (3, 2)), (2, 5)),   # 22 confirmed: window 6 arrows: (1:2) (2:2) (4:2)  ->  (0:2) (2:2) (3:2)   via [2, 5]
+    (6, ((1, 2), (3, 2)), ((0, 2), (4, 2)), (2, -6)),   # 22 confirmed: window 6 arrows: (1:2) (3:2)  ->  (0:2) (4:2)   via [2, -6]
+    (6, ((1, 2), (4, 2)), ((0, 2), (3, 2)), (2, 5)),   # 22 confirmed: window 6 arrows: (1:2) (4:2)  ->  (0:2) (3:2)   via [2, 5]
+    (6, ((1, 3), (2, 3), (3, 3)), ((0, 3), (1, 3), (2, 4)), (2, 2)),   # 22 confirmed: window 6 arrows: (1:3) (2:3) (3:3)  ->  (0:3) (1:3) (2:4)   via [2, 2]
+    (6, ((1, 4), (2, 4)), ((0, 4), (1, 4)), (2, 2)),   # 22 confirmed: window 6 arrows: (1:4) (2:4)  ->  (0:4) (1:4)   via [2, 2]
+    (6, ((1, 4), (3, 3)), ((0, 4), (1, 4), (2, 4)), (2, 2)),   # 22 confirmed: window 6 arrows: (1:4) (3:3)  ->  (0:4) (1:4) (2:4)   via [2, 2]
+    (6, ((1, 4), (4, 2)), ((0, 4), (1, 4), (3, 3)), (2, 2)),   # 22 confirmed: window 6 arrows: (1:4) (4:2)  ->  (0:4) (1:4) (3:3)   via [2, 2]
 ]
 
 
@@ -636,3 +672,165 @@ def movesByRule(length, relLengths):
             if name != className(relLengths) and name not in reached:
                 reached[name] = sequence
     return reached
+
+
+# ---------------------------------------------------------------------------
+# Discovering moves in the interior of a long quiver
+#
+# The first discovery pass looked at every LNA of lengths 6 and 7, which is
+# exactly the wrong place to look: on a quiver that short every vertex is within
+# a step or two of an end, so the special cases that apply near the boundary
+# apply almost everywhere, and a rule that is really about the interior cannot be
+# told apart from one that depends on an end being close by.
+#
+# The fix is to embed a small pattern of relations in the *middle* of a long
+# quiver, with several arrows of empty quiver on each side, and to allow
+# mutations only at vertices near the pattern.  That does two things at once: the
+# rewrite discovered is genuinely local and position-independent by construction,
+# and the branching factor stops depending on the length of the quiver, so
+# sequences of four or five mutations become affordable where enumerating over the
+# whole quiver would not.
+# ---------------------------------------------------------------------------
+
+
+def embedPattern(length, pattern, offset):
+    """Place a pattern of (relative start, arrows) at `offset` arrows in.
+
+    Returns the relation lengths, or None if it does not fit or is inadmissible.
+    """
+    relLengths = [0] * (length - 2)
+    for start, arrows in pattern:
+        position = offset + start - 1
+        if position < 0 or position >= len(relLengths):
+            return None
+        if relLengths[position]:
+            return None
+        relLengths[position] = arrows
+    if not isAdmissible(length, relLengths):
+        return None
+    return relLengths
+
+
+def patternWidth(pattern):
+    """How many arrows a pattern spans."""
+    covered = set()
+    for start, arrows in pattern:
+        covered |= arrowSpan(start, arrows)
+    return max(covered) - min(covered) + 1 if covered else 0
+
+
+def _stateKey(pathAlg):
+    arrows = tuple(sorted((a[0], a[1]) for a in pathAlg.quiver.edges))
+    rels = tuple(sorted(tuple(tuple(p) for p in sorted(rel)) for rel in pathAlg.rels))
+    return (arrows, rels)
+
+
+def localMutationSequences(length, relLengths, centreLo, centreHi, maxSteps, margin):
+    """Mutation sequences near a region, and the LNAs they reach.
+
+    Only vertices within `margin` of [centreLo, centreHi] are mutated, and only
+    where the mutation is admissible.  Intermediate quivers already seen are not
+    re-explored, which is what keeps four- and five-step sequences affordable.
+
+    Returns a dict from reached relation lengths (as a class name) to the
+    shortest sequence found.
+    """
+    allowed = [v for v in range(max(1, centreLo - margin),
+                                min(length, centreHi + 1 + margin) + 1)]
+    startName = className(relLengths)
+    best = {}
+    # Maps an intermediate quiver to the most steps that were still available
+    # when it was last explored.  Pruning on mere membership loses paths: a state
+    # first reached deep in one branch would block a later branch that reaches it
+    # with more steps left, so the search would find *fewer* LNAs at a higher
+    # maxSteps than at a lower one.
+    seen = {}
+
+    def walk(pathAlg, steps, history):
+        if steps == 0:
+            return
+        allRels = _quiet(qm.allRelsInPathAlgebra, pathAlg)
+        dual = _quiet(qm.dualPathAlgebra, pathAlg)
+        dualRels = _quiet(qm.allRelsInPathAlgebra, dual)
+        for vertex in allowed:
+            for signed in (vertex, -vertex):
+                target, rels = (pathAlg, allRels) if signed > 0 else (dual, dualRels)
+                if not _quiet(qm.mutationIsPossibleAtVertex, target, vertex, rels):
+                    continue
+                nextAlg = _quiet(qm.quiverMutationAtVertices, _copy(pathAlg), [signed])
+                if nextAlg is None:
+                    continue
+                key = _stateKey(nextAlg)
+                sequence = history + [signed]
+                reached = asRelLengths(nextAlg, length)
+                if reached is not None:
+                    name = className(reached)
+                    if name != startName and (name not in best or len(sequence) < len(best[name])):
+                        best[name] = sequence
+                if seen.get(key, -1) >= steps - 1:
+                    continue
+                seen[key] = steps - 1
+                walk(nextAlg, steps - 1, sequence)
+
+    walk(nakayama.LinearNakayamaAlgebra(length, relLengths), maxSteps, [])
+    return best
+
+
+def smallPatterns(maxRelations = 3, maxArrows = 4, maxWidth = 7):
+    """Candidate relation patterns to plant in the middle of a quiver.
+
+    Every set of up to `maxRelations` relations, each of 2 to `maxArrows` arrows,
+    with strictly increasing starts and ends -- the admissibility condition -- and
+    spanning at most `maxWidth` arrows.  Normalised so the leftmost relation
+    starts at 1.
+    """
+    import itertools
+
+    patterns = set()
+    for count in range(1, maxRelations + 1):
+        for starts in itertools.combinations(range(1, maxWidth + 1), count):
+            for arrows in itertools.product(range(2, maxArrows + 1), repeat = count):
+                relations = list(zip(starts, arrows))
+                ends = [start + arrow for start, arrow in relations]
+                if any(later <= earlier for earlier, later in zip(ends, ends[1:])):
+                    continue
+                shift = relations[0][0] - 1
+                normalised = tuple((start - shift, arrow) for start, arrow in relations)
+                if patternWidth(normalised) > maxWidth:
+                    continue
+                patterns.add(normalised)
+    return sorted(patterns)
+
+
+def discoverLocalMoves(patterns, maxSteps = 3, margin = 3, embeddings = ((13, 4), (14, 5)),
+                       minOccurrences = 2, progress = False):
+    """Discover local rewrites by planting patterns in the middle of long quivers.
+
+    `embeddings` is a list of (quiver length, offset) to plant each pattern at.
+    Using more than one, at different lengths and offsets, is what rules out a
+    rewrite that only holds because an end of the quiver happened to be nearby.
+
+    Returns {description: [(length, before, after), ...]} for descriptions seen at
+    `minOccurrences` distinct embeddings.
+    """
+    seen = {}
+    for pattern in patterns:
+        width = patternWidth(pattern)
+        for length, offset in embeddings:
+            relLengths = embedPattern(length, pattern, offset)
+            if relLengths is None:
+                continue
+            if progress:
+                print('  {0} in A_{1} at {2}'.format(pattern, length, offset), flush = True)
+            centreLo = offset + min(s for s, _a in pattern)
+            centreHi = offset + max(s + a - 1 for s, a in pattern) - 1
+            reached = localMutationSequences(
+                length, relLengths, centreLo, centreHi, maxSteps, margin)
+            for name, sequence in reached.items():
+                description = describeLink(length, relLengths, [int(c) for c in name], sequence)
+                if description is None:
+                    continue
+                seen.setdefault(description, []).append(
+                    (length, className(relLengths), name))
+    return {d: places for d, places in seen.items()
+            if len({p[0] for p in places}) >= minOccurrences or len(places) >= minOccurrences}
