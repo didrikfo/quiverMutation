@@ -221,3 +221,55 @@ def test_the_two_cartan_matrices_agree_along_mutation_paths(length, rels):
             walk(mutated, depth - 1)
 
     walk(line_algebra(length, rels), 3)
+
+
+@pytest.mark.slow
+def test_reduction_preserves_the_cartan_matrix():
+    """reducePathAlgebra must present the same algebra it was given.
+
+    The raw output of quiverMutationAtVertex contains inadmissible and redundant
+    relations; reduction cancels and drops them, which changes the quiver but is
+    supposed to leave the algebra alone.  The Cartan matrix is the sharpest cheap
+    witness of that, since it is indexed by the vertices and those do not move.
+
+    The full sweep -- every legal mutation of depth <= 3 out of every LNA of
+    length 5 to 8, 38095 reductions -- comes back clean.  It is cut to lengths 5
+    and 6 here to stay affordable.  It is also what turned up the sign reading
+    fixed in fromPathSet: nine cases appeared to fail, all of them commutativity
+    relations being read as sums.
+    """
+    from helpers import line_algebra
+
+    checked = 0
+
+    def walk(pa, depth):
+        nonlocal checked
+        if depth == 0:
+            return
+        allRels = quiet(qm.allRelsInPathAlgebra, pa)
+        for vertex in pa.vertices():
+            if not quiet(qm.mutationIsPossibleAtVertex, pa, vertex, allRels):
+                continue
+            raw = quiet(qm.quiverMutationAtVertex, pa, vertex)
+            if any(quiet(qm.isIllegalRelation, raw, rel) for rel in raw.rels):
+                continue
+            before = quiet(ra.cartanMatrixExact, raw)
+            reduced = quiet(qm.reducePathAlgebra, raw)
+            after = quiet(ra.cartanMatrixExact, reduced)
+            checked += 1
+            assert before == after, (
+                "reduction changed the algebra\n"
+                f"  raw: {sorted((a[0], a[1]) for a in raw.arrows())} {raw.rels}\n"
+                f"  red: {sorted((a[0], a[1]) for a in reduced.arrows())} {reduced.rels}"
+            )
+            # The heuristic count must agree too, on everything an LNA reaches.
+            assert after == quiet(qm.cartanMatrix, reduced, False)
+            walk(reduced, depth - 1)
+
+    for length in (5, 6):
+        for relSet in qm.generateAllPossibleLineRelations(length):
+            relLengths = [0] * (length - 2)
+            for rel in relSet:
+                relLengths[rel[0][0] - 1] = len(rel[0]) - 1
+            walk(line_algebra(length, relLengths), 3)
+    assert checked > 1000

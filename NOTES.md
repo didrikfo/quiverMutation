@@ -273,12 +273,19 @@ signs, and the guess matters:
   coefficients.
 
 **How much of this matters for the published results: none of it so far.**
-`relationAlgebra.cartanMatrixExact` agrees with the existing `cartanMatrix` on
-all 624 LNAs of length <= 8, and on all 8101 quivers reached by walking every
-legal mutation path of depth <= 3 out of all 188 LNAs of length 5 to 7. So no
-Coxeter polynomial in the tables moves. The shapes where the two differ have not
-turned up in an LNA search yet -- consistent with the crash only appearing at
-length 12.
+Two sweeps, both clean:
+
+* `cartanMatrixExact` agrees with the existing `cartanMatrix` on all 624 LNAs of
+  length <= 8, and on all 8101 quivers reached by walking every legal mutation of
+  depth <= 3 out of all 188 LNAs of length 5 to 7.
+* `reducePathAlgebra` preserves the Cartan matrix on all 38095 reductions
+  reached by walking every legal mutation of depth <= 3 out of every LNA of
+  length 5 to 8. Reduction changes the quiver, so this is a real check that it
+  presents the same algebra.
+
+So no Coxeter polynomial in the tables moves, and the reduction is sound on
+everything an LNA search of that size reaches. The shapes where the models differ
+have not turned up yet -- consistent with the crash only appearing at length 12.
 
 ### Classifying a length
 
