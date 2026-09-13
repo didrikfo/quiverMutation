@@ -2261,7 +2261,8 @@ def assignMutationClassInTable(table, mutationList, mutationClassName, printOutp
         table.assign(relSetString, mutationClassName, totalMutationVertexString,
                      str(coxPoly.as_expr()), vertexNumberingString)
 
-    print('as part of the class ', mutationClassName)
+    if printOutput:
+        print('as part of the class ', mutationClassName)
     if mutationClassName != inputMutationClassName:
         table.renameClass(inputMutationClassName, mutationClassName)
     if printOutput:
@@ -2574,7 +2575,8 @@ def mergeReport(table):
 
 def mutationSearch(lineLength, mutationDepthStart, startRow = 0, createNewCSVfile = False,
                    printMutations = False, fileName = None, table = None, writeEveryClass = True,
-                   collectHereditary = False, seedFromQuipuTheorem = False):
+                   collectHereditary = False, seedFromQuipuTheorem = False,
+                   printProgress = True):
     """Classify every LNA of the given length by depth-first tilting mutation.
 
     Walks the table of all Catalan(lineLength - 1) LNAs.  For each one that no
@@ -2613,23 +2615,22 @@ def mutationSearch(lineLength, mutationDepthStart, startRow = 0, createNewCSVfil
             table = mutationClassTable.MutationClassTable.fromCSV(fileName, lineLength)
 
     if seedFromQuipuTheorem:
-        seedTableFromQuipuTheorem(table, lineLength)
+        seedTableFromQuipuTheorem(table, lineLength, printOutput=printProgress)
         table.writeCSV(fileName, header=True)
 
     mutationDepth = mutationDepthStart
     numberOfRows = len(table)
     for i in range(numberOfRows):
         row = table.rows()[(startRow + i) % numberOfRows]
-        print('table row: ', row)
         if not bool(row[1]):
             lineRelList = relationStringToLineRelLengths(lineLength, row[0])
-            print('Relations in class: ', row[0])
             lineNumberString = lineRelLengthsToClassName(lineRelList)
-            print('Working on class {0}'.format(lineNumberString))
+            if printProgress:
+                print('row {0}/{1}: searching from {2} at depth {3}'.format(
+                    i + 1, numberOfRows, lineNumberString, mutationDepth))
             pathAlg = lineQuiverExample(lineLength, lineRelList)
             if printMutations:
                 printPathAlgebra(pathAlg)
-            print('Mutation depth: {0}'.format(mutationDepth))
             mutList = []
             hereditaryFound = [] if collectHereditary else None
             mutationSearchDepthFirst(pathAlg, mutationDepth, [],
@@ -2638,11 +2639,8 @@ def mutationSearch(lineLength, mutationDepthStart, startRow = 0, createNewCSVfil
                                      writeToFile=False,
                                      collectedHereditary=hereditaryFound)
             cleanMutList = mutationListLineCleanup(mutList, printOutput=printMutations)
-            for mut in cleanMutList:
-                print('Mutations: {0}'.format(mut[1]))
-                print('Relations: {0}'.format(mut[0].rels))
-            print('Writing class {0} to the table'.format(lineNumberString))
-            className = assignMutationClassInTable(table, cleanMutList, lineNumberString)
+            className = assignMutationClassInTable(table, cleanMutList, lineNumberString,
+                                                   printOutput=printMutations)
             if hereditaryFound:
                 forms = {}
                 for canonical, quipu, path in hereditaryFound:
@@ -2651,7 +2649,7 @@ def mutationSearch(lineLength, mutationDepthStart, startRow = 0, createNewCSVfil
                 table.setHereditaryFormForClass(className, formatHereditaryForms(forms))
             if writeEveryClass:
                 table.writeCSV(fileName, header=True)
-        mutationDepth = np.maximum(mutationDepthStart - np.floor(np.log10(i + 1)), 2)
+        mutationDepth = int(max(mutationDepthStart - math.floor(math.log10(i + 1)), 2))
     table.writeCSV(fileName, header=True)
     return table
 
@@ -2678,7 +2676,8 @@ def classifyLength(lineLength, mutationDepthStart = 6, resolveDepth = 6, fileNam
     if fileName is None:
         fileName = 'A_{0}_mutation_classes.csv'.format(lineLength)
     table = mutationSearch(lineLength, mutationDepthStart, 0, createNewCSVfile = True,
-                           fileName = fileName, seedFromQuipuTheorem = True)
+                           fileName = fileName, seedFromQuipuTheorem = True,
+                           printProgress = printOutput)
     annotateHereditaryForms(table, lineLength, printOutput = printOutput)
     merges = resolveMergeCandidates(table, lineLength, resolveDepth, printOutput = printOutput)
     for merged, into in merges:

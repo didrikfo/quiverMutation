@@ -38,23 +38,46 @@ Run the test suite:
 .venv/bin/python -m pytest -q
 ```
 
-## Running a mutation class search
-
-`mutationSearch` walks every LNA of a given length, runs a depth-first search of
-tilting mutations from it, and records every other LNA reached in a CSV file.
-It writes its output to the current working directory, so run it from a scratch
-directory:
+## Classifying a length
 
 ```bash
-mkdir -p out && cd out
-python -c "import quiverMutation as qm; qm.mutationSearch(6, 6, 0, createNewCSVfile=True)"
+python classify.py 8
 ```
 
-This produces `A_6_mutation_classes.csv` with one row per LNA, giving the
-mutation class it was assigned to, the mutation path from the class
-representative, its Coxeter polynomial, and the vertex numbering.
+This classifies all 429 LNAs on 8 vertices up to derived equivalence and writes
+`A_8_mutation_classes.csv` (and a parquet alongside it) into the current
+directory, with one row per LNA giving
 
-Classes sharing a Coxeter polynomial are candidates for merging: the Coxeter
-polynomial is a derived invariant but not a complete one, and the depth-first
-search is not guaranteed to find every mutation path between two LNAs of the
-same class. See `NOTES.md` for the current state of that workflow.
+| column | meaning |
+|---|---|
+| `Relations` | the LNA, as `1;2;3\|3;4;5;6` -- one `;`-joined path per relation |
+| `Mutation class` | the class, named by its quipu |
+| `Mutation path from class representative` | the mutations that get there |
+| `Coxeter polynomial` | a derived invariant, though not a complete one |
+| `Numbering` | the vertex numbering the mutation path produces |
+| `Hereditary form` | the quipu the class corresponds to |
+
+It prints the classes and their sizes, and exits non-zero if any class was left
+unsettled.
+
+The classification runs in four steps, described in `NOTES.md`: seed every LNA
+the quipu theorem of arXiv:2305.06642 covers, search by mutation for the rest,
+name any class the theorem missed by the hereditary algebra its search reaches,
+and settle whatever is left by a deeper search. For n <= 8 this reproduces the
+published classification with nothing left over, replacing what used to be a
+hand-merge over the CSV.
+
+The library underneath is usable directly:
+
+```python
+import nakayama as nk
+import quiverMutation as qm
+
+a = nk.LinearNakayamaAlgebra(5, "300")      # 1->2->3->4->5, with 1->2->3->4 = 0
+a.kupischSeries()                            # (3, 4, 3, 2, 1)
+a.quipuName()                                # 'P^(2)_(1,1)', i.e. Dynkin D_5
+a.coxeterPolynomial()                        # lambda**5 + lambda**4 + lambda + 1
+
+qm.quiverMutationAtVertices(a, [4, 1])       # mutate, right at 4 then right at 1
+table, report = qm.classifyLength(6)         # the whole classification
+```
