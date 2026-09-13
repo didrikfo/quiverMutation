@@ -4,6 +4,7 @@ main.py
 mutationClassTable.py
 nakayama.py
 pathAlgebraClass.py
+piecewiseHereditary.py
 pyproject.toml
 quipuForms.py
 quiverExamples.py
@@ -20,6 +21,7 @@ tests/test_cospectral_quipus.py
 tests/test_cycles.py
 tests/test_hereditary_forms.py
 tests/test_invariants.py
+tests/test_lna_moves.py
 tests/test_mutation_class_table.py
 tests/test_mutation_procedure.py
 tests/test_nakayama_classes.py

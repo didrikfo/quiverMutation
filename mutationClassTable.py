@@ -29,6 +29,28 @@ COLUMNS = [RELATIONS, CLASS, PATH, COXETER, NUMBERING, HEREDITARY]
 # are read back with that column empty.
 LEGACY_COLUMNS = [RELATIONS, CLASS, PATH, COXETER, NUMBERING]
 
+# The hereditary-form column carries one of three kinds of value:
+#
+#   'P^(...)_(...)'            the quipu the class is derived equivalent to.  A
+#                              complete invariant: same quipu means same class.
+#   'C(2,4,4)'                 the weight type of the canonical algebra whose
+#                              Coxeter polynomial the class has.  Identifying in
+#                              the same sense the rest of the pipeline's Coxeter
+#                              reasoning is.
+#   NOT_PIECEWISE_HEREDITARY   a certificate that the class is not derived
+#                              equivalent to any hereditary algebra, so not to
+#                              any quipu.  This is a *negative* statement: it
+#                              separates such a class from every quipu class, but
+#                              two classes both carrying it need not be equal, so
+#                              it must never be used to merge.
+NOT_PIECEWISE_HEREDITARY = "not piecewise hereditary"
+
+
+def isIdentifyingForm(form):
+    """Whether a hereditary-form value names the class rather than just excluding
+    possibilities for it."""
+    return bool(form) and form != NOT_PIECEWISE_HEREDITARY
+
 
 class MutationClassTable:
     """One row per LNA of a fixed length.
@@ -151,9 +173,17 @@ class MutationClassTable:
         """
         grouped = {}
         for row in self._rows:
-            if row[1] and row[5]:
+            if row[1] and isIdentifyingForm(row[5]):
                 grouped.setdefault(row[5], set()).add(row[1])
         return grouped
+
+    def formOfEachClass(self):
+        """Class name -> its hereditary-form value, including the negative one."""
+        forms = {}
+        for row in self._rows:
+            if row[1] and row[5]:
+                forms.setdefault(row[1], row[5])
+        return forms
 
     def renameClass(self, oldName, newName):
         """Point every row of one class at another class' name."""

@@ -8,6 +8,7 @@ import networkx as nx
 import os
 import pathAlgebraClass
 import mutationClassTable
+import piecewiseHereditary
 import lnaMoves
 import quipuForms
 import relationAlgebra
@@ -2558,17 +2559,37 @@ def annotateHereditaryForms(table, lineLength, maxDepth = 0, printOutput = True)
     for className in sorted(table.classNames()):
         rows = [row for row in table.rows() if row[1] == className]
         fromTheorem = formsByClass.get(className, '')
-        fromSearch = next((row[5] for row in rows if row[5]), '')
+        fromSearch = next((row[5] for row in rows
+                           if mutationClassTable.isIdentifyingForm(row[5])), '')
         if fromTheorem and fromSearch and fromTheorem != fromSearch:
             print('WARNING: class {0} is {1} by the theorem but the search reached '
                   '{2}'.format(className, fromTheorem, fromSearch))
         form = fromTheorem or fromSearch
+        source = 'theorem' if fromTheorem else ('search' if form else '')
         if not form and maxDepth > 0:
             form = findHereditaryFormForClass(table, lineLength, className, maxDepth, printOutput)
+            source = 'search' if form else ''
+        if not form:
+            # No quipu.  Either the class is not piecewise hereditary at all, in
+            # which case it is in no quipu class and the certificate says so, or
+            # it is of canonical type and the Coxeter polynomial names which.
+            certified = next(
+                (row[0] for row in rows
+                 if piecewiseHereditary.isNotPiecewiseHereditary(
+                     lineLength, relationStringToLineRelLengths(lineLength, row[0]))),
+                None)
+            if certified is not None:
+                form = mutationClassTable.NOT_PIECEWISE_HEREDITARY
+                source = 'not piecewise hereditary, witness {0!r}'.format(certified)
+            elif rows and rows[0][3]:
+                weights = piecewiseHereditary.canonicalWeightType(lineLength, rows[0][3])
+                if weights is not None:
+                    form = 'C({0})'.format(','.join(str(w) for w in weights))
+                    source = 'canonical algebra' + (
+                        ', tubular' if piecewiseHereditary.isTubular(weights) else '')
         table.setHereditaryFormForClass(className, form)
         if printOutput:
-            source = 'theorem' if fromTheorem else ('search' if form else 'nothing')
-            print('class {0}: {1} ({2})'.format(className, form or '-', source))
+            print('class {0}: {1} ({2})'.format(className, form or '-', source or 'nothing'))
     return table
 
 
@@ -2675,10 +2696,7 @@ def mergeReport(table):
                      polynomial is not a complete invariant.
     """
     byForm = table.classesByHereditaryForm()
-    formOfClass = {}
-    for form, classNames in byForm.items():
-        for className in classNames:
-            formOfClass[className] = form
+    formOfClass = table.formOfEachClass()
 
     certain = {form: names for form, names in byForm.items() if len(names) > 1}
     candidate = {}
@@ -2690,7 +2708,15 @@ def mergeReport(table):
         if '' in forms:
             candidate[polynomial] = classNames
         elif len(forms) > 1:
+            # Different forms, so distinct classes.  This includes one class
+            # certified not piecewise hereditary against one with a quipu: the
+            # certificate cannot merge classes but it does separate them from
+            # every quipu class.
             separated[polynomial] = classNames
+        elif forms == {mutationClassTable.NOT_PIECEWISE_HEREDITARY}:
+            # Both only carry the negative certificate, which says nothing about
+            # whether they are the same class.
+            candidate[polynomial] = classNames
     return {'certain': certain, 'candidate': candidate, 'separated': separated}
 
 

@@ -3,6 +3,7 @@ main
 mutationClassTable
 nakayama
 pathAlgebraClass
+piecewiseHereditary
 quipuForms
 quiverExamples
 quiverMutation

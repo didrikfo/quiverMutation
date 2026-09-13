@@ -337,6 +337,68 @@ Results, all matching the published table with nothing left as a candidate:
 | 7 | 132  | 6       | 54, 32, 29, 7, 6, 4 | ~37s |
 | 8 | 429  | 11      | 133, 65, 64, 64, 40, 26, 13, 10, 9, 4, 1 | ~4min |
 
+### Naming a class that is not a quipu class
+
+Not every LNA is derived equivalent to a quipu algebra, and two further
+invariants say which and what it is instead. Both come from
+
+* the piecewise-hereditary paper, arXiv:2310.08346, for the negative
+  certificates;
+* Happel's classification of hereditary abelian categories, for the positive one.
+
+A **piecewise hereditary** algebra has the derived category of a hereditary
+abelian category, and such a category is either the module category of a
+hereditary algebra or derived equivalent to a canonical algebra. So:
+
+* an LNA that is **not piecewise hereditary** is in no quipu class at all;
+* one that is piecewise hereditary but not of tree type should be of **canonical
+  type**, and its Coxeter polynomial names the weights.
+
+`piecewiseHereditary` implements both. The two non-piecewise-hereditary criteria
+are propositions A9 and A13 of arXiv:2310.08346 -- an overlapping pair of
+relations flanked by a long relation on each side, and a pair overlapping by six
+or more arrows -- and they reproduce the paper's own claims exactly: nothing is
+certified for length <= 8, and exactly one algebra of length 9 is, namely
+`3033030` = the paper's quiver `(**)`.
+
+`canonicalWeightType` finds the weight type `(p_1, ..., p_t)` whose canonical
+algebra has a given Coxeter polynomial, using
+`(x-1)^2 * prod (1 + x + ... + x^(p_i - 1))`.
+
+The hereditary-form column now carries one of three kinds of value, and the
+distinction matters:
+
+| value | meaning | may it merge classes? |
+|---|---|---|
+| `P^(...)_(...)` | the quipu the class is derived equivalent to | yes -- a complete invariant |
+| `C(2,4,4)` | the canonical algebra whose Coxeter polynomial it has | yes, on the same footing as the pipeline's other Coxeter reasoning |
+| `not piecewise hereditary` | a certificate that it is no quipu class | **no** -- it separates such a class from every quipu class, but two classes both carrying it need not be equal |
+
+#### n = 9, fully named
+
+    18 classes    quipus of order 9, from the theorem
+     1 class      3345000, 8 members   C(2,4,4), tubular
+     1 class      3033030, 1 member    not piecewise hereditary
+
+with nothing left as a candidate, and the one `separated` pair being the
+cospectral quipus. That is an **independent confirmation of the count 20**:
+18 quipus of order 9 exist, arXiv:2310.08346 says exactly one LNA of length 9 is
+not piecewise hereditary, and the remaining class is of canonical type. 18 + 1 + 1
+= 20.
+
+#### The existing hand-made classification has 19 at n = 9
+
+The workbook's merged list for n = 9 has 19 classes, with sizes
+1, 1, 6, 6, 8, 12, 12, 30, **36**, 38, 42, 44, 70, 80, 94, 128, 145, 300, 377.
+Every one matches a computed class except the 36, which is the union of two
+computed classes of 18. Those two are `P^(1,4)_(1,0,1)` and `P^(1,2)_(1,1,2)` --
+the cospectral pair. Since each contains an LNA with almost separate relations
+naming its quipu (`3060000` = A_{9,(1,3)}^{(3,6)} and `3004000` =
+A_{9,(1,4)}^{(3,4)}), and the two quipus are non-isomorphic trees, the two
+classes are distinct and the merge is one too many. The computed partition
+otherwise **refines the workbook's 65 unmerged classes with no contradiction at
+all**.
+
 ### Mutation shortcuts between LNAs
 
 `lnaMoves` holds a table of **local rewrites**: a window of the quiver, what the
