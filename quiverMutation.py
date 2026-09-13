@@ -2358,6 +2358,45 @@ def hereditaryFormFromTheorem(lineLength, relationString):
     return quipuForms.formatQuipu(parameters)
 
 
+def seedTableFromQuipuTheorem(table, lineLength, printOutput = True):
+    """Assign every LNA the quipu theorem covers, before any searching.
+
+    Theorem `thm:QuipuToAn` of arXiv:2305.06642 names the derived equivalence
+    class of any LNA with almost separate relations outright, in O(1), so every
+    such row can be filled in before a single mutation is computed.  The class is
+    named by its quipu rather than by an LNA, which is both a better name and
+    makes two seeded classes with the same quipu literally the same class.
+
+    The depth-first search then only has to place the rows the theorem misses,
+    and those inherit a seeded class as soon as the search reaches any seeded LNA
+    -- which assignMutationClassInTable already does, since a seeded row is an
+    already-classified row like any other.
+
+    Coverage falls as the length grows (100% at n = 4, 54% at n = 8, 19% at
+    n = 12) but the quipus it names do not: it already finds every class of
+    every length checked so far.
+
+    Returns the number of rows seeded.
+    """
+    seeded = 0
+    for row in table.rows():
+        if row[1]:
+            continue
+        form = hereditaryFormFromTheorem(lineLength, row[0])
+        if not form:
+            continue
+        pathAlg = lineQuiverExample(
+            lineLength, relationStringToLineRelLengths(lineLength, row[0]))
+        table.assign(
+            row[0], form, '', str(coxeterPoly(pathAlg).as_expr()),
+            ';'.join(str(v) for v in range(1, lineLength + 1)), form)
+        seeded += 1
+    if printOutput:
+        print('Seeded {0} of {1} rows from the quipu theorem, giving {2} classes'.format(
+            seeded, len(table), len(table.classNames())))
+    return seeded
+
+
 def annotateHereditaryForms(table, lineLength, maxDepth = 0, printOutput = True):
     """Give every class in the table the hereditary algebra it is equivalent to.
 
@@ -2411,6 +2450,92 @@ def annotateHereditaryForms(table, lineLength, maxDepth = 0, printOutput = True)
     return table
 
 
+def _memberAndItsDual(lineLength, relationString):
+    """An LNA and its relation dual, both as path algebras.
+
+    Reversing every arrow of an LNA keeps it in the same derived equivalence
+    class -- one of the three class-preserving operations of arXiv:2305.06642 --
+    and turns right mutations into left ones, so searching from both covers both
+    directions of a reachability that is otherwise one-way.
+    """
+    relLengths = relationStringToLineRelLengths(lineLength, relationString)
+    dualLengths = [0] * (lineLength - 2)
+    for start, arrows in enumerate(relLengths, start = 1):
+        if arrows:
+            dualLengths[lineLength - start - arrows] = arrows
+    algebras = [lineQuiverExample(lineLength, relLengths)]
+    if dualLengths != relLengths:
+        algebras.append(lineQuiverExample(lineLength, dualLengths))
+    return algebras
+
+
+def resolveMergeCandidates(table, lineLength, depth = 8, printOutput = True):
+    """Settle the classes mergeReport could not, by searching harder for a link.
+
+    A candidate is a group of classes sharing a Coxeter polynomial that the
+    hereditary form does not separate, because at least one of them has no form.
+    Such a class is one the quipu theorem does not cover and whose search never
+    reached an LNA that it does, so the only way to place it is to find a
+    mutation path from it to a classified LNA.
+
+    For each such class this runs a deeper search from each of its members in
+    turn and merges as soon as one reaches a row belonging to another class.
+    Since the reached row already carries a hereditary form, the merge inherits
+    it, and the group stops being a candidate.
+
+    The search is run from each member *and from its relation dual*, because
+    mutationSearchDepthFirst only walks right mutations, which makes reachability
+    directional: A can reach B at depth d while B reaches nothing at that depth.
+    Since rightMutate(dual(P)) = dual(leftMutate(P)), a right-mutation path out
+    of dual(X) is a left-mutation path out of X, and the relation dual of an LNA
+    is derived equivalent to it, so everything reached either way is in X's
+    class.
+
+    Returns the list of (class merged away, class merged into) pairs.
+    """
+    merges = []
+    report = mergeReport(table)
+    unresolved = set()
+    for classNames in report['candidate'].values():
+        for className in classNames:
+            rows = [row for row in table.rows() if row[1] == className]
+            if not any(row[5] for row in rows):
+                unresolved.add(className)
+
+    for className in sorted(unresolved):
+        members = sorted(table.membersOfClass(className), key = lambda r: (len(r), r))
+        if not members:
+            continue
+        merged = False
+        for relationString in members:
+            for startPoint in _memberAndItsDual(lineLength, relationString):
+                reached = []
+                mutationSearchDepthFirst(startPoint, depth, [], 'resolve', printOutput = False,
+                                         collected = reached, writeToFile = False)
+                for mut in mutationListLineCleanup(reached, printOutput = False):
+                    row = table.rowFor(relSetToString(mut[0].rels))
+                    if row is None or not row[1] or row[1] == className:
+                        continue
+                    if printOutput:
+                        print('class {0} reaches {1} (class {2}) at depth {3} from {4!r}'.format(
+                            className, row[0], row[1], depth, relationString))
+                    target = row[1]
+                    form = row[5]
+                    table.renameClass(className, target)
+                    if form:
+                        table.setHereditaryFormForClass(target, form)
+                    merges.append((className, target))
+                    merged = True
+                    break
+                if merged:
+                    break
+            if merged:
+                break
+        if not merged and printOutput:
+            print('class {0} still unresolved at depth {1}'.format(className, depth))
+    return merges
+
+
 def mergeReport(table):
     """What the table says about which classes should be merged.
 
@@ -2449,7 +2574,7 @@ def mergeReport(table):
 
 def mutationSearch(lineLength, mutationDepthStart, startRow = 0, createNewCSVfile = False,
                    printMutations = False, fileName = None, table = None, writeEveryClass = True,
-                   collectHereditary = False):
+                   collectHereditary = False, seedFromQuipuTheorem = False):
     """Classify every LNA of the given length by depth-first tilting mutation.
 
     Walks the table of all Catalan(lineLength - 1) LNAs.  For each one that no
@@ -2464,6 +2589,10 @@ def mutationSearch(lineLength, mutationDepthStart, startRow = 0, createNewCSVfil
 
     Returns the MutationClassTable.  Pass `table` to continue an existing one,
     and startRow to begin partway through it.
+
+    seedFromQuipuTheorem fills in every row the quipu theorem covers before the
+    search starts, so the search only has to place the rest.  The classes are
+    then named by their quipu rather than by an LNA.
 
     collectHereditary makes the search also record every relation-free quiver it
     passes through, which identifies the class completely.  It is off by default
@@ -2482,6 +2611,10 @@ def mutationSearch(lineLength, mutationDepthStart, startRow = 0, createNewCSVfil
             table.writeCSV(fileName, header=True)
         else:
             table = mutationClassTable.MutationClassTable.fromCSV(fileName, lineLength)
+
+    if seedFromQuipuTheorem:
+        seedTableFromQuipuTheorem(table, lineLength)
+        table.writeCSV(fileName, header=True)
 
     mutationDepth = mutationDepthStart
     numberOfRows = len(table)
@@ -2521,6 +2654,53 @@ def mutationSearch(lineLength, mutationDepthStart, startRow = 0, createNewCSVfil
         mutationDepth = np.maximum(mutationDepthStart - np.floor(np.log10(i + 1)), 2)
     table.writeCSV(fileName, header=True)
     return table
+
+
+def classifyLength(lineLength, mutationDepthStart = 6, resolveDepth = 6, fileName = None,
+                   printOutput = True):
+    """The whole classification of one length, end to end.
+
+    1. Seed every LNA the quipu theorem covers, naming each class by its quipu.
+    2. Depth-first search from each remaining unclassified LNA, which inherits a
+       seeded class as soon as it reaches a seeded LNA.
+    3. Name any class the search created but the theorem did not cover.
+    4. Resolve what is left: any group of classes sharing a Coxeter polynomial
+       that the hereditary form does not settle gets a deeper search, from each
+       member and from its relation dual.
+
+    Returns (table, report).  A report with empty 'candidate' means every class
+    is settled: 'certain' entries are classes proved equal, 'separated' entries
+    are classes proved distinct despite sharing a Coxeter polynomial.
+
+    This replaces the hand-merge step.  For n <= 8 it reproduces the published
+    classification with nothing left over.
+    """
+    if fileName is None:
+        fileName = 'A_{0}_mutation_classes.csv'.format(lineLength)
+    table = mutationSearch(lineLength, mutationDepthStart, 0, createNewCSVfile = True,
+                           fileName = fileName, seedFromQuipuTheorem = True)
+    annotateHereditaryForms(table, lineLength, printOutput = printOutput)
+    merges = resolveMergeCandidates(table, lineLength, resolveDepth, printOutput = printOutput)
+    for merged, into in merges:
+        if printOutput:
+            print('merged class {0} into {1}'.format(merged, into))
+    report = mergeReport(table)
+    for polynomial, classNames in report['certain'].items():
+        target = sorted(classNames)[0]
+        for className in classNames:
+            if className != target:
+                table.renameClass(className, target)
+        if printOutput:
+            print('merged {0} into {1} (same hereditary form)'.format(
+                sorted(classNames), target))
+    table.writeCSV(fileName, header = True)
+    table.writeParquet(fileName.replace('.csv', '.parquet'))
+    report = mergeReport(table)
+    if printOutput:
+        print('{0} LNAs, {1} classes, {2} still candidates, {3} separated'.format(
+            len(table), len(table.classNames()), len(report['candidate']),
+            len(report['separated'])))
+    return table, report
 
 
 def quiverMutation(pathAlgebra, mutationVertexList, firstDisplayedStep = 0):

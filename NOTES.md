@@ -264,6 +264,42 @@ Coxeter polynomial in the tables moves. The shapes where the two differ have not
 turned up in an LNA search yet -- consistent with the crash only appearing at
 length 12.
 
+### Classifying a length
+
+`classifyLength(n)` runs the whole thing and returns `(table, report)`:
+
+1. **Seed.** `seedTableFromQuipuTheorem` fills in every LNA with almost separate
+   relations, straight from the theorem, before a single mutation is computed.
+   Each class is named by its quipu rather than by an arbitrary LNA, so two
+   seeded classes with the same quipu are literally the same class. Coverage
+   falls with length -- 100% at n=4, 54% at n=8, 19% at n=12 -- but the set of
+   quipus it names does not: it already finds every class at every length
+   checked.
+2. **Search.** `mutationSearch` handles only the rows left over. Each inherits a
+   seeded class the moment its search reaches a seeded LNA.
+3. **Name.** `annotateHereditaryForms` gives a form to any class the search
+   created that the theorem did not cover.
+4. **Resolve.** `resolveMergeCandidates` takes each group of classes sharing a
+   Coxeter polynomial that the hereditary form does not settle, and searches
+   deeper for a mutation path between them.
+
+**Reachability is directional**, and this matters. `mutationSearchDepthFirst`
+walks only *right* mutations, so A can reach B at depth d while B reaches nothing
+at that depth. Since `rightMutate(dual(P)) = dual(leftMutate(P))` and the
+relation dual of an LNA is derived equivalent to it, searching from the dual
+covers the other direction; `resolveMergeCandidates` does both. At n = 8 this is
+exactly what settles the last class: `340030` = A_{8,(1,2,5)}^{(3,4,3)}, whose
+relations overlap too much for the theorem, reaches nothing seeded, but its dual
+finds the link at depth 6.
+
+Results, all matching the published table with nothing left as a candidate:
+
+| n | LNAs | classes | class sizes | time |
+|---|------|---------|-------------|------|
+| 6 | 42   | 4       | 16, 13, 12, 1 | ~13s |
+| 7 | 132  | 6       | 54, 32, 29, 7, 6, 4 | ~37s |
+| 8 | 429  | 11      | 133, 65, 64, 64, 40, 26, 13, 10, 9, 4, 1 | ~4min |
+
 ### The hereditary form
 
 When a search leaves a quiver with **no relations**, the algebra is hereditary,
@@ -308,11 +344,8 @@ nothing else, agreeing with the published table.
     yet settled). What remains is to shrink `candidate` — a class with no
     hereditary form reached needs either a deeper targeted search or the quipu
     seeding of idea 13.
-13. **Seed the table from quipu quivers.** For large n, use theorem
-    `thm:QuipuToAn` of arXiv:2305.06642 to write down the class of every LNA with
-    almost separate relations directly from the quipus of order n, and let the
-    search fill in only the rest. `generateAllQuipus`, `count_quipus` and
-    `generateAllHeightOneQuipus` already exist.
+13. ~~**Seed the table from quipu quivers.**~~ Done: `seedTableFromQuipuTheorem`,
+    used by `classifyLength`. See "Classifying a length" below.
 14. **More invariants, to separate classes the Coxeter polynomial cannot.**
     Candidates: the determinant and elementary divisors of the Cartan matrix,
     the Euler form, the number of indecomposables / the shape of the AR quiver,
