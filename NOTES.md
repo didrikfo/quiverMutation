@@ -55,6 +55,24 @@ reducing after each. A negative entry means left mutation, which
 arrow out of the vertex must exist, the quiver must have no parallel arrows, and
 `Hom(P_i*[1], Lambda)` must vanish.
 
+### The algebra classes
+
+`nakayama.LinearNakayamaAlgebra(length, relLengths)` is a `PathAlgebra` that
+knows it is an LNA. It owns the three names that were being converted between by
+hand all over the module -- the per-vertex relation lengths `[2,2,3,0,0]`, the
+class name `'22300'`, and the relation string `'1;2;3|2;3;4|3;4;5;6'` -- along
+with the Kupisch series, the relation dual, whether the relations are almost
+separate, the quipu, and the Cartan matrix and Coxeter polynomial. It is
+hashable and compares by structure, so LNAs work as dict keys.
+
+`nakayama.QuipuAlgebra(k, m)` is the path algebra of the quipu quiver
+`P^(m)_(k)`, with no relations. `QuipuAlgebra.fromLNA` and `correspondingLNA`
+are the two directions of the theorem.
+
+Checked: for every LNA of length <= 7 with almost separate relations, the LNA
+and its quipu algebra have the same Coxeter polynomial, computed from their own
+Cartan matrices by entirely separate routes, and the quipu round-trips.
+
 ### The LNA search
 
 `mutationSearch(lineLength, mutationDepthStart, startRow, createNewCSVfile)` is
