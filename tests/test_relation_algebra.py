@@ -27,6 +27,33 @@ GRID_SQUARES = [[(1, 2, 5), (1, 4, 5)], [(2, 3, 6), (2, 5, 6)]]
 
 # -- the combination type ------------------------------------------------
 
+def test_a_single_arrow_path_is_not_mistaken_for_a_coefficient_pair():
+    """The path along one arrow is a two-element tuple, like a (path, coeff) pair.
+
+    Telling them apart by length is wrong; the first element decides, since a
+    pair's is a path and a bare path's is a vertex.  A relation containing a
+    path of length one is exactly what the mutation procedure produces before
+    reduction cancels it, so this comes up immediately in practice.
+    """
+    assert ra.combination([[1, 2]]) == {(1, 2): 1}
+    assert ra.combination([(1, 2)]) == {(1, 2): 1}
+    assert ra.combination([((1, 2), 3)]) == {(1, 2): 3}
+    assert ra.combination({(1, 2): 3}) == {(1, 2): 3}
+    assert ra.fromPathSet([[1, 2], [1, 3, 2]]) == {(1, 2): 1, (1, 3, 2): 1}
+
+
+def test_an_inadmissible_relation_reaches_the_cartan_matrix_intact():
+    """A relation containing a single arrow says that arrow equals the rest.
+
+    quiverMutationAtVertex produces these routinely and reducePathAlgebra
+    cancels them, so the exact Cartan matrix has to cope with one in place.
+    """
+    pa = algebra([(1, 2), (1, 3), (3, 2)], [[(1, 2), (1, 3, 2)]])
+    rels = [ra.fromPathSet(rel) for rel in pa.rels]
+    # The two paths from 1 to 2 are identified, leaving one.
+    assert ra.homDimension(pa.quiver, rels, 1, 2) == 1
+
+
 def test_combination_sums_repeats_and_drops_cancellations():
     assert ra.combination([((1, 2), 1), ((1, 2), 2)]) == {(1, 2): 3}
     assert ra.combination([((1, 2), 1), ((1, 2), -1)]) == {}

@@ -32,17 +32,27 @@ import networkx as nx
 def combination(terms):
     """A linear combination of paths, as a dict path -> nonzero coefficient.
 
-    `terms` is an iterable of (path, coefficient) pairs, or of paths, which are
-    taken with coefficient 1.  Paths are normalised to tuples and repeated paths
-    are summed; terms that cancel are dropped.
+    `terms` is a mapping, an iterable of (path, coefficient) pairs, or an
+    iterable of bare paths taken with coefficient 1.  Paths are normalised to
+    tuples, repeated paths are summed, and terms that cancel are dropped.
+
+    A pair is told from a bare path by its first element: a pair's is the path,
+    so a list or a tuple, while a bare path's is a vertex, so an integer.  The
+    obvious test -- a two-element tuple is a pair -- is wrong, because the path
+    along a single arrow is itself a two-element tuple.
     """
+    if hasattr(terms, "items"):
+        terms = terms.items()
     result = {}
     for term in terms:
-        if isinstance(term, tuple) and len(term) == 2 and not isinstance(term[1], (list, tuple)):
+        if (isinstance(term, tuple) and len(term) == 2
+                and isinstance(term[0], (list, tuple))):
             path, coefficient = term
         else:
             path, coefficient = term, 1
         path = tuple(path)
+        if len(path) < 1:
+            raise ValueError("a path needs at least one vertex")
         result[path] = result.get(path, 0) + coefficient
     return {path: c for path, c in result.items() if c != 0}
 
