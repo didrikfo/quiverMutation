@@ -179,11 +179,10 @@ Roughly in the order that unblocks the most.
 
 ### The model
 
-5. **Linear combinations in relations.** Give a relation coefficients over the
-   base field (or over Z, or over {+1,-1} as a first step) so it can express
-   `sum c_p p = 0`. This is the main expressiveness limit, and it is what makes
-   the steps 5 and 7 bookkeeping so delicate. Worth scoping as: what breaks if a
-   relation becomes `dict[tuple[int, ...], int]` instead of `list[list[int]]`?
+5. **Linear combinations in relations.** Half done. `relationAlgebra` has the
+   value type and the exact ideal arithmetic (see "Coefficients" below); what
+   remains is rewiring the mutation procedure and `reducePathAlgebra` to use it
+   instead of the set-of-paths model.
 6. **Name arrows.** Paths as vertex sequences cannot express parallel arrows or
    distinguish two arrows with the same endpoints. Arrow identities would lift
    that restriction and make the quiver a plain `DiGraph` of named arrows.
@@ -206,6 +205,46 @@ Roughly in the order that unblocks the most.
     (`findMutationClassesForLine`, `collectMutationClasses`,
     `combineLineMutationFiles`) the way `mutationSearch` now does it, with a
     `collected` list rather than a transcript parsed back by string slicing.
+
+### Coefficients
+
+`relationAlgebra` models a relation as `dict[path, int]` -- a linear combination
+of paths with integer coefficients -- and decides ideal membership exactly, by
+linear algebra rather than by pattern matching.
+
+**Signs alone do not close.** From `p + q + r = 0` and `p - q = 0` follows
+`2p + r = 0`, which cannot be written with coefficients in `{-1, 0, +1}`. The
+first step that combines two relations leaves the sign-only world, so integer
+coefficients are the smallest choice that works; they cost nothing over signs,
+being the same dict with a wider value type. Rationals would serve equally and
+the row reduction is over the rationals already.
+
+**What the set-of-paths model gets wrong.** In the 2x2 commutative grid
+
+    1 -> 2 -> 3          relations   [1,2,5] = [1,4,5]
+    |    |    |                      [2,3,6] = [2,5,6]
+    v    v    v
+    4 -> 5 -> 6
+
+all three paths from 1 to 6 are equal, so adding `[1,2,3,6] = 0` kills all
+three. `pathHasZeroRel` recognises only `[1,2,3,6]`, since it looks for a zero
+relation sitting contiguously inside the path.
+`relationAlgebra.isInIdeal` gets all three. This is the failure described as
+"a long zero relation which passes through multiple commutativity relations".
+
+A second symptom, with three parallel paths and a mix of relation orders: the
+current `reducePathAlgebra` turns `{p,q,r}` together with `{p,q}` into `{p,q}`
+and `{r}`, which is valid for `p+q+r=0, p+q=0` but not for `p+q+r=0, p-q=0`,
+where it should give `2p+r=0`. `numberOfPathsUpToRels` meanwhile reports 2 for
+that algebra, so the two halves of the code disagree about the same object.
+
+**How much of this matters for the published results: none of it so far.**
+`relationAlgebra.cartanMatrixExact` agrees with the existing `cartanMatrix` on
+all 624 LNAs of length <= 8, and on all 8101 quivers reached by walking every
+legal mutation path of depth <= 3 out of all 188 LNAs of length 5 to 7. So no
+Coxeter polynomial in the tables moves. The shapes where the two differ have not
+turned up in an LNA search yet -- consistent with the crash only appearing at
+length 12.
 
 ### The hereditary form
 
