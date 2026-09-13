@@ -9,6 +9,7 @@ import csv
 
 import pytest
 
+import mutationClassTable as mct
 import quiverMutation as qm
 from helpers import quiet
 from paper_classification import PAPER_CLASSES, relation_string
@@ -22,7 +23,7 @@ def run_search(tmp_path, monkeypatch, length, depth):
     with open(tmp_path / f"A_{length}_mutation_classes.csv", newline="") as f:
         rows = list(csv.reader(f))
     header, data = rows[0], rows[1:]
-    assert header[:2] == ["Relations", "Mutation class"]
+    assert header == mct.COLUMNS
     assert data == table.rows()
     return data
 
@@ -37,7 +38,7 @@ def classes_by_coxeter_polynomial(rows):
     """
     by_poly = collections.defaultdict(set)
     members = collections.defaultdict(list)
-    for relations, class_name, _path, poly, _numbering in rows:
+    for relations, class_name, _path, poly, _numbering, _hereditary in rows:
         by_poly[poly].add(class_name)
         members[poly].append(relations)
     return by_poly, members
@@ -104,7 +105,7 @@ def test_length_8_classification(tmp_path, monkeypatch):
     ]
     assert sum(len(m) for m in members.values()) == 429
 
-    poly_of = {relations: poly for relations, _c, _p, poly, _n in rows}
+    poly_of = {row[0]: row[3] for row in rows}
     for label, entries in PAPER_CLASSES[8].items():
         polys = {poly_of[relation_string(8, *entry)] for entry in entries}
         assert len(polys) == 1, f"class {label} split across {polys}"
@@ -119,7 +120,7 @@ def test_search_partition_refines_the_published_one(length, tmp_path, monkeypatc
     about which LNAs belong together.
     """
     rows = run_search(tmp_path, monkeypatch, length, 5)
-    poly_of = {relations: poly for relations, _c, _p, poly, _n in rows}
+    poly_of = {row[0]: row[3] for row in rows}
 
     for label, entries in PAPER_CLASSES[length].items():
         polys = set()
@@ -128,3 +129,36 @@ def test_search_partition_refines_the_published_one(length, tmp_path, monkeypatc
             assert key in poly_of, f"n={length}: {label} member {key!r} missing from CSV"
             polys.add(poly_of[key])
         assert len(polys) == 1, f"n={length} class {label} split across {polys}"
+
+
+@pytest.mark.slow
+def test_length_6_merge_report_certifies_the_published_merge(tmp_path, monkeypatch):
+    """The hereditary form turns the hand-merge step into a decision.
+
+    For n = 6 the search leaves five classes with four Coxeter polynomials, and
+    the two classes sharing the D_6 polynomial are the ones the paper's table
+    says are one class.  Once every class has a hereditary form, the merge
+    report says so outright: both reach the same quipu, so they are provably the
+    same derived equivalence class, and nothing is left as a candidate.
+    """
+    monkeypatch.chdir(tmp_path)
+    table = quiet(qm.mutationSearch, 6, 6, 0, createNewCSVfile=True)
+    quiet(qm.annotateHereditaryForms, table, 6, maxDepth=9)
+
+    forms = {name: form for form, names in table.classesByHereditaryForm().items()
+             for name in names}
+    assert forms == {
+        "0000": "P^(0)_(0,5)",       # A_6
+        "3000": "P^(3)_(1,1)",       # D_6
+        "2230": "P^(3)_(1,1)",       # D_6, the class the search failed to merge
+        "2300": "P^(2)_(1,2)",       # E_6
+        "3030": "P^(1,1)_(1,0,1)",   # D~_5
+    }
+
+    report = qm.mergeReport(table)
+    assert report["certain"] == {"P^(3)_(1,1)": {"2230", "3000"}}
+    assert report["candidate"] == {}
+    assert report["separated"] == {}
+
+    # Four distinct hereditary forms, matching the four quipus of order 6.
+    assert len(table.classesByHereditaryForm()) == len(PAPER_CLASSES[6]) == 4

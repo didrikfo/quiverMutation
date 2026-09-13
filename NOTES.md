@@ -207,14 +207,50 @@ Roughly in the order that unblocks the most.
     `combineLineMutationFiles`) the way `mutationSearch` now does it, with a
     `collected` list rather than a transcript parsed back by string slicing.
 
+### The hereditary form
+
+When a search leaves a quiver with **no relations**, the algebra is hereditary,
+and for tree-shaped quivers derived equivalence is settled: two path algebras of
+trees are derived equivalent exactly when the trees are isomorphic as undirected
+graphs, since their orientations are related by BGP reflections. So the
+underlying graph of any relation-free quiver a search reaches is a **complete**
+derived invariant of the class, where the Coxeter polynomial is only a necessary
+condition.
+
+`quipuForms.canonicalTreeForm` encodes a tree canonically (AHU, rooted at the
+centre, smaller of the two encodings when there are two centres), and
+`quipuForms.quipuParameters` recovers the paper's `P^(m)_(k)` notation where the
+tree is a quipu, canonicalised by taking the lexicographically smallest
+parameter pair over every valid reading of the main string, since the notation
+does not determine the quipu. `graphFromQuipuParameters` goes back, so a quipu
+named in the paper can be compared with one a search found.
+
+`mutationSearchDepthFirst` collects these for free during a class search via its
+`collectedHereditary` argument, and `annotateHereditaryForms` fills in the
+classes that search missed by iterative deepening from each member in turn.
+`mergeReport` then turns the table into a decision:
+
+* `certain` — classes reaching the same hereditary form. Provably one class:
+  the search just missed the mutation path. **Merge these.**
+* `separated` — classes sharing a Coxeter polynomial but reaching different
+  hereditary forms. Provably distinct. **Do not merge these**, whatever the
+  polynomial says. This is the case that makes the polynomial an incomplete
+  invariant.
+* `candidate` — classes sharing a polynomial where at least one has no
+  hereditary form yet. Still needs work.
+
+For n = 6 this reduces the entire hand-merge step to one `certain` entry and
+nothing else, agreeing with the published table.
+
 ### Features
 
-12. **Better CSV post-processing, to cut the manual work.** Currently: group the
-    rows by Coxeter polynomial, and for each group of two or more search classes
-    try to find a mutation path between their representatives with a deeper or
-    targeted search; report what merged, what did not, and what still shares a
-    polynomial with nothing found. This is the highest-value feature — it is the
-    step that was done by hand for n <= 11.
+12. ~~**Better CSV post-processing, to cut the manual work.**~~ Done, by the
+    hereditary form rather than by a deeper search: see "The hereditary form"
+    below. `mergeReport` splits the same-polynomial groups into `certain`
+    (provably one class), `separated` (provably distinct) and `candidate` (not
+    yet settled). What remains is to shrink `candidate` — a class with no
+    hereditary form reached needs either a deeper targeted search or the quipu
+    seeding of idea 13.
 13. **Seed the table from quipu quivers.** For large n, use theorem
     `thm:QuipuToAn` of arXiv:2305.06642 to write down the class of every LNA with
     almost separate relations directly from the quipus of order n, and let the

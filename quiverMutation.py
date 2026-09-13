@@ -8,6 +8,7 @@ import networkx as nx
 import os
 import pathAlgebraClass
 import mutationClassTable
+import quipuForms
 import sympy
 import time
 import csv
@@ -759,13 +760,19 @@ def mutationIsPossibleAtVertex(pathAlg, vertex, allRels = None):
     return True
 
 
-def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName = 'quiver', vertexRelabeling = None, printOutput = True, collected = None, writeToFile = True):
+def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName = 'quiver', vertexRelabeling = None, printOutput = True, collected = None, writeToFile = True, collectedHereditary = None):
     """Walk mutations of pathAlg to the given depth, recording the lines found.
 
     Every quiver reached that is again a line is recorded as a triple
     (path algebra, mutation path, vertex numbering).  Pass a list as `collected`
     to receive those triples in memory, in the order the search visits them;
     pass writeToFile=False to skip the '<quiverName>DF.txt' transcript.
+
+    Pass a list as `collectedHereditary` to also receive, for every quiver
+    reached that has no relations left, a triple (canonical form of the
+    underlying undirected graph, the quipu notation for it where it applies,
+    mutation path).  Those are the hereditary algebras in the class, and they
+    identify it completely.
 
     The transcript used to be the only output, and the caller read it back with
     readMutationsFromFile.  That round trip through string formatting is kept
@@ -796,6 +803,15 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
         print('Numbering: {0}'.format(vertexRelabeling))
         print("Longest path: ", longestPathLength)
         printPathAlgebra(pathAlg)
+    if collectedHereditary is not None and not bool(rels):
+        # No relations left: the algebra is hereditary, and the underlying
+        # undirected graph of its quiver is a complete derived invariant.
+        graph = quipuForms.underlyingGraph(pathAlg)
+        collectedHereditary.append((
+            quipuForms.canonicalUndirectedForm(graph),
+            quipuForms.formatQuipu(quipuForms.quipuParameters(graph)),
+            mutationVertices[:],
+        ))
     isLine = (longestPathLength == len(vertices) - 1) and (len(baseQuiver.edges) == len(vertices) - 1)
     if isLine and collected is not None:
         foundPathAlg = pathAlgebraClass.PathAlgebra()
@@ -852,7 +868,7 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
                 if discardMutation:
                     break
                 mutPathAlg = reducePathAlgebra(mutPathAlg)
-                mutationSearchDepthFirst(copy.deepcopy(mutPathAlg), depth, mutationVerticesAtDepth, quiverName, vertexRelabeling, printOutput, collected, writeToFile)
+                mutationSearchDepthFirst(copy.deepcopy(mutPathAlg), depth, mutationVerticesAtDepth, quiverName, vertexRelabeling, printOutput, collected, writeToFile, collectedHereditary)
     return
 
 def divisors(n):
@@ -2252,6 +2268,118 @@ def lineRelLengthsToClassName(lineRelLengths):
     return ''.join(str(n) for n in lineRelLengths)
 
 
+def hereditaryFormsReachedFrom(pathAlg, depth):
+    """The hereditary algebras reachable from pathAlg within `depth` mutations.
+
+    Returns a dict mapping the canonical form of the underlying undirected graph
+    to (quipu notation, shortest mutation path found to it).  An empty result
+    means no relation-free quiver was reached at this depth, not that none
+    exists.
+    """
+    found = []
+    mutationSearchDepthFirst(pathAlg, depth, [], 'hereditary', printOutput = False,
+                             collected = None, writeToFile = False,
+                             collectedHereditary = found)
+    forms = {}
+    for canonical, quipu, path in found:
+        if canonical not in forms or len(path) < len(forms[canonical][1]):
+            forms[canonical] = (quipu, path)
+    return forms
+
+
+def findHereditaryFormForClass(table, lineLength, className, maxDepth = 8, printOutput = False):
+    """Search the members of one class for a relation-free quiver.
+
+    Iterative deepening from each member in turn, returning as soon as any
+    member reaches one.  Members are tried shortest-relation-string first, on
+    the observation that an LNA with fewer and shorter relations tends to need
+    fewer mutations to shed them all.
+
+    Returns the hereditary form as it should be written into the table -- the
+    quipu notation where the graph is a quipu, otherwise the canonical tree
+    encoding -- or '' if nothing was reached.
+    """
+    members = sorted(table.membersOfClass(className), key = lambda r: (len(r), r))
+    for depth in range(2, maxDepth + 1):
+        for relationString in members:
+            pathAlg = lineQuiverExample(
+                lineLength, relationStringToLineRelLengths(lineLength, relationString))
+            forms = hereditaryFormsReachedFrom(pathAlg, depth)
+            if forms:
+                if printOutput:
+                    print('class {0} reaches {1} at depth {2} from {3!r}'.format(
+                        className, sorted(forms), depth, relationString))
+                return formatHereditaryForms(forms)
+    return ''
+
+
+def formatHereditaryForms(forms):
+    """Render the result of hereditaryFormsReachedFrom for the table.
+
+    All the hereditary algebras in one derived equivalence class have isomorphic
+    underlying graphs, so this is normally one value.  More than one would mean
+    either a bug in the mutation procedure or a non-tree in the mix, so they are
+    all reported, joined by '|', rather than silently reduced to one.
+    """
+    return '|'.join(sorted(quipu or canonical for canonical, (quipu, _path) in forms.items()))
+
+
+def annotateHereditaryForms(table, lineLength, maxDepth = 8, printOutput = True):
+    """Fill in the hereditary form of every class in the table that lacks one.
+
+    This is what separates two classes that share a Coxeter polynomial: the
+    underlying graph of a relation-free quiver is a complete derived invariant
+    for hereditary algebras of tree type, so two classes reaching different
+    graphs are certainly not derived equivalent, and two reaching the same one
+    certainly are.
+    """
+    for className in sorted(table.classNames()):
+        rows = [row for row in table.rows() if row[1] == className]
+        if any(row[5] for row in rows):
+            continue
+        form = findHereditaryFormForClass(table, lineLength, className, maxDepth, printOutput)
+        table.setHereditaryFormForClass(className, form)
+        if printOutput:
+            print('class {0}: {1}'.format(className, form or 'no hereditary quiver reached'))
+    return table
+
+
+def mergeReport(table):
+    """What the table says about which classes should be merged.
+
+    Returns a dict with three keys:
+
+    * 'certain'   -- hereditary form -> class names that all reached it.  More
+                     than one name means those classes are provably the same
+                     class and the search simply missed the mutation path.
+    * 'candidate' -- Coxeter polynomial -> class names sharing it that the
+                     hereditary form does not settle, because at least one of
+                     them has no form recorded.  These need a deeper search.
+    * 'separated' -- Coxeter polynomial -> class names sharing it that the
+                     hereditary form proves to be distinct classes.  These must
+                     not be merged, and are the cases where the Coxeter
+                     polynomial is not a complete invariant.
+    """
+    byForm = table.classesByHereditaryForm()
+    formOfClass = {}
+    for form, classNames in byForm.items():
+        for className in classNames:
+            formOfClass[className] = form
+
+    certain = {form: names for form, names in byForm.items() if len(names) > 1}
+    candidate = {}
+    separated = {}
+    for polynomial, classNames in table.classesByCoxeterPolynomial().items():
+        if len(classNames) < 2:
+            continue
+        forms = {formOfClass.get(name, '') for name in classNames}
+        if '' in forms:
+            candidate[polynomial] = classNames
+        elif len(forms) > 1:
+            separated[polynomial] = classNames
+    return {'certain': certain, 'candidate': candidate, 'separated': separated}
+
+
 def mutationSearch(lineLength, mutationDepthStart, startRow = 0, createNewCSVfile = False,
                    printMutations = False, fileName = None, table = None, writeEveryClass = True):
     """Classify every LNA of the given length by depth-first tilting mutation.
@@ -2296,16 +2424,24 @@ def mutationSearch(lineLength, mutationDepthStart, startRow = 0, createNewCSVfil
                 printPathAlgebra(pathAlg)
             print('Mutation depth: {0}'.format(mutationDepth))
             mutList = []
+            hereditaryFound = []
             mutationSearchDepthFirst(pathAlg, mutationDepth, [],
                                      'A{0}_{1}'.format(lineLength, lineNumberString),
                                      printOutput=printMutations, collected=mutList,
-                                     writeToFile=False)
+                                     writeToFile=False,
+                                     collectedHereditary=hereditaryFound)
             cleanMutList = mutationListLineCleanup(mutList, printOutput=printMutations)
             for mut in cleanMutList:
                 print('Mutations: {0}'.format(mut[1]))
                 print('Relations: {0}'.format(mut[0].rels))
             print('Writing class {0} to the table'.format(lineNumberString))
-            assignMutationClassInTable(table, cleanMutList, lineNumberString)
+            className = assignMutationClassInTable(table, cleanMutList, lineNumberString)
+            if hereditaryFound:
+                forms = {}
+                for canonical, quipu, path in hereditaryFound:
+                    if canonical not in forms or len(path) < len(forms[canonical][1]):
+                        forms[canonical] = (quipu, path)
+                table.setHereditaryFormForClass(className, formatHereditaryForms(forms))
             if writeEveryClass:
                 table.writeCSV(fileName, header=True)
         mutationDepth = np.maximum(mutationDepthStart - np.floor(np.log10(i + 1)), 2)

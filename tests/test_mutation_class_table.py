@@ -36,8 +36,10 @@ def test_unassigned_rows_and_class_membership():
 
 def test_assign_fills_a_row():
     table = sample_table()
-    table.assign("2;3;4;5", "230", "1", "p_D", "2;1;3;4;5")
-    assert table.rowFor("2;3;4;5") == ["2;3;4;5", "230", "1", "p_D", "2;1;3;4;5"]
+    table.assign("2;3;4;5", "230", "1", "p_D", "2;1;3;4;5", "P^(2)_(1,1)")
+    assert table.rowFor("2;3;4;5") == [
+        "2;3;4;5", "230", "1", "p_D", "2;1;3;4;5", "P^(2)_(1,1)",
+    ]
     assert table.unassignedRelationStrings() == []
 
 
@@ -80,6 +82,31 @@ def test_parquet_round_trip(tmp_path):
     path = tmp_path / "t.parquet"
     table.writeParquet(path)
     assert mct.MutationClassTable.fromParquet(path).rows() == table.rows()
+
+
+def test_a_five_column_table_reads_back_with_an_empty_hereditary_column():
+    """Tables written before the hereditary column existed must still load."""
+    table = mct.MutationClassTable([["1;2;3", "000", "4;3", "p_A", "1;5;2;3;4"]])
+    assert table.rowFor("1;2;3") == ["1;2;3", "000", "4;3", "p_A", "1;5;2;3;4", ""]
+
+
+def test_hereditary_form_groups_classes_that_are_provably_the_same():
+    table = mct.MutationClassTable([
+        ["a", "X", "", "same_poly", "", "P^(3)_(1,1)"],
+        ["b", "Y", "", "same_poly", "", "P^(3)_(1,1)"],
+        ["c", "Z", "", "same_poly", "", "P^(2)_(1,2)"],
+        ["d", "W", "", "other_poly", "", ""],
+    ])
+    assert table.classesByHereditaryForm() == {
+        "P^(3)_(1,1)": {"X", "Y"},
+        "P^(2)_(1,2)": {"Z"},
+    }
+
+
+def test_set_hereditary_form_for_class_touches_every_member():
+    table = sample_table()
+    table.setHereditaryFormForClass("000", "P^(0)_(0,4)")
+    assert [row[5] for row in table.rows()] == ["P^(0)_(0,4)", "P^(0)_(0,4)", "", ""]
 
 
 def test_dataframe_columns_are_all_strings():

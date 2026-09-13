@@ -3,6 +3,7 @@ main.py
 mutationClassTable.py
 pathAlgebraClass.py
 pyproject.toml
+quipuForms.py
 quiverExamples.py
 quiverMutation.py
 quivermutation.egg-info/PKG-INFO
@@ -12,5 +13,6 @@ quivermutation.egg-info/requires.txt
 quivermutation.egg-info/top_level.txt
 tests/test_classification_end_to_end.py
 tests/test_invariants.py
+tests/test_mutation_class_table.py
 tests/test_mutation_procedure.py
 tests/test_paper_classification.py

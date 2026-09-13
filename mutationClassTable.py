@@ -21,8 +21,13 @@ CLASS = "Mutation class"
 PATH = "Mutation path from class representative"
 COXETER = "Coxeter polynomial"
 NUMBERING = "Numbering"
+HEREDITARY = "Hereditary form"
 
-COLUMNS = [RELATIONS, CLASS, PATH, COXETER, NUMBERING]
+COLUMNS = [RELATIONS, CLASS, PATH, COXETER, NUMBERING, HEREDITARY]
+
+# Tables written before the hereditary column existed have five columns; they
+# are read back with that column empty.
+LEGACY_COLUMNS = [RELATIONS, CLASS, PATH, COXETER, NUMBERING]
 
 
 class MutationClassTable:
@@ -35,7 +40,7 @@ class MutationClassTable:
     """
 
     def __init__(self, rows, lineLength = None):
-        self._rows = [list(row) for row in rows]
+        self._rows = [list(row) + [""] * (len(COLUMNS) - len(row)) for row in rows]
         self.lineLength = lineLength
         self._reindex()
 
@@ -51,7 +56,7 @@ class MutationClassTable:
     @classmethod
     def forLength(cls, lineLength, relationStrings):
         """An empty table with one unassigned row per relation string."""
-        rows = [[relations, "", "", "", ""] for relations in relationStrings]
+        rows = [[relations] + [""] * (len(COLUMNS) - 1) for relations in relationStrings]
         return cls(rows, lineLength)
 
     @classmethod
@@ -116,12 +121,39 @@ class MutationClassTable:
 
     # -- writing -----------------------------------------------------------
 
-    def assign(self, relationString, className, mutationPath, coxeterPolynomial, numbering):
-        """Fill in the four result columns for one LNA."""
+    def assign(self, relationString, className, mutationPath, coxeterPolynomial,
+               numbering, hereditaryForm = ""):
+        """Fill in the result columns for one LNA."""
         index = self._indexByRelations[relationString]
         self._rows[index] = [
             relationString, className, mutationPath, coxeterPolynomial, numbering,
+            hereditaryForm,
         ]
+
+    def setHereditaryFormForClass(self, className, hereditaryForm):
+        """Record the hereditary algebras a class' search reached, on every row.
+
+        A relation-free quiver reached from an LNA pins down its derived
+        equivalence class completely, so this is the sharpest invariant the
+        search produces.  Two classes with different non-empty values here are
+        certainly distinct, whatever their Coxeter polynomials.
+        """
+        for row in self._rows:
+            if row[1] == className:
+                row[5] = hereditaryForm
+
+    def classesByHereditaryForm(self):
+        """Hereditary form -> the set of class names that reached it.
+
+        Classes sharing a form are certainly the same derived equivalence class,
+        so this is a merge certificate rather than a merge candidate.  The empty
+        form means the search reached no relation-free quiver and says nothing.
+        """
+        grouped = {}
+        for row in self._rows:
+            if row[1] and row[5]:
+                grouped.setdefault(row[5], set()).add(row[1])
+        return grouped
 
     def renameClass(self, oldName, newName):
         """Point every row of one class at another class' name."""
