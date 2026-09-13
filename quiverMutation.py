@@ -9,6 +9,7 @@ import os
 import pathAlgebraClass
 import mutationClassTable
 import quipuForms
+import relationAlgebra
 import sympy
 import time
 import csv
@@ -1301,7 +1302,26 @@ def numberOfPathsUpToRels(pathAlg, source, target):
     return numberOfDifferentPaths
 
 
-def cartanMatrix(pathAlg):
+def cartanMatrix(pathAlg, exact = True):
+    """The Cartan matrix: entry (j, i) is dim e_j (kQ/I) e_i.
+
+    With exact=True the dimensions come from relationAlgebra, which decides
+    which combinations of paths are zero by linear algebra over the ideal.  With
+    exact=False they come from numberOfPathsUpToRels, which counts paths up to a
+    partial closure under the commutativity relations and calls a path zero when
+    a zero relation sits contiguously inside it.
+
+    The two agree on every LNA of length <= 8 and on every quiver reached by
+    walking mutations of depth <= 3 out of the LNAs of length 5 to 7, so this
+    changes no published number.  They do not agree in general: see the 2x2
+    commutative grid in tests/test_relation_algebra.py, where a zero relation on
+    one path kills all three and only the exact version notices.
+
+    The exact version costs 2 to 4 times as much on LNAs, which is nothing at
+    the rate the pipeline calls it -- once per class, not once per mutation.
+    """
+    if exact:
+        return relationAlgebra.cartanMatrixExact(pathAlg)
     quiv = pathAlg.quiver
     vertices = quiv.nodes
     cartanMatrix = eye(len(vertices), len(vertices))
@@ -1313,8 +1333,9 @@ def cartanMatrix(pathAlg):
                 cartanMatrix[j-1,i-1] = numberOfPathsUpToRels(pathAlg, i, j)
     return cartanMatrix
 
-def coxeterPoly(pathAlg):
-    cartanMat = cartanMatrix(pathAlg)
+def coxeterPoly(pathAlg, exact = True):
+    """The Coxeter polynomial, the derived invariant the classification uses."""
+    cartanMat = cartanMatrix(pathAlg, exact)
     cartanMatInvTrans = cartanMat.inv().transpose()
     coxeterMatrix = -cartanMatInvTrans*cartanMat
     coxeterPolynomial = coxeterMatrix.charpoly()

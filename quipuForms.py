@@ -178,7 +178,7 @@ def graphFromQuipuParameters(k, m):
     if len(k) != len(m) + 1:
         raise ValueError("a quipu needs one more k than m, got {0} and {1}".format(k, m))
     graph = nx.Graph()
-    nextLabel = itertools.count()
+    nextLabel = itertools.count(1)
     mainString = [next(nextLabel) for _ in range(k[0])]
     for cordIndex, cordLength in enumerate(m):
         foot = next(nextLabel)

@@ -1,6 +1,7 @@
 README.md
 main.py
 mutationClassTable.py
+nakayama.py
 pathAlgebraClass.py
 pyproject.toml
 quipuForms.py
@@ -19,3 +20,4 @@ tests/test_mutation_class_table.py
 tests/test_mutation_procedure.py
 tests/test_paper_classification.py
 tests/test_quipu_theorem.py
+tests/test_relation_algebra.py

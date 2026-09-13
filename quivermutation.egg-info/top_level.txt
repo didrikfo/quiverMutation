@@ -1,5 +1,6 @@
 main
 mutationClassTable
+nakayama
 pathAlgebraClass
 quipuForms
 quiverExamples
