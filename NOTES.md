@@ -374,6 +374,41 @@ distinction matters:
 | `C(2,4,4)` | the canonical algebra whose Coxeter polynomial it has | yes, on the same footing as the pipeline's other Coxeter reasoning |
 | `not piecewise hereditary` | a certificate that it is no quipu class | **no** -- it separates such a class from every quipu class, but two classes both carrying it need not be equal |
 
+#### Propagating a certificate upward, by deleting vertices
+
+Corollary `removevertex` of arXiv:2310.08346: if a Nakayama algebra is piecewise
+hereditary, so is the algebra obtained by removing any one vertex -- merging the
+arrows through it into a composite and extending the relations that start or end
+there. Read contrapositively, that propagates a certificate **upward**: if some
+one-vertex deletion of an algebra is not piecewise hereditary, neither is the
+algebra.
+
+**Going down, not up.** The same corollary read forwards ("introducevertex") adds
+a vertex, but an extension is **not unique** -- many algebras of length n+1
+restrict to a given one of length n -- so going up means enumerating a branching
+set of possibilities. Going down is one deterministic algebra per vertex, so
+`notPiecewiseHereditaryByDeletion` recurses downward, memoising on the algebra
+since many of them delete to the same smaller one.
+
+**What is preserved, and what is not.** The corollary is about piecewise heredity
+*only*. Deleting a vertex does **not** preserve the derived equivalence class, the
+Coxeter polynomial, or the quipu. The certificate it carries is exactly "this
+class is not a quipu class", and nothing more -- which is why it goes in the table
+as the negative marker and can never merge two classes.
+
+How far it reaches, against the direct criteria alone:
+
+| n | LNAs | directly certified | with deletion |
+|---|---|---|---|
+| <= 8 | | 0 | **0** |
+| 9 | 1430 | 1 | 1 |
+| 10 | 4862 | 22 | 24 |
+| 11 | 16796 | 265 | **308** |
+
+The zero at n <= 8 is the check that matters: every LNA of length at most 8 is
+piecewise hereditary, so a certificate there would mean the deletion construction
+drops or extends the wrong relation.
+
 #### n = 9, fully named
 
     18 classes    quipus of order 9, from the theorem

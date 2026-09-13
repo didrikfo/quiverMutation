@@ -244,3 +244,143 @@ def isTubular(weights):
     (x - 1)^2 as a factor.
     """
     return tuple(sorted(weights)) in TUBULAR_TYPES
+
+
+# ---------------------------------------------------------------------------
+# Propagating a certificate by removing vertices
+#
+# Corollary "removevertex" of arXiv:2310.08346: if a Nakayama algebra is
+# piecewise hereditary, then so is the algebra obtained by removing any one
+# vertex -- merging the arrows through it into a composite, and extending the
+# relations that start or end there.
+#
+# Read contrapositively that propagates a certificate *upward*: if some
+# one-vertex deletion of an algebra is not piecewise hereditary, neither is the
+# algebra.  This is the useful direction to compute in.  The same corollary read
+# forwards ("introducevertex") adds a vertex, but an extension is not unique --
+# there are many algebras of length n+1 restricting to a given one of length n --
+# so going up means enumerating a branching set of possibilities, while going
+# down is one deterministic algebra per vertex.  So the recursion here deletes.
+#
+# What is preserved, and what is not: the corollary is about piecewise
+# heredity only.  Deleting a vertex does *not* preserve the derived equivalence
+# class, the Coxeter polynomial, or the quipu -- it is a statement about one
+# property, and the certificate it carries is exactly "this class is not a quipu
+# class", nothing more.
+# ---------------------------------------------------------------------------
+
+
+def removeVertex(length, relLengths, vertex):
+    """The algebra obtained by deleting one vertex, per corollary removevertex.
+
+    Returns (new length, new relation lengths), or None if the result is not an
+    admissible LNA.
+
+    Arrow j runs from vertex j to vertex j+1, so deleting an interior vertex i
+    merges arrows i-1 and i into one composite.  A relation spanning both of them
+    therefore loses an arrow; one spanning exactly one of them keeps its arrow
+    count and so reaches one vertex further, which is the "extended relation" of
+    the corollary.  Deleting an end vertex instead drops the dangling arrow, and
+    the relation that starts (resp. ends) there has nowhere to extend to and is
+    dropped.
+    """
+    if not 1 <= vertex <= length or length < 3:
+        return None
+    newLength = length - 1
+    if newLength < 2:
+        return None
+
+    def mapArrow(arrow):
+        """Old arrow index -> new index, or None if the arrow disappears."""
+        if vertex == 1:
+            return None if arrow == 1 else arrow - 1
+        if vertex == length:
+            return None if arrow == length - 1 else arrow
+        if arrow in (vertex - 1, vertex):
+            return vertex - 1
+        return arrow - 1 if arrow > vertex else arrow
+
+    moved = []
+    for start, arrows in relations(relLengths):
+        images = {mapArrow(arrow) for arrow in range(start, start + arrows)}
+        images.discard(None)
+        if len(images) < 2:
+            # Fewer than two arrows left: no admissible relation remains.
+            continue
+        newStart, newArrows = min(images), len(images)
+        if newStart + newArrows > newLength or max(images) - newStart + 1 != newArrows:
+            return None
+        moved.append((newStart, newArrows))
+
+    moved = _minimalRelations(moved)
+    newRelLengths = [0] * (newLength - 2)
+    for start, arrows in moved:
+        position = start - 1
+        if position < 0 or position >= len(newRelLengths) or newRelLengths[position]:
+            return None
+        newRelLengths[position] = arrows
+    if not _isAdmissible(newLength, newRelLengths):
+        return None
+    return newLength, newRelLengths
+
+
+def _minimalRelations(candidates):
+    """Drop any relation whose arrows contain another's -- it is not minimal.
+
+    Extending two relations can leave one inside the other, and a Nakayama
+    algebra's relations are always taken to be a minimal generating set.
+    """
+    kept = []
+    for start, arrows in sorted(set(candidates)):
+        span = set(range(start, start + arrows))
+        if any(set(range(s, s + a)) < span for s, a in candidates if (s, a) != (start, arrows)):
+            continue
+        kept.append((start, arrows))
+    return kept
+
+
+def _isAdmissible(length, relLengths):
+    current = relations(relLengths)
+    if any(arrows < 2 for _start, arrows in current):
+        return False
+    if any(start + arrows > length for start, arrows in current):
+        return False
+    for earlier, later in zip(current, current[1:]):
+        if earlier[0] >= later[0] or _end(earlier) >= _end(later):
+            return False
+    return True
+
+
+def notPiecewiseHereditaryByDeletion(length, relLengths, cache = None):
+    """Whether a certificate reaches this algebra, directly or by deleting vertices.
+
+    Returns the chain of deletions leading to a directly certified algebra, as a
+    list of (length, relation lengths, criterion name), innermost last, or None.
+
+    The direct criteria are the base case; above them the recursion asks whether
+    any one-vertex deletion is certified, memoising on (length, relation lengths)
+    since many different algebras delete to the same smaller one.
+    """
+    cache = {} if cache is None else cache
+    key = (length, tuple(relLengths))
+    if key in cache:
+        return cache[key]
+
+    cache[key] = None            # guard against revisiting while recursing
+    direct = certificate(length, relLengths)
+    if direct is not None:
+        result = [(length, list(relLengths), direct[0])]
+        cache[key] = result
+        return result
+
+    for vertex in range(1, length + 1):
+        smaller = removeVertex(length, relLengths, vertex)
+        if smaller is None:
+            continue
+        chain = notPiecewiseHereditaryByDeletion(smaller[0], smaller[1], cache)
+        if chain is not None:
+            result = [(length, list(relLengths), 'delete vertex {0}'.format(vertex))] + chain
+            cache[key] = result
+            return result
+    cache[key] = None
+    return None

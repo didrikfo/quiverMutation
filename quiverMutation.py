@@ -2541,6 +2541,8 @@ def annotateHereditaryForms(table, lineLength, maxDepth = 0, printOutput = True)
     """
     formsByClass = {}
     conflicts = {}
+    # Shared across classes: many algebras delete down to the same smaller one.
+    deletionCache = {}
     for row in table.rows():
         if not row[1]:
             continue
@@ -2573,14 +2575,19 @@ def annotateHereditaryForms(table, lineLength, maxDepth = 0, printOutput = True)
             # No quipu.  Either the class is not piecewise hereditary at all, in
             # which case it is in no quipu class and the certificate says so, or
             # it is of canonical type and the Coxeter polynomial names which.
-            certified = next(
-                (row[0] for row in rows
-                 if piecewiseHereditary.isNotPiecewiseHereditary(
-                     lineLength, relationStringToLineRelLengths(lineLength, row[0]))),
-                None)
+            certified = None
+            for row in rows:
+                chain = piecewiseHereditary.notPiecewiseHereditaryByDeletion(
+                    lineLength, relationStringToLineRelLengths(lineLength, row[0]),
+                    deletionCache)
+                if chain is not None:
+                    certified = (row[0], chain)
+                    break
             if certified is not None:
                 form = mutationClassTable.NOT_PIECEWISE_HEREDITARY
-                source = 'not piecewise hereditary, witness {0!r}'.format(certified)
+                witness, chain = certified
+                source = 'not piecewise hereditary, witness {0!r} via {1}'.format(
+                    witness, ' -> '.join(step[2] for step in chain))
             elif rows and rows[0][3]:
                 weights = piecewiseHereditary.canonicalWeightType(lineLength, rows[0][3])
                 if weights is not None:

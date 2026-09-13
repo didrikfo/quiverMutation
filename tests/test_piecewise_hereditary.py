@@ -138,3 +138,110 @@ def test_the_stored_polynomial_string_parses():
     parsed = pwh.parseCoxeterPolynomial(text)
     assert pwh.canonicalWeightType(9, text) == (2, 4, 4)
     assert parsed.free_symbols == {sympy.Symbol("x")}
+
+
+# -- propagating certificates by deleting vertices ------------------------
+
+def test_removing_a_vertex_shortens_the_quiver_by_one():
+    result = pwh.removeVertex(9, [int(c) for c in PAPER_A9], 5)
+    assert result is not None
+    length, relLengths = result
+    assert length == 8
+    assert len(relLengths) == 6
+
+
+def test_deleting_an_interior_vertex_merges_two_arrows():
+    """A relation spanning both arrows through the deleted vertex loses one;
+    one spanning just one of them keeps its length and reaches further.
+
+    A_6 with the single relation 2 -> 5 (three arrows, 2, 3 and 4).  Deleting
+    vertex 3 merges arrows 2 and 3, so the relation is left with two arrows.
+    Deleting vertex 6 instead touches none of them, so it is unchanged.
+    """
+    assert pwh.removeVertex(6, [0, 3, 0, 0], 3) == (5, [0, 2, 0])
+    assert pwh.removeVertex(6, [0, 3, 0, 0], 6) == (5, [0, 3, 0])
+
+
+def test_deleting_an_end_vertex_drops_the_relation_that_reaches_it():
+    """There is nowhere for such a relation to be extended to."""
+    # A_5, relations 1 -> 3 (arrows 1,2) and 2 -> 5 (arrows 2,3,4).
+    # Deleting vertex 5 loses arrow 4, so 2 -> 5 keeps two of its three arrows,
+    # while 1 -> 3 is untouched.
+    assert pwh.removeVertex(5, [2, 3, 0], 5) == (4, [2, 2])
+    # Deleting vertex 1 loses arrow 1.  That leaves 1 -> 3 with a single arrow, so
+    # it goes; 2 -> 5 never used arrow 1, so it keeps all three and simply shifts
+    # down to start at the new vertex 1.
+    assert pwh.removeVertex(5, [2, 3, 0], 1) == (4, [3, 0])
+
+
+def test_removing_a_vertex_always_gives_an_admissible_algebra_or_nothing():
+    for length in range(4, 9):
+        for algebra in nk.LinearNakayamaAlgebra.allOfLength(length):
+            for vertex in range(1, length + 1):
+                result = pwh.removeVertex(length, algebra.relLengths, vertex)
+                if result is None:
+                    continue
+                shorter, relLengths = result
+                assert shorter == length - 1
+                # It must be constructible as an LNA, which validates it.
+                nk.LinearNakayamaAlgebra(shorter, relLengths)
+
+
+@pytest.mark.parametrize("length", range(4, 9))
+def test_deletion_certifies_nothing_below_length_9(length):
+    """The strongest check on the deletion rule.
+
+    Every LNA of length at most 8 is piecewise hereditary, so any certificate
+    here would mean the deletion construction is wrong.  A rule that dropped or
+    extended the wrong relation would show up at once.
+    """
+    cache = {}
+    for algebra in nk.LinearNakayamaAlgebra.allOfLength(length):
+        chain = pwh.notPiecewiseHereditaryByDeletion(length, algebra.relLengths, cache)
+        assert chain is None, (algebra, chain)
+
+
+def test_deletion_still_certifies_exactly_one_algebra_of_length_9():
+    cache = {}
+    certified = [
+        algebra.className()
+        for algebra in nk.LinearNakayamaAlgebra.allOfLength(9)
+        if pwh.notPiecewiseHereditaryByDeletion(9, algebra.relLengths, cache) is not None
+    ]
+    assert certified == [PAPER_A9]
+
+
+def test_a_certificate_chain_ends_at_a_direct_criterion():
+    cache = {}
+    chain = pwh.notPiecewiseHereditaryByDeletion(9, [int(c) for c in PAPER_A9], cache)
+    assert chain is not None
+    length, relLengths, reason = chain[-1]
+    assert "Proposition" in reason
+    assert pwh.certificate(length, relLengths) is not None
+
+
+@pytest.mark.slow
+def test_adding_a_vertex_at_either_end_keeps_the_certificate():
+    """Corollary introducevertexatend, checked in the direction it is used.
+
+    Extending the paper's A_9 example by a vertex at either end must stay
+    certified -- and the deletion recursion is what has to see it, since it is
+    the contrapositive of the same corollary.
+    """
+    cache = {}
+    for name in ("30330300", "03033030", "23033030"):
+        relLengths = [int(c) for c in name]
+        assert pwh._isAdmissible(10, relLengths), name
+        assert pwh.notPiecewiseHereditaryByDeletion(10, relLengths, cache) is not None, name
+
+
+@pytest.mark.slow
+def test_deletion_reaches_more_than_the_direct_criteria():
+    """It should be a strict improvement, or it is not worth the recursion."""
+    cache = {}
+    algebras = nk.LinearNakayamaAlgebra.allOfLength(10)
+    direct = {a.className() for a in algebras
+              if pwh.isNotPiecewiseHereditary(10, a.relLengths)}
+    byDeletion = {a.className() for a in algebras
+                  if pwh.notPiecewiseHereditaryByDeletion(10, a.relLengths, cache) is not None}
+    assert direct < byDeletion
