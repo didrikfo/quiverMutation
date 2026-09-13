@@ -135,8 +135,13 @@ proof. It does happen to separate every class for n <= 8.
   1 + 4 + 9 + 10 + 13 + 26 + 40 + 64 + 64 + 65 + 133 account for all 429 LNAs.
   The whole run takes about 7 minutes at depth 6.
 
-Run times at depth 6, after the deepcopy fix: n = 5 a few seconds, n = 6 about
-20 seconds, n = 7 90 seconds, n = 8 7 minutes. Each is pinned as a `slow` test.
+* n = 9: 1430 LNAs in 20 classes -- the 18 quipus of order 9 plus two classes
+  that are not quipu classes at all (see below). One pair of classes shares a
+  Coxeter polynomial and is proved distinct. About 56 minutes.
+
+Run times for the full `classifyLength` pipeline: n = 6 about 13 seconds, n = 7
+37 seconds, n = 8 4 minutes, n = 9 56 minutes. Lengths 6, 7 and 8 are pinned as
+`slow` tests.
 
 ## Known gaps and limitations
 
@@ -362,6 +367,39 @@ derived equivalent, and no amount of Coxeter-polynomial agreement says otherwise
 `classifyLength(9)` reports exactly this pair under `separated`.
 
 `python classify.py 9 --collisions` prints the map for an order.
+
+### n = 9: two classes that are not quipu classes
+
+`classifyLength(9)` finishes in about 56 minutes and assigns all 1430 LNAs to
+**20 classes**, where there are only 18 quipus of order 9. The two extra classes
+are
+
+| class | members | Coxeter polynomial |
+|---|---|---|
+| `3345000` | 8 | `(L-1)^2 (L+1)^3 (L^2+1)^2` |
+| `3033030` | 1 | `(L-1)^2 (L+1)^3 (L^4+1)` |
+
+Neither polynomial is the Coxeter polynomial of any of the 18 quipus of order 9,
+and the Coxeter polynomial is a derived invariant, so **these LNAs are not
+derived equivalent to any quipu algebra**. That is outside what
+arXiv:2305.06642 covers, which is the LNAs with almost separate relations, and
+none of the members of either class has almost separate relations.
+
+`3033030` is the single algebra A_{9,(1,3,4,6)}^{(3,3,3,3)}; the eight members of
+`3345000` all have several heavily overlapping relations.
+
+**And 20 is exact, not a lower bound.** The search only ever finds a subset of a
+class, so classes could in principle still merge -- but two classes can only
+merge if they have the same Coxeter polynomial, and across the 20 the
+polynomials are distinct except for the one cospectral pair
+`P^(1,2)_(1,1,2)` / `P^(1,4)_(1,0,1)`, which is *provably* two classes. So no
+merge is possible and the classification is complete.
+
+This is a computed result and has not yet been checked against the existing
+hand-made classification for n <= 11. Checks it does pass: both polynomials come
+out the same from the exact and the heuristic Cartan matrix, all eight members of
+`3345000` give the same polynomial when recomputed from scratch, and a sample of
+rows agree with their recorded values.
 
 ### The hereditary form
 
