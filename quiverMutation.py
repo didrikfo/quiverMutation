@@ -269,15 +269,36 @@ def nonMinimalOutRels(pathAlg, vertex):
     return uniqueNonMinOutRels
 
 
-def allRelsBetweenVertices(pathAlg, startVertex,endVertex):
+def allRelsBetweenVertices(pathAlg, startVertex, endVertex, visited = None):
+    """Every relation from startVertex to endVertex, minimal or not.
+
+    `visited` carries the vertices already on the current recursion path.  The
+    recursion follows the arrows out of startVertex, and without that set a
+    cycle in the quiver makes it descend forever: allRelsBetweenVertices on a
+    quiver with a cycle raised RecursionError.  Since the rest of the module
+    works with simple paths throughout, not revisiting a vertex is also the
+    right semantics, and on an acyclic quiver it changes nothing -- no vertex
+    can repeat on a path there anyway.
+
+    This is the crash that stopped the length-12 run.  mutationSearchDepthFirst
+    calls allRelsInPathAlgebra at the top of every node, and it used to do so
+    before testing the quiver for cycles, so the first mutation that produced a
+    cyclic quiver killed the search on the following node.  Both halves are
+    fixed: the recursion is bounded here, and the search now tests for cycles
+    first.
+    """
     # This used to deep-copy the whole path algebra, including its networkx
     # graph, on every one of its recursive calls, which accounted for most of
     # the run time of a class search.  The quiver is only read here, so the
     # relations are all that need copying, and rels_between already returns a
     # fresh list.
+    visited = frozenset() if visited is None else visited
+    visited = visited | {startVertex}
     relsBetween = [copy.deepcopy(rel) for rel in pathAlg.rels_between(startVertex, endVertex)]
     for ar in pathAlg.out_arrows(startVertex):
-        dRelsBetween = allRelsBetweenVertices(pathAlg, ar[1], endVertex)
+        if ar[1] in visited:
+            continue
+        dRelsBetween = allRelsBetweenVertices(pathAlg, ar[1], endVertex, visited)
         for rel in dRelsBetween:
             newRel = []
             for relPath in rel:
@@ -357,17 +378,35 @@ def allMinimalRelsBetweenVertices(pathAlg, startVertex,endVertex):
                     allRelsBetween.append(relToAdd)
     return allRelsBetween
 
-def extendRel(pathAlg, rel):
+def extendRel(pathAlg, rel, visited = None):
+    """Every way of extending a relation forward along the arrows out of its end.
+
+    As in allRelsBetweenVertices, `visited` bounds the recursion so a cycle in
+    the quiver does not make it descend forever.  It is seeded with every vertex
+    the relation already passes through, so an extension never doubles back into
+    the relation itself.
+
+    Note that each extension is returned twice, since the recursion's own result
+    starts with the relation it was given.  That predates this change and is
+    harmless -- nonMinimalOutRels, the only caller, dedupes at the end.
+    """
     vertex = rel[0][-1]
+    if visited is None:
+        # Seed with every vertex the relation already passes through, so an
+        # extension cannot double back into it.
+        visited = frozenset(v for relPath in rel for v in relPath)
+    visited = visited | {vertex}
     extendedRels = [rel]
     outArrows = pathAlg.out_arrows(vertex)
     for ar in outArrows:
+        if ar[1] in visited:
+            continue
         extendedRel = []
         for relPath in rel:
             extendedRelPath = relPath + [ar[1]]
             extendedRel.append(extendedRelPath)
         extendedRels.append(extendedRel)
-        deeperExtendedRels = extendRel(pathAlg, extendedRel)
+        deeperExtendedRels = extendRel(pathAlg, extendedRel, visited)
         extendedRels.extend(deeperExtendedRels)
     return extendedRels
 
@@ -789,7 +828,6 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
     baseQuiver = copy.deepcopy(pathAlg.quiver)
     quiverAtThisDepth = copy.deepcopy(pathAlg.quiver)
     rels = copy.deepcopy(pathAlg.rels)
-    allRels = allRelsInPathAlgebra(pathAlg)
     relsAtThisDepth = copy.deepcopy(pathAlg.rels)
     if not bool(vertexRelabeling):
         for vertex in vertices:
@@ -798,6 +836,11 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
     noCycles = not bool(list(nx.simple_cycles(baseQuiver)))
     if noCycles:
         longestPathLength = nx.dag_longest_path_length(baseQuiver)
+    # Only needed to decide which vertices to descend from, and the search never
+    # descends from a cyclic quiver, so there is nothing to compute there.  It
+    # also used to be computed before this point, which is what made a cyclic
+    # quiver crash the search rather than simply end that branch.
+    allRels = allRelsInPathAlgebra(pathAlg) if noCycles else []
     if printOutput:
         print('Quiver name: ', quiverName)
         print("Mutations: ", mutationVertices)

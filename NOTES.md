@@ -159,11 +159,20 @@ Run times for the full `classifyLength` pipeline: n = 6 about 13 seconds, n = 7
   the only case the LNA search meets.
 * **Parallel arrows are rejected outright**, because a path is a vertex sequence
   and so cannot name which of two parallel arrows it uses.
-* **The recursive loop at length 12.** A full n = 12 run crashed in a recursive
-  loop, somewhere in the mutation of relations. The offending LNA is not
-  recorded. Reproducing it is the first step; a long-running n = 12 search with
-  the recursion limit lowered and the failing quiver dumped on `RecursionError`
-  would find it.
+* ~~**The recursive loop at length 12.**~~ **Found and fixed.** It was not about
+  length 12 at all, it was about *cycles*. `allRelsBetweenVertices` and
+  `extendRel` recurse along the arrows out of a vertex, and neither tracked
+  which vertices were already on the recursion path, so a cycle in the quiver
+  made them descend forever. `mutationSearchDepthFirst` computed all the
+  relations of a quiver at the top of every node *before* testing that quiver
+  for cycles -- so the first mutation producing a cyclic quiver crashed the
+  search on the following node with `RecursionError`. That is why the shape that
+  caused it "didn't necessarily consist of 12 vertices": what mattered was that
+  a mutation at that length finally produced a cycle. Both halves are fixed --
+  the recursion is bounded to simple paths, which is what the rest of the module
+  assumes anyway, and the search tests for cycles before enumerating relations.
+  Verified to change nothing on acyclic quivers: the n = 7 search is
+  byte-identical before and after.
 * **Relations are compared by sorted vertex sequences**, so two relations that
   are equal as ideals but written differently are distinct objects. Several
   functions exist mainly to paper over this (`removeDuplicateRels`,
