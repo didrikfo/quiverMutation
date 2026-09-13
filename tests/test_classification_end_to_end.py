@@ -16,11 +16,14 @@ from paper_classification import PAPER_CLASSES, relation_string
 
 def run_search(tmp_path, monkeypatch, length, depth):
     monkeypatch.chdir(tmp_path)
-    quiet(qm.mutationSearch, length, depth, 0, createNewCSVfile=True)
+    table = quiet(qm.mutationSearch, length, depth, 0, createNewCSVfile=True)
+    # The returned table and the CSV it wrote must agree, since the CSV is what
+    # gets picked up to resume or to post-process a search.
     with open(tmp_path / f"A_{length}_mutation_classes.csv", newline="") as f:
         rows = list(csv.reader(f))
     header, data = rows[0], rows[1:]
     assert header[:2] == ["Relations", "Mutation class"]
+    assert data == table.rows()
     return data
 
 

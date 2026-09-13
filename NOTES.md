@@ -58,19 +58,25 @@ arrow out of the vertex must exist, the quiver must have no parallel arrows, and
 ### The LNA search
 
 `mutationSearch(lineLength, mutationDepthStart, startRow, createNewCSVfile)` is
-the entry point.
+the entry point, and it returns a `MutationClassTable`.
 
 1. `generateAllPossibleLineRelations(n)` enumerates every admissible ideal on the
    linear quiver `1 -> ... -> n`. There are Catalan(n-1) of them.
 2. `createMutationClassCSV(n)` writes one row per LNA to
    `A_<n>_mutation_classes.csv`, with empty class columns.
 3. For each row still without a class, `mutationSearchDepthFirst` walks
-   mutations to the given depth and appends every LNA it reaches to a text file.
+   mutations to the given depth and collects every LNA it reaches into the list
+   passed as its `collected` argument.
 4. `mutationListLineCleanup` normalises each of those back to the standard
    numbering `1..n` and dedupes.
-5. `saveLineRelationsAndMutationsToCSV` writes the class name, the mutation path
-   from the class representative, the Coxeter polynomial and the vertex
-   numbering into every row it reached.
+5. `assignMutationClassInTable` writes the class name, the mutation path from
+   the class representative, the Coxeter polynomial and the vertex numbering
+   into every row it reached.
+
+`mutationClassTable.MutationClassTable` owns the table: one row per LNA keyed by
+its relation string, with a dict index over that key and a polars DataFrame for
+interchange (`toDataFrame`, `writeParquet`). `classesByCoxeterPolynomial` is the
+entry point for the merge step.
 
 A class is named after the LNA that seeded it, in the per-vertex relation-length
 notation: `A7_22300` is the line on 7 vertices with relations of 2, 2 and 3
@@ -140,9 +146,11 @@ Run times at depth 6, after the deepcopy fix: n = 5 a few seconds, n = 6 about
   functions exist mainly to paper over this (`removeDuplicateRels`,
   `removeDuplicateRelPaths`, `removeRedundantRelations`,
   `removeExistingSubrelations`, `minimizeCommutingRelation`).
-* **Results round-trip through text files**, parsed by string slicing at fixed
-  offsets in `readMutationsFromFile`. Fragile and slow; the search should hand
-  the mutation list to the CSV writer in memory.
+* **The older entry points still round-trip through text files**, parsed by
+  string slicing at fixed offsets in `readMutationsFromFile`.
+  `mutationSearch` no longer does -- it collects in memory -- but
+  `findMutationClassesForLine`, `collectMutationClasses`,
+  `combineLineMutationFiles` and the scratch code in `main.py` still do.
 * **`combineMutationClassesInCSVfile` does not work.** It was the start of an
   automated merge step and was never finished: it has a `#wrong!` marked append,
   a call to `quiverMutationAtVertices` missing its second argument, and a
@@ -194,8 +202,10 @@ Roughly in the order that unblocks the most.
    as a method. This is what makes idea 12 possible.
 10. **Split the 2600-line module** along the seams that already exist: the
     procedure, relation algebra, invariants, the line search, quipus, IO.
-11. **Replace the text-file round trip** with in-memory objects, and write one
-    CSV (or parquet) at the end.
+11. **Replace the text-file round trip** in the remaining entry points
+    (`findMutationClassesForLine`, `collectMutationClasses`,
+    `combineLineMutationFiles`) the way `mutationSearch` now does it, with a
+    `collected` list rather than a transcript parsed back by string slicing.
 
 ### Features
 

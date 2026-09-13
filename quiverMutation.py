@@ -7,6 +7,7 @@ import math
 import networkx as nx
 import os
 import pathAlgebraClass
+import mutationClassTable
 import sympy
 import time
 import csv
@@ -758,7 +759,18 @@ def mutationIsPossibleAtVertex(pathAlg, vertex, allRels = None):
     return True
 
 
-def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName = 'quiver', vertexRelabeling = None, printOutput = True):
+def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName = 'quiver', vertexRelabeling = None, printOutput = True, collected = None, writeToFile = True):
+    """Walk mutations of pathAlg to the given depth, recording the lines found.
+
+    Every quiver reached that is again a line is recorded as a triple
+    (path algebra, mutation path, vertex numbering).  Pass a list as `collected`
+    to receive those triples in memory, in the order the search visits them;
+    pass writeToFile=False to skip the '<quiverName>DF.txt' transcript.
+
+    The transcript used to be the only output, and the caller read it back with
+    readMutationsFromFile.  That round trip through string formatting is kept
+    for inspecting a search by hand, but the pipeline no longer needs it.
+    """
     # These used to default to [] and {}, which Python evaluates once at
     # definition time.  The relabeling dict is filled in below and so leaked
     # between searches: a second search in the same process inherited the
@@ -784,9 +796,14 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
         print('Numbering: {0}'.format(vertexRelabeling))
         print("Longest path: ", longestPathLength)
         printPathAlgebra(pathAlg)
-    fileName = '{0}DF.txt'.format(quiverName)
-    with open(fileName, "a") as f:
-        if (longestPathLength == len(vertices) - 1) and (len(baseQuiver.edges) == len(vertices) - 1):
+    isLine = (longestPathLength == len(vertices) - 1) and (len(baseQuiver.edges) == len(vertices) - 1)
+    if isLine and collected is not None:
+        foundPathAlg = pathAlgebraClass.PathAlgebra()
+        foundPathAlg.quiver = baseQuiver
+        foundPathAlg.rels = rels
+        collected.append((foundPathAlg, mutationVertices[:], dict(vertexRelabeling)))
+    if isLine and writeToFile:
+        with open('{0}DF.txt'.format(quiverName), "a") as f:
             f.write('Mutations: {0}\n'.format(mutationVertices))
             f.write('Numbering: {0}\n'.format(vertexRelabeling))
             f.write("Longest path: {0}\n".format(longestPathLength))
@@ -794,7 +811,6 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
             f.write('Arrows: {0}\n'.format(baseQuiver.edges))
             f.write('Relations: {0}\n'.format(rels))
             f.write('-\n')
-        f.close()
     # debugVertexList = [1, 1, 2, 1, 2, 3, 5, 3, 4, 4, 5, 2, 2, 3, 6, 1, 4, 1, 2, 3, 1, 4]
     # for i in range(7, len(debugVertexList)):
     #      if mutationVertices == debugVertexList[:i]:
@@ -836,7 +852,7 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
                 if discardMutation:
                     break
                 mutPathAlg = reducePathAlgebra(mutPathAlg)
-                mutationSearchDepthFirst(copy.deepcopy(mutPathAlg), depth, mutationVerticesAtDepth, quiverName, vertexRelabeling, printOutput)
+                mutationSearchDepthFirst(copy.deepcopy(mutPathAlg), depth, mutationVerticesAtDepth, quiverName, vertexRelabeling, printOutput, collected, writeToFile)
     return
 
 def divisors(n):
@@ -1840,95 +1856,19 @@ def relSetToString(relSet):
 
 
 def saveLineRelationsAndMutationsToCSV(fileName, mutationList, csvData, mutationClassName, printOutput = False):
-    baseMutationVertexString = ''
-    inputMutationClassName = mutationClassName
-    minMutationLength = np.inf
-    oldNumberingList = range(1, len(mutationClassName) + 3)
-    baseVertexNumbering = {}
-    if not bool(mutationList):
-        return csvData
-    for n in range(1, len(mutationList[0][2]) + 1):
-        baseVertexNumbering[n] = n
-    for mut in mutationList:
-        vertexNumbering = mut[2]
-        #vertexNumberingList = [vertexNumbering[n] for n in range(1, len(vertexNumbering) + 1)]
-        mutationVertices = mut[1]
-        coxPoly = coxeterPoly(mut[0])
-        relSet = mut[0].rels
-        relSetString = relSetToString(relSet)
-        for i in range(len(csvData)):
-            oldCSVrow = csvData[i]
-            mutationLength = len(oldCSVrow[2]) + len(mut[1])
-            if relSetString == oldCSVrow[0] and bool(oldCSVrow[1]) and mutationLength < minMutationLength:
-                mutationClassName = oldCSVrow[1]
-                oldNumberingString = oldCSVrow[4]
-                if bool(oldNumberingString):
-                    oldNumberingList = [int(s) for s in oldNumberingString.split(';')]
-                else:
-                    oldNumberingList = range(1, len(mut[0].vertices()) + 1)
-                minusMutationVertexString = ''
-                renumberedReverseMutationVertexString = ''
-                if bool(mut[1]):
-                    reverseMutationVertices = reverseMutationSequence(mutationVertices, vertexNumbering)
-                    renumberedReverseMutationVerticesAsStringList = []
-                    for n in range(len(reverseMutationVertices)):
-                        if reverseMutationVertices[n] > 0:
-                            renumberedVertex = oldNumberingList[reverseMutationVertices[n] - 1]
-                        else:
-                            renumberedVertex = -oldNumberingList[-reverseMutationVertices[n] - 1]
-                        renumberedReverseMutationVerticesAsStringList.append(str(renumberedVertex))
-                        #minusMutationVerticesAsStringList.append(str(-vertexNumbering[mutationVertices[-(n + 1)]]))
-                    #minusMutationVerticesAsStringList = [str(-int) for int in reverseMutVertices]
-                    renumberedReverseMutationVertexString = ';'.join(renumberedReverseMutationVerticesAsStringList)
-                if bool(oldCSVrow[2]) and bool(renumberedReverseMutationVertexString):
-                    baseMutationVertexString = ';'.join([oldCSVrow[2], renumberedReverseMutationVertexString])
-                elif bool(renumberedReverseMutationVertexString):
-                    baseMutationVertexString = renumberedReverseMutationVertexString
-                else:
-                    baseMutationVertexString = oldCSVrow[2]
-                baseVertexNumbering = {}
-                for n in range(1, len(vertexNumbering) + 1):
-                    baseVertexNumbering[n] = oldNumberingList[getVertexNumberingKeyFromValue(vertexNumbering, n) - 1]
-                minMutationLength = mutationLength
-    for mut in mutationList:
-        localVertexNumbering = mut[2]
-        localVertexNumberingList = [localVertexNumbering[n] for n in range(1, len(localVertexNumbering) + 1)]
-        vertexNumberingList = [baseVertexNumbering[localVertexNumbering[n]] for n in range(1, len(baseVertexNumbering) + 1)]
-        vertexNumberingString = ';'.join([str(n) for n in vertexNumberingList])
-        relSet = mut[0].rels
-        relSetString = relSetToString(relSet)
-        newRowAdded = False
-        for i in range(len(csvData)):
-            oldCSVrow = csvData[i]
-            if relSetString == oldCSVrow[0] and not bool(oldCSVrow[1]):
-                if bool(mut[1]):
-                    localMutationVerticesAsStringList = [str(vertexNumberingList[localVertexNumberingList.index(int)]) for int in mut[1]]
-                    localMutationVertexString = ';'.join(localMutationVerticesAsStringList)
-                else:
-                    localMutationVertexString = ''
-                if bool(baseMutationVertexString) and bool(localMutationVertexString):
-                    totalMutationVertexString = ';'.join([baseMutationVertexString, localMutationVertexString])
-                elif bool(localMutationVertexString):
-                    totalMutationVertexString = localMutationVertexString
-                else:
-                    totalMutationVertexString = baseMutationVertexString
-                newCSVrow = [relSetString, mutationClassName, totalMutationVertexString, coxPoly.as_expr(), vertexNumberingString]
-                csvData[i] = newCSVrow
-                newRowAdded = True
-            if newRowAdded:
-                break
-    print('as part of the class ', mutationClassName)
-    if mutationClassName != inputMutationClassName:
-        for row in csvData:
-            if row[1] == inputMutationClassName:
-                row[1] = mutationClassName
-    if printOutput:
-        for row in csvData:
-            print(row)
-    with open(fileName, 'w') as file:
-        writer = csv.writer(file)
-        writer.writerows(csvData)
-    return csvData
+    """Deprecated. Use MutationClassTable and assignMutationClassInTable instead.
+
+    Kept so the older entry points that still pass a list of CSV rows around
+    (expandAllClassesWithEasyRels, combineMutationClassesInCSVfile) keep working.
+    Takes and returns rows as lists of strings, header row included if present.
+    """
+    hasHeader = bool(csvData) and csvData[0][0] == mutationClassTable.RELATIONS
+    dataRows = csvData[1:] if hasHeader else csvData
+    table = mutationClassTable.MutationClassTable(dataRows)
+    assignMutationClassInTable(table, mutationList, mutationClassName, printOutput)
+    table.writeCSV(fileName, header = hasHeader)
+    return ([csvData[0]] if hasHeader else []) + table.rows()
+
 
 def combineMutationClassesInCSVfile(filename, mutationDepth, lineLength):
     oldCSVdata = importMutationClassCSV(filename)
@@ -2186,50 +2126,192 @@ def expandAllClassesWithEasyRels(lineLength, startRow = 0):
                                                                   mutListWith2RelsAndPairs, mutationClassCSV, lineNumberString)
     return
 
-def mutationSearch(lineLength, mutationDepthStart, startRow, createNewCSVfile = False, printMutations = False):
+
+def assignMutationClassInTable(table, mutationList, mutationClassName, printOutput = False):
+    """Record a completed search in the table, and return the class it landed in.
+
+    mutationList is the cleaned list of (path algebra, mutation path, vertex
+    numbering) triples the search reached, all of them LNAs of the table's
+    length and all derived equivalent to each other.
+
+    Two passes, as the CSV version had.  The first looks for an LNA in the list
+    that the table has already classified, and takes the shortest such link: if
+    it finds one, this whole list belongs to that existing class rather than to
+    a new one, and the mutation path from that class' representative has to be
+    prefixed to every path recorded below.  The second pass fills in every LNA
+    in the list the table has not reached yet.  If the first pass moved the
+    class name, every row already carrying the old name is renamed at the end.
+
+    This replaces saveLineRelationsAndMutationsToCSV.  Two things change:
+
+    * the linear scan over every table row, per mutation, per pass, is now a
+      dict lookup, since a relation string identifies at most one row;
+    * the Coxeter polynomial is computed once rather than once per mutation.
+      The original recomputed it inside the first pass and used whichever value
+      the loop happened to leave behind, which is the one for the last entry, so
+      that entry is the one used here.  Every entry has the same polynomial --
+      they are mutations of each other -- but taking the last one keeps the
+      output identical rather than merely equivalent.
+    """
+    inputMutationClassName = mutationClassName
+    minMutationLength = np.inf
+    baseMutationVertexString = ''
+    baseVertexNumbering = {}
+    if not bool(mutationList):
+        return mutationClassName
+    for n in range(1, len(mutationList[0][2]) + 1):
+        baseVertexNumbering[n] = n
+    coxPoly = coxeterPoly(mutationList[-1][0])
+
+    for mut in mutationList:
+        vertexNumbering = mut[2]
+        mutationVertices = mut[1]
+        row = table.rowFor(relSetToString(mut[0].rels))
+        if row is None or not bool(row[1]):
+            continue
+        mutationLength = len(row[2]) + len(mut[1])
+        if mutationLength >= minMutationLength:
+            continue
+        mutationClassName = row[1]
+        oldNumberingString = row[4]
+        if bool(oldNumberingString):
+            oldNumberingList = [int(v) for v in oldNumberingString.split(';')]
+        else:
+            oldNumberingList = range(1, len(mut[0].vertices()) + 1)
+        renumberedReverseMutationVertexString = ''
+        if bool(mut[1]):
+            reverseMutationVertices = reverseMutationSequence(mutationVertices, vertexNumbering)
+            renumbered = []
+            for n in range(len(reverseMutationVertices)):
+                if reverseMutationVertices[n] > 0:
+                    renumberedVertex = oldNumberingList[reverseMutationVertices[n] - 1]
+                else:
+                    renumberedVertex = -oldNumberingList[-reverseMutationVertices[n] - 1]
+                renumbered.append(str(renumberedVertex))
+            renumberedReverseMutationVertexString = ';'.join(renumbered)
+        if bool(row[2]) and bool(renumberedReverseMutationVertexString):
+            baseMutationVertexString = ';'.join([row[2], renumberedReverseMutationVertexString])
+        elif bool(renumberedReverseMutationVertexString):
+            baseMutationVertexString = renumberedReverseMutationVertexString
+        else:
+            baseMutationVertexString = row[2]
+        baseVertexNumbering = {}
+        for n in range(1, len(vertexNumbering) + 1):
+            baseVertexNumbering[n] = oldNumberingList[getVertexNumberingKeyFromValue(vertexNumbering, n) - 1]
+        minMutationLength = mutationLength
+
+    for mut in mutationList:
+        localVertexNumbering = mut[2]
+        localVertexNumberingList = [localVertexNumbering[n] for n in range(1, len(localVertexNumbering) + 1)]
+        vertexNumberingList = [baseVertexNumbering[localVertexNumbering[n]] for n in range(1, len(baseVertexNumbering) + 1)]
+        vertexNumberingString = ';'.join([str(n) for n in vertexNumberingList])
+        relSetString = relSetToString(mut[0].rels)
+        row = table.rowFor(relSetString)
+        if row is None or bool(row[1]):
+            continue
+        if bool(mut[1]):
+            localMutationVertexString = ';'.join(
+                str(vertexNumberingList[localVertexNumberingList.index(v)]) for v in mut[1]
+            )
+        else:
+            localMutationVertexString = ''
+        if bool(baseMutationVertexString) and bool(localMutationVertexString):
+            totalMutationVertexString = ';'.join([baseMutationVertexString, localMutationVertexString])
+        elif bool(localMutationVertexString):
+            totalMutationVertexString = localMutationVertexString
+        else:
+            totalMutationVertexString = baseMutationVertexString
+        table.assign(relSetString, mutationClassName, totalMutationVertexString,
+                     str(coxPoly.as_expr()), vertexNumberingString)
+
+    print('as part of the class ', mutationClassName)
+    if mutationClassName != inputMutationClassName:
+        table.renameClass(inputMutationClassName, mutationClassName)
+    if printOutput:
+        for row in table.rows():
+            print(row)
+    return mutationClassName
+
+
+def relationStringToLineRelLengths(lineLength, relationString):
+    """'1;2;3|3;4;5;6' -> [2, 0, 3, 0] for a line of the given length.
+
+    Entry i is the number of arrows in the relation starting at vertex i + 1.
+    """
+    lineRelList = [0] * (lineLength - 2)
+    for pathString in relationString.split('|'):
+        vertexStrings = pathString.split(';')
+        if not bool(vertexStrings[0]):
+            continue
+        path = [int(v) for v in vertexStrings]
+        lineRelList[path[0] - 1] = len(path) - 1
+    return lineRelList
+
+
+def lineRelLengthsToClassName(lineRelLengths):
+    return ''.join(str(n) for n in lineRelLengths)
+
+
+def mutationSearch(lineLength, mutationDepthStart, startRow = 0, createNewCSVfile = False,
+                   printMutations = False, fileName = None, table = None, writeEveryClass = True):
+    """Classify every LNA of the given length by depth-first tilting mutation.
+
+    Walks the table of all Catalan(lineLength - 1) LNAs.  For each one that no
+    earlier search has reached, runs a depth-first search of mutations out of it
+    and records every LNA that search reaches as belonging to the same class.
+
+    The depth decays as max(mutationDepthStart - floor(log10(row)), 2), which is
+    what keeps later rows affordable, and is also why the result is a lower
+    bound on each class rather than the classification itself: two LNAs in the
+    same class end up in different classes here if no mutation path between them
+    fits in the depth.  Merging those is a separate step.
+
+    Returns the MutationClassTable.  Pass `table` to continue an existing one,
+    and startRow to begin partway through it.
+    """
+    if fileName is None:
+        fileName = 'A_{0}_mutation_classes.csv'.format(lineLength)
+    if table is None:
+        if createNewCSVfile:
+            table = mutationClassTable.MutationClassTable.forLength(
+                lineLength,
+                [relSetToString(relSet) for relSet in generateAllPossibleLineRelations(lineLength)],
+            )
+            table.writeCSV(fileName, header=True)
+        else:
+            table = mutationClassTable.MutationClassTable.fromCSV(fileName, lineLength)
+
     mutationDepth = mutationDepthStart
-    if createNewCSVfile:
-        createMutationClassCSV(lineLength)
-    mutationClassCSV = importMutationClassCSV('A_{0}_mutation_classes.csv'.format(lineLength))
-    numberOfCSVrows = len(mutationClassCSV)
-    for i in range(numberOfCSVrows):
-        row = mutationClassCSV[i + startRow - (numberOfCSVrows - 1)]
-        print('csv row: ', row)
+    numberOfRows = len(table)
+    for i in range(numberOfRows):
+        row = table.rows()[(startRow + i) % numberOfRows]
+        print('table row: ', row)
         if not bool(row[1]):
-            relSetAsList = []
-            relSetAsListOfString = row[0].split("|")
-            relSetAsListOfListOfString = [str.split(";") for str in relSetAsListOfString]
-            for stringList in relSetAsListOfListOfString:
-                if bool(stringList[0]):
-                    listMap = map(int, stringList)
-                    relList = list(listMap)
-                    relSetAsList.append(relList)
-            print('Relations in class: ', relSetAsList)
-            lineRelList = [0] * (lineLength - 2)
-            for rel in relSetAsList:
-                lineRelList[rel[0] - 1] = len(rel) - 1
-            lineNumberStringList = [str(num) for num in lineRelList]
-            lineNumberString = "".join(lineNumberStringList)
+            lineRelList = relationStringToLineRelLengths(lineLength, row[0])
+            print('Relations in class: ', row[0])
+            lineNumberString = lineRelLengthsToClassName(lineRelList)
             print('Working on class {0}'.format(lineNumberString))
-            quiverName = 'A{0}_{1}'.format(lineLength, lineNumberString)
-            pathAlg = lineQuiverExample(lineLength, lineRelList, row[2])
+            pathAlg = lineQuiverExample(lineLength, lineRelList)
             if printMutations:
                 printPathAlgebra(pathAlg)
-            open('{0}DF.txt'.format(quiverName), 'w').close()
             print('Mutation depth: {0}'.format(mutationDepth))
-            mutationSearchDepthFirst(pathAlg, mutationDepth, [], quiverName, printOutput=printMutations)
-            mutList = readMutationsFromFile('{0}DF.txt'.format(quiverName))
+            mutList = []
+            mutationSearchDepthFirst(pathAlg, mutationDepth, [],
+                                     'A{0}_{1}'.format(lineLength, lineNumberString),
+                                     printOutput=printMutations, collected=mutList,
+                                     writeToFile=False)
             cleanMutList = mutationListLineCleanup(mutList, printOutput=printMutations)
-            open('{0}.txt'.format(quiverName), 'w').close()
             for mut in cleanMutList:
                 print('Mutations: {0}'.format(mut[1]))
                 print('Relations: {0}'.format(mut[0].rels))
-                saveLinePathAlgMutation(mut[0], mut[1], mut[2], '{0}.txt'.format(quiverName))
-            print('Writing class {0} to csv file'.format(lineNumberString))
-            mutationClassCSV = saveLineRelationsAndMutationsToCSV('A_{0}_mutation_classes.csv'.format(lineLength),
-                                                                  cleanMutList, mutationClassCSV, lineNumberString)
-        mutationDepth = np.maximum(mutationDepthStart - np.floor(np.log10(i+1)), 2)
-    return
+            print('Writing class {0} to the table'.format(lineNumberString))
+            assignMutationClassInTable(table, cleanMutList, lineNumberString)
+            if writeEveryClass:
+                table.writeCSV(fileName, header=True)
+        mutationDepth = np.maximum(mutationDepthStart - np.floor(np.log10(i + 1)), 2)
+    table.writeCSV(fileName, header=True)
+    return table
+
 
 def quiverMutation(pathAlgebra, mutationVertexList, firstDisplayedStep = 0):
     #
