@@ -2324,23 +2324,69 @@ def formatHereditaryForms(forms):
     return '|'.join(sorted(quipu or canonical for canonical, (quipu, _path) in forms.items()))
 
 
-def annotateHereditaryForms(table, lineLength, maxDepth = 8, printOutput = True):
-    """Fill in the hereditary form of every class in the table that lacks one.
+def hereditaryFormFromTheorem(lineLength, relationString):
+    """The hereditary form of one LNA, straight from the quipu theorem.
 
-    This is what separates two classes that share a Coxeter polynomial: the
-    underlying graph of a relation-free quiver is a complete derived invariant
-    for hereditary algebras of tree type, so two classes reaching different
-    graphs are certainly not derived equivalent, and two reaching the same one
-    certainly are.
+    Returns '' when the LNA does not have almost separate relations, since
+    theorem `thm:QuipuToAn` of arXiv:2305.06642 says nothing about those.  For
+    the ones it does cover this is O(1), where reaching the same answer by
+    mutation search costs a depth-4-to-9 traversal.
     """
+    parameters = quipuForms.quipuForAlmostSeparateLNA(
+        lineLength, relationStringToLineRelLengths(lineLength, relationString))
+    return quipuForms.formatQuipu(parameters)
+
+
+def annotateHereditaryForms(table, lineLength, maxDepth = 0, printOutput = True):
+    """Give every class in the table the hereditary algebra it is equivalent to.
+
+    Three passes, cheapest first.
+
+    1. The quipu theorem, for every LNA in the table with almost separate
+       relations.  A class picks up the form of any such member it contains.
+       Two members disagreeing would mean either the search merged two classes
+       that are not equal or the inversion of the theorem is wrong, so that is
+       reported rather than silently resolved.
+    2. Whatever the class searches already found, which is kept where pass 1
+       says nothing.
+    3. Only if maxDepth > 0: an iterative-deepening search from the members of
+       each class still without a form.  This is the expensive one -- a class
+       that reaches no relation-free quiver at all makes it explore the whole
+       tree from every member -- so it is off by default.
+
+    Returns the table.
+    """
+    formsByClass = {}
+    conflicts = {}
+    for row in table.rows():
+        if not row[1]:
+            continue
+        form = hereditaryFormFromTheorem(lineLength, row[0])
+        if not form:
+            continue
+        known = formsByClass.setdefault(row[1], form)
+        if known != form:
+            conflicts.setdefault(row[1], {known}).add(form)
+
+    for className, forms in conflicts.items():
+        print('WARNING: class {0} contains LNAs equivalent to different quipus: {1}. '
+              'Either the search merged two distinct classes, or the theorem was '
+              'inverted wrongly.'.format(className, sorted(forms)))
+
     for className in sorted(table.classNames()):
         rows = [row for row in table.rows() if row[1] == className]
-        if any(row[5] for row in rows):
-            continue
-        form = findHereditaryFormForClass(table, lineLength, className, maxDepth, printOutput)
+        fromTheorem = formsByClass.get(className, '')
+        fromSearch = next((row[5] for row in rows if row[5]), '')
+        if fromTheorem and fromSearch and fromTheorem != fromSearch:
+            print('WARNING: class {0} is {1} by the theorem but the search reached '
+                  '{2}'.format(className, fromTheorem, fromSearch))
+        form = fromTheorem or fromSearch
+        if not form and maxDepth > 0:
+            form = findHereditaryFormForClass(table, lineLength, className, maxDepth, printOutput)
         table.setHereditaryFormForClass(className, form)
         if printOutput:
-            print('class {0}: {1}'.format(className, form or 'no hereditary quiver reached'))
+            source = 'theorem' if fromTheorem else ('search' if form else 'nothing')
+            print('class {0}: {1} ({2})'.format(className, form or '-', source))
     return table
 
 
@@ -2381,7 +2427,8 @@ def mergeReport(table):
 
 
 def mutationSearch(lineLength, mutationDepthStart, startRow = 0, createNewCSVfile = False,
-                   printMutations = False, fileName = None, table = None, writeEveryClass = True):
+                   printMutations = False, fileName = None, table = None, writeEveryClass = True,
+                   collectHereditary = False):
     """Classify every LNA of the given length by depth-first tilting mutation.
 
     Walks the table of all Catalan(lineLength - 1) LNAs.  For each one that no
@@ -2396,6 +2443,12 @@ def mutationSearch(lineLength, mutationDepthStart, startRow = 0, createNewCSVfil
 
     Returns the MutationClassTable.  Pass `table` to continue an existing one,
     and startRow to begin partway through it.
+
+    collectHereditary makes the search also record every relation-free quiver it
+    passes through, which identifies the class completely.  It is off by default
+    because annotateHereditaryForms gets the same answer from the quipu theorem
+    in O(1), while collecting during the search costs a canonical form at every
+    relation-free node and roughly doubles the run time.
     """
     if fileName is None:
         fileName = 'A_{0}_mutation_classes.csv'.format(lineLength)
@@ -2424,7 +2477,7 @@ def mutationSearch(lineLength, mutationDepthStart, startRow = 0, createNewCSVfil
                 printPathAlgebra(pathAlg)
             print('Mutation depth: {0}'.format(mutationDepth))
             mutList = []
-            hereditaryFound = []
+            hereditaryFound = [] if collectHereditary else None
             mutationSearchDepthFirst(pathAlg, mutationDepth, [],
                                      'A{0}_{1}'.format(lineLength, lineNumberString),
                                      printOutput=printMutations, collected=mutList,

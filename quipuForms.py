@@ -198,3 +198,71 @@ def graphFromQuipuParameters(k, m):
 def canonicalQuipuParameters(k, m):
     """The canonical parameter pair for the quipu named by (k, m)."""
     return quipuParameters(graphFromQuipuParameters(k, m))
+
+
+def quipuForAlmostSeparateLNA(lineLength, relLengths):
+    """The quipu an LNA with almost separate relations is derived equivalent to.
+
+    This inverts theorem `thm:QuipuToAn` of arXiv:2305.06642, which states that
+    for a quipu P^(m_0,...,m_r)_(k_0,...,k_{r+1}) and
+
+        n_i = k_0 + sum_{j=1..i} (m_{j-1} + k_j + 1)   for 1 <= i <= r+1,
+
+    the quipu algebra is derived equivalent to
+
+        A_{n_{r+1}, (k_0, n_1, ..., n_r)}^{(m_0+2, m_1+2, ..., m_r+2)}
+
+    and to no quipu of any other shape.  Reading it backwards, an LNA
+    A_{n,(n_0,...,n_r)}^{(l_0,...,l_r)} with almost separate relations, all of
+    length >= 3, comes from
+
+        m_i = l_i - 2,   k_0 = n_0,
+        k_i = n_i - n_{i-1} - m_{i-1} - 1   for 1 <= i <= r,
+        k_{r+1} = n - n_r - m_r - 1.
+
+    Relations of length 2 do not change the derived equivalence class of such an
+    algebra, so they are dropped first.
+
+    `relLengths` is the per-vertex form used throughout the repo: entry i is the
+    number of arrows in the relation starting at vertex i + 1, or 0.
+
+    Returns canonical quipu parameters, or None when the algebra does not have
+    almost separate relations, in which case the theorem says nothing about it.
+    """
+    relations = [(start + 1, length) for start, length in enumerate(relLengths) if length]
+    if not _hasAlmostSeparateRelations(lineLength, relations):
+        return None
+
+    longRelations = [(start, length) for start, length in relations if length >= 3]
+    if not longRelations:
+        # Every relation has length 2, so the algebra is derived equivalent to
+        # the path algebra of A_n itself.
+        return canonicalQuipuParameters((0, lineLength - 1), (0,))
+
+    starts = [start for start, _ in longRelations]
+    m = [length - 2 for _, length in longRelations]
+    k = [starts[0]]
+    for i in range(1, len(starts)):
+        k.append(starts[i] - starts[i - 1] - m[i - 1] - 1)
+    k.append(lineLength - starts[-1] - m[-1] - 1)
+    if any(value < 0 for value in k):
+        return None
+    return canonicalQuipuParameters(tuple(k), tuple(m))
+
+
+def _hasAlmostSeparateRelations(lineLength, relations):
+    """Whether consecutive relations overlap in at most one arrow.
+
+    relations is a list of (start vertex, number of arrows), in increasing order
+    of start vertex.  The paper's condition is n_{i+1} >= n_i + l_i - 1, along
+    with the standing assumptions n_i < n_{i+1}, n_i + l_i < n_{i+1} + l_{i+1}
+    and n_r + l_r <= n.
+    """
+    for (start, length), (nextStart, nextLength) in zip(relations, relations[1:]):
+        if nextStart < start + length - 1:
+            return False
+        if start >= nextStart or start + length >= nextStart + nextLength:
+            return False
+    if relations and relations[-1][0] + relations[-1][1] > lineLength:
+        return False
+    return True

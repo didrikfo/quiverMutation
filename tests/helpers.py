@@ -60,3 +60,15 @@ def dynkin_A_coxeter(n):
 def dynkin_D_coxeter(n):
     """Coxeter polynomial of the path algebra of the Dynkin quiver D_n."""
     return sympy.expand((LAMBDA ** (n - 1) + 1) * (LAMBDA + 1))
+
+
+def relation_string(rel_lengths):
+    """Per-vertex relation lengths -> the 'a;b;c|d;e;f' string used in tables."""
+    if isinstance(rel_lengths, str):
+        rel_lengths = [int(c) for c in rel_lengths]
+    paths = [
+        ";".join(str(v) for v in range(start + 1, start + n + 2))
+        for start, n in enumerate(rel_lengths)
+        if n
+    ]
+    return "|".join(paths)
