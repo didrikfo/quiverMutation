@@ -323,6 +323,46 @@ Results, all matching the published table with nothing left as a candidate:
 | 7 | 132  | 6       | 54, 32, 29, 7, 6, 4 | ~37s |
 | 8 | 429  | 11      | 133, 65, 64, 64, 40, 26, 13, 10, 9, 4, 1 | ~4min |
 
+### Where the Coxeter polynomial fails, exactly
+
+The Coxeter polynomial of the path algebra of a tree is determined by the tree's
+adjacency spectrum. So two **cospectral** non-isomorphic quipus give algebras
+that are not derived equivalent and yet share a Coxeter polynomial -- and that is
+the *only* way it can fail among these classes.
+
+`quipuForms.cospectralQuipuGroups(n)` maps them out for any order, in seconds,
+with no mutation search: enumerate the quipus of that order
+(`allQuipusOfOrder`), take each one's adjacency characteristic polynomial, and
+report the groups of size two or more. Checked for orders 4 to 11: the groups it
+finds are *exactly* the groups with equal Coxeter polynomials, computed the
+expensive way through each algebra's Cartan matrix.
+
+| order | quipus | collision groups | quipus involved |
+|---|---|---|---|
+| <= 8 | 2..11 | **0** | 0 |
+| 9  | 18  | 1  | 2 |
+| 10 | 36  | 2  | 4 |
+| 11 | 64  | 4  | 8 |
+| 12 | 127 | 13 | 27 |
+| 13 | 241 | 30 | 61 |
+
+**This is why the published n <= 8 table is clean**: below order 9 there are no
+cospectral quipus, so grouping by Coxeter polynomial happens to be right there
+and nowhere else.
+
+The smallest collision, at order 9:
+
+    P^(1,4)_(1,0,1)  =  A_{9,(1,3)}^{(3,6)}   (class name 3060000)
+    P^(1,2)_(1,1,2)  =  A_{9,(1,4)}^{(3,4)}   (class name 3004000)
+
+Both have Coxeter polynomial
+`(L+1)(L^2+L+1)(L^6-L^5-L^4-L^2-L+1)`, both trees have degree sequence
+`3,3,2,2,2,1,1,1,1`, and the trees are not isomorphic. So these two LNAs are not
+derived equivalent, and no amount of Coxeter-polynomial agreement says otherwise.
+`classifyLength(9)` reports exactly this pair under `separated`.
+
+`python classify.py 9 --collisions` prints the map for an order.
+
 ### The hereditary form
 
 When a search leaves a quiver with **no relations**, the algebra is hereditary,
@@ -370,12 +410,13 @@ nothing else, agreeing with the published table.
 13. ~~**Seed the table from quipu quivers.**~~ Done: `seedTableFromQuipuTheorem`,
     used by `classifyLength`. See "Classifying a length" below.
 14. **More invariants, to separate classes the Coxeter polynomial cannot.**
-    Candidates: the determinant and elementary divisors of the Cartan matrix,
-    the Euler form, the number of indecomposables / the shape of the AR quiver,
-    Hochschild cohomology dimensions, the derived invariants of Avella-Alaminos
-    and Geiss for gentle algebras (LNAs are gentle), and the silting/tilting
-    quiver's local structure. Each wants to be a function
-    `PathAlgebra -> hashable`, so the merge step can key on a tuple of them.
+    Largely answered by the hereditary form, which is complete where it applies,
+    and by the cospectrality analysis below, which says exactly where the Coxeter
+    polynomial fails. Remaining candidates, for classes the quipu theorem does
+    not reach: the derived invariants of Avella-Alaminos and Geiss for gentle
+    algebras (LNAs are gentle), Hochschild cohomology dimensions, the shape of
+    the AR quiver. Each wants to be a function `PathAlgebra -> hashable` so the
+    merge step can key on a tuple of them.
 15. **Certificates both ways.** A merge should record the mutation path that
     proves the equivalence; a split should record the invariant that separates
     the two classes. Then a classification is checkable without rerunning it.

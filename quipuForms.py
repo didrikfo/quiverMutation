@@ -266,3 +266,74 @@ def _hasAlmostSeparateRelations(lineLength, relations):
     if relations and relations[-1][0] + relations[-1][1] > lineLength:
         return False
     return True
+
+
+def allQuipusOfOrder(order):
+    """Every quipu on `order` vertices, as canonical parameter pairs.
+
+    A quipu P^(m_0,...,m_r)_(k_0,...,k_{r+1}) has r + 1 + sum(k) + sum(m)
+    vertices, so enumerating r, then the k and m that fit, and canonicalising,
+    gives each quipu exactly once.
+
+    Counts: 1, 1, 1, 2, 2, 4, 6, 11, 18, 36, 64, 127 for orders 1 to 12, and the
+    orders 6, 7 and 8 agree with the table in arXiv:2305.06642.
+    """
+    found = set()
+    for cords in range(1, order + 1):
+        # cords = r + 1, so there are `cords` cord lengths and cords + 1 gaps.
+        budget = order - cords
+        if budget < 0:
+            continue
+        for m in _compositions(cords, budget):
+            for k in _compositions(cords + 1, budget - sum(m)):
+                if sum(k) + sum(m) + cords != order:
+                    continue
+                canonical = quipuParameters(graphFromQuipuParameters(k, m))
+                if canonical is not None:
+                    found.add(canonical)
+    return sorted(found)
+
+
+def _compositions(parts, total):
+    """Every tuple of `parts` non-negative integers summing to at most `total`."""
+    if parts == 0:
+        yield ()
+        return
+    for first in range(total + 1):
+        for rest in _compositions(parts - 1, total - first):
+            yield (first,) + rest
+
+
+def adjacencySpectrumPolynomial(graph):
+    """The characteristic polynomial of the undirected adjacency matrix.
+
+    Two non-isomorphic trees with the same one are *cospectral*, and cospectral
+    quipus are exactly where the Coxeter polynomial stops separating derived
+    equivalence classes: the Coxeter polynomial of the path algebra of a tree is
+    determined by the tree's spectrum, so cospectral quipus give algebras that
+    are not derived equivalent yet share a Coxeter polynomial.
+    """
+    import sympy
+
+    nodes = sorted(graph.nodes)
+    matrix = sympy.Matrix(
+        [[1 if graph.has_edge(u, v) else 0 for v in nodes] for u in nodes])
+    return matrix.charpoly().as_expr()
+
+
+def cospectralQuipuGroups(order):
+    """Groups of two or more distinct quipus of an order that are cospectral.
+
+    Each group is a set of derived equivalence classes that no Coxeter polynomial
+    can tell apart, found without running a single mutation.  An empty result
+    means the Coxeter polynomial separates every class of that order.
+    """
+    groups = {}
+    for parameters in allQuipusOfOrder(order):
+        graph = graphFromQuipuParameters(*parameters)
+        groups.setdefault(adjacencySpectrumPolynomial(graph), []).append(parameters)
+    return {
+        polynomial: quipus
+        for polynomial, quipus in groups.items()
+        if len(quipus) > 1
+    }

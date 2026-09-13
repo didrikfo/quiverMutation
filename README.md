@@ -67,6 +67,20 @@ and settle whatever is left by a deeper search. For n <= 8 this reproduces the
 published classification with nothing left over, replacing what used to be a
 hand-merge over the CSV.
 
+### Where the Coxeter polynomial is not enough
+
+```bash
+python classify.py 9 --collisions
+```
+
+The Coxeter polynomial is a derived invariant but not a complete one, and it is
+possible to say exactly where it fails without running any mutation. For a tree
+it is determined by the tree's adjacency spectrum, so two cospectral
+non-isomorphic quipus give algebras that are not derived equivalent yet share a
+Coxeter polynomial. There are none below order 9 -- which is why the published
+classification up to n = 8 can be read off the polynomial -- one pair at order 9,
+two at order 10, four at order 11, thirteen at order 12.
+
 The library underneath is usable directly:
 
 ```python

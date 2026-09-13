@@ -16,7 +16,36 @@ import argparse
 import collections
 import sys
 
+import nakayama as nk
+import quipuForms as qf
 import quiverMutation as qm
+
+
+def report_collisions(order):
+    """Print the quipus of an order that no Coxeter polynomial can tell apart.
+
+    The Coxeter polynomial of the path algebra of a tree is determined by the
+    tree's adjacency spectrum, so cospectral non-isomorphic quipus give algebras
+    that are not derived equivalent and yet share a Coxeter polynomial.  Finding
+    them costs one characteristic polynomial per quipu and no mutation at all.
+    """
+    quipus = qf.allQuipusOfOrder(order)
+    groups = qf.cospectralQuipuGroups(order)
+    print("{0} quipus of order {1}, so {0} derived equivalence classes of LNAs "
+          "with almost separate relations".format(len(quipus), order))
+    if not groups:
+        print("The Coxeter polynomial separates all of them.")
+        return 0
+    covered = sum(len(g) for g in groups.values())
+    print("{0} of them fall into {1} group(s) the Coxeter polynomial cannot "
+          "separate:".format(covered, len(groups)))
+    for quipuGroup in sorted(groups.values(), key=str):
+        print()
+        for parameters in quipuGroup:
+            algebra = nk.QuipuAlgebra(*parameters)
+            print("  {0:<26} = LNA {1}".format(
+                qf.formatQuipu(parameters), algebra.correspondingLNA().className()))
+    return 0
 
 
 def main(argv=None):
@@ -31,7 +60,14 @@ def main(argv=None):
                              "share a Coxeter polynomial (default 6)")
     parser.add_argument("--out", default=None, help="output CSV path")
     parser.add_argument("--quiet", action="store_true", help="only print the summary")
+    parser.add_argument("--collisions", action="store_true",
+                        help="do not classify; just report which classes of this order the "
+                             "Coxeter polynomial cannot separate, which is cheap and needs "
+                             "no mutation search")
     args = parser.parse_args(argv)
+
+    if args.collisions:
+        return report_collisions(args.length)
 
     if args.length < 2:
         parser.error("a line quiver needs at least 2 vertices")
