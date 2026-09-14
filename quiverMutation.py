@@ -2714,16 +2714,24 @@ def mergeReport(table):
         forms = {formOfClass.get(name, '') for name in classNames}
         if '' in forms:
             candidate[polynomial] = classNames
-        elif len(forms) > 1:
-            # Different forms, so distinct classes.  This includes one class
-            # certified not piecewise hereditary against one with a quipu: the
-            # certificate cannot merge classes but it does separate them from
-            # every quipu class.
-            separated[polynomial] = classNames
         elif forms == {mutationClassTable.NOT_PIECEWISE_HEREDITARY}:
             # Both only carry the negative certificate, which says nothing about
             # whether they are the same class.
             candidate[polynomial] = classNames
+        elif len(forms) > 1:
+            # Different forms need not mean different classes: a tame hereditary
+            # quipu is also of canonical type, so 'P^(...)' and 'C(...)' can name
+            # one class.  Only forms that cannot both name the same class
+            # separate it.
+            ordered = sorted(forms)
+            incompatible = any(
+                not mutationClassTable.formsAreCompatible(a, b, lineLength = None)
+                for index, a in enumerate(ordered) for b in ordered[index + 1:]
+            )
+            if incompatible:
+                separated[polynomial] = classNames
+            else:
+                candidate[polynomial] = classNames
     return {'certain': certain, 'candidate': candidate, 'separated': separated}
 
 

@@ -52,6 +52,53 @@ def isIdentifyingForm(form):
     return bool(form) and form != NOT_PIECEWISE_HEREDITARY
 
 
+def formsAreCompatible(first, second, lineLength = None):
+    """Whether two forms could still name the same class.
+
+    Different forms are *not* automatically proof of distinctness.  A quipu that
+    is tame hereditary is also derived equivalent to a canonical algebra, so the
+    quipu name 'P^(1,1)_(1,4,1)' and the canonical name 'C(2,2,7)' can be two
+    names for one class -- they are, at order 10.  Treating the strings as
+    distinct identities reports such a pair as separated when it should be a
+    merge candidate.
+
+    So: two quipu names are compatible only if equal; two canonical names only if
+    equal; and a quipu against a canonical name are compatible exactly when the
+    quipu's own canonical weight type is the one named.
+    """
+    if first == second:
+        return True
+    if not (isIdentifyingForm(first) and isIdentifyingForm(second)):
+        return True                      # the negative certificate settles nothing
+    quipu, canonical = None, None
+    for form in (first, second):
+        if form.startswith("P^("):
+            quipu = form if quipu is None else quipu
+        elif form.startswith("C("):
+            canonical = form if canonical is None else canonical
+    if quipu is None or canonical is None:
+        return False                     # two quipus, or two canonical types
+    return _canonicalTypeOfQuipu(quipu) == canonical
+
+
+def _canonicalTypeOfQuipu(quipuName):
+    """'C(...)' for a quipu that is also of canonical type, else None."""
+    import nakayama
+    import piecewiseHereditary
+    import quipuForms
+
+    parsed = quipuForms.parseQuipuName(quipuName)
+    if parsed is None:
+        return None
+    k, m = parsed
+    algebra = nakayama.QuipuAlgebra(k, m)
+    weights = piecewiseHereditary.canonicalWeightType(
+        len(algebra.vertices()), algebra.coxeterPolynomial())
+    if weights is None:
+        return None
+    return "C({0})".format(",".join(str(w) for w in weights))
+
+
 class MutationClassTable:
     """One row per LNA of a fixed length.
 

@@ -6,6 +6,33 @@ does not. See [`README.md`](README.md).
 
 ---
 
+## R-007 — "Two classes with different names are different classes"
+*2026-09-14* · corrected in `mutationClassTable.formsAreCompatible`
+
+`mergeReport` treated any two differing identifying forms as proof that the
+classes are distinct. That is false when one is a **quipu that is tame
+hereditary** and the other is that quipu's **canonical type**: a tame hereditary
+algebra is also derived equivalent to a canonical algebra, so `P^(1,1)_(1,4,1)`
+and `C(2,2,7)` are two names for one thing.
+
+At n = 10 this reported a false separation — three classes named `C(2,2,7)`
+against the quipu `P^(1,1)_(1,4,1)`, whose own canonical weight type is `(2,2,7)`.
+They are merge candidates, not separated classes.
+
+**How it was caught.** The cospectral analysis (F-010) predicts *exactly* two
+collision groups at order 10. The run reported two separated groups, one of which
+was not either of them. A prediction that did not match is what exposed it; the
+count alone would have looked right.
+
+The earlier note that "the two identifications agree rather than compete" was
+correct and is in `tests/test_nakayama_classes.py` — but the comparison logic did
+not honour it. **A property recorded in a test is not enforced anywhere else.**
+
+Does not affect n ≤ 9: the separated pair at n = 9 is two quipus, and no class
+below 10 carries a canonical name against a quipu sharing its polynomial.
+
+---
+
 ## R-006 — "The workbook's n = 9 classification has 19 classes"
 *2026-09-13* · superseded by **F-011**
 

@@ -5,6 +5,31 @@ See [`README.md`](README.md) for conventions.
 
 ---
 
+## F-014 — n = 10: all 36 quipus found, and the predicted collision confirmed
+*2026-09-14* · **partial — the merge step is unfinished**
+
+`classifyLength(10)` placed all 4862 rows. After naming: **133 search classes**,
+61 of them named — **all 36 quipus of order 10**, 13 classes of canonical type, 12
+certified not piecewise hereditary. 72 classes remain unnamed and 17 groups
+remain merge candidates, so this is **not yet a classification**; the resolve step
+has not been run.
+
+What is already established:
+
+* every quipu of order 10 occurs as the class of some LNA of length 10, as H-005
+  needs;
+* the one group proved `separated` is `P^(1,4)_(1,0,2)` against
+  `P^(3,3)_(1,0,1)` — **one of the two cospectral pairs F-010 predicts at order
+  10**, arrived at by a completely different route;
+* 13 canonical-type and 12 non-piecewise-hereditary classes, against 1 and 1 at
+  n = 9, so the non-quipu part of the classification grows quickly (H-004).
+
+The mismatch between the *two* predicted collision groups and the *two* reported
+separations is what exposed R-007 — one of the reported ones was a false
+separation.
+
+---
+
 ## F-013 — The pair slide holds for every relation length, with two mutations
 *2026-09-14*
 
