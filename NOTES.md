@@ -266,7 +266,13 @@ inventory; the plan immediately following is the order to take them in.
 ### Plan of attack
 
 Agreed priority, highest first. Each line says what "done" means, so a session
-can pick one up without re-deciding the order.
+can pick one up without re-deciding the order. **Items 1 to 3 are done; the
+next one up is 4.**
+
+One thing the reorganisation earned that was not the point of it: the mutation
+engine is 3x faster and step 7 is right, both of which came out of having to
+state plainly what the code was doing. Items 5 and 6 are the mathematics, and
+item 4 is what makes n >= 10 readable at all.
 
 1. ~~**Reorganise the module layout, moving code as-is.**~~ **Done.** Idea 10.
    `quiverMutation.py`'s 3271 lines became eleven modules of the
@@ -311,6 +317,12 @@ can pick one up without re-deciding the order.
 7. **An independent separation of the cospectral pair.** Idea 22. Not blocking
    anything, but it is the one claim in the n = 9 classification that rests on a
    single route (F-014).
+8. **Re-run the n = 9 classification on the new engine.** Not expected to change
+   — n = 7 and 8 did not, and the two relations step 7 recovers were lost on
+   quivers the search passes through rather than on rows it records — but n = 9
+   is the first length whose answer was never independently checked, and it is
+   now about an hour rather than 56 minutes' worth of the old engine. Worth
+   doing before n = 10 is resumed (E-008).
 
 ### Performance and correctness
 
