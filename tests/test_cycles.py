@@ -68,7 +68,7 @@ def test_the_search_ends_the_branch_at_a_cycle_instead_of_crashing(shallow_recur
     """The search never descends from a cyclic quiver, so it should just stop."""
     collected = []
     quiet(qm.mutationSearchDepthFirst, cyclic_algebra(), 3, [], "cyclic",
-          printOutput=False, writeToFile=False, collected=collected)
+          printOutput=False, collected=collected)
     assert collected == []      # a 3-cycle is not a line, so nothing is recorded
 
 

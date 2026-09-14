@@ -137,34 +137,6 @@ def removeNonminimalZeroRels(pathAlg, applyCommutativityRels = True):
     return pathAlg
 
 
-def reduceCommutativityRels(pathAlg):
-    for rel in pathAlg.rels:
-        if len(rel) > 1:
-            relLength = len(rel[0])
-            for i in range(1, len(rel)):
-                relLength = max(relLength, len(rel[i]))
-            sameStart = False
-            sameEnd = False
-            for i in range(1, relLength):
-                for n in range(1,len(rel)):
-                    if rel[n][i] != rel[0][i] and not sameStart:
-                        sameStart = True
-                        sameStartEnd = i
-                    if rel[n][-i] != rel[0][-i] and not sameEnd:
-                        sameEnd = True
-                        sameEndStart = -i
-                    if sameStart and sameEnd:
-                        break
-                if sameStart and sameEnd:
-                    break
-            if sameStart or sameEnd:
-                newRel = []
-                for relPath in rel:
-                    newRel.append(relPath[sameStartEnd - 1:len(relPath) + sameEndStart + 2])
-                pathAlg.rels[pathAlg.rels.index(rel)] = newRel
-    return pathAlg
-
-
 def removeDuplicateRels(pathAlg):
     uniqueRels = []
     for rel in pathAlg.rels:
@@ -188,48 +160,6 @@ def removeDuplicateRelPaths(pathAlg):
         uniqueRels.append(uniqueRelPaths)
     pathAlg.clear_rels()
     pathAlg.add_rels_from(uniqueRels)
-    return pathAlg
-
-
-def minimizeCommutingRelation(pathAlg, relation):
-    if len(relation) >= 2:
-        return pathAlg
-    verticesBetween = []
-    for path in nx.all_simple_paths(pathAlg.quiver, relation[0][0], relation[0][-1]):
-        for vertex in path:
-            if not vertex in verticesBetween:
-                verticesBetween.append(vertex)
-    rels = []
-    for i in verticesBetween:
-        for j in verticesBetween:
-            for rel in paths.allRelsBetweenVertices(pathAlg, i, j):
-                rels.append(rel)
-    replaceCommutingPartWith = []
-    for rel in rels:
-        if len(rel) >= 2 and len(rel[0]) < len(relation[0]):
-            for m in range(len(rel)):
-                for i in range(len(rel[m]) - 2):
-                    commutativeRelStart = 0
-                    if rel[m][i] in relation[0] and rel[m][i+1] not in relation[0]:
-                        commutativeRelStart = rel[m][i]
-                        if bool(commutativeRelStart):
-                            commutativeRelEnd = 0
-                            for j in range(len(rel[m]) - 1, i + 1, -1):
-                                if rel[m][j] in relation[0] and rel[m][j-1] not in relation[0]:
-                                    commutativeRelEnd = rel[m][j]
-                                if bool(commutativeRelEnd):
-                                    for relPath in rel[m+1:]:
-                                        if relation[0][relation[0].index(commutativeRelStart):relation[0].index(commutativeRelEnd) + 1] == relPath[relPath.index(commutativeRelStart):relPath.index(commutativeRelEnd) + 1]:
-                                            replaceCommutingPartWith = rel[m][i:j+1]
-                                            break
-                            if bool(replaceCommutingPartWith):
-                                break
-                if bool(replaceCommutingPartWith):
-                    break
-            if bool(replaceCommutingPartWith):
-                break
-    if bool(replaceCommutingPartWith):
-        pathAlg.rels[pathAlg.rels.index(relation)][0][relation[0].index(replaceCommutingPartWith[0]):relation[0].index(replaceCommutingPartWith[-1])+1] = replaceCommutingPartWith
     return pathAlg
 
 

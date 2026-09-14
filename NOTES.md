@@ -205,17 +205,19 @@ Run times for the full `classifyLength` pipeline: n = 6 about 13 seconds, n = 7
   are equal as ideals but written differently are distinct objects. Several
   functions exist mainly to paper over this (`removeDuplicateRels`,
   `removeDuplicateRelPaths`, `removeRedundantRelations`,
-  `removeExistingSubrelations`, `minimizeCommutingRelation`).
-* **The older entry points still round-trip through text files**, parsed by
-  string slicing at fixed offsets in `readMutationsFromFile`.
-  `mutationSearch` no longer does -- it collects in memory -- but
-  `findMutationClassesForLine`, `collectMutationClasses`,
-  `combineLineMutationFiles` and the scratch code in `main.py` still do.
-* **`combineMutationClassesInCSVfile` does not work.** It was the start of an
-  automated merge step and was never finished: it has a `#wrong!` marked append,
-  a call to `quiverMutationAtVertices` missing its second argument, and a
-  `baseClass.split('')` that raises. Treat it as a sketch of idea 12, not as
-  code to fix.
+  `removeExistingSubrelations`). Retiring them is what plan item 3 is for.
+* ~~**The older entry points still round-trip through text files.**~~ Gone. The
+  transcript writing, its fixed-offset string-slicing parser, and the whole
+  file-based pipeline around them (`findMutationClassesForLine`,
+  `collectMutationClasses`, `combineLineMutationFiles`,
+  `combineMutationClasses`, `combineMutationClassesInCSVfile`) were deleted
+  along with `main.py`, the scratch script that was their last caller and which
+  could not be imported anyway -- it wanted `nodepy`, which is not a dependency.
+  `mutationSearchDepthFirst` no longer takes `writeToFile`; every caller already
+  passed `False`. `git log -- main.py` if any of it is wanted back.
+* ~~**`combineMutationClassesInCSVfile` does not work.**~~ Deleted with the
+  rest of that pipeline; `mergeReport` and `resolveMergeCandidates` are what
+  idea 12 became.
 
 ## Backlog
 
@@ -238,12 +240,12 @@ can pick one up without re-deciding the order.
    beyond import rewiring were three parameters named `pathAlgebra`, renamed to
    `pathAlg` (the convention elsewhere) because they shadowed the module of that
    name.
-2. **Then refactor inside the new files.** Ideas 7, 8, 9, 11 — fold the
-   `...Line...` free functions into `LinearNakayamaAlgebra`, the quipu ones into
-   `QuipuAlgebra`, retire the text-file round trip, and delete the dead legacy
-   (`generateAllQuipusUpToLength`, `generateAllHeightOneQuipus`,
-   `generateAllQuipusGPT`, `count_quipusV1`, `combineMutationClassesInCSVfile`,
-   which does not even run). One module per commit.
+2. **Then refactor inside the new files.** Ideas 7, 8, 9, 11. The deletions are
+   **done**: the file-based pipeline, the old quipu generators, and 27 other
+   unreachable definitions are gone, along with `main.py` — about 1900 lines,
+   and `quiverMutation`'s flat surface is 53 names instead of 102. What is left
+   of this item is folding the `...Line...` free functions into
+   `LinearNakayamaAlgebra` and the quipu operations into `QuipuAlgebra`.
 3. **Finish the relation-object migration.** Idea 5. `relationAlgebra` already
    has the value type and exact ideal arithmetic; the mutation procedure and
    `reducePathAlgebra` still run on the set-of-paths model. Done when
@@ -336,10 +338,9 @@ can pick one up without re-deciding the order.
     `legacy` and `legacyQuipus` are leaves nothing else imports, which is what
     makes them safe to delete when their last caller goes.
 
-11. **Replace the text-file round trip** in the remaining entry points
-    (`findMutationClassesForLine`, `collectMutationClasses`,
-    `combineLineMutationFiles`) the way `mutationSearch` now does it, with a
-    `collected` list rather than a transcript parsed back by string slicing.
+11. ~~**Replace the text-file round trip**~~ **Done**, by deleting it: the
+    entry points that used it were superseded by `classifyLength`, so the
+    transcript, its parser and they all went together. See "Known gaps" above.
 
 ### Coefficients
 

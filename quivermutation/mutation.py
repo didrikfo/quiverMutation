@@ -50,7 +50,6 @@ def quiverMutationAtVertex(pathAlg, vertex):
                 outRelPathsWithRels.append([rel, []])
             targetRelAndPathHitByOutRelAndPath = []
             for w in targetPredecessorsOfVertex:
-#                nonMinOutRels = nonMinimalOutRels(pathAlg, w)
                 nonMinOutRels = []
                 for w_succ in list(nx.dfs_preorder_nodes(oldQuiver, w))[1:]:
                     nonMinOutRels.extend(paths.allRelsBetweenVertices(pathAlg, w, w_succ))
@@ -268,14 +267,6 @@ def mutationIsPossibleAtVertex(pathAlg, vertex, allRels = None):
     return True
 
 
-def onePointExtension(pathAlg, arrowToAdd, relsToAdd = None):
-    relsToAdd = [] if relsToAdd is None else relsToAdd
-    extendedPathAlg = pathAlg
-    extendedPathAlg.add_arrows_from([arrowToAdd])
-    extendedPathAlg.add_rels_from(relsToAdd)
-    return extendedPathAlg
-
-
 def quiverMutation(pathAlg, mutationVertexList, firstDisplayedStep = 0):
     #
     baseCoxPol = invariants.coxeterPoly(pathAlg)
@@ -307,11 +298,6 @@ def reverseMutationSequence(mutationVertices, vertexNumbering):
     for n in range(len(mutationVertices) - 1, -1, -1):
         reverseMutationVertices.append(-getVertexNumberingKeyFromValue(vertexNumbering, mutationVertices[n]))
     return reverseMutationVertices
-
-
-def reverseMutationFromSequence(pathAlg, mutationVertices, vertexNumbering):
-    reverseMutationVertices = reverseMutationSequence(mutationVertices, vertexNumbering)
-    return quiverMutationAtVertices(pathAlg, reverseMutationVertices)
 
 
 def getVertexNumberingKeyFromValue(vertexNumbering, vertex):

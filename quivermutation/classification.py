@@ -397,7 +397,7 @@ def resolveMergeCandidates(table, lineLength, depth = 8, printOutput = True):
             for startPoint in _memberAndItsDual(lineLength, relationString):
                 reached = []
                 search.mutationSearchDepthFirst(startPoint, depth, [], 'resolve', printOutput = False,
-                                         collected = reached, writeToFile = False)
+                                         collected = reached)
                 for mut in lines.mutationListLineCleanup(reached, printOutput = False):
                     row = table.rowFor(lines.relSetToString(mut[0].rels))
                     if row is None or not row[1] or row[1] == className:
@@ -526,7 +526,6 @@ def mutationSearch(lineLength, mutationDepthStart, startRow = 0, createNewCSVfil
             search.mutationSearchDepthFirst(pathAlg, mutationDepth, [],
                                      'A{0}_{1}'.format(lineLength, lineNumberString),
                                      printOutput=printMutations, collected=mutList,
-                                     writeToFile=False,
                                      collectedHereditary=hereditaryFound)
             cleanMutList = lines.mutationListLineCleanup(mutList, printOutput=printMutations)
             className = assignMutationClassInTable(table, cleanMutList, lineNumberString,
@@ -604,18 +603,3 @@ def classifyLength(lineLength, mutationDepthStart = 6, resolveDepth = 6, fileNam
             len(table), len(table.classNames()), len(report['candidate']),
             len(report['separated'])))
     return table, report
-
-
-def saveLineRelationsAndMutationsToCSV(fileName, mutationList, csvData, mutationClassName, printOutput = False):
-    """Deprecated. Use MutationClassTable and assignMutationClassInTable instead.
-
-    Kept so the older entry points that still pass a list of CSV rows around
-    (expandAllClassesWithEasyRels, combineMutationClassesInCSVfile) keep working.
-    Takes and returns rows as lists of strings, header row included if present.
-    """
-    hasHeader = bool(csvData) and csvData[0][0] == mutationClassTable.RELATIONS
-    dataRows = csvData[1:] if hasHeader else csvData
-    table = mutationClassTable.MutationClassTable(dataRows)
-    assignMutationClassInTable(table, mutationList, mutationClassName, printOutput)
-    table.writeCSV(fileName, header = hasHeader)
-    return ([csvData[0]] if hasHeader else []) + table.rows()

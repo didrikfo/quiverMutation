@@ -25,13 +25,12 @@ from . import reduction
 
 
 
-def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName = 'quiver', vertexRelabeling = None, printOutput = True, collected = None, writeToFile = True, collectedHereditary = None):
+def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName = 'quiver', vertexRelabeling = None, printOutput = True, collected = None, collectedHereditary = None):
     """Walk mutations of pathAlg to the given depth, recording the lines found.
 
     Every quiver reached that is again a line is recorded as a triple
     (path algebra, mutation path, vertex numbering).  Pass a list as `collected`
-    to receive those triples in memory, in the order the search visits them;
-    pass writeToFile=False to skip the '<quiverName>DF.txt' transcript.
+    to receive those triples in memory, in the order the search visits them.
 
     Pass a list as `collectedHereditary` to also receive, for every quiver
     reached that has no relations left, a triple (canonical form of the
@@ -39,9 +38,9 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
     mutation path).  Those are the hereditary algebras in the class, and they
     identify it completely.
 
-    The transcript used to be the only output, and the caller read it back with
-    readMutationsFromFile.  That round trip through string formatting is kept
-    for inspecting a search by hand, but the pipeline no longer needs it.
+    `quiverName` only labels the progress output.  It used to name a
+    '<quiverName>DF.txt' transcript that the caller parsed back by string
+    slicing; that round trip is gone -- see NOTES.md idea 11.
     """
     # These used to default to [] and {}, which Python evaluates once at
     # definition time.  The relabeling dict is filled in below and so leaked
@@ -87,15 +86,6 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
         foundPathAlg.quiver = baseQuiver
         foundPathAlg.rels = rels
         collected.append((foundPathAlg, mutationVertices[:], dict(vertexRelabeling)))
-    if isLine and writeToFile:
-        with open('{0}DF.txt'.format(quiverName), "a") as f:
-            f.write('Mutations: {0}\n'.format(mutationVertices))
-            f.write('Numbering: {0}\n'.format(vertexRelabeling))
-            f.write("Longest path: {0}\n".format(longestPathLength))
-            f.write('Vertices: {0}\n'.format(vertices))
-            f.write('Arrows: {0}\n'.format(baseQuiver.edges))
-            f.write('Relations: {0}\n'.format(rels))
-            f.write('-\n')
     # debugVertexList = [1, 1, 2, 1, 2, 3, 5, 3, 4, 4, 5, 2, 2, 3, 6, 1, 4, 1, 2, 3, 1, 4]
     # for i in range(7, len(debugVertexList)):
     #      if mutationVertices == debugVertexList[:i]:
@@ -119,14 +109,6 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
                             break
                     if not mutationPossible:
                         break
-                # for v in vertexPredecessors:
-                #     for nonMinRel in nonMinimalOutRels(pathAlg, v):
-                #         if len(nonMinRel) == 1:
-                #             if nonMinRel[0][-1] in vertexImmideateSuccessors and nonMinRel[0][-2] != vertex:
-                #                 mutationPossible = False
-                #                 break
-                #     if not mutationPossible:
-                #         break
             if mutationPossible:
                 mutationVerticesAtDepth.append(vertexRelabeling[vertex])
                 mutPathAlg = mutation.quiverMutationAtVertex(pathAlg, vertex)
@@ -137,7 +119,7 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
                 if discardMutation:
                     break
                 mutPathAlg = reduction.reducePathAlgebra(mutPathAlg)
-                mutationSearchDepthFirst(copy.deepcopy(mutPathAlg), depth, mutationVerticesAtDepth, quiverName, vertexRelabeling, printOutput, collected, writeToFile, collectedHereditary)
+                mutationSearchDepthFirst(copy.deepcopy(mutPathAlg), depth, mutationVerticesAtDepth, quiverName, vertexRelabeling, printOutput, collected, collectedHereditary)
     return
 
 
@@ -151,8 +133,7 @@ def hereditaryFormsReachedFrom(pathAlg, depth):
     """
     found = []
     mutationSearchDepthFirst(pathAlg, depth, [], 'hereditary', printOutput = False,
-                             collected = None, writeToFile = False,
-                             collectedHereditary = found)
+                             collected = None, collectedHereditary = found)
     forms = {}
     for canonical, quipu, path in found:
         if canonical not in forms or len(path) < len(forms[canonical][1]):

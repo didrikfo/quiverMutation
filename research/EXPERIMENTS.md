@@ -19,13 +19,19 @@ Four runs, in increasing cost:
    every LNA of lengths 4–10 with almost separate relations and no length-2
    relation. Orbits equal fibres exactly at every length; largest orbit 8, the
    paper's bound. Seconds. Now `tests/test_quipu_symmetry.py`.
-3. **The legacy quipu generator against the current one.**
-   `quiverMutation.generateAllQuipus` (tree enumeration and a degree test) and
-   `quipuForms.allQuipusOfOrder` (parameter enumeration and canonicalisation)
-   agree on the counts for orders 4–12, and no tree the first accepts is rejected
-   by `quipuForms.isQuipu`. This mattered because `generateAllQuipus` only tests
-   the "degree-3 vertices lie on one path" condition when there are more than
-   three of them, which looked like a hole; at these orders it does not bite.
+3. **Tree enumeration against parameter enumeration.** The old
+   `generateAllQuipus` (enumerate non-isomorphic trees, test the degrees) and
+   `quipuForms.allQuipusOfOrder` (enumerate the P^(m)_(k) parameters,
+   canonicalise) agree on the counts for orders 4–12, and no tree the first
+   accepts is rejected by `quipuForms.isQuipu`. The old function only tested the
+   "degree-3 vertices lie on one path" condition when there were more than three
+   of them, which looked like a hole — but three branch vertices in a tree of
+   maximum degree 3 always do lie on one path, since a path through two of them
+   passes through the third, so four is the smallest number that can fail.
+
+   Kept, since it is a genuinely independent route: it is now
+   `quipuForms.quipusByTreeEnumeration`, with the degree test written out as
+   `isQuipuByDegrees`, and the agreement is a test rather than a note here.
 4. **Hereditary form by mutation search**, from all four long-relation members of
    `P^(1,4)_(1,0,1)` (`0003030`, `3030000`, `3060000`, `6000030`) and both of
    `P^(1,2)_(1,1,2)` (`0400030`, `3004000`), at depth 6, plus iterative

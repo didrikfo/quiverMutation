@@ -268,6 +268,54 @@ def _hasAlmostSeparateRelations(lineLength, relations):
     return True
 
 
+def isQuipuByDegrees(graph):
+    """Whether the graph is a quipu, decided from its degrees.
+
+    A tree of maximum degree 3 whose degree-3 vertices all lie on one path --
+    read straight off the definition, since every path in a tree extends to one
+    between two leaves.
+
+    `isQuipu` answers the same question the other way round, by asking
+    `quipuParameters` for a main string that accounts for every branch vertex
+    and leaves bare paths hanging off it.  Two routes to one definition, so the
+    two disagreeing would mean one of them is wrong -- which is what
+    `quipusByTreeEnumeration` is for.
+    """
+    if graph.number_of_nodes() == 0 or not nx.is_tree(graph):
+        return False
+    degrees = dict(graph.degree())
+    if max(degrees.values(), default=0) > 3:
+        return False
+    branchVertices = {v for v, d in degrees.items() if d == 3}
+    if len(branchVertices) <= 1:
+        return True
+    leaves = [v for v, d in degrees.items() if d <= 1]
+    return any(branchVertices.issubset(nx.shortest_path(graph, first, last))
+               for first, last in itertools.combinations(leaves, 2))
+
+
+def quipusByTreeEnumeration(order):
+    """Every quipu of an order, reached by enumerating trees, not parameters.
+
+    The independent route to `allQuipusOfOrder`: that one enumerates the
+    P^(m)_(k) parameter pairs and canonicalises them, this one enumerates the
+    non-isomorphic trees of the order and keeps the ones `isQuipuByDegrees`
+    accepts.  Nothing about the notation enters the choice of which trees to
+    keep, so agreement between the two checks both the parameter enumeration and
+    the two readings of the definition.  They agree for orders 1 to 12 --
+    research E-013.
+
+    It is the more expensive route by far, since the number of trees grows much
+    faster than the number of quipus, which is why it is the check and not the
+    implementation.
+    """
+    found = set()
+    for tree in nx.nonisomorphic_trees(order) if order >= 2 else [nx.empty_graph(1)]:
+        if isQuipuByDegrees(tree):
+            found.add(quipuParameters(tree))
+    return sorted(found)
+
+
 def allQuipusOfOrder(order):
     """Every quipu on `order` vertices, as canonical parameter pairs.
 

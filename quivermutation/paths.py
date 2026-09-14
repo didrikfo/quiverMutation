@@ -38,39 +38,6 @@ def powerset(iterable):
     return powerList
 
 
-def replaceSubPath(pathAlg, path, oldSubPath, newSubPath):
-    newPath = path[:]
-    if sublistExists(path, oldSubPath):
-        newPath[path.index(oldSubPath[0]):path.index(oldSubPath[-1])] = newSubPath
-        if not nx.is_path(pathAlg.quiver, newPath):
-            print('New path is not a path in the quiver!\n')
-            pathAlgebra.printPathAlgebra(pathAlg)
-            print('Path: ', path)
-            print('Old subpath: ', oldSubPath)
-            print('New subpath: ', newSubPath)
-            input('Press enter to continue...')
-            return path
-    else:
-        print('Problem trying to replace subpath!\n')
-        pathAlgebra.printPathAlgebra(pathAlg)
-        print('Path: ', path)
-        print('Old subpath: ', oldSubPath)
-        print('New subpath: ', newSubPath)
-        input('Press enter to continue...')
-    return newPath
-
-
-def applyCommutativityRelSetToPath(path, relSet):
-    newPath = path[:]
-    for rel in relSet:
-        if len(rel) == 2:
-            if sublistExists(path, rel[0]):
-                newPath[newPath.index(rel[0][0]):newPath.index(rel[0][-1])] = rel[1][:-1]
-            elif sublistExists(path, rel[1]):
-                newPath[newPath.index(rel[1][0]):newPath.index(rel[1][-1])] = rel[0][:-1]
-    return newPath
-
-
 def applyRelSetToPath(path, relSet):
     relSetCopy = copy.deepcopy(relSet)
     stillUnusedRels = True
@@ -273,8 +240,9 @@ def extendRel(pathAlg, rel, visited = None):
     the relation itself.
 
     Note that each extension is returned twice, since the recursion's own result
-    starts with the relation it was given.  That predates this change and is
-    harmless -- nonMinimalOutRels, the only caller, dedupes at the end.
+    starts with the relation it was given.  That was harmless when
+    `nonMinimalOutRels` was the only caller and deduped at the end; that caller
+    is gone, so a caller of this now has to dedupe for itself.
     """
     vertex = rel[0][-1]
     if visited is None:
@@ -314,51 +282,6 @@ def allRelsInPathAlgebra(pathAlg):
         for w in vertices:
             allRels.extend(allRelsBetweenVertices(pathAlg, v, w))
     return allRels
-
-
-def nonMinimalOutRels(pathAlg, vertex):
-    nonMinOutRels = []
-    pathAlgCopy = copy.deepcopy(pathAlg)
-    for rel in pathAlgCopy.out_rels(vertex):
-        nonMinOutRels.extend(extendRel(pathAlgCopy, rel))
-    for ar in pathAlgCopy.out_arrows(vertex):
-        deeperOutRels = nonMinimalOutRels(pathAlgCopy, ar[1])
-        for dRel in deeperOutRels:
-            extendedRel = []
-            for dRelPath in dRel:
-                extendedRelPath = [vertex] + dRelPath
-                extendedRel.append(extendedRelPath)
-            nonMinOutRels.append(extendedRel)
-        for rel in pathAlgCopy.out_rels(vertex):
-            if len(rel) == 1 and rel[0][1] == ar[1]:
-                for dRel in deeperOutRels:
-                    targetInRel = False
-                    for dRelPath in dRel:
-                        if rel[0][-1] in dRelPath:
-                            targetInRel = True
-                            break
-                    if targetInRel:
-                        for dRelPath in dRel:
-                            nonMinOutRels.append([[vertex] + dRelPath[:]])
-            for relPath in rel:
-                for dRel in copy.deepcopy(deeperOutRels):
-                    extendedFirstRel = copy.deepcopy(rel)
-                    extendedFirstRel.remove(relPath)
-                    if len(rel) > 1 or len(dRel) > 1:
-                        for dRelPath in dRel:
-                            if dRelPath[:len(relPath)-1] == relPath[1:]:
-                                extendedLastRel = dRel
-                                extendedLastRel.remove(dRelPath)
-                                for efRelPath in extendedFirstRel:
-                                    efRelPath.extend(dRelPath[len(relPath) - 1:])
-                                for elRelPath in extendedLastRel:
-                                    elRelPath.insert(0, vertex)
-                                nonMinOutRels.append(extendedFirstRel + extendedLastRel)
-    uniqueNonMinOutRels = []
-    for nonMinRel in nonMinOutRels:
-        if not sorted(nonMinRel) in uniqueNonMinOutRels:
-            uniqueNonMinOutRels.append(sorted(nonMinRel))
-    return uniqueNonMinOutRels
 
 
 def zeroizeRels(rels):
