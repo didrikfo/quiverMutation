@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+.pytest_cache/
+
+# Classification output: regenerate with classify.py rather than committing.
+A_*_mutation_classes.csv
+A_*_mutation_classes.parquet
+*DF.txt
