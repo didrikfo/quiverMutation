@@ -41,6 +41,7 @@ Run the test suite:
 ## Where things are written down
 
 * [`NOTES.md`](NOTES.md) — the code: what the model expresses, known gaps, the backlog.
+  The package layout is listed in [`quivermutation/__init__.py`](quivermutation/__init__.py).
 * [`research/`](research/) — the mathematics: findings, hypotheses, retractions,
   the log of runs made, and summaries of the literature. All dated, nothing
   deleted. Read [`research/README.md`](research/README.md) before adding to it.
@@ -98,8 +99,8 @@ two at order 10, four at order 11, thirteen at order 12.
 The library underneath is usable directly:
 
 ```python
-import nakayama as nk
-import quiverMutation as qm
+import quivermutation as qm
+from quivermutation import nakayama as nk
 
 a = nk.LinearNakayamaAlgebra(5, "300")      # 1->2->3->4->5, with 1->2->3->4 = 0
 a.kupischSeries()                            # (3, 4, 3, 2, 1)

@@ -13,9 +13,9 @@ import itertools
 import pytest
 import sympy
 
-import lnaMoves as lm
-import nakayama as nk
-import quiverMutation as qm
+from quivermutation import lnaMoves as lm
+from quivermutation import nakayama as nk
+import quivermutation as qm
 from helpers import quiet
 
 

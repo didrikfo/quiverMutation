@@ -11,11 +11,11 @@ import copy
 
 import numpy as np
 
-import pathAlgebraClass
+from quivermutation import pathAlgebra
 import glob
 import csv
-from quiverExamples import *
-from quiverMutation import *
+from quivermutation.quiverExamples import *
+from quivermutation import *
 from datetime import datetime
 import sympy
 from sympy.interactive.printing import init_printing
@@ -42,7 +42,7 @@ if mode == 1:
     mutationSearch(lineLength = 12, mutationDepthStart = 2, startRow = 30000)
 
 elif mode == 2: # Investigate mutation sequence
-    pathAlg = pathAlgebraClass.PathAlgebra()
+    pathAlg = pathAlgebra.PathAlgebra()
     pathAlg.add_paths_from([[1,2,3,4,5,6,7,8]])
     pathAlg.add_rels_from([[[1,2,3]],[[2,3,4]],[[3,4,5]],[[4,5,6]],[[5,6,7,8]]])#
     #pathAlg = convertLineFromCSVnotation(len(pathAlg.vertices()), '1;2;3;4;5;6|3;4;5;6;7;8|5;6;7;8;9;10')
@@ -202,7 +202,7 @@ elif mode == 3:
                 plt.subplot_tool()
                 plt.show()
 elif mode == 4: # Investigate mutation sequence
-    pathAlg = pathAlgebraClass.PathAlgebra()
+    pathAlg = pathAlgebra.PathAlgebra()
     pathAlg.add_paths_from([[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]])
     pathAlg.add_rels_from([[[3,4,5,6,7,8,9,10,11,12]],[[8,9,10,11,12,13,14,15,16]],[[15,16,17]],[[16,17,18]]])#
     #pathAlg = onePointExtension(pathAlg, [18,21], [[[7,8,9,10,11,12,13,14,15,16,17,18,21]]])

@@ -2,8 +2,8 @@
 
 import pytest
 
-import nakayama as nk
-import quipuForms as qf
+from quivermutation import nakayama as nk
+from quivermutation import quipuForms as qf
 from helpers import coxeter_poly, dynkin_A_coxeter, dynkin_D_coxeter, quiet
 from paper_classification import PAPER_CLASSES, rel_lengths
 

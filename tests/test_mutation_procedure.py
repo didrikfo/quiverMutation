@@ -6,7 +6,7 @@
 
 import pytest
 
-import quiverMutation as qm
+import quivermutation as qm
 from helpers import arrow_set, path_algebra, quiet, rel_set
 
 

@@ -14,8 +14,8 @@ import networkx as nx
 import pytest
 import sympy
 
-import nakayama as nk
-import quipuForms as qf
+from quivermutation import nakayama as nk
+from quivermutation import quipuForms as qf
 
 # Orders 1 to 12.  The paper's table gives 4, 6 and 11 for orders 6, 7 and 8.
 QUIPU_COUNTS = [1, 1, 1, 2, 2, 4, 6, 11, 18, 36, 64, 127]

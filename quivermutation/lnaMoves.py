@@ -17,8 +17,13 @@ import contextlib
 
 import networkx as nx
 
-import nakayama
-import quiverMutation as qm
+from . import invariants
+from . import lines
+from . import mutation
+from . import nakayama
+from . import pathAlgebra
+from . import paths
+
 
 
 def _quiet(function, *args, **kwargs):
@@ -39,7 +44,7 @@ def asRelLengths(pathAlg, length):
         return None
     if nx.dag_longest_path_length(quiver) != length - 1:
         return None
-    relabelled, _ = _quiet(qm.relabelLineAlgebra, pathAlg, {})
+    relabelled, _ = _quiet(lines.relabelLineAlgebra, pathAlg, {})
     relLengths = [0] * (length - 2)
     for rel in relabelled.rels:
         if len(rel) != 1:
@@ -74,9 +79,9 @@ def movesFrom(lna, maxSteps = 2, allowLeft = True):
     def walk(pathAlg, steps, history):
         if steps == 0:
             return
-        allRels = _quiet(qm.allRelsInPathAlgebra, pathAlg)
-        dual = _quiet(qm.dualPathAlgebra, pathAlg)
-        dualRels = _quiet(qm.allRelsInPathAlgebra, dual)
+        allRels = _quiet(paths.allRelsInPathAlgebra, pathAlg)
+        dual = _quiet(pathAlgebra.dualPathAlgebra, pathAlg)
+        dualRels = _quiet(paths.allRelsInPathAlgebra, dual)
         for vertex in pathAlg.vertices():
             directions = []
             # A mutation is only a tilting mutation where the procedure's
@@ -84,12 +89,12 @@ def movesFrom(lna, maxSteps = 2, allowLeft = True):
             # computes a quiver, but not a derived equivalent one.  Left mutation
             # at v is right mutation at v of the dual, so that is where its
             # condition is tested.
-            if _quiet(qm.mutationIsPossibleAtVertex, pathAlg, vertex, allRels):
+            if _quiet(mutation.mutationIsPossibleAtVertex, pathAlg, vertex, allRels):
                 directions.append(vertex)
-            if allowLeft and _quiet(qm.mutationIsPossibleAtVertex, dual, vertex, dualRels):
+            if allowLeft and _quiet(mutation.mutationIsPossibleAtVertex, dual, vertex, dualRels):
                 directions.append(-vertex)
             for signed in directions:
-                nextAlg = _quiet(qm.quiverMutationAtVertices,
+                nextAlg = _quiet(mutation.quiverMutationAtVertices,
                                  _copy(pathAlg), [signed])
                 if nextAlg is None:
                     continue
@@ -107,8 +112,7 @@ def movesFrom(lna, maxSteps = 2, allowLeft = True):
 
 def _copy(pathAlg):
     import copy
-    import pathAlgebraClass
-    duplicate = pathAlgebraClass.PathAlgebra()
+    duplicate = pathAlgebra.PathAlgebra()
     duplicate.quiver = copy.deepcopy(pathAlg.quiver)
     duplicate.rels = copy.deepcopy(pathAlg.rels)
     return duplicate
@@ -236,7 +240,7 @@ def standardise(pathAlg):
     numbering[p] is the label that the vertex at standard position p carries in
     the quiver as given.  (None, None, None) if the quiver is not a line.
 
-    Note that qm.relabelLineAlgebra renumbers its argument *in place*, so this
+    Note that lines.relabelLineAlgebra renumbers its argument *in place*, so this
     works on a copy.  Getting that wrong is what made composed move sequences
     come out wrong: the numbering reported no longer described the algebra being
     carried forward.
@@ -250,7 +254,7 @@ def standardise(pathAlg):
     """
     length = len(pathAlg.quiver.nodes)
     duplicate = _copy(pathAlg)
-    relabelled, numbering = _quiet(qm.relabelLineAlgebra, duplicate, {})
+    relabelled, numbering = _quiet(lines.relabelLineAlgebra, duplicate, {})
     relLengths = [0] * (length - 2)
     for rel in relabelled.rels:
         if len(rel) != 1:
@@ -292,7 +296,7 @@ def closureUnderMoves(length, relLengths, maxIterations = 10000):
                 continue
             # standardAlg's own labels are the standard positions, so the move
             # applies to it verbatim; the path needs the original labels.
-            mutated = _quiet(qm.quiverMutationAtVertices, _copy(standardAlg), list(sequence))
+            mutated = _quiet(mutation.quiverMutationAtVertices, _copy(standardAlg), list(sequence))
             nextAlg, nextLengths, stepNumbering = standardise(mutated)
             if nextLengths is None or className(nextLengths) != name:
                 continue
@@ -493,11 +497,11 @@ def isLegalSequence(pathAlg, sequence):
     """
     current = _copy(pathAlg)
     for signed in sequence:
-        target = current if signed > 0 else _quiet(qm.dualPathAlgebra, current)
-        allRels = _quiet(qm.allRelsInPathAlgebra, target)
-        if not _quiet(qm.mutationIsPossibleAtVertex, target, abs(signed), allRels):
+        target = current if signed > 0 else _quiet(pathAlgebra.dualPathAlgebra, current)
+        allRels = _quiet(paths.allRelsInPathAlgebra, target)
+        if not _quiet(mutation.mutationIsPossibleAtVertex, target, abs(signed), allRels):
             return False
-        current = _quiet(qm.quiverMutationAtVertices, current, [signed])
+        current = _quiet(mutation.quiverMutationAtVertices, current, [signed])
     return True
 
 
@@ -540,7 +544,7 @@ def verifyMove(description, lengths, checkCoxeter = True):
                     failures.append((length, className(relLengths),
                                      className(predicted), None, 'illegal mutation'))
                     continue
-                mutated = _quiet(qm.quiverMutationAtVertices, _copy(startAlg), list(sequence))
+                mutated = _quiet(mutation.quiverMutationAtVertices, _copy(startAlg), list(sequence))
                 actual = asRelLengths(mutated, length)
                 if actual != predicted:
                     failures.append((length, className(relLengths),
@@ -558,8 +562,8 @@ def verifyMove(description, lengths, checkCoxeter = True):
 
 def _sameCoxeter(length, before, after):
     import sympy
-    first = _quiet(qm.coxeterPoly, nakayama.LinearNakayamaAlgebra(length, before)).as_expr()
-    second = _quiet(qm.coxeterPoly, nakayama.LinearNakayamaAlgebra(length, after)).as_expr()
+    first = _quiet(invariants.coxeterPoly, nakayama.LinearNakayamaAlgebra(length, before)).as_expr()
+    second = _quiet(invariants.coxeterPoly, nakayama.LinearNakayamaAlgebra(length, after)).as_expr()
     return sympy.expand(first) == sympy.expand(second)
 
 
@@ -749,15 +753,15 @@ def localMutationSequences(length, relLengths, centreLo, centreHi, maxSteps, mar
     def walk(pathAlg, steps, history):
         if steps == 0:
             return
-        allRels = _quiet(qm.allRelsInPathAlgebra, pathAlg)
-        dual = _quiet(qm.dualPathAlgebra, pathAlg)
-        dualRels = _quiet(qm.allRelsInPathAlgebra, dual)
+        allRels = _quiet(paths.allRelsInPathAlgebra, pathAlg)
+        dual = _quiet(pathAlgebra.dualPathAlgebra, pathAlg)
+        dualRels = _quiet(paths.allRelsInPathAlgebra, dual)
         for vertex in allowed:
             for signed in (vertex, -vertex):
                 target, rels = (pathAlg, allRels) if signed > 0 else (dual, dualRels)
-                if not _quiet(qm.mutationIsPossibleAtVertex, target, vertex, rels):
+                if not _quiet(mutation.mutationIsPossibleAtVertex, target, vertex, rels):
                     continue
-                nextAlg = _quiet(qm.quiverMutationAtVertices, _copy(pathAlg), [signed])
+                nextAlg = _quiet(mutation.quiverMutationAtVertices, _copy(pathAlg), [signed])
                 if nextAlg is None:
                     continue
                 key = _stateKey(nextAlg)

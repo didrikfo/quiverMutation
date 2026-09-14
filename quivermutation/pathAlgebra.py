@@ -1,4 +1,19 @@
+"""The container: a quiver and a list of relations, and nothing more.
+
+A relation is a list of paths and a path is a list of vertices, so
+`[[1,2,4],[1,3,4]]` is the commutativity relation between the two paths from 1
+to 4 and `[[1,2,3]]` is the zero relation on `1 -> 2 -> 3`.  By convention
+`rel[0][0]` is a relation's source and `rel[0][-1]` its target, and every path
+in a relation shares both.  See NOTES.md, "The model of a path algebra", for
+what this deliberately cannot express.
+
+Every operation on a path algebra is a free function elsewhere in the package
+taking one as its first argument; `nakayama` holds the two subclasses that do
+carry their own behaviour.
+"""
+
 import networkx as nx
+
 
 class PathAlgebra():
 
@@ -78,3 +93,22 @@ class PathAlgebra():
     def clear_rels(self):
         self.rels = []
         return
+
+def printPathAlgebra(pathAlg):
+    print('Vertices: ', pathAlg.quiver.nodes)
+    print('Arrows: ', pathAlg.quiver.edges)
+    print('Relations: ', pathAlg.rels, '\n')
+    return
+
+
+def dualPathAlgebra( pathAlg ):
+    dualPathAlg = PathAlgebra()
+    dualPathAlg.add_vertices_from(pathAlg.vertices())
+    for arrow in pathAlg.arrows():
+        dualPathAlg.add_arrow(arrow[1], arrow[0])
+    for rel in pathAlg.rels:
+        dualRel = []
+        for relPath in rel:
+            dualRel.append(list(reversed(relPath)))
+        dualPathAlg.add_rel(dualRel)
+    return dualPathAlg

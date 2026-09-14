@@ -16,9 +16,9 @@ import argparse
 import collections
 import sys
 
-import nakayama as nk
-import quipuForms as qf
-import quiverMutation as qm
+import quivermutation as qm
+from quivermutation import nakayama as nk
+from quivermutation import quipuForms as qf
 
 
 def report_collisions(order):

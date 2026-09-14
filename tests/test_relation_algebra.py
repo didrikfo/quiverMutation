@@ -8,9 +8,9 @@ by linear algebra over the ideal instead, which is exact.
 
 import pytest
 
-import pathAlgebraClass as pac
-import quiverMutation as qm
-import relationAlgebra as ra
+from quivermutation import pathAlgebra as pac
+import quivermutation as qm
+from quivermutation import relationAlgebra as ra
 from helpers import quiet
 
 

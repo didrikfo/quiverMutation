@@ -1,24 +1,26 @@
 """Path algebras that know what kind of algebra they are.
 
-`pathAlgebraClass.PathAlgebra` is a quiver and a list of relations and nothing
-more, and every operation on it is a free function in `quiverMutation` taking it
+`pathAlgebra.PathAlgebra` is a quiver and a list of relations and nothing more,
+and every operation on it is a free function elsewhere in the package taking it
 as the first argument.  The two shapes this project actually works with -- the
 linearly oriented Nakayama algebras being classified, and the quipu algebras
 that turn out to classify them -- carry much more structure than that, and
 carrying it explicitly removes a lot of the conversion between per-vertex
-relation lengths, relation strings, class names and Kupisch series that is
-currently spread across the module.
+relation lengths, relation strings, class names and Kupisch series that `lines`
+still does by hand.
 """
 
 import networkx as nx
 
-import pathAlgebraClass
-import quipuForms
-import quiverMutation as qm
-import relationAlgebra
+from . import invariants
+from . import lines
+from . import pathAlgebra
+from . import quipuForms
+from . import relationAlgebra
 
 
-class LinearNakayamaAlgebra(pathAlgebraClass.PathAlgebra):
+
+class LinearNakayamaAlgebra(pathAlgebra.PathAlgebra):
     """kA_n / I: the linear quiver 1 -> 2 -> ... -> n with an admissible ideal.
 
     `relLengths[i]` is the number of arrows in the relation starting at vertex
@@ -59,7 +61,7 @@ class LinearNakayamaAlgebra(pathAlgebraClass.PathAlgebra):
     @classmethod
     def fromRelationString(cls, length, relationString):
         """From the 'a;b;c|d;e;f' form used as the table's key."""
-        return cls(length, qm.relationStringToLineRelLengths(length, relationString))
+        return cls(length, lines.relationStringToLineRelLengths(length, relationString))
 
     @classmethod
     def fromClassName(cls, className):
@@ -268,7 +270,7 @@ class LinearNakayamaAlgebra(pathAlgebraClass.PathAlgebra):
         return relationAlgebra.cartanMatrixExact(self)
 
     def coxeterPolynomial(self):
-        return qm.coxeterPoly(self).as_expr()
+        return invariants.coxeterPoly(self).as_expr()
 
     # -- enumeration -------------------------------------------------------
 
@@ -276,12 +278,12 @@ class LinearNakayamaAlgebra(pathAlgebraClass.PathAlgebra):
     def allOfLength(cls, length):
         """Every LNA of the given length, in the table's order."""
         return [
-            cls.fromRelationString(length, qm.relSetToString(relSet))
-            for relSet in qm.generateAllPossibleLineRelations(length)
+            cls.fromRelationString(length, lines.relSetToString(relSet))
+            for relSet in lines.generateAllPossibleLineRelations(length)
         ]
 
 
-class QuipuAlgebra(pathAlgebraClass.PathAlgebra):
+class QuipuAlgebra(pathAlgebra.PathAlgebra):
     """The path algebra of a quipu quiver, which has no relations.
 
     A quipu is a tree of maximum degree 3 whose degree-3 vertices all lie on one
@@ -375,7 +377,7 @@ class QuipuAlgebra(pathAlgebraClass.PathAlgebra):
         return LinearNakayamaAlgebra(length, relLengths)
 
     def coxeterPolynomial(self):
-        return qm.coxeterPoly(self).as_expr()
+        return invariants.coxeterPoly(self).as_expr()
 
     def __repr__(self):
         return "QuipuAlgebra({0}, {1})".format(self.k, self.m)

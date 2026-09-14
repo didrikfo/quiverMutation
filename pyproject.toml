@@ -19,7 +19,7 @@ dependencies = [
 test = ["pytest>=8.3"]
 
 [tool.setuptools]
-py-modules = ["quiverMutation", "pathAlgebraClass", "mutationClassTable", "quipuForms", "relationAlgebra", "nakayama", "lnaMoves", "piecewiseHereditary", "quiverExamples", "main"]
+packages = ["quivermutation"]
 
 [build-system]
 requires = ["setuptools>=75", "wheel"]

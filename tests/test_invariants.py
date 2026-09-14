@@ -9,7 +9,7 @@ the relations will almost always move the polynomial.
 
 import pytest
 
-import quiverMutation as qm
+import quivermutation as qm
 from helpers import coxeter_poly, line_algebra, quiet
 
 # (length, per-vertex relation lengths) covering: no relations, a single

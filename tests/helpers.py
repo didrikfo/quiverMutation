@@ -5,8 +5,8 @@ import io
 
 import sympy
 
-import pathAlgebraClass
-import quiverMutation as qm
+from quivermutation import pathAlgebra as pathAlgebraClass
+import quivermutation as qm
 
 LAMBDA = sympy.Symbol("lambda")
 

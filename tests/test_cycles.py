@@ -17,8 +17,8 @@ import sys
 import networkx as nx
 import pytest
 
-import pathAlgebraClass as pac
-import quiverMutation as qm
+from quivermutation import pathAlgebra as pac
+import quivermutation as qm
 from helpers import line_algebra, quiet
 
 

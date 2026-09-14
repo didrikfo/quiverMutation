@@ -9,8 +9,8 @@ import csv
 
 import pytest
 
-import mutationClassTable as mct
-import quiverMutation as qm
+from quivermutation import mutationClassTable as mct
+import quivermutation as qm
 from helpers import quiet
 from paper_classification import PAPER_CLASSES, relation_string
 

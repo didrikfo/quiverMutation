@@ -19,7 +19,7 @@ produced.
 
 ### The model of a path algebra
 
-`pathAlgebraClass.PathAlgebra` holds
+`pathAlgebra.PathAlgebra` holds
 
 * `quiver`: a `networkx.MultiDiGraph` whose nodes are the vertices (integers,
   `1..n` for a line);
@@ -227,12 +227,17 @@ inventory; the plan immediately following is the order to take them in.
 Agreed priority, highest first. Each line says what "done" means, so a session
 can pick one up without re-deciding the order.
 
-1. **Reorganise the module layout, moving code as-is.** Idea 10, and nothing
-   else in the same commit. `quiverMutation.py` is 3300 lines and every other
-   module imports it, so this blocks how readable every later change is. Done
-   when the target layout below exists, `quiverMutation` is a thin re-export
-   shim so nothing downstream breaks, and the suite passes unchanged. Purely
-   mechanical: no behaviour, no signatures, no docstrings touched.
+1. ~~**Reorganise the module layout, moving code as-is.**~~ **Done.** Idea 10.
+   `quiverMutation.py`'s 3271 lines became eleven modules of the
+   `quivermutation` package, sliced by line range so every function moved
+   verbatim; the seven already-separate modules moved in alongside them.
+   Two deviations from the plan below, both deliberate: there is **no
+   `quiverMutation` shim** — every importer was updated instead, since step 2
+   would have deleted the shim anyway — and `io.py` is `fileio.py`, so as not to
+   sit next to the standard library's `io` under the same name. The only edits
+   beyond import rewiring were three parameters named `pathAlgebra`, renamed to
+   `pathAlg` (the convention elsewhere) because they shadowed the module of that
+   name.
 2. **Then refactor inside the new files.** Ideas 7, 8, 9, 11 — fold the
    `...Line...` free functions into `LinearNakayamaAlgebra`, the quipu ones into
    `QuipuAlgebra`, retire the text-file round trip, and delete the dead legacy
@@ -301,27 +306,36 @@ can pick one up without re-deciding the order.
 9. **Subclass for quipu quivers**, holding the `P^{(m)}_{(k)}` parameters, the
    orientation, and the CR-swap of arXiv:2305.06642 section "Cord/relation-swap"
    as a method. This is what makes idea 12 possible.
-10. **Split the 3300-line module** along the seams that already exist. Proposed
-    layout, as a package so the import surface is one name:
+10. ~~**Split the 3300-line module**~~ **Done.** The package that landed, in
+    dependency order — `quivermutation/__init__.py` carries the same table and
+    re-exports the whole flat surface, so `import quivermutation as qm` reaches
+    everything the old module did:
 
         quivermutation/
-          pathAlgebra.py     PathAlgebra, the container (from pathAlgebraClass)
-          mutation.py        steps 1-7, left/right mutation, admissibility
-          reduction.py       reducePathAlgebra and the cleanup passes
-          relations.py       path/relation enumeration between vertices
-          invariants.py      cartanMatrix, coxeterPoly, coxPolyOfTree
-          lines.py           the LNA-specific ...Line... helpers and naming
-          search.py          mutationSearchDepthFirst and the class search
-          classify.py        seeding, annotation, merge report, classifyLength
-          quipus.py          quipuForms, plus the legacy generators until deleted
-          io.py              CSV/parquet and the text transcripts
-          plotting.py        plotQuiver
+          pathAlgebra.py       PathAlgebra, the container (was pathAlgebraClass)
+          paths.py             paths and relations inside one
+          reduction.py         the cleanup after a mutation, to a fixed point
+          mutation.py          steps 1-7, left/right mutation, admissibility
+          invariants.py        the Cartan matrix and the Coxeter polynomial
+          lines.py             the linear quiver and its three naming forms
+          search.py            walking the mutation graph; hereditary forms
+          classification.py    seeding, annotation, merge report, classifyLength
+          quipuForms.py        unchanged
+          relationAlgebra.py   unchanged
+          mutationClassTable.py  unchanged
+          nakayama.py          unchanged but for its imports
+          lnaMoves.py          unchanged but for its imports
+          piecewiseHereditary.py unchanged
+          quiverExamples.py    unchanged
+          fileio.py            the CSV tables and the text transcripts
+          plotting.py          plotQuiver, the only matplotlib importer
+          legacy.py            the superseded pipeline (idea 11)
+          legacyQuipus.py      the older quipu generators
 
-    Do it as pure moves first — no renames, no signature changes — with
-    `quiverMutation.py` left as a re-export shim, since `nakayama`, `lnaMoves`,
-    `piecewiseHereditary`, `classify.py`, `main.py` and most of the tests import
-    it by name. Refactoring inside the new files is a separate pass (plan item 2)
-    so that the move commit stays reviewable as a move.
+    The dependency graph is acyclic and was checked to be so before the move;
+    `legacy` and `legacyQuipus` are leaves nothing else imports, which is what
+    makes them safe to delete when their last caller goes.
+
 11. **Replace the text-file round trip** in the remaining entry points
     (`findMutationClassesForLine`, `collectMutationClasses`,
     `combineLineMutationFiles`) the way `mutationSearch` now does it, with a

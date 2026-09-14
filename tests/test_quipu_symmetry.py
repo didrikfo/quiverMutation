@@ -31,8 +31,8 @@ import itertools
 import networkx as nx
 import pytest
 
-import nakayama as nk
-import quipuForms as qf
+from quivermutation import nakayama as nk
+from quivermutation import quipuForms as qf
 
 
 # -- every name of a given order ------------------------------------------
