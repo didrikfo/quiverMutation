@@ -71,6 +71,17 @@ with the Kupisch series, the relation dual, whether the relations are almost
 separate, the quipu, and the Cartan matrix and Coxeter polynomial. It is
 hashable and compares by structure, so LNAs work as dict keys.
 
+It also carries the three class-preserving operations of
+`cor:EquivNakayamaAlgebras` explicitly -- `withoutShortRelations`,
+`swapFirstRelation`, `swapLastRelation`, `relationDual`, and
+`classPreservingOrbit` for their closure. These duplicate, on the relations, a
+symmetry that `quipuForms` already expresses on the tree, and that is the point:
+two independent routes to the same partition, each able to check the other. The
+directions are worth stating once, since they are easy to get backwards -- the
+exchange at the **first** foot fixes the first relation's **end** vertex and
+trades its start against its length; the exchange at the **last** foot fixes the
+last relation's **start** and changes its length. Research F-014.
+
 `nakayama.QuipuAlgebra(k, m)` is the path algebra of the quipu quiver
 `P^(m)_(k)`, with no relations. `QuipuAlgebra.fromLNA` and `correspondingLNA`
 are the two directions of the theorem.
@@ -145,6 +156,17 @@ proof. It does happen to separate every class for n <= 8.
   that are not quipu classes at all (see below). One pair of classes shares a
   Coxeter polynomial and is proved distinct. About 56 minutes.
 
+* The quipu notation's re-readings are handled exactly. `quipuParameters` gives
+  two parameter pairs the same canonical form **iff** their graphs are isomorphic,
+  over every pair of each order 3 to 11; and the orbits of the three
+  class-preserving operations of `cor:EquivNakayamaAlgebras` -- now methods on
+  `LinearNakayamaAlgebra` -- coincide exactly with the fibres of the quipu naming,
+  over every LNA of length 4 to 10 with almost separate relations and no length-2
+  relation, largest orbit 8, which is the paper's bound. `tests/test_quipu_symmetry.py`,
+  research F-014. **Read that finding before doubting the n = 9 count**: the end
+  exchange of a main-string end segment with the outermost cord is real, is
+  implemented, and does *not* merge the cospectral n = 9 pair.
+
 Run times for the full `classifyLength` pipeline: n = 6 about 13 seconds, n = 7
 37 seconds, n = 8 4 minutes, n = 9 56 minutes. Lengths 6, 7 and 8 are pinned as
 `slow` tests.
@@ -197,7 +219,48 @@ Run times for the full `classifyLength` pipeline: n = 6 about 13 seconds, n = 7
 
 ## Backlog
 
-Roughly in the order that unblocks the most.
+Roughly in the order that unblocks the most. The numbered ideas below are the
+inventory; the plan immediately following is the order to take them in.
+
+### Plan of attack
+
+Agreed priority, highest first. Each line says what "done" means, so a session
+can pick one up without re-deciding the order.
+
+1. **Reorganise the module layout, moving code as-is.** Idea 10, and nothing
+   else in the same commit. `quiverMutation.py` is 3300 lines and every other
+   module imports it, so this blocks how readable every later change is. Done
+   when the target layout below exists, `quiverMutation` is a thin re-export
+   shim so nothing downstream breaks, and the suite passes unchanged. Purely
+   mechanical: no behaviour, no signatures, no docstrings touched.
+2. **Then refactor inside the new files.** Ideas 7, 8, 9, 11 — fold the
+   `...Line...` free functions into `LinearNakayamaAlgebra`, the quipu ones into
+   `QuipuAlgebra`, retire the text-file round trip, and delete the dead legacy
+   (`generateAllQuipusUpToLength`, `generateAllHeightOneQuipus`,
+   `generateAllQuipusGPT`, `count_quipusV1`, `combineMutationClassesInCSVfile`,
+   which does not even run). One module per commit.
+3. **Finish the relation-object migration.** Idea 5. `relationAlgebra` already
+   has the value type and exact ideal arithmetic; the mutation procedure and
+   `reducePathAlgebra` still run on the set-of-paths model. Done when
+   `relationAlgebra` is the only relation model in the procedure and the
+   set-of-paths helpers that exist only to paper over it
+   (`removeDuplicateRelPaths`, `removeRedundantRelations`,
+   `removeExistingSubrelations`, `minimizeCommutingRelation`) are gone. This is
+   the one item on this list that can change results, so it comes with the
+   n <= 8 classification re-run as its acceptance test.
+4. **A way to look at a classification that is not a spreadsheet.** Idea 23.
+   Already untenable at n = 10 and impossible from 11 up (16796 LNAs at 11,
+   58786 at 12). Done when a classification can be opened and filtered — by
+   Coxeter polynomial, by quipu, by class size, by whether the class is a quipu
+   class — without loading the whole table into a viewer.
+5. **Rule discovery, deeper.** Ideas 17, 19 and research H-007, H-008. The main
+   line of mathematical work, and the lever for n >= 11 (idea 16).
+6. **The cellular-automaton reading of the rules.** Research H-009. A literature
+   sweep and one concrete attempt at restating the move table in that language.
+   Cheap, speculative, and would reframe item 5 if it lands.
+7. **An independent separation of the cospectral pair.** Idea 22. Not blocking
+   anything, but it is the one claim in the n = 9 classification that rests on a
+   single route (F-014).
 
 ### Performance and correctness
 
@@ -238,8 +301,27 @@ Roughly in the order that unblocks the most.
 9. **Subclass for quipu quivers**, holding the `P^{(m)}_{(k)}` parameters, the
    orientation, and the CR-swap of arXiv:2305.06642 section "Cord/relation-swap"
    as a method. This is what makes idea 12 possible.
-10. **Split the 2600-line module** along the seams that already exist: the
-    procedure, relation algebra, invariants, the line search, quipus, IO.
+10. **Split the 3300-line module** along the seams that already exist. Proposed
+    layout, as a package so the import surface is one name:
+
+        quivermutation/
+          pathAlgebra.py     PathAlgebra, the container (from pathAlgebraClass)
+          mutation.py        steps 1-7, left/right mutation, admissibility
+          reduction.py       reducePathAlgebra and the cleanup passes
+          relations.py       path/relation enumeration between vertices
+          invariants.py      cartanMatrix, coxeterPoly, coxPolyOfTree
+          lines.py           the LNA-specific ...Line... helpers and naming
+          search.py          mutationSearchDepthFirst and the class search
+          classify.py        seeding, annotation, merge report, classifyLength
+          quipus.py          quipuForms, plus the legacy generators until deleted
+          io.py              CSV/parquet and the text transcripts
+          plotting.py        plotQuiver
+
+    Do it as pure moves first — no renames, no signature changes — with
+    `quiverMutation.py` left as a re-export shim, since `nakayama`, `lnaMoves`,
+    `piecewiseHereditary`, `classify.py`, `main.py` and most of the tests import
+    it by name. Refactoring inside the new files is a separate pass (plan item 2)
+    so that the move commit stays reviewable as a move.
 11. **Replace the text-file round trip** in the remaining entry points
     (`findMutationClassesForLine`, `collectMutationClasses`,
     `combineLineMutationFiles`) the way `mutationSearch` now does it, with a
@@ -669,6 +751,26 @@ nothing else, agreeing with the published table.
 16. **Push past n = 11.** Catalan growth means n = 12 is 58786 LNAs and n = 15
     is 2674440, so the search has to get cheaper per LNA and the table has to
     stop being a CSV read into memory. The lever is idea 17, not raw speed.
+22. **An independent separation of the cospectral classes.** Both routes that
+    currently separate `P^(1,4)_(1,0,1)` from `P^(1,2)_(1,1,2)` at n = 9 descend
+    from `thm:QuipuToAn` being correctly inverted, and the third — reaching a
+    relation-free quiver by mutation — is out of range at depth 6 (research
+    E-013). A derived invariant computed from the algebra itself would settle it
+    without the theorem. LNAs are gentle, so the Avella-Alaminos–Geiss invariant
+    applies directly and is the candidate; Hochschild cohomology dimensions are
+    the fallback. See research F-014 for what is and is not established.
+23. **An interface for reading a classification.** The CSV was fine to n = 9 and
+    is already unwieldy at n = 10; from n = 11 up (16796 LNAs, then 58786) a
+    spreadsheet is not a way to look at the result at all. What is actually
+    wanted is to ask questions of a classification: show me the classes sharing
+    a Coxeter polynomial; show me one class and its members with the mutation
+    path to each; show me the classes that are not quipu classes; show me which
+    rows the search placed and which the theorem seeded. The table is already
+    written as parquet alongside the CSV, so the data layer is there — polars can
+    answer all of those as queries. The open question is the surface: a small
+    query API plus a handful of canned views is probably enough, and a rendered
+    page per length beats a live app for something that is regenerated once per
+    classification run.
 
 ### Rule discovery — the main line of work
 

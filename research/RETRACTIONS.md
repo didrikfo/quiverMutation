@@ -9,6 +9,13 @@ does not. See [`README.md`](README.md).
 ## R-006 — "The workbook's n = 9 classification has 19 classes"
 *2026-09-13* · superseded by **F-011**
 
+**Challenged 2026-09-14 and upheld → F-014.** The objection was that the two
+quipus are isomorphic after all, being related by the exchange of an end segment
+of the main string with the cord at the outermost foot. That exchange is real,
+and it is already implemented; it is checked exhaustively in F-014, and it does
+not relate these two — their trees have diameters 6 and 5. The analogous pair is
+two separate rows of the paper's own n <= 8 table.
+
 The hand-made classification merged two classes of 18 into one of 36. Every other
 class matches the computed partition exactly, and the computed partition refines
 the workbook's 65 unmerged classes with no contradiction anywhere — so this is one

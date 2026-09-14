@@ -6,6 +6,41 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-013 — Audit of the quipu symmetry, after R-006 was challenged
+*2026-09-14* · **no defect found** → F-014
+
+Four runs, in increasing cost:
+
+1. **Canonicalisation against `networkx.is_isomorphic`**, over every quipu
+   parameter pair of orders 3–11 (12 names at order 3 up to 28656 at order 11).
+   Same canonical parameters iff isomorphic graphs, both directions, zero
+   exceptions. Seconds.
+2. **The paper's class-preserving operations against the quipu fibres**, over
+   every LNA of lengths 4–10 with almost separate relations and no length-2
+   relation. Orbits equal fibres exactly at every length; largest orbit 8, the
+   paper's bound. Seconds. Now `tests/test_quipu_symmetry.py`.
+3. **The legacy quipu generator against the current one.**
+   `quiverMutation.generateAllQuipus` (tree enumeration and a degree test) and
+   `quipuForms.allQuipusOfOrder` (parameter enumeration and canonicalisation)
+   agree on the counts for orders 4–12, and no tree the first accepts is rejected
+   by `quipuForms.isQuipu`. This mattered because `generateAllQuipus` only tests
+   the "degree-3 vertices lie on one path" condition when there are more than
+   three of them, which looked like a hole; at these orders it does not bite.
+4. **Hereditary form by mutation search**, from all four long-relation members of
+   `P^(1,4)_(1,0,1)` (`0003030`, `3030000`, `3060000`, `6000030`) and both of
+   `P^(1,2)_(1,1,2)` (`0400030`, `3004000`), at depth 6, plus iterative
+   deepening 2–6 from `3060000` and `3004000`. **Nothing reached** — no
+   relation-free quiver from any of them. Tens of minutes.
+
+Run 4 is the one that would have been independent of `thm:QuipuToAn`, and it is
+simply out of range here, the same way `A_{7,(2,4)}^{(3,3)}` is (see the test
+`test_the_theorem_answers_where_the_search_gives_up`). **Do not repeat it at
+depth 6 or less.** Depth 7+ at n = 9 was not attempted and is expected to be
+hours; the cheaper route to an independent check is a derived invariant computed
+from the algebra, not a deeper search.
+
+---
+
 ## E-012 — Pair slide at relation lengths 2 to 7
 *2026-09-14* · **confirmed a family**
 

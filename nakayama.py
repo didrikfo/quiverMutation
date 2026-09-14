@@ -128,6 +128,128 @@ class LinearNakayamaAlgebra(pathAlgebraClass.PathAlgebra):
             dual[self.length - start - arrows] = arrows
         return LinearNakayamaAlgebra(self.length, dual)
 
+    # -- the class-preserving operations of the paper ----------------------
+    #
+    # `cor:EquivNakayamaAlgebras` of arXiv:2305.06642 lists three operations
+    # that move an LNA with almost separate relations to another one in the same
+    # derived equivalence class, and says there are at most eight such algebras
+    # per class once every relation has length >= 3.  They are here as methods
+    # because the class of an LNA was otherwise only ever computed through the
+    # quipu, where the same symmetry appears indirectly: two parameter pairs that
+    # name the same tree.  Having both routes means each can check the other, and
+    # tests/test_quipu_symmetry.py does exactly that.
+
+    def withoutShortRelations(self):
+        """The same class, with every relation of length 2 dropped.
+
+        Operation 2: a relation of two arrows never changes the derived
+        equivalence class of an LNA with almost separate relations, which is why
+        `quipu` drops them before naming the class.  The other two operations are
+        stated for algebras whose relations all have length >= 3, so they apply
+        to this form of the algebra.
+        """
+        return LinearNakayamaAlgebra(
+            self.length, [0 if arrows == 2 else arrows for arrows in self.relLengths])
+
+    def swapFirstRelation(self):
+        """Operation 1 at the first relation, or None where it does not apply.
+
+        In the quipu, the first relation's start vertex is the length k_0 of the
+        main string before the first cord foot, and the relation's own length is
+        m_0 + 2, where m_0 is that cord.  The two branches at the foot are the
+        k_0 path and the m_0 cord, so exchanging them is an isomorphism of the
+        tree -- which on the LNA side replaces the first relation
+        (n_0, l_0) by (l_0 - 2, n_0 + 2):
+
+            the relation's END vertex n_0 + l_0 does not move; its start vertex
+            and its length trade places.
+
+        None when there is no relation of length >= 3 to swap, or when the swap
+        would need a start vertex before the first (l_0 = 2 after dropping the
+        short relations means there is nothing to exchange).
+        """
+        algebra = self.withoutShortRelations()
+        relations = algebra.relations()
+        if not relations:
+            return None
+        (start, arrows), rest = relations[0], relations[1:]
+        if arrows - 2 < 1:
+            return None
+        return algebra._withRelations([(arrows - 2, start + 2)] + rest)
+
+    def swapLastRelation(self):
+        """Operation 1 at the last relation, or None where it does not apply.
+
+        The mirror of `swapFirstRelation`, at the other end of the main string:
+        k_{r+1} = n - n_r - l_r + 1 is the main string after the last foot and
+        m_r = l_r - 2 is the cord there, so exchanging them replaces the last
+        relation (n_r, l_r) by (n_r, n - n_r - l_r + 3):
+
+            the relation's START vertex does not move; its length becomes what
+            was left of the line beyond it.
+
+        Note that it is the *start* that is fixed here and the *end* in
+        `swapFirstRelation`, not the other way round -- the operation is the
+        exchange of two branches at a foot, and the foot is what stays put.
+        """
+        algebra = self.withoutShortRelations()
+        relations = algebra.relations()
+        if not relations:
+            return None
+        rest, (start, arrows) = relations[:-1], relations[-1]
+        swapped = algebra.length - start - arrows + 3
+        if swapped < 3:
+            return None
+        return algebra._withRelations(rest + [(start, swapped)])
+
+    def classPreservingOrbit(self):
+        """Every LNA the paper's operations reach from this one, as a frozenset.
+
+        The closure of `withoutShortRelations` under `swapFirstRelation`,
+        `swapLastRelation` and `relationDual`.  For an algebra with almost
+        separate relations this is the paper's list of at most eight algebras in
+        the class, and it must coincide with the set of LNAs `quipu` sends to the
+        same quipu -- which is checked exhaustively for n <= 10 in
+        tests/test_quipu_symmetry.py.
+
+        For an algebra outside the theorem the operations still return something,
+        but the paper claims nothing about it, so neither does this.
+        """
+        orbit = {self.withoutShortRelations()}
+        frontier = list(orbit)
+        while frontier:
+            algebra = frontier.pop()
+            for operation in ('swapFirstRelation', 'swapLastRelation', 'relationDual'):
+                reached = getattr(algebra, operation)()
+                if reached is not None and reached not in orbit:
+                    orbit.add(reached)
+                    frontier.append(reached)
+        return frozenset(orbit)
+
+    def _withRelations(self, relations):
+        """A sibling algebra carrying the given (start, arrows) relations.
+
+        None when that list is not an admissible ideal on this many vertices --
+        two relations starting at the same vertex, one running off the end, or a
+        pair violating the paper's standing assumption n_i + l_i < n_{i+1} +
+        l_{i+1}.  The swaps can produce any of those at the edge of their range,
+        and a rejected swap is not a derived equivalence.
+        """
+        relations = sorted(relations)
+        starts = [start for start, _ in relations]
+        if len(set(starts)) != len(starts):
+            return None
+        if any(start < 1 or arrows < 2 or start + arrows > self.length
+               for start, arrows in relations):
+            return None
+        if any(start + arrows >= nextStart + nextArrows
+               for (start, arrows), (nextStart, nextArrows) in zip(relations, relations[1:])):
+            return None
+        lengths = [0] * (self.length - 2)
+        for start, arrows in relations:
+            lengths[start - 1] = arrows
+        return LinearNakayamaAlgebra(self.length, lengths)
+
     # -- invariants --------------------------------------------------------
 
     def quipu(self):

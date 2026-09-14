@@ -44,3 +44,19 @@ Worth a file when someone gets to them:
 - **Woo–Neumaier**, where open quipus were introduced, as graphs of small spectral
   radius. Possibly relevant to F-010, since cospectrality is what makes the
   Coxeter polynomial fail.
+
+For H-009 — the suspicion that the move rules are a one-dimensional cellular
+automaton — the sweep to do, none of it yet read:
+
+- **Asynchronous cellular automata**, where one cell updates at a time, which is
+  what a single mutation is. Look for reachability and confluence results.
+- **One-dimensional rewriting systems on finite words**, and the reachability
+  problem under a finite set of local rewrites. This is the exact shape of
+  `lnaMoves.matchesAt` / `applyAt`.
+- **Conserved quantities and additive invariants of local rules**, the CA analogue
+  of "a derived invariant every move preserves".
+- **Chip-firing and sand-pile models**, the closest-looking relatives: local,
+  order-independent under the right conditions, with a developed theory of orbits
+  and of what the boundary does.
+- **Block transformations and rescaling of CA rules**, for H-008's question of
+  when a family of rules parameterised by window width is one statement.

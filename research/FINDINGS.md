@@ -5,6 +5,73 @@ See [`README.md`](README.md) for conventions.
 
 ---
 
+## F-014 — The quipu's end exchanges are already exactly right, and they do not merge the n = 9 pair
+*2026-09-14*
+
+The quipu notation is not unique, and one of the re-readings is the one that
+matters most here: at the **outermost** foot the main-string end segment and the
+cord are the only two branches, so exchanging them — `k_0` with `m_0`, or
+`k_{r+1}` with `m_r` — is an isomorphism of the tree and the two LNAs it names
+are derived equivalent. **This is not a symmetry the code was missing.** It was
+already subsumed by canonicalisation, and it is now checked directly, from both
+sides:
+
+1. **Canonicalisation is exactly tree isomorphism.** Over *every* parameter pair
+   of each order 3–11 — 4180 names at order 9, 28656 at order 11 —
+   `quipuForms.quipuParameters` gives two names the same parameters **if and only
+   if** `networkx` says their graphs are isomorphic. Both directions, no
+   exceptions. So no end exchange (nor the backwards reading, nor any other
+   relabelling) can split a class, and no pair of genuinely different trees is
+   being run together.
+2. **The LNA-side operations agree with it exactly.** `cor:EquivNakayamaAlgebras`
+   is now implemented directly on the relations, independently of `quipuForms`,
+   as `LinearNakayamaAlgebra.swapFirstRelation`, `swapLastRelation`,
+   `relationDual` and `withoutShortRelations`, with `classPreservingOrbit` for
+   their closure. For every LNA of length 4–10 with almost separate relations and
+   no length-2 relation, **the orbit of the paper's operations equals the set of
+   LNAs that `quipu` names with the same quipu** — 64 algebras in 18 orbits at
+   n = 9, 128 in 36 at n = 10, and the largest orbit is 8, which is the paper's
+   own bound.
+
+The exchange is at the ends only. Applied to an interior gap `k_i`,
+`0 < i < r + 1`, it changes the tree, because the foot there has a third branch
+running on along the main string: `P^(1,2,1)_(1,1,2,1)` exchanged at `k_1` is a
+different tree of the same order.
+
+**Consequence for the n = 9 pair.** The two classes R-006 says the workbook
+over-merged are not related by any of this:
+
+    P^(1,4)_(1,0,1)   (3060000)   diameter 6   -- exchanges to P^(1,1)_(1,0,4)
+    P^(1,2)_(1,1,2)   (3004000)   diameter 5   -- both exchanges fix it
+
+The end exchange at the last foot of the first one does fire, and lands on
+`P^(1,1)_(1,0,4)` = `3030000`, which canonicalises straight back to
+`P^(1,4)_(1,0,1)` — so it adds `3030000` and `0003030` to that class, where they
+already are. It does not reach the other quipu, and nothing can: the trees have
+different diameters, so they are not isomorphic, and for hereditary algebras of
+tree type the underlying tree *is* the derived equivalence class.
+
+The same split is **already in the published table** one vertex down:
+`P_(1,0,3)^(1,1)` and `P_(1,1,2)^(1,1)` are two separate rows of the n <= 8
+classification in arXiv:2305.06642, and adding a vertex to the last cord of each
+gives exactly this pair. n = 9 is not a new claim — it is the published one at
+the first order where the Coxeter polynomial can no longer see it (F-010).
+
+**Evidence.** `tests/test_quipu_symmetry.py`, 44 tests at orders/lengths up to 9
+plus three marked slow at 10 and 11. Reproduce with
+
+    .venv/bin/python -m pytest tests/test_quipu_symmetry.py -q
+
+**What this does not settle.** Both routes above descend from `thm:QuipuToAn`
+being correctly inverted, and the third route — reaching a relation-free quiver
+by mutation — is out of range for this pair: searches from all four long-relation
+members of `P^(1,4)_(1,0,1)` and both of `P^(1,2)_(1,1,2)` reach no hereditary
+quiver at depth 6 (E-013). A genuinely theorem-free separation would need a
+derived invariant computed from the algebra itself; the Avella-Alaminos–Geiss
+invariant for gentle algebras is the candidate (NOTES idea 22).
+
+---
+
 ## F-013 — The pair slide holds for every relation length, with two mutations
 *2026-09-14*
 

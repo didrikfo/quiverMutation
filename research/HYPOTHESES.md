@@ -6,6 +6,61 @@ it. Status is one of `OPEN`, `SUPPORTED`, `CONFIRMED → F-nnn`, `REFUTED → R-
 
 ---
 
+## H-009 — The move rules are a one-dimensional cellular automaton, and its theory applies
+*2026-09-14* · **OPEN** · not yet pursued
+
+An LNA of length `n` is a row of `n - 2` cells, cell `i` holding the number of
+arrows in the relation starting at vertex `i + 1`. Every move rule found so far
+is then literally a **local rewrite on that row**: `lnaMoves.describeLink` only
+admits a rewrite whose *window* contains every relation it touches, `matchesAt`
+slides that window along the row, and the rules themselves read as
+neighbourhood-to-neighbourhood maps — the pair slide (F-013) translates a
+two-cell pattern one place along; the other verified rules lengthen or shorten a
+relation depending on what overlaps it on either side.
+
+That is the setting of **one-dimensional cellular automata**: a finite alphabet
+(relation lengths, bounded by `n`), a finite neighbourhood (the window width), a
+local transition rule, and boundary behaviour at the two ends that differs from
+the interior — which is exactly the phenomenon H-007 is about.
+
+**Why it might pay.** Questions we are currently answering by brute-force search
+are standard questions there, with machinery behind them:
+
+* *which rows are reachable from which* — the orbit/reachability problem for a
+  rewriting system, and the injectivity/surjectivity theory of CA maps;
+* *do the rules generate everything, or are there invariant classes* — additive
+  invariants and conserved quantities of a local rule, which is the CA way of
+  saying "a derived invariant the moves preserve";
+* *when does a family of rules parameterised by window width collapse to one
+  statement* — H-008's question, and the block/rescaling constructions are built
+  for it;
+* *how much does the boundary matter* — the difference between a CA on `Z` and on
+  a finite interval, which is well studied and is H-007's question.
+
+The nearest formal fit is probably not classical CA (synchronous, everywhere at
+once) but **asynchronous CA** or a **one-dimensional rewriting / subshift**
+presentation, since a mutation applies at one place at a time. Sand-pile and
+chip-firing models are the closest-looking relatives: local, order-independent
+in the right circumstances, with a well-developed theory of reachability and
+invariants.
+
+**What would settle whether it is worth pursuing.** A literature sweep first —
+asynchronous CA and local rewriting on finite words, reachability under a finite
+set of local rewrites, conserved quantities of local rules — then one concrete
+attempt: state the verified move table of `lnaMoves.VERIFIED_MOVES` as a rule set
+in that language and ask whether any standard result gives the orbit structure we
+are currently getting by search.
+
+**Caveat that would sink it.** A move is only valid when every mutation in its
+sequence is admissible (R-005), and admissibility is a condition on the *algebra*,
+not on the row of numbers. If the admissibility side conditions cannot be written
+as part of the local neighbourhood, the CA picture describes something strictly
+larger than the moves and its conclusions do not transfer. Checking that the
+existing rules' side conditions are all local is the first thing to do, and it is
+cheap: they are recorded as windows already.
+
+---
+
 ## H-008 — Rule families are parameterised by relation length and overlap, and some need more than three mutations
 *2026-09-14* · **OPEN**
 
