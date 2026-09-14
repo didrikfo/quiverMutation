@@ -192,6 +192,14 @@ proof. It does happen to separate every class for n <= 8.
   exchange of a main-string end segment with the outermost cord is real, is
   implemented, and does *not* merge the cospectral n = 9 pair.
 
+**Run the slow suite in full, not just the fast one.** `pytest -q` with the slow
+tests takes about 20 minutes, and eight of them had been failing unnoticed —
+`test_each_rule_holds_wherever_it_applies` was verifying the widest pair-slide
+rules at lengths whose quivers cannot contain their windows, so it asserted on
+zero confirmations (F-013, amended). Nothing was wrong with the rules; the test
+was asking in the wrong place. A green fast suite is not evidence about the
+slow one.
+
 Run times for the full `classifyLength` pipeline, on the coefficient-carrying
 procedure: n = 6 about 5 seconds, n = 7 40 seconds. Before that change they were
 13 seconds and 37 seconds, and n = 8 was 4 minutes with n = 9 at 56 minutes.

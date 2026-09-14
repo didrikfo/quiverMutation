@@ -89,13 +89,52 @@ def test_each_rule_is_well_formed(description):
         assert 1 <= abs(vertex) <= width + 1
 
 
+def lengthsToCheck(width):
+    """The lengths a rule of this window width can be checked at.
+
+    A window of `width` arrows needs a quiver of at least `width + 1` vertices
+    to sit in at all, so a *fixed* range of lengths cannot check every rule in
+    the table: the pair slide is one statement for every relation length and its
+    window grows with that length (F-013), and the widest rules in the table --
+    window 11, relation length 9 -- do not fit in a quiver of length 8.
+
+    This test used to ask for lengths 5 to 8 whatever the rule, which is
+    `width + 1 .. width + 4` for a window of 4 and nothing at all for a window
+    of 8 or more. The eight widest rules therefore got zero confirmations and
+    the test failed on them -- not because they are wrong, but because it was
+    verifying them where they cannot occur.
+
+    Four lengths where that is affordable and two where it is not: verification
+    enumerates every admissible LNA of the length, and there are 208012 of them
+    at length 13.
+    """
+    if width + 4 <= 10:
+        return range(width + 1, width + 5)
+    return range(width + 1, width + 3)
+
+
 @pytest.mark.slow
 @pytest.mark.parametrize("description", lm.VERIFIED_MOVES, ids=str)
 def test_each_rule_holds_wherever_it_applies(description):
     """Re-run the verification the table's entries were admitted by."""
-    confirmed, failures = lm.verifyMove(description, range(5, 9))
-    assert confirmed > 0
+    width = description[0]
+    confirmed, failures = lm.verifyMove(description, lengthsToCheck(width))
+    assert confirmed > 0, "checked at lengths {0} where the window is {1} arrows".format(
+        list(lengthsToCheck(width)), width)
     assert failures == []
+
+
+def test_the_lengths_a_rule_is_checked_at_can_contain_its_window():
+    """The bug the fix above is for, stated as a check of its own.
+
+    Every rule in the table must be verified at lengths that can hold its
+    window, or `confirmed > 0` is asserting about nothing.
+    """
+    for description in lm.VERIFIED_MOVES:
+        width = description[0]
+        lengths = list(lengthsToCheck(width))
+        assert lengths, description
+        assert min(lengths) >= width + 1, (description, lengths)
 
 
 def test_a_plausible_rule_that_is_actually_false_is_rejected():

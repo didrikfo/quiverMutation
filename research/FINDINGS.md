@@ -161,6 +161,17 @@ The mutation count is **two whatever `l` is**; only the window widens, to
 direction per length, no failures. Generated rather than listed, by
 `lnaMoves.pairSlideRules`.
 
+*Amended 2026-09-14.* The evidence above stands, but the **regression test** for
+it did not: `test_each_rule_holds_wherever_it_applies` asked for lengths 5 to 8
+whatever the rule, which is `l+3 .. l+6` only for `l = 2`. The window of the
+pair slide is `l + 2` arrows wide and needs `l + 3` vertices to sit in, so the
+rules for `l = 6..9` got **zero confirmations** at those lengths and the test
+failed on all eight of them — for asking where they cannot occur, not for
+anything wrong with the rules. It had been failing since the family was
+generated up to `l = 9`; it is in the slow set, which is why it went unseen. The
+test now derives its lengths from each rule's own width, and a second test
+asserts that it always can.
+
 Note the direction: right mutations slide the pair **left**. See R-004.
 
 Discovery found only `l = 3` and `l = 4` on its own, because those are the
