@@ -17,11 +17,6 @@ import networkx as nx
 from . import pathAlgebra
 
 
-
-def listIntersection(lst1, lst2):
-    return list(set(lst1) & set(lst2))
-
-
 def sublistExists(list, sublist):
     for i in range(len(list)-len(sublist)+1):
         if sublist == list[i:i+len(sublist)]:
@@ -193,44 +188,6 @@ def allRelsBetweenVertices(pathAlg, startVertex, endVertex, visited = None):
     return allRelsBetween
 
 
-def allMinimalRelsBetweenVertices(pathAlg, startVertex,endVertex):
-    # As in allRelsBetweenVertices, the quiver is only read, so copying the
-    # relations is enough and copying the graph with it was pure overhead.
-    relsBetween = [copy.deepcopy(rel) for rel in pathAlg.rels_between(startVertex, endVertex)]
-    allRelsBetween = [copy.deepcopy(rel) for rel in pathAlg.rels_between(startVertex, endVertex)]
-    verticesBetween = []
-    for path in nx.all_simple_paths(pathAlg.quiver, startVertex, endVertex):
-        for i in path:
-            if not i in verticesBetween:
-                verticesBetween.append(i)
-    intermideateRels = []
-    for i in verticesBetween:
-        for j in verticesBetween:
-            if i != startVertex or j != endVertex:
-                for rel in pathAlg.rels_between(i, j):
-                    if not rel in intermideateRels:
-                        intermideateRels.append(rel)
-    powerSetOfShorterRels = powerset(intermideateRels)
-    relSetsToApply = []
-    for relSet in powerSetOfShorterRels:
-        if bool(relSet):
-            relSetsToApply.append(relSet)
-    for rel in relsBetween:
-        newRelSetsToApply = []
-        for relSet in relSetsToApply:
-            for differentRel in relsBetween:
-                if differentRel != rel:
-                    newRelSetsToApply.append(relSet + [differentRel])
-        relSetsToApply.extend(newRelSetsToApply)
-        for relPath in rel:
-            for relSet in relSetsToApply:
-                newRelPaths = applyRelSetToPath(relPath, relSet)
-                relToAdd = sorted(rel[:rel.index(relPath)] + rel[rel.index(relPath) + 1:] + newRelPaths)
-                if not relToAdd in allRelsBetween and not any(relToAdd.count(x) > 1 for x in relToAdd) and relToAdd != []:
-                    allRelsBetween.append(relToAdd)
-    return allRelsBetween
-
-
 def extendRel(pathAlg, rel, visited = None):
     """Every way of extending a relation forward along the arrows out of its end.
 
@@ -265,15 +222,6 @@ def extendRel(pathAlg, rel, visited = None):
     return extendedRels
 
 
-def isSubRelOf(potentialSubRel, relation):
-    isSubRel = True
-    for relPath in potentialSubRel:
-        if not relPath in relation:
-            isSubRel = False
-            break
-    return isSubRel
-
-
 def allRelsInPathAlgebra(pathAlg):
     """Every relation between every ordered pair of vertices, minimal or not."""
     allRels = []
@@ -282,29 +230,6 @@ def allRelsInPathAlgebra(pathAlg):
         for w in vertices:
             allRels.extend(allRelsBetweenVertices(pathAlg, v, w))
     return allRels
-
-
-def zeroizeRels(rels):
-    zeroRels = []
-    nonZeroRels = []
-    for rel in rels:
-        if len(rel) == 1:
-            zeroRels.append(rel)
-        else:
-            nonZeroRels.append(rel)
-    zeroizedRels = zeroRels.copy()
-    for rel in nonZeroRels:
-        isZero = False
-        for relPath in rel:
-            isZeroPath = False
-            for zeroRel in zeroRels:
-                if sublistExists(relPath, zeroRel[0]):
-                    rel.remove(relPath)
-                    isZeroPath = True
-                    break
-        zeroizedRels.append(rel)
-    zeroizedRelsReduced = [rel for rel in zeroizedRels if rel != []]
-    return zeroizedRelsReduced
 
 
 def isIllegalRelation(pathAlg, relation):

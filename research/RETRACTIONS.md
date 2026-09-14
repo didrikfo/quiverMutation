@@ -6,6 +6,46 @@ does not. See [`README.md`](README.md).
 
 ---
 
+## R-007 — "Step 7 of the mutation procedure is about the new arrows themselves"
+*2026-09-14* · corrected against the paper's own words, → **F-015**
+
+The summary in `literature/` had step 7 as
+
+> `Σ_r ε_r r̄ = 0` is a relation iff `Σ_r ε_r (r/α) = 0` is one in `Q`, for every
+> `α` out of `i`
+
+which reads as a statement about the arrows `r̄`, with scalar coefficients. It is
+not. The paper says the `ε_r` are **linear combinations of paths `t(r) → l`**, for
+**any** vertex `l`, and says it as an **if and only if**. So step 7 is about every
+path out of `i*` — an `r̄` followed by a tail — and it determines them completely:
+the relations out of `i*` to `l` are exactly the kernel of the map that
+precomposes with each `α*`.
+
+**What the abridged reading cost.** Half a day, and nearly the wrong decision.
+Writing the procedure on coefficients, I implemented step 7 as that kernel, found
+it disagreed with the trusted implementation in 2 of 37470 walk steps, and could
+not tell which was right: both preserved the Coxeter polynomial, both survived a
+there-and-back mutation, and both reached the quipu the theorem names. I was
+about to revert the switch and file the disagreement as an open question. The
+paper's actual sentence settles it in one reading: the kernel is right, and the
+old implementation was **missing relations**.
+
+**The lesson, and it is the point of `literature/` existing.** A summary that
+abridges a statement can be worse than no summary, because it reads as
+authoritative. The rule going in: **quote the statements the code implements,
+verbatim.** Step 7 is now quoted in full, and the two things the abridgement
+dropped — that the coefficients are paths, and that it is an iff — are called out
+under the quote, because both are what made it misleading.
+
+**Also corrected:** the same summary said the admissibility criterion was a
+condition for mutation being *allowed*. The paper gives it as two cases where
+mutation is *impossible*, and says explicitly that the homological condition is
+in general **not** equivalent to a condition on the quiver. Ruling out is not the
+same as ruling in, which is why the stricter of our two implementations stays the
+search's gate.
+
+---
+
 ## R-006 — "The workbook's n = 9 classification has 19 classes"
 *2026-09-13* · superseded by **F-011**
 

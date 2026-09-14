@@ -20,6 +20,14 @@ class PathAlgebra():
     def __init__(self):
         self.quiver = nx.MultiDiGraph()
         self.rels = []
+        # The procedure works on linear combinations of paths, `rels` records
+        # only the sets.  When the coefficients are known they are kept here,
+        # in the same order as `rels`, so a walk of several mutations does not
+        # have to guess them back at every step.  It is a cache, not a second
+        # source of truth: `procedure.relationsFrom` checks it still describes
+        # `rels` and falls back to the guess if anything has edited `rels`
+        # behind its back.
+        self.relCombinations = None
 
     def vertices(self):
         """ returns the vertices of a quiver """

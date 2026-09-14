@@ -6,6 +6,43 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-014 — The procedure on coefficients, against the one it replaced
+*2026-09-14* · **agreement everywhere but two cases, which are R-007** → F-015
+
+Five runs, all gated on `mutationIsPossibleAtVertex` so both implementations walk
+the same mutations:
+
+1. **One mutation, every admissible vertex, every LNA of n = 4..8.** 45 + 126 +
+   462 + 1716 = 2349 comparisons, **zero** differences. Minutes.
+2. **Depth-3 walks, n = 5 and 6.** 1446 and 7496 step comparisons, **zero**
+   differences.
+3. **Depth-3 walks, n = 7.** 37470 step comparisons, **2** differences, both
+   after three mutations, both a relation the old implementation did not
+   produce. These are the whole of R-007.
+4. **The exact cleanup on the old steps' output**, n = 5 and 6 at depth 3 and
+   n = 7 at depth 2: 1446 + 7496 + 4710 = 13652 comparisons, **zero**
+   differences. Worth having separately, because it says the disagreement is in
+   step 7 and not in the cleanup.
+5. **Coefficients against the guess**, over every quiver within depth 3 of every
+   LNA of n = 5 and 6: 1239 Cartan matrices, **zero** differences.
+
+**A mixed engine is not an option, and this is how that was learned.** Running
+the old steps 1-7 with the exact cleanup passed run 4 above and then reached
+*two* different hereditary forms from `A_6` `3030` at depth 7 — a degree-4 tree
+alongside `P^(1,1)_(1,0,1)`, which cannot both be one class. The exact cleanup
+expects the relations step 7 produces; with step 7's output missing a relation it
+cuts the wrong generators. Use one engine or the other, whole.
+
+**Timings**, n = 7 over the 462 admissible single mutations: procedure 0.26 s
+against 0.94 s, admissibility 0.14 s against 1.74 s. The exact versions are
+3.6x and 12x *faster*.
+
+**Do not repeat runs 1, 2, 4 and 5** — they are `tests/test_procedure.py` now.
+Run 3 at n = 7 depth 3 takes about eight minutes and is worth re-running only if
+step 7 changes.
+
+---
+
 ## E-013 — Audit of the quipu symmetry, after R-006 was challenged
 *2026-09-14* · **no defect found** → F-014
 

@@ -12,14 +12,15 @@ The modules, in dependency order:
 |---|---|
 | `pathAlgebra` | the container: a quiver and a list of relations |
 | `paths` | paths and relations inside one, and what a relation set does to a path |
-| `reduction` | the cleanup after a mutation, to a fixed point |
-| `mutation` | the procedure itself, and its admissibility condition |
+| `relationAlgebra` | relations as integer combinations of paths, and exact ideals |
+| `procedure` | steps 1-7 and the cleanup, on those combinations |
+| `reduction` | the cleanup, in the set-of-paths model |
+| `mutation` | the procedure, in the set-of-paths model, and admissibility |
 | `invariants` | the Cartan matrix and the Coxeter polynomial |
 | `lines` | the linear quiver, and the names its algebras go by |
 | `search` | walking the mutation graph, and the hereditary quivers it reaches |
 | `classification` | classifying a whole length, end to end |
 | `quipuForms` | canonical forms for quipus, and the quipu theorem inverted |
-| `relationAlgebra` | relations as integer combinations of paths, and exact ideals |
 | `mutationClassTable` | the classification table, as CSV and parquet |
 | `nakayama` | `LinearNakayamaAlgebra` and `QuipuAlgebra`, the two shapes with structure |
 | `lnaMoves` | verified mutation shortcuts between LNAs |
@@ -30,13 +31,15 @@ The modules, in dependency order:
 The procedural modules are re-exported flat, so `import quivermutation as qm`
 reaches `qm.classifyLength` and the rest directly.  The modules that carry their
 own namespace -- `nakayama`, `quipuForms`, `lnaMoves`, `piecewiseHereditary`,
-`relationAlgebra`, `mutationClassTable`, `quiverExamples` -- are imported as
-names: `from quivermutation import nakayama as nk`.
+`relationAlgebra`, `procedure`, `mutationClassTable`, `quiverExamples` -- are
+imported as names: `from quivermutation import nakayama as nk`.
 """
 
 from . import (
     pathAlgebra,
     paths,
+    relationAlgebra,
+    procedure,
     reduction,
     mutation,
     invariants,
@@ -44,7 +47,6 @@ from . import (
     search,
     classification,
     quipuForms,
-    relationAlgebra,
     mutationClassTable,
     nakayama,
     lnaMoves,
@@ -60,32 +62,24 @@ from .pathAlgebra import (
 )
 
 from .paths import (
-    allMinimalRelsBetweenVertices,
     allRelsBetweenVertices,
     allRelsInPathAlgebra,
     applyRelSetToPath,
     extendRel,
     isIllegalRelation,
-    isSubRelOf,
-    listIntersection,
     numberOfPathsUpToRels,
     pathHasZeroRel,
     powerset,
     sublistExists,
-    zeroizeRels,
 )
 
 from .reduction import (
     reducePathAlgebra,
-    removeDuplicateRelPaths,
-    removeDuplicateRels,
-    removeExistingSubrelations,
-    removeNonminimalZeroRels,
-    removeRedundantRelations,
 )
 
 from .mutation import (
     getVertexNumberingKeyFromValue,
+    leftQuiverMutationAtVertex,
     leftQuiverMutationAtVertex,
     mutationIsPossibleAtVertex,
     quiverMutationAtVertex,
@@ -135,7 +129,6 @@ from .plotting import (
 __all__ = [
     "PathAlgebra",
     "adoptClassesByMoves",
-    "allMinimalRelsBetweenVertices",
     "allRelsBetweenVertices",
     "allRelsInPathAlgebra",
     "annotateHereditaryForms",
@@ -157,10 +150,8 @@ __all__ = [
     "hereditaryFormsReachedFrom",
     "invariants",
     "isIllegalRelation",
-    "isSubRelOf",
     "leftQuiverMutationAtVertex",
     "lines",
-    "listIntersection",
     "lnaMoves",
     "mergeReport",
     "mutation",
@@ -179,6 +170,7 @@ __all__ = [
     "plotting",
     "powerset",
     "printPathAlgebra",
+    "procedure",
     "quipuForms",
     "quiverExamples",
     "quiverMutationAtVertex",
@@ -189,16 +181,10 @@ __all__ = [
     "relabelLineAlgebra",
     "relationAlgebra",
     "relationStringToLineRelLengths",
-    "removeDuplicateRelPaths",
-    "removeDuplicateRels",
-    "removeExistingSubrelations",
-    "removeNonminimalZeroRels",
-    "removeRedundantRelations",
     "resolveMergeCandidates",
     "reverseMutationSequence",
     "search",
     "seedTableFromQuipuTheorem",
     "showMutationSteps",
     "sublistExists",
-    "zeroizeRels",
 ]

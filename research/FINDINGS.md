@@ -5,6 +5,75 @@ See [`README.md`](README.md) for conventions.
 
 ---
 
+## F-015 — The procedure on coefficients, and the two relations the old one missed
+*2026-09-14*
+
+`procedure.py` is steps 1-7 of arXiv:2112.08129 and the cleanup after step 7,
+with relations as `relationAlgebra` combinations instead of sets of paths. The
+coefficients come out of the steps rather than being guessed back, and step 7 is
+computed as the kernel the paper says it is. It is what
+`mutation.quiverMutationAtVertex` and `reduction.reducePathAlgebra` now run.
+
+**Agreement with the implementation it replaced**, gated on
+`mutationIsPossibleAtVertex` throughout so both walk the same mutations:
+
+| check | cases | differences |
+|---|---|---|
+| one mutation at every admissible vertex of every LNA, n = 4..8 | 2349 | 0 |
+| depth-3 walks, n = 5 | 1446 steps | 0 |
+| depth-3 walks, n = 6 | 7496 steps | 0 |
+| depth-3 walks, n = 7 | 37470 steps | **2** |
+| the exact cleanup on the old steps' output, n = 5,6 depth 3 and n = 7 depth 2 | 13652 | 0 |
+
+**The two differences are relations the old implementation missed**, and the
+paper's step 7 says so — see R-007. Both are at n = 7 after three mutations:
+
+    A_{7,(1,4)}^{(4,3)} = 40030, mutated at 1, 4, 2
+      old: 1;2;5;6;7 | 3;2;5;4 | 5;4;7 = 5;6;7
+      new:   2;5;6;7 | 3;2;5;4 | 5;4;7 = 5;6;7     (and 2;5;6;7 implies the old one)
+
+    A_{7,(1,4,4)}^{(4,3)}-ish = 44030, mutated at 1, 4, 2
+      new has 2;5;6;7 = 0 in addition to everything the old one has
+
+In the first, `2;5;6;7` is **not** in the ideal the old answer generates, so the
+two are different algebras: total dimension 23 against 22, where the algebra
+being mutated has 22.
+
+**Neither is caught by the checks that were in place.** Both preserve the
+Coxeter polynomial, both survive a there-and-back left mutation, and both reach
+`P^(1,2)_(1,0,1)` — the quipu the theorem names for that class — by a depth-7
+search. Which is worth recording on its own: *the Coxeter polynomial, the round
+trip and the hereditary form can all three be satisfied by an algebra that is
+not the mutation*, because all three see only the derived equivalence class, and
+a missing relation can leave the class unchanged.
+
+**The coefficients never change a Cartan matrix.** Computing it from the true
+combinations and from `fromPathSet`'s guess over the same algebra agrees on every
+quiver reached within depth 3 of every LNA of lengths 5 and 6 — 1239 of them,
+zero differences. So no published Coxeter polynomial was ever wrong because of
+the guess; what the guess cost was the reasoning, as R-003 records.
+
+**It is faster, not slower.** At n = 7 over the 462 admissible single mutations:
+the procedure 0.26 s against 0.94 s, the admissibility condition 0.14 s against
+1.74 s. Exact linear algebra over the ideal beats the hand-rolled list surgery it
+replaces, by 3.6x and 12x. That was the opposite of what was expected, and is
+why the switch was affordable.
+
+**The classification is unchanged.** `python classify.py 8` on the new procedure
+gives the same 11 classes with the same sizes --
+133 + 65 + 64 + 64 + 40 + 26 + 13 + 10 + 9 + 4 + 1 = 429 -- as the partition
+recorded in NOTES.md for the old one, and n = 7 gives the same
+54 + 32 + 29 + 7 + 6 + 4 = 132. So the two missing relations did not change a
+published class: they were lost on quivers the search passes through, not on the
+LNAs it records. n = 6 now takes 5 seconds against 13, and n = 7 40 seconds
+against 37.
+
+**Evidence.** `tests/test_procedure.py` (agreement at n = 4..6, with n = 7 and 8
+marked slow; step 5's minus sign; step 7 as a kernel; the cleanup; the two
+recovered relations). The wider runs are E-014.
+
+---
+
 ## F-014 — The quipu's end exchanges are already exactly right, and they do not merge the n = 9 pair
 *2026-09-14*
 
