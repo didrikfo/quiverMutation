@@ -1,0 +1,8 @@
+matplotlib>=3.9
+networkx>=3.3
+numpy>=2.1
+polars>=1.7
+sympy>=1.13
+
+[test]
+pytest>=8.3

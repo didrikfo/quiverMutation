@@ -26,4 +26,9 @@ jobs:
 
       - name: Run unit tests
         run: |
-          python -m unittest discover -s tests -p "test_*.py"
+          python -m pytest -q -m "not slow"
+
+      - name: Run the full classification searches
+        if: github.event_name == 'push'
+        run: |
+          python -m pytest -q -m slow

@@ -1,0 +1,3271 @@
+import copy
+import glob
+import itertools
+import ast
+import matplotlib.pyplot as plt
+import math
+import networkx as nx
+import os
+import pathAlgebraClass
+import mutationClassTable
+import piecewiseHereditary
+import lnaMoves
+import quipuForms
+import relationAlgebra
+import sympy
+import time
+import csv
+import numpy as np
+from datetime import datetime
+from operator import itemgetter
+from sympy.interactive.printing import init_printing
+from sympy.matrices import Matrix, eye, zeros, ones, diag, GramSchmidt
+from sympy.abc import x, y
+
+now = datetime.now() # current date and time
+
+
+def listIntersection(lst1, lst2):
+    return list(set(lst1) & set(lst2))
+
+def quiverMutationAtVertex(pathAlg, vertex):
+    oldQuiver = pathAlg.quiver
+    vertices = pathAlg.vertices()
+    mutPathAlg = pathAlgebraClass.PathAlgebra()
+    mutPathAlg.add_vertices_from(vertices)
+    vertexOutArrows = pathAlg.out_arrows(vertex)
+    vertexOutRels = pathAlg.out_rels(vertex)
+    allMinOutRels = []
+    for rel in vertexOutRels:
+        for minOutRel in allMinimalRelsBetweenVertices(pathAlg, vertex, rel[0][-1]):
+            allMinOutRels.append((minOutRel, vertexOutRels.index(rel)))
+    arrowTargetVertices = list(pathAlg.quiver.successors(vertex))
+    vertexSuccessors = list(nx.dfs_preorder_nodes(oldQuiver, vertex))
+    vertexSuccessors.remove(vertex)
+    for ar in vertexOutArrows:
+        if ar[1] in vertexSuccessors:
+            vertexSuccessors.remove(ar[1])
+    for v in vertexSuccessors:
+        predecessors = list(nx.dfs_preorder_nodes(nx.reverse(oldQuiver), v))
+        targetPredecessorsOfVertex = listIntersection(predecessors, arrowTargetVertices)
+        if bool(targetPredecessorsOfVertex):
+            outRelPathsWithRels = []
+            for rel in vertexOutRels:
+                outRelPathsWithRels.append([rel, []])
+            targetRelAndPathHitByOutRelAndPath = []
+            for w in targetPredecessorsOfVertex:
+#                nonMinOutRels = nonMinimalOutRels(pathAlg, w)
+                nonMinOutRels = []
+                for w_succ in list(nx.dfs_preorder_nodes(oldQuiver, w))[1:]:
+                    nonMinOutRels.extend(allRelsBetweenVertices(pathAlg, w, w_succ))
+#                nonMinOutRelsZeroized = zeroizeRels(nonMinOutRels)
+                for targetOutRel in nonMinOutRels:
+                    if targetOutRel[0][-1] == v:
+                        equivMinOutRelsUsedForTargetOutRel = []
+                        for targetOutRelPath in targetOutRel:
+                            for outRel in allMinOutRels:
+                                for outRelPath in outRel[0]:
+                                    rule7RelPath = [vertex] + targetOutRelPath[len(outRelPath) - 2:]
+                                    if [vertex] + targetOutRelPath[:len(outRelPath) - 1] == outRelPath and not (rule7RelPath, outRel[1]) in equivMinOutRelsUsedForTargetOutRel:
+                                        #rule7RelPath = [vertex] + targetOutRelPath[len(outRelPath) - 2:]
+                                        targetRelAndPathHitByOutRelAndPath.append((targetOutRel, targetOutRelPath, outRel[0], outRelPath, rule7RelPath))
+                                        equivMinOutRelsUsedForTargetOutRel.append((rule7RelPath, outRel[1]))
+                                        break
+            relevantTargetOutRels = []
+            for rule7Tuple in targetRelAndPathHitByOutRelAndPath:
+                if not rule7Tuple[0] in relevantTargetOutRels:
+                    relevantTargetOutRels.append(rule7Tuple[0])
+            possibleRule7RelCandidates = []
+            for targetOutRel in relevantTargetOutRels:
+                rule7TuplesForTargetOutRel = []
+                for rule7Tuple in targetRelAndPathHitByOutRelAndPath:
+                    if rule7Tuple[0] == targetOutRel:
+                        rule7TuplesForTargetOutRel.append(rule7Tuple)
+                potentialRule7RelCandidates = [[]]
+                mutationPossibleAtRel = False
+                for targetOutRelPath in targetOutRel:
+                    mutationPossibleAtRel = True
+                    newCandidates = []
+                    for rule7Tuple in rule7TuplesForTargetOutRel:
+                        if rule7Tuple[1] == targetOutRelPath:
+                            for candidate in potentialRule7RelCandidates:
+                                newCandidates.append(candidate + [rule7Tuple])
+                    if not bool(newCandidates):
+                        mutationPossibleAtRel = False
+                        break
+                    potentialRule7RelCandidates = newCandidates
+                if mutationPossibleAtRel:
+                    possibleRule7RelCandidates.extend(potentialRule7RelCandidates)
+            doneTargetOutRels = []
+            rule7RelCandidates = []
+            for possibleCandidate in possibleRule7RelCandidates:
+                skipCandidate = False
+                relevantOutRels = []
+                for rel in doneTargetOutRels:
+                    if rel == possibleCandidate[0]:
+                        skipCandidate = True
+                if not skipCandidate:
+                    for rule7Tuple in possibleCandidate:
+                        if not rule7Tuple[2] in relevantOutRels:
+                            relevantOutRels.append(rule7Tuple[2])
+                    missingOutRelPathTuples = []
+                    for outRel in relevantOutRels:
+                        outRelPathsInCandidate = []
+                        for outRelPath in outRel:
+                            for rule7Tuple in possibleCandidate:
+                                if rule7Tuple[3] == outRelPath and not rule7Tuple[3] in outRelPathsInCandidate:
+                                    outRelPathsInCandidate.append(rule7Tuple[3])
+                                    break
+                        for relPath in outRel:
+                            if not relPath in outRelPathsInCandidate:
+                                missingOutRelPathTuples.append((outRel, relPath))
+                    if not bool(missingOutRelPathTuples):
+                        rule7RelCandidates.append(possibleCandidate)
+                        doneTargetOutRels.append(possibleCandidate[0][0])
+                    else:
+                        mutationPossible = True
+                        for missingPath in missingOutRelPathTuples:
+                            outRelPathHasRel = False
+                            for rule7Tuple in targetRelAndPathHitByOutRelAndPath:
+                                if (rule7Tuple[2], rule7Tuple[3]) == missingPath and len(rule7Tuple[0]) == 1:
+                                    outRelPathHasRel = True
+                                    break
+                            if not outRelPathHasRel:
+                                mutationPossible = False
+                        if mutationPossible:
+                            rule7RelCandidates.append(possibleCandidate)
+                            doneTargetOutRels.append(possibleCandidate[0][0])
+            for candidate in rule7RelCandidates:
+                rule7Rel = []
+                for rule7Tuple in candidate:
+                    if not rule7Tuple[4] in rule7Rel:
+                        rule7Rel.append(rule7Tuple[4])
+                legitRule7Relation = True
+                removeRel = []
+                for rel in mutPathAlg.rels:
+                    if isSubRelOf(rule7Rel, rel):
+                        legitRule7Relation = False
+                        break
+                    elif isSubRelOf(rel, rule7Rel):
+                        removeRel = rel
+                        break
+                if bool(removeRel):
+                    mutPathAlg.rels.remove(rel)
+                if legitRule7Relation:
+                    mutPathAlg.add_rel(rule7Rel)
+    for ar in oldQuiver.edges:
+        if ar[0] == vertex:
+            mutPathAlg.add_arrow(ar[1], ar[0])
+#            for rel in vertexOutRels:
+            possibleRelsToAdd = []
+            for rel in allMinOutRels:
+                arrowTargetVertexNotInRel = True
+                for relPath in rel[0]:
+                    if relPath[1] == ar[1]:
+                        arrowTargetVertexNotInRel = False
+                        newRel = []
+                        newRel.append([ar[1], ar[0], relPath[-1]])
+                        for otherRelPath in rel[0]:
+                            if otherRelPath[1] == ar[1]:
+                                newRel.append(otherRelPath[1:])
+                        possibleRelsToAdd.append((newRel, rel[1]))
+#                        mutPathAlg.add_rel(newRel)
+                if arrowTargetVertexNotInRel:
+                    newRel = [[ar[1], ar[0], rel[0][0][-1]]]
+                    possibleRelsToAdd.append((newRel, rel[1]))
+#                    mutPathAlg.add_rel(newRel)
+            possibleRelsToAdd.sort(reverse=True, key=lambda x:len(x[0]))
+            relsToAdd = []
+            for newRelNumber in range(len(vertexOutRels)):
+                newRelIndex = [y[1] for y in possibleRelsToAdd].index(newRelNumber)
+                relsToAdd.append(possibleRelsToAdd[newRelIndex][0])
+            for relToAdd in relsToAdd:
+                mutPathAlg.add_rel(relToAdd)
+        elif ar[1] == vertex:
+            newRel = []
+            for arOut in vertexOutArrows:
+                mutPathAlg.add_arrow(ar[0], arOut[1])
+                newRel.append([arOut[1], vertex])
+            for relPath in newRel:
+                relPath.insert(0, ar[0])
+            mutPathAlg.add_rel(newRel)
+        elif (ar[0] != vertex) & (ar[1] != vertex):
+            mutPathAlg.add_arrow(ar[0], ar[1])
+    # for rel in allMinOutRels:
+    #     mutPathAlg.add_arrow(rel[0][0], rel[0][-1])
+    for rel in copy.deepcopy(pathAlg.rels):
+        if rel[0][0] == vertex:
+            mutPathAlg.add_arrow(rel[0][0], rel[0][-1])
+        if rel[0][-1] == vertex:
+            for v in arrowTargetVertices:
+                newRel = []
+                for relPath in rel:
+                    newRelPath = relPath[:-1]
+                    newRelPath.append(v)
+                    newRel.append(newRelPath)
+                mutPathAlg.add_rel(newRel)
+        elif (rel[0][0] != vertex) and (rel[0][-1] != vertex):
+            for relPath in rel:
+                if vertex in relPath[:]:
+                    relPath.remove(vertex)
+            mutPathAlg.add_rel(rel)
+    zeroizedRels = zeroizeRels(mutPathAlg.rels)
+    mutPathAlg.rels = zeroizedRels
+    return mutPathAlg
+
+def quiverMutationAtVertices(pathAlg, vertices : list, printMutationSteps = False):
+    for i in range(len(vertices)):
+        vertex = vertices[i]
+        if vertex > 0:
+            pathAlg = quiverMutationAtVertex(pathAlg, vertex)
+        else:
+            pathAlg = leftQuiverMutationAtVertex(pathAlg, -vertex)
+        pathAlg = reducePathAlgebra(pathAlg)
+        if printMutationSteps:
+            print('Mutations: ', vertices[:i + 1])
+            printPathAlgebra(pathAlg)
+    return pathAlg
+
+def nonMinimalOutRels(pathAlg, vertex):
+    nonMinOutRels = []
+    pathAlgCopy = copy.deepcopy(pathAlg)
+    for rel in pathAlgCopy.out_rels(vertex):
+        nonMinOutRels.extend(extendRel(pathAlgCopy, rel))
+    for ar in pathAlgCopy.out_arrows(vertex):
+        deeperOutRels = nonMinimalOutRels(pathAlgCopy, ar[1])
+        for dRel in deeperOutRels:
+            extendedRel = []
+            for dRelPath in dRel:
+                extendedRelPath = [vertex] + dRelPath
+                extendedRel.append(extendedRelPath)
+            nonMinOutRels.append(extendedRel)
+        for rel in pathAlgCopy.out_rels(vertex):
+            if len(rel) == 1 and rel[0][1] == ar[1]:
+                for dRel in deeperOutRels:
+                    targetInRel = False
+                    for dRelPath in dRel:
+                        if rel[0][-1] in dRelPath:
+                            targetInRel = True
+                            break
+                    if targetInRel:
+                        for dRelPath in dRel:
+                            nonMinOutRels.append([[vertex] + dRelPath[:]])
+            for relPath in rel:
+                for dRel in copy.deepcopy(deeperOutRels):
+                    extendedFirstRel = copy.deepcopy(rel)
+                    extendedFirstRel.remove(relPath)
+                    if len(rel) > 1 or len(dRel) > 1:
+                        for dRelPath in dRel:
+                            if dRelPath[:len(relPath)-1] == relPath[1:]:
+                                extendedLastRel = dRel
+                                extendedLastRel.remove(dRelPath)
+                                for efRelPath in extendedFirstRel:
+                                    efRelPath.extend(dRelPath[len(relPath) - 1:])
+                                for elRelPath in extendedLastRel:
+                                    elRelPath.insert(0, vertex)
+                                nonMinOutRels.append(extendedFirstRel + extendedLastRel)
+    uniqueNonMinOutRels = []
+    for nonMinRel in nonMinOutRels:
+        if not sorted(nonMinRel) in uniqueNonMinOutRels:
+            uniqueNonMinOutRels.append(sorted(nonMinRel))
+    return uniqueNonMinOutRels
+
+
+def allRelsBetweenVertices(pathAlg, startVertex, endVertex, visited = None):
+    """Every relation from startVertex to endVertex, minimal or not.
+
+    `visited` carries the vertices already on the current recursion path.  The
+    recursion follows the arrows out of startVertex, and without that set a
+    cycle in the quiver makes it descend forever: allRelsBetweenVertices on a
+    quiver with a cycle raised RecursionError.  Since the rest of the module
+    works with simple paths throughout, not revisiting a vertex is also the
+    right semantics, and on an acyclic quiver it changes nothing -- no vertex
+    can repeat on a path there anyway.
+
+    This is the crash that stopped the length-12 run.  mutationSearchDepthFirst
+    calls allRelsInPathAlgebra at the top of every node, and it used to do so
+    before testing the quiver for cycles, so the first mutation that produced a
+    cyclic quiver killed the search on the following node.  Both halves are
+    fixed: the recursion is bounded here, and the search now tests for cycles
+    first.
+    """
+    # This used to deep-copy the whole path algebra, including its networkx
+    # graph, on every one of its recursive calls, which accounted for most of
+    # the run time of a class search.  The quiver is only read here, so the
+    # relations are all that need copying, and rels_between already returns a
+    # fresh list.
+    visited = frozenset() if visited is None else visited
+    visited = visited | {startVertex}
+    relsBetween = [copy.deepcopy(rel) for rel in pathAlg.rels_between(startVertex, endVertex)]
+    for ar in pathAlg.out_arrows(startVertex):
+        if ar[1] in visited:
+            continue
+        dRelsBetween = allRelsBetweenVertices(pathAlg, ar[1], endVertex, visited)
+        for rel in dRelsBetween:
+            newRel = []
+            for relPath in rel:
+                newRel.append([startVertex] + relPath)
+            if not newRel in relsBetween:
+                relsBetween.append(newRel)
+    verticesBetween = []
+    for path in nx.all_simple_paths(pathAlg.quiver, startVertex, endVertex):
+        for i in path:
+            if not i in verticesBetween:
+                verticesBetween.append(i)
+    for i in verticesBetween:
+            if i != endVertex:
+                for rel in pathAlg.rels_between(startVertex, i):
+                    for path in nx.all_simple_paths(pathAlg.quiver, i, endVertex):
+                        newRel = []
+                        for relPath in rel:
+                            newRel.append(relPath + path[1:])
+                        if not newRel in relsBetween:
+                            relsBetween.append(newRel)
+    for i in range(len(relsBetween) - 1):
+        for j in range(i + 1, len(relsBetween)):
+            if relsBetween[i] == relsBetween[j]:
+                print('Duplicate rel: ', relsBetween[i])
+    relSetsToApply = [[rel] for rel in relsBetween]
+    allRelsBetween = relsBetween
+    stillNewRels = True
+    while stillNewRels:
+        newRels = []
+        stillNewRels = False
+        for rel in allRelsBetween:
+            for relPath in rel:
+                for relSet in relSetsToApply:
+                    newRelPaths = applyRelSetToPath(relPath, relSet)
+                    relToAdd = sorted(rel[:rel.index(relPath)] + rel[rel.index(relPath) + 1:] + newRelPaths)
+                    if not relToAdd in allRelsBetween and not any(relToAdd.count(x) > 1 for x in relToAdd) and relToAdd != []:
+                        allRelsBetween.append(copy.deepcopy(relToAdd))
+                        newRels.append(relToAdd)
+                        stillNewRels = True
+        relSetsToApply = [[copy.deepcopy(newRel)] for newRel in newRels]
+    return allRelsBetween
+
+def allMinimalRelsBetweenVertices(pathAlg, startVertex,endVertex):
+    # As in allRelsBetweenVertices, the quiver is only read, so copying the
+    # relations is enough and copying the graph with it was pure overhead.
+    relsBetween = [copy.deepcopy(rel) for rel in pathAlg.rels_between(startVertex, endVertex)]
+    allRelsBetween = [copy.deepcopy(rel) for rel in pathAlg.rels_between(startVertex, endVertex)]
+    verticesBetween = []
+    for path in nx.all_simple_paths(pathAlg.quiver, startVertex, endVertex):
+        for i in path:
+            if not i in verticesBetween:
+                verticesBetween.append(i)
+    intermideateRels = []
+    for i in verticesBetween:
+        for j in verticesBetween:
+            if i != startVertex or j != endVertex:
+                for rel in pathAlg.rels_between(i, j):
+                    if not rel in intermideateRels:
+                        intermideateRels.append(rel)
+    powerSetOfShorterRels = powerset(intermideateRels)
+    relSetsToApply = []
+    for relSet in powerSetOfShorterRels:
+        if bool(relSet):
+            relSetsToApply.append(relSet)
+    for rel in relsBetween:
+        newRelSetsToApply = []
+        for relSet in relSetsToApply:
+            for differentRel in relsBetween:
+                if differentRel != rel:
+                    newRelSetsToApply.append(relSet + [differentRel])
+        relSetsToApply.extend(newRelSetsToApply)
+        for relPath in rel:
+            for relSet in relSetsToApply:
+                newRelPaths = applyRelSetToPath(relPath, relSet)
+                relToAdd = sorted(rel[:rel.index(relPath)] + rel[rel.index(relPath) + 1:] + newRelPaths)
+                if not relToAdd in allRelsBetween and not any(relToAdd.count(x) > 1 for x in relToAdd) and relToAdd != []:
+                    allRelsBetween.append(relToAdd)
+    return allRelsBetween
+
+def extendRel(pathAlg, rel, visited = None):
+    """Every way of extending a relation forward along the arrows out of its end.
+
+    As in allRelsBetweenVertices, `visited` bounds the recursion so a cycle in
+    the quiver does not make it descend forever.  It is seeded with every vertex
+    the relation already passes through, so an extension never doubles back into
+    the relation itself.
+
+    Note that each extension is returned twice, since the recursion's own result
+    starts with the relation it was given.  That predates this change and is
+    harmless -- nonMinimalOutRels, the only caller, dedupes at the end.
+    """
+    vertex = rel[0][-1]
+    if visited is None:
+        # Seed with every vertex the relation already passes through, so an
+        # extension cannot double back into it.
+        visited = frozenset(v for relPath in rel for v in relPath)
+    visited = visited | {vertex}
+    extendedRels = [rel]
+    outArrows = pathAlg.out_arrows(vertex)
+    for ar in outArrows:
+        if ar[1] in visited:
+            continue
+        extendedRel = []
+        for relPath in rel:
+            extendedRelPath = relPath + [ar[1]]
+            extendedRel.append(extendedRelPath)
+        extendedRels.append(extendedRel)
+        deeperExtendedRels = extendRel(pathAlg, extendedRel, visited)
+        extendedRels.extend(deeperExtendedRels)
+    return extendedRels
+
+def isSubRelOf(potentialSubRel, relation):
+    isSubRel = True
+    for relPath in potentialSubRel:
+        if not relPath in relation:
+            isSubRel = False
+            break
+    return isSubRel
+
+def reducePathAlgebra(pathAlg):
+    quiver = pathAlg.quiver
+    redPathAlg = pathAlgebraClass.PathAlgebra()
+    redPathAlg.add_vertices_from(quiver.nodes)
+    redPathAlg.add_arrows_from(quiver.edges(keys=True))
+    for rel in pathAlg.rels:
+        if isIllegalRelation(pathAlg, rel):
+            pathAlg.rels.remove(rel)
+    redPathAlg.add_rels_from(pathAlg.rels)
+    redPathAlg = removeDuplicateRelPaths(redPathAlg)
+    noChange = False
+    while not noChange:
+        noChange = True
+        rels = copy.deepcopy(redPathAlg.rels)
+        redRels = copy.deepcopy(redPathAlg.rels)
+        arrowStillExists = True
+        removedRel = ([],[])
+        for rel in rels:
+            relIndex = redRels.index(rel)
+            for relPath in rel:
+                if len(relPath) == 2:
+                    rel.remove(relPath)
+                    removedRel = (relPath, rel)
+                    redPathAlg.quiver.remove_edge(relPath[0], relPath[1])
+                    redRels.remove(redRels[relIndex])
+                    noChange = False
+                    if redPathAlg.quiver.number_of_edges(relPath[0], relPath[1]) > redRels.count(rel):
+                        arrowStillExists = True
+                    else:
+                        arrowStillExists = False
+                    break
+            if not noChange:
+                break
+        if not noChange and not arrowStillExists:
+            relsToRemove = []
+            newRels = []
+            for rel in redRels:
+                newRel = []
+                unchangedPaths = []
+                for relPath in rel:
+                    newPaths = []
+                    if bool(removedRel[0]):
+                        if sublistExists(relPath, removedRel[0]):
+                            for leftoverPath in removedRel[1]:
+                                newPath = copy.deepcopy(relPath[:relPath.index(removedRel[0][1])] + leftoverPath[1:-1] + relPath[relPath.index(removedRel[0][1]):])
+                                newPaths.append(newPath)
+                            if not rel in relsToRemove:
+                                relsToRemove.append(rel)
+                    if bool(newPaths):
+                        newRel.extend(newPaths)
+                    else:
+                        unchangedPaths.append(relPath[:])
+                if bool(newRel):
+                    newRel.extend(unchangedPaths)
+                    newRels.append(newRel)
+            for rel in relsToRemove:
+                redRels.remove(rel)
+            redRels.extend(newRels)
+            while [] in redRels:
+                redRels.remove([])
+        redPathAlg.clear_rels()
+        redPathAlg.add_rels_from(redRels)
+        redPathAlg = removeDuplicateRelPaths(redPathAlg)
+    redPathAlg = removeDuplicateRels(redPathAlg)
+    redPathAlg = removeNonminimalZeroRels(redPathAlg, applyCommutativityRels=False)
+    removeRedundantRelations(redPathAlg)
+    removeExistingSubrelations(redPathAlg)
+    noChange = False
+    while not noChange:
+        numberOfRelsBeforeRed = len(redPathAlg.rels)
+        removeRedundantRelations(redPathAlg)
+        if numberOfRelsBeforeRed == len(redPathAlg.rels):
+            noChange = True
+    redPathAlg = removeNonminimalZeroRels(redPathAlg)
+    return redPathAlg
+
+
+def removeNonminimalZeroRels(pathAlg, applyCommutativityRels = True):
+    rels = pathAlg.rels
+    minimalRels = []
+    commutativityRels = []
+    zeroRels = []
+    for rel in rels:
+        if len(rel) > 2:
+            minimalRels.append(rel)
+        elif len(rel) == 2:
+            minimalRels.append(rel)
+            commutativityRels.append(rel)
+        else:
+            zeroRels.append(rel)
+    relSetsToApply = []
+    if applyCommutativityRels:
+        commutativityRelsPowerSet = powerset(commutativityRels)
+        for relSet in commutativityRelsPowerSet:
+            for perm in itertools.permutations(relSet):
+                relSetsToApply.append(list(perm))
+    for rel1 in zeroRels:
+        removeRel = False
+        for relSetToApply in relSetsToApply:
+            if applyCommutativityRels:
+                rel1Equivalent = applyRelSetToPath(rel1[0], relSetToApply)
+            else:
+                rel1Equivalent = rel1
+            for rel2 in zeroRels:
+                    if len(rel2[0]) < len(rel1Equivalent[0]):
+                        for i in range(len(rel1Equivalent[0]) - len(rel2[0]) + 1):
+                           if rel1Equivalent[0][i:i+len(rel2[0])] == rel2[0]:
+                                removeRel = True
+                                break
+                    if removeRel:
+                        break
+            if removeRel:
+                break
+        if not removeRel:
+            if not rel1 in minimalRels:
+                minimalRels.append(rel1)
+    pathAlg.rels = minimalRels
+    return pathAlg
+
+def reduceCommutativityRels(pathAlg):
+    for rel in pathAlg.rels:
+        if len(rel) > 1:
+            relLength = len(rel[0])
+            for i in range(1, len(rel)):
+                relLength = max(relLength, len(rel[i]))
+            sameStart = False
+            sameEnd = False
+            for i in range(1, relLength):
+                for n in range(1,len(rel)):
+                    if rel[n][i] != rel[0][i] and not sameStart:
+                        sameStart = True
+                        sameStartEnd = i
+                    if rel[n][-i] != rel[0][-i] and not sameEnd:
+                        sameEnd = True
+                        sameEndStart = -i
+                    if sameStart and sameEnd:
+                        break
+                if sameStart and sameEnd:
+                    break
+            if sameStart or sameEnd:
+                newRel = []
+                for relPath in rel:
+                    newRel.append(relPath[sameStartEnd - 1:len(relPath) + sameEndStart + 2])
+                pathAlg.rels[pathAlg.rels.index(rel)] = newRel
+    return pathAlg
+
+def removeDuplicateRels(pathAlg):
+    uniqueRels = []
+    for rel in pathAlg.rels:
+        uniqueRel = []
+        for relPath in rel:
+            if not relPath in uniqueRel:
+                uniqueRel.append(relPath)
+        if bool(uniqueRel) and not uniqueRel in uniqueRels:
+            uniqueRels.append(uniqueRel)
+    pathAlg.rels = uniqueRels
+    return pathAlg
+
+def removeDuplicateRelPaths(pathAlg):
+    uniqueRels = []
+    for rel in pathAlg.rels:
+        uniqueRelPaths = []
+        for relPath in rel:
+            if not relPath in uniqueRelPaths:
+                uniqueRelPaths.append(relPath)
+        uniqueRels.append(uniqueRelPaths)
+    pathAlg.clear_rels()
+    pathAlg.add_rels_from(uniqueRels)
+    return pathAlg
+
+
+def minimizeCommutingRelation(pathAlg, relation):
+    if len(relation) >= 2:
+        return pathAlg
+    verticesBetween = []
+    for path in nx.all_simple_paths(pathAlg.quiver, relation[0][0], relation[0][-1]):
+        for vertex in path:
+            if not vertex in verticesBetween:
+                verticesBetween.append(vertex)
+    rels = []
+    for i in verticesBetween:
+        for j in verticesBetween:
+            for rel in allRelsBetweenVertices(pathAlg, i, j):
+                rels.append(rel)
+    replaceCommutingPartWith = []
+    for rel in rels:
+        if len(rel) >= 2 and len(rel[0]) < len(relation[0]):
+            for m in range(len(rel)):
+                for i in range(len(rel[m]) - 2):
+                    commutativeRelStart = 0
+                    if rel[m][i] in relation[0] and rel[m][i+1] not in relation[0]:
+                        commutativeRelStart = rel[m][i]
+                        if bool(commutativeRelStart):
+                            commutativeRelEnd = 0
+                            for j in range(len(rel[m]) - 1, i + 1, -1):
+                                if rel[m][j] in relation[0] and rel[m][j-1] not in relation[0]:
+                                    commutativeRelEnd = rel[m][j]
+                                if bool(commutativeRelEnd):
+                                    for relPath in rel[m+1:]:
+                                        if relation[0][relation[0].index(commutativeRelStart):relation[0].index(commutativeRelEnd) + 1] == relPath[relPath.index(commutativeRelStart):relPath.index(commutativeRelEnd) + 1]:
+                                            replaceCommutingPartWith = rel[m][i:j+1]
+                                            break
+                            if bool(replaceCommutingPartWith):
+                                break
+                if bool(replaceCommutingPartWith):
+                    break
+            if bool(replaceCommutingPartWith):
+                break
+    if bool(replaceCommutingPartWith):
+        pathAlg.rels[pathAlg.rels.index(relation)][0][relation[0].index(replaceCommutingPartWith[0]):relation[0].index(replaceCommutingPartWith[-1])+1] = replaceCommutingPartWith
+    return pathAlg
+
+def removeRedundantRelations(pathAlg):
+    #sort relations by increasing length of their longest path, then by increasing number of paths
+    shortestRelsList = sorted(pathAlg.rels, key=lambda x: (len(max(x, key=len)), len(x)))
+    necesarryRels = []
+    while bool(shortestRelsList):
+        necesarryRels.append(shortestRelsList.pop(0))
+        relSetsToApply = powerset(necesarryRels)
+        relsToRemove = []
+        for rel in shortestRelsList:
+            removeRel = False
+            for relPath in rel:
+                for relsToApply in relSetsToApply[1:]:
+                    newPaths = applyRelSetToPath(relPath, relsToApply)
+                    if sorted(newPaths) == sorted( rel[:rel.index(relPath)] + rel[rel.index(relPath) + 1:]):
+                        relsToRemove.append(rel)
+                        removeRel = True
+                        break
+                if removeRel:
+                    break
+        for rel in relsToRemove:
+            shortestRelsList.remove(rel)
+    pathAlg.rels = sorted(necesarryRels)
+    return
+
+def removeExistingSubrelations(pathAlg):
+    reducedRels = []
+    for rel in sorted(pathAlg.rels, key=len):
+        subRelExists = False
+        reducedRel = copy.deepcopy(rel)
+        for redRel in reducedRels:
+            for redRelPath in redRel:
+                if redRelPath in rel:
+                    subRelExists = True
+                else:
+                    subRelExists = False
+                    break
+            if subRelExists:
+                for redRelPath in redRel:
+                    reducedRel.remove(redRelPath)
+        reducedRels.append(reducedRel)
+    pathAlg.rels = reducedRels
+    return
+
+def zeroizeRels(rels):
+    zeroRels = []
+    nonZeroRels = []
+    for rel in rels:
+        if len(rel) == 1:
+            zeroRels.append(rel)
+        else:
+            nonZeroRels.append(rel)
+    zeroizedRels = zeroRels.copy()
+    for rel in nonZeroRels:
+        isZero = False
+        for relPath in rel:
+            isZeroPath = False
+            for zeroRel in zeroRels:
+                if sublistExists(relPath, zeroRel[0]):
+                    rel.remove(relPath)
+                    isZeroPath = True
+                    break
+        zeroizedRels.append(rel)
+    zeroizedRelsReduced = [rel for rel in zeroizedRels if rel != []]
+    return zeroizedRelsReduced
+
+
+def sublistExists(list, sublist):
+    for i in range(len(list)-len(sublist)+1):
+        if sublist == list[i:i+len(sublist)]:
+            return True #return position (i) if you wish
+    return False
+
+def isIllegalRelation(pathAlgebra, relation):
+    isIllegal = False
+    for n in range(1, len(relation)):
+        if relation[n] == []:
+            isIllegal = True
+            break
+        if relation[n][0] != relation[0][0] or relation[n][-1] != relation[0][-1]:
+            isIllegal = True
+            break
+        if not nx.is_path(pathAlgebra.quiver, relation[n]):
+            isIllegal = True
+            break
+        for i in range(0, len(relation[n]) - 1):
+            for j in range(i + 1, len(relation[n])):
+                if relation[n][i] == relation[n][j]:
+                    isIllegal = True
+                    break
+        for m in range(n + 1, len(relation)):
+            if relation[n] == relation[m]:
+                isIllegal = True
+                break
+    if isIllegal:
+        print('ILLEGAL RELATION!')
+        print('The relation {0} '.format(relation))
+        print('is illegal in the following path algebra:')
+        printPathAlgebra(pathAlgebra)
+        # input('Press enter to continue...')
+    return isIllegal
+
+def printPathAlgebra(pathAlg):
+    print('Vertices: ', pathAlg.quiver.nodes)
+    print('Arrows: ', pathAlg.quiver.edges)
+    print('Relations: ', pathAlg.rels, '\n')
+    return
+
+def plotQuiver(pathAlg, showPlot = True, saveToFile = False, fileName = 'quiverPlot.png', folder = ''):
+    try:
+        os.mkdir(folder)
+    except OSError:
+        print("Creation of the directory %s failed" % folder)
+    else:
+        print("Successfully created the directory %s " % folder)
+    savePath = folder + fileName
+    nx.draw_networkx(pathAlg.quiver)
+    if saveToFile:
+        plt.savefig(savePath)
+        plt.close()
+    if showPlot:
+        plt.show()
+    return
+
+def allRelsInPathAlgebra(pathAlg):
+    """Every relation between every ordered pair of vertices, minimal or not."""
+    allRels = []
+    vertices = list(pathAlg.vertices())
+    for v in vertices:
+        for w in vertices:
+            allRels.extend(allRelsBetweenVertices(pathAlg, v, w))
+    return allRels
+
+
+def mutationIsPossibleAtVertex(pathAlg, vertex, allRels = None):
+    """Whether the mutation procedure may be applied to pathAlg at vertex.
+
+    This is the admissibility test of theorem 1 in arXiv:2112.08129, as the
+    depth-first search has always applied it:
+
+    * There must be an arrow out of vertex.  P_i* is the cocone of a right
+      approximation of P_i by the other indecomposable projectives, so with no
+      arrow out of i there is nothing to approximate by.
+    * The quiver must have no pair of parallel arrows.  This is a restriction of
+      this implementation rather than of the procedure: a relation is modelled
+      as a set of vertex sequences, which cannot distinguish two arrows with
+      the same source and target.
+    * Hom(P_i*[1], Lambda) = 0, which holds iff every nonzero path ending in i
+      composes nonzero with at least one arrow out of i.  A minimal zero
+      relation whose last arrow starts in i, and whose truncation by that last
+      arrow is itself nonzero, is a witness that it fails.
+
+    Note that the last test is stricter than the paper's condition when vertex
+    has more than one arrow out of it: it rejects the vertex as soon as one
+    arrow out of it kills a nonzero path, where the paper only requires that
+    some arrow out of it does not.  The two agree whenever vertex has a single
+    arrow out of it, which is the only case the linear Nakayama search meets.
+    """
+    if not bool(pathAlg.out_arrows(vertex)):
+        return False
+    for ar in pathAlg.arrows():
+        if ar[2] > 0:
+            return False
+    if allRels is None:
+        allRels = allRelsInPathAlgebra(pathAlg)
+    for rel in allRels:
+        if len(rel) == 1 and rel[0][-2] == vertex and (not [rel[0][:-1]] in allRels):
+            return False
+    return True
+
+
+def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName = 'quiver', vertexRelabeling = None, printOutput = True, collected = None, writeToFile = True, collectedHereditary = None):
+    """Walk mutations of pathAlg to the given depth, recording the lines found.
+
+    Every quiver reached that is again a line is recorded as a triple
+    (path algebra, mutation path, vertex numbering).  Pass a list as `collected`
+    to receive those triples in memory, in the order the search visits them;
+    pass writeToFile=False to skip the '<quiverName>DF.txt' transcript.
+
+    Pass a list as `collectedHereditary` to also receive, for every quiver
+    reached that has no relations left, a triple (canonical form of the
+    underlying undirected graph, the quipu notation for it where it applies,
+    mutation path).  Those are the hereditary algebras in the class, and they
+    identify it completely.
+
+    The transcript used to be the only output, and the caller read it back with
+    readMutationsFromFile.  That round trip through string formatting is kept
+    for inspecting a search by hand, but the pipeline no longer needs it.
+    """
+    # These used to default to [] and {}, which Python evaluates once at
+    # definition time.  The relabeling dict is filled in below and so leaked
+    # between searches: a second search in the same process inherited the
+    # first one's numbering, and crashed as soon as the quiver was longer.
+    mutationVertices = [] if mutationVertices is None else mutationVertices
+    vertexRelabeling = {} if vertexRelabeling is None else dict(vertexRelabeling)
+    vertices = list(pathAlg.vertices())
+    baseQuiver = copy.deepcopy(pathAlg.quiver)
+    quiverAtThisDepth = copy.deepcopy(pathAlg.quiver)
+    rels = copy.deepcopy(pathAlg.rels)
+    relsAtThisDepth = copy.deepcopy(pathAlg.rels)
+    if not bool(vertexRelabeling):
+        for vertex in vertices:
+            vertexRelabeling[vertex] = vertex
+    longestPathLength = 0
+    noCycles = not bool(list(nx.simple_cycles(baseQuiver)))
+    if noCycles:
+        longestPathLength = nx.dag_longest_path_length(baseQuiver)
+    # Only needed to decide which vertices to descend from, and the search never
+    # descends from a cyclic quiver, so there is nothing to compute there.  It
+    # also used to be computed before this point, which is what made a cyclic
+    # quiver crash the search rather than simply end that branch.
+    allRels = allRelsInPathAlgebra(pathAlg) if noCycles else []
+    if printOutput:
+        print('Quiver name: ', quiverName)
+        print("Mutations: ", mutationVertices)
+        print('Numbering: {0}'.format(vertexRelabeling))
+        print("Longest path: ", longestPathLength)
+        printPathAlgebra(pathAlg)
+    if collectedHereditary is not None and not bool(rels):
+        # No relations left: the algebra is hereditary, and the underlying
+        # undirected graph of its quiver is a complete derived invariant.
+        graph = quipuForms.underlyingGraph(pathAlg)
+        collectedHereditary.append((
+            quipuForms.canonicalUndirectedForm(graph),
+            quipuForms.formatQuipu(quipuForms.quipuParameters(graph)),
+            mutationVertices[:],
+        ))
+    isLine = (longestPathLength == len(vertices) - 1) and (len(baseQuiver.edges) == len(vertices) - 1)
+    if isLine and collected is not None:
+        foundPathAlg = pathAlgebraClass.PathAlgebra()
+        foundPathAlg.quiver = baseQuiver
+        foundPathAlg.rels = rels
+        collected.append((foundPathAlg, mutationVertices[:], dict(vertexRelabeling)))
+    if isLine and writeToFile:
+        with open('{0}DF.txt'.format(quiverName), "a") as f:
+            f.write('Mutations: {0}\n'.format(mutationVertices))
+            f.write('Numbering: {0}\n'.format(vertexRelabeling))
+            f.write("Longest path: {0}\n".format(longestPathLength))
+            f.write('Vertices: {0}\n'.format(vertices))
+            f.write('Arrows: {0}\n'.format(baseQuiver.edges))
+            f.write('Relations: {0}\n'.format(rels))
+            f.write('-\n')
+    # debugVertexList = [1, 1, 2, 1, 2, 3, 5, 3, 4, 4, 5, 2, 2, 3, 6, 1, 4, 1, 2, 3, 1, 4]
+    # for i in range(7, len(debugVertexList)):
+    #      if mutationVertices == debugVertexList[:i]:
+    #          input('Press enter to continue...')
+    if depth > 0 and noCycles:
+        depth = depth - 1
+        for vertex in reversed(vertices):
+            discardMutation = False
+            pathAlg.quiver = copy.deepcopy(quiverAtThisDepth)
+            pathAlg.rels = copy.deepcopy(relsAtThisDepth)
+            mutationVerticesAtDepth = mutationVertices[:]
+            mutationPossible = mutationIsPossibleAtVertex(pathAlg, vertex, allRels)
+            if mutationPossible:
+                vertexPredecessors = nx.dfs_preorder_nodes(nx.reverse(pathAlg.quiver), vertex)
+                vertexImmideateSuccessors = list(pathAlg.quiver.successors(vertex))
+                for v in vertexPredecessors:
+                    numberOfPathsToVertexUpToRels = numberOfPathsUpToRels(pathAlg, v, vertex)
+                    for w in vertexImmideateSuccessors:
+                        if numberOfPathsToVertexUpToRels > numberOfPathsUpToRels(pathAlg, v, w):
+                            mutationPossible = False
+                            break
+                    if not mutationPossible:
+                        break
+                # for v in vertexPredecessors:
+                #     for nonMinRel in nonMinimalOutRels(pathAlg, v):
+                #         if len(nonMinRel) == 1:
+                #             if nonMinRel[0][-1] in vertexImmideateSuccessors and nonMinRel[0][-2] != vertex:
+                #                 mutationPossible = False
+                #                 break
+                #     if not mutationPossible:
+                #         break
+            if mutationPossible:
+                mutationVerticesAtDepth.append(vertexRelabeling[vertex])
+                mutPathAlg = quiverMutationAtVertex(pathAlg, vertex)
+                for rel in mutPathAlg.rels:
+                    if isIllegalRelation(mutPathAlg, rel):
+                        discardMutation = True
+                        break
+                if discardMutation:
+                    break
+                mutPathAlg = reducePathAlgebra(mutPathAlg)
+                mutationSearchDepthFirst(copy.deepcopy(mutPathAlg), depth, mutationVerticesAtDepth, quiverName, vertexRelabeling, printOutput, collected, writeToFile, collectedHereditary)
+    return
+
+def divisors(n):
+    # get factors and their counts
+    factors = {}
+    nn = n
+    i = 2
+    while i*i <= nn:
+        while nn % i == 0:
+            factors[i] = factors.get(i, 0) + 1
+            nn //= i
+        i += 1
+    if nn > 1:
+        factors[nn] = factors.get(nn, 0) + 1
+    primes = list(factors.keys())
+    # generates factors from primes[k:] subset
+    def generate(k):
+        if k == len(primes):
+            yield 1
+        else:
+            rest = generate(k+1)
+            prime = primes[k]
+            for factor in rest:
+                prime_to_i = 1
+                # prime_to_i iterates prime**i values, i being all possible exponents
+                for _ in range(factors[prime] + 1):
+                    yield factor * prime_to_i
+                    prime_to_i *= prime
+    # in python3, `yield from generate(0)` would also work
+    for factor in generate(0):
+        yield factor
+
+def relabelLineAlgebra(pathAlg, currentRelabeling = None):
+    currentRelabeling = {} if currentRelabeling is None else dict(currentRelabeling)
+    lineQuiver = pathAlg.quiver
+    if not bool(currentRelabeling):
+        for vertex in lineQuiver.nodes:
+            currentRelabeling[vertex] = vertex
+    isLineQuiver = False
+    if len(lineQuiver.edges) == len(lineQuiver.nodes) - 1:
+        if not bool(list(nx.simple_cycles(lineQuiver))):
+            if nx.dag_longest_path_length(lineQuiver) == (len(lineQuiver.nodes) - 1):
+                isLineQuiver = True
+    if not isLineQuiver:
+        return (lineQuiver, currentRelabeling)
+    standardLineQuiver = nx.MultiDiGraph()
+    standardLineQuiver.add_nodes_from(lineQuiver)
+    for i in range(1, len(list(standardLineQuiver.nodes))):
+        standardLineQuiver.add_edge(i, i+1)
+    for vertex in lineQuiver.nodes:
+        if not bool(lineQuiver.in_edges(vertex)):
+            sourceVertex = vertex
+            break
+    vertexOrderChange = {1 : sourceVertex}
+    for i in range(1, len(list(standardLineQuiver.nodes))):
+        targetVertex = list(lineQuiver.out_edges(sourceVertex))[0][1]
+        vertexOrderChange[i + 1] = targetVertex
+        sourceVertex = targetVertex
+    oldVerticesList = list(vertexOrderChange.values())
+    newVerticesList = list(vertexOrderChange.keys())
+    newLineRels = []
+    for rel in pathAlg.rels:
+        newRelPath = []
+        for i in rel[0]:
+            newRelPath.append(newVerticesList[oldVerticesList.index(i)])
+        newLineRels.append([newRelPath])
+    newLineRels.sort()
+    newRelabeling = {}
+    for i in range(1, len(list(standardLineQuiver.nodes)) + 1):
+        newRelabeling[i] = currentRelabeling[vertexOrderChange[i]]
+    pathAlg.quiver = standardLineQuiver
+    pathAlg.rels = newLineRels
+    return (pathAlg, newRelabeling)
+
+def saveLinePathAlgMutation(pathAlg, mutationVertices = None, vertexRelabeling = None, fileName = 'lineQuiver.txt'):
+    mutationVertices = [] if mutationVertices is None else mutationVertices
+    vertexRelabeling = {} if vertexRelabeling is None else vertexRelabeling
+    quiver = pathAlg.quiver
+    rels = pathAlg.rels
+    vertices = quiver.nodes
+    if len(quiver.edges) != len(vertices) - 1:
+        return
+    if bool(list(nx.simple_cycles(quiver))):
+        return
+    elif nx.dag_longest_path_length(quiver) != len(quiver.edges):
+        return
+    with open(fileName, "a") as f:
+            f.write('Mutations: {0}\n'.format(mutationVertices))
+            f.write('Numbering: {0}\n'.format(vertexRelabeling))
+            f.write('Vertices: {0}\n'.format(quiver.nodes))
+            f.write('Arrows: {0}\n'.format(quiver.edges))
+            f.write('Relations: {0}\n'.format(rels))
+            f.write('-\n')
+    return
+
+def readMutationsFromFile(fileName):
+    rPathAlg = pathAlgebraClass.PathAlgebra()
+    mutationList = []
+    with open(fileName, 'r') as f:
+        line = f.readline()
+        while line != '':
+            if line[0] == 'M':
+                mutationVertices = []
+                for v in list(line[12:-2].split(',')):
+                    if v:
+                        mutationVertices.append(int(v))
+            elif line[0] == 'N':
+                vertexRelabeling = {}
+                for labelAsStr in list(line[12:-2].split(', ')):
+                    label = list(labelAsStr.split(': '))
+                    vertexRelabeling[int(label[0])] = int(label[1])
+            elif line[0] == 'V':
+                rQuiver = nx.MultiDiGraph()
+                vertices = list(line[11:-2].split(','))
+                for v in vertices:
+                    rQuiver.add_node(int(v))
+            elif line[0] == 'A':
+                arrows = list(line[9:-2].split('), '))
+                for arStr in arrows:
+                    arStr = arStr.removeprefix('(')
+                    arStr = arStr.removesuffix(')')
+                    ar = tuple(map(int, arStr.split(', ')))
+                    rQuiver.add_edge(ar[0], ar[1])
+                rPathAlg.quiver = rQuiver
+            elif line[0] == 'R':
+                rRels = []
+                if line[12] == ']':
+                    relArrows = []
+                else:
+                    relArrows = list(line[12:-2].split(']], '))
+                for relStr in relArrows:
+                    if relStr[-1] != ']':
+                        relStr = relStr + ']]'
+                    relList = ast.literal_eval(relStr)
+                    rRels.append(relList)
+                rPathAlg.rels = copy.deepcopy(rRels)
+            elif line[0] == '-':
+                mutationList.append((copy.deepcopy(rPathAlg), mutationVertices, vertexRelabeling))
+            line = f.readline()
+    return mutationList
+
+def mutationListLineCleanup(mutationList, relabelNodes = True, printOutput = True):
+    modifiedList = []
+    for mut in mutationList:
+        quiv = copy.deepcopy(mut[0].quiver)
+        vertices = quiv.nodes
+        vertexRelabeling = mut[2]
+        isLineQuiver = True
+        if len(quiv.edges) != len(vertices) - 1:
+            isLineQuiver = False
+        if bool(list(nx.simple_cycles(quiv))):
+            isLineQuiver = False
+        elif nx.dag_longest_path_length(quiv) != len(quiv.edges):
+            isLineQuiver = False
+        if isLineQuiver:
+            if relabelNodes:
+                if printOutput:
+                    print('Numbering: ', vertexRelabeling)
+                    printPathAlgebra(mut[0])
+                (pathAlg, newVertexRelabeling) = relabelLineAlgebra(mut[0], vertexRelabeling)
+                if printOutput:
+                    print('Renumbering: ', newVertexRelabeling)
+                    printPathAlgebra(pathAlg)
+            else:
+                pathAlg = mut[0]
+            rels = copy.deepcopy(pathAlg.rels)
+            index = len(modifiedList)
+            keepQuiver = True
+            replaceQuiver = False
+            for modMut in modifiedList:
+                newRels = copy.deepcopy(rels)
+                oldRels = list(modMut[0].rels)
+                if newRels == oldRels:
+                    if len(mut[1]) < len(modMut[1]):
+                        replaceQuiver = True
+                        index = modifiedList.index(modMut)
+                        break
+                    else:
+                        keepQuiver = False
+                        break
+                elif newRels < oldRels:
+                    index = modifiedList.index(modMut)
+                    break
+            if keepQuiver:
+                if replaceQuiver:
+                    modifiedList[index] = (pathAlg, mut[1], newVertexRelabeling)
+                else:
+                    modifiedList.insert(index, (pathAlg, mut[1], newVertexRelabeling))
+    return modifiedList
+
+def mutationListLineCleanupKeepDupes(mutationList, relabelNodes = True, discardLongerDupes = False):
+    modifiedList = []
+    for mut in mutationList:
+        quiv = copy.deepcopy(mut[0].quiver)
+        vertices = quiv.nodes
+        vertexRelabeling = mut[2]
+        isLineQuiver = True
+        if len(quiv.edges) != len(vertices) - 1:
+            isLineQuiver = False
+        if bool(list(nx.simple_cycles(quiv))):
+            isLineQuiver = False
+        elif nx.dag_longest_path_length(quiv) != len(quiv.edges):
+            isLineQuiver = False
+        if isLineQuiver:
+            if relabelNodes:
+                (pathAlg, newVertexRelabeling) = relabelLineAlgebra(mut[0], vertexRelabeling)
+            else:
+                pathAlg = mut[0]
+            rels = copy.deepcopy(pathAlg.rels)
+            index = len(modifiedList)
+            keepQuiver = True
+            if discardLongerDupes:
+                for modMut in modifiedList:
+                    newRels = copy.deepcopy(rels)
+                    oldRels = list(modMut[0].rels)
+                    if newRels == oldRels and len(mut[1]) > len(modMut[1]):
+                        keepQuiver = False
+                        break
+                    elif newRels < oldRels:
+                        index = modifiedList.index(modMut)
+                        break
+            if keepQuiver:
+                    modifiedList.insert(index, (pathAlg, mut[1], newVertexRelabeling))
+    return modifiedList
+
+def relationDualLineQuiver(quiverWrels):
+    numberOfVertices = len(quiverWrels['quiver'])
+    rels = quiverWrels['rels']
+    dualRels = nx.MultiDiGraph()
+    dualRels.add_nodes_from(rels.nodes)
+    for rel in rels.edges:
+        dualRels.add_edge(numberOfVertices - rel[1] + 1, numberOfVertices - rel[0] + 1)
+    dualQuiverWrels = {'quiver' : quiverWrels['quiver'], 'rels' : dualRels}
+    return dualQuiverWrels
+
+def isRelationDualLineQuiver(quiverWrels1, quiverWrels2):
+    numberOfVertices1 = len(quiverWrels1['quiver'])
+    numberOfVertices2 = len(quiverWrels2['quiver'])
+    rels1 = quiverWrels1['rels']
+    rels2 = quiverWrels2['rels']
+    isDualQuiver = False
+    if numberOfVertices1 == numberOfVertices2:
+        relSet1 = set(quiverWrels1['rels'].edges)
+        relSet2 = set()
+        for rel in quiverWrels2['rels'].edges:
+            relSet2.add((numberOfVertices1 - rel[1] + 1, numberOfVertices1 - rel[0] + 1, 0))
+        if relSet1 == relSet2:
+            isDualQuiver = True
+    return isDualQuiver
+
+def saveLineRelationsToFile(fileName):
+    mutationList = readMutationsFromFile('{0}.txt'.format(fileName))
+    open('{0}Relations.txt'.format(fileName), 'w+').close()
+    for mut in mutationList:
+        relations = mut[0].rels
+        with open('{0}Relations.txt'.format(fileName), "a") as f:
+            f.write('{0}\n'.format(relations))
+            f.close()
+    return
+
+def saveLineRelationsAndMutationsToFile(fileName, saveNumbering = False):
+    mutationList = readMutationsFromFile('{0}.txt'.format(fileName))
+    open('{0}RelationsAndMutations.txt'.format(fileName), 'w+').close()
+    for mut in mutationList:
+        mutations = mut[1]
+        relations = mut[0].rels
+        if saveNumbering:
+            numbering = mut[2]
+            with open('{0}RelationsAndMutations.txt'.format(fileName), "a") as f:
+                f.write('Numbering: {0}\n'.format(numbering))
+                f.write('Mutations: {0}\n'.format(mutations))
+                f.write('Relations: {0}\n'.format(relations))
+                f.write('\n')
+                f.close()
+        else:
+            with open('{0}RelationsAndMutations.txt'.format(fileName), "a") as f:
+                f.write('Mutations: {0}\n'.format(mutations))
+                f.write('Relations: {0}\n'.format(relations))
+                f.write('\n')
+                f.close()
+    return
+
+
+def generateListOfRelations(listOfFileNames, combinedFileName = 'allRelations'):
+    combinedMutationList = []
+    for fileName in listOfFileNames:
+        saveLineRelationsToFile(fileName)
+        mutationList = readMutationsFromFile(fileName + '.txt')
+        combinedMutationList.extend(mutationList[:])
+    combinedMutationListClean = mutationListLineCleanup(combinedMutationList)
+    open('{0}.txt'.format(combinedFileName), 'w+').close()
+    for mut in combinedMutationListClean:
+        saveLinePathAlgMutation(mut[0], mut[1], mut[2], combinedFileName + '.txt')
+    saveLineRelationsToFile(combinedFileName)
+    return
+
+def readRelationsFromFile(fileName):
+    relationSetList = []
+    with open(fileName, 'r') as f:
+        line = f.readline()
+        while line != '':
+            rRels = []
+            if line[1] != ']':
+                relArrows = list(line[1:-2].split(']], '))
+                for relStr in relArrows:
+                    if relStr[-1] != ']':
+                        relStr = relStr + ']]'
+                    relList = ast.literal_eval(relStr)
+                    rRels.append(relList)
+            relationSetList.append(rRels)
+            line = f.readline()
+    return relationSetList
+
+def replaceSubPath(pathAlg, path, oldSubPath, newSubPath):
+    newPath = path[:]
+    if sublistExists(path, oldSubPath):
+        newPath[path.index(oldSubPath[0]):path.index(oldSubPath[-1])] = newSubPath
+        if not nx.is_path(pathAlg.quiver, newPath):
+            print('New path is not a path in the quiver!\n')
+            printPathAlgebra(pathAlg)
+            print('Path: ', path)
+            print('Old subpath: ', oldSubPath)
+            print('New subpath: ', newSubPath)
+            input('Press enter to continue...')
+            return path
+    else:
+        print('Problem trying to replace subpath!\n')
+        printPathAlgebra(pathAlg)
+        print('Path: ', path)
+        print('Old subpath: ', oldSubPath)
+        print('New subpath: ', newSubPath)
+        input('Press enter to continue...')
+    return newPath
+
+def powerset(iterable):
+    "list(powerset([1,2,3])) --> [(), (1,), (2,), (3,), (1,2), (1,3), (2,3), (1,2,3)]"
+    powerList = []
+    s = list(iterable)
+    for tup in itertools.chain.from_iterable(itertools.combinations(s, r) for r in range(len(s)+1)):
+        powerList.append(list(tup))
+    return powerList
+
+def applyCommutativityRelSetToPath(path, relSet):
+    newPath = path[:]
+    for rel in relSet:
+        if len(rel) == 2:
+            if sublistExists(path, rel[0]):
+                newPath[newPath.index(rel[0][0]):newPath.index(rel[0][-1])] = rel[1][:-1]
+            elif sublistExists(path, rel[1]):
+                newPath[newPath.index(rel[1][0]):newPath.index(rel[1][-1])] = rel[0][:-1]
+    return newPath
+
+def applyRelSetToPath(path, relSet):
+    relSetCopy = copy.deepcopy(relSet)
+    stillUnusedRels = True
+    newPaths = [path[:]]
+    while stillUnusedRels:
+        relsToRemove = []
+        usedRel = False
+        stillUnusedRels = False
+        for rel in relSetCopy:
+            tempNewPaths = copy.deepcopy(newPaths)
+            for newPath in tempNewPaths:
+                for i in range(len(rel)):
+                    if not (len(rel) == 1 and path == rel[0]):
+                        if sublistExists(newPath, rel[i]):
+                            for relPath in rel[:i] + rel[i + 1:]:
+                                if not newPath[:newPath.index(rel[i][0])] + relPath[:-1] + newPath[newPath.index(rel[i][-1]):] in newPaths:
+                                    newPaths.append(newPath[:newPath.index(rel[i][0])] + relPath[:-1] + newPath[newPath.index(rel[i][-1]):])
+                            newPaths.remove(newPath)
+                            usedRel = True
+                            break
+                while [] in newPaths:
+                    newPaths.remove([])
+            if usedRel:
+                relsToRemove.append(rel)
+        for rel in relsToRemove:
+            relSetCopy.remove(rel)
+        if bool(relSetCopy) and bool(relsToRemove):
+            stillUnusedRels = True
+    return newPaths
+
+def pathHasZeroRel(path, relSet):
+    hasZeroRel = False
+    for rel in relSet:
+        if len(rel) == 1:
+            if sublistExists(path, rel[0]):
+                hasZeroRel = True
+                break
+    return hasZeroRel
+
+def numberOfPathsUpToRels(pathAlg, source, target):
+    # networkx >= 3.1 yields the trivial length-zero path when source == target.
+    # This function counts non-trivial paths only (the trivial path is accounted
+    # for separately by the +1 on the diagonal of the Cartan matrix), so drop it.
+    allPaths = (p for p in nx.all_simple_paths(pathAlg.quiver, source, target) if len(p) > 1)
+    differentPaths = []
+    numberOfDifferentPaths = 0
+    rels = pathAlg.rels
+    commutativityRels = []
+    for rel in rels:
+        if len(rel) == 2:
+            commutativityRels.append(rel)
+    allRelSets = []
+    commutativeRelsPowerset = powerset(commutativityRels)
+    for relSet in commutativeRelsPowerset:
+        relSetPermutations = list(itertools.permutations(relSet))
+        for relSetPermutation in relSetPermutations:
+            relSetPermutationList = list(relSetPermutation)
+            if not relSetPermutationList in allRelSets:
+                allRelSets.append(relSetPermutationList)
+    for path in allPaths:
+        pathIsZero = pathHasZeroRel(path, rels)
+        isSamePath = False
+        for dPath in differentPaths:
+            for relSet in allRelSets:
+                cPath = applyRelSetToPath(path, relSet)[0]
+                if cPath == dPath[0]:
+                    isSamePath = True
+                    if pathIsZero:
+                        differentPaths[differentPaths.index(dPath)] = (dPath[0], pathIsZero)
+                    break
+            if isSamePath:
+                break
+        if not isSamePath:
+            differentPaths.append((path, pathIsZero))
+    for dPath in differentPaths:
+        if not dPath[1]:
+            numberOfDifferentPaths = numberOfDifferentPaths + 1
+    return numberOfDifferentPaths
+
+
+def cartanMatrix(pathAlg, exact = True):
+    """The Cartan matrix: entry (j, i) is dim e_j (kQ/I) e_i.
+
+    With exact=True the dimensions come from relationAlgebra, which decides
+    which combinations of paths are zero by linear algebra over the ideal.  With
+    exact=False they come from numberOfPathsUpToRels, which counts paths up to a
+    partial closure under the commutativity relations and calls a path zero when
+    a zero relation sits contiguously inside it.
+
+    The two agree on every LNA of length <= 8 and on every quiver reached by
+    walking mutations of depth <= 3 out of the LNAs of length 5 to 7, so this
+    changes no published number.  They do not agree in general: see the 2x2
+    commutative grid in tests/test_relation_algebra.py, where a zero relation on
+    one path kills all three and only the exact version notices.
+
+    The exact version costs 2 to 4 times as much on LNAs, which is nothing at
+    the rate the pipeline calls it -- once per class, not once per mutation.
+    """
+    if exact:
+        return relationAlgebra.cartanMatrixExact(pathAlg)
+    quiv = pathAlg.quiver
+    vertices = quiv.nodes
+    cartanMatrix = eye(len(vertices), len(vertices))
+    for i in vertices:
+        for j in vertices:
+            if i == j:
+                cartanMatrix[j-1,i-1] = numberOfPathsUpToRels(pathAlg, i, j) + 1
+            else:
+                cartanMatrix[j-1,i-1] = numberOfPathsUpToRels(pathAlg, i, j)
+    return cartanMatrix
+
+def coxeterPoly(pathAlg, exact = True):
+    """The Coxeter polynomial, the derived invariant the classification uses."""
+    cartanMat = cartanMatrix(pathAlg, exact)
+    cartanMatInvTrans = cartanMat.inv().transpose()
+    coxeterMatrix = -cartanMatInvTrans*cartanMat
+    coxeterPolynomial = coxeterMatrix.charpoly()
+    return coxeterPolynomial
+
+def generateAllCoxeterPolynomials(length):
+
+    # generate Kupisch series
+    kupisch = [[[1]]]
+    for i in range(1, length):
+        kupisch.append([])
+        for s in kupisch[i - 1]:
+            for x in range(2, s[0] + 2):
+                kupisch[i].append([x] + s)
+    print('Number of different possible sets of relations: ',len(kupisch[length - 1]))
+
+    polynomials = []
+    for s in kupisch[length - 1]:
+        M = sympy.Matrix([[1 if (m >= n and m < n + s[n]) else 0 for m in range(length)] for n in range(length)])
+        C = - M * M.inv().transpose()
+        p = sympy.factor(C.charpoly(sympy.Symbol("x")).as_expr())
+        if p not in polynomials:
+            polynomials.append(p)
+    print('Coxeter polynomials: ',polynomials)
+    print('Number of different Coxeter polynomials: ' ,len(polynomials))
+    return polynomials
+
+def generateAllPossibleLineRelations(lineLength):
+    lineStart = 1
+    lineStop = lineLength
+    if lineLength <= 2:
+        return [[]]
+    elif lineLength == 2:
+        return [[], [[[*range(lineStart, lineStop + 1)]]]]
+    relSetList = generateAllPossibleLineRelations(lineLength - 1)
+    allPossibleRelSets = relSetList[:]
+    lastRelStart = 0
+    for relSet in relSetList:
+        if bool(relSet):
+            lastRelStart = relSet[-1][0][0]
+        for i in range(lastRelStart + 1, lineStop - 1):
+            allPossibleRelSets.append(relSet + [[[*range(i,lineStop + 1)]]])
+    allPossibleRelSets.sort()
+    return allPossibleRelSets
+
+def findMutationClassesForLine(lineLength, lineName, n_max = 5, manualDFdepth = 1, importAlreadyDoneSearches = False):
+    start = time.time()
+    DFgrowthFactor = 1 / math.ceil(lineLength / 2)
+    mutationClassFiles = []
+    allPossibleRelSets = generateAllPossibleLineRelations(lineLength)
+    reachedRelSets = []
+    allRelsReached = False
+    firstUnreachedRelSet = []
+    relSetNumber = '0'*(lineLength-2)
+    edgeList = []
+    for i in range(1, lineLength):
+        edgeList.append((i, i+1))
+    pathAlg = pathAlgebraClass.PathAlgebra()
+    pathAlg.add_arrows_from(edgeList)
+    relSetNumberAsList = ['0'] * (lineLength - 2)
+    if importAlreadyDoneSearches:
+        for name in glob.glob('{0}_*Relations.txt'.format(lineName)):
+            mutationClassFiles.append(name)
+            print('Filename: ', name)
+        reachedAndMissingRels = collectMutationClasses(lineLength, saveToFile=True, printOutput=True)
+        reachedRelSets = reachedAndMissingRels[0]
+        for relSet in reachedRelSets:
+            print('relSet: ', relSet)
+        numberOfReachedRels = len(reachedRelSets)
+        for n in range(len(allPossibleRelSets)):
+            if n >= numberOfReachedRels or allPossibleRelSets[n] != reachedRelSets[n]:
+                firstUnreachedRelSet = allPossibleRelSets[n]
+                print('First unreached RelSet: ', firstUnreachedRelSet)
+                allRelsReached = False
+                break
+            else:
+                allRelsReached = True
+        pathAlg.rels = copy.deepcopy(firstUnreachedRelSet)
+        for rel in firstUnreachedRelSet:
+            relSetNumberAsList[rel[0][0] - 1] = str(rel[0][-1] - rel[0][0])
+            # rels.append([*range(rel[0][0], rel[0][-1])])
+        relSetNumber = ''.join(relSetNumberAsList)
+        print('RelSetNumber: ', relSetNumber)
+    roundCount = 1
+    while not allRelsReached:
+        roundTimeStart = time.time()
+        vertexRelabeling = {}
+        maxRelLen = 0
+        for numStr in relSetNumberAsList:
+            maxRelLen = max(int(numStr), maxRelLen)
+        DFdepth = max(maxRelLen - 1, math.floor(math.sqrt(lineLength)) + 2, manualDFdepth)
+        quiverName = lineName + '_{0}'.format(relSetNumber)
+        open('{0}DF.txt'.format(quiverName), 'w+').close()
+        mutationSearchDepthFirst(pathAlg, DFdepth, [], quiverName, vertexRelabeling)
+        print('\nFirst search for round done! \n')
+        mutListDF = readMutationsFromFile('{0}DF.txt'.format(quiverName))
+        mutList = mutationListLineCleanup(mutListDF)
+        lapTimeStart = time.time()
+        reachedRelations = []
+        for mut in mutList:
+            reachedRelations.append(mut[0].rels)
+        checkedAlready = [False for i in range(len(mutList))]
+        for n in range(1, n_max + 1):
+            open('{0}DF.txt'.format(quiverName), 'w+').close()
+            for mut in mutList:
+                if checkedAlready[mutList.index(mut)]:
+                    longestPathLength = nx.dag_longest_path_length(mut[0].quiver)
+                    with open('{0}DF.txt'.format(quiverName), "a") as f:
+                        f.write('Mutations: {0}\n'.format(mut[1]))
+                        f.write('Numbering: {0}\n'.format(mut[2]))
+                        f.write("Longest path: {0}\n".format(longestPathLength))
+                        f.write('Vertices: {0}\n'.format(mut[0].quiver.nodes))
+                        f.write('Arrows: {0}\n'.format(mut[0].quiver.edges))
+                        f.write('Relations: {0}\n'.format(mut[0].rels))
+                        f.write('-\n')
+                        f.close()
+                else:
+                    print('Quiver name: ', quiverName)
+                    print('Round {0}, lap {1}'.format(roundCount, n))
+                    print('Quiver: ', quiverName)
+                    print('Mutations: ', mut[1])
+                    printPathAlgebra(mut[0])
+                    DFdepthIncreaseByRound = max( -2, -math.floor(roundCount / math.sqrt(lineLength)))
+                    DFdepthIncreaseByLap = 0
+                    if roundCount > 4:
+                        DFdepthIncreaseByLap = math.floor(n * DFgrowthFactor)
+                    DFdepth = math.floor(math.sqrt(lineLength)) + 1 + DFdepthIncreaseByLap + DFdepthIncreaseByRound
+                    mutationSearchDepthFirst(mut[0], DFdepth, mut[1], quiverName, mut[2])
+            lapTimeEnd = time.time()
+            print('Lap time for lap {0}: {1} s'.format(n, lapTimeEnd - lapTimeStart))
+            lapTimeStart = time.time()
+            mutListDF = readMutationsFromFile('{0}DF.txt'.format(quiverName))
+            mutList = mutationListLineCleanup(mutListDF)
+            checkedAlready = []
+            open('{0}.txt'.format(quiverName), 'w+').close()
+            for mut in mutList:
+                saveLinePathAlgMutation(mut[0], mut[1], mut[2], '{0}.txt'.format(quiverName))
+                checkedAlready.append(False)
+                if mut[0].rels in reachedRelations:
+                    checkedAlready[mutList.index(mut)] = True
+                else:
+                    reachedRelations.append(mut[0].rels)
+        saveLineRelationsToFile('{0}'.format(quiverName))
+        mutationClassFiles.append('{0}Relations.txt'.format(quiverName))
+        reachedRelSetsThisRound = readRelationsFromFile('{0}Relations.txt'.format(quiverName))
+        reachedRelSetsWithDupes = copy.deepcopy(reachedRelSets)
+        reachedRelSetsWithDupes.extend((reachedRelSetsThisRound))
+        reachedRelSetsWithDupes.sort()
+        reachedRelSets = list(reachedRelSetsWithDupes for reachedRelSetsWithDupes,_ in itertools.groupby(reachedRelSetsWithDupes))
+        numberOfReachedRels = len(reachedRelSets)
+        for n in range(len(allPossibleRelSets)):
+            print(allPossibleRelSets[n])
+            if n >= numberOfReachedRels or allPossibleRelSets[n] != reachedRelSets[n]: #never satisfied if importAlreadyDoneSearches=True
+                print(reachedRelSets[n])
+                firstUnreachedRelSet = allPossibleRelSets[n]
+                print('First unreached RelSet: ', firstUnreachedRelSet)
+                allRelsReached = False
+                break
+            else:
+                allRelsReached = True
+        pathAlg.rels = copy.deepcopy(firstUnreachedRelSet)
+        relSetNumberAsList = ['0']*(lineLength - 2)
+        for rel in firstUnreachedRelSet:
+            relSetNumberAsList[rel[0][0] - 1] = str(rel[0][-1] - rel[0][0])
+            #rels.append([*range(rel[0][0], rel[0][-1])])
+        relSetNumber = ''.join(relSetNumberAsList)
+        print('RelSetNumber: ', relSetNumber)
+        roundTimeStop = time.time()
+        print('Round time for round {0}: {1}s'.format(roundCount, roundTimeStop - roundTimeStart))
+        print('Looking at quiver {0}'.format(quiverName))
+        roundCount = roundCount + 1
+    open('{0}Relations.txt'.format(lineName), 'w+').close()
+    for relSet in reachedRelSets:
+        print('relSet being written to file: ', relSet)
+        with open('{0}Relations.txt'.format(lineName), "a") as f:
+            f.write('{0}\n'.format(relSet))
+            f.close
+    listOfRelSetLists = []
+    mutationClassFiles.sort()
+    for relFile in mutationClassFiles:
+        print(relFile)
+        listOfRelSetLists.append(readRelationsFromFile(relFile))
+    mutationClassAdded = [False]*len(listOfRelSetLists)
+    mutationClassesWithDupes = []
+    for i in range(len(listOfRelSetLists)):
+        currentMutationClassIndex = i
+        if len(mutationClassesWithDupes) < i+1:
+            if not mutationClassAdded[i]:
+                mutationClassesWithDupes.append(listOfRelSetLists[i])
+                currentMutationClassIndex = len(mutationClassesWithDupes) - 1
+        if not mutationClassAdded[i]:
+            relSetListGotAddedTo = True
+            while relSetListGotAddedTo:
+                relSetListGotAddedTo = False
+                for j in range(i+1,len(listOfRelSetLists)):
+                    if not mutationClassAdded[j]:
+                        for relSet in listOfRelSetLists[j]:
+                            if relSet in mutationClassesWithDupes[currentMutationClassIndex]:
+                                mutationClassesWithDupes[currentMutationClassIndex].extend(listOfRelSetLists[j])
+                                mutationClassAdded[j] = True
+                                relSetListGotAddedTo = True
+                                break
+            mutationClassAdded[i] = True
+    mutationClasses = []
+    for relSetList in mutationClassesWithDupes:
+        relSetList.sort()
+        relSetListNoDupes = list(relSetList for relSetList, _ in itertools.groupby(relSetList))
+        mutationClasses.append(relSetListNoDupes)
+    if False:
+        for relSetList1 in listOfRelSetLists[:]:
+            print('relSetList1: ',relSetList1)
+            for relSetList2 in listOfRelSetLists[listOfRelSetLists.index(relSetList1)+1:]:
+                print('relSetList2: ', relSetList2)
+                for relSet in relSetList2:
+                    print('relSet: ', relSet)
+                    print('relsSet in relSetn:', relSet in relSetList1)
+                    if relSet in relSetList1:
+                        relSetList1.extend(relSetList2)
+                        print(relSetList1)
+                        mutationClassAdded[listOfRelSetLists.index(relSetList2)] = True
+                        break
+            relSetList1.sort()
+            relSetList = list(relSetList1 for relSetList1, _ in itertools.groupby(relSetList1))
+            if not mutationClassAdded[listOfRelSetLists.index(relSetList1)]:
+                mutationClasses.append(relSetList)
+                mutationClassAdded[listOfRelSetLists.index(relSetList1)] = True
+    for mutClass in mutationClasses:
+        print('Mutation Class:')
+        for relSet in mutClass:
+            print(relSet)
+        print()
+    open('{0}MutationClasses.txt'.format(lineName), 'w+').close()
+    for mutationClass in mutationClasses:
+        with open('{0}MutationClasses.txt'.format(lineName), "a") as f:
+            f.write('\n')
+            f.write('--------------------------------------------------------------------------------------')
+            f.write('\n')
+            for relSet in mutationClass:
+                f.write('{0}\n'.format(relSet))
+            f.close
+    with open('{0}MutationClasses.txt'.format(lineName), "a") as f:
+        f.write('\n')
+        f.write('--------------------------------------------------------------------------------------')
+    print('Number of different sets of relations reached: ', len(reachedRelSets))
+    print('Number of mutation classes: ', len(mutationClasses))
+    end = time.time()
+    print('Total runtime: {0}s'.format(end - start))
+    return mutationClassFiles
+
+def collectMutationClasses(lineLength, saveToFile = False, printOutput = False):
+    lineName = 'A{0}'.format(lineLength)
+    open('{0}MutationClasses.txt'.format(lineName), 'w+').close()
+    mutationClassFiles = []
+    for name in glob.glob('{0}_*Relations.txt'.format(lineName)):
+        mutationClassFiles.append(name)
+    mutationClassFiles.sort()
+    listOfRelSetLists = []
+    for relFile in mutationClassFiles:
+        listOfRelSetLists.append(readRelationsFromFile('{0}'.format(relFile)))
+    mutationClassAdded = [False]*len(listOfRelSetLists)
+    mutationClassesWithDupes = []
+    for i in range(len(listOfRelSetLists)):
+        currentMutationClassIndex = i
+        if len(mutationClassesWithDupes) < i+1:
+            if not mutationClassAdded[i]:
+                mutationClassesWithDupes.append(listOfRelSetLists[i])
+                currentMutationClassIndex = len(mutationClassesWithDupes) - 1
+        if not mutationClassAdded[i]:
+            relSetListGotAddedTo = True
+            while relSetListGotAddedTo:
+                relSetListGotAddedTo = False
+                for j in range(i+1,len(listOfRelSetLists)):
+                    if not mutationClassAdded[j]:
+                        for relSet in listOfRelSetLists[j]:
+                            if relSet in mutationClassesWithDupes[currentMutationClassIndex]:
+                                mutationClassesWithDupes[currentMutationClassIndex].extend(listOfRelSetLists[j])
+                                mutationClassAdded[j] = True
+                                relSetListGotAddedTo = True
+                                break
+            mutationClassAdded[i] = True
+    mutationClasses = []
+    for relSetList in mutationClassesWithDupes:
+        relSetList.sort()
+        relSetListNoDupes = list(relSetList for relSetList, _ in itertools.groupby(relSetList))
+        mutationClasses.append(relSetListNoDupes)
+    if False:
+        for relSetList1 in listOfRelSetLists[:]:
+            print('relSetList1:')
+            for relSet in relSetList1:
+                print(relSet)
+            for relSetList2 in listOfRelSetLists[:]:
+                if listOfRelSetLists.index(relSetList1) < listOfRelSetLists.index(relSetList2):
+                    for relSet in relSetList2:
+                        if relSet in relSetList1:
+                            relSetList1.extend(relSetList2)
+                            mutationClassAdded[listOfRelSetLists.index(relSetList2)] = True
+                            break
+                elif listOfRelSetLists.index(relSetList1) > listOfRelSetLists.index(relSetList2) and not mutationClassAdded[listOfRelSetLists.index(relSetList1)]:
+                    for relSet in relSetList1:
+                        if relSet in relSetList2:
+                            mutationClasses[mutationClasses.index()]
+                            mutationClassAdded[listOfRelSetLists.index(relSetList2)] = True
+                            break
+            relSetList1.sort()
+            print('mutationClassAdded: ', mutationClassAdded)
+            print('relSetList1: added =', mutationClassAdded[listOfRelSetLists.index(relSetList1)])
+            for relSet in relSetList1:
+                print(relSet)
+            relSetList = list(relSetList1 for relSetList1, _ in itertools.groupby(relSetList1))
+            print('relSetList:')
+            for relSet in relSetList:
+                print(relSet)
+            if not mutationClassAdded[listOfRelSetLists.index(relSetList1)]:
+                mutationClasses.append(relSetList)
+                mutationClassAdded[listOfRelSetLists.index(relSetList1)] = True
+    if printOutput:
+        for mutClass in mutationClasses:
+            for relSet in mutClass:
+                print(relSet)
+            print()
+    numberOfReachedRelSets = 0
+    allReachedRelSets = []
+    if saveToFile:
+        open('{0}MutationClasses.txt'.format(lineName), 'w+').close()
+        for mutationClass in mutationClasses:
+            numberOfReachedRelSets = numberOfReachedRelSets + len(mutationClass)
+            allReachedRelSets.extend(mutationClass)
+            with open('{0}MutationClasses.txt'.format(lineName), "a") as f:
+                f.write('\n')
+                f.write('--------------------------------------------------------------------------------------')
+                f.write('\n')
+                for relSet in mutationClass:
+                    f.write('{0}\n'.format(relSet))
+                f.close
+    else:
+        for mutationClass in mutationClasses:
+            numberOfReachedRelSets = numberOfReachedRelSets + len(mutationClass)
+            allReachedRelSets.extend(mutationClass)
+    allReachedRelSets.sort()
+    allPossibleRelSets = generateAllPossibleLineRelations(lineLength)
+    missingRelSets = []
+    for relSet in allPossibleRelSets:
+        if not relSet in allReachedRelSets:
+            missingRelSets.append(relSet)
+    if printOutput:
+        print('Missing rel sets: ')
+        for relSet in missingRelSets:
+           print(relSet)
+        print('Number of different sets of relations reached: ', numberOfReachedRelSets)
+        print('Number of mutation classes: ', len(mutationClasses))
+
+    return (allReachedRelSets, missingRelSets)
+
+def combineLineMutationFiles(lineLength):
+    lineName = 'A{0}'.format(lineLength)
+    open('{0}Lines.txt'.format(lineName), 'w+').close()
+    mutationClassFiles = []
+    for name in glob.glob('{0}_*[0-2].txt'.format(lineName)):
+        print(name)
+        mutationClassFiles.append(name)
+        oneMutList = readMutationsFromFile(name)
+        for mut in oneMutList:
+            with open('{0}Lines.txt'.format(lineName), "a") as f:
+                f.write('Mutations: {0}\n'.format(mut[1]))
+                f.write('Numbering: {0}\n'.format(mut[2]))
+                f.write('Vertices: {0}\n'.format(mut[0].vertices()))
+                f.write('Arrows: {0}\n'.format(mut[0].arrows()))
+                f.write('Relations: {0}\n'.format(mut[0].rels))
+                f.write('-\n')
+    reachedAndMissingRelations = collectMutationClasses(lineLength)
+    mutListNotReduced = readMutationsFromFile('{0}Lines.txt'.format(lineName))
+    mutList = []
+    for mut in mutListNotReduced:
+        keepMut = True
+        for uniqueMut in mutList:
+            if mut[0].rels == uniqueMut[0].rels:
+                keepMut = False
+                break
+        if keepMut:
+            mutList.append(mut)
+    print('len(mutListNotReduced): ',len(mutListNotReduced))
+    print('len(mutList): ', len(mutList))
+    open('{0}Lines.txt'.format(lineName), 'w+').close()
+    for mut in mutList:
+        with open('{0}Lines.txt'.format(lineName), "a") as f:
+            f.write('Mutations: {0}\n'.format(mut[1]))
+            f.write('Numbering: {0}\n'.format(mut[2]))
+            f.write('Vertices: {0}\n'.format(mut[0].vertices()))
+            f.write('Arrows: {0}\n'.format(mut[0].arrows()))
+            f.write('Relations: {0}\n'.format(mut[0].rels))
+            f.write('-\n')
+    return mutList
+
+def makeStandardLineQuiver(lineLength, relationSet):
+    pathAlg = pathAlgebraClass.PathAlgebra()
+    pathAlg.add_vertices_from(range(1, lineLength + 1))
+    pathAlg.add_arrows_from([[i, i+1] for i in range(1, lineLength)])
+    pathAlg.add_rels_from(relationSet)
+    return pathAlg
+
+def readMutationClassesFromFile(lineLength, fileName):
+    quiverList = []
+    mutationClasses = []
+    with open(fileName, 'r') as f:
+        line = f.readline()
+        while line != '':
+            if line[0] == '-':
+                if bool(quiverList):
+                    mutationClasses.append(quiverList)
+                    quiverList = []
+            elif line[0] == '[':
+                rRels = []
+                if line[1] == ']':
+                    relArrows = []
+                else:
+                    relArrows = list(line[1:-2].split(']], '))
+                for relStr in relArrows:
+                    if relStr[-1] != ']':
+                        relStr = relStr + ']]'
+                    relList = ast.literal_eval(relStr)
+                    rRels.append(relList)
+                quiverList.append(makeStandardLineQuiver(lineLength, rRels))
+            line = f.readline()
+    return mutationClasses
+
+def combineMutationClasses(lineLength):
+    mutClasses = readMutationClassesFromFile(lineLength, 'A{0}MutationClasses.txt'.format(lineLength))
+    print(len(mutClasses))
+    coxPolsForClasses = []
+    for clas in mutClasses:
+        coxPol = coxeterPoly(clas[0])
+        coxPolsForClasses.append(coxPol)
+        for quiv in clas[1:]:
+            if coxeterPoly(quiv) != coxPol:
+                print('DANGER! Coxeter polynomial does not match!')
+                print('Class coxeter polynomial: ', coxPol)
+                print('Quiver coxeter polynomial: ', coxeterPoly(quiv))
+                printPathAlgebra(quiv)
+                input('Press enter to continue...')
+    potentiallySameClasses = []
+    potentiallySameClassFound = []
+    for i in range(len(coxPolsForClasses) - 1):
+        potentiallySameClass = []
+        if not i in potentiallySameClassFound:
+            potentiallySameClass.append(i)
+            for j in range(i + 1, len(coxPolsForClasses)):
+                if not j in potentiallySameClassFound and coxPolsForClasses[j] == coxPolsForClasses[i]:
+                    potentiallySameClass.append(j)
+                    potentiallySameClassFound.append(j)
+            potentiallySameClasses.append(potentiallySameClass)
+    combinedMutClasses = []
+    for classIndices in potentiallySameClasses:
+        quiversInThisCombinedClass = []
+        if len(classIndices) == 1:
+            combinedMutClasses.append(mutClasses[classIndices[0]])
+        else:
+            quiversInThisCombinedClass.extend(mutClasses[classIndices[0]])
+            for classIndex in classIndices[1:]:
+                quiversInThisClass = []
+                open('A{0}TempFileDF.txt'.format(lineLength), 'w+').close()
+                for quiv in mutClasses[classIndex]:
+                    mutationSearchDepthFirst(quiv, 6, [], 'A{0}TempFile'.format(lineLength), [])
+                mutListDF = readMutationsFromFile('A{0}TempFileDF.txt'.format(lineLength))
+                mutList = mutationListLineCleanup(mutListDF)
+                isSameClass = False
+                for mut in mutList:
+                    quiversInThisClass.append(mut[0])
+                    if mut[0] in quiversInThisCombinedClass:
+                        isSameClass = True
+                if isSameClass:
+                    for quiv in quiversInThisClass:
+                        if not quiv in quiversInThisCombinedClass:
+                            quiversInThisCombinedClass.append(quiv)
+
+def generateAllLineQuiversWithRelations(lineLength):
+    allPossibleLineRelations = generateAllPossibleLineRelations(lineLength)
+    allLineQuiversWithRelations = []
+    for i in range(len(allPossibleLineRelations)):
+        lineQuiver = makeStandardLineQuiver(lineLength, allPossibleLineRelations[i])
+        allLineQuiversWithRelations.append(lineQuiver)
+    return allLineQuiversWithRelations
+
+def lineQuiverExample(lineLength, relationList, vertexRelabeling = None):
+    vertexRelabeling = {} if vertexRelabeling is None else vertexRelabeling
+    pathAlg = pathAlgebraClass.PathAlgebra()
+    if len(relationList) != lineLength - 2:
+        print('len(relationList) = ', len(relationList))
+        print(lineLength - 2)
+        print('Error! Invalid relation set.')
+    elif bool(relationList) and (max(relationList) > lineLength - 1):
+        print('Error! Invalid relation set.')
+    else:
+        vertices = list(range(1, lineLength + 1))
+        if bool(vertexRelabeling):
+            relabeledVertices = [vertexRelabeling[v] for v in vertices]
+            vertices = relabeledVertices
+        arrows = []
+        for i in range(len(vertices)-1):
+            arrows.append([vertices[i], vertices[i + 1]])
+        rels = []
+        for r in range(len(relationList)):
+            if relationList[r] > 0:
+                relStart = r + 1
+                rel = [list(range(relStart, relStart + relationList[r] + 1))]
+                if bool(vertexRelabeling):
+                    relabeledRelPath = []
+                    for i in range(len(rel[0])):
+                        relabeledVertex = vertexRelabeling[rel[0][i]]
+                        relabeledRelPath.append(relabeledVertex)
+                    rel = [relabeledRelPath]
+                rels.append(rel)
+        pathAlg.add_vertices_from(vertices)
+        pathAlg.add_arrows_from(arrows)
+        pathAlg.add_rels_from(rels)
+    return pathAlg
+
+def createMutationClassCSV(lineLength):
+    csvData = []
+    allLineRels = generateAllPossibleLineRelations(lineLength)
+    relSetsAsStrings = []
+    for relSet in allLineRels:
+        relSetsAsStrings.append(relSetToString(relSet))
+    #relSetsAsStrings = nestedListToString(allLineRels)
+    for relSetStr in relSetsAsStrings:
+        print(relSetStr)
+        csvData.append([relSetStr, '', '', '', ''])
+    print(csvData)
+    csvHeader = ['Relations', 'Mutation class', 'Mutation path from class representative', 'Coxeter polynomial', 'Numbering']
+    with open('A_{0}_mutation_classes.csv'.format(lineLength), 'w') as file:
+        writer = csv.writer(file)
+        writer.writerow(csvHeader)
+        writer.writerows(csvData)
+
+    return
+
+def importMutationClassCSV(filename):
+    csvData = []
+    with open(filename, newline='') as csvfile:
+        csvReader = csv.reader(csvfile, delimiter=',')
+        csvData = list(csvReader)
+    #    for row in csvReader:
+    #        csvData.append(', '.join(row))
+    #for row in csvData:
+    return csvData
+
+
+def relSetToString(relSet):
+    stringList = []
+    for i in range(len(relSet)):
+        stringInts = [str(int) for int in relSet[i][0]]
+        stringOfInts = ";".join(stringInts)
+        stringList.append(stringOfInts)
+    joinedString = "|".join(stringList)
+    return joinedString
+
+
+def saveLineRelationsAndMutationsToCSV(fileName, mutationList, csvData, mutationClassName, printOutput = False):
+    """Deprecated. Use MutationClassTable and assignMutationClassInTable instead.
+
+    Kept so the older entry points that still pass a list of CSV rows around
+    (expandAllClassesWithEasyRels, combineMutationClassesInCSVfile) keep working.
+    Takes and returns rows as lists of strings, header row included if present.
+    """
+    hasHeader = bool(csvData) and csvData[0][0] == mutationClassTable.RELATIONS
+    dataRows = csvData[1:] if hasHeader else csvData
+    table = mutationClassTable.MutationClassTable(dataRows)
+    assignMutationClassInTable(table, mutationList, mutationClassName, printOutput)
+    table.writeCSV(fileName, header = hasHeader)
+    return ([csvData[0]] if hasHeader else []) + table.rows()
+
+
+def combineMutationClassesInCSVfile(filename, mutationDepth, lineLength):
+    oldCSVdata = importMutationClassCSV(filename)
+    newCSVdata = []
+    for i in range(len(oldCSVdata)):
+        baseRow = oldCSVdata[i]
+        baseClass = baseRow[1]
+        baseCoxPoly = baseRow[3]
+        for j in range(i + 1, len(oldCSVdata)):
+            currentRow = oldCSVdata[j]
+            currentClass = currentRow[1]
+            currentCoxPoly = currentRow[3]
+            if currentCoxPoly == baseCoxPoly and currentClass != baseClass:
+                newCSVdata.append(baseRow) #wrong!
+                break
+
+    mutationClassCSV = importMutationClassCSV(filename)
+    numberOfCSVrows = len(mutationClassCSV)
+    for n in range(mutationDepth):
+        for i in range(numberOfCSVrows):
+            baseRow = mutationClassCSV[i]
+            baseClass = baseRow[1]
+            baseCoxPoly = baseRow[3]
+            for j in range(i + 1, numberOfCSVrows):
+                currentRow = mutationClassCSV[j]
+                currentClass = currentRow[1]
+                currentMutationListOfStrings = currentRow[2].split(";")
+                currentMutationList = [int(vert) for vert in currentMutationListOfStrings]
+                currentCoxPoly = currentRow[3]
+                if currentCoxPoly == baseCoxPoly and currentClass != baseClass and len(currentMutationListOfStrings) > mutationDepth - n:
+                    relSetAsList = []
+                    relSetAsListOfString = currentRow[0].split("|")
+                    relSetAsListOfListOfString = [str.split(";") for str in relSetAsListOfString]
+                    for stringList in relSetAsListOfListOfString:
+                        if bool(stringList[0]):
+                            listMap = map(int, stringList)
+                            relList = list(listMap)
+                            relSetAsList.append(relList)
+                    lineRelList = [0]*(lineLength - 2)
+                    for rel in relSetAsList:
+                        lineRelList[rel[0] - 1] = len(rel) - 1
+                    lineNumberStringList = [str(num) for num in lineRelList]
+                    lineNumberString = "".join(lineNumberStringList)
+                    quiverName = 'A{0}_{1}'.format(lineLength, lineNumberString)
+                    pathAlg = lineQuiverExample(lineLength, lineRelList, currentRow[2])
+                    printPathAlgebra(pathAlg)
+                    open('{0}DF.txt'.format(quiverName), 'w').close()
+                    mutationSearchDepthFirst(pathAlg, mutationDepth, [], quiverName)
+                    mutList = readMutationsFromFile('{0}DF.txt'.format(quiverName))
+                    cleanMutList = mutationListLineCleanup(mutList)
+                    open('{0}.txt'.format(quiverName), 'w').close()
+                    for mut in cleanMutList:
+                        print('Mutations: {0}'.format(mut[1]))
+                        print('Relations: {0}'.format(mut[0].rels))
+                        saveLinePathAlgMutation(mut[0], mut[1], mut[2], '{0}.txt'.format(quiverName))
+                    print('csv data: ', mutationClassCSV)
+                    mutationClassCSV = saveLineRelationsAndMutationsToCSV('A_{0}_mutation_classes.csv'.format(lineLength), cleanMutList, mutationClassCSV, lineNumberString)
+                    if mutationClassCSV[j][1] == baseClass:
+                        baseQuiverRelations = [int(rel) in baseClass.split('')]
+                        baseQuiver = lineQuiverExample(len(baseQuiverRelations) + 2, baseQuiverRelations)
+                        quiverWithRightNumbering = quiverMutationAtVertices(baseQuiver, )
+                        mutDictKeys = list()
+                        reverseMutationVertices = []
+                        for k in range(numberOfCSVrows):
+                            additionalRow = mutationClassCSV[k]
+                            additionalClass = additionalRow[1]
+                            if additionalClass == currentClass:
+                                mutationClassCSV[k][1] = baseClass
+                                mutationClassCSV[k][2] = mutationClassCSV[j][2] + ';'
+    return newCSVdata
+
+def dualPathAlgebra( pathAlg ):
+    dualPathAlg = pathAlgebraClass.PathAlgebra()
+    dualPathAlg.add_vertices_from(pathAlg.vertices())
+    for arrow in pathAlg.arrows():
+        dualPathAlg.add_arrow(arrow[1], arrow[0])
+    for rel in pathAlg.rels:
+        dualRel = []
+        for relPath in rel:
+            dualRel.append(list(reversed(relPath)))
+        dualPathAlg.add_rel(dualRel)
+    return dualPathAlg
+
+def leftQuiverMutationAtVertex(pathAlg, vertex):
+    dualPathAlg = dualPathAlgebra(pathAlg)
+    mutDualPathAlg = quiverMutationAtVertex(dualPathAlg, vertex)
+    leftMutPathAlg = dualPathAlgebra(mutDualPathAlg)
+    return leftMutPathAlg
+
+def getVertexNumberingKeyFromValue(vertexNumbering, vertex):
+    keyList = list(vertexNumbering.keys())
+    valueList = list(vertexNumbering.values())
+    if vertex > 0:
+        position = valueList.index(vertex)
+        key = keyList[position]
+    else:
+        position = valueList.index(-vertex)
+        key = -keyList[position]
+    return key
+
+def reverseMutationSequence(mutationVertices, vertexNumbering):
+    reverseMutationVertices = []
+    for n in range(len(mutationVertices) - 1, -1, -1):
+        reverseMutationVertices.append(-getVertexNumberingKeyFromValue(vertexNumbering, mutationVertices[n]))
+    return reverseMutationVertices
+
+def reverseMutationFromSequence(pathAlg, mutationVertices, vertexNumbering):
+    reverseMutationVertices = reverseMutationSequence(mutationVertices, vertexNumbering)
+    return quiverMutationAtVertices(pathAlg, reverseMutationVertices)
+
+def coxPolyOfTree(tree):
+    adjMat = sympy.Matrix(nx.adjacency_matrix(tree).todense(), dtype=int)
+    triuMat = np.triu(Matrix(adjMat))
+    mat = sympy.Matrix(triuMat, dtype=int) + sympy.eye(len(tree))#sympy.Matrix(np.triu(Matrix(matrixAsList))) + sympy.eye(n)
+    print(np.matrix(mat))
+    matInvTrans = mat.inv().transpose()
+    coxeterMatrix = -matInvTrans * mat
+    coxeterPolynomial = coxeterMatrix.charpoly()
+    #print(coxeterPolynomial.as_expr())
+    return coxeterPolynomial
+
+def generateAllKupischSeries(length):
+
+    # generate Kupisch series
+    kupisch = [[[1]]]
+    for i in range(1, length):
+        kupisch.append([])
+        for s in kupisch[i - 1]:
+            for x in range(2, s[0] + 2):
+                kupisch[i].append([x] + s)
+    print('Number of different possible kupisch series: ',len(kupisch[length - 1]))
+    return kupisch
+
+def expandClassWith2Rels(baseLineRelList):
+    lineLength = len(baseLineRelList) + 2
+    expanding2RelSetLists = []
+    possible2RelPositions = []
+    for i in range(len(baseLineRelList)):
+        add2RelPos = False
+        if baseLineRelList[i] == 2:
+            add2RelPos = True
+        elif baseLineRelList[i] == 0:
+            add2RelPos = True
+            if i >= 1:
+                for j in range(i):
+                    if baseLineRelList[i-1-j] > j + 2:
+                        add2RelPos = False
+                        break
+        if add2RelPos:
+            possible2RelPositions.append(i)
+    relevantPowerSet = powerset(possible2RelPositions)
+    for relPosSet in relevantPowerSet:
+        lineRelList = baseLineRelList.copy()
+        compRelPosSet = [x for x in possible2RelPositions if x not in relPosSet]
+        for p in relPosSet:
+             lineRelList[p] = 2
+        for p in compRelPosSet:
+            lineRelList[p] = 0
+        if lineRelList != baseLineRelList:
+            print(lineRelList)
+            expanding2RelSetLists.append(lineRelList)
+    expanding2RelSetMutList = []
+    for lineRelList in expanding2RelSetLists:
+        pathAlg = lineQuiverExample(lineLength, lineRelList)
+        expanding2RelSetMutList.append((pathAlg, [], {}))
+    return expanding2RelSetMutList
+
+def expandClassFurtherWithEqualRelPairs(baseMutList):
+    lineLength = len(baseMutList[0][0].vertices())
+    lineRelListsToAdd = []
+    expandingRelPairMutList = copy.deepcopy(baseMutList)
+    for mut in baseMutList:
+        pathAlg = mut[0]
+        rels = pathAlg.rels
+        lineRelList = [0] * (lineLength - 2)
+        for rel in rels:
+            lineRelList[rel[0][0] - 1] = len(rel[0]) - 1
+        lineRelListsToAddFromThisMut = []
+        noCandidatePairs = True
+        for i, j in enumerate(lineRelList[:-1]):
+            if j >= 3 and j==lineRelList[i+1]:
+                noCandidatePairs = False
+        if noCandidatePairs:
+            break
+        if not lineRelList in lineRelListsToAdd:
+            addMutations = False
+            for i, j in enumerate(lineRelList[:-1]):
+                addMutations = False
+                numberOfForwardMutations = 0
+                numberOfBackwardMutations = 0
+                if j >= 3 and j == lineRelList[i+1]:
+                    addMutations = True
+                    for k in range(0, j-2):
+                        if lineRelList[i+2+k] > 0:
+                            addMutations = False
+                    if addMutations:
+                        for k in range(i+j+1, lineLength - 2):
+                            if lineRelList[k] == 0:
+                                numberOfForwardMutations += 1
+                            else:
+                                break
+                        numberOfBackwardMutations = i + 1
+                        for k in range(0,i):
+                            if lineRelList[k] >= 2:
+                                numberOfBackwardMutations = i + 1 - (k + lineRelList[i])
+                                if numberOfBackwardMutations < 0:
+                                    addMutations = False
+                                    break
+                if addMutations:
+                    lineRelListToAdd = lineRelList.copy()
+                    for k in range(numberOfForwardMutations):
+                        lineRelListToAdd[i+k] = 0
+                        lineRelListToAdd[i+k+2] = j
+                        print(lineRelListToAdd)
+                        lineRelListsToAddFromThisMut.append(lineRelListToAdd.copy())
+                    lineRelListToAdd = lineRelList.copy()
+                    for k in range(numberOfBackwardMutations):
+                        lineRelListToAdd[i+2-k] = 0
+                        lineRelListToAdd[i-k] = j
+                        print(lineRelListToAdd)
+                        lineRelListsToAddFromThisMut.append(lineRelListToAdd.copy())
+        lineRelListsToAdd.extend(lineRelListsToAddFromThisMut)
+    for lineRelListToAdd in lineRelListsToAdd:
+        pathAlg = lineQuiverExample(lineLength, lineRelListToAdd)
+        if not (pathAlg, [], {}) in expandingRelPairMutList:
+            expandingRelPairMutList.append((pathAlg, [], {}))
+    return expandingRelPairMutList
+
+def expandAllClassesWithEasyRels(lineLength, startRow = 0):
+    mutationClassCSV = importMutationClassCSV('A_{0}_mutation_classes.csv'.format(lineLength))
+    numberOfCSVrows = len(mutationClassCSV)
+    for i in range(startRow + 1, numberOfCSVrows):
+        row = mutationClassCSV[i]
+        print('csv row: ', row)
+        if not (bool(row[1]) or bool(row[2])):
+            relSetAsList = []
+            relSetAsListOfString = row[0].split("|")
+            relSetAsListOfListOfString = [str.split(";") for str in relSetAsListOfString]
+            for stringList in relSetAsListOfListOfString:
+                if bool(stringList[0]):
+                    listMap = map(int, stringList)
+                    relList = list(listMap)
+                    print(relList)
+                    relSetAsList.append(relList)
+            print(relSetAsList)
+            lineRelList = [0] * (lineLength - 2)
+            for rel in relSetAsList:
+                lineRelList[rel[0] - 1] = len(rel) - 1
+            lineNumberStringList = [str(num) for num in lineRelList]
+            lineNumberString = "".join(lineNumberStringList)
+            mutListWith2Rels = expandClassWith2Rels(lineRelList)
+            if bool(mutListWith2Rels):
+                mutListWith2RelsAndPairs = expandClassFurtherWithEqualRelPairs(mutListWith2Rels)
+                mutationClassCSV = saveLineRelationsAndMutationsToCSV('A_{0}_mutation_classes.csv'.format(lineLength),
+                                                                  mutListWith2RelsAndPairs, mutationClassCSV, lineNumberString)
+    return
+
+
+def assignMutationClassInTable(table, mutationList, mutationClassName, printOutput = False):
+    """Record a completed search in the table, and return the class it landed in.
+
+    mutationList is the cleaned list of (path algebra, mutation path, vertex
+    numbering) triples the search reached, all of them LNAs of the table's
+    length and all derived equivalent to each other.
+
+    Two passes, as the CSV version had.  The first looks for an LNA in the list
+    that the table has already classified, and takes the shortest such link: if
+    it finds one, this whole list belongs to that existing class rather than to
+    a new one, and the mutation path from that class' representative has to be
+    prefixed to every path recorded below.  The second pass fills in every LNA
+    in the list the table has not reached yet.  If the first pass moved the
+    class name, every row already carrying the old name is renamed at the end.
+
+    This replaces saveLineRelationsAndMutationsToCSV.  Two things change:
+
+    * the linear scan over every table row, per mutation, per pass, is now a
+      dict lookup, since a relation string identifies at most one row;
+    * the Coxeter polynomial is computed once rather than once per mutation.
+      The original recomputed it inside the first pass and used whichever value
+      the loop happened to leave behind, which is the one for the last entry, so
+      that entry is the one used here.  Every entry has the same polynomial --
+      they are mutations of each other -- but taking the last one keeps the
+      output identical rather than merely equivalent.
+    """
+    inputMutationClassName = mutationClassName
+    minMutationLength = np.inf
+    baseMutationVertexString = ''
+    baseVertexNumbering = {}
+    if not bool(mutationList):
+        return mutationClassName
+    for n in range(1, len(mutationList[0][2]) + 1):
+        baseVertexNumbering[n] = n
+    coxPoly = coxeterPoly(mutationList[-1][0])
+
+    for mut in mutationList:
+        vertexNumbering = mut[2]
+        mutationVertices = mut[1]
+        row = table.rowFor(relSetToString(mut[0].rels))
+        if row is None or not bool(row[1]):
+            continue
+        mutationLength = len(row[2]) + len(mut[1])
+        if mutationLength >= minMutationLength:
+            continue
+        mutationClassName = row[1]
+        oldNumberingString = row[4]
+        if bool(oldNumberingString):
+            oldNumberingList = [int(v) for v in oldNumberingString.split(';')]
+        else:
+            oldNumberingList = range(1, len(mut[0].vertices()) + 1)
+        renumberedReverseMutationVertexString = ''
+        if bool(mut[1]):
+            reverseMutationVertices = reverseMutationSequence(mutationVertices, vertexNumbering)
+            renumbered = []
+            for n in range(len(reverseMutationVertices)):
+                if reverseMutationVertices[n] > 0:
+                    renumberedVertex = oldNumberingList[reverseMutationVertices[n] - 1]
+                else:
+                    renumberedVertex = -oldNumberingList[-reverseMutationVertices[n] - 1]
+                renumbered.append(str(renumberedVertex))
+            renumberedReverseMutationVertexString = ';'.join(renumbered)
+        if bool(row[2]) and bool(renumberedReverseMutationVertexString):
+            baseMutationVertexString = ';'.join([row[2], renumberedReverseMutationVertexString])
+        elif bool(renumberedReverseMutationVertexString):
+            baseMutationVertexString = renumberedReverseMutationVertexString
+        else:
+            baseMutationVertexString = row[2]
+        baseVertexNumbering = {}
+        for n in range(1, len(vertexNumbering) + 1):
+            baseVertexNumbering[n] = oldNumberingList[getVertexNumberingKeyFromValue(vertexNumbering, n) - 1]
+        minMutationLength = mutationLength
+
+    for mut in mutationList:
+        localVertexNumbering = mut[2]
+        localVertexNumberingList = [localVertexNumbering[n] for n in range(1, len(localVertexNumbering) + 1)]
+        vertexNumberingList = [baseVertexNumbering[localVertexNumbering[n]] for n in range(1, len(baseVertexNumbering) + 1)]
+        vertexNumberingString = ';'.join([str(n) for n in vertexNumberingList])
+        relSetString = relSetToString(mut[0].rels)
+        row = table.rowFor(relSetString)
+        if row is None or bool(row[1]):
+            continue
+        if bool(mut[1]):
+            localMutationVertexString = ';'.join(
+                str(vertexNumberingList[localVertexNumberingList.index(v)]) for v in mut[1]
+            )
+        else:
+            localMutationVertexString = ''
+        if bool(baseMutationVertexString) and bool(localMutationVertexString):
+            totalMutationVertexString = ';'.join([baseMutationVertexString, localMutationVertexString])
+        elif bool(localMutationVertexString):
+            totalMutationVertexString = localMutationVertexString
+        else:
+            totalMutationVertexString = baseMutationVertexString
+        table.assign(relSetString, mutationClassName, totalMutationVertexString,
+                     str(coxPoly.as_expr()), vertexNumberingString)
+
+    if printOutput:
+        print('as part of the class ', mutationClassName)
+    if mutationClassName != inputMutationClassName:
+        table.renameClass(inputMutationClassName, mutationClassName)
+    if printOutput:
+        for row in table.rows():
+            print(row)
+    return mutationClassName
+
+
+def relationStringToLineRelLengths(lineLength, relationString):
+    """'1;2;3|3;4;5;6' -> [2, 0, 3, 0] for a line of the given length.
+
+    Entry i is the number of arrows in the relation starting at vertex i + 1.
+    """
+    lineRelList = [0] * (lineLength - 2)
+    for pathString in relationString.split('|'):
+        vertexStrings = pathString.split(';')
+        if not bool(vertexStrings[0]):
+            continue
+        path = [int(v) for v in vertexStrings]
+        lineRelList[path[0] - 1] = len(path) - 1
+    return lineRelList
+
+
+def lineRelLengthsToClassName(lineRelLengths):
+    return ''.join(str(n) for n in lineRelLengths)
+
+
+def hereditaryFormsReachedFrom(pathAlg, depth):
+    """The hereditary algebras reachable from pathAlg within `depth` mutations.
+
+    Returns a dict mapping the canonical form of the underlying undirected graph
+    to (quipu notation, shortest mutation path found to it).  An empty result
+    means no relation-free quiver was reached at this depth, not that none
+    exists.
+    """
+    found = []
+    mutationSearchDepthFirst(pathAlg, depth, [], 'hereditary', printOutput = False,
+                             collected = None, writeToFile = False,
+                             collectedHereditary = found)
+    forms = {}
+    for canonical, quipu, path in found:
+        if canonical not in forms or len(path) < len(forms[canonical][1]):
+            forms[canonical] = (quipu, path)
+    return forms
+
+
+def findHereditaryFormForClass(table, lineLength, className, maxDepth = 8, printOutput = False):
+    """Search the members of one class for a relation-free quiver.
+
+    Iterative deepening from each member in turn, returning as soon as any
+    member reaches one.  Members are tried shortest-relation-string first, on
+    the observation that an LNA with fewer and shorter relations tends to need
+    fewer mutations to shed them all.
+
+    Returns the hereditary form as it should be written into the table -- the
+    quipu notation where the graph is a quipu, otherwise the canonical tree
+    encoding -- or '' if nothing was reached.
+    """
+    members = sorted(table.membersOfClass(className), key = lambda r: (len(r), r))
+    for depth in range(2, maxDepth + 1):
+        for relationString in members:
+            pathAlg = lineQuiverExample(
+                lineLength, relationStringToLineRelLengths(lineLength, relationString))
+            forms = hereditaryFormsReachedFrom(pathAlg, depth)
+            if forms:
+                if printOutput:
+                    print('class {0} reaches {1} at depth {2} from {3!r}'.format(
+                        className, sorted(forms), depth, relationString))
+                return formatHereditaryForms(forms)
+    return ''
+
+
+def formatHereditaryForms(forms):
+    """Render the result of hereditaryFormsReachedFrom for the table.
+
+    All the hereditary algebras in one derived equivalence class have isomorphic
+    underlying graphs, so this is normally one value.  More than one would mean
+    either a bug in the mutation procedure or a non-tree in the mix, so they are
+    all reported, joined by '|', rather than silently reduced to one.
+    """
+    return '|'.join(sorted(quipu or canonical for canonical, (quipu, _path) in forms.items()))
+
+
+def hereditaryFormFromTheorem(lineLength, relationString):
+    """The hereditary form of one LNA, straight from the quipu theorem.
+
+    Returns '' when the LNA does not have almost separate relations, since
+    theorem `thm:QuipuToAn` of arXiv:2305.06642 says nothing about those.  For
+    the ones it does cover this is O(1), where reaching the same answer by
+    mutation search costs a depth-4-to-9 traversal.
+    """
+    parameters = quipuForms.quipuForAlmostSeparateLNA(
+        lineLength, relationStringToLineRelLengths(lineLength, relationString))
+    return quipuForms.formatQuipu(parameters)
+
+
+def expandClassByMoves(table, lineLength, relationString, className, coxeterPolynomial,
+                       hereditaryForm = ''):
+    """Fill in every LNA reachable from one by the verified moves of lnaMoves.
+
+    Each move is a rewrite on the relation lengths with a mutation sequence that
+    realises it, checked exhaustively against the mutation engine, so the whole
+    orbit belongs to one derived equivalence class with a path to prove it.  This
+    costs a table lookup per move where the depth-first search costs a subtree.
+
+    Returns the number of rows filled in.
+    """
+    relLengths = relationStringToLineRelLengths(lineLength, relationString)
+    orbit = lnaMoves.closureUnderMoves(lineLength, relLengths)
+    filled = 0
+    for name, (sequence, numbering) in orbit.items():
+        reached = lnaMoves.className(relationStringToLineRelLengths(lineLength, relationString))
+        memberString = relSetToString([[list(range(start, start + arrows + 1))]
+                                       for start, arrows in lnaMoves.relationsOf(
+                                           [int(c) for c in name])])
+        row = table.rowFor(memberString)
+        if row is None or bool(row[1]):
+            continue
+        table.assign(memberString, className,
+                     ';'.join(str(v) for v in sequence),
+                     coxeterPolynomial,
+                     ';'.join(str(numbering[p]) for p in range(1, lineLength + 1)),
+                     hereditaryForm)
+        filled += 1
+    return filled
+
+
+def adoptClassesByMoves(table, lineLength, maxRounds = 10):
+    """Give every unclassified LNA the class of any classified LNA in its orbit.
+
+    The outward direction -- expanding a known class along its move orbit --
+    only reaches what the orbit of a *classified* LNA contains.  Running it
+    inward as well catches the LNAs whose own orbit happens to touch something
+    already classified, which is the same relation read the other way and costs
+    the same lookup.
+
+    Returns the number of rows placed.
+    """
+    placed = 0
+    for _round in range(maxRounds):
+        changed = 0
+        for relationString in list(table.unassignedRelationStrings()):
+            relLengths = relationStringToLineRelLengths(lineLength, relationString)
+            orbit = lnaMoves.closureUnderMoves(lineLength, relLengths)
+            for name, (sequence, numbering) in orbit.items():
+                memberString = relSetToString(
+                    [[list(range(start, start + arrows + 1))]
+                     for start, arrows in lnaMoves.relationsOf([int(c) for c in name])])
+                row = table.rowFor(memberString)
+                if row is None or not row[1]:
+                    continue
+                table.assign(relationString, row[1], '', row[3], '', row[5])
+                changed += 1
+                break
+        placed += changed
+        if not changed:
+            break
+    return placed
+
+
+def seedTableFromQuipuTheorem(table, lineLength, printOutput = True, expandByMoves = True):
+    """Assign every LNA the quipu theorem covers, before any searching.
+
+    Theorem `thm:QuipuToAn` of arXiv:2305.06642 names the derived equivalence
+    class of any LNA with almost separate relations outright, in O(1), so every
+    such row can be filled in before a single mutation is computed.  The class is
+    named by its quipu rather than by an LNA, which is both a better name and
+    makes two seeded classes with the same quipu literally the same class.
+
+    The depth-first search then only has to place the rows the theorem misses,
+    and those inherit a seeded class as soon as the search reaches any seeded LNA
+    -- which assignMutationClassInTable already does, since a seeded row is an
+    already-classified row like any other.
+
+    Coverage falls as the length grows (100% at n = 4, 54% at n = 8, 19% at
+    n = 12) but the quipus it names do not: it already finds every class of
+    every length checked so far.
+
+    With expandByMoves, each seeded LNA also drags in its whole orbit under the
+    verified moves of lnaMoves, which reaches LNAs the theorem does not cover at
+    all -- the ones whose relations overlap too much -- without any searching.
+
+    Returns the number of rows filled in.
+    """
+    seeded = expanded = 0
+    for row in table.rows():
+        if row[1]:
+            continue
+        form = hereditaryFormFromTheorem(lineLength, row[0])
+        if not form:
+            continue
+        pathAlg = lineQuiverExample(
+            lineLength, relationStringToLineRelLengths(lineLength, row[0]))
+        polynomial = str(coxeterPoly(pathAlg).as_expr())
+        table.assign(
+            row[0], form, '', polynomial,
+            ';'.join(str(v) for v in range(1, lineLength + 1)), form)
+        seeded += 1
+        if expandByMoves:
+            expanded += expandClassByMoves(table, lineLength, row[0], form, polynomial, form)
+    adopted = 0
+    if expandByMoves:
+        adopted = adoptClassesByMoves(table, lineLength)
+    if printOutput:
+        print('Seeded {0} rows from the quipu theorem, {1} more by expanding those '
+              'classes along move orbits, {2} more by adopting a class through a '
+              'move orbit: {3} of {4} rows in {5} classes, with no search'.format(
+                  seeded, expanded, adopted, seeded + expanded + adopted, len(table),
+                  len(table.classNames())))
+    return seeded + expanded + adopted
+
+
+def annotateHereditaryForms(table, lineLength, maxDepth = 0, printOutput = True):
+    """Give every class in the table the hereditary algebra it is equivalent to.
+
+    Three passes, cheapest first.
+
+    1. The quipu theorem, for every LNA in the table with almost separate
+       relations.  A class picks up the form of any such member it contains.
+       Two members disagreeing would mean either the search merged two classes
+       that are not equal or the inversion of the theorem is wrong, so that is
+       reported rather than silently resolved.
+    2. Whatever the class searches already found, which is kept where pass 1
+       says nothing.
+    3. Only if maxDepth > 0: an iterative-deepening search from the members of
+       each class still without a form.  This is the expensive one -- a class
+       that reaches no relation-free quiver at all makes it explore the whole
+       tree from every member -- so it is off by default.
+
+    Returns the table.
+    """
+    formsByClass = {}
+    conflicts = {}
+    # Shared across classes: many algebras delete down to the same smaller one.
+    deletionCache = {}
+    for row in table.rows():
+        if not row[1]:
+            continue
+        form = hereditaryFormFromTheorem(lineLength, row[0])
+        if not form:
+            continue
+        known = formsByClass.setdefault(row[1], form)
+        if known != form:
+            conflicts.setdefault(row[1], {known}).add(form)
+
+    for className, forms in conflicts.items():
+        print('WARNING: class {0} contains LNAs equivalent to different quipus: {1}. '
+              'Either the search merged two distinct classes, or the theorem was '
+              'inverted wrongly.'.format(className, sorted(forms)))
+
+    for className in sorted(table.classNames()):
+        rows = [row for row in table.rows() if row[1] == className]
+        fromTheorem = formsByClass.get(className, '')
+        fromSearch = next((row[5] for row in rows
+                           if mutationClassTable.isIdentifyingForm(row[5])), '')
+        if fromTheorem and fromSearch and fromTheorem != fromSearch:
+            print('WARNING: class {0} is {1} by the theorem but the search reached '
+                  '{2}'.format(className, fromTheorem, fromSearch))
+        form = fromTheorem or fromSearch
+        source = 'theorem' if fromTheorem else ('search' if form else '')
+        if not form and maxDepth > 0:
+            form = findHereditaryFormForClass(table, lineLength, className, maxDepth, printOutput)
+            source = 'search' if form else ''
+        if not form:
+            # No quipu.  Either the class is not piecewise hereditary at all, in
+            # which case it is in no quipu class and the certificate says so, or
+            # it is of canonical type and the Coxeter polynomial names which.
+            certified = None
+            for row in rows:
+                chain = piecewiseHereditary.notPiecewiseHereditaryByDeletion(
+                    lineLength, relationStringToLineRelLengths(lineLength, row[0]),
+                    deletionCache)
+                if chain is not None:
+                    certified = (row[0], chain)
+                    break
+            if certified is not None:
+                form = mutationClassTable.NOT_PIECEWISE_HEREDITARY
+                witness, chain = certified
+                source = 'not piecewise hereditary, witness {0!r} via {1}'.format(
+                    witness, ' -> '.join(step[2] for step in chain))
+            elif rows and rows[0][3]:
+                weights = piecewiseHereditary.canonicalWeightType(lineLength, rows[0][3])
+                if weights is not None:
+                    form = 'C({0})'.format(','.join(str(w) for w in weights))
+                    source = 'canonical algebra' + (
+                        ', tubular' if piecewiseHereditary.isTubular(weights) else '')
+        table.setHereditaryFormForClass(className, form)
+        if printOutput:
+            print('class {0}: {1} ({2})'.format(className, form or '-', source or 'nothing'))
+    return table
+
+
+def _memberAndItsDual(lineLength, relationString):
+    """An LNA and its relation dual, both as path algebras.
+
+    Reversing every arrow of an LNA keeps it in the same derived equivalence
+    class -- one of the three class-preserving operations of arXiv:2305.06642 --
+    and turns right mutations into left ones, so searching from both covers both
+    directions of a reachability that is otherwise one-way.
+    """
+    relLengths = relationStringToLineRelLengths(lineLength, relationString)
+    dualLengths = [0] * (lineLength - 2)
+    for start, arrows in enumerate(relLengths, start = 1):
+        if arrows:
+            dualLengths[lineLength - start - arrows] = arrows
+    algebras = [lineQuiverExample(lineLength, relLengths)]
+    if dualLengths != relLengths:
+        algebras.append(lineQuiverExample(lineLength, dualLengths))
+    return algebras
+
+
+def resolveMergeCandidates(table, lineLength, depth = 8, printOutput = True):
+    """Settle the classes mergeReport could not, by searching harder for a link.
+
+    A candidate is a group of classes sharing a Coxeter polynomial that the
+    hereditary form does not separate, because at least one of them has no form.
+    Such a class is one the quipu theorem does not cover and whose search never
+    reached an LNA that it does, so the only way to place it is to find a
+    mutation path from it to a classified LNA.
+
+    For each such class this runs a deeper search from each of its members in
+    turn and merges as soon as one reaches a row belonging to another class.
+    Since the reached row already carries a hereditary form, the merge inherits
+    it, and the group stops being a candidate.
+
+    The search is run from each member *and from its relation dual*, because
+    mutationSearchDepthFirst only walks right mutations, which makes reachability
+    directional: A can reach B at depth d while B reaches nothing at that depth.
+    Since rightMutate(dual(P)) = dual(leftMutate(P)), a right-mutation path out
+    of dual(X) is a left-mutation path out of X, and the relation dual of an LNA
+    is derived equivalent to it, so everything reached either way is in X's
+    class.
+
+    Returns the list of (class merged away, class merged into) pairs.
+    """
+    merges = []
+    report = mergeReport(table)
+    unresolved = set()
+    for classNames in report['candidate'].values():
+        for className in classNames:
+            rows = [row for row in table.rows() if row[1] == className]
+            if not any(row[5] for row in rows):
+                unresolved.add(className)
+
+    for className in sorted(unresolved):
+        members = sorted(table.membersOfClass(className), key = lambda r: (len(r), r))
+        if not members:
+            continue
+        merged = False
+        for relationString in members:
+            for startPoint in _memberAndItsDual(lineLength, relationString):
+                reached = []
+                mutationSearchDepthFirst(startPoint, depth, [], 'resolve', printOutput = False,
+                                         collected = reached, writeToFile = False)
+                for mut in mutationListLineCleanup(reached, printOutput = False):
+                    row = table.rowFor(relSetToString(mut[0].rels))
+                    if row is None or not row[1] or row[1] == className:
+                        continue
+                    if printOutput:
+                        print('class {0} reaches {1} (class {2}) at depth {3} from {4!r}'.format(
+                            className, row[0], row[1], depth, relationString))
+                    target = row[1]
+                    form = row[5]
+                    table.renameClass(className, target)
+                    if form:
+                        table.setHereditaryFormForClass(target, form)
+                    merges.append((className, target))
+                    merged = True
+                    break
+                if merged:
+                    break
+            if merged:
+                break
+        if not merged and printOutput:
+            print('class {0} still unresolved at depth {1}'.format(className, depth))
+    return merges
+
+
+def mergeReport(table):
+    """What the table says about which classes should be merged.
+
+    Returns a dict with three keys:
+
+    * 'certain'   -- hereditary form -> class names that all reached it.  More
+                     than one name means those classes are provably the same
+                     class and the search simply missed the mutation path.
+    * 'candidate' -- Coxeter polynomial -> class names sharing it that the
+                     hereditary form does not settle, because at least one of
+                     them has no form recorded.  These need a deeper search.
+    * 'separated' -- Coxeter polynomial -> class names sharing it that the
+                     hereditary form proves to be distinct classes.  These must
+                     not be merged, and are the cases where the Coxeter
+                     polynomial is not a complete invariant.
+    """
+    byForm = table.classesByHereditaryForm()
+    formOfClass = table.formOfEachClass()
+
+    certain = {form: names for form, names in byForm.items() if len(names) > 1}
+    candidate = {}
+    separated = {}
+    for polynomial, classNames in table.classesByCoxeterPolynomial().items():
+        if len(classNames) < 2:
+            continue
+        forms = {formOfClass.get(name, '') for name in classNames}
+        if '' in forms:
+            candidate[polynomial] = classNames
+        elif len(forms) > 1:
+            # Different forms, so distinct classes.  This includes one class
+            # certified not piecewise hereditary against one with a quipu: the
+            # certificate cannot merge classes but it does separate them from
+            # every quipu class.
+            separated[polynomial] = classNames
+        elif forms == {mutationClassTable.NOT_PIECEWISE_HEREDITARY}:
+            # Both only carry the negative certificate, which says nothing about
+            # whether they are the same class.
+            candidate[polynomial] = classNames
+    return {'certain': certain, 'candidate': candidate, 'separated': separated}
+
+
+def mutationSearch(lineLength, mutationDepthStart, startRow = 0, createNewCSVfile = False,
+                   printMutations = False, fileName = None, table = None, writeEveryClass = True,
+                   collectHereditary = False, seedFromQuipuTheorem = False,
+                   printProgress = True):
+    """Classify every LNA of the given length by depth-first tilting mutation.
+
+    Walks the table of all Catalan(lineLength - 1) LNAs.  For each one that no
+    earlier search has reached, runs a depth-first search of mutations out of it
+    and records every LNA that search reaches as belonging to the same class.
+
+    The depth decays as max(mutationDepthStart - floor(log10(row)), 2), which is
+    what keeps later rows affordable, and is also why the result is a lower
+    bound on each class rather than the classification itself: two LNAs in the
+    same class end up in different classes here if no mutation path between them
+    fits in the depth.  Merging those is a separate step.
+
+    Returns the MutationClassTable.  Pass `table` to continue an existing one,
+    and startRow to begin partway through it.
+
+    seedFromQuipuTheorem fills in every row the quipu theorem covers before the
+    search starts, so the search only has to place the rest.  The classes are
+    then named by their quipu rather than by an LNA.
+
+    collectHereditary makes the search also record every relation-free quiver it
+    passes through, which identifies the class completely.  It is off by default
+    because annotateHereditaryForms gets the same answer from the quipu theorem
+    in O(1), while collecting during the search costs a canonical form at every
+    relation-free node and roughly doubles the run time.
+    """
+    if fileName is None:
+        fileName = 'A_{0}_mutation_classes.csv'.format(lineLength)
+    if table is None:
+        if createNewCSVfile:
+            table = mutationClassTable.MutationClassTable.forLength(
+                lineLength,
+                [relSetToString(relSet) for relSet in generateAllPossibleLineRelations(lineLength)],
+            )
+            table.writeCSV(fileName, header=True)
+        else:
+            table = mutationClassTable.MutationClassTable.fromCSV(fileName, lineLength)
+
+    if seedFromQuipuTheorem:
+        seedTableFromQuipuTheorem(table, lineLength, printOutput=printProgress)
+        table.writeCSV(fileName, header=True)
+
+    mutationDepth = mutationDepthStart
+    numberOfRows = len(table)
+    for i in range(numberOfRows):
+        row = table.rows()[(startRow + i) % numberOfRows]
+        if not bool(row[1]):
+            lineRelList = relationStringToLineRelLengths(lineLength, row[0])
+            lineNumberString = lineRelLengthsToClassName(lineRelList)
+            if printProgress:
+                print('row {0}/{1}: searching from {2} at depth {3}'.format(
+                    i + 1, numberOfRows, lineNumberString, mutationDepth))
+            pathAlg = lineQuiverExample(lineLength, lineRelList)
+            if printMutations:
+                printPathAlgebra(pathAlg)
+            mutList = []
+            hereditaryFound = [] if collectHereditary else None
+            mutationSearchDepthFirst(pathAlg, mutationDepth, [],
+                                     'A{0}_{1}'.format(lineLength, lineNumberString),
+                                     printOutput=printMutations, collected=mutList,
+                                     writeToFile=False,
+                                     collectedHereditary=hereditaryFound)
+            cleanMutList = mutationListLineCleanup(mutList, printOutput=printMutations)
+            className = assignMutationClassInTable(table, cleanMutList, lineNumberString,
+                                                   printOutput=printMutations)
+            if hereditaryFound:
+                forms = {}
+                for canonical, quipu, path in hereditaryFound:
+                    if canonical not in forms or len(path) < len(forms[canonical][1]):
+                        forms[canonical] = (quipu, path)
+                table.setHereditaryFormForClass(className, formatHereditaryForms(forms))
+            if writeEveryClass:
+                table.writeCSV(fileName, header=True)
+        mutationDepth = int(max(mutationDepthStart - math.floor(math.log10(i + 1)), 2))
+    table.writeCSV(fileName, header=True)
+    return table
+
+
+def classifyLength(lineLength, mutationDepthStart = 6, resolveDepth = 6, fileName = None,
+                   printOutput = True, resume = False):
+    """The whole classification of one length, end to end.
+
+    1. Seed every LNA the quipu theorem covers, naming each class by its quipu.
+    2. Depth-first search from each remaining unclassified LNA, which inherits a
+       seeded class as soon as it reaches a seeded LNA.
+    3. Name any class the search created but the theorem did not cover.
+    4. Resolve what is left: any group of classes sharing a Coxeter polynomial
+       that the hereditary form does not settle gets a deeper search, from each
+       member and from its relation dual.
+
+    `resume` continues from an existing CSV rather than starting over.  The table
+    is written after every class searched, so an interrupted run -- and a long one
+    will be interrupted, since a length-10 classification takes hours and does not
+    survive the machine going away -- picks up where it stopped.
+
+    Returns (table, report).  A report with empty 'candidate' means every class
+    is settled: 'certain' entries are classes proved equal, 'separated' entries
+    are classes proved distinct despite sharing a Coxeter polynomial.
+
+    This replaces the hand-merge step.  For n <= 8 it reproduces the published
+    classification with nothing left over.
+    """
+    if fileName is None:
+        fileName = 'A_{0}_mutation_classes.csv'.format(lineLength)
+    existing = None
+    if resume and os.path.exists(fileName):
+        existing = mutationClassTable.MutationClassTable.fromCSV(fileName, lineLength)
+        if printOutput:
+            print('Resuming from {0}: {1} of {2} rows already placed'.format(
+                fileName, len(existing) - len(existing.unassignedRelationStrings()),
+                len(existing)))
+    table = mutationSearch(lineLength, mutationDepthStart, 0,
+                           createNewCSVfile = existing is None,
+                           fileName = fileName, table = existing,
+                           seedFromQuipuTheorem = True,
+                           printProgress = printOutput)
+    annotateHereditaryForms(table, lineLength, printOutput = printOutput)
+    merges = resolveMergeCandidates(table, lineLength, resolveDepth, printOutput = printOutput)
+    for merged, into in merges:
+        if printOutput:
+            print('merged class {0} into {1}'.format(merged, into))
+    report = mergeReport(table)
+    for polynomial, classNames in report['certain'].items():
+        target = sorted(classNames)[0]
+        for className in classNames:
+            if className != target:
+                table.renameClass(className, target)
+        if printOutput:
+            print('merged {0} into {1} (same hereditary form)'.format(
+                sorted(classNames), target))
+    table.writeCSV(fileName, header = True)
+    table.writeParquet(fileName.replace('.csv', '.parquet'))
+    report = mergeReport(table)
+    if printOutput:
+        print('{0} LNAs, {1} classes, {2} still candidates, {3} separated'.format(
+            len(table), len(table.classNames()), len(report['candidate']),
+            len(report['separated'])))
+    return table, report
+
+
+def quiverMutation(pathAlgebra, mutationVertexList, firstDisplayedStep = 0):
+    #
+    baseCoxPol = coxeterPoly(pathAlgebra)
+    print(coxeterPoly(pathAlgebra))
+    printPathAlgebra(pathAlgebra)
+    if firstDisplayedStep == 0:
+        plotQuiver(pathAlgebra)
+    for i in range(len(mutationVertexList)):
+        if mutationVertexList[i] >= 0:
+            pathAlgebra = quiverMutationAtVertex(pathAlgebra, mutationVertexList[i])
+        else:
+            pathAlgebra = leftQuiverMutationAtVertex(pathAlgebra, -mutationVertexList[i])
+        pathAlgebra = reducePathAlgebra(pathAlgebra)
+        currentCoxPol = coxeterPoly(pathAlgebra)
+        cartMat = cartanMatrix(pathAlgebra)
+        print(np.matrix(cartMat))
+        if currentCoxPol != baseCoxPol:
+            print('COXETER POLYNOMIAL HAS CHANGED!')
+        print('Mutations: ', mutationVertexList[0:i + 1])
+        print(currentCoxPol)
+        printPathAlgebra(pathAlgebra)
+        if i + 1 >= firstDisplayedStep:
+            plotQuiver(pathAlgebra)
+    return pathAlgebra
+
+
+def onePointExtension(pathAlgebra, arrowToAdd, relsToAdd = None):
+    relsToAdd = [] if relsToAdd is None else relsToAdd
+    extendedPathAlg = pathAlgebra
+    extendedPathAlg.add_arrows_from([arrowToAdd])
+    extendedPathAlg.add_rels_from(relsToAdd)
+    return extendedPathAlg
+
+def convertLineFromCSVnotation( lineLength, lineInCSVnotation ):
+    #lineInCSVnotation'1;2;3;4;5|2;3;4;5;6|4;5;6;7;8;9;10'
+    listOfRels = []
+    listOfRelsAsStr = lineInCSVnotation.split('|')
+    for relString in listOfRelsAsStr:
+        relAsList = [ int(i) for i in relString.split(';') ]
+        listOfRels.append([relAsList])
+    lineQuiver = makeStandardLineQuiver(lineLength, listOfRels)
+    return lineQuiver
+
+def generateAllQuipusUpToLength( length ):
+    timeStart = time.time()
+    quipusOfAllLengths = [[nx.path_graph(1)]]
+    pathGraphs = []
+    for i in range(length):
+        pathGraphs.append(nx.path_graph(i+1))
+        quipusOfThisLength = []
+        for j in range(int(np.floor((i+3)/2)), i+1 ):
+            pathGraph = pathGraphs[j]
+            for vertexSet in itertools.combinations(range(1,j), i + 1 - j):
+                heightOneQuipu = pathGraph.copy()
+                k = 1
+                for v in vertexSet:
+                    heightOneQuipu.add_edge(v, j+k)
+                    k += 1
+                isNewQuipu = True
+                for Q in quipusOfThisLength:
+                    if nx.is_isomorphic(heightOneQuipu, Q):
+                        isNewQuipu = False
+                        break
+                if isNewQuipu:
+                    quipusOfThisLength.append(heightOneQuipu)
+        for quipu in quipusOfAllLengths[i]:
+            for v in quipu.nodes():
+                if quipu.degree(v) <= 1:
+                    longerQuipu = quipu.copy()
+                    longerQuipu.add_edge(v, i+1)
+                    isNewQuipu = True
+                    for Q in quipusOfThisLength:
+                        if nx.is_isomorphic(longerQuipu, Q):
+                            isNewQuipu = False
+                            break
+                    if isNewQuipu:
+                        quipusOfThisLength.append(longerQuipu)
+        quipusOfAllLengths.append([])
+        for newQuipu in quipusOfThisLength:
+            quipusOfAllLengths[i+1].append(newQuipu.copy())
+        timeEnd = time.time()
+        print('Generated ', len(quipusOfThisLength), ' quipus of length ', i+2, ' in ',  timeEnd - timeStart, 's.')
+    return quipusOfAllLengths
+
+def generateAllHeightOneQuipus( mainStringLength, mainStringLengthStart = 1 ):
+    startTime = time.time()
+    heightOneQuipusWithDupes = [nx.path_graph(1)]
+    for i in range(mainStringLengthStart,mainStringLength):
+        heightOneQuipusWithDupes.append(nx.path_graph(i+1))
+        vertexPowerset = powerset(range(1,i))
+        j = 0
+        while j < 2**(i-1):
+            vertexSet = vertexPowerset[j]
+            setToRemove = {}
+            for v in vertexSet:
+                setToRemove.append(i-v)
+            if setToRemove:
+                print('before', vertexPowerset)
+                vertexPowerset = vertexPowerset - setToRemove
+                print('after', vertexPowerset)
+                j += 1
+            j += 1
+        for vertexSet in vertexPowerset:
+            heightOneQuipu = nx.path_graph(i+1)
+            if bool(vertexSet):
+                k = 1
+                for v in vertexSet:
+                    heightOneQuipu.add_edge(v, i+k)
+                    k += 1
+                heightOneQuipusWithDupes.append(heightOneQuipu)
+        print('Done with ', i+1, ' in ', time.time() - startTime, 's')
+    heightOneQuipus = []
+    print('Found ', len(heightOneQuipusWithDupes), ' height one quipus with dupes.')
+    for Q1 in heightOneQuipusWithDupes:
+        isNewQuipu = True
+        for Q2 in heightOneQuipus:
+            if nx.is_isomorphic(Q1, Q2):
+                isNewQuipu = False
+                break
+        if isNewQuipu:
+            heightOneQuipus.append(Q1)
+    return heightOneQuipus
+
+def saveQuipusToCSV( quipusList, fileName, overwrirteFile = True ):
+    if overwrirteFile:
+        open(fileName, 'w+').close()
+    with open(fileName, 'a') as f:
+        for Q in quipusList:
+            f.write('{0}\n'.format(str(Q.edges)))
+        f.close()
+    return
+
+def cartanMatrixForCanonicalAlgebra(pathAlg):
+    quiv = pathAlg.quiver
+    vertices = quiv.nodes
+    cartanMatrix = eye(len(vertices), len(vertices))
+    for i in vertices:
+        for j in vertices:
+            if i == j:
+                cartanMatrix[j-1,i-1] = 1
+            else:
+                allPaths = list(nx.all_simple_paths(pathAlg.quiver, i, j))
+                cartanMatrix[j-1,i-1] = min(len(allPaths), 2)
+    return cartanMatrix
+
+def coxeterPolyForCanonicalAlgebra(pathAlg):
+    cartanMat = cartanMatrixForCanonicalAlgebra(pathAlg)
+    print(np.matrix(cartanMat))
+    cartanMatInvTrans = cartanMat.inv().transpose()
+    coxeterMatrix = -cartanMatInvTrans*cartanMat
+    coxeterPolynomial = coxeterMatrix.charpoly()
+    return coxeterPolynomial
+
+def generateAllQuipus( length ):
+    trees = list(nx.generators.nonisomorphic_trees(length))
+    quipus = []
+    for tree in trees:
+        isQuipu = False
+        maxDeg = 0
+        for deg in tree.degree:
+            if deg[1] > maxDeg:
+                maxDeg = deg[1]
+                if deg[1] > 3:
+                    break
+        if maxDeg <= 3:
+            isQuipu = True
+            deg3SubGraph = nx.Graph()
+            deg3Vertices = []
+            for v in tree.nodes:
+                if tree.degree(v) == 3:
+                    deg3Vertices.append(v)
+            if len(deg3Vertices) > 3:
+                nx.add_path(deg3SubGraph, nx.shortest_path(tree, deg3Vertices[0], deg3Vertices[1]))
+                for v1 in deg3Vertices[2:]:
+                    pathToAddAsGraph = nx.Graph()
+                    nx.add_path(pathToAddAsGraph, nx.shortest_path(tree, deg3Vertices[0], v1))
+                    deg3SubGraph = nx.compose(deg3SubGraph, pathToAddAsGraph)
+                maxDegForDeg3SubGraph = max(deg3SubGraph.degree,key=itemgetter(1))[1]
+                if maxDegForDeg3SubGraph >= 3:
+                    isQuipu = False
+        if isQuipu:
+            quipus.append(tree)
+    return quipus
+
+
+def generateAllQuipusGPT(length):
+    quipus = []
+    for tree in nx.generators.nonisomorphic_trees(length):
+        maxDeg = max(dict(tree.degree()).values())
+        if maxDeg <= 3:
+            isQuipu = True
+            deg3Vertices = [v for v, d in tree.degree() if d == 3]
+            if len(deg3Vertices) > 3:
+                deg3SubGraph = nx.Graph()
+                nx.add_path(deg3SubGraph, nx.shortest_path(tree, deg3Vertices[0], deg3Vertices[1]))
+                for v1 in deg3Vertices[2:]:
+                    pathToAddAsGraph = nx.Graph()
+                    nx.add_path(pathToAddAsGraph, nx.shortest_path(tree, deg3Vertices[0], v1))
+                    deg3SubGraph = nx.compose(deg3SubGraph, pathToAddAsGraph)
+                maxDegForDeg3SubGraph = max(dict(deg3SubGraph.degree()).values())
+                if maxDegForDeg3SubGraph >= 3:
+                    isQuipu = False
+        else:
+            isQuipu = False
+        if isQuipu:
+            quipus.append(tree)
+    return quipus
+
+def generate_quipus(length):
+    for tree in nx.generators.nonisomorphic_trees(length):
+        is_quipu = False
+        max_deg = 0
+        for deg in tree.degree:
+            if deg[1] > max_deg:
+                max_deg = deg[1]
+                if deg[1] > 3:
+                    break
+        if max_deg <= 3:
+            is_quipu = True
+            deg3_subgraph = nx.Graph()
+            deg3_vertices = []
+            for v in tree.nodes:
+                if tree.degree(v) == 3:
+                    deg3_vertices.append(v)
+            if len(deg3_vertices) > 3:
+                nx.add_path(deg3_subgraph, nx.shortest_path(tree, deg3_vertices[0], deg3_vertices[1]))
+                for v1 in deg3_vertices[2:]:
+                    path_to_add_as_graph = nx.Graph()
+                    nx.add_path(path_to_add_as_graph, nx.shortest_path(tree, deg3_vertices[0], v1))
+                    deg3_subgraph = nx.compose(deg3_subgraph, path_to_add_as_graph)
+                max_deg_for_deg3_subgraph = max(deg3_subgraph.degree, key=itemgetter(1))[1]
+                if max_deg_for_deg3_subgraph >= 3:
+                    is_quipu = False
+        if is_quipu:
+            yield tree
+
+def count_quipusV1(length):
+    num_quipus = 0
+    for tree in nx.generators.nonisomorphic_trees(length):
+        is_quipu = False
+        max_deg = 0
+        for deg in tree.degree:
+            if deg[1] > max_deg:
+                max_deg = deg[1]
+                if deg[1] > 3:
+                    break
+        if max_deg <= 3:
+            is_quipu = True
+            deg3_vertices = []
+            for v in tree.nodes:
+                if tree.degree(v) == 3:
+                    deg3_vertices.append(v)
+            if len(deg3_vertices) > 3:
+                #deg3_subgraph = nx.Graph()
+                #nx.add_path(deg3_subgraph, dfs_shortest_path(tree, deg3_vertices[0], deg3_vertices[1]))
+                deg3_path = dfs_shortest_path(tree, deg3_vertices[0], deg3_vertices[-1])
+                #deg3_subgraph_edges = [(deg3_path[x], deg3_path[x+1]) for x in range(len(deg3_path)-1)]
+                ##for v1 in deg3_vertices[2:]:
+                ##    path_to_add = nx.Graph()
+                ##    #nx.add_path(path_to_add, dfs_shortest_path(tree, deg3_vertices[0], v1))
+                ##    nx.add_path(path_to_add, bfs_shortest_path_to_subgraph(tree, v1, deg3_subgraph))
+                ##    deg3_subgraph = nx.compose(deg3_subgraph, path_to_add)
+
+                deg3_vertices_not_checked = [x for x in deg3_vertices if x not in deg3_path]
+                for i in range(1, len(deg3_vertices)-1):
+                    v1 = deg3_vertices[i]
+                    if v1 in deg3_vertices_not_checked:
+                        ##path_as_list = bfs_shortest_path_to_subgraph(tree, v1, deg3_subgraph)
+                        #path_as_list = bfs_shortest_path_to_subgraph_edges(tree, v1, deg3_subgraph_edges)
+                        path_as_list = bfs_shortest_path_to_subgraph_path(tree, v1, deg3_path)
+                        if len(path_as_list) > 1:
+                            if path_as_list[-1] == deg3_path[0]:
+                                #print(path_as_list, deg3_path)
+                                deg3_path = path_as_list[:-1] + deg3_path
+                                #print(path_as_list, deg3_path)
+                            elif path_as_list[-1] == deg3_path[-1]:
+                                deg3_path.extend(reversed(path_as_list[:-1]))
+                            else:
+                                #print(deg3_path)
+                                #print(path_as_list)
+                                is_quipu = False
+                                break
+                            #connection_point_degree = sum(edge.count(path_as_list[-1]) for edge in deg3_subgraph_edges)
+                            #if connection_point_degree == 2:
+                            #    is_quipu = False
+                            #    break
+                            ##path_to_add = nx.Graph()
+                            ##nx.add_path(path_to_add, path_as_list)
+                            ##deg3_subgraph = nx.compose(deg3_subgraph, path_to_add)
+                            #deg3_subgraph_edges.extend([(path_as_list[x], path_as_list[x+1]) for x in range(len(path_as_list)-1)])
+                            path_as_set = set(path_as_list)
+                            deg3_vertices_not_checked = [x for x in deg3_vertices_not_checked if not x in path_as_set]
+
+                ##max_deg_for_deg3_subgraph = max(deg3_subgraph.degree, key=itemgetter(1))[1]
+                ##if max_deg_for_deg3_subgraph >= 3:
+                ##    is_quipu = False
+        if is_quipu:
+            num_quipus += 1
+    return num_quipus
+
+def dfs_shortest_path(tree, start, end):
+    visited = set()
+    stack = [(start, [start])]
+    while stack:
+        (node, path) = stack.pop()
+        if node == end:
+            return path
+        if node not in visited:
+            visited.add(node)
+            for neighbor in tree.neighbors(node):
+                if neighbor not in visited:
+                    stack.append((neighbor, path + [neighbor]))
+    return None
+
+def bfs_shortest_path_to_subgraph(tree, start_node, subgraph):
+    queue = [(start_node, [start_node])]
+    visited = set()
+
+    while queue:
+        node, path = queue.pop(0)
+
+        if node in subgraph:
+            return path
+
+        visited.add(node)
+
+        for neighbor in tree.neighbors(node):
+            if neighbor not in visited:
+                queue.append((neighbor, path + [neighbor]))
+
+    return []
+
+def bfs_shortest_path_to_subgraph_edges(tree, start_node, subgraph_edges):
+    queue = [(start_node, [start_node])]
+    visited = set()
+
+    while queue:
+        node, path = queue.pop(0)
+
+        if any(node in edge for edge in subgraph_edges):
+            return path
+
+        visited.add(node)
+
+        for neighbor in tree.neighbors(node):
+            if neighbor not in visited:
+                edge = (node, neighbor)
+                if edge not in subgraph_edges and (edge[1], edge[0]) not in subgraph_edges:
+                    queue.append((neighbor, path + [neighbor]))
+
+    return None
+
+def bfs_shortest_path_to_subgraph_path(tree, start_node, subgraph_path):
+    queue = [(start_node, [start_node])]
+    visited = set()
+    while queue:
+        node, path = queue.pop(0)
+
+        if node in subgraph_path:
+            return path
+
+        visited.add(node)
+        for neighbor in tree.neighbors(node):
+            #print(neighbor)
+            if neighbor not in visited:
+                queue.append((neighbor, path + [neighbor]))
+    return None
+
+
+
+def count_quipus(n):
+    count = [0] * (n + 1)  # Initialize count list with zeros
+
+    # Special case for n=2
+    count[2] = 1
+
+    # Iterate over all possible lengths of quipus
+    for length in range(3, n + 1):
+        # Generate all non-isomorphic trees with the given length
+        trees = []
+        if length == 3:
+            G = nx.path_graph(length)
+            trees.append(G)
+        else:
+            for tree in nx.nonisomorphic_trees(length):
+                trees.append(tree)
+
+        # Count the number of quipus with the given length
+        for tree in trees:
+            degree_3_nodes = [node for node, degree in tree.degree() if degree == 3]
+            if len(degree_3_nodes) < 4:
+                continue
+            for path in nx.all_simple_paths(tree, degree_3_nodes[0], degree_3_nodes[-1]):
+                if all(tree.degree(node) <= 3 for node in path):
+                    count[length] += 1
+                    break
+
+    return count
+

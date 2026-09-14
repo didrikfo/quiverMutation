@@ -1,0 +1,700 @@
+# Working notes
+
+State of the codebase, what the model can and cannot express, and the backlog.
+Keep it current.
+
+**The research record lives in [`research/`](research/)** — findings, hypotheses,
+retractions, the log of runs made, and summaries of the literature, all dated.
+This file is about the *code*; that one is about the *mathematics and the
+investigation*. When something here changes status because of a result, the
+result belongs there and this file should point at it.
+
+## What the code does
+
+The repo implements the combinatorial rule for tilting mutation of
+[arXiv:2112.08129](https://arxiv.org/abs/2112.08129), and applies it to classify
+linearly oriented Nakayama algebras (LNAs) up to derived equivalence, which is
+how the data behind [arXiv:2305.06642](https://arxiv.org/abs/2305.06642) was
+produced.
+
+### The model of a path algebra
+
+`pathAlgebraClass.PathAlgebra` holds
+
+* `quiver`: a `networkx.MultiDiGraph` whose nodes are the vertices (integers,
+  `1..n` for a line);
+* `rels`: a list of relations.
+
+A **relation** is a list of paths, and a **path** is a list of vertices. So
+`[[1,2,4],[1,3,4]]` is the commutativity relation between the two paths from 1
+to 4, and `[[1,2,3]]` is the zero relation on the single path `1 -> 2 -> 3`.
+By convention `rel[0][0]` is the source and `rel[0][-1]` the target, and every
+path in a relation shares both.
+
+This is the deliberate simplification: a relation is a **set** of paths, not a
+linear combination. There are no coefficients, so the model cannot tell
+`p - q = 0` from `p + q = 0`, and cannot express `2p - 3q + r = 0` at all. A
+relation with one path means that path is zero; a relation with two or more
+means they are identified up to sign. See "Improving the model" below.
+
+A vertex has an implied identity path, which nothing in `rels` represents; the
+`+1` on the diagonal of `cartanMatrix` stands in for it.
+
+### The mutation procedure
+
+`quiverMutationAtVertex(pathAlg, vertex)` applies steps 1-7 of the paper's
+procedure and returns a new `PathAlgebra`. It does not clean up after itself:
+the result routinely contains inadmissible relations (ones containing a path of
+length one) and redundant relations.
+
+`reducePathAlgebra(pathAlg)` does the cleanup, in this order: drop illegal
+relations, dedupe relation paths, cancel each length-one path in a relation
+against the corresponding arrow (the "Note" after the paper's step 7),
+substitute through the arrows that cancelled, drop non-minimal zero relations,
+drop redundant relations and existing subrelations, iterate to a fixed point.
+
+`quiverMutationAtVertices(pathAlg, vertices)` mutates at each vertex in turn,
+reducing after each. A negative entry means left mutation, which
+`leftQuiverMutationAtVertex` performs as dual -> right mutation -> dual.
+
+`mutationIsPossibleAtVertex(pathAlg, vertex)` is the admissibility test: an
+arrow out of the vertex must exist, the quiver must have no parallel arrows, and
+`Hom(P_i*[1], Lambda)` must vanish.
+
+### The algebra classes
+
+`nakayama.LinearNakayamaAlgebra(length, relLengths)` is a `PathAlgebra` that
+knows it is an LNA. It owns the three names that were being converted between by
+hand all over the module -- the per-vertex relation lengths `[2,2,3,0,0]`, the
+class name `'22300'`, and the relation string `'1;2;3|2;3;4|3;4;5;6'` -- along
+with the Kupisch series, the relation dual, whether the relations are almost
+separate, the quipu, and the Cartan matrix and Coxeter polynomial. It is
+hashable and compares by structure, so LNAs work as dict keys.
+
+`nakayama.QuipuAlgebra(k, m)` is the path algebra of the quipu quiver
+`P^(m)_(k)`, with no relations. `QuipuAlgebra.fromLNA` and `correspondingLNA`
+are the two directions of the theorem.
+
+Checked: for every LNA of length <= 7 with almost separate relations, the LNA
+and its quipu algebra have the same Coxeter polynomial, computed from their own
+Cartan matrices by entirely separate routes, and the quipu round-trips.
+
+### The LNA search
+
+`mutationSearch(lineLength, mutationDepthStart, startRow, createNewCSVfile)` is
+the entry point, and it returns a `MutationClassTable`.
+
+1. `generateAllPossibleLineRelations(n)` enumerates every admissible ideal on the
+   linear quiver `1 -> ... -> n`. There are Catalan(n-1) of them.
+2. `createMutationClassCSV(n)` writes one row per LNA to
+   `A_<n>_mutation_classes.csv`, with empty class columns.
+3. For each row still without a class, `mutationSearchDepthFirst` walks
+   mutations to the given depth and collects every LNA it reaches into the list
+   passed as its `collected` argument.
+4. `mutationListLineCleanup` normalises each of those back to the standard
+   numbering `1..n` and dedupes.
+5. `assignMutationClassInTable` writes the class name, the mutation path from
+   the class representative, the Coxeter polynomial and the vertex numbering
+   into every row it reached.
+
+`mutationClassTable.MutationClassTable` owns the table: one row per LNA keyed by
+its relation string, with a dict index over that key and a polars DataFrame for
+interchange (`toDataFrame`, `writeParquet`). `classesByCoxeterPolynomial` is the
+entry point for the merge step.
+
+A class is named after the LNA that seeded it, in the per-vertex relation-length
+notation: `A7_22300` is the line on 7 vertices with relations of 2, 2 and 3
+arrows starting at vertices 1, 2 and 3. The same notation appears as the
+`relationList` argument of `lineQuiverExample`.
+
+The depth-first search is bounded by `depth`, which `mutationSearch` decays as
+`max(depthStart - floor(log10(row)), 2)` to keep later rows affordable, and it
+stops descending as soon as a cycle appears in the quiver.
+
+Because the depth is bounded, **the search finds a lower bound on each class**:
+two LNAs in the same class can end up in different search classes if no mutation
+path between them fits in the depth. Merging those was the manual step. The
+Coxeter polynomial identifies the candidates, since it is invariant under
+derived equivalence — but it is not a complete invariant, so agreement is not
+proof. It does happen to separate every class for n <= 8.
+
+## Verified against the papers
+
+* `generateAllPossibleLineRelations(n)` returns Catalan(n-1) relation sets for
+  n = 2..11.
+* The acyclic worked example of arXiv:2112.08129 (mutate the 7-vertex quiver at
+  vertex 3) reproduces the paper's quiver and relations exactly.
+* The Coxeter polynomial does not move along any legal mutation path of depth
+  <= 3 out of 14 different LNAs of length 5 to 7.
+* Every class in the published n <= 8 table has a single Coxeter polynomial, and
+  distinct classes have distinct ones.
+* n = 5: the search finds both classes outright, 8 + 6 = 14 LNAs.
+* n = 6: the search finds 5 classes with 4 distinct Coxeter polynomials. Merging
+  the two that share the D_6 polynomial gives the paper's 4 classes for n = 6
+  (A_6, D_6, E_6, D~_5) with sizes 16 + 13 + 12 + 1 = 42.
+* n = 7: the search finds 11 classes with 6 distinct Coxeter polynomials,
+  matching the 6 quipus of order 7 in the paper, sizes
+  32 + 29 + 54 + 7 + 6 + 4 = 132.
+* n = 8: the search finds 28 classes with 11 distinct Coxeter polynomials,
+  matching the 11 quipus of order 8 in the paper. Every one of the paper's
+  classes lands inside a single group, and the group sizes
+  1 + 4 + 9 + 10 + 13 + 26 + 40 + 64 + 64 + 65 + 133 account for all 429 LNAs.
+  The whole run takes about 7 minutes at depth 6.
+
+* n = 9: 1430 LNAs in 20 classes -- the 18 quipus of order 9 plus two classes
+  that are not quipu classes at all (see below). One pair of classes shares a
+  Coxeter polynomial and is proved distinct. About 56 minutes.
+
+Run times for the full `classifyLength` pipeline: n = 6 about 13 seconds, n = 7
+37 seconds, n = 8 4 minutes, n = 9 56 minutes. Lengths 6, 7 and 8 are pinned as
+`slow` tests.
+
+## Known gaps and limitations
+
+* **Step 3's cyclic case is not implemented.** For a minimal relation
+  `r: i --> i` the procedure calls for one arrow `(alpha r-bar): i* -> t(alpha)`
+  per arrow `alpha` out of `i`; the code adds a single arrow from `r`'s source to
+  its target, which on a cycle is a loop on `i*`. Pinned as a strict xfail in
+  `tests/test_mutation_procedure.py`. The LNA search never reaches it because it
+  stops descending at the first cycle, so this has never affected a published
+  result.
+* **`mutationIsPossibleAtVertex` is stricter than the paper** when the vertex has
+  more than one arrow out of it: it rejects the vertex as soon as one arrow out
+  of it kills a nonzero path, where the paper only asks that some arrow out of it
+  does not. The two agree when the vertex has a single arrow out of it, which is
+  the only case the LNA search meets.
+* **Parallel arrows are rejected outright**, because a path is a vertex sequence
+  and so cannot name which of two parallel arrows it uses.
+* ~~**The recursive loop at length 12.**~~ **Found and fixed.** It was not about
+  length 12 at all, it was about *cycles*. `allRelsBetweenVertices` and
+  `extendRel` recurse along the arrows out of a vertex, and neither tracked
+  which vertices were already on the recursion path, so a cycle in the quiver
+  made them descend forever. `mutationSearchDepthFirst` computed all the
+  relations of a quiver at the top of every node *before* testing that quiver
+  for cycles -- so the first mutation producing a cyclic quiver crashed the
+  search on the following node with `RecursionError`. That is why the shape that
+  caused it "didn't necessarily consist of 12 vertices": what mattered was that
+  a mutation at that length finally produced a cycle. Both halves are fixed --
+  the recursion is bounded to simple paths, which is what the rest of the module
+  assumes anyway, and the search tests for cycles before enumerating relations.
+  Verified to change nothing on acyclic quivers: the n = 7 search is
+  byte-identical before and after.
+* **Relations are compared by sorted vertex sequences**, so two relations that
+  are equal as ideals but written differently are distinct objects. Several
+  functions exist mainly to paper over this (`removeDuplicateRels`,
+  `removeDuplicateRelPaths`, `removeRedundantRelations`,
+  `removeExistingSubrelations`, `minimizeCommutingRelation`).
+* **The older entry points still round-trip through text files**, parsed by
+  string slicing at fixed offsets in `readMutationsFromFile`.
+  `mutationSearch` no longer does -- it collects in memory -- but
+  `findMutationClassesForLine`, `collectMutationClasses`,
+  `combineLineMutationFiles` and the scratch code in `main.py` still do.
+* **`combineMutationClassesInCSVfile` does not work.** It was the start of an
+  automated merge step and was never finished: it has a `#wrong!` marked append,
+  a call to `quiverMutationAtVertices` missing its second argument, and a
+  `baseClass.split('')` that raises. Treat it as a sketch of idea 12, not as
+  code to fix.
+
+## Backlog
+
+Roughly in the order that unblocks the most.
+
+### Performance and correctness
+
+1. **Memoize the path enumeration.** With the graph deepcopy gone, the hot spot
+   is `nx.all_simple_paths`, called 93k times in one depth-4 search on quivers
+   that have not changed between calls. Needs a cheap structural key for a path
+   algebra — which is also what a proper `__hash__`/`__eq__` on `PathAlgebra`
+   would give.
+2. ~~**Find and fix the length-12 recursive loop.**~~ Done — it was cycles, not
+   length. See research F-009.
+3. **Canonical form for a path algebra.** A normalised, hashable representation
+   would replace the dedupe-by-list-comparison machinery, let the search
+   memoize on quivers it has already visited, and make `reducePathAlgebra`
+   testable as "reduces to the canonical form".
+4. **Avoid re-deriving relations from scratch after each mutation.** The search
+   recomputes every relation between every pair of vertices at each node; most
+   of that is unchanged by a mutation at a single vertex.
+
+### The model
+
+5. **Linear combinations in relations.** Half done. `relationAlgebra` has the
+   value type and the exact ideal arithmetic (see "Coefficients" below); what
+   remains is rewiring the mutation procedure and `reducePathAlgebra` to use it
+   instead of the set-of-paths model.
+6. **Name arrows.** Paths as vertex sequences cannot express parallel arrows or
+   distinguish two arrows with the same endpoints. Arrow identities would lift
+   that restriction and make the quiver a plain `DiGraph` of named arrows.
+
+### OOP and structure
+
+7. **Make `PathAlgebra` carry its own behaviour.** It is currently a thin
+   container and every operation is a free function taking it as the first
+   argument. Mutation, reduction, invariants and admissibility are all methods.
+8. **Subclass for LNAs**, holding `n` and the per-vertex relation lengths, with
+   the standard numbering, the relation-string form, the Kupisch series and the
+   relation dual as its own operations. Most of the `...Line...` free functions
+   collapse into it.
+9. **Subclass for quipu quivers**, holding the `P^{(m)}_{(k)}` parameters, the
+   orientation, and the CR-swap of arXiv:2305.06642 section "Cord/relation-swap"
+   as a method. This is what makes idea 12 possible.
+10. **Split the 2600-line module** along the seams that already exist: the
+    procedure, relation algebra, invariants, the line search, quipus, IO.
+11. **Replace the text-file round trip** in the remaining entry points
+    (`findMutationClassesForLine`, `collectMutationClasses`,
+    `combineLineMutationFiles`) the way `mutationSearch` now does it, with a
+    `collected` list rather than a transcript parsed back by string slicing.
+
+### Coefficients
+
+`relationAlgebra` models a relation as `dict[path, int]` -- a linear combination
+of paths with integer coefficients -- and decides ideal membership exactly, by
+linear algebra rather than by pattern matching.
+
+**Signs alone do not close.** From `p + q + r = 0` and `p - q = 0` follows
+`2p + r = 0`, which cannot be written with coefficients in `{-1, 0, +1}`. The
+first step that combines two relations leaves the sign-only world, so integer
+coefficients are the smallest choice that works; they cost nothing over signs,
+being the same dict with a wider value type. Rationals would serve equally and
+the row reduction is over the rationals already.
+
+**What the set-of-paths model gets wrong.** In the 2x2 commutative grid
+
+    1 -> 2 -> 3          relations   [1,2,5] = [1,4,5]
+    |    |    |                      [2,3,6] = [2,5,6]
+    v    v    v
+    4 -> 5 -> 6
+
+all three paths from 1 to 6 are equal, so adding `[1,2,3,6] = 0` kills all
+three. `pathHasZeroRel` recognises only `[1,2,3,6]`, since it looks for a zero
+relation sitting contiguously inside the path.
+`relationAlgebra.isInIdeal` gets all three. This is the failure described as
+"a long zero relation which passes through multiple commutativity relations".
+
+A second symptom, with three parallel paths and a mix of relation orders: the
+current `reducePathAlgebra` turns `{p,q,r}` together with `{p,q}` into `{p,q}`
+and `{r}`, which is valid for `p+q+r=0, p+q=0` but not for `p+q+r=0, p-q=0`,
+where it should give `2p+r=0`. `numberOfPathsUpToRels` meanwhile reports 2 for
+that algebra, so the two halves of the code disagree about the same object.
+
+**Reading a relation without coefficients.** `fromPathSet` has to guess the
+signs, and the guess matters:
+
+* one path -- that path is zero, no sign to choose;
+* two paths -- a **difference**, `p - q = 0`. This is what the rest of the repo
+  means: `applyRelSetToPath` substitutes one path for the other, and
+  `numberOfPathsUpToRels` treats a two-path relation as identifying them.
+  Reading it as a sum is not harmless. Three commutativity relations among three
+  parallel paths `p, q, r` become `p = -q`, `r = -q` and `p + r = -2q`, which
+  forces `q = 0` and collapses a Hom space that should be one-dimensional. This
+  showed up as nine apparent failures in the check below, every one of them the
+  sign reading rather than a fault in the code being checked;
+* three or more paths -- a **sum**, which is what step 4 produces. The true signs
+  are not recoverable, and that is the central reason to move the procedure onto
+  coefficients.
+
+**How much of this matters for the published results: none of it so far.**
+Two sweeps, both clean:
+
+* `cartanMatrixExact` agrees with the existing `cartanMatrix` on all 624 LNAs of
+  length <= 8, and on all 8101 quivers reached by walking every legal mutation of
+  depth <= 3 out of all 188 LNAs of length 5 to 7.
+* `reducePathAlgebra` preserves the Cartan matrix on all 38095 reductions
+  reached by walking every legal mutation of depth <= 3 out of every LNA of
+  length 5 to 8. Reduction changes the quiver, so this is a real check that it
+  presents the same algebra.
+
+So no Coxeter polynomial in the tables moves, and the reduction is sound on
+everything an LNA search of that size reaches. The shapes where the models differ
+have not turned up yet -- consistent with the crash only appearing at length 12.
+
+### Classifying a length
+
+`classifyLength(n)` runs the whole thing and returns `(table, report)`:
+
+1. **Seed.** `seedTableFromQuipuTheorem` fills in every LNA with almost separate
+   relations, straight from the theorem, before a single mutation is computed.
+   Each class is named by its quipu rather than by an arbitrary LNA, so two
+   seeded classes with the same quipu are literally the same class. Coverage
+   falls with length -- 100% at n=4, 54% at n=8, 19% at n=12 -- but the set of
+   quipus it names does not: it already finds every class at every length
+   checked.
+2. **Search.** `mutationSearch` handles only the rows left over. Each inherits a
+   seeded class the moment its search reaches a seeded LNA.
+3. **Name.** `annotateHereditaryForms` gives a form to any class the search
+   created that the theorem did not cover.
+4. **Resolve.** `resolveMergeCandidates` takes each group of classes sharing a
+   Coxeter polynomial that the hereditary form does not settle, and searches
+   deeper for a mutation path between them.
+
+**Reachability is directional**, and this matters. `mutationSearchDepthFirst`
+walks only *right* mutations, so A can reach B at depth d while B reaches nothing
+at that depth. Since `rightMutate(dual(P)) = dual(leftMutate(P))` and the
+relation dual of an LNA is derived equivalent to it, searching from the dual
+covers the other direction; `resolveMergeCandidates` does both. At n = 8 this is
+exactly what settles the last class: `340030` = A_{8,(1,2,5)}^{(3,4,3)}, whose
+relations overlap too much for the theorem, reaches nothing seeded, but its dual
+finds the link at depth 6.
+
+Results, all matching the published table with nothing left as a candidate:
+
+| n | LNAs | classes | class sizes | time |
+|---|------|---------|-------------|------|
+| 6 | 42   | 4       | 16, 13, 12, 1 | ~13s |
+| 7 | 132  | 6       | 54, 32, 29, 7, 6, 4 | ~37s |
+| 8 | 429  | 11      | 133, 65, 64, 64, 40, 26, 13, 10, 9, 4, 1 | ~4min |
+
+### Naming a class that is not a quipu class
+
+Not every LNA is derived equivalent to a quipu algebra, and two further
+invariants say which and what it is instead. Both come from
+
+* the piecewise-hereditary paper, arXiv:2310.08346, for the negative
+  certificates;
+* Happel's classification of hereditary abelian categories, for the positive one.
+
+A **piecewise hereditary** algebra has the derived category of a hereditary
+abelian category, and such a category is either the module category of a
+hereditary algebra or derived equivalent to a canonical algebra. So:
+
+* an LNA that is **not piecewise hereditary** is in no quipu class at all;
+* one that is piecewise hereditary but not of tree type should be of **canonical
+  type**, and its Coxeter polynomial names the weights.
+
+`piecewiseHereditary` implements both. The two non-piecewise-hereditary criteria
+are propositions A9 and A13 of arXiv:2310.08346 -- an overlapping pair of
+relations flanked by a long relation on each side, and a pair overlapping by six
+or more arrows -- and they reproduce the paper's own claims exactly: nothing is
+certified for length <= 8, and exactly one algebra of length 9 is, namely
+`3033030` = the paper's quiver `(**)`.
+
+`canonicalWeightType` finds the weight type `(p_1, ..., p_t)` whose canonical
+algebra has a given Coxeter polynomial, using
+`(x-1)^2 * prod (1 + x + ... + x^(p_i - 1))`.
+
+The hereditary-form column now carries one of three kinds of value, and the
+distinction matters:
+
+| value | meaning | may it merge classes? |
+|---|---|---|
+| `P^(...)_(...)` | the quipu the class is derived equivalent to | yes -- a complete invariant |
+| `C(2,4,4)` | the canonical algebra whose Coxeter polynomial it has | yes, on the same footing as the pipeline's other Coxeter reasoning |
+| `not piecewise hereditary` | a certificate that it is no quipu class | **no** -- it separates such a class from every quipu class, but two classes both carrying it need not be equal |
+
+#### Propagating a certificate upward, by deleting vertices
+
+Corollary `removevertex` of arXiv:2310.08346: if a Nakayama algebra is piecewise
+hereditary, so is the algebra obtained by removing any one vertex -- merging the
+arrows through it into a composite and extending the relations that start or end
+there. Read contrapositively, that propagates a certificate **upward**: if some
+one-vertex deletion of an algebra is not piecewise hereditary, neither is the
+algebra.
+
+**Going down, not up.** The same corollary read forwards ("introducevertex") adds
+a vertex, but an extension is **not unique** -- many algebras of length n+1
+restrict to a given one of length n -- so going up means enumerating a branching
+set of possibilities. Going down is one deterministic algebra per vertex, so
+`notPiecewiseHereditaryByDeletion` recurses downward, memoising on the algebra
+since many of them delete to the same smaller one.
+
+**What is preserved, and what is not.** The corollary is about piecewise heredity
+*only*. Deleting a vertex does **not** preserve the derived equivalence class, the
+Coxeter polynomial, or the quipu. The certificate it carries is exactly "this
+class is not a quipu class", and nothing more -- which is why it goes in the table
+as the negative marker and can never merge two classes.
+
+How far it reaches, against the direct criteria alone:
+
+| n | LNAs | directly certified | with deletion |
+|---|---|---|---|
+| <= 8 | | 0 | **0** |
+| 9 | 1430 | 1 | 1 |
+| 10 | 4862 | 22 | 24 |
+| 11 | 16796 | 265 | **308** |
+
+The zero at n <= 8 is the check that matters: every LNA of length at most 8 is
+piecewise hereditary, so a certificate there would mean the deletion construction
+drops or extends the wrong relation.
+
+#### n = 9, fully named
+
+    18 classes    quipus of order 9, from the theorem
+     1 class      3345000, 8 members   C(2,4,4), tubular
+     1 class      3033030, 1 member    not piecewise hereditary
+
+with nothing left as a candidate, and the one `separated` pair being the
+cospectral quipus. That is an **independent confirmation of the count 20**:
+18 quipus of order 9 exist, arXiv:2310.08346 says exactly one LNA of length 9 is
+not piecewise hereditary, and the remaining class is of canonical type. 18 + 1 + 1
+= 20.
+
+#### The existing hand-made classification has 19 at n = 9
+
+The workbook's merged list for n = 9 has 19 classes, with sizes
+1, 1, 6, 6, 8, 12, 12, 30, **36**, 38, 42, 44, 70, 80, 94, 128, 145, 300, 377.
+Every one matches a computed class except the 36, which is the union of two
+computed classes of 18. Those two are `P^(1,4)_(1,0,1)` and `P^(1,2)_(1,1,2)` --
+the cospectral pair. Since each contains an LNA with almost separate relations
+naming its quipu (`3060000` = A_{9,(1,3)}^{(3,6)} and `3004000` =
+A_{9,(1,4)}^{(3,4)}), and the two quipus are non-isomorphic trees, the two
+classes are distinct and the merge is one too many. The computed partition
+otherwise **refines the workbook's 65 unmerged classes with no contradiction at
+all**.
+
+### Mutation shortcuts between LNAs
+
+`lnaMoves` holds a table of **local rewrites**: a window of the quiver, what the
+relations inside it become, and the mutation sequence that does it. Applying one
+costs a table lookup where the depth-first search costs a subtree, so a class can
+be expanded without searching.
+
+A rule is `(window width in arrows, relations before, relations after, mutation
+sequence)`, with relation starts and mutation vertices relative to the window's
+first arrow and a negative vertex meaning a left mutation. `movesByRule` applies
+every rule at every position; `closureUnderMoves` takes the orbit, returning for
+each member the mutation path and the vertex numbering, in the shape the search
+produces.
+
+**Composing moves needs the numbering.** `quiverMutationAtVertex` keeps every
+vertex label -- the mutated vertex `i` becomes `i*` but is still called `i` -- so
+labels never permute. What changes is the *order* the labels appear along the
+line, so a rule that wants "the source of the first relation" has to be told
+which label that is now. Note also that `relabelLineAlgebra` renumbers its
+argument **in place**.
+
+`lnaMoves.pairSlideRules` generates a rule *family* rather than listing members:
+the pair slide holds for every relation length with the same two mutations, and
+discovery only found the widths that happened to fit at the lengths searched.
+See research F-013 and H-001 — the lesson generalises, so absence of a family
+member from the table is evidence about the search, not about the mathematics.
+
+#### Three rules that matter
+
+    (5, ((0,3),(1,3)), ((1,3),(2,3)), (-5,-5))
+    (5, ((1,3),(2,3)), ((0,3),(1,3)), (2,2))
+
+Two relations of equal length starting at consecutive vertices -- maximally
+overlapping -- slide along the quiver, provided no other relation shares an arrow
+with their span. Two **right** mutations at the first relation's source move them
+one arrow **left**; two **left** mutations at the second relation's target move
+them one arrow **right**. (Right mutations slide the pair left, not right.)
+
+    (5, ((0,3),(1,3),(3,2)), ((0,2),(1,3),(2,3)), (2,2))
+
+A relation stays put while the meeting point of the two relations around it moves
+one arrow left, under two right mutations at the fixed relation's source.
+
+    (3, ((1,2),), ((0,2),), (2,))
+    (3, ((0,2),), ((1,2),), (-3,))
+
+A lone relation of length 2 slides one arrow under a **single** mutation.
+
+#### How the rules are found, and why verification is the whole job
+
+`discoverMoves` enumerates the short mutation sequences that take one LNA to
+another, describes each as a local rewrite, and reports the descriptions that
+recur across lengths and positions. `verifyMove` then checks a candidate at every
+window position of every LNA over a range of lengths. **Three things have to hold
+and all three are needed:**
+
+1. the result is the predicted LNA;
+2. every mutation in the sequence is admissible where it lands, so the sequence
+   really is a chain of tilting mutations;
+3. the Coxeter polynomial does not move.
+
+Checking only (1) is badly insufficient, and this was learnt the hard way. A
+first pass admitted **38** rules on that basis; the orbits they generated had the
+wrong Coxeter polynomial **6561 times out of 8388**. The reason: a mutation
+outside the admissibility condition still returns a quiver, just not a derived
+equivalent one, so a rewrite can land on exactly the predicted relation lengths
+and be false. With (2) and (3) added, **16 of the 67 candidates survive** -- and
+the current table is checked clean: 1764 orbit members across every LNA of
+lengths 5 to 9, every recorded sequence correct, the Coxeter polynomial constant
+on every orbit.
+
+A second cautionary case: "a lone relation of length 2 may be deleted" is true as
+mathematics (relations of length 2 do not change the class) but false as a
+two-arrow rewrite -- 63 confirmations against 130 failures. It needs a wider
+window.
+
+#### What they buy so far
+
+Seeding the table from the quipu theorem and then expanding along move orbits,
+with no searching at all:
+
+| n | rows | from the theorem | plus move orbits | share of the table |
+|---|---|---|---|---|
+| 7 | 132 | 72 | 91 | 69% |
+| 8 | 429 | 186 | 238 | 55% |
+| 9 | 1430 | 481 | 624 | 44% |
+
+Modest, because the surviving rules mostly keep an LNA inside the "almost
+separate" set the theorem already covers. The rules that would help most are ones
+reaching the heavily overlapping LNAs, which is where the rows needing a search
+still are -- so a deeper `discoverMoves` (longer sequences, wider windows) is the
+next step and is expected to pay.
+
+### Where the Coxeter polynomial fails, exactly
+
+The Coxeter polynomial of the path algebra of a tree is determined by the tree's
+adjacency spectrum. So two **cospectral** non-isomorphic quipus give algebras
+that are not derived equivalent and yet share a Coxeter polynomial -- and that is
+the *only* way it can fail among these classes.
+
+`quipuForms.cospectralQuipuGroups(n)` maps them out for any order, in seconds,
+with no mutation search: enumerate the quipus of that order
+(`allQuipusOfOrder`), take each one's adjacency characteristic polynomial, and
+report the groups of size two or more. Checked for orders 4 to 11: the groups it
+finds are *exactly* the groups with equal Coxeter polynomials, computed the
+expensive way through each algebra's Cartan matrix.
+
+| order | quipus | collision groups | quipus involved |
+|---|---|---|---|
+| <= 8 | 2..11 | **0** | 0 |
+| 9  | 18  | 1  | 2 |
+| 10 | 36  | 2  | 4 |
+| 11 | 64  | 4  | 8 |
+| 12 | 127 | 13 | 27 |
+| 13 | 241 | 30 | 61 |
+
+**This is why the published n <= 8 table is clean**: below order 9 there are no
+cospectral quipus, so grouping by Coxeter polynomial happens to be right there
+and nowhere else.
+
+The smallest collision, at order 9:
+
+    P^(1,4)_(1,0,1)  =  A_{9,(1,3)}^{(3,6)}   (class name 3060000)
+    P^(1,2)_(1,1,2)  =  A_{9,(1,4)}^{(3,4)}   (class name 3004000)
+
+Both have Coxeter polynomial
+`(L+1)(L^2+L+1)(L^6-L^5-L^4-L^2-L+1)`, both trees have degree sequence
+`3,3,2,2,2,1,1,1,1`, and the trees are not isomorphic. So these two LNAs are not
+derived equivalent, and no amount of Coxeter-polynomial agreement says otherwise.
+`classifyLength(9)` reports exactly this pair under `separated`.
+
+`python classify.py 9 --collisions` prints the map for an order.
+
+### n = 9: two classes that are not quipu classes
+
+`classifyLength(9)` finishes in about 56 minutes and assigns all 1430 LNAs to
+**20 classes**, where there are only 18 quipus of order 9. The two extra classes
+are
+
+| class | members | Coxeter polynomial |
+|---|---|---|
+| `3345000` | 8 | `(L-1)^2 (L+1)^3 (L^2+1)^2` |
+| `3033030` | 1 | `(L-1)^2 (L+1)^3 (L^4+1)` |
+
+Neither polynomial is the Coxeter polynomial of any of the 18 quipus of order 9,
+and the Coxeter polynomial is a derived invariant, so **these LNAs are not
+derived equivalent to any quipu algebra**. That is outside what
+arXiv:2305.06642 covers, which is the LNAs with almost separate relations, and
+none of the members of either class has almost separate relations.
+
+`3033030` is the single algebra A_{9,(1,3,4,6)}^{(3,3,3,3)}; the eight members of
+`3345000` all have several heavily overlapping relations.
+
+**And 20 is exact, not a lower bound.** The search only ever finds a subset of a
+class, so classes could in principle still merge -- but two classes can only
+merge if they have the same Coxeter polynomial, and across the 20 the
+polynomials are distinct except for the one cospectral pair
+`P^(1,2)_(1,1,2)` / `P^(1,4)_(1,0,1)`, which is *provably* two classes. So no
+merge is possible and the classification is complete.
+
+This is a computed result and has not yet been checked against the existing
+hand-made classification for n <= 11. Checks it does pass: both polynomials come
+out the same from the exact and the heuristic Cartan matrix, all eight members of
+`3345000` give the same polynomial when recomputed from scratch, and a sample of
+rows agree with their recorded values.
+
+### The hereditary form
+
+When a search leaves a quiver with **no relations**, the algebra is hereditary,
+and for tree-shaped quivers derived equivalence is settled: two path algebras of
+trees are derived equivalent exactly when the trees are isomorphic as undirected
+graphs, since their orientations are related by BGP reflections. So the
+underlying graph of any relation-free quiver a search reaches is a **complete**
+derived invariant of the class, where the Coxeter polynomial is only a necessary
+condition.
+
+`quipuForms.canonicalTreeForm` encodes a tree canonically (AHU, rooted at the
+centre, smaller of the two encodings when there are two centres), and
+`quipuForms.quipuParameters` recovers the paper's `P^(m)_(k)` notation where the
+tree is a quipu, canonicalised by taking the lexicographically smallest
+parameter pair over every valid reading of the main string, since the notation
+does not determine the quipu. `graphFromQuipuParameters` goes back, so a quipu
+named in the paper can be compared with one a search found.
+
+`mutationSearchDepthFirst` collects these for free during a class search via its
+`collectedHereditary` argument, and `annotateHereditaryForms` fills in the
+classes that search missed by iterative deepening from each member in turn.
+`mergeReport` then turns the table into a decision:
+
+* `certain` — classes reaching the same hereditary form. Provably one class:
+  the search just missed the mutation path. **Merge these.**
+* `separated` — classes sharing a Coxeter polynomial but reaching different
+  hereditary forms. Provably distinct. **Do not merge these**, whatever the
+  polynomial says. This is the case that makes the polynomial an incomplete
+  invariant.
+* `candidate` — classes sharing a polynomial where at least one has no
+  hereditary form yet. Still needs work.
+
+For n = 6 this reduces the entire hand-merge step to one `certain` entry and
+nothing else, agreeing with the published table.
+
+### Features
+
+12. ~~**Better CSV post-processing, to cut the manual work.**~~ Done, by the
+    hereditary form rather than by a deeper search: see "The hereditary form"
+    below. `mergeReport` splits the same-polynomial groups into `certain`
+    (provably one class), `separated` (provably distinct) and `candidate` (not
+    yet settled). What remains is to shrink `candidate` — a class with no
+    hereditary form reached needs either a deeper targeted search or the quipu
+    seeding of idea 13.
+13. ~~**Seed the table from quipu quivers.**~~ Done: `seedTableFromQuipuTheorem`,
+    used by `classifyLength`. See "Classifying a length" below.
+14. ~~**More invariants, to separate classes the Coxeter polynomial cannot.**~~
+    Answered three ways: the quipu form (complete where it applies), the
+    canonical weight type, and the non-piecewise-hereditary certificate. The
+    cospectrality analysis says exactly where the Coxeter polynomial fails
+    (research F-010). Remaining candidates, if a class ever turns up that none of
+    the three name: the derived invariants of Avella-Alaminos and Geiss for
+    gentle algebras (LNAs are gentle), Hochschild cohomology dimensions, the
+    shape of the AR quiver.
+15. ~~**Certificates both ways.**~~ Done: `mergeReport` returns `certain` (the
+    shared hereditary form that proves equality), `separated` (the differing
+    forms that prove distinctness) and `candidate` (neither), and
+    `resolveMergeCandidates` records the mutation path it found. A
+    classification is checkable without rerunning it.
+16. **Push past n = 11.** Catalan growth means n = 12 is 58786 LNAs and n = 15
+    is 2674440, so the search has to get cheaper per LNA and the table has to
+    stop being a CSV read into memory. The lever is idea 17, not raw speed.
+
+### Rule discovery — the main line of work
+
+17. **Find more mutation shortcut rules, with longer sequences.** The move table
+    is what replaces searching, and it is currently limited by the search that
+    produced it: sequences of at most three mutations, and (until recently)
+    patterns on quivers too short for anything but boundary behaviour. See
+    research H-007 and H-008, and `lnaMoves.discoverLocalMoves` for the interior
+    approach. The search space grows fast, so the leverage is in restricting
+    *where* mutations may happen rather than in raising the bound blindly.
+18. **Generalise the rules into families**, parameterised by relation length and
+    overlap, so the table reads as a handful of statements rather than dozens of
+    rows. `lnaMoves.pairSlideRules` is the first, and F-013 is the argument for
+    doing this — but **deliberately parked** until the search is deeper, since
+    generalising from a three-mutation search risks fitting families to an
+    artefact of the bound. Research H-008.
+19. **Aim discovery at the patterns that still need a search.** Seeding places
+    45% of the n = 9 table; the rest are the heavily overlapping LNAs. Measure
+    what patterns those actually have and point discovery at them, rather than
+    at small patterns chosen for cheapness. Research H-003.
+20. **Read `proposition:doubleMutation` of arXiv:2310.08346.** It states that
+    certain tilting mutations of Nakayama algebras give new Nakayama algebras —
+    which is exactly what a move rule is. It may already contain a family we are
+    rediscovering piecemeal.
+21. **Check for classes that are tree algebras but not quipu algebras.** A tree
+    of maximum degree 4, or with degree-3 vertices off the main string, is not a
+    quipu; whether such an algebra can be derived equivalent to an LNA is open.
+    `quipuForms.canonicalUndirectedForm` would report one as a canonical tree form
+    with no quipu notation. Research H-006.
