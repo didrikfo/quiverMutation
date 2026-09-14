@@ -60,16 +60,23 @@ def exchange(k, m, gap, cord):
 
     An isomorphism of the tree exactly when the gap and the cord are the only two
     branches at a foot, which happens at the two ends: (0, 0) and
-    (len(k) - 1, len(m) - 1).
+    (len(k) - 1, len(m) - 1).  Those two are `quipuForms.endExchanges`; this
+    stays here because the interior cases are what the tests below need it for,
+    and they are not operations the library should offer.
     """
     k, m = list(k), list(m)
     k[gap], m[cord] = m[cord], k[gap]
     return tuple(k), tuple(m)
 
 
-def endExchanges(k, m):
-    """The quipu's two end exchanges, as (k, m) pairs, including trivial ones."""
-    return [exchange(k, m, 0, 0), exchange(k, m, len(k) - 1, len(m) - 1)]
+def test_the_librarys_end_exchanges_are_the_two_end_cases_of_that():
+    """quipuForms.endExchanges must be exchange() at (0, 0) and at the last pair."""
+    for order in range(3, 9):
+        for k, m in quipuNames(order):
+            assert qf.endExchanges(k, m) == [
+                exchange(k, m, 0, 0),
+                exchange(k, m, len(k) - 1, len(m) - 1),
+            ], (k, m)
 
 
 # -- the end exchanges ----------------------------------------------------
@@ -80,7 +87,7 @@ def test_the_end_exchanges_do_not_change_the_quipu(order):
     checked = 0
     for k, m in quipuNames(order):
         original = qf.graphFromQuipuParameters(k, m)
-        for k2, m2 in endExchanges(k, m):
+        for k2, m2 in qf.endExchanges(k, m):
             exchanged = qf.graphFromQuipuParameters(k2, m2)
             assert nx.is_isomorphic(original, exchanged), (k, m, k2, m2)
             assert qf.quipuParameters(original) == qf.quipuParameters(exchanged), (k, m, k2, m2)
@@ -257,6 +264,18 @@ def test_a_length_two_relation_does_not_move_the_class():
 DISPUTED = ("3060000", "3004000")
 
 
+def test_the_quipu_algebra_exchanges_never_change_the_tree():
+    """The same statement, on QuipuAlgebra rather than on the parameters."""
+    for order in range(3, 9):
+        for k, m in qf.allQuipusOfOrder(order):
+            algebra = nk.QuipuAlgebra(k, m)
+            for exchanged in algebra.endExchanges():
+                assert nx.is_isomorphic(algebra.underlyingGraph(),
+                                        exchanged.underlyingGraph()), (k, m)
+                assert exchanged.canonicalForm() == algebra.canonicalForm(), (k, m)
+                assert exchanged.coxeterPolynomial() == algebra.coxeterPolynomial(), (k, m)
+
+
 def test_the_cospectral_order_nine_pair_is_two_classes():
     """A_{9,(1,3)}^{(3,6)} and A_{9,(1,4)}^{(3,4)} are not derived equivalent.
 
@@ -297,7 +316,7 @@ def test_neither_end_exchange_relates_the_disputed_quipus():
     disputed = [nk.LinearNakayamaAlgebra(9, name).quipu() for name in DISPUTED]
     reachable = []
     for k, m in disputed:
-        images = {qf.canonicalQuipuParameters(k2, m2) for k2, m2 in endExchanges(k, m)}
+        images = {qf.canonicalQuipuParameters(k2, m2) for k2, m2 in qf.endExchanges(k, m)}
         reachable.append(images | {(k, m)})
     assert reachable[0] == {((1, 0, 1), (1, 4))}
     assert reachable[1] == {((1, 1, 2), (1, 2))}

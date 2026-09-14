@@ -168,6 +168,36 @@ def formatQuipu(parameters):
     return "P^({0})_({1})".format(",".join(map(str, m)), ",".join(map(str, k)))
 
 
+def exchangeAtFirstFoot(k, m):
+    """P^(m)_(k) with k_0 and m_0 exchanged: the same quipu, differently named.
+
+    At the first foot the main string's opening segment and the cord are the
+    only two branches, so exchanging them is an isomorphism of the tree -- which
+    is why the notation does not determine the quipu, and why `quipuParameters`
+    has to canonicalise over every reading.
+
+    On the algebra side this is `LinearNakayamaAlgebra.swapFirstRelation`.
+    """
+    return (m[0],) + tuple(k[1:]), (k[0],) + tuple(m[1:])
+
+
+def exchangeAtLastFoot(k, m):
+    """P^(m)_(k) with k_{r+1} and m_r exchanged: the mirror of the above."""
+    return tuple(k[:-1]) + (m[-1],), tuple(m[:-1]) + (k[-1],)
+
+
+def endExchanges(k, m):
+    """Both end exchanges, as parameter pairs, trivial ones included.
+
+    These two and reading the main string backwards are the whole of the
+    notation's ambiguity.  The same exchange at an **interior** gap `k_i`,
+    `0 < i < r + 1`, is *not* an isomorphism: the foot there has a third branch
+    running on along the main string, so the gap and the cord are not
+    interchangeable.  `tests/test_quipu_symmetry.py` pins both halves of that.
+    """
+    return [exchangeAtFirstFoot(k, m), exchangeAtLastFoot(k, m)]
+
+
 def graphFromQuipuParameters(k, m):
     """Build the quipu P^(m_0,...,m_r)_(k_0,...,k_{r+1}) as an undirected graph.
 

@@ -177,7 +177,7 @@ def test_an_orbit_records_a_mutation_path_that_works():
             mutated = quiet(qm.quiverMutationAtVertices,
                             lm._copy(nk.LinearNakayamaAlgebra(length, relLengths)),
                             list(sequence))
-            assert lm.className(lm.asRelLengths(mutated, length)) == name, (rels, name, sequence)
+            assert qm.className(lm.asRelLengths(mutated, length)) == name, (rels, name, sequence)
 
 
 @pytest.mark.slow
@@ -198,7 +198,7 @@ def test_every_orbit_is_inside_one_derived_equivalence_class(length):
             got = sympy.expand(quiet(
                 qm.coxeterPoly,
                 nk.LinearNakayamaAlgebra(length, [int(c) for c in name])).as_expr())
-            assert got == expected, (lm.className(relLengths), name)
+            assert got == expected, (qm.className(relLengths), name)
 
 
 def test_admissibility_matches_the_enumeration():
@@ -206,7 +206,7 @@ def test_admissibility_matches_the_enumeration():
     produces."""
     for length in range(3, 8):
         enumerated = {
-            lm.className(qm.relationStringToLineRelLengths(length, qm.relSetToString(relSet)))
+            qm.className(qm.relationStringToLineRelLengths(length, qm.relSetToString(relSet)))
             for relSet in qm.generateAllPossibleLineRelations(length)
         }
         byPredicate = {

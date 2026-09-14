@@ -3,12 +3,14 @@
 Linearly oriented Nakayama algebras are the objects being classified, and they
 get written three ways throughout the repo -- per-vertex relation lengths
 `[2,2,3,0,0]`, the class name `'22300'`, and the relation string
-`'1;2;3|2;3;4|3;4;5;6'`.  The conversions live here, along with building the
-algebra, enumerating all of them for a length, and the standard renumbering that
-recognises a mutated quiver as a line again.
+`'1;2;3|2;3;4|3;4;5;6'`.  The conversions live here, along with enumerating
+every LNA of a length and the standard renumbering that recognises a mutated
+quiver as a line again.
 
-`nakayama.LinearNakayamaAlgebra` is the object-oriented face of the same thing
-and is what new code should use.
+Building one is `nakayama.LinearNakayamaAlgebra`, which is also where these
+conversions appear as methods; what is left here is what has no algebra to be a
+method of -- a relation set from a mutated quiver, a relation string read out of
+the table, a bare list of relation lengths.
 """
 
 import copy
@@ -20,12 +22,18 @@ from . import pathAlgebra
 
 
 def generateAllPossibleLineRelations(lineLength):
-    lineStart = 1
+    """Every admissible relation set on the line of that length, as path sets.
+
+    There are Catalan(lineLength - 1) of them.  Built by recursion on the
+    length: every relation set of the shorter line is still one here, and each
+    of them also admits a new relation ending at the new last vertex, starting
+    anywhere after the previous relation's start.
+
+    The result is sorted, which is what makes the table's row order stable.
+    """
     lineStop = lineLength
     if lineLength <= 2:
         return [[]]
-    elif lineLength == 2:
-        return [[], [[[*range(lineStart, lineStop + 1)]]]]
     relSetList = generateAllPossibleLineRelations(lineLength - 1)
     allPossibleRelSets = relSetList[:]
     lastRelStart = 0
@@ -38,49 +46,15 @@ def generateAllPossibleLineRelations(lineLength):
     return allPossibleRelSets
 
 
-def lineQuiverExample(lineLength, relationList, vertexRelabeling = None):
-    vertexRelabeling = {} if vertexRelabeling is None else vertexRelabeling
-    pathAlg = pathAlgebra.PathAlgebra()
-    if len(relationList) != lineLength - 2:
-        print('len(relationList) = ', len(relationList))
-        print(lineLength - 2)
-        print('Error! Invalid relation set.')
-    elif bool(relationList) and (max(relationList) > lineLength - 1):
-        print('Error! Invalid relation set.')
-    else:
-        vertices = list(range(1, lineLength + 1))
-        if bool(vertexRelabeling):
-            relabeledVertices = [vertexRelabeling[v] for v in vertices]
-            vertices = relabeledVertices
-        arrows = []
-        for i in range(len(vertices)-1):
-            arrows.append([vertices[i], vertices[i + 1]])
-        rels = []
-        for r in range(len(relationList)):
-            if relationList[r] > 0:
-                relStart = r + 1
-                rel = [list(range(relStart, relStart + relationList[r] + 1))]
-                if bool(vertexRelabeling):
-                    relabeledRelPath = []
-                    for i in range(len(rel[0])):
-                        relabeledVertex = vertexRelabeling[rel[0][i]]
-                        relabeledRelPath.append(relabeledVertex)
-                    rel = [relabeledRelPath]
-                rels.append(rel)
-        pathAlg.add_vertices_from(vertices)
-        pathAlg.add_arrows_from(arrows)
-        pathAlg.add_rels_from(rels)
-    return pathAlg
-
-
 def relSetToString(relSet):
-    stringList = []
-    for i in range(len(relSet)):
-        stringInts = [str(int) for int in relSet[i][0]]
-        stringOfInts = ";".join(stringInts)
-        stringList.append(stringOfInts)
-    joinedString = "|".join(stringList)
-    return joinedString
+    """A relation set -> '1;2;3|3;4;5;6', the key every table row is found by.
+
+    The inverse of `relationStringToLineRelLengths` only up to the relation
+    lengths: this writes out the vertices a relation passes through, so it works
+    on the relations of any quiver, not only a line.  Each relation contributes
+    its first path, which for an LNA is its only one.
+    """
+    return "|".join(";".join(str(v) for v in rel[0]) for rel in relSet)
 
 
 def relationStringToLineRelLengths(lineLength, relationString):
@@ -98,11 +72,30 @@ def relationStringToLineRelLengths(lineLength, relationString):
     return lineRelList
 
 
-def lineRelLengthsToClassName(lineRelLengths):
-    return ''.join(str(n) for n in lineRelLengths)
+def className(relLengths):
+    """[2, 0, 3, 0] -> '2030', the name an LNA's class goes by.
+
+    The third of the three forms, and the one the class names in the tables are
+    written in.  `LinearNakayamaAlgebra.className` is this on an algebra.
+    """
+    return ''.join(str(n) for n in relLengths)
 
 
 def relabelLineAlgebra(pathAlg, currentRelabeling = None):
+    """Renumber a quiver that is a line so that its arrows run 1 -> 2 -> ... -> n.
+
+    A mutation keeps every vertex label, so a quiver that comes back as a line
+    is a line with the labels in some other order; renumbering it is what lets
+    it be recognised as an LNA and looked up in the table.  Returns the
+    renumbered algebra and the map from new labels back to whatever the caller
+    was already tracking, so a chain of mutations can be read in the original
+    numbering.
+
+    **Renumbers in place** and returns the same object, which is why
+    `lnaMoves` copies before calling it.  A quiver that is not a line is
+    returned untouched -- as its `quiver`, not as the algebra, which is a wart
+    the caller has to know about.
+    """
     currentRelabeling = {} if currentRelabeling is None else dict(currentRelabeling)
     lineQuiver = pathAlg.quiver
     if not bool(currentRelabeling):
@@ -146,6 +139,14 @@ def relabelLineAlgebra(pathAlg, currentRelabeling = None):
 
 
 def mutationListLineCleanup(mutationList, relabelNodes = True, printOutput = True):
+    """Reduce what a search collected to one entry per LNA, shortest path first.
+
+    A depth-first search reaches the same LNA many times, by paths of different
+    lengths and in different numberings.  This keeps the quivers that are lines,
+    renumbers them to the standard 1 -> ... -> n, and then keeps one entry per
+    relation set: the one with the fewest mutations.  The result is sorted by
+    relation set, so two searches of the same class produce the same list.
+    """
     modifiedList = []
     for mut in mutationList:
         quiv = copy.deepcopy(mut[0].quiver)
@@ -169,6 +170,7 @@ def mutationListLineCleanup(mutationList, relabelNodes = True, printOutput = Tru
                     pathAlgebra.printPathAlgebra(pathAlg)
             else:
                 pathAlg = mut[0]
+                newVertexRelabeling = vertexRelabeling
             rels = copy.deepcopy(pathAlg.rels)
             index = len(modifiedList)
             keepQuiver = True

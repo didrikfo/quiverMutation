@@ -240,21 +240,23 @@ can pick one up without re-deciding the order.
    beyond import rewiring were three parameters named `pathAlgebra`, renamed to
    `pathAlg` (the convention elsewhere) because they shadowed the module of that
    name.
-2. **Then refactor inside the new files.** Ideas 7, 8, 9, 11. The deletions are
-   **done**: the file-based pipeline, the old quipu generators, and 27 other
-   unreachable definitions are gone, along with `main.py` — about 1900 lines,
-   and `quiverMutation`'s flat surface is 53 names instead of 102. What is left
-   of this item is folding the `...Line...` free functions into
-   `LinearNakayamaAlgebra` and the quipu operations into `QuipuAlgebra`.
+2. ~~**Then refactor inside the new files.**~~ **Done.** Ideas 7, 8, 9, 11.
+   The deletions took the file-based pipeline, the old quipu generators, 27
+   other unreachable definitions and `main.py` — about 1900 lines. Then the
+   folds: `lineQuiverExample` and the naming helpers gave way to
+   `LinearNakayamaAlgebra`, which is now the only way to build one; the quipu
+   notation's end exchanges became `quipuForms.endExchanges` and
+   `QuipuAlgebra.endExchanges`; and `PathAlgebra` carries the operations as
+   methods. The flat surface is 52 names instead of 102.
 3. **Finish the relation-object migration.** Idea 5. `relationAlgebra` already
    has the value type and exact ideal arithmetic; the mutation procedure and
    `reducePathAlgebra` still run on the set-of-paths model. Done when
    `relationAlgebra` is the only relation model in the procedure and the
    set-of-paths helpers that exist only to paper over it
    (`removeDuplicateRelPaths`, `removeRedundantRelations`,
-   `removeExistingSubrelations`, `minimizeCommutingRelation`) are gone. This is
-   the one item on this list that can change results, so it comes with the
-   n <= 8 classification re-run as its acceptance test.
+   `removeExistingSubrelations`) are gone. This is the one item on this list
+   that can change results, so it comes with the n <= 8 classification re-run
+   as its acceptance test.
 4. **A way to look at a classification that is not a spreadsheet.** Idea 23.
    Already untenable at n = 10 and impossible from 11 up (16796 LNAs at 11,
    58786 at 12). Done when a classification can be opened and filtered — by
@@ -298,16 +300,36 @@ can pick one up without re-deciding the order.
 
 ### OOP and structure
 
-7. **Make `PathAlgebra` carry its own behaviour.** It is currently a thin
-   container and every operation is a free function taking it as the first
-   argument. Mutation, reduction, invariants and admissibility are all methods.
-8. **Subclass for LNAs**, holding `n` and the per-vertex relation lengths, with
-   the standard numbering, the relation-string form, the Kupisch series and the
-   relation dual as its own operations. Most of the `...Line...` free functions
-   collapse into it.
-9. **Subclass for quipu quivers**, holding the `P^{(m)}_{(k)}` parameters, the
-   orientation, and the CR-swap of arXiv:2305.06642 section "Cord/relation-swap"
-   as a method. This is what makes idea 12 possible.
+7. ~~**Make `PathAlgebra` carry its own behaviour.**~~ **Done, as a face over
+   the free functions.** `canMutateAt`, `mutateAt`, `mutateAtVertices`,
+   `reduce`, `opposite`, `cartanMatrix` and `coxeterPolynomial` are methods
+   that delegate; the free functions stay as the implementation and as what the
+   internals call. The imports inside those methods are deferred on purpose:
+   `pathAlgebra` is the root of the dependency graph, so importing `mutation`
+   at its top would make a cycle. `tests/test_mutation_procedure.py` pins each
+   method against the function it delegates to, which is what a deferred import
+   naming the wrong module would otherwise hide until first call.
+8. ~~**Subclass for LNAs**~~ **Done.** `nakayama.LinearNakayamaAlgebra` is now
+   the only way to build one: `lineQuiverExample` and `makeStandardLineQuiver`
+   are gone, and `search` and `classification` construct the algebra instead.
+   `relationString` and `className` delegate to the one implementation in
+   `lines` rather than re-joining the strings themselves, and `lnaMoves`'
+   duplicate `className` went the same way. What stays in `lines` is what has
+   no algebra to be a method of: a relation set read off a mutated quiver, a
+   relation string read out of the table, a bare list of relation lengths.
+
+   Folding this up found the one real bug in the whole reorganisation:
+   `lineQuiverExample(1, [])` printed an error and returned an algebra with
+   **no vertices**, and the n = 1 row of the paper's table was being checked
+   against that. `LinearNakayamaAlgebra` now takes `max(0, n - 2)` relation
+   lengths, so A_1 and A_2 construct properly, and
+   `tests/test_nakayama_classes.py` pins them.
+9. ~~**Subclass for quipu quivers**~~ **Done.** `nakayama.QuipuAlgebra` holds
+   the parameters and the orientation, and the notation's end exchanges are
+   `exchangeAtFirstFoot`, `exchangeAtLastFoot` and `endExchanges`, on the
+   parameters in `quipuForms` and on the algebra in `QuipuAlgebra`. Research
+   F-014 is the evidence that they are the whole of the notation's ambiguity,
+   and that they do not extend to an interior gap.
 10. ~~**Split the 3300-line module**~~ **Done.** The package that landed, in
     dependency order — `quivermutation/__init__.py` carries the same table and
     re-exports the whole flat surface, so `import quivermutation as qm` reaches

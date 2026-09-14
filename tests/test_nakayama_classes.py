@@ -26,6 +26,27 @@ def test_the_three_names_agree():
     assert nk.LinearNakayamaAlgebra.fromRelationString(7, a.relationString()) == a
 
 
+def test_the_one_and_two_vertex_lines_take_no_relation_lengths():
+    """A_1 and A_2 admit no relation, so n - 2 is not the count for them.
+
+    This was the one place the refactor of the line helpers found something
+    wrong rather than just moving it: `lineQuiverExample(1, [])` printed an
+    error and returned an algebra with no vertices at all, and the n = 1 row of
+    the paper's table was being checked against that.
+    """
+    for length in (1, 2):
+        a = nk.LinearNakayamaAlgebra(length, [])
+        assert sorted(a.vertices()) == list(range(1, length + 1))
+        assert a.rels == []
+        assert a.relations() == []
+        assert a.className() == ""
+        assert a.kupischSeries() == tuple(range(length, 0, -1))
+    with pytest.raises(ValueError):
+        nk.LinearNakayamaAlgebra(0, [])
+    with pytest.raises(ValueError):
+        nk.LinearNakayamaAlgebra(1, [2])
+
+
 @pytest.mark.parametrize(
     "length, rels",
     [(5, "900"), (5, "10"), (4, "1"), (6, "0005")],

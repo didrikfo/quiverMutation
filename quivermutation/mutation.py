@@ -267,8 +267,16 @@ def mutationIsPossibleAtVertex(pathAlg, vertex, allRels = None):
     return True
 
 
-def quiverMutation(pathAlg, mutationVertexList, firstDisplayedStep = 0):
-    #
+def showMutationSteps(pathAlg, mutationVertexList, firstDisplayedStep = 0):
+    """Mutate step by step, printing and plotting each one, for looking by hand.
+
+    `quiverMutationAtVertices` is the same walk without the commentary.  This
+    also flags a step where the Coxeter polynomial moves, which it must not do
+    along an admissible path -- if it does, the sequence left the admissible
+    region (research R-005).
+
+    It was called `quiverMutation`, which now names the package.
+    """
     baseCoxPol = invariants.coxeterPoly(pathAlg)
     print(invariants.coxeterPoly(pathAlg))
     pathAlgebra.printPathAlgebra(pathAlg)

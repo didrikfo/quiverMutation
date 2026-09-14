@@ -56,10 +56,6 @@ def asRelLengths(pathAlg, length):
     return relLengths
 
 
-def className(relLengths):
-    return "".join(str(n) for n in relLengths)
-
-
 def movesFrom(lna, maxSteps = 2, allowLeft = True):
     """Every LNA reachable from `lna` by at most `maxSteps` mutations.
 
@@ -73,7 +69,7 @@ def movesFrom(lna, maxSteps = 2, allowLeft = True):
     rewrite rule wants both directions.
     """
     length = lna.length
-    start = className(lna.relLengths)
+    start = lines.className(lna.relLengths)
     best = {}
 
     def walk(pathAlg, steps, history):
@@ -101,7 +97,7 @@ def movesFrom(lna, maxSteps = 2, allowLeft = True):
                 relLengths = asRelLengths(nextAlg, length)
                 sequence = history + [signed]
                 if relLengths is not None:
-                    name = className(relLengths)
+                    name = lines.className(relLengths)
                     if name != start and (name not in best or len(sequence) < len(best[name])):
                         best[name] = sequence
                 walk(nextAlg, steps - 1, sequence)
@@ -283,7 +279,7 @@ def closureUnderMoves(length, relLengths, maxIterations = 10000):
     positions, and translates the move's vertices into original labels through
     the numbering accumulated so far.
     """
-    startName = className(relLengths)
+    startName = lines.className(relLengths)
     identity = {position: position for position in range(1, length + 1)}
     results = {startName: ([], identity)}
     frontier = [(nakayama.LinearNakayamaAlgebra(length, relLengths), relLengths, [], identity)]
@@ -298,7 +294,7 @@ def closureUnderMoves(length, relLengths, maxIterations = 10000):
             # applies to it verbatim; the path needs the original labels.
             mutated = _quiet(mutation.quiverMutationAtVertices, _copy(standardAlg), list(sequence))
             nextAlg, nextLengths, stepNumbering = standardise(mutated)
-            if nextLengths is None or className(nextLengths) != name:
+            if nextLengths is None or lines.className(nextLengths) != name:
                 continue
             inOriginalLabels = [
                 numbering[v] if v > 0 else -numbering[-v] for v in sequence
@@ -399,14 +395,14 @@ def discoverMoves(lengths, maxSteps = 2, minOccurrences = 3, allowLeft = True,
     for length in lengths:
         for lna in nakayama.LinearNakayamaAlgebra.allOfLength(length):
             if progress:
-                print('  {0} {1}'.format(length, className(lna.relLengths)))
+                print('  {0} {1}'.format(length, lines.className(lna.relLengths)))
             for name, sequence in movesFrom(lna, maxSteps, allowLeft).items():
                 after = [int(c) for c in name]
                 description = describeLink(length, lna.relLengths, after, sequence)
                 if description is None:
                     continue
                 seen.setdefault(description, []).append(
-                    (length, className(lna.relLengths), name))
+                    (length, lines.className(lna.relLengths), name))
     return {d: places for d, places in seen.items() if len(places) >= minOccurrences}
 
 
@@ -541,19 +537,19 @@ def verifyMove(description, lengths, checkCoxeter = True):
                 predicted, sequence = applied
                 startAlg = nakayama.LinearNakayamaAlgebra(length, relLengths)
                 if not isLegalSequence(startAlg, sequence):
-                    failures.append((length, className(relLengths),
-                                     className(predicted), None, 'illegal mutation'))
+                    failures.append((length, lines.className(relLengths),
+                                     lines.className(predicted), None, 'illegal mutation'))
                     continue
                 mutated = _quiet(mutation.quiverMutationAtVertices, _copy(startAlg), list(sequence))
                 actual = asRelLengths(mutated, length)
                 if actual != predicted:
-                    failures.append((length, className(relLengths),
-                                     className(predicted),
-                                     className(actual) if actual else None, 'wrong result'))
+                    failures.append((length, lines.className(relLengths),
+                                     lines.className(predicted),
+                                     lines.className(actual) if actual else None, 'wrong result'))
                     continue
                 if checkCoxeter and not _sameCoxeter(length, relLengths, predicted):
-                    failures.append((length, className(relLengths),
-                                     className(predicted), className(actual),
+                    failures.append((length, lines.className(relLengths),
+                                     lines.className(predicted), lines.className(actual),
                                      'Coxeter polynomial moved'))
                     continue
                 confirmed += 1
@@ -672,8 +668,8 @@ def movesByRule(length, relLengths):
             if applied is None:
                 continue
             moved, sequence = applied
-            name = className(moved)
-            if name != className(relLengths) and name not in reached:
+            name = lines.className(moved)
+            if name != lines.className(relLengths) and name not in reached:
                 reached[name] = sequence
     return reached
 
@@ -741,7 +737,7 @@ def localMutationSequences(length, relLengths, centreLo, centreHi, maxSteps, mar
     """
     allowed = [v for v in range(max(1, centreLo - margin),
                                 min(length, centreHi + 1 + margin) + 1)]
-    startName = className(relLengths)
+    startName = lines.className(relLengths)
     best = {}
     # Maps an intermediate quiver to the most steps that were still available
     # when it was last explored.  Pruning on mere membership loses paths: a state
@@ -768,7 +764,7 @@ def localMutationSequences(length, relLengths, centreLo, centreHi, maxSteps, mar
                 sequence = history + [signed]
                 reached = asRelLengths(nextAlg, length)
                 if reached is not None:
-                    name = className(reached)
+                    name = lines.className(reached)
                     if name != startName and (name not in best or len(sequence) < len(best[name])):
                         best[name] = sequence
                 if seen.get(key, -1) >= steps - 1:
@@ -835,7 +831,7 @@ def discoverLocalMoves(patterns, maxSteps = 3, margin = 3, embeddings = ((13, 4)
                 if description is None:
                     continue
                 seen.setdefault(description, []).append(
-                    (length, className(relLengths), name))
+                    (length, lines.className(relLengths), name))
     return {d: places for d, places in seen.items()
             if len({p[0] for p in places}) >= minOccurrences or len(places) >= minOccurrences}
 

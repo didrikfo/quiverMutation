@@ -10,7 +10,6 @@ of this module is its individual passes, in the order it applies them.
 import copy
 import itertools
 
-import networkx as nx
 
 from . import pathAlgebra
 from . import paths

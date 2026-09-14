@@ -26,6 +26,7 @@ from . import invariants
 from . import lines
 from . import lnaMoves
 from . import mutation
+from . import nakayama
 from . import mutationClassTable
 from . import pathAlgebra
 from . import piecewiseHereditary
@@ -155,10 +156,7 @@ def expandClassByMoves(table, lineLength, relationString, className, coxeterPoly
     orbit = lnaMoves.closureUnderMoves(lineLength, relLengths)
     filled = 0
     for name, (sequence, numbering) in orbit.items():
-        reached = lnaMoves.className(lines.relationStringToLineRelLengths(lineLength, relationString))
-        memberString = lines.relSetToString([[list(range(start, start + arrows + 1))]
-                                       for start, arrows in lnaMoves.relationsOf(
-                                           [int(c) for c in name])])
+        memberString = nakayama.LinearNakayamaAlgebra(lineLength, name).relationString()
         row = table.rowFor(memberString)
         if row is None or bool(row[1]):
             continue
@@ -189,9 +187,7 @@ def adoptClassesByMoves(table, lineLength, maxRounds = 10):
             relLengths = lines.relationStringToLineRelLengths(lineLength, relationString)
             orbit = lnaMoves.closureUnderMoves(lineLength, relLengths)
             for name, (sequence, numbering) in orbit.items():
-                memberString = lines.relSetToString(
-                    [[list(range(start, start + arrows + 1))]
-                     for start, arrows in lnaMoves.relationsOf([int(c) for c in name])])
+                memberString = nakayama.LinearNakayamaAlgebra(lineLength, name).relationString()
                 row = table.rowFor(memberString)
                 if row is None or not row[1]:
                     continue
@@ -235,8 +231,7 @@ def seedTableFromQuipuTheorem(table, lineLength, printOutput = True, expandByMov
         form = search.hereditaryFormFromTheorem(lineLength, row[0])
         if not form:
             continue
-        pathAlg = lines.lineQuiverExample(
-            lineLength, lines.relationStringToLineRelLengths(lineLength, row[0]))
+        pathAlg = nakayama.LinearNakayamaAlgebra.fromRelationString(lineLength, row[0])
         polynomial = str(invariants.coxeterPoly(pathAlg).as_expr())
         table.assign(
             row[0], form, '', polynomial,
@@ -344,15 +339,9 @@ def _memberAndItsDual(lineLength, relationString):
     and turns right mutations into left ones, so searching from both covers both
     directions of a reachability that is otherwise one-way.
     """
-    relLengths = lines.relationStringToLineRelLengths(lineLength, relationString)
-    dualLengths = [0] * (lineLength - 2)
-    for start, arrows in enumerate(relLengths, start = 1):
-        if arrows:
-            dualLengths[lineLength - start - arrows] = arrows
-    algebras = [lines.lineQuiverExample(lineLength, relLengths)]
-    if dualLengths != relLengths:
-        algebras.append(lines.lineQuiverExample(lineLength, dualLengths))
-    return algebras
+    algebra = nakayama.LinearNakayamaAlgebra.fromRelationString(lineLength, relationString)
+    dual = algebra.relationDual()
+    return [algebra] if dual == algebra else [algebra, dual]
 
 
 def resolveMergeCandidates(table, lineLength, depth = 8, printOutput = True):
@@ -513,12 +502,12 @@ def mutationSearch(lineLength, mutationDepthStart, startRow = 0, createNewCSVfil
     for i in range(numberOfRows):
         row = table.rows()[(startRow + i) % numberOfRows]
         if not bool(row[1]):
-            lineRelList = lines.relationStringToLineRelLengths(lineLength, row[0])
-            lineNumberString = lines.lineRelLengthsToClassName(lineRelList)
+            algebra = nakayama.LinearNakayamaAlgebra.fromRelationString(lineLength, row[0])
+            lineNumberString = algebra.className()
             if printProgress:
                 print('row {0}/{1}: searching from {2} at depth {3}'.format(
                     i + 1, numberOfRows, lineNumberString, mutationDepth))
-            pathAlg = lines.lineQuiverExample(lineLength, lineRelList)
+            pathAlg = algebra
             if printMutations:
                 pathAlgebra.printPathAlgebra(pathAlg)
             mutList = []

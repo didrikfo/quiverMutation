@@ -16,13 +16,12 @@ import copy
 
 import networkx as nx
 
-from . import lines
 from . import mutation
+from . import nakayama
 from . import pathAlgebra
 from . import paths
 from . import quipuForms
 from . import reduction
-
 
 
 def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName = 'quiver', vertexRelabeling = None, printOutput = True, collected = None, collectedHereditary = None):
@@ -156,8 +155,8 @@ def findHereditaryFormForClass(table, lineLength, className, maxDepth = 8, print
     members = sorted(table.membersOfClass(className), key = lambda r: (len(r), r))
     for depth in range(2, maxDepth + 1):
         for relationString in members:
-            pathAlg = lines.lineQuiverExample(
-                lineLength, lines.relationStringToLineRelLengths(lineLength, relationString))
+            pathAlg = nakayama.LinearNakayamaAlgebra.fromRelationString(
+                lineLength, relationString)
             forms = hereditaryFormsReachedFrom(pathAlg, depth)
             if forms:
                 if printOutput:
@@ -186,6 +185,5 @@ def hereditaryFormFromTheorem(lineLength, relationString):
     the ones it does cover this is O(1), where reaching the same answer by
     mutation search costs a depth-4-to-9 traversal.
     """
-    parameters = quipuForms.quipuForAlmostSeparateLNA(
-        lineLength, lines.relationStringToLineRelLengths(lineLength, relationString))
-    return quipuForms.formatQuipu(parameters)
+    algebra = nakayama.LinearNakayamaAlgebra.fromRelationString(lineLength, relationString)
+    return algebra.quipuName()

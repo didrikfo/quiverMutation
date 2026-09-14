@@ -94,6 +94,59 @@ class PathAlgebra():
         self.rels = []
         return
 
+    # -- the operations, as methods ---------------------------------------
+    #
+    # The procedure, the reduction and the invariants are free functions in
+    # the modules that own them, and this is their object-oriented face: the
+    # methods delegate, they do not reimplement.  New code should read as
+    # `algebra.mutateAt(3).reduce()`; the free functions remain the
+    # implementation, and what the internals call.
+    #
+    # The imports are inside the methods on purpose.  `pathAlgebra` is the root
+    # of the package's dependency graph -- `mutation`, `reduction` and
+    # `invariants` all import it -- so importing them here at module level
+    # would make that a cycle.  A deferred import is the price of the container
+    # being at the bottom and still having behaviour.
+
+    def canMutateAt(self, vertex):
+        """Whether the mutation procedure may be applied at `vertex`.
+
+        Applying it anyway still returns a quiver, just not a derived
+        equivalent one -- research R-005 -- so this is not an optional check.
+        """
+        from . import mutation
+        return mutation.mutationIsPossibleAtVertex(self, vertex)
+
+    def mutateAt(self, vertex):
+        """Mutate at one vertex, without reducing.  Negative means left."""
+        from . import mutation
+        if vertex < 0:
+            return mutation.leftQuiverMutationAtVertex(self, -vertex)
+        return mutation.quiverMutationAtVertex(self, vertex)
+
+    def mutateAtVertices(self, vertices, printMutationSteps = False):
+        """Mutate at each vertex in turn, reducing after each."""
+        from . import mutation
+        return mutation.quiverMutationAtVertices(self, vertices, printMutationSteps)
+
+    def reduce(self):
+        """The cleanup the procedure's steps 1-7 leave to the caller."""
+        from . import reduction
+        return reduction.reducePathAlgebra(self)
+
+    def opposite(self):
+        """The opposite algebra: every arrow and every relation reversed."""
+        return dualPathAlgebra(self)
+
+    def cartanMatrix(self, exact = True):
+        from . import invariants
+        return invariants.cartanMatrix(self, exact)
+
+    def coxeterPolynomial(self, exact = True):
+        from . import invariants
+        return invariants.coxeterPoly(self, exact).as_expr()
+
+
 def printPathAlgebra(pathAlg):
     print('Vertices: ', pathAlg.quiver.nodes)
     print('Arrows: ', pathAlg.quiver.edges)

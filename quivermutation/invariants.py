@@ -6,14 +6,10 @@ F-010 says exactly where it fails: at cospectral quipus, the first pair of which
 is at order 9.
 """
 
-import networkx as nx
-import numpy as np
-import sympy
-from sympy.matrices import Matrix, eye
+from sympy.matrices import eye
 
 from . import paths
 from . import relationAlgebra
-
 
 
 def cartanMatrix(pathAlg, exact = True):
@@ -36,16 +32,14 @@ def cartanMatrix(pathAlg, exact = True):
     """
     if exact:
         return relationAlgebra.cartanMatrixExact(pathAlg)
-    quiv = pathAlg.quiver
-    vertices = quiv.nodes
-    cartanMatrix = eye(len(vertices), len(vertices))
+    vertices = pathAlg.quiver.nodes
+    matrix = eye(len(vertices), len(vertices))
     for i in vertices:
         for j in vertices:
-            if i == j:
-                cartanMatrix[j-1,i-1] = paths.numberOfPathsUpToRels(pathAlg, i, j) + 1
-            else:
-                cartanMatrix[j-1,i-1] = paths.numberOfPathsUpToRels(pathAlg, i, j)
-    return cartanMatrix
+            counted = paths.numberOfPathsUpToRels(pathAlg, i, j)
+            # The identity path at a vertex is in the algebra but not in rels.
+            matrix[j - 1, i - 1] = counted + 1 if i == j else counted
+    return matrix
 
 
 def coxeterPoly(pathAlg, exact = True):

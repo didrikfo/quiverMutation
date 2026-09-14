@@ -120,3 +120,47 @@ def test_paper_example_with_a_cycle():
         (2, 1),   # step 2: a*
         (1, 2),   # step 3: a * (ba)-bar, one per arrow out of 1
     }
+
+
+# -- the same operations through the object -------------------------------
+
+def test_the_methods_on_a_path_algebra_delegate_to_the_free_functions():
+    """`PathAlgebra` carries the operations as methods; they must not diverge.
+
+    The methods are the intended face of the package and the free functions the
+    implementation, so every method here has to give exactly what the function
+    it delegates to gives.  They are worth pinning because the imports inside
+    them are deferred -- `pathAlgebra` is the root of the dependency graph, so
+    importing `mutation` at its top would be a cycle -- and a deferred import
+    that named the wrong module would only fail when the method was first
+    called.
+    """
+    arrows = [(1, 2), (2, 3), (3, 4), (4, 5)]
+    rels = [([1, 2, 3, 4],)]
+
+    assert quiet(qm.mutationIsPossibleAtVertex, path_algebra(arrows, rels), 4) is \
+        quiet(path_algebra(arrows, rels).canMutateAt, 4)
+
+    byFunction = quiet(qm.quiverMutationAtVertex, path_algebra(arrows, rels), 4)
+    byMethod = quiet(path_algebra(arrows, rels).mutateAt, 4)
+    assert (arrow_set(byMethod), rel_set(byMethod)) == (arrow_set(byFunction), rel_set(byFunction))
+
+    byFunction = quiet(qm.leftQuiverMutationAtVertex, path_algebra(arrows, rels), 4)
+    byMethod = quiet(path_algebra(arrows, rels).mutateAt, -4)
+    assert (arrow_set(byMethod), rel_set(byMethod)) == (arrow_set(byFunction), rel_set(byFunction))
+
+    byFunction = quiet(qm.quiverMutationAtVertices, path_algebra(arrows, rels), [4, 1])
+    byMethod = quiet(path_algebra(arrows, rels).mutateAtVertices, [4, 1])
+    assert (arrow_set(byMethod), rel_set(byMethod)) == (arrow_set(byFunction), rel_set(byFunction))
+
+    byFunction = quiet(qm.reducePathAlgebra, path_algebra(arrows, rels))
+    byMethod = quiet(path_algebra(arrows, rels).reduce)
+    assert rel_set(byMethod) == rel_set(byFunction)
+
+    byFunction = qm.dualPathAlgebra(path_algebra(arrows, rels))
+    byMethod = path_algebra(arrows, rels).opposite()
+    assert arrow_set(byMethod) == arrow_set(byFunction)
+
+    pa = path_algebra(arrows, rels)
+    assert quiet(pa.cartanMatrix) == quiet(qm.cartanMatrix, pa)
+    assert quiet(pa.coxeterPolynomial) == quiet(qm.coxeterPoly, pa).as_expr()

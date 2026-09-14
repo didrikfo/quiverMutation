@@ -88,10 +88,10 @@ from .mutation import (
     getVertexNumberingKeyFromValue,
     leftQuiverMutationAtVertex,
     mutationIsPossibleAtVertex,
-    quiverMutation,
     quiverMutationAtVertex,
     quiverMutationAtVertices,
     reverseMutationSequence,
+    showMutationSteps,
 )
 
 from .invariants import (
@@ -100,9 +100,8 @@ from .invariants import (
 )
 
 from .lines import (
+    className,
     generateAllPossibleLineRelations,
-    lineQuiverExample,
-    lineRelLengthsToClassName,
     mutationListLineCleanup,
     relSetToString,
     relabelLineAlgebra,
@@ -143,6 +142,7 @@ __all__ = [
     "applyRelSetToPath",
     "assignMutationClassInTable",
     "cartanMatrix",
+    "className",
     "classification",
     "classifyLength",
     "coxeterPoly",
@@ -159,8 +159,6 @@ __all__ = [
     "isIllegalRelation",
     "isSubRelOf",
     "leftQuiverMutationAtVertex",
-    "lineQuiverExample",
-    "lineRelLengthsToClassName",
     "lines",
     "listIntersection",
     "lnaMoves",
@@ -183,7 +181,6 @@ __all__ = [
     "printPathAlgebra",
     "quipuForms",
     "quiverExamples",
-    "quiverMutation",
     "quiverMutationAtVertex",
     "quiverMutationAtVertices",
     "reducePathAlgebra",
@@ -201,6 +198,7 @@ __all__ = [
     "reverseMutationSequence",
     "search",
     "seedTableFromQuipuTheorem",
+    "showMutationSteps",
     "sublistExists",
     "zeroizeRels",
 ]

@@ -12,11 +12,9 @@ still does by hand.
 
 import networkx as nx
 
-from . import invariants
 from . import lines
 from . import pathAlgebra
 from . import quipuForms
-from . import relationAlgebra
 
 
 
@@ -24,7 +22,8 @@ class LinearNakayamaAlgebra(pathAlgebra.PathAlgebra):
     """kA_n / I: the linear quiver 1 -> 2 -> ... -> n with an admissible ideal.
 
     `relLengths[i]` is the number of arrows in the relation starting at vertex
-    i + 1, or 0 if no relation starts there, so it has n - 2 entries.  This is
+    i + 1, or 0 if no relation starts there, so it has max(0, n - 2) entries --
+    A_1 and A_2 admit no relation and so take none.  This is
     the same per-vertex form the rest of the repo uses, and the digits of the
     class names: A7_22300 is the line on 7 vertices with relations of 2, 2 and 3
     arrows starting at vertices 1, 2 and 3.
@@ -37,10 +36,15 @@ class LinearNakayamaAlgebra(pathAlgebra.PathAlgebra):
         if isinstance(relLengths, str):
             relLengths = [int(c) for c in relLengths]
         relLengths = list(relLengths)
-        if len(relLengths) != length - 2:
+        if length < 1:
+            raise ValueError("a line needs at least one vertex, got {0}".format(length))
+        # A_1 and A_2 admit no relation at all, so they take no relation lengths
+        # -- length - 2 would be negative for A_1.
+        expected = max(0, length - 2)
+        if len(relLengths) != expected:
             raise ValueError(
                 "a line of length {0} takes {1} relation lengths, got {2}".format(
-                    length, length - 2, len(relLengths)))
+                    length, expected, len(relLengths)))
         for start, arrows in enumerate(relLengths, start=1):
             if arrows and (arrows < 2 or start + arrows > length):
                 raise ValueError(
@@ -69,14 +73,10 @@ class LinearNakayamaAlgebra(pathAlgebra.PathAlgebra):
         return cls(len(className) + 2, className)
 
     def relationString(self):
-        return "|".join(
-            ";".join(str(v) for v in range(start, start + arrows + 1))
-            for start, arrows in enumerate(self.relLengths, start=1)
-            if arrows
-        )
+        return lines.relSetToString(self.rels)
 
     def className(self):
-        return "".join(str(n) for n in self.relLengths)
+        return lines.className(self.relLengths)
 
     def __repr__(self):
         return "LinearNakayamaAlgebra({0}, {1!r})".format(self.length, self.className())
@@ -266,12 +266,6 @@ class LinearNakayamaAlgebra(pathAlgebra.PathAlgebra):
     def quipuName(self):
         return quipuForms.formatQuipu(self.quipu())
 
-    def cartanMatrix(self):
-        return relationAlgebra.cartanMatrixExact(self)
-
-    def coxeterPolynomial(self):
-        return invariants.coxeterPoly(self).as_expr()
-
     # -- enumeration -------------------------------------------------------
 
     @classmethod
@@ -376,8 +370,29 @@ class QuipuAlgebra(pathAlgebra.PathAlgebra):
             relLengths[starts[index] - 1] = cord + 2
         return LinearNakayamaAlgebra(length, relLengths)
 
-    def coxeterPolynomial(self):
-        return invariants.coxeterPoly(self).as_expr()
+    # -- the notation's ambiguity, as operations -----------------------
+
+    def exchangeAtFirstFoot(self):
+        """The same quipu with k_0 and m_0 exchanged.
+
+        A different name for the same tree, so a derived equivalent algebra.
+        `LinearNakayamaAlgebra.swapFirstRelation` is what this does to the LNA
+        the quipu corresponds to.
+        """
+        return QuipuAlgebra(*quipuForms.exchangeAtFirstFoot(self.k, self.m))
+
+    def exchangeAtLastFoot(self):
+        """The same quipu with k_{r+1} and m_r exchanged."""
+        return QuipuAlgebra(*quipuForms.exchangeAtLastFoot(self.k, self.m))
+
+    def endExchanges(self):
+        """Both end exchanges, trivial ones included.
+
+        Every one of these has the same underlying tree as `self`, hence the
+        same canonical parameters; the point of having them is that the LNA-side
+        operations can be checked against them.
+        """
+        return [self.exchangeAtFirstFoot(), self.exchangeAtLastFoot()]
 
     def __repr__(self):
         return "QuipuAlgebra({0}, {1})".format(self.k, self.m)

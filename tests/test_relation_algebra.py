@@ -10,6 +10,7 @@ import pytest
 
 from quivermutation import pathAlgebra as pac
 import quivermutation as qm
+from quivermutation import nakayama as nk
 from quivermutation import relationAlgebra as ra
 from helpers import quiet
 
@@ -194,7 +195,7 @@ def test_exact_and_heuristic_cartan_matrices_agree_on_every_lna(length):
         relLengths = [0] * (length - 2)
         for rel in relSet:
             relLengths[rel[0][0] - 1] = len(rel[0]) - 1
-        pa = qm.lineQuiverExample(length, relLengths)
+        pa = nk.LinearNakayamaAlgebra(length, relLengths)
         assert quiet(qm.cartanMatrix, pa) == quiet(ra.cartanMatrixExact, pa), relLengths
 
 
