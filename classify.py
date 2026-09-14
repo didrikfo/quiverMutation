@@ -59,6 +59,10 @@ def main(argv=None):
                         help="depth of the extra search used to settle classes that "
                              "share a Coxeter polynomial (default 6)")
     parser.add_argument("--out", default=None, help="output CSV path")
+    parser.add_argument("--resume", action="store_true",
+                        help="continue from an existing CSV instead of starting over. "
+                             "The table is written after every class, so a run that was "
+                             "interrupted picks up where it stopped.")
     parser.add_argument("--quiet", action="store_true", help="only print the summary")
     parser.add_argument("--collisions", action="store_true",
                         help="do not classify; just report which classes of this order the "
@@ -73,7 +77,8 @@ def main(argv=None):
         parser.error("a line quiver needs at least 2 vertices")
 
     table, report = qm.classifyLength(
-        args.length, args.depth, args.resolve_depth, args.out, printOutput=not args.quiet)
+        args.length, args.depth, args.resolve_depth, args.out,
+        printOutput=not args.quiet, resume=args.resume)
 
     sizes = collections.Counter(row[1] for row in table.rows())
     print()

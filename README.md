@@ -38,6 +38,13 @@ Run the test suite:
 .venv/bin/python -m pytest -q
 ```
 
+## Where things are written down
+
+* [`NOTES.md`](NOTES.md) — the code: what the model expresses, known gaps, the backlog.
+* [`research/`](research/) — the mathematics: findings, hypotheses, retractions,
+  the log of runs made, and summaries of the literature. All dated, nothing
+  deleted. Read [`research/README.md`](research/README.md) before adding to it.
+
 ## Classifying a length
 
 ```bash
@@ -59,6 +66,13 @@ directory, with one row per LNA giving
 
 It prints the classes and their sizes, and exits non-zero if any class was left
 unsettled.
+
+A long run does not have to finish in one sitting -- the table is written after
+every class, and `--resume` continues from the CSV:
+
+```bash
+python classify.py 10 --resume
+```
 
 The classification runs in four steps, described in `NOTES.md`: seed every LNA
 the quipu theorem of arXiv:2305.06642 covers, search by mutation for the rest,

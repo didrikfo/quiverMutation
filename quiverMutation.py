@@ -2809,7 +2809,7 @@ def mutationSearch(lineLength, mutationDepthStart, startRow = 0, createNewCSVfil
 
 
 def classifyLength(lineLength, mutationDepthStart = 6, resolveDepth = 6, fileName = None,
-                   printOutput = True):
+                   printOutput = True, resume = False):
     """The whole classification of one length, end to end.
 
     1. Seed every LNA the quipu theorem covers, naming each class by its quipu.
@@ -2820,6 +2820,11 @@ def classifyLength(lineLength, mutationDepthStart = 6, resolveDepth = 6, fileNam
        that the hereditary form does not settle gets a deeper search, from each
        member and from its relation dual.
 
+    `resume` continues from an existing CSV rather than starting over.  The table
+    is written after every class searched, so an interrupted run -- and a long one
+    will be interrupted, since a length-10 classification takes hours and does not
+    survive the machine going away -- picks up where it stopped.
+
     Returns (table, report).  A report with empty 'candidate' means every class
     is settled: 'certain' entries are classes proved equal, 'separated' entries
     are classes proved distinct despite sharing a Coxeter polynomial.
@@ -2829,8 +2834,17 @@ def classifyLength(lineLength, mutationDepthStart = 6, resolveDepth = 6, fileNam
     """
     if fileName is None:
         fileName = 'A_{0}_mutation_classes.csv'.format(lineLength)
-    table = mutationSearch(lineLength, mutationDepthStart, 0, createNewCSVfile = True,
-                           fileName = fileName, seedFromQuipuTheorem = True,
+    existing = None
+    if resume and os.path.exists(fileName):
+        existing = mutationClassTable.MutationClassTable.fromCSV(fileName, lineLength)
+        if printOutput:
+            print('Resuming from {0}: {1} of {2} rows already placed'.format(
+                fileName, len(existing) - len(existing.unassignedRelationStrings()),
+                len(existing)))
+    table = mutationSearch(lineLength, mutationDepthStart, 0,
+                           createNewCSVfile = existing is None,
+                           fileName = fileName, table = existing,
+                           seedFromQuipuTheorem = True,
                            printProgress = printOutput)
     annotateHereditaryForms(table, lineLength, printOutput = printOutput)
     merges = resolveMergeCandidates(table, lineLength, resolveDepth, printOutput = printOutput)

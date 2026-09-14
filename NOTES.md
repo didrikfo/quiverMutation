@@ -1,7 +1,13 @@
 # Working notes
 
 State of the codebase, what the model can and cannot express, and the backlog.
-Written while picking the project back up; keep it current.
+Keep it current.
+
+**The research record lives in [`research/`](research/)** — findings, hypotheses,
+retractions, the log of runs made, and summaries of the literature, all dated.
+This file is about the *code*; that one is about the *mathematics and the
+investigation*. When something here changes status because of a result, the
+result belongs there and this file should point at it.
 
 ## What the code does
 
@@ -200,7 +206,8 @@ Roughly in the order that unblocks the most.
    that have not changed between calls. Needs a cheap structural key for a path
    algebra — which is also what a proper `__hash__`/`__eq__` on `PathAlgebra`
    would give.
-2. **Find and fix the length-12 recursive loop**, per above.
+2. ~~**Find and fix the length-12 recursive loop.**~~ Done — it was cycles, not
+   length. See research F-009.
 3. **Canonical form for a path algebra.** A normalised, hashable representation
    would replace the dedupe-by-list-comparison machinery, let the search
    memoize on quivers it has already visited, and make `reducePathAlgebra`
@@ -455,6 +462,12 @@ line, so a rule that wants "the source of the first relation" has to be told
 which label that is now. Note also that `relabelLineAlgebra` renumbers its
 argument **in place**.
 
+`lnaMoves.pairSlideRules` generates a rule *family* rather than listing members:
+the pair slide holds for every relation length with the same two mutations, and
+discovery only found the widths that happened to fit at the lengths searched.
+See research F-013 and H-001 — the lesson generalises, so absence of a family
+member from the table is evidence about the search, not about the mathematics.
+
 #### Three rules that matter
 
     (5, ((0,3),(1,3)), ((1,3),(2,3)), (-5,-5))
@@ -640,17 +653,48 @@ nothing else, agreeing with the published table.
     seeding of idea 13.
 13. ~~**Seed the table from quipu quivers.**~~ Done: `seedTableFromQuipuTheorem`,
     used by `classifyLength`. See "Classifying a length" below.
-14. **More invariants, to separate classes the Coxeter polynomial cannot.**
-    Largely answered by the hereditary form, which is complete where it applies,
-    and by the cospectrality analysis below, which says exactly where the Coxeter
-    polynomial fails. Remaining candidates, for classes the quipu theorem does
-    not reach: the derived invariants of Avella-Alaminos and Geiss for gentle
-    algebras (LNAs are gentle), Hochschild cohomology dimensions, the shape of
-    the AR quiver. Each wants to be a function `PathAlgebra -> hashable` so the
-    merge step can key on a tuple of them.
-15. **Certificates both ways.** A merge should record the mutation path that
-    proves the equivalence; a split should record the invariant that separates
-    the two classes. Then a classification is checkable without rerunning it.
+14. ~~**More invariants, to separate classes the Coxeter polynomial cannot.**~~
+    Answered three ways: the quipu form (complete where it applies), the
+    canonical weight type, and the non-piecewise-hereditary certificate. The
+    cospectrality analysis says exactly where the Coxeter polynomial fails
+    (research F-010). Remaining candidates, if a class ever turns up that none of
+    the three name: the derived invariants of Avella-Alaminos and Geiss for
+    gentle algebras (LNAs are gentle), Hochschild cohomology dimensions, the
+    shape of the AR quiver.
+15. ~~**Certificates both ways.**~~ Done: `mergeReport` returns `certain` (the
+    shared hereditary form that proves equality), `separated` (the differing
+    forms that prove distinctness) and `candidate` (neither), and
+    `resolveMergeCandidates` records the mutation path it found. A
+    classification is checkable without rerunning it.
 16. **Push past n = 11.** Catalan growth means n = 12 is 58786 LNAs and n = 15
     is 2674440, so the search has to get cheaper per LNA and the table has to
-    stop being a CSV read into memory.
+    stop being a CSV read into memory. The lever is idea 17, not raw speed.
+
+### Rule discovery — the main line of work
+
+17. **Find more mutation shortcut rules, with longer sequences.** The move table
+    is what replaces searching, and it is currently limited by the search that
+    produced it: sequences of at most three mutations, and (until recently)
+    patterns on quivers too short for anything but boundary behaviour. See
+    research H-007 and H-008, and `lnaMoves.discoverLocalMoves` for the interior
+    approach. The search space grows fast, so the leverage is in restricting
+    *where* mutations may happen rather than in raising the bound blindly.
+18. **Generalise the rules into families**, parameterised by relation length and
+    overlap, so the table reads as a handful of statements rather than dozens of
+    rows. `lnaMoves.pairSlideRules` is the first, and F-013 is the argument for
+    doing this — but **deliberately parked** until the search is deeper, since
+    generalising from a three-mutation search risks fitting families to an
+    artefact of the bound. Research H-008.
+19. **Aim discovery at the patterns that still need a search.** Seeding places
+    45% of the n = 9 table; the rest are the heavily overlapping LNAs. Measure
+    what patterns those actually have and point discovery at them, rather than
+    at small patterns chosen for cheapness. Research H-003.
+20. **Read `proposition:doubleMutation` of arXiv:2310.08346.** It states that
+    certain tilting mutations of Nakayama algebras give new Nakayama algebras —
+    which is exactly what a move rule is. It may already contain a family we are
+    rediscovering piecemeal.
+21. **Check for classes that are tree algebras but not quipu algebras.** A tree
+    of maximum degree 4, or with degree-3 vertices off the main string, is not a
+    quipu; whether such an algebra can be derived equivalent to an LNA is open.
+    `quipuForms.canonicalUndirectedForm` would report one as a canonical tree form
+    with no quipu notation. Research H-006.

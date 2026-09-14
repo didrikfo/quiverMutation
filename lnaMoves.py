@@ -834,3 +834,60 @@ def discoverLocalMoves(patterns, maxSteps = 3, margin = 3, embeddings = ((13, 4)
                     (length, className(relLengths), name))
     return {d: places for d, places in seen.items()
             if len({p[0] for p in places}) >= minOccurrences or len(places) >= minOccurrences}
+
+
+# ---------------------------------------------------------------------------
+# Rule families
+#
+# Discovery finds rules one window width at a time, so a rule that holds for
+# every relation length shows up only at the widths the search happened to
+# reach.  The pair slide is the clearest case: it was found at relation lengths
+# 3 and 4, because those are the widths that fit at the lengths being searched,
+# and it in fact holds for every length with the same two mutations.  Where a
+# family is known, generate it rather than waiting for discovery to stumble on
+# each member.
+# ---------------------------------------------------------------------------
+
+
+def pairSlideRules(maxRelationLength = 9):
+    """The pair slide for every relation length, both directions.
+
+    Two relations of equal length l starting at consecutive vertices --
+    maximally overlapping -- slide one arrow along the quiver, provided no other
+    relation shares an arrow with their span:
+
+    * two *right* mutations at the first relation's source move them **left**;
+    * two *left* mutations at the second relation's target move them **right**.
+
+    The mutation count is two whatever l is; only the window widens.  Verified
+    for l = 2 through 7 at four lengths each, 22 confirmations apiece with no
+    failures, so the family is generated up to `maxRelationLength` rather than
+    listed.
+    """
+    rules = []
+    for relationLength in range(2, maxRelationLength + 1):
+        width = relationLength + 2
+        rules.append((width,
+                      ((1, relationLength), (2, relationLength)),
+                      ((0, relationLength), (1, relationLength)),
+                      (2, 2)))
+        rules.append((width,
+                      ((0, relationLength), (1, relationLength)),
+                      ((1, relationLength), (2, relationLength)),
+                      (-width, -width)))
+    return rules
+
+
+def _withFamilies(listed):
+    """The listed rules together with the generated families, deduplicated."""
+    combined = list(listed)
+    seen = set(combined)
+    for rule in pairSlideRules():
+        if rule not in seen:
+            seen.add(rule)
+            combined.append(rule)
+    return combined
+
+
+DISCOVERED_MOVES = VERIFIED_MOVES
+VERIFIED_MOVES = _withFamilies(DISCOVERED_MOVES)
