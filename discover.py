@@ -69,10 +69,18 @@ def main(argv = None):
     parser.add_argument("--embeddings", default = "13:4,14:5",
                         help = "length:offset pairs to plant each pattern at "
                                "(default 13:4,14:5)")
-    parser.add_argument("--verify-lengths", default = "7,8,9,10", dest = "verifyLengths",
-                        help = "lengths to verify a survivor over (default 7,8,9,10). "
-                               "A wide rule found at one length is thin evidence; E-010 "
-                               "is the run that learned that.")
+    parser.add_argument("--verify-span", type = int, default = 4, dest = "verifySpan",
+                        help = "how many lengths to verify a survivor over, counted from "
+                               "the shortest quiver its window fits in (default 4). "
+                               "The lengths have to follow the window: a window of 9 "
+                               "arrows fits in A_10 at one position only, so a fixed "
+                               "range like 7..10 gives such a rule a single confirmation "
+                               "from a single length -- and 15 of the 30 window-9 rules "
+                               "the first three-mutation run reported that way turned out "
+                               "to be false at length 11. E-011.")
+    parser.add_argument("--verify-cap", type = int, default = 12, dest = "verifyCap",
+                        help = "the longest quiver to verify at (default 12, 58786 LNAs; "
+                               "13 is 208012 and 14 is 742900)")
     parser.add_argument("--jobs", type = int, default = 1,
                         help = "parallel worker processes (default 1)")
     parser.add_argument("--known", action = "store_true",
@@ -81,7 +89,6 @@ def main(argv = None):
 
     embeddings = [tuple(int(part) for part in pair.split(":"))
                   for pair in args.embeddings.split(",")]
-    verifyLengths = [int(part) for part in args.verifyLengths.split(",")]
 
     patterns = lm.smallPatterns(args.maxRelations, args.maxArrows, args.maxWidth)
     jobs = [(pattern, length, offset, args.maxSteps, args.margin)
@@ -107,18 +114,32 @@ def main(argv = None):
     if not fresh:
         return 0
 
+    def lengthsFor(width):
+        """Lengths a window of this width fits in, capped so a run terminates."""
+        return [length for length in range(width + 1, width + 1 + args.verifySpan)
+                if length <= args.verifyCap]
+
     started = time.time()
-    results = run(pool, verifyOne, [(d, verifyLengths) for d in fresh])
+    results = run(pool, verifyOne, [(d, lengthsFor(d[0])) for d in fresh])
     if pool is not None:
         pool.close()
 
+    # Two lengths at least: a rule confirmed at one length only has not been
+    # separated from an accident of that quiver's ends, which is the whole point
+    # of planting the pattern in the interior.
     survivors = []
+    thin = 0
     for description, confirmed, failures in results:
-        if failures or not confirmed:
+        if failures or confirmed < 2:
+            continue
+        lengths = lengthsFor(description[0])
+        if len(lengths) < 2:
+            thin += 1
             continue
         survivors.append((confirmed, description))
-    print("{0} verified over lengths {1}, in {2:.0f}s".format(
-        len(survivors), verifyLengths, time.time() - started))
+    print("{0} verified, in {1:.0f}s{2}".format(
+        len(survivors), time.time() - started,
+        "" if not thin else "; {0} unverifiable within --verify-cap".format(thin)))
     print()
     for confirmed, description in sorted(survivors, key = lambda pair: -pair[0]):
         print("    {0!r},   # {1} confirmed: {2}".format(

@@ -872,11 +872,38 @@ def pairSlideRules(maxRelationLength = 9):
     return rules
 
 
+def shortRelationSlideRules(maxDistance = 7):
+    """A lone relation of two arrows travelling d arrows, in d mutations.
+
+    A relation of two arrows with nothing else in its window moves d arrows
+    right under the d left mutations at the window's vertices 3, 4, ..., d + 2,
+    and back under the d right mutations at d + 1, d, ..., 2.  The window is
+    d + 2 arrows wide.
+
+    Unlike the pair slide, whose two mutations serve every relation length, this
+    family's **mutation count grows with its parameter** -- which is why
+    discovery only ever found its first three members: a search bounded at three
+    mutations cannot see d >= 4, however simple the statement is.  That is
+    H-008's prediction, and this is the family that confirms it (F-020).
+    Verified for d = 1 to 7, both directions, at the four lengths d + 3 .. d + 6
+    each -- up to A_14 and its 742900 LNAs -- with 63 confirmations apiece and no
+    failures.
+    """
+    rules = []
+    for distance in range(1, maxDistance + 1):
+        width = distance + 2
+        rules.append((width, ((0, 2),), ((distance, 2),),
+                      tuple(-vertex for vertex in range(3, distance + 3))))
+        rules.append((width, ((distance, 2),), ((0, 2),),
+                      tuple(range(distance + 1, 1, -1))))
+    return rules
+
+
 def _withFamilies(listed):
     """The listed rules together with the generated families, deduplicated."""
     combined = list(listed)
     seen = set(combined)
-    for rule in pairSlideRules():
+    for rule in pairSlideRules() + shortRelationSlideRules():
         if rule not in seen:
             seen.add(rule)
             combined.append(rule)

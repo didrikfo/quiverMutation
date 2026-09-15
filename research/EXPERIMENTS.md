@@ -70,8 +70,13 @@ was wrong), on the same table: both merged at the first depth tried, then
 `C(2,4,4)`. **1430 LNAs, 20 classes, 0 candidates, 1 separated** — the separated
 group being the cospectral pair of F-010, exactly F-011. Under a minute.
 
-A whole run from scratch on the fixed pipeline is in flight; this entry gets
-its result when it lands.
+**Then re-run whole, from scratch, on the fixed pipeline: the same 20**, with the
+same sizes class for class. The naming order is visible in the log -- the theorem
+names 18 classes, `resolveMergeCandidates` then merges 11 away (`2233030` into
+`P^(1,1)_(1,3,1)` and `2334400` into `P^(5)_(1,2)` among them, both at depth 6),
+and only then do the fallbacks name what is left: `3033030` not piecewise
+hereditary by Proposition A9, `3345000` the tubular `C(2,4,4)`. One separated
+group, the cospectral pair of F-010. About 35 minutes, 10 of them the search.
 
 ---
 
@@ -226,15 +231,51 @@ Seconds to run. Should have been the first thing tried after finding the rule at
 ---
 
 ## E-011 — Interior discovery, three mutations
-*2026-09-14* · **running**
+*2026-09-14, concluded 2026-09-15* · **44 rules, and 30 false ones caught** → F-020, R-009
 
 `lnaMoves.discoverLocalMoves`, 26 patterns of up to 3 relations spanning ≤ 5
 arrows, planted at offset 4 in A_13 and offset 5 in A_14, `maxSteps=3`,
-`margin=3`, then verified over lengths 7..10.
+`margin=3`. Re-run as
 
-    python interior.py 3 3 5
+    python discover.py --jobs 2
 
-Cost: roughly 30 s per (pattern, embedding) at `maxSteps=3`. Tests H-007.
+after the original `interior.py` turned out never to have been committed.
+
+**Discovery.** 52 searches, 315 s on two cores. 336 rewrites described, **166
+recurring across both embeddings**, 134 of them not already in the table.
+
+**Verification, first attempt — wrong, and instructively so.** All 134 checked at
+the fixed lengths 7 to 10, which E-010 had used: 74 passed. But the lengths have
+to follow the window, and a window of 9 arrows fits in A_10 at exactly one
+position, flush against both ends. Each window-9 rule therefore got one
+confirmation from one length.
+
+**Verification, redone per rule at `width + 1 .. width + 4`.** 44 survive; **all
+30 window-9 rules fail at length 11**, where the window can sit clear of the
+ends — wrong rules, not thin ones. R-009.
+
+| window | rules | lengths checked | confirmations |
+|---|---|---|---|
+| 5 | 2 | 6, 7, 8, 9 | 22 |
+| 6 | 16 | 7, 8, 9, 10 | 22 |
+| 7 | 18 | 8, 9 (+11, 12) | 3 (+14, 42) |
+| 8 | 8 | 9, 10 (+11, 12) | 3 (+2, 8) |
+| 9 | 0 | 10, 11 | **all 30 failed at 11** |
+
+The window-7 and window-8 survivors were then checked at lengths 11 and 12 as
+well, since two lengths is the minimum that rules out an end effect and those had
+only two: no failures.
+
+**And the rule that mattered was not one of the 44.** Among them,
+`(0:2) -> (3:2)` via three left mutations, next to E-010's one- and two-mutation
+versions, is the third member of a family whose `d`-th member needs `d`
+mutations — so discovery at any bounded depth sees only an initial segment of it.
+Generating the family instead gives every member: F-020, and H-008 confirmed.
+That is the return on this run, more than the 44.
+
+Cost: roughly 30 s per (pattern, embedding) at `maxSteps=3`; the re-verification
+is the expensive half, since a window of 8 wants length 12 and its 58786 LNAs.
+Tests H-007, and H-007 bit back.
 
 ---
 

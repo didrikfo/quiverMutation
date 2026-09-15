@@ -6,6 +6,41 @@ does not. See [`README.md`](README.md).
 
 ---
 
+## R-009 — "A rewrite that verifyMove confirms with no failures is a rule"
+*retracted 2026-09-15*
+
+`verifyMove` enumerates every admissible LNA of each length it is given, matches
+the rule at every window position and checks all three conditions, so
+`confirmed > 0 and failures == []` reads like verification. It is not, unless the
+lengths are chosen to fit the rule. The lengths have to follow the **window**.
+
+**What it cost.** The three-mutation interior run (E-011) verified everything at
+the fixed lengths 7 to 10, the range E-010 had used. A window of 9 arrows fits in
+A_10 at exactly one position -- flush against both ends -- so each of its 30 rules
+got **one** confirmation from **one** length and was reported as verified.
+Re-checked at length 11, where the window can sit clear of the ends, **all 30
+failed**: not thin evidence, wrong rules. Example: window 9,
+`(1:2) (4:2) -> (0:2) (5:2) (7:2)` via `[2, -7, 9]`, applied to `020020000` at
+length 11, does not even land on a line quiver.
+
+This is H-007 again, on the other side. Discovery was moved into the interior of
+A_13 and A_14 precisely so that an end effect could not pass for a rule -- and
+then the verification put the window back flush against the ends, where every
+special case applies at once, and let the end effects through.
+
+**The correction.** Verify at `width + 1 .. width + 4`, so the window has room to
+move; require confirmations at **two or more lengths**; and drop a rule that
+cannot get them within the affordable range rather than keeping it on one.
+`discover.py` derives the lengths from each rule's width (`--verify-span`,
+`--verify-cap`), and `tests/test_lna_moves.py::lengthsToCheck` already did this
+for the table -- which is why nothing false ever reached `VERIFIED_MOVES`.
+
+**The general lesson.** A count of confirmations is not evidence until you know
+how many *positions* produced it. One position is one case, and one case at the
+only place a window fits is the worst case there is.
+
+---
+
 ## R-008 — "LNAs are gentle, so the Avella-Alaminos-Geiss invariant applies directly"
 *retracted 2026-09-15*
 

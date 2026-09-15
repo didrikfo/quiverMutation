@@ -5,6 +5,55 @@ See [`README.md`](README.md) for conventions.
 
 ---
 
+## F-020 — A rule family whose mutation count grows with its parameter
+*2026-09-15*
+
+H-008 suspected that the move rules are members of families parameterised by
+relation length and overlap, and that **a family can be simple to state while
+needing more mutations for larger parameters** — which would make its later
+members invisible to a search bounded at three. That is now a family, not a
+suspicion.
+
+**The lone short-relation slide.** A relation of two arrows with nothing else in
+its window travels `d` arrows right under the `d` left mutations at the window's
+vertices 3, 4, …, d + 2, and back under the `d` right mutations at d + 1, d, …, 2.
+The window is `d + 2` arrows wide.
+
+| d | window | sequence | found by |
+|---|---|---|---|
+| 1 | 3 | `[-3]` | E-010, two mutations |
+| 2 | 4 | `[-3, -4]` | E-010 |
+| 3 | 5 | `[-3, -4, -5]` | E-011, three mutations |
+| 4 | 6 | `[-3, -4, -5, -6]` | **nothing** — needs four |
+| 5 | 7 | `[-3, …, -7]` | needs five |
+| 6 | 8 | `[-3, …, -8]` | needs six |
+| 7 | 9 | `[-3, …, -9]` | needs seven |
+
+Verified for d = 1 to 7, both directions, at the four lengths `d+3 .. d+6` each —
+so up to A_14 and its 742900 LNAs: **63 confirmations apiece, no failures**, where
+a confirmation is an admissible sequence landing on the predicted LNA with the
+Coxeter polynomial kept. The count
+being 63 at every d is itself a consistency check — the pattern is one relation
+alone in its window, so the number of matching LNAs does not depend on how far it
+travels.
+
+**Contrast with the pair slide (F-013).** That family is *two* mutations for every
+relation length: only the window grows. Here the mutation count grows with the
+parameter, so the two families are the two halves of H-008's statement, and only
+this one explains why discovery keeps finding "new" rules that are the same rule.
+
+**The practical consequence, and it is the point.** Discovery can only ever find
+an **initial segment** of such a family — `d <= maxSteps` — so raising the search
+bound by one buys one more member at multiplying cost, while recognising the
+family gives every member at once. `lnaMoves.shortRelationSlideRules` generates
+it, as `pairSlideRules` does for the other. Before spending a four-mutation
+search, look at what the three-mutation one found for a family whose members
+would be out of reach.
+
+H-008 → CONFIRMED. E-011.
+
+---
+
 ## F-019 — The gentle LNAs are one class, so gentle invariants separate nothing here
 *2026-09-15*
 

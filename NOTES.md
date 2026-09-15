@@ -282,8 +282,8 @@ inventory; the plan immediately following is the order to take them in.
 ### Plan of attack
 
 Agreed priority, highest first. Each line says what "done" means, so a session
-can pick one up without re-deciding the order. **Items 1 to 3 are done; the
-next one up is 4.**
+can pick one up without re-deciding the order. **Items 1 to 4 and 8 are done;
+item 5 is under way and item 7's plan has changed -- see there.**
 
 One thing the reorganisation earned that was not the point of it: the mutation
 engine is 3x faster and step 7 is right, both of which came out of having to
@@ -349,12 +349,15 @@ item 4 is what makes n >= 10 readable at all.
    anything, but it is the one claim in the n = 9 classification that rests on a
    single route (F-014). The route to take is **Hochschild cohomology**, not the
    AAG invariant, which is closed (R-008, F-019).
-8. **Re-run the n = 9 classification on the new engine.** Not expected to change
-   — n = 7 and 8 did not, and the two relations step 7 recovers were lost on
-   quivers the search passes through rather than on rows it records — but n = 9
-   is the first length whose answer was never independently checked, and it is
-   now about an hour rather than 56 minutes' worth of the old engine. Worth
-   doing before n = 10 is resumed (E-008).
+8. ~~**Re-run the n = 9 classification on the new engine.**~~ **Done.** E-017.
+   The answer is unchanged -- 20 classes, the same sizes class for class -- but
+   getting there was not: the first re-run came out at **22**, from a circular use
+   of the Coxeter polynomial in the merge step rather than anything the engine
+   did. A class the quipu theorem cannot name was given a `C(...)` weight type
+   read off its own polynomial, which then read as a *different* answer from the
+   quipu class sharing that polynomial, and separated the two. F-018 has the
+   mechanism; the fix also reordered the pipeline so the cheap proof runs before
+   the weak name.
 
 ### Performance and correctness
 

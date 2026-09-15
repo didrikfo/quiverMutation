@@ -333,3 +333,49 @@ def test_whether_a_move_applies_is_a_local_condition(length):
 @pytest.mark.parametrize("length", [8, 9])
 def test_whether_a_move_applies_is_a_local_condition_further_out(length):
     test_whether_a_move_applies_is_a_local_condition(length)
+
+
+# -- families whose mutation count grows with the parameter ----------------
+
+@pytest.mark.parametrize("distance", [1, 2, 3, 4, 5])
+def test_the_short_relation_slide_takes_one_mutation_per_arrow(distance):
+    """The family's shape, without running the engine.
+
+    A lone relation of two arrows travels `d` arrows under `d` mutations, so the
+    window is `d + 2` wide and the sequence has `d` entries -- which is why
+    discovery bounded at three mutations found only d = 1, 2, 3.  The pair slide
+    is the contrast: two mutations whatever its parameter.
+    """
+    rules = {(rule[1], rule[2]): rule for rule in lm.shortRelationSlideRules(5)}
+    right = rules[(((0, 2),), ((distance, 2),))]
+    left = rules[(((distance, 2),), ((0, 2),))]
+    for rule in (right, left):
+        assert rule[0] == distance + 2
+        assert len(rule[3]) == distance
+    assert all(vertex < 0 for vertex in right[3])
+    assert all(vertex > 0 for vertex in left[3])
+    # Every mutation is inside the window it claims.
+    for rule in (right, left):
+        assert all(2 <= abs(vertex) <= rule[0] + 1 for vertex in rule[3])
+
+
+def test_discovery_found_an_initial_segment_of_the_family():
+    """Generating the family must not contradict the table it extends.
+
+    What discovery can find is an initial segment: `d` needs `d` mutations, so a
+    search bounded at `maxSteps` sees `d <= maxSteps` and no more.  The listed
+    members must therefore be the small ones, with no gaps and nothing beyond.
+    """
+    listed = set(lm.DISCOVERED_MOVES)
+    found = sorted(distance for distance in range(1, 8)
+                   if all(rule in listed
+                          for rule in lm.shortRelationSlideRules(distance)[-2:]))
+    assert found == list(range(1, len(found) + 1)), "an initial segment, no gaps"
+    assert len(found) >= 2
+    assert set(lm.shortRelationSlideRules()) <= set(lm.VERIFIED_MOVES)
+
+
+def test_both_families_are_in_the_table_and_nothing_is_duplicated():
+    assert len(lm.VERIFIED_MOVES) == len(set(lm.VERIFIED_MOVES))
+    for rule in lm.pairSlideRules() + lm.shortRelationSlideRules():
+        assert rule in lm.VERIFIED_MOVES
