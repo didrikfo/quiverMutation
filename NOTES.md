@@ -578,13 +578,30 @@ algebra has a given Coxeter polynomial, using
 `(x-1)^2 * prod (1 + x + ... + x^(p_i - 1))`.
 
 The hereditary-form column now carries one of three kinds of value, and the
-distinction matters:
+distinction matters -- **corrected after F-018**, which is the n = 9 run that got
+it wrong:
 
-| value | meaning | may it merge classes? |
-|---|---|---|
-| `P^(...)_(...)` | the quipu the class is derived equivalent to | yes -- a complete invariant |
-| `C(2,4,4)` | the canonical algebra whose Coxeter polynomial it has | yes, on the same footing as the pipeline's other Coxeter reasoning |
-| `not piecewise hereditary` | a certificate that it is no quipu class | **no** -- it separates such a class from every quipu class, but two classes both carrying it need not be equal |
+| value | meaning | may it merge classes? | may it separate them? |
+|---|---|---|---|
+| `P^(...)_(...)` | the quipu the class is derived equivalent to | yes -- a complete invariant | yes |
+| `not piecewise hereditary` | a certificate that it is no quipu class | **no** -- two classes both carrying it need not be equal | yes -- from every quipu class |
+| `C(2,4,4)` | the canonical algebra whose Coxeter polynomial it has | **no** | **no** |
+
+The last row is the correction. That value is *read off the class' own Coxeter
+polynomial*, so it carries nothing the polynomial does not, and using it either
+way is circular: two classes carrying the same one are only known to share a
+polynomial, and a class carrying one differs as a *string* from a quipu class
+that shares its polynomial while differing from it in no other way. See F-018,
+where exactly that split two n = 9 classes in half. `isProvedForm` is the
+predicate the merge step uses now.
+
+A **domestic** weight type -- `(p,q)`, `(2,2,n)`, `(2,3,3)`, `(2,3,4)`, `(2,3,5)`
+-- is stronger evidence still, in the opposite direction: such a canonical algebra
+*is* derived equivalent to a hereditary algebra, of the corresponding extended
+Dynkin type, so the class is a quipu class and the pipeline has already named it
+under some other name. A domestic `C(...)` is always a merge nobody found, and
+`nameRemainingClasses` says so out loud. Only the tubular and wild types can be
+classes of their own, which is why `C(2,4,4)` survives at n = 9.
 
 #### Propagating a certificate upward, by deleting vertices
 

@@ -247,6 +247,104 @@ def isTubular(weights):
 
 
 # ---------------------------------------------------------------------------
+# Domestic weight types, and why a `C(...)` name for one is never the answer
+#
+# A canonical algebra is derived equivalent to a hereditary algebra exactly when
+# its weight type is *domestic*: (p, q), (2, 2, n), (2, 3, 3), (2, 3, 4) or
+# (2, 3, 5), whose hereditary partner has the corresponding extended Dynkin
+# type -- A~, D~, E~6, E~7, E~8.  Everything else is tubular or wild, and there
+# the canonical algebra is not derived equivalent to any hereditary algebra.
+#
+# So a class the pipeline names `C(w)` for a domestic `w` is claiming both that
+# the class is of canonical type and that it is the class of a hereditary
+# algebra -- and for the tree types that hereditary algebra is a quipu, so the
+# class is one of the quipu classes and carries a quipu name already.  A
+# domestic `C(...)` is therefore always a merge the search has not found yet,
+# never a class of its own.  F-018 is the n = 9 pair where exactly that happened.
+# ---------------------------------------------------------------------------
+
+DOMESTIC_TREE_TYPES = {
+    (2, 3, 3): "E~6",
+    (2, 3, 4): "E~7",
+    (2, 3, 5): "E~8",
+}
+
+
+def isDomestic(weights):
+    """Whether a canonical algebra of this weight type is of domestic type.
+
+    Those are the ones derived equivalent to a hereditary algebra: two weights,
+    or (2, 2, n), or one of the three exceptional triples.
+    """
+    sortedWeights = tuple(sorted(weights))
+    if len(sortedWeights) < 2:
+        return False
+    if len(sortedWeights) == 2:
+        return True
+    if len(sortedWeights) > 3:
+        return False
+    return sortedWeights[:2] == (2, 2) or sortedWeights in DOMESTIC_TREE_TYPES
+
+
+def affineTypeOfDomesticWeightType(weights):
+    """The extended Dynkin type of the hereditary partner, or None.
+
+    `(p, q)` gives A~_(p+q-1), whose underlying graph is a cycle rather than a
+    tree, so it is named here but `affineTreeOfDomesticWeightType` returns
+    nothing for it.
+    """
+    sortedWeights = tuple(sorted(weights))
+    if not isDomestic(sortedWeights):
+        return None
+    if len(sortedWeights) == 2:
+        return "A~{0}".format(sum(sortedWeights) - 1)
+    if sortedWeights in DOMESTIC_TREE_TYPES:
+        return DOMESTIC_TREE_TYPES[sortedWeights]
+    return "D~{0}".format(sortedWeights[2] + 2)
+
+
+def affineTreeOfDomesticWeightType(weights):
+    """The extended Dynkin diagram as an undirected graph, or None.
+
+    None for a weight type that is not domestic, and for the two-weight types,
+    whose diagram A~ is a cycle.  The graph is what identifies the class: two
+    hereditary algebras of tree type are derived equivalent exactly when their
+    underlying graphs are isomorphic, so this is the tree the class' quipu name
+    must encode.
+    """
+    import networkx as nx
+
+    sortedWeights = tuple(sorted(weights))
+    if not isDomestic(sortedWeights) or len(sortedWeights) == 2:
+        return None
+    graph = nx.Graph()
+    if sortedWeights in DOMESTIC_TREE_TYPES:
+        # A single branch vertex with three arms: E~6 is 2, 2, 2, E~7 is 1, 3, 3
+        # and E~8 is 1, 2, 5.
+        arms = {(2, 3, 3): (2, 2, 2), (2, 3, 4): (1, 3, 3),
+                (2, 3, 5): (1, 2, 5)}[sortedWeights]
+        graph.add_node("centre")
+        for index, arm in enumerate(arms):
+            previous = "centre"
+            for step in range(arm):
+                node = (index, step)
+                graph.add_edge(previous, node)
+                previous = node
+        return graph
+    # D~(n+2): a path of n - 1 vertices with two leaves hung on each end.  For
+    # n = 2 the path is the single vertex of D~4, which carries all four.
+    n = sortedWeights[2]
+    spine = list(range(n - 1))
+    graph.add_nodes_from(spine)
+    for left, right in zip(spine, spine[1:]):
+        graph.add_edge(left, right)
+    for end, side in ((spine[0], "left"), (spine[-1], "right")):
+        for which in (0, 1):
+            graph.add_edge(end, (side, which))
+    return graph
+
+
+# ---------------------------------------------------------------------------
 # Propagating a certificate by removing vertices
 #
 # Corollary "removevertex" of arXiv:2310.08346: if a Nakayama algebra is

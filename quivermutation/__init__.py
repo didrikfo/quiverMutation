@@ -123,6 +123,8 @@ from .classification import (
     expandClassByMoves,
     mergeReport,
     mutationSearch,
+    nameClassesFromTheorem,
+    nameRemainingClasses,
     resolveMergeCandidates,
     seedTableFromQuipuTheorem,
 )
@@ -161,6 +163,8 @@ __all__ = [
     "lines",
     "lnaMoves",
     "mergeReport",
+    "nameClassesFromTheorem",
+    "nameRemainingClasses",
     "mutation",
     "mutationClassTable",
     "mutationIsPossibleAtVertex",

@@ -9,7 +9,7 @@ the class -- which is what `hereditaryFormsReachedFrom` collects.
 
 Reachability here is one-way: the search only walks right mutations, so A can
 reach B at a depth where B reaches nothing.  Searching from the relation dual as
-well is what covers the other direction -- see `classification._memberAndItsDual`.
+well is what covers the other direction -- see `memberAndItsDual`.
 """
 
 import copy
@@ -139,6 +139,14 @@ def findHereditaryFormForClass(table, lineLength, className, maxDepth = 8, print
     the observation that an LNA with fewer and shorter relations tends to need
     fewer mutations to shed them all.
 
+    Each member is searched from itself and from its relation dual.  The search
+    only walks right mutations, so reachability is one-way; reversing every arrow
+    is one of the class-preserving operations of arXiv:2305.06642, and
+    rightMutate(dual(P)) = dual(leftMutate(P)), so a right-mutation path out of
+    the dual is a left-mutation path out of the member and everything it reaches
+    is still in the class.  The dual of a tree quiver is the same tree, so a form
+    reached from the dual is the class' form unchanged.
+
     Returns the hereditary form as it should be written into the table -- the
     quipu notation where the graph is a quipu, otherwise the canonical tree
     encoding -- or '' if nothing was reached.
@@ -146,15 +154,21 @@ def findHereditaryFormForClass(table, lineLength, className, maxDepth = 8, print
     members = sorted(table.membersOfClass(className), key = lambda r: (len(r), r))
     for depth in range(2, maxDepth + 1):
         for relationString in members:
-            pathAlg = nakayama.LinearNakayamaAlgebra.fromRelationString(
-                lineLength, relationString)
-            forms = hereditaryFormsReachedFrom(pathAlg, depth)
-            if forms:
-                if printOutput:
-                    print('class {0} reaches {1} at depth {2} from {3!r}'.format(
-                        className, sorted(forms), depth, relationString))
-                return formatHereditaryForms(forms)
+            for startPoint in memberAndItsDual(lineLength, relationString):
+                forms = hereditaryFormsReachedFrom(startPoint, depth)
+                if forms:
+                    if printOutput:
+                        print('class {0} reaches {1} at depth {2} from {3!r}'.format(
+                            className, sorted(forms), depth, relationString))
+                    return formatHereditaryForms(forms)
     return ''
+
+
+def memberAndItsDual(lineLength, relationString):
+    """An LNA and its relation dual, both as path algebras, without repeats."""
+    algebra = nakayama.LinearNakayamaAlgebra.fromRelationString(lineLength, relationString)
+    dual = algebra.relationDual()
+    return [algebra] if dual == algebra else [algebra, dual]
 
 
 def formatHereditaryForms(forms):

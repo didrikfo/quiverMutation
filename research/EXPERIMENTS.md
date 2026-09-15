@@ -6,6 +6,42 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-017 — n = 9 on the corrected engine
+*2026-09-15* · **22 classes, then 20** → F-018
+
+`classify.py 9` on the engine of F-015 with the gate of F-016, default depths
+(`--depth 6 --resolve-depth 6`). About 90 minutes.
+
+The run placed all 1430 rows and left nothing a candidate, but at **22** classes:
+18 quipus plus `C(2,3,5)` (46 LNAs), `C(2,2,6)` (13), `C(2,4,4)` (8) and one not
+piecewise hereditary. It reported three groups "proved distinct despite sharing a
+Coxeter polynomial", two of which were `C(2,3,5)` against `P^(5)_(1,2)` and
+`C(2,2,6)` against `P^(1,1)_(1,3,1)`.
+
+**Diagnosis, in this order.**
+
+1. The `C(...)` names come from `canonicalWeightType`, which reads them off the
+   class' Coxeter polynomial — so they cannot separate two classes that share
+   one. Circular.
+2. A direct probe: iterative deepening from every member of each of the two
+   classes, and from every member's relation dual, reporting every foreign class
+   reached. Both merged **at depth 2**, from the first member tried and from its
+   dual as well. Seconds, against the 90 minutes of the run.
+3. (2,3,5) and (2,2,6) are domestic weight types, and their extended Dynkin trees
+   are `P^(5)_(1,2)` and `P^(1,1)_(1,3,1)` — the two classes they were separated
+   from. Computed, not asserted.
+
+**Re-run of the post-search half only** (the rows were sound; only the merge step
+was wrong), on the same table: both merged at the first depth tried, then
+`3033030` certified not piecewise hereditary and `3345000` named tubular
+`C(2,4,4)`. **1430 LNAs, 20 classes, 0 candidates, 1 separated** — the separated
+group being the cospectral pair of F-010, exactly F-011. Under a minute.
+
+A whole run from scratch on the fixed pipeline is in flight; this entry gets
+its result when it lands.
+
+---
+
 ## E-016 — Are the move rules local?
 *2026-09-15* · **yes, both halves** → F-017
 

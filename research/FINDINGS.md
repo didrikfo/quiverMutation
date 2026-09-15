@@ -5,6 +5,84 @@ See [`README.md`](README.md) for conventions.
 
 ---
 
+## F-018 — A name read off the Coxeter polynomial must never separate two classes
+*2026-09-15*
+
+The n = 9 classification, re-run on the corrected engine (F-015) and the loosened
+gate (F-016), came out at **22** classes rather than F-011's 20. The engine was
+not at fault. The two extra classes were a **circular use of the Coxeter
+polynomial** in the merge step, and once that is removed the partition is F-011's
+20 again, on the very same table of rows.
+
+**The mechanism.** A class the quipu theorem does not name gets a fallback name
+from `canonicalWeightType`, which searches the weight types of the right order
+for one whose canonical algebra has *exactly this class' Coxeter polynomial*. So
+`C(2,3,5)` is a restatement of the polynomial and nothing more. But it is a
+different *string* from `P^(5)_(1,2)`, and `mergeReport` separated two classes
+whenever their form strings differed. The class named `C(2,3,5)` shared its
+polynomial with `P^(5)_(1,2)` — which is how it got that name — and was declared
+distinct from it on the strength of the very polynomial the two have in common.
+The same happened to `C(2,2,6)` against `P^(1,1)_(1,3,1)`. Worse, the label also
+stopped the class ever being searched again: `resolveMergeCandidates` only looked
+at classes with *no* form.
+
+**Both pairs really are one class, two independent ways.**
+
+1. **Mutation.** `1;2;3;4;5|2;3;4;5;6;7`, of the class the run called `2334400`,
+   reaches `1;2;3;4;5|2;3;4;5;6;7|6;7;8` of `P^(5)_(1,2)` in **two** mutations;
+   `2;3;4;5|3;4;5;6|6;7;8;9`, of `2233030`, reaches `1;2;3;4|2;3;4;5|6;7;8;9` of
+   `P^(1,1)_(1,3,1)` in **two**. Both also merge from the relation dual. These
+   were available to the old resolution step at any depth it ran; it never looked.
+2. **Theory.** A canonical algebra is derived equivalent to a hereditary algebra
+   exactly when its weight type is *domestic* — `(p,q)`, `(2,2,n)`, `(2,3,3)`,
+   `(2,3,4)`, `(2,3,5)` — with the partner of extended Dynkin type Ã, D̃, Ẽ6,
+   Ẽ7, Ẽ8. Both (2,3,5) and (2,2,6) are domestic, and the trees come out at
+   exactly the two quipus in question:
+
+   | weight type | affine type | vertices | tree |
+   |---|---|---|---|
+   | (2,3,3) | Ẽ6 | 7 | `P^(2)_(2,2)` |
+   | (2,3,4) | Ẽ7 | 8 | `P^(3)_(1,3)` |
+   | (2,3,5) | Ẽ8 | 9 | `P^(5)_(1,2)` |
+   | (2,2,6) | D̃8 | 9 | `P^(1,1)_(1,3,1)` |
+
+   So a **domestic** `C(...)` can never be a class of its own: the class is a
+   quipu class, and the quipu theorem has already named it under another name in
+   the same table. A domestic weight type in that column is always a merge nobody
+   found. `C(2,4,4)`, the n = 9 class that survives, is **tubular** — the boundary
+   past which a canonical algebra is derived equivalent to no hereditary algebra
+   — so that one is genuine.
+
+**What the column means now.** Three kinds of value, and only two of them decide
+anything:
+
+* a quipu name or a tree encoding — **proved**, by a mutation path to a
+  relation-free quiver or by the theorem. Two classes with different proved forms
+  are different classes; two with the same one are the same class.
+* `not piecewise hereditary` — **proved**, negatively. It separates such a class
+  from every quipu class and merges nothing.
+* `C(...)` — **not proved**. `isCoxeterDerivedForm` marks it; it may not separate
+  and it may not merge, and a class carrying one stays a merge candidate.
+
+**Why the pipeline also had to be reordered.** The cheap proof (a bounded search
+for a path to an already-named class) now runs *before* the fallback that reads
+the polynomial. Run the weak name first and it looks like an answer: a class one
+mutation away from a quipu class gets labelled and is never searched again, which
+is exactly what happened. `nameClassesFromTheorem` → `resolveMergeCandidates` →
+`nameRemainingClasses`.
+
+**One more thing this settles.** Every quipu of order n is realised by an LNA with
+almost separate relations, so the quipu theorem names *every* quipu class in the
+table. A class it leaves unnamed is therefore not a quipu class, and if it turns
+out to be one after all, it must share a Coxeter polynomial with the named copy —
+so it is always in a merge-candidate group, and the expensive search for a
+relation-free quiver of its own (`--form-depth`) can never be what finds a quipu.
+It is off by default for that reason.
+
+E-017. Tests: `tests/test_merge_decisions.py`.
+
+---
+
 ## F-017 — A move rule is a local rewrite, and the right encoding is per arrow
 *2026-09-15*
 
@@ -331,6 +409,12 @@ separate a class from every quipu class but can never merge two classes.
 
 ## F-011 — Every n = 9 class is named, and there are exactly 20
 *2026-09-13*
+
+*Amended 2026-09-15: confirmed on the corrected engine, after F-018. The first
+re-run gave 22, from a circular use of the Coxeter polynomial in the merge step
+and not from the engine; the two extra classes were `C(2,3,5)` and `C(2,2,6)`,
+which are the domestic weight types of `P^(5)_(1,2)` and `P^(1,1)_(1,3,1)`. The
+count and the partition below are unchanged.*
 
 The 1430 LNAs of length 9 fall into **20** derived equivalence classes:
 
