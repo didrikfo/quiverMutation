@@ -6,6 +6,39 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-018 — How far the gentle condition reaches
+*2026-09-15* · **one class, the hereditary one** → F-019, R-008
+
+Idea 22's premise, checked before implementing anything.
+
+Every LNA of lengths 5 to 9 tested for `all(arrows in (0, 2))`, then grouped by
+the class the classification puts it in:
+
+| n | gentle LNAs | 2^(n-2) | classes containing one |
+|---|---|---|---|
+| 5 | 8 | 8 | `P^(0)_(0,4)` only |
+| 6 | 16 | 16 | `P^(0)_(0,5)` only |
+| 7 | 32 | 32 | `P^(0)_(0,6)` only |
+| 8 | 64 | 64 | `P^(0)_(0,7)` only |
+| 9 | 128 | 128 | `P^(0)_(0,8)` only |
+
+So every gentle LNA is in the class of the path algebra of A_n, and the other 21
+classes at n = 9 contain none -- including both members of the cospectral pair,
+which have 18 members each and not one gentle among them. Seconds to run, against
+the days an AAG implementation would have taken.
+
+The reason is a theorem, not a coincidence: all relations of length 2 implies
+almost separate relations, and operation 2 of `cor:EquivNakayamaAlgebras` drops
+such a relation without changing the class, so dropping them all leaves the
+hereditary algebra. Pinned for n = 4 to 10 in
+`test_every_gentle_lna_is_the_hereditary_one`.
+
+Also established while looking: `WebSearch` reaches the literature from the
+session sandbox even though `curl` and `WebFetch` to arxiv.org are refused by the
+egress proxy. Enough to find and identify a paper, not to read one.
+
+---
+
 ## E-017 — n = 9 on the corrected engine
 *2026-09-15* · **22 classes, then 20** → F-018
 
