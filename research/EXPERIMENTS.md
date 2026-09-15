@@ -264,7 +264,10 @@ ends — wrong rules, not thin ones. R-009.
 
 The window-7 and window-8 survivors were then checked at lengths 11 and 12 as
 well, since two lengths is the minimum that rules out an end effect and those had
-only two: no failures.
+only two: **52 checks, no failures** (14 and 42 confirmations at 11 and 12 for a
+window of 7; 2 and 8 for a window of 8). All 44 are in `VERIFIED_MOVES` now,
+taking the listed table from 52 rules to 96 and the table with families from 64
+to 116.
 
 **And the rule that mattered was not one of the 44.** Among them,
 `(0:2) -> (3:2)` via three left mutations, next to E-010's one- and two-mutation
