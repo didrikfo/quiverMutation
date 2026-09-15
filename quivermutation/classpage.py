@@ -335,7 +335,15 @@ SCRIPT = r"""
   function drawQuipu(parameters) {
     var box = svg("svg", {"class": "tree", viewBox: "0 0 88 36",
                           role: "img", "aria-hidden": "true"});
-    if (!parameters) { return box; }
+    if (!parameters) {
+      /* No quipu to draw, and a blank column reads as a drawing that failed
+         rather than one there is nothing to draw.  Say so. */
+      var mark = svg("text", {x: 44, y: 22, "text-anchor": "middle",
+                              "font-size": 9, fill: "var(--faint)"});
+      mark.textContent = "no tree";
+      box.appendChild(mark);
+      return box;
+    }
     var k = parameters[0], m = parameters[1];
     var main = [], feet = [];
     for (var i = 0; i < k[0]; i++) { main.push(null); }
