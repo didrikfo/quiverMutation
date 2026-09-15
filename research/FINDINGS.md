@@ -5,6 +5,62 @@ See [`README.md`](README.md) for conventions.
 
 ---
 
+## F-017 — A move rule is a local rewrite, and the right encoding is per arrow
+*2026-09-15*
+
+H-009 suspects the move table is a one-dimensional cellular automaton, and names
+its own caveat: a rule whose applicability depended on the row far away would not
+be local at all, whatever it looked like. It does not. Both halves of that check
+pass.
+
+**Applicability is local.** `lnaMoves.matchesAt` scans the whole relation-length
+row, but it does not need to. The same answer comes out of
+
+  (a) the window's own cells -- a relation starting at an offset inside the
+      window and staying inside it has at most `width` arrows, so what a cell
+      inside can say is bounded by the width; and
+  (b) **one bit**: whether any relation covers the window's first arrow having
+      started strictly before it.
+
+Checked exhaustively over every rule in `VERIFIED_MOVES`, every admissible LNA
+and every window position at lengths 5 to 9: **991,064 comparisons, 1234 of them
+an actual match, and no disagreement anywhere.**
+
+**And the mutations a local match licenses are legal.** Re-verifying the whole
+table where each rule fits gives **1218 confirmations and zero failures** --
+every position where a rule matches, the mutation sequence is admissible at every
+step, lands on the predicted relation lengths, and keeps the Coxeter polynomial.
+So the admissibility side condition is not an extra non-local hypothesis riding
+along; wherever the local pattern holds, the rewrite is legitimate.
+
+**What the one bit says about the encoding, and this is the useful part.** Bit
+(b) is exactly what the per-vertex encoding *cannot* supply locally: cell `i`
+holds the number of arrows in the relation starting at vertex `i + 1`, and that
+number is unbounded in `n`, so a relation can reach arbitrarily far to the right
+and no fixed neighbourhood of cells sees it coming. Two consequences:
+
+* the per-vertex row is **not** a good CA state -- unbounded alphabet, unbounded
+  reach;
+* a row indexed by **arrows** rather than vertices, each carrying whether it is
+  covered and whether a relation starts or ends there, has a **fixed alphabet**
+  and makes bit (b) a property of the cell at the window's edge. Over that
+  encoding the move table is local with a margin of one cell.
+
+So the CA reading is about the right object, provided the state is the arrow row.
+That also says where the analogy will strain: converting a per-vertex row to a
+per-arrow one needs to know how many relations are open at each arrow, which is
+a counter, and the count is bounded only under *almost separate* relations
+(overlap at most one arrow, so at most two). For the heavily overlapping LNAs --
+which is exactly where the classification still needs a search (H-003) -- the
+translation is not finite-state.
+
+**Evidence.** `tests/test_lna_moves.py`,
+`test_whether_a_move_applies_is_a_local_condition` at lengths 5 to 7 with 8 and
+9 marked slow, and `test_each_rule_holds_wherever_it_applies` for the legality
+half. E-016.
+
+---
+
 ## F-016 — The search's gate is the paper's criterion now, and it costs nothing
 *2026-09-15*
 

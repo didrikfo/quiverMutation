@@ -7,7 +7,7 @@ it. Status is one of `OPEN`, `SUPPORTED`, `CONFIRMED → F-nnn`, `REFUTED → R-
 ---
 
 ## H-009 — The move rules are a one-dimensional cellular automaton, and its theory applies
-*2026-09-14* · **OPEN** · not yet pursued
+*2026-09-14, first check 2026-09-15* · **SUPPORTED**
 
 An LNA of length `n` is a row of `n - 2` cells, cell `i` holding the number of
 arrows in the relation starting at vertex `i + 1`. Every move rule found so far
@@ -55,9 +55,27 @@ are currently getting by search.
 sequence is admissible (R-005), and admissibility is a condition on the *algebra*,
 not on the row of numbers. If the admissibility side conditions cannot be written
 as part of the local neighbourhood, the CA picture describes something strictly
-larger than the moves and its conclusions do not transfer. Checking that the
-existing rules' side conditions are all local is the first thing to do, and it is
-cheap: they are recorded as windows already.
+larger than the moves and its conclusions do not transfer.
+
+**That check is done, and it passes → F-017.** Whether a rule applies comes out
+of the window's cells plus one bit -- whether a relation covers the window's
+first arrow having started earlier -- over 991,064 comparisons at lengths 5 to 9
+with no disagreement; and wherever a rule matches, its mutations are legal, 1218
+confirmations and no failures. So the side conditions *are* local and the CA
+picture is about the right object.
+
+**What the check also settled, which was not the question asked.** The state has
+to be indexed by **arrows**, not vertices. A per-vertex cell holds a relation
+length, which is unbounded in `n`, so the alphabet is unbounded and a relation
+reaches arbitrarily far right; a per-arrow row carrying "covered / starts /
+ends" has a fixed alphabet and makes that one bit a property of the cell at the
+window's edge. Any attempt at this should start from the arrow row.
+
+**Where it will strain.** Translating a per-vertex row into a per-arrow one needs
+the number of relations open at each arrow. That is bounded by two under *almost
+separate* relations and unbounded otherwise -- and the heavily overlapping LNAs
+are exactly the ones the classification still has to search for (H-003). So the
+CA reading may be exactly a theory of the part that is already easy.
 
 ---
 

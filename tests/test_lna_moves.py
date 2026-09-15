@@ -254,3 +254,82 @@ def test_admissibility_matches_the_enumeration():
             if lm.isAdmissible(length, list(candidate))
         }
         assert enumerated == byPredicate, length
+
+
+# -- is a move a *local* rewrite? (research H-009) -------------------------
+
+def coversFromLeft(relLengths, windowStart):
+    """Whether a relation reaches the window's first arrow from outside it."""
+    for start, arrows in lm.relationsOf(relLengths):
+        if start < windowStart and start + arrows - 1 >= windowStart:
+            return True
+    return False
+
+
+def matchesLocally(length, relLengths, description, windowStart):
+    """`lm.matchesAt` decided from a bounded neighbourhood.
+
+    `matchesAt` scans the whole relation-length row. This reads only
+
+    * the window's own cells -- a relation starting at an offset inside the
+      window and staying inside it has at most `width` arrows, so what a cell
+      can say is bounded by the width; and
+    * one bit, whether any relation covers the window's first arrow having
+      started strictly before it.
+
+    That bit is the part the per-vertex encoding cannot supply locally, since a
+    relation of unbounded length reaches arbitrarily far to the right, and the
+    part a per-arrow encoding carries for free.
+    """
+    width, before, _after, _offsets = description
+    windowEnd = windowStart + width - 1
+    if windowStart < 1 or windowEnd > length - 1:
+        return False
+    if coversFromLeft(relLengths, windowStart):
+        return False
+    inside = []
+    for offset in range(width):
+        cell = windowStart + offset
+        arrows = relLengths[cell - 1] if cell - 1 < len(relLengths) else 0
+        if not arrows:
+            continue
+        if cell + arrows - 1 > windowEnd:
+            return False
+        inside.append((offset, arrows))
+    return tuple(sorted(inside)) == before
+
+
+@pytest.mark.parametrize("length", [5, 6, 7])
+def test_whether_a_move_applies_is_a_local_condition(length):
+    """Every rule in the table, every LNA, every window position.
+
+    This is the check research H-009 turns on. The suspicion there is that the
+    move table is a one-dimensional cellular automaton -- a local rewrite on the
+    row of relation lengths -- and the caveat is that a rule whose applicability
+    depended on the row far away would not be local at all, whatever it looked
+    like.
+
+    It does not: the answer comes out of the window's cells plus one bit about
+    what reaches into its left edge. Which also says what the right encoding
+    is -- per arrow, carrying "covered", rather than per vertex carrying a
+    relation length -- because that bit is exactly what a per-arrow row has and
+    a per-vertex row does not.
+    """
+    matched = 0
+    for relLengths in itertools.product(range(0, length), repeat = max(0, length - 2)):
+        relLengths = list(relLengths)
+        if not lm.isAdmissible(length, relLengths):
+            continue
+        for description in lm.VERIFIED_MOVES:
+            for windowStart in range(1, length):
+                actual = lm.matchesAt(length, relLengths, description, windowStart)
+                assert actual == matchesLocally(length, relLengths, description, windowStart), (
+                    length, relLengths, description, windowStart)
+                matched += bool(actual)
+    assert matched > 0, "no rule matched anywhere, so this checked nothing"
+
+
+@pytest.mark.slow
+@pytest.mark.parametrize("length", [8, 9])
+def test_whether_a_move_applies_is_a_local_condition_further_out(length):
+    test_whether_a_move_applies_is_a_local_condition(length)

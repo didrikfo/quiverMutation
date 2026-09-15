@@ -332,9 +332,18 @@ item 4 is what makes n >= 10 readable at all.
    summary stays small exactly where the table stops being openable.
 5. **Rule discovery, deeper.** Ideas 17, 19 and research H-007, H-008. The main
    line of mathematical work, and the lever for n >= 11 (idea 16).
-6. **The cellular-automaton reading of the rules.** Research H-009. A literature
-   sweep and one concrete attempt at restating the move table in that language.
-   Cheap, speculative, and would reframe item 5 if it lands.
+6. **The cellular-automaton reading of the rules.** Research H-009, now
+   SUPPORTED: its own caveat is checked and passes, so the CA picture is about
+   the right object (F-017). What is left is the literature sweep -- listed in
+   `research/literature/README.md`, and note that outbound access to arXiv is
+   blocked from the session sandbox, so it needs doing where the papers can be
+   reached.
+
+   **Start from the arrow row, not the relation-length row.** F-017's
+   by-product: a per-vertex cell holds a relation length, which is unbounded in
+   n, so a relation reaches arbitrarily far right and no fixed neighbourhood
+   sees it coming. Indexed by arrows instead, carrying covered / starts / ends,
+   the alphabet is fixed and the rules are local with a margin of one cell.
 7. **An independent separation of the cospectral pair.** Idea 22. Not blocking
    anything, but it is the one claim in the n = 9 classification that rests on a
    single route (F-014).

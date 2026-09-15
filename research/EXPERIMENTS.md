@@ -6,6 +6,36 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-016 — Are the move rules local?
+*2026-09-15* · **yes, both halves** → F-017
+
+H-009's own caveat, checked before anything else was built on it.
+
+1. **Applicability.** `matchesAt` against a predicate reading only the window's
+   cells plus one bit (a relation covering the window's first arrow having
+   started earlier), over every rule in `VERIFIED_MOVES` x every admissible LNA
+   x every window position:
+
+   | n | comparisons | matches | disagreements |
+   |---|---|---|---|
+   | 5, 6, 7 | 67,712 | 150 | 0 |
+   | 8, 9 | 924,352 | 1084 | 0 |
+
+2. **Legality.** The whole table re-verified where each rule fits: **1218
+   confirmations, zero failures** -- every match is an admissible sequence
+   landing on the predicted LNA with the Coxeter polynomial kept.
+
+Cheap: seconds for lengths 5 to 7, a couple of minutes for 8 and 9, and about
+four minutes for the legality half. Rows 1 and 2 are tests now
+(`test_whether_a_move_applies_is_a_local_condition`,
+`test_each_rule_holds_wherever_it_applies`), so **do not repeat them by hand**.
+
+The result that was not the question: the state has to be the **arrow** row, not
+the vertex row -- see F-017. Anyone starting the CA literature sweep should start
+there rather than from `relLengths`.
+
+---
+
 ## E-015 — Every mutation the loosened gate newly allows
 *2026-09-15* · **280 of them, all Coxeter-preserving** → F-016
 
