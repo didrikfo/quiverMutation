@@ -29,7 +29,6 @@ import numpy as np
 
 from . import invariants
 from . import pathAlgebra
-from . import paths
 from . import plotting
 from . import procedure
 from . import reduction
@@ -72,41 +71,20 @@ def leftQuiverMutationAtVertex(pathAlg, vertex):
         pathAlg.quiver, procedure.relationsFrom(pathAlg), vertex))
 
 
-def mutationIsPossibleAtVertex(pathAlg, vertex, allRels = None):
+def mutationIsPossibleAtVertex(pathAlg, vertex):
     """Whether the mutation procedure may be applied to pathAlg at vertex.
 
-    This is the admissibility test of theorem 1 in arXiv:2112.08129, as the
-    depth-first search has always applied it:
+    The paper's criterion, in `procedure.isMutable`; this is its face in the
+    set-of-paths model.  It used to be a stricter reading of the same theorem --
+    see F-016 for what the two differed by and what changing it changed.
 
-    * There must be an arrow out of vertex.  P_i* is the cocone of a right
-      approximation of P_i by the other indecomposable projectives, so with no
-      arrow out of i there is nothing to approximate by.
-    * The quiver must have no pair of parallel arrows.  This is a restriction of
-      this implementation rather than of the procedure: a relation is modelled
-      as a set of vertex sequences, which cannot distinguish two arrows with
-      the same source and target.
-    * Hom(P_i*[1], Lambda) = 0, which holds iff every nonzero path ending in i
-      composes nonzero with at least one arrow out of i.  A minimal zero
-      relation whose last arrow starts in i, and whose truncation by that last
-      arrow is itself nonzero, is a witness that it fails.
-
-    Note that the last test is stricter than the paper's condition when vertex
-    has more than one arrow out of it: it rejects the vertex as soon as one
-    arrow out of it kills a nonzero path, where the paper only requires that
-    some arrow out of it does not.  The two agree whenever vertex has a single
-    arrow out of it, which is the only case the linear Nakayama search meets.
+    It rules mutation *out*, not in: the theorem's own hypothesis is on the
+    algebra, and the paper says it is in general not equivalent to a condition
+    on the quiver.  A rewrite performed on the strength of this can still fail
+    to be a derived equivalence (research R-005), so a caller that cares about
+    the class wants more than this alone.
     """
-    if not bool(pathAlg.out_arrows(vertex)):
-        return False
-    for ar in pathAlg.arrows():
-        if ar[2] > 0:
-            return False
-    if allRels is None:
-        allRels = paths.allRelsInPathAlgebra(pathAlg)
-    for rel in allRels:
-        if len(rel) == 1 and rel[0][-2] == vertex and (not [rel[0][:-1]] in allRels):
-            return False
-    return True
+    return procedure.isMutable(pathAlg.quiver, procedure.relationsFrom(pathAlg), vertex)
 
 
 def showMutationSteps(pathAlg, mutationVertexList, firstDisplayedStep = 0):

@@ -5,6 +5,70 @@ See [`README.md`](README.md) for conventions.
 
 ---
 
+## F-016 — The search's gate is the paper's criterion now, and it costs nothing
+*2026-09-15*
+
+The admissibility gate was a **stricter** reading of the paper's theorem than the
+theorem states, and it was applied twice:
+
+* `mutation.mutationIsPossibleAtVertex` walked the relations and refused a vertex
+  on any minimal zero relation whose last arrow left it and whose truncation was
+  not itself written as a relation;
+* `search.mutationSearchDepthFirst` then counted, for every predecessor `v` and
+  every arrow `i -> w`, the paths `v -> i` against the paths `v -> w`, and
+  refused the vertex if any one arrow lost a path.
+
+Both are the same idea and both are "**every** arrow out of the vertex must keep
+every nonzero path nonzero". The paper's theorem rules mutation out only when a
+nonzero path ending at the vertex dies against **every** arrow out of it — so
+where the two differ, the old gate was refusing mutations the paper allows. Both
+also decided "nonzero" syntactically: a zero relation written inside the path, or
+a path count taken up to the commutativity relations.
+
+The gate is now `procedure.isMutable`, the theorem read exactly with "nonzero"
+decided over the ideal, and it is the only gate — the inline path count is gone.
+
+**What it changed.**
+
+| | |
+|---|---|
+| mutations newly allowed, n = 5 and 6 to depth 3, n = 7 to depth 2 | **280** |
+| of those, Coxeter polynomial preserved | **280** — all of them |
+| mutations the new gate refuses that the old one allowed | **0** |
+| n = 6 classification | same 4 classes, same sizes |
+| n = 7 classification | same 6 classes, same sizes |
+| n = 8 classification | same 11 classes, same sizes |
+| n = 7 classification time | **38 s → 20 s** |
+
+Faster, which is the opposite of what a more permissive gate suggests: the old
+gate cost two syntactic sweeps per vertex — `allRelsInPathAlgebra` at every
+search node, then a path count per (predecessor, successor) pair — where the new
+one answers from the ideal directly. Removing the sweeps more than pays for the
+extra branches.
+
+**Why every newly allowed mutation had to be checked.** The criterion is
+*necessary and not sufficient*: the theorem's hypothesis is
+`Hom(P_i*[1], Lambda) = 0`, and the paper says explicitly that this is in
+general not equivalent to a condition on the quiver. So a mutation the gate
+newly allows could in principle fail to be a derived equivalence, and the
+Coxeter polynomial would move across it. None does. This is the check R-005
+exists to insist on, and being stricter than the paper was the old gate's way of
+avoiding having to make it.
+
+**What did not change.** `A_{7,(2,4)}^{(3,3)}` still reaches no relation-free
+quiver within depth 8 — the loosened gate does not rescue it, so the point of
+`test_the_theorem_answers_where_the_search_gives_up` stands: there are classes
+the theorem names outright that no affordable search reaches.
+
+**Evidence.** `tests/test_procedure.py` holds the old criterion, as
+`strictlyMutable`, and checks the two against each other: they agree on every
+vertex of every LNA of lengths 4 to 6 (a line's vertices have one arrow out,
+which is where they coincide), and after one mutation every disagreement is in
+the permissive direction, at a branching vertex, with the Coxeter polynomial
+preserved. The wider sweep is E-015.
+
+---
+
 ## F-015 — The procedure on coefficients, and the two relations the old one missed
 *2026-09-14*
 

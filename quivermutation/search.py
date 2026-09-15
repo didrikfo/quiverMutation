@@ -59,11 +59,6 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
     noCycles = not bool(list(nx.simple_cycles(baseQuiver)))
     if noCycles:
         longestPathLength = nx.dag_longest_path_length(baseQuiver)
-    # Only needed to decide which vertices to descend from, and the search never
-    # descends from a cyclic quiver, so there is nothing to compute there.  It
-    # also used to be computed before this point, which is what made a cyclic
-    # quiver crash the search rather than simply end that branch.
-    allRels = paths.allRelsInPathAlgebra(pathAlg) if noCycles else []
     if printOutput:
         print('Quiver name: ', quiverName)
         print("Mutations: ", mutationVertices)
@@ -96,19 +91,15 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
             pathAlg.quiver = copy.deepcopy(quiverAtThisDepth)
             pathAlg.rels = copy.deepcopy(relsAtThisDepth)
             mutationVerticesAtDepth = mutationVertices[:]
-            mutationPossible = mutation.mutationIsPossibleAtVertex(pathAlg, vertex, allRels)
-            if mutationPossible:
-                vertexPredecessors = nx.dfs_preorder_nodes(nx.reverse(pathAlg.quiver), vertex)
-                vertexImmideateSuccessors = list(pathAlg.quiver.successors(vertex))
-                for v in vertexPredecessors:
-                    numberOfPathsToVertexUpToRels = paths.numberOfPathsUpToRels(pathAlg, v, vertex)
-                    for w in vertexImmideateSuccessors:
-                        if numberOfPathsToVertexUpToRels > paths.numberOfPathsUpToRels(pathAlg, v, w):
-                            mutationPossible = False
-                            break
-                    if not mutationPossible:
-                        break
-            if mutationPossible:
+            # `mutationIsPossibleAtVertex` is the whole gate.  It used to be
+            # followed here by a second test of the same idea, counting the
+            # paths into the vertex against the paths through each arrow out of
+            # it and refusing the vertex if any one arrow lost a path.  That is
+            # the *strict* reading -- every arrow must keep every path -- where
+            # the paper's theorem rules mutation out only when a path dies
+            # against all of them, so the search was refusing mutations the
+            # paper allows, twice over.  F-016.
+            if mutation.mutationIsPossibleAtVertex(pathAlg, vertex):
                 mutationVerticesAtDepth.append(vertexRelabeling[vertex])
                 mutPathAlg = mutation.quiverMutationAtVertex(pathAlg, vertex)
                 for rel in mutPathAlg.rels:

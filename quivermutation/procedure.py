@@ -105,20 +105,34 @@ def toPathAlgebra(quiver, relations):
 # -- admissibility ---------------------------------------------------------
 
 def isMutable(quiver, relations, vertex):
-    """Whether the procedure may be applied at `vertex`.
+    """Whether the procedure may be applied at `vertex`.  The search's gate.
 
-    The paper's two conditions: no loop at the vertex, and
-    `Hom(P_i*[1], Lambda) = 0`, which combinatorially is *for each nonzero path
-    ending at `i` there is at least one arrow out of `i` whose composite with it
-    is nonzero*.
+    The paper's theorem names two cases where mutation is impossible: no arrow
+    out of the vertex at all, and *there is a nonzero path ending at the vertex
+    whose composite with **every** arrow out of it is zero*.  This is that,
+    read exactly: "nonzero" is decided by `relationAlgebra.isInIdeal`, over the
+    ideal, rather than by looking for a zero relation sitting inside the path.
 
-    This is the exact reading of that condition -- "nonzero" is decided by
-    `relationAlgebra.isInIdeal`, over the ideal, rather than by looking for a
-    zero relation sitting inside the path.  `mutation.mutationIsPossibleAtVertex`
-    is the inexact one, and is also deliberately stricter: it wants *every*
-    arrow out of the vertex to keep the path nonzero, where the paper and this
-    want one.  The two agree whenever the vertex has a single arrow out, which
-    is the only case an LNA search meets.
+    Two things it is worth being precise about.
+
+    The criterion **rules mutation out, it does not rule it in.** The theorem's
+    own hypothesis is `Hom(P_i*[1], Lambda) = 0`, and the paper says plainly
+    that this is in general *not* equivalent to a condition on the quiver.  So
+    passing this is necessary, not sufficient, and a rewrite performed on the
+    strength of it can still fail to be a derived equivalence -- which is why
+    research R-005 exists and why F-016 checks the Coxeter polynomial across
+    every mutation this allows that its predecessor did not.
+
+    The predecessor was stricter in two ways, both now gone: it rejected as soon
+    as *one* arrow out of the vertex killed a nonzero path, where the paper asks
+    that every one does, and it decided "nonzero" by looking for a zero relation
+    written inside the path rather than over the ideal.  See F-016 for what
+    changing it changed.
+
+    Parallel arrows are refused rather than raised on, because that is what the
+    search needs from a gate: it is a restriction of this repo's model, where a
+    path is a sequence of vertices and so cannot say which of two arrows with
+    the same endpoints it uses, and not a restriction of the procedure.
     """
     if quiver.has_edge(vertex, vertex):
         return False
@@ -126,7 +140,7 @@ def isMutable(quiver, relations, vertex):
     if not outTargets:
         return False
     if any(quiver.number_of_edges(a, b) > 1 for a, b in quiver.edges()):
-        raise ValueError("parallel arrows cannot be named by a vertex sequence")
+        return False
 
     for source in quiver.nodes:
         if source == vertex:

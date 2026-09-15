@@ -22,7 +22,6 @@ from . import lines
 from . import mutation
 from . import nakayama
 from . import pathAlgebra
-from . import paths
 
 
 
@@ -75,9 +74,7 @@ def movesFrom(lna, maxSteps = 2, allowLeft = True):
     def walk(pathAlg, steps, history):
         if steps == 0:
             return
-        allRels = _quiet(paths.allRelsInPathAlgebra, pathAlg)
         dual = _quiet(pathAlgebra.dualPathAlgebra, pathAlg)
-        dualRels = _quiet(paths.allRelsInPathAlgebra, dual)
         for vertex in pathAlg.vertices():
             directions = []
             # A mutation is only a tilting mutation where the procedure's
@@ -85,9 +82,9 @@ def movesFrom(lna, maxSteps = 2, allowLeft = True):
             # computes a quiver, but not a derived equivalent one.  Left mutation
             # at v is right mutation at v of the dual, so that is where its
             # condition is tested.
-            if _quiet(mutation.mutationIsPossibleAtVertex, pathAlg, vertex, allRels):
+            if _quiet(mutation.mutationIsPossibleAtVertex, pathAlg, vertex):
                 directions.append(vertex)
-            if allowLeft and _quiet(mutation.mutationIsPossibleAtVertex, dual, vertex, dualRels):
+            if allowLeft and _quiet(mutation.mutationIsPossibleAtVertex, dual, vertex):
                 directions.append(-vertex)
             for signed in directions:
                 nextAlg = _quiet(mutation.quiverMutationAtVertices,
@@ -494,8 +491,7 @@ def isLegalSequence(pathAlg, sequence):
     current = _copy(pathAlg)
     for signed in sequence:
         target = current if signed > 0 else _quiet(pathAlgebra.dualPathAlgebra, current)
-        allRels = _quiet(paths.allRelsInPathAlgebra, target)
-        if not _quiet(mutation.mutationIsPossibleAtVertex, target, abs(signed), allRels):
+        if not _quiet(mutation.mutationIsPossibleAtVertex, target, abs(signed)):
             return False
         current = _quiet(mutation.quiverMutationAtVertices, current, [signed])
     return True
@@ -749,13 +745,11 @@ def localMutationSequences(length, relLengths, centreLo, centreHi, maxSteps, mar
     def walk(pathAlg, steps, history):
         if steps == 0:
             return
-        allRels = _quiet(paths.allRelsInPathAlgebra, pathAlg)
         dual = _quiet(pathAlgebra.dualPathAlgebra, pathAlg)
-        dualRels = _quiet(paths.allRelsInPathAlgebra, dual)
         for vertex in allowed:
             for signed in (vertex, -vertex):
-                target, rels = (pathAlg, allRels) if signed > 0 else (dual, dualRels)
-                if not _quiet(mutation.mutationIsPossibleAtVertex, target, vertex, rels):
+                target = pathAlg if signed > 0 else dual
+                if not _quiet(mutation.mutationIsPossibleAtVertex, target, vertex):
                     continue
                 nextAlg = _quiet(mutation.quiverMutationAtVertices, _copy(pathAlg), [signed])
                 if nextAlg is None:

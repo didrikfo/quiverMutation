@@ -44,7 +44,7 @@ def test_coxeter_polynomial_is_constant_along_every_mutation_path(length, rels):
             return
         all_rels = quiet(qm.allRelsInPathAlgebra, path_alg)
         for vertex in path_alg.vertices():
-            if not quiet(qm.mutationIsPossibleAtVertex, path_alg, vertex, all_rels):
+            if not quiet(qm.mutationIsPossibleAtVertex, path_alg, vertex):
                 continue
             mutated = quiet(qm.quiverMutationAtVertex, path_alg, vertex)
             if any(quiet(qm.isIllegalRelation, mutated, rel) for rel in mutated.rels):

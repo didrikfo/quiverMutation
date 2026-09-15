@@ -49,12 +49,20 @@ search's gate.
 ## R-006 — "The workbook's n = 9 classification has 19 classes"
 *2026-09-13* · superseded by **F-011**
 
-**Challenged 2026-09-14 and upheld → F-014.** The objection was that the two
-quipus are isomorphic after all, being related by the exchange of an end segment
-of the main string with the cord at the outermost foot. That exchange is real,
-and it is already implemented; it is checked exhaustively in F-014, and it does
-not relate these two — their trees have diameters 6 and 5. The analogous pair is
-two separate rows of the paper's own n <= 8 table.
+**Challenged 2026-09-14, upheld, challenge withdrawn 2026-09-15 → F-014.**
+The objection was that the two quipus are isomorphic after all, being related by
+the exchange of an end segment of the main string with the cord at the outermost
+foot. That exchange is real and was already implemented; it does not relate
+these two, whose trees have diameters 6 and 5, and the analogous pair is two
+separate rows of the paper's own n <= 8 table. The objection was withdrawn by
+its author the next day as a misread — the quivers had been manipulated in the
+head rather than on paper.
+
+Kept, with the outcome, for two reasons. The exchange **is** a real symmetry of
+the notation and mistaking its reach is an easy error to repeat — F-014 now pins
+where it does and does not apply, including that it fails at an interior gap.
+And it is the record of a doubt that was answered rather than left hanging, which
+is the more useful half of "nothing is deleted".
 
 The hand-made classification merged two classes of 18 into one of 36. Every other
 class matches the computed partition exactly, and the computed partition refines

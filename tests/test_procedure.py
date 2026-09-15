@@ -11,8 +11,9 @@ Three things are worth pinning, and they are different things:
   implementation was trusted for -- which is what makes replacing it safe;
 * that the coefficients it produces are the ones the paper's steps call for, on
   a worked example small enough to read;
-* that its admissibility condition is the paper's, which is *not* what the
-  search uses -- see the module docstring of `mutation`.
+* that its admissibility condition -- now the search's gate -- allows
+  everything its stricter predecessor did and more, and that nothing it newly
+  allows moves the Coxeter polynomial.
 """
 
 import collections
@@ -21,6 +22,8 @@ import io
 
 import pytest
 import sympy
+
+import networkx as nx
 
 import quivermutation as qm
 from quivermutation import nakayama as nk
@@ -173,48 +176,96 @@ def test_minimality_is_decided_over_the_ideal_not_by_containment():
 
 # -- admissibility --------------------------------------------------------
 
+def strictlyMutable(pathAlg, vertex):
+    """The admissibility gate the search used before `procedure.isMutable`.
+
+    Kept here, in a test, because it is the thing that was replaced and the
+    only way to say what replacing it changed.  It was two tests of one idea,
+    in two places, and both were the *strict* reading -- a vertex is refused as
+    soon as **one** arrow out of it kills a nonzero path, where the paper's
+    theorem refuses it only when a path dies against **every** arrow:
+
+    * `mutation.mutationIsPossibleAtVertex` walked the relations and refused the
+      vertex on any minimal zero relation whose last arrow left it and whose
+      truncation was not itself written as a relation;
+    * `search.mutationSearchDepthFirst` then counted, for every predecessor `v`
+      and every arrow `i -> w`, the paths `v -> i` against the paths `v -> w`,
+      and refused the vertex if any arrow lost one.
+
+    Both also decided "nonzero" syntactically -- a zero relation written inside
+    the path, or a path count up to the commutativity relations -- where the
+    replacement decides it over the ideal.
+    """
+    if not bool(pathAlg.out_arrows(vertex)):
+        return False
+    if any(arrow[2] > 0 for arrow in pathAlg.arrows()):
+        return False
+    allRels = quiet(qm.allRelsInPathAlgebra, pathAlg)
+    for rel in allRels:
+        if len(rel) == 1 and rel[0][-2] == vertex and [rel[0][:-1]] not in allRels:
+            return False
+    successors = list(pathAlg.quiver.successors(vertex))
+    for source in nx.dfs_preorder_nodes(nx.reverse(pathAlg.quiver), vertex):
+        intoVertex = quiet(qm.numberOfPathsUpToRels, pathAlg, source, vertex)
+        for target in successors:
+            if intoVertex > quiet(qm.numberOfPathsUpToRels, pathAlg, source, target):
+                return False
+    return True
+
+
 @pytest.mark.parametrize("length", [4, 5, 6])
-def test_on_an_lna_the_two_admissibility_conditions_agree(length):
-    """Every vertex of a line has one arrow out, which is where they coincide."""
+def test_on_an_lna_the_gate_and_its_predecessor_agree(length):
+    """Every vertex of a line has one arrow out, which is where they coincide.
+
+    Which is why the switch does not touch the classification's first step: the
+    LNAs it starts from are lines, and the two criteria part company only once a
+    mutation has made a vertex branch.
+    """
     for algebra in nk.LinearNakayamaAlgebra.allOfLength(length):
         relations = pr.relationsFrom(algebra)
         for vertex in range(1, length + 1):
-            assert pr.isMutable(algebra.quiver, relations, vertex) is bool(
-                quiet(qm.mutationIsPossibleAtVertex, algebra, vertex)), (algebra, vertex)
+            assert pr.isMutable(algebra.quiver, relations, vertex) is strictlyMutable(
+                algebra, vertex), (algebra, vertex)
 
 
-def test_where_they_differ_the_paper_allows_more_and_the_class_is_kept():
-    """The stricter condition refuses mutations the paper permits.
+@pytest.mark.parametrize("length", [5, 6])
+def test_the_gate_allows_more_than_its_predecessor_and_keeps_the_class(length):
+    """The switch only ever permits more, and never permits something wrong.
 
-    After one mutation a vertex can have two arrows out, and there
-    `mutationIsPossibleAtVertex` rejects as soon as *one* of them kills a
-    nonzero path where the paper only asks that *one keeps it*.  Every mutation
-    that difference refuses is legitimate, so the Coxeter polynomial must not
-    move across it -- which is the check R-005 exists to insist on.
+    The first half is a statement about the two criteria: after a mutation a
+    vertex can have several arrows out, and there the predecessor refused as
+    soon as one of them killed a nonzero path.  Every disagreement must be in
+    that direction, and at a branching vertex.
 
-    Research F-015 is the exhaustive version of this.
+    The second half is the part that matters, and is why R-005 exists. The
+    paper's criterion rules mutation *out*; it does not rule it *in*, since the
+    real condition is on the algebra and is not equivalent to any condition on
+    the quiver. So a mutation this gate newly allows could in principle fail to
+    be a derived equivalence, and the Coxeter polynomial would move across it.
+    It does not, anywhere here.
     """
     tally = collections.Counter()
-    for algebra in nk.LinearNakayamaAlgebra.allOfLength(5):
+    for algebra in nk.LinearNakayamaAlgebra.allOfLength(length):
         relations = pr.relationsFrom(algebra)
-        for first in range(1, 6):
-            if not quiet(qm.mutationIsPossibleAtVertex, algebra, first):
+        for first in range(1, length + 1):
+            if not pr.isMutable(algebra.quiver, relations, first):
                 continue
             quiver, mutated = pr.reduce(*pr.mutateAtVertex(algebra.quiver, relations, first))
             here = pr.toPathAlgebra(quiver, mutated)
             base = sympy.expand(quiet(qm.coxeterPoly, here).as_expr())
             for second in sorted(quiver.nodes):
-                strict = bool(quiet(qm.mutationIsPossibleAtVertex, here, second))
-                exact = pr.isMutable(quiver, mutated, second)
-                if strict == exact:
+                wasAllowed = strictlyMutable(here, second)
+                isAllowed = pr.isMutable(quiver, mutated, second)
+                if wasAllowed == isAllowed:
                     continue
-                assert (strict, exact) == (False, True), (algebra, first, second)
+                assert (wasAllowed, isAllowed) == (False, True), (algebra, first, second)
                 assert len(set(quiver.successors(second))) > 1, (algebra, first, second)
                 onward = pr.toPathAlgebra(*pr.reduce(
                     *pr.mutateAtVertex(quiver, mutated, second)))
-                assert sympy.expand(quiet(qm.coxeterPoly, onward).as_expr()) == base
-                tally['refused by the strict condition'] += 1
-    assert tally['refused by the strict condition'] > 0
+                assert sympy.expand(quiet(qm.coxeterPoly, onward).as_expr()) == base, (
+                    algebra, first, second)
+                tally['newly allowed'] += 1
+    assert tally['newly allowed'] > 0
 
 
 def test_step_seven_finds_the_relation_the_old_implementation_missed():

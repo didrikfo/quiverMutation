@@ -210,7 +210,7 @@ def test_the_two_cartan_matrices_agree_along_mutation_paths(length, rels):
             return
         allRels = quiet(qm.allRelsInPathAlgebra, pa)
         for vertex in pa.vertices():
-            if not quiet(qm.mutationIsPossibleAtVertex, pa, vertex, allRels):
+            if not quiet(qm.mutationIsPossibleAtVertex, pa, vertex):
                 continue
             mutated = quiet(qm.quiverMutationAtVertex, pa, vertex)
             if any(quiet(qm.isIllegalRelation, mutated, r) for r in mutated.rels):
@@ -249,7 +249,7 @@ def test_reduction_preserves_the_cartan_matrix():
             return
         allRels = quiet(qm.allRelsInPathAlgebra, pa)
         for vertex in pa.vertices():
-            if not quiet(qm.mutationIsPossibleAtVertex, pa, vertex, allRels):
+            if not quiet(qm.mutationIsPossibleAtVertex, pa, vertex):
                 continue
             raw = quiet(qm.quiverMutationAtVertex, pa, vertex)
             if any(quiet(qm.isIllegalRelation, raw, rel) for rel in raw.rels):

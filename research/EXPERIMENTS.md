@@ -6,6 +6,36 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-015 — Every mutation the loosened gate newly allows
+*2026-09-15* · **280 of them, all Coxeter-preserving** → F-016
+
+Before switching the search's gate from the strict reading to the paper's
+criterion, every mutation the switch would newly allow was enumerated and
+checked. Walking out of every LNA of the length, at every vertex of every quiver
+reached, comparing the old gate against the new one and computing the Coxeter
+polynomial wherever they disagreed:
+
+| n | depth | allowed by both | newly allowed | Coxeter moved | new gate narrower |
+|---|---|---|---|---|---|
+| 5 | 3 | 304 | 22 | 0 | 0 |
+| 6 | 3 | 1450 | 138 | 0 | 0 |
+| 7 | 2 | 1938 | 120 | 0 | 0 |
+
+The last column matters as much as the others: a criterion that was *narrower*
+anywhere would have meant the switch loses a mutation the published runs used,
+and it never is.
+
+Then the classifications, which are the acceptance test: n = 6, 7 and 8 all give
+the same classes with the same sizes as before, and n = 7 dropped from 38
+seconds to 20.
+
+The old criterion is kept in `tests/test_procedure.py` as `strictlyMutable`,
+which is what makes the comparison re-runnable; the first two rows are a test
+now. **Do not repeat the n = 7 row** — about four minutes, and it says the same
+thing as the other two.
+
+---
+
 ## E-014 — The procedure on coefficients, against the one it replaced
 *2026-09-14* · **agreement everywhere but two cases, which are R-007** → F-015
 

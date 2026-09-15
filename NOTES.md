@@ -200,10 +200,17 @@ zero confirmations (F-013, amended). Nothing was wrong with the rules; the test
 was asking in the wrong place. A green fast suite is not evidence about the
 slow one.
 
-Run times for the full `classifyLength` pipeline, on the coefficient-carrying
-procedure: n = 6 about 5 seconds, n = 7 40 seconds. Before that change they were
-13 seconds and 37 seconds, and n = 8 was 4 minutes with n = 9 at 56 minutes.
-Lengths 6, 7 and 8 are pinned as `slow` tests.
+Run times for the full `classifyLength` pipeline, as the engine has changed:
+
+| | n = 6 | n = 7 | n = 8 | n = 9 |
+|---|---|---|---|---|
+| set-of-paths procedure, strict gate | 13 s | 37 s | 4 min | 56 min |
+| coefficients, strict gate | 5 s | 38 s | | |
+| coefficients, the paper's gate | 5 s | **20 s** | | |
+
+Lengths 6, 7 and 8 are pinned as `slow` tests, and all three give the same
+classes with the same sizes throughout. n = 9 has not been re-run since; that is
+plan item 8.
 
 ## Known gaps and limitations
 
@@ -214,21 +221,22 @@ Lengths 6, 7 and 8 are pinned as `slow` tests.
   `tests/test_mutation_procedure.py`. The LNA search never reaches it because it
   stops descending at the first cycle, so this has never affected a published
   result.
-* **`mutationIsPossibleAtVertex` is stricter than the paper's criterion** when
-  the vertex has more than one arrow out of it: it rejects the vertex as soon as
-  one arrow out of it kills a nonzero path, where the paper's theorem rules
-  mutation out only when *every* arrow does. The two agree when the vertex has a
-  single arrow out, which is every vertex of an LNA; they part company after a
-  mutation has made a vertex branch, and at n = 5 and 6 within depth 2 that is
-  34 mutations the strict one refuses.
-  **It stays the search's gate deliberately.** The paper says the homological
-  condition `Hom(P_i*[1], Λ) = 0` is in general *not* equivalent to a condition
-  on the quiver, so neither implementation is exact, and refusing too much loses
-  reachability where permitting too much risks performing a rewrite that is not
-  a derived equivalence — which R-005 is a record of. `procedure.isMutable` is
-  the paper's criterion read exactly, for when that is what is wanted; every
-  extra mutation it allows was checked to preserve the Coxeter polynomial
-  (F-015).
+* ~~**`mutationIsPossibleAtVertex` is stricter than the paper's criterion.**~~
+  Not since 2026-09-15: it is `procedure.isMutable`, the paper's criterion read
+  exactly, and it is the search's only gate. The strict reading had been applied
+  twice — once here, once as a path count inline in
+  `search.mutationSearchDepthFirst` — and both refused a vertex as soon as
+  *one* arrow out of it killed a nonzero path, where the theorem refuses only
+  when a path dies against *every* arrow. F-016 has what changing it changed:
+  nothing in the classification, 280 mutations newly reachable at n = 5..7, and
+  n = 7 down from 38 seconds to 20.
+
+  What remains true, and is the reason to be careful here: the criterion rules
+  mutation **out**, not in. The theorem's hypothesis is
+  `Hom(P_i*[1], Λ) = 0`, and the paper says plainly that this is in general not
+  equivalent to a condition on the quiver. Passing the gate is necessary, not
+  sufficient, so a rewrite done on the strength of it can still fail to be a
+  derived equivalence — R-005 is 38 "rules" admitted on exactly that mistake.
 * **Parallel arrows are rejected outright**, because a path is a vertex sequence
   and so cannot name which of two parallel arrows it uses.
 * ~~**The recursive loop at length 12.**~~ **Found and fixed.** It was not about

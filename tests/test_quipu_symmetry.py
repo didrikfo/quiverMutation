@@ -308,7 +308,7 @@ def test_the_cospectral_order_nine_pair_is_two_classes():
 
 
 def test_neither_end_exchange_relates_the_disputed_quipus():
-    """Spelled out on the parameters, since this is the claim that was doubted.
+    """Spelled out on the parameters, since this is the step worth being sure of.
 
     P^(1,4)_(1,0,1) exchanges to P^(1,1)_(1,0,4) at its last foot and is fixed at
     its first; P^(1,2)_(1,1,2) is fixed at both.  Neither reaches the other.
