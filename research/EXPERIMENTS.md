@@ -6,6 +6,41 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-019 — Two more families, and whether a rule's inverse is free
+*2026-09-15* · **two families confirmed, the inverse shortcut refuted** → F-020
+
+Acting on F-020's own lesson rather than raising the search bound.
+
+**The families.** Two candidates read straight off consecutive window widths in
+the enlarged table, then verified at three lengths each with `verifyMove`:
+
+| family | d | result |
+|---|---|---|
+| `(0:2) (2:2)` → `(1:2) (d+2:2)` via `[-3, -5, …]` | 1–6 | 8 confirmations each, no failures |
+| `(1:2) (4:2)` → `(0:2) (d+4:2)` via `[2, -7, …]` | 1–5 | 8 confirmations each, no failures |
+
+Discovery had found d = 1 and 2 of each; d = 3 needs four mutations and d = 6
+needs seven, so the rest were out of reach of any search run so far. Minutes to
+check, against the hours a four-mutation run costs. Both are generated now.
+
+**The inverse shortcut, and it does not hold.** Family A's listed left slide is
+exactly its right slide with the sequence reversed, each vertex negated, and each
+then moved one step toward zero — which looked like it might be a property of the
+window's numbering and so give every rule's inverse for nothing. Applied to all
+96 listed rules and verified:
+
+| sequence | inverts | fails | inverse leaves the window |
+|---|---|---|---|
+| all one direction | 12 | 20 | 28 |
+| mixed directions | 0 | 5 | 31 |
+
+So **12 of 96**. The transform works for the slide families because a slide's
+sequence is a single uniform run; it is not a general fact about the table, and
+the spreading pair -- whose sequence mixes a right mutation with left ones -- is
+the counterexample closest to hand. Do not try it again.
+
+---
+
 ## E-018 — How far the gentle condition reaches
 *2026-09-15* · **one class, the hereditary one** → F-019, R-008
 

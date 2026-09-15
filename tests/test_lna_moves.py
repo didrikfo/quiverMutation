@@ -379,3 +379,53 @@ def test_both_families_are_in_the_table_and_nothing_is_duplicated():
     assert len(lm.VERIFIED_MOVES) == len(set(lm.VERIFIED_MOVES))
     for rule in lm.pairSlideRules() + lm.shortRelationSlideRules():
         assert rule in lm.VERIFIED_MOVES
+
+
+@pytest.mark.parametrize("generator, atDistanceOne", [
+    (lm.shortRelationSlideRules, 1),
+    (lm.trailingRelationWalkRules, 2),
+    (lm.spreadingPairRules, 2),
+])
+def test_each_slide_family_pays_one_mutation_per_arrow(generator, atDistanceOne):
+    """All three families have the same shape: the d-th member costs d mutations
+    for the travel, plus one per companion relation that has to be displaced.
+
+    That is what makes them invisible to a bounded search past their first
+    members, and what makes generating them worth more than searching deeper.
+    """
+    rules = generator()
+    perDistance = {}
+    for rule in rules:
+        # A family's rules are one per d, except the lone slide, which has both
+        # directions at each d.
+        perDistance.setdefault(rule[0], []).append(rule)
+    widths = sorted(perDistance)
+    for index, width in enumerate(widths):
+        for rule in perDistance[width]:
+            assert len(rule[3]) == atDistanceOne + index, (rule, index)
+        assert width == widths[0] + index
+
+
+def test_the_inverse_of_a_rule_is_not_free():
+    """E-019: reverse, negate, shift toward zero inverts a slide and little else.
+
+    Kept as a test because the transform is tempting -- it turns the lone slide's
+    right rule into exactly the left rule the table lists -- and it is wrong for
+    the table at large, so the counterexample is worth pinning.
+    """
+    def inverseOf(rule):
+        width, before, after, sequence = rule
+        flipped = [-vertex for vertex in reversed(sequence)]
+        return (width, after, before,
+                tuple((v - 1) if v > 0 else (v + 1) for v in flipped))
+
+    slide = lm.shortRelationSlideRules(3)
+    for right, left in zip(slide[::2], slide[1::2]):
+        assert inverseOf(right) == left
+
+    # The spreading pair mixes directions, and its "inverse" is not one.
+    spreading = lm.spreadingPairRules(2)[0]
+    candidate = inverseOf(spreading)
+    assert candidate not in lm.VERIFIED_MOVES
+    confirmed, failures = lm.verifyMove(candidate, [candidate[0] + 1])
+    assert failures or confirmed == 0

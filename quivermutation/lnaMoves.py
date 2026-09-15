@@ -950,11 +950,54 @@ def shortRelationSlideRules(maxDistance = 7):
     return rules
 
 
+def trailingRelationWalkRules(maxDistance = 6):
+    """Two adjacent short relations; the right one walks away, in one mutation per arrow.
+
+    Two relations of two arrows covering the arrows 0, 1 and 2, 3 of the window
+    become the relations at 1, 2 and at d + 2, d + 3: the left one steps one
+    arrow right, the right one travels d.  The sequence is the left mutation at
+    vertex 3 followed by the left mutations at 5, 6, ..., d + 4 -- d + 1 in all,
+    so the count grows with d exactly as in `shortRelationSlideRules`.
+
+    Discovery found d = 1 (E-010) and d = 2 (E-011) and could not have found
+    more: d = 3 needs four mutations.  Verified for d = 1 to 6 at three lengths
+    each, 8 confirmations apiece with no failures.  F-020.
+    """
+    rules = []
+    for distance in range(1, maxDistance + 1):
+        width = distance + 4
+        sequence = (-3, -5) + tuple(-vertex for vertex in range(6, width + 1))
+        rules.append((width, ((0, 2), (2, 2)), ((1, 2), (distance + 2, 2)), sequence))
+    return rules
+
+
+def spreadingPairRules(maxDistance = 5):
+    """Two short relations one arrow apart, spreading; again one mutation per arrow.
+
+    Relations of two arrows at the window's arrows 1, 2 and 4, 5 become the ones
+    at 0, 1 and d + 4, d + 5: the left one steps one arrow *left* and the right
+    one travels d right.  The sequence is the right mutation at vertex 2 then
+    the left mutations at 7, 8, ..., d + 6.
+
+    The one family here whose sequence mixes directions, which is why the
+    inverse-for-free transform does not apply to it (E-019).  Discovery found
+    d = 1 and 2 in E-011; verified for d = 1 to 5 at three lengths each -- up to
+    A_14 -- with 8 confirmations apiece and no failures.  F-020.
+    """
+    rules = []
+    for distance in range(1, maxDistance + 1):
+        width = distance + 6
+        sequence = (2,) + tuple(-vertex for vertex in range(7, width + 1))
+        rules.append((width, ((1, 2), (4, 2)), ((0, 2), (distance + 4, 2)), sequence))
+    return rules
+
+
 def _withFamilies(listed):
     """The listed rules together with the generated families, deduplicated."""
     combined = list(listed)
     seen = set(combined)
-    for rule in pairSlideRules() + shortRelationSlideRules():
+    for rule in (pairSlideRules() + shortRelationSlideRules()
+                 + trailingRelationWalkRules() + spreadingPairRules()):
         if rule not in seen:
             seen.add(rule)
             combined.append(rule)

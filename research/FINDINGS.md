@@ -5,7 +5,7 @@ See [`README.md`](README.md) for conventions.
 
 ---
 
-## F-020 — A rule family whose mutation count grows with its parameter
+## F-020 — Three rule families whose mutation count grows with their parameter
 *2026-09-15*
 
 H-008 suspected that the move rules are members of families parameterised by
@@ -37,20 +37,43 @@ being 63 at every d is itself a consistency check — the pattern is one relatio
 alone in its window, so the number of matching LNAs does not depend on how far it
 travels.
 
+**Two more of the same shape, read off consecutive widths in the enlarged table.**
+Once the first family was recognised, looking for others cost minutes rather than
+the hours a four-mutation search would have:
+
+| family | rewrite on the window | sequence | mutations | verified |
+|---|---|---|---|---|
+| lone slide | `(0:2)` → `(d:2)` | `[-3, …, -(d+2)]` | d | d = 1–7, both directions |
+| trailing walk | `(0:2) (2:2)` → `(1:2) (d+2:2)` | `[-3, -5, …, -(d+4)]` | d + 1 | d = 1–6 |
+| spreading pair | `(1:2) (4:2)` → `(0:2) (d+4:2)` | `[2, -7, …, -(d+6)]` | d + 1 | d = 1–5 |
+
+8 confirmations per member for the latter two, at three lengths each, no
+failures; the spreading pair reaches A_14. Discovery had found d = 1 and 2 of each
+and could not have found more — d = 3 of either needs four mutations. **One
+mutation per arrow travelled** is the shape all three share: the relation that
+moves furthest pays for each arrow, and any companion relation costs one more.
+
 **Contrast with the pair slide (F-013).** That family is *two* mutations for every
 relation length: only the window grows. Here the mutation count grows with the
-parameter, so the two families are the two halves of H-008's statement, and only
-this one explains why discovery keeps finding "new" rules that are the same rule.
+parameter, so the two kinds are the two halves of H-008's statement, and this kind
+explains why discovery keeps finding "new" rules that are the same rule.
 
 **The practical consequence, and it is the point.** Discovery can only ever find
 an **initial segment** of such a family — `d <= maxSteps` — so raising the search
 bound by one buys one more member at multiplying cost, while recognising the
-family gives every member at once. `lnaMoves.shortRelationSlideRules` generates
-it, as `pairSlideRules` does for the other. Before spending a four-mutation
-search, look at what the three-mutation one found for a family whose members
-would be out of reach.
+family gives every member at once. `shortRelationSlideRules`,
+`trailingRelationWalkRules` and `spreadingPairRules` generate the three, as
+`pairSlideRules` does for the other kind, taking the table from 96 listed rules
+to 123. Before spending a four-mutation search, look at what the three-mutation
+one found for a family whose members would be out of reach.
 
-H-008 → CONFIRMED. E-011.
+**What does not generalise.** The three slide families' inverses come for free:
+reverse the sequence, negate each vertex, move each one step toward zero. That is
+not a property of the table, though — it holds for only 12 of the 96 listed
+rules, and fails or leaves the window for the rest (E-019). It works here because
+a slide's sequence is one uniform run of mutations in one direction.
+
+H-008 → CONFIRMED. E-011, E-019.
 
 ---
 
