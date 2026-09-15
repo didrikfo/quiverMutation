@@ -22,6 +22,8 @@ The modules, in dependency order:
 | `classification` | classifying a whole length, end to end |
 | `quipuForms` | canonical forms for quipus, and the quipu theorem inverted |
 | `mutationClassTable` | the classification table, as CSV and parquet |
+| `classview` | reading a finished classification back, one row per class |
+| `classpage` | the same, rendered as a page to browse |
 | `nakayama` | `LinearNakayamaAlgebra` and `QuipuAlgebra`, the two shapes with structure |
 | `lnaMoves` | verified mutation shortcuts between LNAs |
 | `piecewiseHereditary` | certificates that an algebra is in no quipu class |
@@ -31,8 +33,9 @@ The modules, in dependency order:
 The procedural modules are re-exported flat, so `import quivermutation as qm`
 reaches `qm.classifyLength` and the rest directly.  The modules that carry their
 own namespace -- `nakayama`, `quipuForms`, `lnaMoves`, `piecewiseHereditary`,
-`relationAlgebra`, `procedure`, `mutationClassTable`, `quiverExamples` -- are
-imported as names: `from quivermutation import nakayama as nk`.
+`relationAlgebra`, `procedure`, `mutationClassTable`, `classview`, `classpage`,
+`quiverExamples` -- are imported as names:
+`from quivermutation import nakayama as nk`.
 """
 
 from . import (
@@ -51,6 +54,8 @@ from . import (
     nakayama,
     lnaMoves,
     piecewiseHereditary,
+    classview,
+    classpage,
     quiverExamples,
     plotting,
 )
@@ -138,6 +143,8 @@ __all__ = [
     "className",
     "classification",
     "classifyLength",
+    "classpage",
+    "classview",
     "coxeterPoly",
     "dualPathAlgebra",
     "expandClassByMoves",

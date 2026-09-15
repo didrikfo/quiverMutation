@@ -320,11 +320,16 @@ item 4 is what makes n >= 10 readable at all.
    it passes. What made the difference findable was the paper's own wording,
    which the summary in `literature/` had abridged into something wrong; it is
    quoted verbatim there now.
-4. **A way to look at a classification that is not a spreadsheet.** Idea 23.
-   Already untenable at n = 10 and impossible from 11 up (16796 LNAs at 11,
-   58786 at 12). Done when a classification can be opened and filtered — by
-   Coxeter polynomial, by quipu, by class size, by whether the class is a quipu
-   class — without loading the whole table into a viewer.
+4. ~~**A way to look at a classification that is not a spreadsheet.**~~ **Done.**
+   Idea 23. `classview.Classification` is the query layer — one row per *class*,
+   over a lazy polars scan of the parquet, so the per-LNA rows stay on disk for
+   everything but the one class asked for. `classes.py` is the CLI over it and
+   `classpage` renders the same thing as a self-contained page.
+
+   The classification's shape is what made this worth doing properly: the row
+   count grows like the Catalan numbers (1430 LNAs at n = 9, 58786 at n = 12)
+   while the class count does not (20 at n = 9, 127 quipus at order 12), so the
+   summary stays small exactly where the table stops being openable.
 5. **Rule discovery, deeper.** Ideas 17, 19 and research H-007, H-008. The main
    line of mathematical work, and the lever for n >= 11 (idea 16).
 6. **The cellular-automaton reading of the rules.** Research H-009. A literature
@@ -868,7 +873,17 @@ nothing else, agreeing with the published table.
     without the theorem. LNAs are gentle, so the Avella-Alaminos–Geiss invariant
     applies directly and is the candidate; Hochschild cohomology dimensions are
     the fallback. See research F-014 for what is and is not established.
-23. **An interface for reading a classification.** The CSV was fine to n = 9 and
+23. ~~**An interface for reading a classification.**~~ **Done**, as `classview`,
+    `classes.py` and `classpage` — see plan item 4. The page draws two things a
+    table cannot, and they are why a page rather than more columns: the class'
+    **quipu**, from the parameters in its name, and each LNA as its **quiver**
+    with an arc over the span of every relation. Whether two relations overlap,
+    and by how much, is what the whole classification turns on, and it is
+    invisible in `1;2;3|3;4;5;6`.
+
+    The original note, for the record:
+
+    **An interface for reading a classification.** The CSV was fine to n = 9 and
     is already unwieldy at n = 10; from n = 11 up (16796 LNAs, then 58786) a
     spreadsheet is not a way to look at the result at all. What is actually
     wanted is to ask questions of a classification: show me the classes sharing
