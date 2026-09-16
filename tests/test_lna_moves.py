@@ -92,9 +92,27 @@ def test_each_rule_is_well_formed(description):
 @pytest.mark.slow
 @pytest.mark.parametrize("description", lm.VERIFIED_MOVES, ids=str)
 def test_each_rule_holds_wherever_it_applies(description):
-    """Re-run the verification the table's entries were admitted by."""
-    confirmed, failures = lm.verifyMove(description, range(5, 9))
-    assert confirmed > 0
+    """Re-run the verification the table's entries were admitted by.
+
+    The lengths have to follow the rule's width.  `matchesAt` needs
+    windowStart + width - 1 <= length - 1, so a rule of width w cannot fire at
+    all on a quiver shorter than w + 1 -- it reports zero confirmations and zero
+    failures, which is not a pass, it is the absence of a test.  A fixed range of
+    5 to 8 therefore said nothing about any rule wider than 4, and failed
+    outright on the eight pair-slide members of relation length 6 to 9 that
+    `pairSlideRules` generates.
+
+    So each rule is checked from the first length it can fire at.  The upper
+    bound is what the cost allows: verifyMove enumerates every LNA of each
+    length, which is 4862 at 10 and 208012 at 13, so the widest rules get two
+    lengths rather than four.  The family's real evidence is E-012 and F-013,
+    which checked relation lengths 2 to 7 over four lengths each.
+    """
+    width = description[0]
+    lengths = range(max(5, width + 1), max(9, width + 3))
+    confirmed, failures = lm.verifyMove(description, lengths)
+    assert confirmed > 0, "checked over {0} where the rule never fires".format(
+        list(lengths))
     assert failures == []
 
 

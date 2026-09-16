@@ -6,6 +6,41 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-015 — The wide pair-slide rules were never being checked, and are sound
+*2026-09-16* · **clean, after a test that said nothing**
+
+`test_each_rule_holds_wherever_it_applies` re-verifies every entry of the move
+table, and did so over a hard-coded length range of 5 to 8. But `matchesAt`
+needs `windowStart + width - 1 <= length - 1`, so a rule of window width `w`
+cannot fire at all on a quiver shorter than `w + 1`: it returns zero
+confirmations and zero failures, which is not a pass but the absence of a test.
+
+So the range said nothing about any rule wider than 4, and **failed outright on
+the eight pair-slide members of relation length 6 to 9** that
+`lnaMoves.pairSlideRules` generates — `assert confirmed > 0` against a range
+where they can never fire. Eight failures, present since the family was
+generated rather than listed, and unrelated to anything they appeared alongside.
+
+Fixed by taking the range from the rule's own width, starting at the first
+length it can fire at. All 64 rules then verify **clean**, in 124 s:
+
+    pytest tests/test_lna_moves.py::test_each_rule_holds_wherever_it_applies
+
+The eight that had never been checked are sound — the width-11 member confirms
+once at length 12 and twice at length 13, with no failures. So F-013's family
+holds where it had only been assumed, at relation lengths 8 and 9 as well.
+
+The upper bound is what the cost allows: `verifyMove` enumerates every LNA of
+each length, 4862 at 10 and 208012 at 13, so the widest rules get two lengths
+rather than four. Thin, and deliberately so — the family's real evidence is
+E-012. But thin is not the same as absent, which is what it was.
+
+**The general lesson, which is R-008's in another key:** a check that reports
+zero failures over a range where nothing can fire looks exactly like a check
+that passed. Assert the confirmation count, always.
+
+---
+
 ## E-014 — Targeted interior discovery, four mutations, pilot
 *2026-09-16* · **one link found, and it was false**
 

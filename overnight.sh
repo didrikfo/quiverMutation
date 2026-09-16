@@ -99,6 +99,7 @@ persist() {
 
 echo "Quiver mutation, overnight run of $HOURS hour(s), started $(date)"
 echo "  $CORES cores; logs in $LOGS"
+echo "  (python runs unbuffered, so the logs are live -- tail -f them)"
 echo
 
 PIDS=()
@@ -107,7 +108,7 @@ if [ "$WHICH" = "both" ] || [ "$WHICH" = "classify" ]; then
     LOG_A="$LOGS/classify-$LENGTH-$STAMP.log"
     echo "[A] classifying n = $LENGTH  ->  $LOG_A"
     persist "classify n=$LENGTH" "$LOG_A" \
-        "$PYTHON" "$HERE/classify.py" "$LENGTH" --resume --budget-hours "$HOURS" &
+        "$PYTHON" -u "$HERE/classify.py" "$LENGTH" --resume --budget-hours "$HOURS" &
     PIDS+=($!)
 fi
 
@@ -128,7 +129,7 @@ if [ "$WHICH" = "both" ] || [ "$WHICH" = "discover" ]; then
                 break
             fi
             persist "discover steps=$steps" "$LOG_B" \
-                "$PYTHON" "$HERE/discover.py" "$TARGET_LENGTH" \
+                "$PYTHON" -u "$HERE/discover.py" "$TARGET_LENGTH" \
                 --steps "$steps" --jobs "$DISCOVER_JOBS" --resume \
                 --budget-hours "$(awk -v s="$LEFT" 'BEGIN{printf "%.4f", s/3600}')"
         done
