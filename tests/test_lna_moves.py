@@ -56,13 +56,24 @@ def test_the_meeting_point_move_is_in_the_table():
     assert {(0, 2), (2, 3)} <= set(after)
 
 
-def test_the_pair_slide_walks_a_pair_along_the_quiver():
+def test_the_pair_slide_walks_a_pair_along_the_quiver_and_off_each_end():
     """A_10 with a pair of length-3 relations at the far left reaches every
-    position of that pair."""
-    orbit = lm.closureUnderMoves(10, [3, 3, 0, 0, 0, 0, 0, 0])
-    assert set(orbit) == {
+    position of that pair -- and, at either end, loses one of the two.
+
+    The pair slide alone gives the six positions.  What the last two members are
+    is the point of F-021: an isolated pair overlapping in two arrows cannot be
+    pulled apart anywhere in the interior, but against an end it collapses under
+    two mutations at the end vertex.  So the orbit of a heavily overlapping LNA
+    reaches an almost separate one exactly by walking to an end, which is why
+    those rules matter out of all proportion to their two positions.
+    """
+    positions = {
         "33000000", "03300000", "00330000", "00033000", "00003300", "00000330",
     }
+    orbit = lm.closureUnderMoves(10, [3, 3, 0, 0, 0, 0, 0, 0])
+    assert set(orbit) == positions | {"30000000", "00000030"}
+    assert set(lm.closureUnderMoves(10, [3, 3, 0, 0, 0, 0, 0, 0],
+                                    rules = lm.VERIFIED_MOVES)) == positions
 
 
 # ---------------------------------------------------------------------------

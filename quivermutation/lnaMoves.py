@@ -259,7 +259,7 @@ def standardise(pathAlg):
     return relabelled, relLengths, numbering
 
 
-def closureUnderMoves(length, relLengths, maxIterations = 10000):
+def closureUnderMoves(length, relLengths, maxIterations = 10000, rules = None):
     """Every LNA reachable from this one by any number of verified moves.
 
     All of them are in the same derived equivalence class, with a mutation path
@@ -284,7 +284,7 @@ def closureUnderMoves(length, relLengths, maxIterations = 10000):
     while frontier and iterations < maxIterations:
         iterations += 1
         standardAlg, current, path, numbering = frontier.pop()
-        for name, sequence in movesByRule(length, current).items():
+        for name, sequence in movesByRule(length, current, rules).items():
             if name in results:
                 continue
             # standardAlg's own labels are the standard positions, so the move
@@ -332,7 +332,7 @@ def _relationsInWindow(relations, lo, hi):
     return tuple(sorted(inside))
 
 
-def describeLink(length, before, after, sequence):
+def describeLink(length, before, after, sequence, anchor = None):
     """Describe a link between two LNAs as a local rewrite, or None.
 
     The window is the smallest interval of arrows containing every relation that
@@ -343,6 +343,13 @@ def describeLink(length, before, after, sequence):
 
     Returns (window width, relations before, relations after, sequence offsets),
     with positions given relative to the window's first arrow.
+
+    With `anchor` set to 'left' or 'right' the window is extended to that end of
+    the quiver and the description carries the anchor as a fifth entry, so it is
+    only ever matched there.  That is the honest way to state a rewrite that
+    needs an end of the quiver: clipping the window to the quiver and reporting
+    it as a floating rule is how R-009's false rules arose, since such a rule is
+    then checked at positions it was never true at.
     """
     beforeRelations = relationsOf(before)
     afterRelations = relationsOf(after)
@@ -357,6 +364,10 @@ def describeLink(length, before, after, sequence):
         touched.add(abs(vertex) - 1)
     lo, hi = min(touched), max(touched)
     lo, hi = max(1, lo), min(length - 1, hi)
+    if anchor == 'left':
+        lo = 1
+    elif anchor == 'right':
+        hi = length - 1
 
     # Every relation meeting the window must be contained in it, on both sides,
     # or the rewrite depends on something it does not describe.
@@ -372,10 +383,11 @@ def describeLink(length, before, after, sequence):
         return None
 
     offsets = tuple(v - lo + 1 if v > 0 else v + lo - 1 for v in sequence)
-    return (hi - lo + 1,
-            _relationsInWindow(beforeRelations, lo, hi),
-            _relationsInWindow(afterRelations, lo, hi),
-            offsets)
+    description = (hi - lo + 1,
+                   _relationsInWindow(beforeRelations, lo, hi),
+                   _relationsInWindow(afterRelations, lo, hi),
+                   offsets)
+    return description + (anchor,) if anchor else description
 
 
 def discoverMoves(lengths, maxSteps = 2, minOccurrences = 3, allowLeft = True,
@@ -403,13 +415,41 @@ def discoverMoves(lengths, maxSteps = 2, minOccurrences = 3, allowLeft = True,
     return {d: places for d, places in seen.items() if len(places) >= minOccurrences}
 
 
+def anchorOf(description):
+    """Which end of the quiver a rewrite is pinned to, or None if it floats.
+
+    A description is (width, before, after, offsets) for a rewrite that holds at
+    every window position, and carries a fifth entry, 'left' or 'right', for one
+    that only holds against that end of the quiver.
+    """
+    return description[4] if len(description) > 4 else None
+
+
+def windowStartsFor(length, description):
+    """The window positions a rewrite may be tried at, in a quiver of a length.
+
+    A floating rewrite is tried everywhere its window fits; an anchored one only
+    at the end it is pinned to.  Every caller that slides a rule along the quiver
+    goes through this, so an anchored rule can never be applied in the interior.
+    """
+    width = description[0]
+    anchor = anchorOf(description)
+    if anchor == 'left':
+        return [1] if width <= length - 1 else []
+    if anchor == 'right':
+        return [length - width] if width <= length - 1 else []
+    return list(range(1, length - width + 1))
+
+
 def formatMove(description):
     """A readable one-line form of a rewrite description."""
-    width, before, after, offsets = description
+    width, before, after, offsets = description[:4]
+    anchor = anchorOf(description)
     def relations(rels):
         return " ".join("({0}:{1})".format(start, arrows) for start, arrows in rels) or "-"
-    return "window {0} arrows: {1}  ->  {2}   via {3}".format(
-        width, relations(before), relations(after), list(offsets))
+    return "window {0} arrows{1}: {2}  ->  {3}   via {4}".format(
+        width, "" if anchor is None else " at the {0} end".format(anchor),
+        relations(before), relations(after), list(offsets))
 
 
 # ---------------------------------------------------------------------------
@@ -440,7 +480,7 @@ def matchesAt(length, relLengths, description, windowStart):
     The window must fit in the quiver, the relations inside it must be exactly
     the pattern, and no relation outside may reach into it.
     """
-    width, before, _after, _offsets = description
+    width, before, _after, _offsets = description[:4]
     windowEnd = windowStart + width - 1
     if windowStart < 1 or windowEnd > length - 1:
         return False
@@ -461,7 +501,7 @@ def applyAt(length, relLengths, description, windowStart):
 
     None if the result would not be an admissible LNA.
     """
-    width, before, after, offsets = description
+    width, before, after, offsets = description[:4]
     windowEnd = windowStart + width - 1
     result = list(relLengths)
     for start, arrows in before:
@@ -524,7 +564,7 @@ def verifyMove(description, lengths, checkCoxeter = True):
         # 4862 LNAs that actually exist there.
         for algebra in nakayama.LinearNakayamaAlgebra.allOfLength(length):
             relLengths = algebra.relLengths
-            for windowStart in range(1, length):
+            for windowStart in windowStartsFor(length, description):
                 if not matchesAt(length, relLengths, description, windowStart):
                     continue
                 applied = applyAt(length, relLengths, description, windowStart)
@@ -699,16 +739,17 @@ VERIFIED_MOVES = [
 ]
 
 
-def movesByRule(length, relLengths):
+def movesByRule(length, relLengths, rules = None):
     """Every LNA reachable from this one by a single verified move.
 
     Returns a dict from the reached class name to the mutation sequence, in the
     same shape as movesFrom, but computed by table lookup rather than by walking
-    a mutation tree.
+    a mutation tree.  `rules` defaults to the whole table, floating and anchored.
     """
+    rules = ALL_MOVES if rules is None else rules
     reached = {}
-    for description in VERIFIED_MOVES:
-        for windowStart in range(1, length):
+    for description in rules:
+        for windowStart in windowStartsFor(length, description):
             if not matchesAt(length, relLengths, description, windowStart):
                 continue
             applied = applyAt(length, relLengths, description, windowStart)
@@ -718,6 +759,26 @@ def movesByRule(length, relLengths):
             name = lines.className(moved)
             if name != lines.className(relLengths) and name not in reached:
                 reached[name] = sequence
+    return reached
+
+
+def rewritesOf(length, relLengths, rules = None):
+    """The relation lengths a single move reaches, as tuples, without mutating.
+
+    Every rule in the table has been checked against the mutation engine
+    wherever it applies, so the rewrite alone is enough to say where a move
+    goes.  Skipping the mutation is what makes a whole-length orbit partition
+    (`overlap.moveOrbits`) a matter of seconds.
+    """
+    rules = ALL_MOVES if rules is None else rules
+    reached = []
+    for description in rules:
+        for windowStart in windowStartsFor(length, description):
+            if not matchesAt(length, relLengths, description, windowStart):
+                continue
+            applied = applyAt(length, relLengths, description, windowStart)
+            if applied is not None:
+                reached.append(tuple(applied[0]))
     return reached
 
 
@@ -1006,3 +1067,106 @@ def _withFamilies(listed):
 
 DISCOVERED_MOVES = VERIFIED_MOVES
 VERIFIED_MOVES = _withFamilies(DISCOVERED_MOVES)
+
+
+# ---------------------------------------------------------------------------
+# Rules that need an end of the quiver
+#
+# Everything above is a rewrite that holds at every window position, which is
+# the right notion for a rule about the interior (H-007).  It is not the only
+# kind there is.  The source of the line has no arrow into it and the sink none
+# out of it, so a mutation there does something a mutation in the interior
+# cannot, and a rewrite built on that is true at the end and false everywhere
+# else.
+#
+# Those rules matter more than their two positions suggest.  An isolated pair of
+# relations sharing two or more arrows cannot have that overlap reduced by any
+# interior sequence we can find (F-021), and the overlapping pair is exactly
+# what the quipu theorem does not cover -- but at the end of the quiver the pair
+# collapses in two mutations.  Combined with the pair slide, which walks such a
+# pair along the quiver, the end is where the heavily overlapping LNAs become
+# reachable at all.
+# ---------------------------------------------------------------------------
+
+
+def anchoredOffset(length, anchor, width):
+    """Where to plant a pattern of a width so it sits against an end."""
+    return 0 if anchor == 'left' else length - 1 - width
+
+
+def discoverAnchoredMoves(patterns, anchor, maxSteps = 3, margin = 3,
+                          lengths = (11, 12), minOccurrences = 2, progress = False):
+    """Discover rewrites that hold against one end of the quiver.
+
+    The pattern is planted flush against `anchor`'s end rather than in the
+    middle, mutations are allowed within `margin` of it, and every link is
+    described with the window extended to that end -- so what comes out is an
+    anchored description, checked by `verifyMove` only where it claims to hold.
+
+    Using two lengths and requiring a description at both is what rules out a
+    rewrite that depends on the quiver's *other* end also being close by.
+    """
+    seen = {}
+    for pattern in patterns:
+        width = patternWidth(pattern)
+        for length in lengths:
+            offset = anchoredOffset(length, anchor, width)
+            relLengths = embedPattern(length, pattern, offset)
+            if relLengths is None:
+                continue
+            if progress:
+                print('  {0} at the {1} end of A_{2}'.format(pattern, anchor, length),
+                      flush = True)
+            centreLo = offset + min(start for start, _ in pattern)
+            centreHi = offset + max(start + arrows - 1 for start, arrows in pattern) - 1
+            reached = localMutationSequences(
+                length, relLengths, centreLo, centreHi, maxSteps, margin)
+            for name, sequence in reached.items():
+                description = describeLink(length, relLengths, [int(c) for c in name],
+                                           sequence, anchor = anchor)
+                if description is None:
+                    continue
+                seen.setdefault(description, []).append(
+                    (length, lines.className(relLengths), name))
+    return {d: places for d, places in seen.items()
+            if len({place[0] for place in places}) >= minOccurrences}
+
+
+def endPairCollapseRules(maxRelationLength = 9):
+    """A maximally overlapping pair at an end of the quiver loses one relation.
+
+    Two relations of equal length l starting at consecutive vertices overlap in
+    l - 1 arrows, which is as much as two relations can.  In the interior that
+    overlap cannot be reduced at all (F-021).  Against an end it collapses:
+
+    * at the **left** end, where the pair starts at the source of the line, two
+      right mutations at vertex 1 delete the second relation;
+    * at the **right** end, where the pair ends at the sink, two left mutations
+      at vertex n delete the first.
+
+    Either way the survivor is a single relation of l arrows, whose LNA is
+    almost separate whenever the rest of the quiver is -- so this is the rule
+    that takes a heavily overlapping LNA into the reach of the quipu theorem.
+    The window is l + 1 arrows, exactly the pair's span, so no other relation may
+    touch it.
+    """
+    rules = []
+    for relationLength in range(2, maxRelationLength + 1):
+        width = relationLength + 1
+        rules.append((width,
+                      ((0, relationLength), (1, relationLength)),
+                      ((0, relationLength),),
+                      (1, 1), 'left'))
+        rules.append((width,
+                      ((0, relationLength), (1, relationLength)),
+                      ((1, relationLength),),
+                      (-(width + 1), -(width + 1)), 'right'))
+    return rules
+
+
+ANCHORED_MOVES = endPairCollapseRules()
+
+# The whole table.  `VERIFIED_MOVES` stays the floating half, so everything that
+# slides a rule along the quiver and everything that reasons about
+# translation-invariant rules keeps meaning what it did.
+ALL_MOVES = VERIFIED_MOVES + ANCHORED_MOVES

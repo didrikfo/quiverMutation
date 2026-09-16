@@ -4,6 +4,7 @@
     python discover.py                      3 mutations, patterns of <= 5 arrows
     python discover.py --max-steps 4        the same patterns, four mutations
     python discover.py --max-arrows 5 --max-width 7 --jobs 4
+    python discover.py --anchor both        rules that need an end of the quiver
 
 A *move* is a rewrite of a window of arrows: given the relations inside the
 window, replace them with others, by a fixed sequence of mutations at fixed
@@ -15,6 +16,13 @@ quiver and mutates only near it (research H-007: on a quiver of length 6 or 7
 every vertex is within a step of an end, so a rule about the interior cannot be
 told apart from one about a boundary).  Two embeddings at different lengths and
 offsets are used, and a rewrite is only reported if it recurs across them.
+
+With `--anchor`, the pattern is planted flush against an end of the quiver
+instead, and what comes out is an *anchored* rule -- one stated as holding at
+that end and checked only there.  Those are not a curiosity: an isolated pair of
+relations overlapping in two or more arrows cannot be pulled apart anywhere in
+the interior (research F-021), and the end of the quiver is where it can
+(`lnaMoves.endPairCollapseRules`).
 
 The output is the surviving rules as the literal tuples `lnaMoves.VERIFIED_MOVES`
 holds, ready to paste in, each with the number of confirmations behind it.
@@ -36,6 +44,14 @@ def describeOne(job):
     pattern, length, offset, maxSteps, margin = job
     return lm.discoverLocalMoves([pattern], maxSteps = maxSteps, margin = margin,
                                  embeddings = ((length, offset),), minOccurrences = 1)
+
+
+def describeOneAnchored(job):
+    """One (pattern, anchor, length): the rewrites it reaches against that end."""
+    pattern, anchor, length, maxSteps, margin = job
+    return lm.discoverAnchoredMoves([pattern], anchor, maxSteps = maxSteps,
+                                    margin = margin, lengths = (length,),
+                                    minOccurrences = 1)
 
 
 def verifyOne(job):
@@ -84,31 +100,52 @@ def main(argv = None):
     parser.add_argument("--jobs", type = int, default = 1,
                         help = "parallel worker processes (default 1)")
     parser.add_argument("--known", action = "store_true",
-                        help = "also report rewrites already in VERIFIED_MOVES")
+                        help = "also report rewrites already in the table")
+    parser.add_argument("--anchor", choices = ("none", "left", "right", "both"),
+                        default = "none",
+                        help = "plant each pattern against an end of the quiver and "
+                               "report anchored rules, rather than in the middle "
+                               "(default none). The lengths used are --anchor-lengths.")
+    parser.add_argument("--anchor-lengths", default = "11,12", dest = "anchorLengths",
+                        help = "quiver lengths to plant against an end at "
+                               "(default 11,12)")
     args = parser.parse_args(argv)
 
     embeddings = [tuple(int(part) for part in pair.split(":"))
                   for pair in args.embeddings.split(",")]
 
     patterns = lm.smallPatterns(args.maxRelations, args.maxArrows, args.maxWidth)
-    jobs = [(pattern, length, offset, args.maxSteps, args.margin)
-            for pattern in patterns for length, offset in embeddings]
-    print("{0} patterns x {1} embeddings = {2} searches, {3} mutations each".format(
-        len(patterns), len(embeddings), len(jobs), args.maxSteps))
+    anchors = {"none": (), "left": ("left",), "right": ("right",),
+               "both": ("left", "right")}[args.anchor]
+    anchorLengths = [int(part) for part in args.anchorLengths.split(",")]
+    if anchors:
+        jobs = [(pattern, anchor, length, args.maxSteps, args.margin)
+                for pattern in patterns for anchor in anchors for length in anchorLengths]
+        describe = describeOneAnchored
+        print("{0} patterns x {1} ends x {2} lengths = {3} searches, {4} mutations "
+              "each".format(len(patterns), len(anchors), len(anchorLengths), len(jobs),
+                            args.maxSteps))
+    else:
+        jobs = [(pattern, length, offset, args.maxSteps, args.margin)
+                for pattern in patterns for length, offset in embeddings]
+        describe = describeOne
+        print("{0} patterns x {1} embeddings = {2} searches, {3} mutations each".format(
+            len(patterns), len(embeddings), len(jobs), args.maxSteps))
 
     pool = multiprocessing.Pool(args.jobs) if args.jobs > 1 else None
     started = time.time()
     seen = {}
-    for result in run(pool, describeOne, jobs):
+    for result in run(pool, describe, jobs):
         for description, places in result.items():
             seen.setdefault(description, []).extend(places)
     print("{0} rewrites described, in {1:.0f}s".format(len(seen), time.time() - started))
 
     # Recurring across embeddings is the point of planting the pattern twice: a
     # rewrite seen at one embedding only may be an accident of that quiver's ends.
+    distinctLengths = len(anchorLengths) if anchors else len(embeddings)
     recurring = {d: places for d, places in seen.items()
-                 if len({place[0] for place in places}) >= min(2, len(embeddings))}
-    known = set(lm.VERIFIED_MOVES)
+                 if len({place[0] for place in places}) >= min(2, distinctLengths)}
+    known = set(lm.ALL_MOVES)
     fresh = [d for d in sorted(recurring) if args.known or d not in known]
     print("{0} recur across embeddings, {1} of them new".format(len(recurring), len(fresh)))
     if not fresh:
