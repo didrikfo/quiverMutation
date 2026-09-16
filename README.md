@@ -135,8 +135,10 @@ a negative result worth having -- that is how the obstruction above was found.
 
 The two halves are different in kind. A *floating* rule holds at every position
 of the quiver; an *anchored* one holds only against the source or the sink, where
-a mutation does something it cannot do in the interior. The anchored half is
-small and recent and does most of the work above the almost separate line.
+a mutation does something it cannot do in the interior. The anchored half does
+most of the work above the almost separate line. Both are closed under the
+relation dual -- reverse every arrow and exchange right mutation for left, which
+takes a rule to a rule (`lnaMoves.dualRule`).
 
 ### Where the Coxeter polynomial is not enough
 

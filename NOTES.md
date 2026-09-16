@@ -361,6 +361,19 @@ item 4 is what makes n >= 10 readable at all.
    however useful it was; the wide run yields 209 rules judged to 9 and 728
    judged to 11. `overlap.coverage` is 16 s at n = 10 and about four minutes at
    n = 11, so there is no reason to stop short.
+
+   **Search one end and dual the answers.** A rule's dual is a rule -- reverse
+   the arrows, exchange right mutation for left, keep the order (F-026) -- so a
+   run that plants patterns against both ends is doing twice the work it needs
+   to. `lnaMoves.dualRule` and `closeUnderDual`, and the table is generated
+   closed.
+
+   **A rule is: open a relation into a square, walk its long side, close.**
+   Every intermediate quiver of every multi-mutation rule in the table is a
+   commutative square with a side of exactly two arrows, or a line (F-027).
+   Whether rules can be *constructed* that way rather than searched for is
+   open, and the thing standing in the way is that the square needs a companion
+   relation to interact with -- a lone one closes only by undoing itself.
 6. ~~**The cellular-automaton reading of the rules.**~~ **Parked**, research
    H-009. Not refuted -- F-017 stands and its caveat passes -- but the reading
    would have to be fitted to the part that is still open, and its own last
@@ -992,6 +1005,14 @@ nothing else, agreeing with the published table.
     that change the orbit partition at n <= 9. Regenerate with
     `python discover.py --anchor both --max-arrows 5 --max-width 6 --jobs 4`.
     A wider or deeper run of the same thing is the obvious next batch.
+26. **Build rules from the square instead of searching for them.** F-027: a
+    mutation leaves the line only into a commutative square with one side of two
+    arrows and the other of k, and a rule is that square opened, walked along
+    its long side, and closed. The pieces are all here -- open at a chosen
+    relation, choose a companion, walk, read off where it closes -- and the
+    search being replaced is the expensive part of every discovery run so far.
+    A lone relation's square closes only by undoing itself, so the companion is
+    not optional.
 25. **Admit a bystander into a rule's window.** What stops a rule firing is
     usually a relation in the window that it does not touch (F-023, H-011), and
     `lnaMoves.spectatorExtensions` generates the widened rule that tolerates

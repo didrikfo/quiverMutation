@@ -6,6 +6,71 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-026 — The dual as a mirror, and what a rule walks through
+*2026-09-16* · **410 duals, all holding; every intermediate a square with a side of two** → F-026, F-027, R-011
+
+Three things suggested from outside the search, all cheap, and the first of them
+corrects a finding made the same day.
+
+### 1. The proper mirror of a rule
+
+F-025 read an asymmetry between the two ends of the quiver off a comparison
+between a rule at the sink and *the same pattern* at the source. That is not the
+mirror. The mirror is the relation dual: reverse every arrow **and** exchange
+right mutation for left.
+
+| | |
+|---|---|
+| at the sink | `(0:3) (1:6) -> (0:2) (1:6)` via `[2, 2]` -- 4 confirmations, 0 failures |
+| the same pattern at the source | 1 confirmation, **3 failures** |
+| its **dual** at the source | `(0:6) (4:3) -> (0:6) (5:2)` via `[-7, -7]` -- 4 confirmations, **0 failures** |
+
+Checked at `(l, m)` = (3,6), (4,7), (3,4), (5,6). The pattern's dual is a pair
+sharing an *end*, not a pair sharing a *start*, which is why comparing a pattern
+with itself at the other end says nothing. R-011.
+
+### 2. Closing the table under it
+
+Whether the sequence's **order** reverses under the dual was the one thing not
+obvious. Over 50 rules sampled from both halves of the table, order **kept**
+works for all 50 (8 of them exclusively; the other 42 have sequences symmetric
+enough that both work) and order reversed works for none exclusively. So the
+order is kept.
+
+Then, over the whole table: 1384 rules, **none self-dual**, **410 duals
+missing**, verified at up to four lengths each --
+
+> **410 hold, 0 fail, 0 never apply**, in 106 s on four processes.
+
+The table is generated closed now (364 floating, 1430 anchored). Coverage barely
+moves -- 7 rows at n = 10, none at n = 9 -- because those orbits were already
+joined another way. The value is that it is free, that it halves what a search
+has to look for, and that it is what corrected F-025. F-026.
+
+### 3. What a rule walks through
+
+Every multi-mutation rule in the table run one step at a time, each intermediate
+quiver classified:
+
+| | |
+|---|---|
+| commutative squares | **1364**, sides `2 x k` for k = 2..8 |
+| squares with a short side other than 2 | **0** |
+| a line again, mid-sequence | 336 |
+| anything else | 5 |
+
+So a mutation leaves the line only into a square with a side of exactly two, and
+a rule is: open a relation into such a square, do something along its long side,
+close it back. Exactly the structure the search has been finding by brute force.
+
+**Tried and it does not immediately give a construction.** Opening the lone
+relation of `00500000` in A_10 into its 2-by-4 square and searching four
+mutations over the square's vertices finds one way back to a line: `[-3]`, the
+undo. A square with nothing to interact with closes only onto itself, which is
+F-023's lesson again -- the companion relation is the whole point. F-027.
+
+---
+
 ## E-025 — Discovery with the bounds raised, and probes deep and wide
 *2026-09-16* · **3045 rules, n = 8 to 98%, and H-010 tested two deeper** → F-024, F-025
 

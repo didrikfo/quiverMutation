@@ -5,8 +5,122 @@ See [`README.md`](README.md) for conventions.
 
 ---
 
-## F-025 — The two ends of the quiver are not the same end
+## F-027 — Leaving the line, a mutation of an LNA goes to a square with a side of two
 *2026-09-16*
+
+A rule of two or more mutations passes through quivers that are not lines. They
+are not arbitrary. Walking every multi-mutation rule in the table one step at a
+time and classifying each intermediate:
+
+| intermediate | count |
+|---|---|
+| commutative square, sides 2 and 2 | 450 |
+| sides 2 and 3 | 351 |
+| sides 2 and 4 | 297 |
+| sides 2 and 5 | 216 |
+| sides 2 and 6 | 31 |
+| sides 2 and 7 | 9 |
+| sides 2 and 8 | 10 |
+| a line again | 336 |
+| anything else | **5** |
+
+1296 rules, 1705 intermediates. **Every square has a short side of exactly two**
+-- 1364 of them, and not one with a short side of three. The five exceptions
+have a branching vertex and no matching join, so they are not squares at all.
+
+**What the square is.** Mutating at the source vertex of a relation of k arrows
+takes the relation `v -> v+1 -> ... -> v+k` and replaces it with a commutative
+square: a new two-arrow path from a vertex to the relation's end, commuting with
+the k-1 arrows still on the line. Right mutation at the start does it one way
+round and left mutation at the end the other:
+
+```
+A_10, one relation on the arrows 3..7, right mutation at 3
+    relations  (2,4,3)  and  (4,3,8) = (4,5,6,7,8)
+                              ^^^^^ two arrows          ^^^^^^^ four arrows
+```
+
+so the zero relation has become a *commutativity* relation between a side of two
+and a side of k - 1.
+
+**Why it matters, and it is a construction rather than an observation.** The
+rules were all found by search -- enumerate mutation sequences, describe what
+recurs. The square says what the search is walking through: a rule is *open the
+relation into a square, do something along its long side, close it back onto a
+line*. That is the same shape as F-020's families, where the mutation count grows
+one per arrow travelled, and it suggests building rules directly instead of
+finding them: open at a chosen relation, walk the long side, and read off where
+it closes.
+
+**The caveat, from trying it.** A lone relation opened into a square closes only
+by undoing itself -- searching four mutations from the 2-by-4 square of
+`00500000` in A_10 finds nothing but `[-3]` back to where it started. The square
+has to have something to interact with, which is the same lesson as F-023's
+spectators: the interesting rules are the ones with a second relation in the
+window. Constructing rules this way therefore means opening a square *and*
+choosing the companion, which is a smaller search than the one being run now but
+not a formula.
+
+E-026.
+
+---
+
+## F-026 — A rule's dual is a rule, and the table was missing 410 of them
+*2026-09-16*
+
+The relation dual -- reverse every arrow of the line and renumber -- preserves
+the derived equivalence class of any LNA, and left mutation at a vertex is right
+mutation at that vertex of the dual. So a rule must carry over to the dual
+picture, and the transform is mechanical.
+
+**The transform.** For a rewrite on a window of `width` arrows:
+
+* a relation covering the arrows `s .. s+a-1` covers `width-s-a .. width-s-1`;
+* the vertex at offset `o` becomes the one at `width-o+2`, and a **right**
+  mutation there becomes a **left** one, and the other way about;
+* the sequence keeps its order, the dual being applied step by step;
+* an anchor to one end becomes an anchor to the other.
+
+`lnaMoves.dualRule`, and it is an involution.
+
+**It holds.** Of the 1384 rules the table then held, **none** was its own dual and
+**410** had a dual that was not in the table. Verified where each fits, at up to
+four lengths apiece: **410 hold, 0 fail, 0 never apply.** The table is generated
+closed under the dual now -- 364 floating rules and 1430 anchored, 1794 in all.
+
+**It is not the transform E-019 refuted**, and the difference is worth keeping
+straight. That one tried to read a rule's **inverse** off its window by reversing
+the sequence and negating: it worked for 12 of 96 rules and was abandoned. This
+is a symmetry of the problem rather than a shortcut, and it works for all of
+them.
+
+**What it is worth, honestly: very little coverage.** Closing the table adds 410
+rules and moves the count by **7 rows at n = 10 and none at n = 9**. The orbits
+those duals join were already joined another way. Its value is elsewhere:
+
+* it is free, and a table that is not closed under a symmetry of the problem is
+  wrong to leave that way;
+* it halves what a search has to look for -- discovery could plant patterns at
+  one end only and dual the results, at half the cost of E-025's two hours;
+* and it is the correction to F-025, which claimed an asymmetry between the two
+  ends of the quiver on the strength of comparing a pattern with itself rather
+  than with its dual (R-011).
+
+E-026. Tests: `test_the_dual_of_a_rule_reverses_the_window_and_turns_the_mutations_round`,
+`test_the_table_is_closed_under_the_dual`.
+
+---
+
+## F-025 — The two ends of the quiver are not the same end
+*2026-09-16* · **RETRACTED 2026-09-16 → R-011**
+
+**The asymmetry is the pattern's, not the quiver's.** The mirror of a rule is its
+relation dual -- reverse the arrows *and* exchange right mutation for left -- and
+under that transform the sink rule below holds perfectly well at the source, on
+the dual pattern. What was compared with it was the same pattern at the other
+end, which is a different configuration. The rules and the family below stand and
+are in the table; the conclusion drawn from them does not. R-011, F-026.
+
 
 `endPairCollapseRules` (F-022) collapses a pair of relations of **equal** length
 against either end, and the two directions are mirror images, as the relation

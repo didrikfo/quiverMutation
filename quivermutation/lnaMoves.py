@@ -443,6 +443,58 @@ def windowStartsFor(length, description):
     return list(range(1, length - width + 1))
 
 
+def dualRule(description):
+    """The same rewrite with every arrow reversed and every mutation turned round.
+
+    The relation dual of arXiv:2305.06642 -- reverse the quiver and renumber --
+    is class-preserving for *any* LNA, and left mutation at a vertex is right
+    mutation at that vertex of the dual, which is how `movesFrom` tests a left
+    mutation in the first place.  So a rule carries over to the dual picture, and
+    the transform is mechanical:
+
+    * a relation covering the window's arrows `s .. s + a - 1` covers
+      `width - s - a .. width - s - 1` after the reversal;
+    * the vertex at window offset `o` becomes the one at `width - o + 2`, and a
+      right mutation there becomes a left one, and the other way about;
+    * the sequence keeps its **order**, since the dual is applied step by step;
+    * an anchor to one end becomes an anchor to the other.
+
+    This is *not* the transform E-019 refuted.  That one tried to read a rule's
+    **inverse** off its window and worked for 12 of 96 rules.  This is the dual,
+    it is a symmetry rather than a shortcut, and it holds: of the 410 duals the
+    table was missing, **410 verify and none fails** (E-026).
+
+    The catch worth stating, because it cost a finding: the dual of a rule is
+    not the same rewrite read backwards, and it is not the same *pattern* at the
+    other end.  `(0:l) (1:m)` flush against the sink duals to `(0:m) (m+1-l:l)`
+    flush against the source -- a pair sharing an end rather than a start. F-025
+    claimed an asymmetry between the two ends on the strength of comparing a
+    pattern with itself at the other end, which is not its dual at all. R-011.
+    """
+    width, before, after, offsets = description[:4]
+    anchor = anchorOf(description)
+    reversed_ = lambda relations: tuple(sorted(
+        (width - start - arrows, arrows) for start, arrows in relations))
+    turned = tuple(-(width - abs(vertex) + 2) if vertex > 0
+                   else (width - abs(vertex) + 2)
+                   for vertex in offsets)
+    dual = (width, reversed_(before), reversed_(after), turned)
+    swapped = {'left': 'right', 'right': 'left'}.get(anchor)
+    return dual + (swapped,) if swapped else dual
+
+
+def closeUnderDual(rules):
+    """The rules together with their duals, deduplicated, order preserved."""
+    combined = list(rules)
+    seen = set(combined)
+    for rule in rules:
+        dual = dualRule(rule)
+        if dual not in seen:
+            seen.add(dual)
+            combined.append(dual)
+    return combined
+
+
 def formatMove(description):
     """A readable one-line form of a rewrite description."""
     width, before, after, offsets = description[:4]
@@ -1231,6 +1283,14 @@ def sinkShortRelationShrinkRules(maxRelationLength = 9):
 
 ANCHORED_MOVES = _withEndMoves(endPairCollapseRules()
                                + sinkShortRelationShrinkRules())
+
+# Close both halves under the relation dual before anything uses them.  A rule's
+# dual is a rule -- 410 of the ones the table was missing were checked and all
+# 410 hold (E-026) -- so leaving them out was leaving free coverage on the table.
+# The dual of a floating rule floats and the dual of an anchored one is anchored
+# to the other end, so the two halves stay the two halves.
+VERIFIED_MOVES = closeUnderDual(VERIFIED_MOVES)
+ANCHORED_MOVES = closeUnderDual(ANCHORED_MOVES)
 
 # The whole table.  `VERIFIED_MOVES` stays the floating half, so everything that
 # slides a rule along the quiver and everything that reasons about

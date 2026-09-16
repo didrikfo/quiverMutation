@@ -199,13 +199,57 @@ def test_the_table_places_every_lna_of_length_six_and_seven():
 def test_the_anchored_half_of_the_table_is_what_crosses_the_line():
     """Not a tautology and not a close thing.
 
-    Restricted to the rules that hold at every position, the table places 259 of
+    Restricted to the rules that hold at every position, the table places 260 of
     the 429 LNAs at n = 8; with the rules anchored to an end it places 419 of
-    them. The almost separate ones are 233, so the 248 floating rules carry 26
-    rows across the line and the anchored ones carry another 160.
+    them. The almost separate ones are 233, so the floating rules carry 27 rows
+    across the line and the anchored ones carry another 159.
     """
     floating = ov.coverage(8, lm.VERIFIED_MOVES)
     both = ov.coverage(8)
-    assert len(floating['covered']) == 259
+    assert len(floating['covered']) == 260
     assert len(both['covered']) == 419
     assert len(both['seeded']) == 233
+
+
+# ---------------------------------------------------------------------------
+# The relation dual as a symmetry of the rule table
+# ---------------------------------------------------------------------------
+
+
+def test_the_dual_of_a_rule_reverses_the_window_and_turns_the_mutations_round():
+    """The transform, pinned on the case that corrected F-025.
+
+    A pair sharing a *start*, flush against the sink, duals to a pair sharing an
+    *end*, flush against the source -- a different pattern, which is exactly the
+    point R-011 turns on.
+    """
+    sink = (7, ((0, 3), (1, 6)), ((0, 2), (1, 6)), (2, 2), 'right')
+    assert lm.dualRule(sink) == (7, ((0, 6), (4, 3)), ((0, 6), (5, 2)),
+                                 (-7, -7), 'left')
+    assert lm.dualRule(lm.dualRule(sink)) == sink
+
+
+def test_the_table_is_closed_under_the_dual():
+    """Every rule's dual is a rule, so leaving one out is leaving coverage out.
+
+    410 duals were missing when this was first checked and every one of them
+    verified (E-026); the table is generated closed now, and the two halves
+    survive the closure because a floating rule duals to a floating one and an
+    anchored rule to one anchored at the other end.
+    """
+    table = set(lm.ALL_MOVES)
+    assert {lm.dualRule(rule) for rule in lm.ALL_MOVES} <= table
+    assert all(lm.anchorOf(lm.dualRule(rule)) is None for rule in lm.VERIFIED_MOVES)
+    assert all(lm.anchorOf(lm.dualRule(rule)) is not None for rule in lm.ANCHORED_MOVES)
+
+
+@pytest.mark.slow
+@pytest.mark.parametrize("rule", lm.endPairCollapseRules(5)
+                         + lm.sinkShortRelationShrinkRules(6), ids=str)
+def test_each_generated_end_family_holds_and_so_does_its_dual(rule):
+    """The families and their duals, checked against the engine together."""
+    for candidate in (rule, lm.dualRule(rule)):
+        width = candidate[0]
+        confirmed, failures = lm.verifyMove(candidate, range(width + 1, width + 4))
+        assert failures == []
+        assert confirmed > 0

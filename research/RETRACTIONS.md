@@ -6,6 +6,45 @@ does not. See [`README.md`](README.md).
 
 ---
 
+## R-011 — "The two ends of the quiver are not the same end" (F-025)
+*retracted 2026-09-16*
+
+F-025 claimed an asymmetry between the source and the sink of the line: a pair
+of relations of unequal length comes apart against the sink and not against the
+source. The evidence was that `(0:l) (1:m)` with l < m loses an arrow at the
+sink under two right mutations, and that *the same rule written at the left end*
+gives 1 confirmation and 3 failures.
+
+**The mirror was the wrong mirror.** Mirroring a rule is not reflecting its
+pattern and keeping the mutations; it is the **relation dual** -- reverse every
+arrow *and* exchange right mutation for left. Under that transform
+
+```
+    right end:  (0:l) (1:m)  ->  (0:l-1) (1:m)         via [2, 2]
+    left  end:  (0:m) (m+1-l:l)  ->  (0:m) (m+2-l:l-1) via [-(m+1), -(m+1)]
+```
+
+and the left-hand one holds: 4 confirmations, no failures, at every `(l, m)`
+tried. What was compared against it instead was the *same pattern* at the other
+end, and that is a different configuration -- a pair sharing a start rather than
+a pair sharing an end -- so of course it behaves differently. The ends are
+mirror images; the pattern was not.
+
+**What survives.** The rule itself, and the family: `(0:l) (1:m)` shortens at the
+sink for every 3 <= l < m <= 9, 21 members, 4 confirmations apiece, and its dual
+does the same at the source. The probe results behind it are also untouched --
+`(1:3) (2:6)` planted at the source really does reach only two LNAs. What is
+withdrawn is the *interpretation*: that asymmetry belongs to the pattern, not to
+the quiver's ends, and no reading of the procedure is needed to explain it.
+
+**What it cost and what it bought.** The mistake was worth making, because
+looking for its cause turned up the transform itself, which the table had never
+been closed under: 410 rules were missing their duals, all 410 verify, and they
+are generated now (F-026). A wrong mirror is how the right one got written down.
+E-026.
+
+---
+
 ## R-010 — "Wider rules are what unlock the heavily overlapping LNAs" (H-003)
 *retracted 2026-09-16*
 
