@@ -327,6 +327,30 @@ have not turned up yet -- consistent with the crash only appearing at length 12.
    Coxeter polynomial that the hereditary form does not settle, and searches
    deeper for a mutation path between them.
 
+#### Every step checkpoints, because a long run will be interrupted
+
+Step 2 always wrote the table after every class searched, so it was resumable.
+Steps 3 and 4 were not: they ran entirely in memory and the CSV was written only
+once both had finished. A run killed during them lost every form it had named
+and every class it had resolved — which is exactly what happened to the n = 10
+run of F-014, where 61 classes were named and none of it kept.
+
+Now all four steps checkpoint. The table is written after every class, and a
+sidecar JSON file beside the CSV — `A_10_mutation_classes.progress.json` —
+records which classes each of steps 3 and 4 has already been through, with the
+number of members the class had at the time. A resumed run skips those and
+redoes any class whose membership has changed since, because a new member can
+carry a form the class did not have. The CSV layout is untouched, and a missing
+or corrupt sidecar only costs a redo.
+
+`classifyLength(..., budgetSeconds = ...)`, or `classify.py --budget-hours`,
+stops the run cleanly between classes once the budget is spent, with everything
+done so far on disk. `classify.py` then exits **2** rather than 1, so a wrapper
+can tell "ran out of time, resume me" from "finished, with something unsettled".
+That is how to fit a classification into a fixed window such as a night:
+
+    python classify.py 10 --budget-hours 9 --resume
+
 **Reachability is directional**, and this matters. `mutationSearchDepthFirst`
 walks only *right* mutations, so A can reach B at depth d while B reaches nothing
 at that depth. Since `rightMutate(dual(P)) = dual(leftMutate(P))` and the
@@ -517,6 +541,43 @@ mathematics (relations of length 2 do not change the class) but false as a
 two-arrow rewrite -- 63 confirmations against 130 failures. It needs a wider
 window.
 
+#### What the cheap steps cannot place, and why
+
+`unplaced.py` measures the gap without running a single mutation. The quipu
+theorem covers the LNAs whose consecutive relations overlap in at most one arrow,
+so every row it misses carries an **overlapping run** — a maximal group of
+relations chained by overlaps of two or more arrows — and the runs that actually
+occur are what rule discovery should be aimed at.
+
+    python unplaced.py 9
+
+Every unplaced row carries one. One shape dominates: the maximally overlapping
+pair of length-3 relations, `(1:3) (2:3)`, blocks 26% of the unplaced rows at
+n = 8 and 20% at n = 9, and the top five shapes cover about half. Of the 64 rules
+in the table 11 do reduce overlap, but every one of them needs a third relation
+in the window or relations of length 2, so **none applies to a bare overlapping
+pair** — over the n = 9 orbits only 49 of the 820 LNAs with an overlap of 2 or
+more ever reach a smaller one. That is why the move orbits add only 3 points at
+n = 8 over seeding alone. See research F-015 and H-009.
+
+`discover.py` is the search aimed at exactly that: it plants the commonest
+blocking runs in the interior of a long quiver, walks four- and five-mutation
+sequences near them, and keeps only what lands on a **strictly smaller overlap**.
+It is built to be left running — work is one (run, embedding) unit at a time
+across processes, every finished unit is appended to a JSONL file, and `--resume`
+skips what is already there.
+
+    python discover.py 9 --steps 4 --jobs 8
+    python discover.py 9 --steps 5 --jobs 8 --resume
+
+Two guards on the verification, both learnt the hard way. A candidate whose tight
+window fails is retried with the window **widened**, since `describeLink` returns
+the smallest window containing what the link touches and that is often too small
+to state the rule's real precondition. And a candidate counts as verified only
+with at least `--min-confirmations` confirmations (default 8): widening a window
+makes a rule fire in fewer places, and padded far enough it fires almost nowhere
+and passes vacuously. That is R-008, and it cost a false rule on the first run.
+
 #### What they buy so far
 
 Seeding the table from the quipu theorem and then expanding along move orbits,
@@ -672,23 +733,28 @@ nothing else, agreeing with the published table.
 
 ### Rule discovery — the main line of work
 
-17. **Find more mutation shortcut rules, with longer sequences.** The move table
+17. **Find a rule that breaks the maximally overlapping pair.** The move table
     is what replaces searching, and it is currently limited by the search that
     produced it: sequences of at most three mutations, and (until recently)
     patterns on quivers too short for anything but boundary behaviour. See
-    research H-007 and H-008, and `lnaMoves.discoverLocalMoves` for the interior
-    approach. The search space grows fast, so the leverage is in restricting
-    *where* mutations may happen rather than in raising the bound blindly.
+    research H-007, H-008 and especially **H-009**, which is the sharpened
+    version of this: the measurement of idea 19 is done and says the target is
+    one shape, `(1:3) (2:3)`. `discover.py` is the search, aimed at it, and a
+    four-step search does find links out of the pair that a three-step one does
+    not — none valid yet. The search space grows fast, so the leverage is in
+    restricting *where* mutations may happen rather than in raising the bound
+    blindly.
 18. **Generalise the rules into families**, parameterised by relation length and
     overlap, so the table reads as a handful of statements rather than dozens of
     rows. `lnaMoves.pairSlideRules` is the first, and F-013 is the argument for
     doing this — but **deliberately parked** until the search is deeper, since
     generalising from a three-mutation search risks fitting families to an
     artefact of the bound. Research H-008.
-19. **Aim discovery at the patterns that still need a search.** Seeding places
-    45% of the n = 9 table; the rest are the heavily overlapping LNAs. Measure
-    what patterns those actually have and point discovery at them, rather than
-    at small patterns chosen for cheapness. Research H-003.
+19. ~~**Aim discovery at the patterns that still need a search.**~~ Done, by
+    `unplaced.py`: the unplaced rows are exactly the ones carrying an overlapping
+    run, and `(1:3) (2:3)` alone blocks a fifth of them. `discover.py` takes its
+    targets straight from that measurement. Research E-013, F-015, and H-009 for
+    what to do with the answer.
 20. **Read `proposition:doubleMutation` of arXiv:2310.08346.** It states that
     certain tilting mutations of Nakayama algebras give new Nakayama algebras —
     which is exactly what a move rule is. It may already contain a family we are

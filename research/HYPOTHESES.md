@@ -6,6 +6,44 @@ it. Status is one of `OPEN`, `SUPPORTED`, `CONFIRMED → F-nnn`, `REFUTED → R-
 
 ---
 
+## H-009 — A short mutation sequence breaks the maximally overlapping pair
+*2026-09-16* · **OPEN** — this is what the overnight discovery run is for
+
+F-015 measures the obstruction: the LNAs that seeding and the move orbits cannot
+place all carry an overlapping run, and the single commonest is the maximally
+overlapping pair of length-3 relations, `(1:3) (2:3)` — 26% of the unplaced rows
+at n = 8, 20% at n = 9. No rule in the table reduces the overlap of a bare pair.
+
+The hypothesis is that a sequence of **four or five** mutations does, and that it
+is invisible to every search run so far because all of them were bounded at
+three. H-008 is the general form of this; the pair is the instance worth
+settling first, because it is the one that pays.
+
+**Evidence, such as it is.** A four-step search at quiver length 11 does find a
+link out of the pair to a less overlapping LNA, `(0:3)(1:3) -> (0:2)(3:3)` via
+`[2, -5, -6, 2]`, which three steps do not. That particular rewrite is **false**
+as a rule — it fails at lengths 10, 11 and 12 (R-008) — so this is evidence only
+that four-step links out of the pair exist at all, not that a valid one does.
+
+**What would settle it.**
+
+    python discover.py 9 --steps 4 --jobs 8 --resume
+    python discover.py 9 --steps 5 --jobs 8 --resume
+
+Plant the commonest blocking runs in the interior of A_13 and A_14, walk
+sequences of four and then five mutations near them, keep only what lands on a
+strictly smaller overlap, and verify each over lengths 7 to 10 with a minimum
+confirmation count. A negative result is worth as much as a positive one: if
+five mutations do not break the pair either, the obstruction is not a matter of
+search depth and the move table is the wrong lever for getting past n = 11.
+
+**What it would be worth.** A single valid rule for `(1:3) (2:3)`, with the
+family in relation length that F-013 suggests such a rule would have, would place
+a fifth of the rows that currently need a depth-6 search — at n = 9 and, being
+local, at every length above it.
+
+---
+
 ## H-008 — Rule families are parameterised by relation length and overlap, and some need more than three mutations
 *2026-09-14* · **OPEN**
 
@@ -99,7 +137,7 @@ certified and actual is unknown and worth measuring at n = 10 by another route.
 ---
 
 ## H-003 — Wider rules are what unlock the heavily overlapping LNAs
-*2026-09-13* · **OPEN**
+*2026-09-13, measured 2026-09-16* · **SUPPORTED, and sharpened — see F-015**
 
 Seeding by the quipu theorem and expanding along move orbits places 72% of the
 n = 7 table, 57% of n = 8, 45% of n = 9 — and the 34 rules added at length 8
@@ -107,9 +145,17 @@ barely moved those numbers. The diagnosis is that the rules found so far mostly
 keep an LNA *inside* the almost-separate set the theorem already covers, while
 the rows still needing a search are the heavily overlapping ones.
 
-**What would settle it.** Measure, for the rows a search still has to place, what
-relation patterns they have; then aim discovery at exactly those patterns rather
-than at small ones.
+**Measured** (E-013, F-015, `python unplaced.py 9`). The diagnosis is right and
+the measurement makes it precise: every unplaced row carries an overlapping run,
+and one shape — the maximally overlapping pair `(1:3) (2:3)` — blocks a fifth to
+a quarter of them.
+
+**But "wider" is the wrong word for what is missing.** Eleven of the 64 rules do
+reduce overlap; they are simply too specialised to fire, needing a third relation
+in the window or relations of length 2, so only 49 of the 820 LNAs of length 9
+with an overlap of 2 or more ever reach a smaller one. What is missing is not a
+wider rule but one that applies to a **bare overlapping pair**. That is H-009,
+which is the successor to this hypothesis.
 
 ---
 

@@ -5,6 +5,54 @@ See [`README.md`](README.md) for conventions.
 
 ---
 
+## F-015 — What the cheap steps cannot place is overlapping pairs, and no rule breaks one
+*2026-09-16*
+
+Seeding from the quipu theorem covers the LNAs whose consecutive relations
+overlap in at most one arrow, so every row it misses carries an **overlapping
+run**: a maximal group of relations chained by overlaps of two or more arrows.
+Measuring the runs that actually occur says exactly what rule discovery should
+be aimed at, and it turns out to be one shape.
+
+    python unplaced.py 8
+    python unplaced.py 9
+
+| | n = 8 | n = 9 |
+|---|---|---|
+| LNAs | 429 | 1430 |
+| placed by the theorem alone | 233 (54%) | 610 (43%) |
+| placed by theorem + move orbits | 246 (57%) | 644 (45%) |
+| still needing a search | 183 (43%) | 786 (55%) |
+
+**Every unplaced row carries at least one overlapping run** — 182 of 183 carry
+exactly one at n = 8, 772 of 786 at n = 9 — so the runs are not merely correlated
+with the gap, they are the gap.
+
+**One run dominates.** The commonest is the maximally overlapping pair of
+length-3 relations, `(1:3) (2:3)`: it blocks 47 of the 183 unplaced rows at n = 8
+(26%) and 159 of 786 at n = 9 (20%). The top 5 runs cover 54% of the unplaced
+rows at n = 8 and 42% at n = 9; the top 10 cover 64% and 51%.
+
+**The move table does reduce overlap, but almost never where it is needed.** Of
+its 64 rules, 11 have a smaller maximum overlap after than before — so the
+earlier guess that the moves simply preserve the obstruction is wrong. What is
+true is narrower and sharper: **every one of those 11 needs either a third
+relation in the window or relations of length 2**, and *none* of them applies to
+a bare overlapping pair. Measured over the orbits: of the 820 LNAs of length 9
+with an overlap of 2 or more, only **49 (6%)** reach a smaller overlap anywhere
+in their orbit under the whole table.
+
+That is why seeding plus move orbits adds only 3 points at n = 8 and 2 at n = 9
+over seeding alone (H-003, now with numbers): the rules fire, they just do not
+fire on the shape that is blocking the table.
+
+**Reproduction.** `unplaced.py` for the table above; for the 11 rules and the
+49, compare `discover.maximumOverlap` before and after each rule of
+`lnaMoves.VERIFIED_MOVES`, and over `lnaMoves.orbitOf(9, ...)` for every LNA of
+length 9.
+
+---
+
 ## F-014 — n = 10: all 36 quipus found, and the predicted collision confirmed
 *2026-09-14* · **partial — the merge step is unfinished**
 

@@ -67,11 +67,22 @@ directory, with one row per LNA giving
 It prints the classes and their sizes, and exits non-zero if any class was left
 unsettled.
 
-A long run does not have to finish in one sitting -- the table is written after
-every class, and `--resume` continues from the CSV:
+A long run does not have to finish in one sitting. Every step writes the table
+after every class and records what it has finished in a small JSON file beside
+the CSV, so `--resume` picks up where it stopped rather than redoing the naming
+and the resolving:
 
 ```bash
 python classify.py 10 --resume
+```
+
+`--budget-hours` stops a run cleanly once the budget is spent, between classes,
+with everything done so far on disk -- which is how to fit a classification into
+a fixed window such as a night. It exits 2 when it stops that way, so a wrapper
+can tell "out of time, resume me" from "finished, with something unsettled":
+
+```bash
+python classify.py 10 --budget-hours 9 --resume
 ```
 
 The classification runs in four steps, described in `NOTES.md`: seed every LNA
@@ -80,6 +91,34 @@ name any class the theorem missed by the hereditary algebra its search reaches,
 and settle whatever is left by a deeper search. For n <= 8 this reproduces the
 published classification with nothing left over, replacing what used to be a
 hand-merge over the CSV.
+
+## What the classification still has to search for, and why
+
+Seeding from the quipu theorem places every LNA whose consecutive relations
+overlap in at most one arrow; expanding along the verified move orbits adds a
+little. Everything else has to be searched, and searching is what makes a long
+classification long. `unplaced.py` says what is left and which relation patterns
+are to blame, in seconds and with no mutation search:
+
+```bash
+python unplaced.py 9
+```
+
+One shape dominates the answer -- a maximally overlapping pair of length-3
+relations blocks a fifth of the unplaced rows at n = 9 -- and no rule in the
+table breaks it. `discover.py` is the search for one that does: it plants the
+commonest blocking patterns in the interior of a long quiver, walks four- and
+five-mutation sequences near them, keeps only what reduces the overlap, and
+verifies each candidate against the mutation engine over a range of lengths.
+
+```bash
+python discover.py 9 --steps 4 --jobs 8
+python discover.py 9 --steps 5 --jobs 8 --resume
+```
+
+It is built to be left running: work is spread over processes one unit at a
+time, every finished unit is appended to a JSONL file, `--resume` skips what is
+already there, and `--budget-hours` stops it cleanly.
 
 ### Where the Coxeter polynomial is not enough
 

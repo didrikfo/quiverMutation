@@ -6,6 +6,52 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-014 — Targeted interior discovery, four mutations, pilot
+*2026-09-16* · **one link found, and it was false**
+
+The pilot for H-009, at a deliberately small size to measure the cost before
+committing a night to it: the top blocking run of A_8, `(1:3) (2:3)`, planted in
+A_11 at offsets 3 and 4, `--steps 4`, `--margin 3`.
+
+    python discover.py 8 --targets 1 --steps 4 --quiver-lengths 11 --jobs 2
+
+**Cost: about 130 s per (run, embedding) unit at four steps**, on one core. Two
+steps costs 3 s, so the step bound is where the whole cost is.
+
+**Yield: one overlap-reducing link**, from the offset-4 embedding and none from
+offset 3, described as `(0:3)(1:3) -> (0:2)(3:3)` via `[2, -5, -6, 2]`. It
+verified clean at lengths 8 and 9 after its window was widened by two arrows, and
+then failed at 10, 11 and 12 — see R-008, which is the lesson this run exists to
+have taught cheaply rather than overnight.
+
+**So the pilot's real output is the guard**, not the link: `--min-confirmations`,
+default 8. Rerun with it, the same candidate is rejected outright (8
+confirmations against 13 failures at lengths 8-10).
+
+Worth repeating at `--steps 5` and at quiver lengths 13 and 14, which is the
+overnight job.
+
+---
+
+## E-013 — What the cheap steps leave behind, at n = 8 and n = 9
+*2026-09-16* · **the aiming measurement** → F-015
+
+Idea 19 of NOTES.md and H-003: measure the relation patterns of the rows that
+seeding and the move orbits cannot place, rather than pointing discovery at small
+patterns chosen for cheapness.
+
+    python unplaced.py 8
+    python unplaced.py 9
+
+Seconds to run, no mutation search. Every unplaced row carries an overlapping
+run; one shape, the maximally overlapping pair `(1:3) (2:3)`, blocks a fifth to a
+quarter of them at both lengths; the top 5 shapes cover half. Of the 64 rules in
+the move table 11 reduce overlap, but all 11 need a third relation or relations
+of length 2, and over the n = 9 orbits only 49 of the 820 LNAs with an overlap of
+2 or more ever reach a smaller one. → F-015, and H-009 is the consequence.
+
+---
+
 ## E-012 — Pair slide at relation lengths 2 to 7
 *2026-09-14* · **confirmed a family**
 

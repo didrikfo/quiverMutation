@@ -6,6 +6,41 @@ does not. See [`README.md`](README.md).
 
 ---
 
+## R-008 — "A rewrite that verifies with no failures is a valid move"
+*2026-09-16* · corrected by F-015's discovery run, the same day it was written
+
+`verifyMove` reports (confirmations, failures), and `discover.py` was written to
+accept any candidate with **zero failures**. It promptly accepted a four-mutation
+rewrite of the maximally overlapping pair —
+
+    window 8 arrows: (2:3) (3:3)  ->  (2:2) (5:3)   via [4, -7, -8, 4]
+
+— on **one confirmation at length 8 and one at length 9**. Verified at lengths
+10, 11 and 12 it fails: 1 confirmation against 1 failure, 2 against 3, 5 against
+9, every failure a wrong result.
+
+**Why zero failures was not evidence.** The candidate's own window was too tight
+to state its precondition, so `discover.py` retried it with the window widened —
+which is sound in itself, since a wider window is a stronger precondition. But
+widening also makes the rule fire in *fewer* places, and pad it enough and it
+fires almost nowhere. At lengths 8 and 9 the padded form fired exactly once
+each. A rule that has been checked in one place has not been checked.
+
+This is R-005 again in a new disguise. There the missing checks were
+admissibility and the Coxeter polynomial; here all three checks ran and passed,
+and the verification was still vacuous because the *sample* was one. So:
+
+**Zero failures is only evidence alongside a count of confirmations.**
+`discover.py` now takes `--min-confirmations` (default 8) and reports a clean
+candidate below it as `unproven` rather than `verified`. E-010 had already found
+that 3 confirmations at two lengths was thin enough to warrant re-verifying over
+four; this is the case where thin became meaningless.
+
+The lesson for the move table as a whole: a rule's evidence is a number, and it
+belongs next to the rule.
+
+---
+
 ## R-007 — "Two classes with different names are different classes"
 *2026-09-14* · corrected in `mutationClassTable.formsAreCompatible`
 
