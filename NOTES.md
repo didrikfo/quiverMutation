@@ -346,11 +346,20 @@ item 4 is what makes n >= 10 readable at all.
    the window, not a window too small: 126 of the 155 LNAs unplaced at n = 8 had
    a rule whose pattern was present and blocked that way (F-023).
 
-   Coverage with no search at all is now 100% at n = 6, 96% at n = 7, 81% at
-   n = 8 and 60% at n = 9, against 83 / 72 / 57 / 45 before this line of work.
-   `lnaMoves.spectatorExtensions` is the next batch: take a rule, admit one
-   untouched relation into its window, verify. 784 such candidates match an LNA
-   that is still unplaced and none has been checked yet.
+   Coverage with no search at all is now **100% at n = 6 and n = 7**, 95% at
+   n = 8 and 73% at n = 9, against 83 / 72 / 57 / 45 before this line of work.
+   A_6 and A_7 classify by table lookup; A_8 needs a search for 23 of its 429
+   rows and A_9 for 392 of 1430.
+
+   The next batch is more of the same, and it is cheap: `discover.py --extend`
+   again with a wider spectator margin, and a discovery run at a **larger
+   `--max-arrows` and `--max-width`**. The second is what the residue asks for:
+   of the 33 LNAs at n = 9 for which no rule has the pattern at all, 32 contain
+   a relation of five arrows or more, and every run so far stopped at five
+   arrows in a six-arrow window, where such a relation cannot sit beside
+   another. Watch that count as a share after each batch -- it is the part more
+   widening cannot fix -- but do not read anything into it until the bounds have
+   been raised.
 6. ~~**The cellular-automaton reading of the rules.**~~ **Parked**, research
    H-009. Not refuted -- F-017 stands and its caveat passes -- but the reading
    would have to be fitted to the part that is still open, and its own last
@@ -985,10 +994,12 @@ nothing else, agreeing with the published table.
 25. **Admit a bystander into a rule's window.** What stops a rule firing is
     usually a relation in the window that it does not touch (F-023, H-011), and
     `lnaMoves.spectatorExtensions` generates the widened rule that tolerates
-    one. 784 candidates match an LNA still unplaced at n <= 9 and none has been
-    verified. This is the cheapest lead left: no search, only `verifyMove`.
-    Note the filter that makes it affordable -- generate, keep only the
-    candidates that match something not yet placed, then verify.
+    one. The first pass, `python discover.py --extend --jobs 4`, verified 625 in
+    eight minutes and took n = 7 to complete coverage (E-024);
+    `quivermutation/spectatorMoves.py` lists the 270 that change the orbit
+    partition. Run it again -- `--extend-margin 4`, or a version admitting two
+    spectators -- and keep the filter that makes it affordable: generate freely,
+    keep only what would fire on a row still needing a search, then verify.
 20. **Read `proposition:doubleMutation` of arXiv:2310.08346.** It states that
     certain tilting mutations of Nakayama algebras give new Nakayama algebras —
     which is exactly what a move rule is. It may already contain a family we are

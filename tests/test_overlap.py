@@ -184,16 +184,28 @@ def test_each_anchored_rule_holds_at_its_end(rule):
         list(lengths), width)
 
 
-def test_the_end_moves_are_what_carries_the_overlapping_rows():
-    """The anchored half of the table is worth more than the floating half.
+def test_the_table_places_every_lna_of_length_six_and_seven():
+    """Where the rules have got to, pinned so a regression is visible.
 
-    Not a tautology and not a close thing: at n = 8 the floating rules place 13
-    LNAs above the almost separate line and the anchored ones place another 101,
-    and at n = 6 the two together leave nothing for a search at all.
+    At n = 6 and n = 7 a classification needs no mutation search at all: the
+    quipu theorem plus the move orbits place every row. Above that the gap is
+    still the heavily overlapping LNAs and nothing else.
     """
-    withEnds = ov.coverage(6)
-    assert len(withEnds['uncovered']) == 0
+    for length in (6, 7):
+        assert ov.coverage(length)['uncovered'] == []
+    assert len(ov.coverage(8)['uncovered']) == 23
+
+
+def test_the_anchored_half_of_the_table_is_what_crosses_the_line():
+    """Not a tautology and not a close thing.
+
+    Restricted to the rules that hold at every position, the table places 259 of
+    the 429 LNAs at n = 8; with the rules anchored to an end it places 406. The
+    almost separate ones are 233 of them, so 248 floating rules carry 26 rows
+    across the line and 390 anchored ones carry another 147.
+    """
     floating = ov.coverage(8, lm.VERIFIED_MOVES)
     both = ov.coverage(8)
-    assert len(floating['covered']) == 246
-    assert len(both['covered']) == 347
+    assert len(floating['covered']) == 259
+    assert len(both['covered']) == 406
+    assert len(both['seeded']) == 233

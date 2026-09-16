@@ -23,6 +23,7 @@ from . import lines
 from . import mutation
 from . import nakayama
 from . import pathAlgebra
+from . import spectatorMoves
 
 
 
@@ -1057,15 +1058,28 @@ def spreadingPairRules(maxDistance = 5):
     return rules
 
 
-def _withFamilies(listed):
-    """The listed rules together with the generated families, deduplicated."""
-    combined = list(listed)
-    seen = set(combined)
-    for rule in (pairSlideRules() + shortRelationSlideRules()
-                 + trailingRelationWalkRules() + spreadingPairRules()):
+def _extend(combined, seen, rules):
+    """Append the rules not already present, in order, and say so."""
+    for rule in rules:
         if rule not in seen:
             seen.add(rule)
             combined.append(rule)
+    return combined
+
+
+def _withFamilies(listed):
+    """The listed floating rules, the generated families, and the widened ones.
+
+    `spectatorMoves` holds both halves of the widening batch in one list, since
+    that is where they came from; they are split here by whether they need an
+    end of the quiver.
+    """
+    combined = list(listed)
+    seen = set(combined)
+    _extend(combined, seen, pairSlideRules() + shortRelationSlideRules()
+            + trailingRelationWalkRules() + spreadingPairRules())
+    _extend(combined, seen, [rule for rule in spectatorMoves.SPECTATOR_MOVES
+                             if anchorOf(rule) is None])
     return combined
 
 
@@ -1169,13 +1183,12 @@ def endPairCollapseRules(maxRelationLength = 9):
 
 
 def _withEndMoves(generated):
-    """The generated end families together with the listed ones, deduplicated."""
+    """The generated end family, the ones discovered at an end, and the widened ones."""
     combined = list(generated)
     seen = set(combined)
-    for rule in endMoves.DISCOVERED_END_MOVES:
-        if rule not in seen:
-            seen.add(rule)
-            combined.append(rule)
+    _extend(combined, seen, endMoves.DISCOVERED_END_MOVES)
+    _extend(combined, seen, [rule for rule in spectatorMoves.SPECTATOR_MOVES
+                             if anchorOf(rule) is not None])
     return combined
 
 

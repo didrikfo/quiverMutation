@@ -61,25 +61,36 @@ class" -- appearing as a mutation rather than as a theorem, and it is the rule
 NOTES warned about: stated as a *floating* two-arrow window it holds 63 times
 and fails 130, which is exactly right, because away from an end it is false.
 
-**What it is worth.** With the anchored table in:
+**And widening the rules to admit a spectator is what the diagnosis was for.**
+`lnaMoves.spectatorExtensions` puts one untouched relation into a rule's window,
+growing the window by up to three arrows to make room, and `verifyMove` decides;
+10609 such widenings produced **625** verified rules in eight minutes of no
+searching at all, of which `spectatorMoves.SPECTATOR_MOVES` lists the 270 that
+change the orbit partition -- 125 that float and 145 that need an end (E-024).
 
-| n | LNAs | theorem | + floating | + anchored |
-|---|---|---|---|---|
-| 6 | 42 | 34 (81%) | 35 (83%) | **42 (100%)** |
-| 7 | 132 | 89 (67%) | 95 (72%) | **127 (96%)** |
-| 8 | 429 | 233 (54%) | 246 (57%) | **347 (81%)** |
-| 9 | 1430 | 610 (43%) | 644 (45%) | **863 (60%)** |
+**What the two batches are worth.** LNAs placed with no mutation search:
 
-At n = 6 a classification now needs no search at all, and at n = 9 the share
-needing one has gone from 55% to 40%. The rows still left are still exactly the
-heavily overlapping ones -- 306 of the 567 at overlap 2, 186 at overlap 3 -- so
-F-021's reading is unchanged; there is simply less of it.
+| n | LNAs | theorem | + floating | + anchored | + widened |
+|---|---|---|---|---|---|
+| 6 | 42 | 34 (81%) | 35 (83%) | 42 (100%) | 42 (100%) |
+| 7 | 132 | 89 (67%) | 95 (72%) | 127 (96%) | **132 (100%)** |
+| 8 | 429 | 233 (54%) | 246 (57%) | 347 (81%) | **406 (95%)** |
+| 9 | 1430 | 610 (43%) | 644 (45%) | 863 (60%) | **1038 (73%)** |
+
+A classification of A_6 or A_7 is now a table lookup; A_8 needs a search for 23
+rows and A_9 for 392. The rows still left are still exactly the heavily
+overlapping ones, so F-021's reading is unchanged; there is simply much less of
+it. And the diagnostic says the same thing about them as before: at n = 9, 359
+of the 392 have a rule whose pattern is present and blocked by a bystander, and
+only **33** have no rule with their pattern at all. Those 33 are what to look at
+by hand.
 
 **The curation, stated plainly.** `endMoves.DISCOVERED_END_MOVES` lists the 229
-rules that change the orbit partition at n <= 9, not all 630 verified ones. A
-rule left out reaches nothing the 229 do not *at the lengths measured*, and
-could in principle be the one that matters at n >= 10; re-running the command
-gets them all back. E-023.
+rules that change the orbit partition at n <= 9, not all 630 verified ones, and
+`spectatorMoves.SPECTATOR_MOVES` the 270 of 625 the same way. A rule left out
+reaches nothing the listed ones do not *at the lengths measured*, and could in
+principle be the one that matters at n >= 10; re-running the commands gets them
+all back. E-023, E-024.
 
 ---
 

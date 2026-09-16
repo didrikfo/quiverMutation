@@ -36,19 +36,28 @@ sitting in its window; only 29 had no rule with their pattern at all. The rules
 were not too narrow, they were too **clean** -- and 188 of the 229 anchored
 rules now listed carry a bystander they step around (F-023).
 
-**Evidence against.** 567 rows at n = 9 are still not placed. Whether they are
-more of the same -- rules that exist but need one more spectator admitted -- or
-something else is the open part, and the number to watch is the 29: the LNAs for
-which no rule has the pattern at all are the ones more discovery cannot fix.
+**And the first widening batch behaved exactly as the hypothesis predicts.**
+`discover.py --extend` verified 625 widened rules in eight minutes: coverage went
+to **100% at n = 7**, 95% at n = 8 and 73% at n = 9, and the number this
+hypothesis said to watch -- LNAs for which *no* rule has the pattern at all, the
+ones more widening cannot fix -- fell from 29 to **5** at n = 8 and stands at
+**33** of 392 at n = 9 (E-024).
 
-**What would settle it.** Re-run the blocked-rule diagnostic after each batch of
-new rules and watch that count. If it stays small while coverage climbs, the
-hypothesis is holding and the work is mechanical; if it grows as a share, there
-is a configuration the whole approach does not reach, and that LNA is worth more
-than another hundred rules. `lnaMoves.spectatorExtensions` generates the
-candidates for the mechanical half -- take a rule, put one untouched relation in
-its window, and let `verifyMove` decide -- and 784 of them match an LNA that is
-still unplaced at n <= 9, none of which has been verified yet.
+**Evidence against, and it is weaker than it looks.** 392 rows at n = 9 are
+still not placed. The 33 with no rule at all were the candidate for a fourth
+configuration, and they are not one: 32 of them contain a relation of five
+arrows or more, and discovery has only ever been run at `--max-arrows 5
+--max-width 6`, where such a relation cannot appear beside another. They are a
+search bound, not a phenomenon.
+
+**What would settle it.** Keep re-running the blocked-rule diagnostic after each
+batch and watch that count as a *share*. While it stays small the hypothesis is
+holding and the remaining work is mechanical -- another widening pass, a wider
+spectator margin, two spectators instead of one. If it grows, there is a
+configuration the whole approach does not reach, and the LNA it first appears on
+is worth more than another hundred rules. Raise `--max-arrows` and
+`--max-width` before reading anything into the current residue -- looking at it
+by hand is cheap and, this time, it was the search bound.
 
 ---
 

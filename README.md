@@ -121,8 +121,8 @@ python overlaps.py 9 --cores            # what is left, by overlapping run
 
 The quipu theorem names the class of an LNA whose consecutive relations share at
 most one arrow, and the move rules of `lnaMoves` carry the rest into its reach --
-100% of them at n = 6, 96% at n = 7, 81% at n = 8, 60% at n = 9, with no search
-run at all. What is left over is exactly the LNAs with two relations sharing two
+100% of them at n = 6 and n = 7, 95% at n = 8, 73% at n = 9, with no search run
+at all. What is left over is exactly the LNAs with two relations sharing two
 or more arrows, and `overlaps.py` prints where the boundary sits at each length,
 which configurations are stuck, and how much each half of the rule table is
 worth. See `research/` F-021, F-022 and F-023.

@@ -6,6 +6,71 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-024 — Widening the rules to tolerate a bystander
+*2026-09-16* · **625 verified, and A_7 needs no search at all** → F-023, H-011
+
+F-023 said what stops a known rule from firing is a relation in its window that
+it does not touch. This is that read as a construction rather than a diagnosis:
+take each rule in the table, put one untouched relation -- a *spectator* --
+somewhere in its window, growing the window by up to three arrows to make room,
+and let `verifyMove` decide.
+
+```bash
+python discover.py --extend --jobs 4
+```
+
+| stage | |
+|---|---|
+| widenings generated from the 368 rules then in the table | 10609, in 13 s |
+| of those, firing on an LNA no search had placed at n <= 9 | **1008** |
+| verified with no failures | **625**, in 474 s |
+| changing the orbit partition at n <= 9 | **270** -- 125 floating, 145 anchored |
+
+Eight minutes, no search, no mutation run speculatively. The filter is what makes
+it affordable and is worth keeping: generate freely, throw away everything that
+would not fire on a row still needing a search, then verify.
+
+**Coverage with no search at all.**
+
+| n | theorem | before this batch | after |
+|---|---|---|---|
+| 6 | 81% | 100% | 100% |
+| 7 | 67% | 96% | **100%** |
+| 8 | 54% | 81% | **95%** -- 23 rows left of 429 |
+| 9 | 43% | 60% | **73%** -- 392 of 1430 |
+
+A classification of A_7 is now a table lookup. At n = 8 twenty-three rows need a
+mutation search and at n = 9, 392.
+
+**The number H-011 said to watch stayed small.** Re-running the blocked-rule
+diagnostic -- for each unplaced LNA, the rule whose left-hand pattern is present
+with the fewest extra relations in its window:
+
+| | n = 8 before | n = 8 after | n = 9 after |
+|---|---|---|---|
+| blocked by a bystander | 126 | 18 | 359 |
+| **no rule has this pattern at all** | 29 | **5** | **33** |
+
+So the mechanical half is still the whole story: what is left is overwhelmingly
+more of the same, and another widening pass is the obvious next run.
+
+**And the 33 turn out to say the same thing.** Looked at by hand, they are
+almost all a pair of relations one of which is *long*: `(1:3) (2:6)`,
+`(1:5) (2:6)`, `(1:5) (2:7)` and the like. 32 of the 33 contain a relation of
+five arrows or more and 23 contain one of six or more -- and discovery has never
+been given a pattern like that. Both runs used `--max-arrows 5 --max-width 6`,
+so a six-arrow relation could not appear beside another at all. This is F-013's
+lesson again: *absence of a pattern from the table is evidence about the search,
+not about the mathematics*. Raise the bounds before concluding anything about
+these.
+
+**What this does not say.** Every one of these rules was verified, but 355 of
+the 625 are not listed, and the 270 that are were chosen for changing the
+partition at n <= 9. That is a curation against the lengths measured, not a
+claim about n >= 10. Re-run the command.
+
+---
+
 ## E-023 — Discovery against the ends of the quiver
 *2026-09-16* · **630 anchored rules, and coverage at n = 6 becomes complete** → F-023
 
