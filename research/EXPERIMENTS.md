@@ -6,6 +6,119 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-022 — Whether the relation dual widens the move orbits
+*2026-09-16* · **it halves the orbit count and adds no coverage**
+
+The relation dual -- reverse every arrow, renumber -- is one of the three
+class-preserving operations of arXiv:2305.06642 and holds for *any* LNA, not
+only an almost separate one (`nakayama.relationDual`). It is free, it is not in
+the move orbit, and the obvious thought is that adding it would carry rows
+across the overlap line for nothing. It does not.
+
+| n | floating | + anchored | + anchored + dual |
+|---|---|---|---|
+| 7 | 95 covered, 84 orbits | 107, 71 | 107, **45** |
+| 8 | 246, 310 | 274, 277 | 274, **156** |
+| 9 | 644, 1106 | 726, 1019 | 726, **542** |
+
+The orbit count roughly halves at every length and the covered count does not
+move by one row. The reason is structural rather than accidental: the almost
+separate condition is itself dual-symmetric, so the dual maps seeded to seeded,
+and the rule table already contains the mirror of every rule it contains, so it
+maps orbit to orbit. The dual therefore identifies orbits pairwise and never
+joins a covered one to an uncovered one.
+
+**Worth knowing, and worth not repeating.** Halving the orbit count is real and
+would be worth having if orbits were the expensive object; they are not, the
+uncovered rows are. Do not reach for the dual again expecting coverage.
+
+---
+
+## E-021 — What can be done to a heavily overlapping run, in the interior
+*2026-09-16* · **the pair is frozen, a run of three is not** → F-022, R-010
+
+The experiment H-003 asked for, aimed where F-021 says to aim it. Each pattern
+planted in the middle of A_13 at offset 4 -- four arrows of empty quiver on the
+left, six on the right -- with `lnaMoves.localMutationSequences` enumerating
+every admissible sequence at vertices within the margin, and the reached LNAs
+reported by maximum overlap.
+
+**The isolated pair, at four settings.**
+
+| pattern | start overlap | mutations | margin | reached | any lower |
+|---|---|---|---|---|---|
+| `(1:3) (2:3)` | 2 | 3 | 3 | 8 | no |
+| `(1:3) (2:3)` | 2 | 4 | 3 | 14 | no |
+| `(1:3) (2:3)` | 2 | 5 | 3 | 22 | no |
+| `(1:3) (2:3)` | 2 | 4 | 6 | 34 | no |
+| `(1:4) (2:4)` | 3 | 3 | 3 | 17 | no |
+| `(1:5) (2:5)` | 4 | 3 | 3 | 16 | no |
+| `(1:3) (2:4)` | 2 | 3 | 3 | 16 | no (3 of them go **up** to 3) |
+| `(1:4) (3:3)` | 2 | 3 | 3 | 16 | no (3 go up to 3) |
+
+About a quarter of an hour in total, the depth-5 probe a third of it. Neither depth nor margin
+is the dial: doubling the margin at four mutations reaches 34 LNAs instead of
+14 and not one of them has a smaller overlap.
+
+**A third relation, and which third relations count.**
+
+| pattern | overlapping run | three mutations |
+|---|---|---|
+| `(1:3) (2:3) (3:3)` | 3 | down to **0**, via `[6, 5, 6]` |
+| `(1:3) (2:4) (3:4)` | 3 | down to **0** |
+| `(1:4) (2:4) (4:3)` | 3 | down to **0** |
+| `(1:4) (2:4) (3:4)` | 3 | down to 2, from 3 |
+| `(1:2) (2:3) (3:3)` | 2 | 31 reached, none lower |
+| `(1:3) (2:3) (4:2)` | 2 | 31 reached, none lower |
+| `(1:3) (2:3) (5:2)` | 2 | 35 reached, none lower |
+
+The parameter is the length of the run of relations linked by an overlap of two
+or more, not the number of relations present: `(1:2) (2:3) (3:3)` has three
+relations and is as frozen as the bare pair, because its first shares one arrow
+and not two. The rewrites that dissolve a run of three were already in the
+table, found at length 8 and in E-011 -- so nothing here is a new rule, and that
+is the result. **Do not run a deeper interior search for a rule that pulls an
+isolated pair apart**; four probes at three settings of depth and two of margin
+say there is none to find, and F-022 says where the pair does come apart.
+
+Reproduce with `lnaMoves.localMutationSequences(13, relLengths, lo, hi, steps,
+margin)` on `lnaMoves.embedPattern(13, pattern, 4)`.
+
+---
+
+## E-020 — What the theorem and the move orbits reach, by relation overlap
+*2026-09-16* · **the gap is exactly overlap two and above** → F-021
+
+The measurement H-003 has been asking for since 2026-09-13, now that there is a
+coordinate to make it in. Every LNA of a length partitioned into orbits under
+the verified rules -- applied as rewrites on the relation lengths, with no
+mutation computed, which F-017 licenses -- and an orbit called covered when it
+contains one the quipu theorem names.
+
+With the 123 floating rules:
+
+| n | LNAs | overlap 0 | 1 | 2 | 3 | 4 | 5 | 6 |
+|---|---|---|---|---|---|---|---|---|
+| 6 | 42 | 16/16 | 18/18 | 1/7 | 0/1 | | | |
+| 7 | 132 | 32/32 | 57/57 | 4/33 | 2/9 | 0/1 | | |
+| 8 | 429 | 64/64 | 169/169 | 9/132 | 4/52 | 0/11 | 0/1 | |
+| 9 | 1430 | 128/128 | 482/482 | 24/484 | 10/247 | 0/75 | 0/13 | 0/1 |
+
+covered over total at each maximum overlap. Two readings, and both matter.
+Everything at overlap 0 or 1 is covered, at every length -- which is the almost
+separate set exactly, so the theorem's reach is not merely *mostly* the low
+overlap rows, it is precisely them. And above the line the table reaches 34 rows
+out of 820 at n = 9, none at all past overlap 3.
+
+The leftovers' heavily overlapping runs, commonest first at n = 9: `(1:3) (2:3)`
+391 times, `(1:4) (2:4)` 198, `(1:3) (2:4)` and `(1:4) (3:3)` 144 each. By the
+longest run in the LNA, 434 of the 786 have nothing longer than a pair.
+
+Seconds per length. `python overlaps.py 6 7 8 9 --cores`, and the same numbers
+are pinned in `tests/test_overlap.py`.
+
+---
+
 ## E-019 — Two more families, and whether a rule's inverse is free
 *2026-09-15* · **two families confirmed, the inverse shortcut refuted** → F-020
 

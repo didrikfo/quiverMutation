@@ -5,6 +5,169 @@ See [`README.md`](README.md) for conventions.
 
 ---
 
+## F-022 — An overlapping pair is frozen in the interior and comes apart at an end
+*2026-09-16*
+
+F-021 says the whole gap is the LNAs whose relations overlap in two or more
+arrows, and that the commonest blocking configuration by a wide margin is a
+**pair** of relations sharing two or more arrows. This is why the move rules
+cannot place them, and what does.
+
+**In the interior the overlap of an isolated pair does not move.** Plant
+`(1:3) (2:3)` -- two relations of three arrows at consecutive vertices, sharing
+two -- in the middle of A_13, with four arrows of empty quiver on the left and
+six on the right, and enumerate every admissible mutation sequence near it:
+
+| mutations | margin | LNAs reached | with a smaller maximum overlap |
+|---|---|---|---|
+| 3 | 3 | 8 | **0** |
+| 4 | 3 | 14 | **0** |
+| 5 | 3 | 22 | **0** |
+| 4 | 6 | 34 | **0** |
+
+Every LNA reachable still has two relations sharing two arrows. The same holds
+for `(1:4) (2:4)` (overlap 3, 17 reached at three mutations, none below 3),
+`(1:5) (2:5)` (overlap 4, 16 reached, none below 4) and for the unequal pairs
+`(1:3) (2:4)` and `(1:4) (3:3)`, where the overlap goes *up* to 3 in three of
+the sixteen but never down. Neither depth nor width is the obstacle: depth 5 and
+a margin of 6 reach further into the quiver and find nothing new.
+
+**A third heavily overlapping relation unlocks it; anything else does not.**
+
+| pattern | run of | three mutations reach |
+|---|---|---|
+| `(1:3) (2:3)` | 2 | overlap 2, all 8 |
+| `(1:3) (2:3) (3:3)` | 3 | **overlap 0**, via `[6, 5, 6]` |
+| `(1:3) (2:4) (3:4)` | 3 | **overlap 0** |
+| `(1:4) (2:4) (4:3)` | 3 | **overlap 0** |
+| `(1:4) (2:4) (3:4)` | 3 | overlap 2, down from 3 |
+| `(1:2) (2:3) (3:3)` | 2 | overlap 2, all 31 |
+| `(1:3) (2:3) (4:2)` | 2 | overlap 2, all 31 |
+| `(1:3) (2:3) (5:2)` | 2 | overlap 2, all 35 |
+
+A third relation only helps when it *also* shares two or more arrows with the
+pair: `(1:2) (2:3) (3:3)` has three relations and is as stuck as the bare pair,
+because its first relation shares only one arrow. So the parameter is the length
+of the **overlapping run** -- maximal relations linked by an overlap of two or
+more, `overlap.overlapRuns` -- and a run of two is frozen where a run of three is
+not. The rules that dissolve a run of three were already in the table; nothing in
+it dissolves a run of two, and E-021 says why nothing was ever going to be found.
+
+**At an end of the quiver the pair collapses in two mutations.** The source of
+the line has no arrow into it, so a mutation there is not the mutation the same
+rewrite would be in the interior. Where the pair starts at vertex 1, two *right*
+mutations at vertex 1 delete the second relation outright; at the sink, two left
+mutations at vertex n delete the first:
+
+```
+window l + 1 arrows at the left end:   (0:l) (1:l)  ->  (0:l)    via [1, 1]
+window l + 1 arrows at the right end:  (0:l) (1:l)  ->  (1:l)    via [-(l+2), -(l+2)]
+```
+
+Verified for `l = 2` to 7, both ends, at the four lengths `l + 2 .. l + 5` each:
+**9 confirmations apiece, no failures**, a confirmation being an admissible
+sequence landing on the predicted LNA with the Coxeter polynomial kept. The
+window is exactly the pair's span, so no other relation may touch it.
+`lnaMoves.endPairCollapseRules` generates the family.
+
+**Why this needed the framework to grow a notion it did not have.** Every rule
+until now was a rewrite holding at *every* window position. The collapse holds at
+one position and is false at all the others -- checked, not assumed:
+`(0:3) (1:3) -> (0:3)` via `[1, 1]` stated as a floating rule fails, which is
+`test_the_end_pair_collapse_is_false_in_the_interior`. So a description now
+carries an optional anchor, `'left'` or `'right'`; `lnaMoves.windowStartsFor` is
+the single gate every caller slides a rule through, and an anchored rule is
+offered only its own position. Stating such a rule as though it floated is
+exactly how R-009's false rules arose.
+
+**What it buys, and it is more than sixteen rules should.** With the anchored
+family and no other change:
+
+| n | LNAs | theorem | + floating orbits | + anchored |
+|---|---|---|---|---|
+| 6 | 42 | 34 | 35 (83%) | **38 (90%)** |
+| 7 | 132 | 89 | 95 (72%) | **107 (81%)** |
+| 8 | 429 | 233 | 246 (57%) | **274 (64%)** |
+| 9 | 1430 | 610 | 644 (45%) | **726 (51%)** |
+
+Sixteen anchored rules place 82 rows at n = 9 where all 123 floating rules
+placed 34. The mechanism is the pair slide (F-013) walking a pair to an end and
+the collapse taking it from there -- `closureUnderMoves(10, [3,3,0,0,0,0,0,0])`
+is the six positions of the pair *and* the two LNAs where it has lost a
+relation, which is
+`test_the_pair_slide_walks_a_pair_along_the_quiver_and_off_each_end`.
+
+E-021, E-023. Tests: `tests/test_overlap.py`.
+
+---
+
+## F-021 — What a classification search still has to find is exactly the heavily overlapping LNAs
+*2026-09-16*
+
+H-003 asked what relation patterns the rows still needing a search actually
+have. They have one, and it is sharp: **every LNA the quipu theorem and the move
+orbits fail to place has two consecutive relations sharing two or more arrows,
+and almost every LNA that has two such relations is one of them.**
+
+**Overlap is the right coordinate because the theorem's condition is a bound on
+it.** Consecutive relations `(n_i, l_i)`, `(n_{i+1}, l_{i+1})` share
+`max(0, n_i + l_i - n_{i+1})` arrows, and *almost separate* -- the hypothesis of
+`thm:QuipuToAn` -- is exactly that this never exceeds one. So "what the theorem
+misses" and "what overlaps by two or more" are the same set, not merely
+correlated ones; `test_almost_separate_is_exactly_overlap_at_most_one` checks the
+two predicates against each other over every LNA of lengths 4 to 8.
+
+**The measurement.** For each length, partition the LNAs into orbits under the
+verified move rules and call an LNA *covered* when its orbit contains one the
+theorem names -- which is what `seedTableFromQuipuTheorem` fills in before a
+single mutation is computed. With the 123 floating rules:
+
+| n | LNAs | overlap ≤ 1 | overlap ≥ 2 | of those, covered | left |
+|---|---|---|---|---|---|
+| 6 | 42 | 34 | 8 | 1 | 7 |
+| 7 | 132 | 89 | 43 | 6 | 37 |
+| 8 | 429 | 233 | 196 | 13 | 183 |
+| 9 | 1430 | 610 | 820 | 34 | 786 |
+
+Two things at once. Nothing at overlap ≤ 1 is ever left over -- so there is no
+second phenomenon hiding among the rows the theorem does cover, and the search's
+whole remaining job is the overlapping ones. And of the 820 heavily overlapping
+LNAs at n = 9 the entire rule table reaches **34**: the rules found so far are
+almost exactly the rules that keep an LNA where it already was.
+
+**What the leftovers look like.** Their heavily overlapping runs -- maximal
+relations linked by an overlap of two or more -- are overwhelmingly *pairs*, and
+overwhelmingly the shortest pair there is:
+
+| run | n = 7 | n = 8 | n = 9 |
+|---|---|---|---|
+| `(1:3) (2:3)` | 21 | 96 | 391 |
+| `(1:4) (2:4)` | 6 | 40 | 198 |
+| `(1:3) (2:4)` | 5 | 31 | 144 |
+| `(1:4) (3:3)` | 5 | 31 | 144 |
+
+and by the length of the longest run in the LNA, 434 of the 786 left at n = 9
+have no run longer than two. That pair is what F-022 is about.
+
+**The instrument.** `quivermutation/overlap.py` -- `overlapProfile`,
+`maxOverlap`, `overlapRuns`, `coverage`, `blockingCores` -- and `overlaps.py`
+over it:
+
+```bash
+python overlaps.py 6 7 8 9              # the table above
+python overlaps.py 9 --cores            # what is left, by overlapping run
+python overlaps.py 9 --floating         # without the rules anchored to an end
+```
+
+The whole thing is seconds per length because the orbits are computed as
+rewrites on the relation lengths with no mutation run at all -- legitimate
+exactly because every rule has been checked against the engine wherever it
+applies (F-017).
+
+H-003 → its question answered, its diagnosis refuted (R-010). E-020.
+
+---
+
 ## F-020 — Three rule families whose mutation count grows with their parameter
 *2026-09-15*
 

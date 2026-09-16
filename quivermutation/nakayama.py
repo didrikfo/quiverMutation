@@ -10,6 +10,8 @@ relation lengths, relation strings, class names and Kupisch series that `lines`
 still does by hand.
 """
 
+import functools
+
 import networkx as nx
 
 from . import lines
@@ -288,10 +290,40 @@ class LinearNakayamaAlgebra(pathAlgebra.PathAlgebra):
     @classmethod
     def allOfLength(cls, length):
         """Every LNA of the given length, in the table's order."""
-        return [
-            cls.fromRelationString(length, lines.relSetToString(relSet))
-            for relSet in lines.generateAllPossibleLineRelations(length)
-        ]
+        return [cls(length, list(relLengths))
+                for relLengths in allRelationLengths(length)]
+
+
+@functools.lru_cache(maxsize = None)
+def allRelationLengths(length):
+    """The relation lengths of every LNA of a length, in the table's order.
+
+    The relation-length rows rather than the algebras, so the answer can be
+    cached: building the path algebras is what the enumeration costs, and a
+    caller that only needs to know which LNAs exist -- verifying a rule over a
+    range of lengths, partitioning them into move orbits -- pays it for nothing.
+    At length 12 the enumeration is 58786 rows and takes seconds; a run that
+    verifies hundreds of rules over the same lengths would otherwise pay that
+    per rule.
+
+    Returned as tuples, which is also what makes them usable as dictionary keys.
+    """
+    return tuple(tuple(_relationLengthsFromRelSet(length, relSet))
+                 for relSet in lines.generateAllPossibleLineRelations(length))
+
+
+def _relationLengthsFromRelSet(length, relSet):
+    """One row of `allRelationLengths`, from the enumeration's own format.
+
+    A relation there is a list of the paths it is the sum of; an LNA's relations
+    are single zero relations, so each is one path, and the path's first vertex
+    and length are the relation's start and arrow count.
+    """
+    relLengths = [0] * (length - 2)
+    for relation in relSet:
+        path = relation[0]
+        relLengths[path[0] - 1] = len(path) - 1
+    return relLengths
 
 
 class QuipuAlgebra(pathAlgebra.PathAlgebra):

@@ -25,14 +25,16 @@ The modules, in dependency order:
 | `classview` | reading a finished classification back, one row per class |
 | `classpage` | the same, rendered as a page to browse |
 | `nakayama` | `LinearNakayamaAlgebra` and `QuipuAlgebra`, the two shapes with structure |
-| `lnaMoves` | verified mutation shortcuts between LNAs |
+| `lnaMoves` | verified mutation shortcuts between LNAs, floating and anchored |
+| `overlap` | how much an LNA's relations overlap, and how far the rules reach |
 | `piecewiseHereditary` | certificates that an algebra is in no quipu class |
 | `quiverExamples` | small quivers to try things on by hand |
 | `plotting` | drawing a quiver |
 
 The procedural modules are re-exported flat, so `import quivermutation as qm`
 reaches `qm.classifyLength` and the rest directly.  The modules that carry their
-own namespace -- `nakayama`, `quipuForms`, `lnaMoves`, `piecewiseHereditary`,
+own namespace -- `nakayama`, `quipuForms`, `lnaMoves`, `overlap`,
+`piecewiseHereditary`,
 `relationAlgebra`, `procedure`, `mutationClassTable`, `classview`, `classpage`,
 `quiverExamples` -- are imported as names:
 `from quivermutation import nakayama as nk`.
@@ -53,6 +55,7 @@ from . import (
     mutationClassTable,
     nakayama,
     lnaMoves,
+    overlap,
     piecewiseHereditary,
     classview,
     classpage,

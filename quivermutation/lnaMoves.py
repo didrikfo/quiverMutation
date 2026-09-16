@@ -561,9 +561,12 @@ def verifyMove(description, lengths, checkCoxeter = True):
     for length in lengths:
         # Enumerate the admissible LNAs directly.  Filtering the full product of
         # relation lengths instead means 10^8 tuples at length 10, against the
-        # 4862 LNAs that actually exist there.
-        for algebra in nakayama.LinearNakayamaAlgebra.allOfLength(length):
-            relLengths = algebra.relLengths
+        # 4862 LNAs that actually exist there.  The rows rather than the
+        # algebras, because the enumeration is cached that way and a run
+        # verifying hundreds of rules over the same lengths would otherwise
+        # rebuild every path algebra once per rule.
+        for relLengths in nakayama.allRelationLengths(length):
+            relLengths = list(relLengths)
             for windowStart in windowStartsFor(length, description):
                 if not matchesAt(length, relLengths, description, windowStart):
                     continue

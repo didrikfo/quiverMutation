@@ -6,6 +6,44 @@ does not. See [`README.md`](README.md).
 
 ---
 
+## R-010 — "Wider rules are what unlock the heavily overlapping LNAs" (H-003)
+*retracted 2026-09-16*
+
+H-003's measurement half is right and is now F-021: the rows a classification
+search still has to place are exactly the heavily overlapping ones, all 786 of
+them at n = 9. Its **diagnosis** -- that the rules found so far are too narrow,
+and that wider ones would reach them -- is wrong for the configuration that
+dominates the leftovers.
+
+**What was believed.** That discovery kept finding rules which keep an LNA inside
+the almost separate set because the windows searched were too small, and that
+aiming discovery at bigger patterns would produce rules crossing the line.
+
+**What is true.** An *isolated pair* of relations sharing two or more arrows --
+434 of the 786 rows left at n = 9 have no heavily overlapping run longer than
+that -- cannot have its overlap reduced by any interior sequence, at any window
+width tried. Planted in the middle of A_13, it reaches 8 LNAs at three mutations,
+14 at four, 22 at five and 34 at four with the mutations allowed twice as far
+out, and **every one of them still has the pair** (F-022, E-021). Widening the
+window is not a dial that turns here; it reaches further along the quiver and
+finds the same thing.
+
+**Where the diagnosis does hold, and why that misled.** A heavily overlapping run
+of *three* relations does dissolve under an interior rule, and the rules that do
+it are wide -- the window-5 and window-6 entries found at length 8 and in E-011.
+So the belief was confirmed every time it was tested on a triple, and the pair,
+which is the commonest core by a factor of four, was never the thing being
+tested.
+
+**What corrects it.** The overlap of an isolated pair is reduced at an **end** of
+the quiver, not by a wider window: two mutations at the source or sink delete one
+of the two relations (F-022). That is a rule the framework could not even state
+until it grew anchored descriptions, because it is false at every other position
+-- so no amount of searching for *floating* rules, at any width, was ever going
+to find it. E-021, E-023.
+
+---
+
 ## R-009 — "A rewrite that verifyMove confirms with no failures is a rule"
 *retracted 2026-09-15*
 

@@ -80,8 +80,7 @@ def moveOrbits(length, rules = None):
     members of its orbit).
     """
     rules = lnaMoves.ALL_MOVES if rules is None else rules
-    lnas = [tuple(algebra.relLengths)
-            for algebra in nakayama.LinearNakayamaAlgebra.allOfLength(length)]
+    lnas = list(nakayama.allRelationLengths(length))
     index = {lna: position for position, lna in enumerate(lnas)}
     parent = list(range(len(lnas)))
 

@@ -330,21 +330,32 @@ item 4 is what makes n >= 10 readable at all.
    count grows like the Catalan numbers (1430 LNAs at n = 9, 58786 at n = 12)
    while the class count does not (20 at n = 9, 127 quipus at order 12), so the
    summary stays small exactly where the table stops being openable.
-5. **Rule discovery, deeper.** Ideas 17, 19 and research H-007, H-008. The main
-   line of mathematical work, and the lever for n >= 11 (idea 16).
-6. **The cellular-automaton reading of the rules.** Research H-009, now
-   SUPPORTED: its own caveat is checked and passes, so the CA picture is about
-   the right object (F-017). What is left is the literature sweep -- listed in
-   `research/literature/README.md`. Note what can and cannot be reached from the
-   session sandbox: `curl` and `WebFetch` to arxiv.org are refused by the egress
-   proxy, but `WebSearch` works, so papers can be found and identified from here
-   and only the reading itself has to happen elsewhere.
+5. **Rule discovery, aimed at relation overlap.** Ideas 17, 19, 24 and research
+   H-010, H-011. The main line of mathematical work, and the lever for n >= 11
+   (idea 16). What it is aimed at is no longer a guess: the rows a search still
+   has to place are **exactly** the LNAs whose consecutive relations share two
+   or more arrows (F-021), and `python overlaps.py 9 --cores` says which
+   configurations they are.
 
-   **Start from the arrow row, not the relation-length row.** F-017's
-   by-product: a per-vertex cell holds a relation length, which is unbounded in
-   n, so a relation reaches arbitrarily far right and no fixed neighbourhood
-   sees it coming. Indexed by arrows instead, carrying covered / starts / ends,
-   the alphabet is fixed and the rules are local with a margin of one cell.
+   Two things are settled about where to look. An isolated pair of relations
+   sharing two or more arrows is **frozen in the interior** -- no sequence of
+   three, four or five mutations moves its overlap, at either margin tried
+   (F-022, E-021) -- so do not spend a deeper interior search on it. And it
+   comes apart at an **end** of the quiver, which is what anchored rules are
+   for. Coverage at n = 9 is 51%, up from 45%, on sixteen of them.
+6. ~~**The cellular-automaton reading of the rules.**~~ **Parked**, research
+   H-009. Not refuted -- F-017 stands and its caveat passes -- but the reading
+   would have to be fitted to the part that is still open, and its own last
+   paragraph says the translation to an arrow row is finite-state only under
+   almost separate relations, which is the part that is already easy. Two
+   findings since point away from classical CA as well: the rule that matters is
+   anchored to an **end** rather than a perturbation of an interior one (F-022),
+   and the invariant worth having is a conservation law to prove from the
+   procedure rather than a pattern to recognise in a table (H-010). Unpark if
+   H-010 is proved and reads as a conservation law; start from the arrow row,
+   as F-017 says. The literature sweep is still listed in
+   `research/literature/README.md`, and note that `curl` and `WebFetch` to
+   arxiv.org are refused by the egress proxy while `WebSearch` works.
 7. **An independent separation of the cospectral pair.** Idea 22. Not blocking
    anything, but it is the one claim in the n = 9 classification that rests on a
    single route (F-014). The route to take is **Hochschild cohomology**, not the
@@ -947,10 +958,23 @@ nothing else, agreeing with the published table.
     doing this — but **deliberately parked** until the search is deeper, since
     generalising from a three-mutation search risks fitting families to an
     artefact of the bound. Research H-008.
-19. **Aim discovery at the patterns that still need a search.** Seeding places
-    45% of the n = 9 table; the rest are the heavily overlapping LNAs. Measure
-    what patterns those actually have and point discovery at them, rather than
-    at small patterns chosen for cheapness. Research H-003.
+19. ~~**Aim discovery at the patterns that still need a search.**~~ **Measured**,
+    F-021, and the diagnosis it came with is wrong (R-010). The rows left over
+    are exactly the ones whose relations overlap in two or more arrows -- nothing
+    below that line is ever left -- and the commonest configuration by a factor
+    of four is an isolated *pair* of relations sharing two, which no wider
+    interior rule reaches. `quivermutation/overlap.py` and `overlaps.py` are the
+    instrument; what to do about the pair is idea 24.
+24. **Rules anchored to an end of the quiver.** `lnaMoves` now has them --
+    a description carries an optional `'left'` or `'right'`, `windowStartsFor`
+    is the gate that keeps it there, and `discoverAnchoredMoves` plants a pattern
+    flush against an end rather than in the middle. One family is in
+    (`endPairCollapseRules`, F-022) and it is worth more than the 123 floating
+    rules put together. What is left is to find the rest of them, and then to
+    ask why a run of three or more heavily overlapping relations is still not
+    placed although the rules that dissolve one in isolation exist -- research
+    H-011 is that question, and the answer is probably a companion relation
+    sitting inside the window a rule needs.
 20. **Read `proposition:doubleMutation` of arXiv:2310.08346.** It states that
     certain tilting mutations of Nakayama algebras give new Nakayama algebras —
     which is exactly what a move rule is. It may already contain a family we are
