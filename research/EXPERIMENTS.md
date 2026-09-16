@@ -7,9 +7,9 @@ nothing, which are recorded precisely so they are not repeated. See
 ---
 
 ## E-026 — The dual as a mirror, and what a rule walks through
-*2026-09-16* · **410 duals, all holding; every intermediate a square with a side of two** → F-026, F-027, R-011
+*2026-09-16* · **410 duals, all holding; every intermediate a square with a side of two; no shortcut survives** → F-026, F-027, R-011
 
-Three things suggested from outside the search, all cheap, and the first of them
+Four things suggested from outside the search, all cheap, and the first of them
 corrects a finding made the same day.
 
 ### 1. The proper mirror of a rule
@@ -68,6 +68,42 @@ relation of `00500000` in A_10 into its 2-by-4 square and searching four
 mutations over the square's vertices finds one way back to a line: `[-3]`, the
 undo. A square with nothing to interact with closes only onto itself, which is
 F-023's lesson again -- the companion relation is the whole point. F-027.
+
+### 4. Whether mixing directions shortens the rules already known
+
+**Mixed sequences are not an unexplored region.** `localMutationSequences` tries
+both signs at every vertex at every step, so every run so far has been free to
+find them, and 274 of the table's 1794 rules do mix a left mutation with a right
+one -- 82 floating and 192 anchored, almost all of them two or three mutations
+long.
+
+**And no rule in the table got shorter.** 150 rules of three mutations or more
+were sampled; for each, one LNA it matches, and a search at one mutation fewer
+over the vertices of its window. Three came back with a shorter sequence at that
+LNA:
+
+| rule | listed | shorter, at one LNA |
+|---|---|---|
+| `(4:2) -> (0:2)` | `[5, 4, 3, 2]` | `[-2, -7, -8]` |
+| `(5:2) -> (0:2)` | `[6, 5, 4, 3, 2]` | `[-2, -8, -9]` |
+| `(0:2) -> (6:2)` | `[-3, …, -8]` | `[1, 9, 8]` |
+
+All three are the lone short-relation slide of F-020, which would have been the
+interesting place to find a shortcut -- and **none of the three is a rule**.
+Stated as floating rewrites they give 1 confirmation and 21 failures apiece;
+anchored to the left end, 1 confirmation and 8 failures. They work at the single
+LNA the search tried, where the window is flush against both ends of the
+shortest quiver its width fits in, and nowhere else. Checked for every d from 1
+to 7 with the same answer.
+
+**So F-020's one mutation per arrow travelled stands**, and this is the evidence
+against the obvious objection to it. A run that finds a shorter sequence for one
+LNA has found nothing until `verifyMove` says otherwise.
+
+**The limits of this, stated so it can be redone properly.** One matching LNA per
+rule, and mutations only within one vertex of the window. A shortcut that needs
+to reach further out, or that only applies at some positions, would not show up
+here.
 
 ---
 

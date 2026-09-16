@@ -368,6 +368,13 @@ item 4 is what makes n >= 10 readable at all.
    to. `lnaMoves.dualRule` and `closeUnderDual`, and the table is generated
    closed.
 
+   **Mixed-direction sequences are already searched, and shorten nothing.**
+   `localMutationSequences` tries both signs at every step, 274 of the table's
+   rules mix directions, and a search for shorter sequences over 150 long rules
+   found three candidates of which none survives `verifyMove` (E-026). Do not
+   look for shortcuts again without widening the search first -- one LNA per
+   rule and a margin of one is what was tried.
+
    **A rule is: open a relation into a square, walk its long side, close.**
    Every intermediate quiver of every multi-mutation rule in the table is a
    commutative square with a side of exactly two arrows, or a line (F-027).

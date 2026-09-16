@@ -557,6 +557,15 @@ family gives every member at once. `shortRelationSlideRules`,
 to 123. Before spending a four-mutation search, look at what the three-mutation
 one found for a family whose members would be out of reach.
 
+**Checked against the obvious objection, and it holds.** If a rule's mutation
+count grew only because the search that found it looked at sequences running one
+way, a sequence mixing left and right mutation might do the same job in fewer.
+It does not. Of 150 rules of three mutations or more, three came back with a
+shorter sequence -- all three members of this family, which is where a shortcut
+would have mattered -- and none of the three is a rule: 1 confirmation against
+21 failures as a floating rewrite, 1 against 8 anchored to an end. They hold at
+the one LNA the search tried and nowhere else, for every d from 1 to 7 (E-026).
+
 **What does not generalise.** The three slide families' inverses come for free:
 reverse the sequence, negate each vertex, move each one step toward zero. That is
 not a property of the table, though — it holds for only 12 of the 96 listed
