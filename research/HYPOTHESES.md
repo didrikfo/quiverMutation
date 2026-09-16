@@ -6,6 +6,41 @@ it. Status is one of `OPEN`, `SUPPORTED`, `CONFIRMED → F-nnn`, `REFUTED → R-
 
 ---
 
+## H-012 — Every free move is also a mutation equivalence
+*2026-09-16* · **OPEN**
+
+F-028 establishes that deleting a relation of two arrows keeps the *derived*
+equivalence class. It says nothing about the mutation class, and the two are not
+the same question. The suspicion is that they coincide here: that an LNA is
+always mutation equivalent to its stripped form, so the free move is a shortcut
+through the mutation graph rather than a step outside it.
+
+**Evidence for.** Against an end it is a single mutation: E-027 found
+`(l, …, 2) → (l)` by one left mutation at the sink, for every `l` it tried, and
+F-029's collapse is the same thing with a spectator. And a two-arrow relation
+alone in its window slides any distance (F-020's lone slide), so one that can
+reach an end can be deleted there.
+
+**Evidence against, or at least in the way.** Sliding needs room. The table
+already shows a two-arrow relation that can be slid to the sink and still not
+deleted there — `(3,0,0,0,2,0)` in `A_8` reaches `(3,0,0,0,0,2)` and never
+`(3,0,0,0,0,0)` — because the collapse rule's window is not clean. F-029 removes
+that particular obstruction, but only for a companion starting on the window's
+last arrow. Whether every configuration can be cleared is open.
+
+**What would settle it.** For each `n` where the mutation classes are known,
+check whether every LNA and its strip share one. A single pair that does not,
+with the mutation classes verified, would be the more interesting outcome: it
+would be a derived equivalence that is not a mutation equivalence, which the
+classification has never yet had to handle.
+
+**Why it matters either way.** If it holds, the free move can be used anywhere
+the mutation class is what is wanted, and the rule table is simply missing rows.
+If it fails, then `classification` has a real distinction to maintain and
+`freeMoves`' warning is not a formality.
+
+---
+
 ## H-011 — Every class is reached by walking a heavily overlapping run to an end
 *2026-09-16* · **OPEN**
 
@@ -50,6 +85,29 @@ to **100% at n = 7**, 95% at n = 8 and 73% at n = 9, and the number this
 hypothesis said to watch -- LNAs for which *no* rule has the pattern at all, the
 ones more widening cannot fix -- fell from 29 to **5** at n = 8 and stands at
 **33** of 392 at n = 9 (E-024).
+
+**Two moves found from outside the search have now taken n = 8 to the end of it
+(E-027).** With F-028's free move and F-029's end doubling added, `A_8` needs
+**no search at all**: 21 orbits and nothing left over, where the rule table alone
+left 10 rows. `A_9` falls from 380 orbits and 222 rows to **77 and 37**. That is
+the strongest evidence this hypothesis has had, and it came from two mechanisms
+the discovery runs could not express rather than from more searching. It also
+sharpens what is left, and the residue at `n = 9` turns out to have one property
+in common, which is the sharpest form this hypothesis has yet taken:
+
+**All 37 have a relation at the source *and* a relation at the sink.** Every one
+of them is also already reduced, so F-028 has nothing left to give them. If the
+mechanism this hypothesis names is walking a heavily overlapping run to an end
+and collapsing it there, then an LNA with both ends already occupied is exactly
+the case where there is no end to walk to — and that is precisely, and only,
+what is left. Just 1 of the 37 is certified non-piecewise-hereditary, so the
+other 36 are a gap in the rules rather than algebras outside any quipu class.
+
+The property is an `n = 9` fact and not yet a general one: at `n = 10`, 670 of
+the 887 rows left have both ends occupied and 660 are reduced, so the
+characterisation is strong but not complete there. Whether it becomes complete
+once `n = 10` has the rules `n = 9` has is the question to ask next, and it is
+the concrete form of this hypothesis to try to break.
 
 **Evidence against, and it is weaker than it looks.** 392 rows at n = 9 are
 still not placed. The 33 with no rule at all were the candidate for a fourth

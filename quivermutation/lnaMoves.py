@@ -1110,6 +1110,40 @@ def spreadingPairRules(maxDistance = 5):
     return rules
 
 
+def pairToTripleRules(maxRelationLength = 9):
+    """An unequally overlapping pair becoming a triple, for every pair of lengths.
+
+    Relations of `shorter` and `longer` arrows at consecutive vertices, with
+    `longer > shorter`, become three: the first grows by one arrow and a copy of
+    the second appears one vertex further on.
+
+        (0:shorter) (1:longer)  ->  (0:shorter + 1) (1:longer) (2:longer)
+
+    under two left mutations at the window's last vertex.  The window is
+    `longer + 2` arrows, so it widens with the longer relation while the mutation
+    count stays at two -- the pair slide's shape (F-013), but a family in *both*
+    relation lengths rather than one, which is what H-008 asked for.
+
+    This is a floating rule: it holds at every window position, the interior
+    included, and it is the first family found there that changes the number of
+    relations.  Read backwards it takes a run of three to a run of two, which is
+    the mechanism F-022 saw when a run of three dissolved and a pair did not.
+
+    Discovery listed `longer` = 3 and 4 and could not have found more: `longer`
+    = 5 needs a window of seven arrows.  Verified for every pair with
+    `longer` up to 8 at lengths 8 to 13, no failures (F-030, E-027).
+    """
+    rules = []
+    for longer in range(3, maxRelationLength + 1):
+        for shorter in range(2, longer):
+            width = longer + 2
+            rules.append((width,
+                          ((0, shorter), (1, longer)),
+                          ((0, shorter + 1), (1, longer), (2, longer)),
+                          (-width, -width)))
+    return rules
+
+
 def _extend(combined, seen, rules):
     """Append the rules not already present, in order, and say so."""
     for rule in rules:
@@ -1129,7 +1163,8 @@ def _withFamilies(listed):
     combined = list(listed)
     seen = set(combined)
     _extend(combined, seen, pairSlideRules() + shortRelationSlideRules()
-            + trailingRelationWalkRules() + spreadingPairRules())
+            + trailingRelationWalkRules() + spreadingPairRules()
+            + pairToTripleRules())
     _extend(combined, seen, [rule for rule in spectatorMoves.SPECTATOR_MOVES
                              if anchorOf(rule) is None])
     return combined

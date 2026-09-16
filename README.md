@@ -117,6 +117,7 @@ nine.members("P^(1,4)_(1,0,1)")                       # one class, with the path
 ```bash
 python overlaps.py 6 7 8 9              # coverage by relation overlap
 python overlaps.py 9 --cores            # what is left, by overlapping run
+python overlaps.py 9 --free             # with relations of two arrows free
 python probe.py 1:3,2:3 --steps 4       # what one configuration can become
 ```
 
@@ -139,6 +140,15 @@ a mutation does something it cannot do in the interior. The anchored half does
 most of the work above the almost separate line. Both are closed under the
 relation dual -- reverse every arrow and exchange right mutation for left, which
 takes a rule to a rule (`lnaMoves.dualRule`).
+
+Two things reach further than any rule does, and neither is a table row.
+`freeMoves` deletes a relation of **two arrows**, which arXiv:2310.08346 says
+leaves the derived equivalence class alone -- no mutation, no sequence, and it
+merges more at n = 12 than the whole rule table does. `edgeMoves` holds a family the rule
+encoding cannot state at all: a relation at an end of the quiver doubles, and its
+window is allowed to be crossed by a relation it never touches. With both,
+**n = 8 needs no search at all** -- 21 orbits, nothing left over -- and n = 9
+falls from 222 rows to 37. See `research/` F-028 to F-030.
 
 ### Where the Coxeter polynomial is not enough
 

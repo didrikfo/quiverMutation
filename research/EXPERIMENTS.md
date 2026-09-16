@@ -6,6 +6,94 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-027 — The free move, the square walked instead of searched, and the trees
+*2026-09-16* · **the free move beats the whole table; two new families; no non-quipu tree reached** → F-028, F-029, F-030, F-031
+
+Four threads, all suggested from outside the search, and the cheapest of them is
+the largest result this project has had.
+
+### 1. Relations of two arrows are free (F-028)
+
+`corollary:lengthtworelations` of arXiv:2310.08346 has been sitting in
+`research/literature/` unused since that paper was read. Deleting every
+two-arrow relation keeps the Coxeter polynomial in all 4861 cases at `n = 3..10`
+and keeps the quipu name in all 44320 cases at `n = 3..13`. Added to the orbit
+computation it merges 20052 pairs at `n = 12` that the 1794 verified rules of the
+table at the time do not, and cuts what a search must still place by 76% at
+`n = 9` and 90% at `n = 8`.
+
+The reduced space is exactly the LNAs of one fewer vertex, by shortening every
+relation by one arrow — checked as a bijection, not just a count, for
+`n = 4..13`.
+
+### 2. Walking the square instead of searching for it
+
+NOTES backlog 26. Open a relation with one mutation — F-027 says that always
+gives a 2-by-k square — then mutate at consecutive vertices along the side it
+opens. The cost is linear in the relation's length, where a search is exponential
+in the depth, so a family's later members cost no more than its first. The
+instrument was validated against F-020's lone slide, which it reproduced out to
+`d = 9` in 13 seconds; discovery had reached `d = 7` at far greater cost.
+
+**The march must be allowed to repeat its first vertex.** A first version
+advanced one vertex per mutation and found nothing at all, because the two known
+end families are `[1, 1]` and `[2, 2]`. That is worth recording: a walk that
+cannot stand still cannot see either of them.
+
+| planted | where | outcome |
+|---|---|---|
+| a lone relation, `l = 3..6` | interior | nothing — the square closes only by undoing itself, at every length, not just F-027's `l = 5` |
+| a long relation and a two-arrow one, all gaps | interior | nothing but the two-arrow relation sliding past; the long one is a pure spectator |
+| two relations of ≥ 3 arrows, `L, m = 3..7`, all gaps | interior | nothing, in 305 configurations |
+| the same, all gaps ≥ 2 | either end | nothing |
+| an overlapping pair, gap 1 or 2 | interior | **F-030**, the pair-to-triple family |
+| a relation at an end | either end | **F-029**, the doubling |
+
+So the square is a real mechanism and a cheap one, and what it finds is
+concentrated exactly where F-022 and F-024 said the action was: on relations
+that overlap, or against an end. A relation with room around it does nothing,
+whatever its length and whatever it is next to.
+
+### 3. The two families, and what they cost the story
+
+F-029 is not expressible as a table rule at all — the honest conclusion is that
+the encoding needs widening, which is NOTES backlog 27. F-030 is expressible, and
+the table already held its first two members and none of the rest, which is
+H-008's shape for the third time.
+
+Between them and the free move, **`A_8` is fully covered with no search**: 21
+orbits, nothing left. `A_9` falls from 380 orbits and 222 rows needing a search
+to 77 and 37.
+
+**A false start worth recording.** The collapse directions of F-029 were first
+written by inverting the doubling's condition and sequence by hand. Both were
+wrong: the sequence, because the procedure relabels and a left mutation at a
+vertex is not undone by a right mutation there — the collapse is two right
+mutations at the *source*; and the condition, which fired on 97 cases where 282
+were available. Defining each collapse as "the LNA whose doubling is this one"
+fixed both at once, and all four moves then fire 907 times apiece over `n = 7..10`
+with no failures.
+
+### 4. What is left at n = 9, now that it is small enough to read
+
+37 rows in 77 orbits, and they have a property in common: **every one has a
+relation at the source and a relation at the sink**, and every one is already
+reduced. Only 1 of the 37 is certified non-piecewise-hereditary. At `n = 10` the
+same two counts are 670 and 660 of 887, so the characterisation is strong there
+but not complete. Recorded against H-011, whose mechanism it is the natural limit
+of: an LNA with both ends occupied has no free end to walk a run to.
+
+### 5. Trees that are not quipus (F-031)
+
+Every tree of maximum degree three up to order 12, tested for quipu-ness and then
+compared by Coxeter polynomial against every LNA of the same length. The first
+non-quipu appears at order 10 and is unique — the centre with three neighbours,
+each carrying two leaves, which is the tree the question was asked about. Eleven
+non-quipu trees over orders 10, 11 and 12; 80444 LNAs compared; not one shared
+Coxeter polynomial.
+
+---
+
 ## E-026 — The dual as a mirror, and what a rule walks through
 *2026-09-16* · **410 duals, all holding; every intermediate a square with a side of two; no shortcut survives** → F-026, F-027, R-011
 

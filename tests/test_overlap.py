@@ -199,14 +199,18 @@ def test_the_table_places_every_lna_of_length_six_and_seven():
 def test_the_anchored_half_of_the_table_is_what_crosses_the_line():
     """Not a tautology and not a close thing.
 
-    Restricted to the rules that hold at every position, the table places 260 of
+    Restricted to the rules that hold at every position, the table places 262 of
     the 429 LNAs at n = 8; with the rules anchored to an end it places 419 of
-    them. The almost separate ones are 233, so the floating rules carry 27 rows
-    across the line and the anchored ones carry another 159.
+    them. The almost separate ones are 233, so the floating rules carry 29 rows
+    across the line and the anchored ones carry another 157.
+
+    The floating figure was 260 until `pairToTripleRules` was generated rather
+    than listed (F-030); the two rows it added are the whole of that family's
+    effect on the coverage at this length.
     """
     floating = ov.coverage(8, lm.VERIFIED_MOVES)
     both = ov.coverage(8)
-    assert len(floating['covered']) == 260
+    assert len(floating['covered']) == 262
     assert len(both['covered']) == 419
     assert len(both['seeded']) == 233
 

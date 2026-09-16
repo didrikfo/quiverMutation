@@ -5,6 +5,246 @@ See [`README.md`](README.md) for conventions.
 
 ---
 
+## F-031 — The smallest tree that is not a quipu has ten vertices, and no LNA reaches it
+*2026-09-16*
+
+A quipu is a tree of maximum degree three whose degree-three vertices all lie on
+one path. The natural question is whether the quipu theorem's shape is forced:
+is some tree of maximum degree three that is *not* a quipu still derived
+equivalent to a linear Nakayama algebra?
+
+**Where the first one is.** Enumerating every tree of maximum degree three by
+order, and testing each with `quipuForms.isQuipuByDegrees`:
+
+| order | trees of max degree 3 | not quipus |
+|---|---|---|
+| 4–9 | 2, 2, 4, 6, 11, 18 | **0** |
+| 10 | 37 | **1** |
+| 11 | 66 | 2 |
+| 12 | 135 | 8 |
+
+So ten vertices is where they start, and at ten there is exactly one: the centre
+`c` with three neighbours, each of which carries two leaves — `1 + 3 + 6 = 10`.
+Its four degree-three vertices are `c` and the three neighbours, and a path
+through the tree can hold `c` and at most two of the others, so no path holds all
+four.
+
+**No LNA of that length is derived equivalent to it.** The Coxeter polynomial is a
+derived invariant, and derived equivalence forces the same number of simples, so
+the candidates are exactly the LNAs of the same length. Comparing against all of
+them:
+
+| order | non-quipu trees | LNAs compared | sharing a Coxeter polynomial |
+|---|---|---|---|
+| 10 | 1 | 4862 | **0** |
+| 11 | 2 | 16796 | **0** |
+| 12 | 8 | 58786 | **0** |
+
+Eleven trees, 80444 LNAs, not one match. The Coxeter polynomial is only a
+necessary condition, so a match would have needed following up; its absence is
+decisive on its own.
+
+**What this is and is not.** It is not a proof that no non-quipu tree is ever
+reached — that is a statement about all orders, and this is three of them. It is
+evidence that the quipu shape in `thm:QuipuToAn` is not an artefact of how the
+theorem was proved, and it closes the cheapest way the classification could have
+been incomplete. The next orders are the obvious extension and cost only time.
+
+E-027.
+
+---
+
+## F-030 — An unequally overlapping pair becomes a triple, for every pair of lengths
+*2026-09-16*
+
+Opening a relation into its square and walking the side it opens (E-027) turns
+up one family in the **interior**, and it is parameterised by *both* relation
+lengths — which is what H-008 asked for and what F-020's three families, all
+about a two-arrow relation sliding, did not give.
+
+    (0:shorter) (1:longer)  ->  (0:shorter + 1) (1:longer) (2:longer)
+
+under two left mutations at the window's last vertex, for every `longer >
+shorter >= 2`. The window is `longer + 2` arrows. Verified at lengths 8 to 13,
+**no failures**: 1991 confirmations for `(2,3)`, 603 apiece for `(2,4)` and
+`(3,4)`, fewer for the wider windows simply because a wide window has fewer
+places to sit.
+
+**It is floating**, so it holds in the interior as well as at an end — and it is
+the first family found there that changes the *number* of relations. Read
+backwards it takes a run of three relations to a run of two, which is the
+mechanism behind F-022's observation that a run of three dissolves where an
+isolated pair does not.
+
+**It does not lower the overlap, and could not.** `(3,4)` has a maximum overlap
+of 2 and `(4,4,4)` of 3, so the rewrite runs *up* the overlap scale. That is
+consistent with H-010 rather than against it: the family says an interior pair
+has somewhere to go, not that it can get anywhere useful.
+
+**H-008's shape once more.** The table already contained `longer = 3` and
+`longer = 4` and none of the rest, because `longer = 5` needs a window of seven
+arrows and discovery never had one. Generating the family instead of listing it
+takes the floating table from 364 rules to 414.
+
+**What it does not buy.** Nothing, yet, for the coverage: at `n <= 10` the new
+members are too wide to fit anywhere the narrow ones did not already reach, and
+the orbit counts do not move. The value is that the family is now known in
+closed form, and it will matter at the lengths where its members fit.
+
+`pairToTripleRules`. E-027.
+
+---
+
+## F-029 — A relation at an end doubles, and the rule encoding cannot say so
+*2026-09-16*
+
+    A relation of `l` arrows at the source, with nothing starting at the
+    vertices 2 .. l, gains a second relation of `l` arrows at vertex 2, under
+    two left mutations at vertex `l + 1`.
+
+Verified against the mutation engine over every LNA carrying the pattern,
+checked all three ways `verifyMove` checks a rule — the predicted LNA, every
+mutation admissible, the Coxeter polynomial held fixed. For the source doubling:
+`l = 2..7` at lengths 8, 9, 10 and `l = 2..9` at lengths 11 and 12 (`l = 8` and
+`l = 9` need a longer quiver than 10 to appear at all), **9855 confirmations and
+no failures**, with no case where the predicted LNA failed to be admissible. The
+dual at the sink, by F-026's relation dual, holds identically, and all four moves
+— both doublings and both collapses — fire exactly **907 times apiece** over
+lengths 7 to 10 with no failures, the equality between a move and its dual being
+itself a check.
+
+**Why no discovery run could have found it.** `describeLink` builds the window
+from the relations that change and the vertices mutated, here the arrows
+`1 .. l + 1`, and then refuses to describe the rewrite unless every relation
+meeting that window lies inside it. A companion relation starting on arrow
+`l + 1` and running out the far side breaks that condition, and the rewrite is
+discarded. So this family is invisible to the encoding, not merely to the search
+bound — which is why 1794 verified rules do not contain it, and why in `A_12`
+the whole table offers *no* rewrite at all for `3003000000` while this gives one.
+
+The strictness is not a mistake: it is what stops a rewrite depending on
+something it does not describe, and R-009 is what happens without it. The right
+fix is to let a description say that relations may cross the window's far edge
+untouched. That is a change to `matchesAt`, `applyAt` and `describeLink`, and it
+is NOTES backlog 27; until then the family lives in `edgeMoves` as explicit
+rewrites rather than as table rows.
+
+**What it is, in one line.** The doubling is the inverse of `endPairCollapse`,
+released from needing the rest of the window to be empty. Its collapse direction
+is *not* the naive inverse of its sequence: two left mutations at vertex `l + 1`
+are undone by two **right** mutations at the **source**, because the procedure
+relabels. Inverting the condition by hand instead of defining the collapse as
+"the LNA whose doubling is this one" made a first version fire on a third of the
+cases it should have, and that is how it was caught.
+
+**What it buys.** With the edge moves alone, `A_9` goes from 380 move orbits to
+237 and from 222 rows needing a search to 138; `A_10` from 2149 to 1607 and from
+1807 to 1426. With F-028's free move as well, **`A_8` needs no search at all** —
+21 orbits, nothing left over — and `A_9` falls to 77 orbits and 37 rows.
+
+`edgeMoves`, `tests/test_edge_moves.py`. E-027.
+
+---
+
+## F-028 — A relation of two arrows is free, and that is worth more than the whole rule table
+*2026-09-16*
+
+`corollary:lengthtworelations` of arXiv:2310.08346 says a relation of **two
+arrows** does not affect an algebra's derived equivalence type. It has been in
+`research/literature/` since that paper was read and has never been used. It is
+the single largest reduction available to this investigation, and using it costs
+nothing.
+
+**It is not a mutation.** Every rule in `lnaMoves` is a rewrite the engine has
+been made to perform, with a sequence behind it. This has no sequence. It is a
+statement about *derived* equivalence only, and may never be used to claim two
+algebras are in the same mutation class. That is why it lives in `freeMoves`
+and not in the move table.
+
+### Two independent checks, since the corollary is quoted and not proved here
+
+| check | cases | disagreements |
+|---|---|---|
+| Coxeter polynomial kept under stripping, `n = 3..10` | 4861 | **0** |
+| quipu name kept under stripping, `n = 3..13` | 44320 | **0** |
+
+The Coxeter polynomial is a derived invariant, so it had to be blind to these
+relations; the quipu theorem of arXiv:2305.06642 is what the classification is
+seeded from, and it is blind to them too. Neither is a proof — the first is a
+necessary condition and the second is a theorem about a subclass — but between
+them they would have caught a misreading of the corollary, and did not. The
+paper's own classification table, transcribed in `tests/paper_classification.py`,
+already writes only relations of length ≥ 3 and says why.
+
+### What follows, and the third one is the useful one
+
+**A relation of two arrows never overlaps a neighbour in more than one arrow.**
+Admissibility makes starts and ends both strictly increase, so for `(s, 2)` and a
+later `(t, l)` we have `s < t` and the overlap `s + 2 - t <= 1`; for an earlier
+`(r, k)` we have `r + k < s + 2` and the overlap `r + k - s <= 1`. So a two-arrow
+relation can never be part of what F-021 says a search still has to find.
+
+**Therefore stripping never names anything by itself.** If an LNA has an overlap
+of two or more it is between two relations of three or more arrows, both of which
+survive stripping and stay consecutive. So `isAlmostSeparate` is exactly
+preserved — measured, 0 exceptions at `n = 5..10` — and the count of LNAs that
+stripping alone hands to the quipu theorem is **0 at every length**. Everything
+the move buys is in *bridging*: an LNA no rule reaches strips to one the rules do.
+
+**The reduced space is one vertex smaller.** Shortening every relation by one
+arrow is a bijection from the stripped LNAs of length `n` onto *all* the LNAs of
+length `n - 1` — a reduced LNA has every relation at three arrows or more, so one
+comes off each and the starts and ends still increase, and its last entry is
+always 0 because a relation starting at `n - 1` could only have two arrows.
+Checked as a bijection, not just a count, for `n = 4..13`.
+
+| n | LNAs | reduced | ratio |
+|---|---|---|---|
+| 8 | 429 | 132 | 3.3 |
+| 10 | 4862 | 1430 | 3.4 |
+| 12 | 58786 | 16796 | 3.5 |
+| 14 | 742900 | 208012 | 3.6 |
+
+So quotienting by the free move divides the whole space by the Catalan ratio,
+tending to 4.
+
+### What it does to the coverage, which is the point
+
+Orbits under the 1794 rules, and under the rules plus the free move:
+
+| n | LNAs | orbits, rules | orbits, + free | needing a search, rules | + free |
+|---|---|---|---|---|---|
+| 7 | 132 | 20 | **10** | 0 | 0 |
+| 8 | 429 | 69 | **22** | 10 | **1** |
+| 9 | 1430 | 380 | **91** | 222 | **53** |
+| 10 | 4862 | 2149 | **746** | 1807 | **971** |
+| 11 | 16796 | 9254 | **3734** | 8863 | **6262** |
+| 12 | 58786 | 34392 | **14340** | 37366 | **29312** |
+
+One line of code merges 20052 pairs at `n = 12` that 1794 verified rules — the
+product of every discovery run this project has made, and the table as it stood
+when this was measured, before F-030 added 50 more — do not. At `n = 9` it cuts
+what a search must still place by 76%, at `n = 8` by 90%.
+
+### Why the rules missed it, and how far they get on their own
+
+The table can slide a two-arrow relation anywhere (F-020's lone slide) and can
+delete one at an end **when it is alone there**: in `A_8`, `(0,0,0,0,0,2)` reaches
+the empty relation set, `(0,0,0,2,0,0)` is only ever slid, and `(3,0,0,0,2,0)` is
+not stripped even though its two-arrow relation can be slid to the sink. Against
+an end the deletion is one mutation — E-027 finds `(L, …, 2) → (L)` by a single
+left mutation at the sink, for every `L` it tried. So the free move is not exotic;
+it is the end behaviour, released from needing the end.
+
+**This does not make the free move redundant.** Whether every instance of it is
+*also* a mutation equivalence is a separate and open question: sliding a two-arrow
+relation to an end needs room and company it may not have. What is settled is that
+the derived classes merge, and derived classes are what is being classified.
+
+`freeMoves`, `overlaps.py --free`, `tests/test_free_moves.py`. E-027.
+
+---
+
 ## F-027 — Leaving the line, a mutation of an LNA goes to a square with a side of two
 *2026-09-16*
 
