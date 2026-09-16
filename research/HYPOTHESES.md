@@ -6,8 +6,89 @@ it. Status is one of `OPEN`, `SUPPORTED`, `CONFIRMED → F-nnn`, `REFUTED → R-
 
 ---
 
+## H-009 — The move rules are a one-dimensional cellular automaton, and its theory applies
+*2026-09-14, first check 2026-09-15* · **SUPPORTED**
+
+An LNA of length `n` is a row of `n - 2` cells, cell `i` holding the number of
+arrows in the relation starting at vertex `i + 1`. Every move rule found so far
+is then literally a **local rewrite on that row**: `lnaMoves.describeLink` only
+admits a rewrite whose *window* contains every relation it touches, `matchesAt`
+slides that window along the row, and the rules themselves read as
+neighbourhood-to-neighbourhood maps — the pair slide (F-013) translates a
+two-cell pattern one place along; the other verified rules lengthen or shorten a
+relation depending on what overlaps it on either side.
+
+That is the setting of **one-dimensional cellular automata**: a finite alphabet
+(relation lengths, bounded by `n`), a finite neighbourhood (the window width), a
+local transition rule, and boundary behaviour at the two ends that differs from
+the interior — which is exactly the phenomenon H-007 is about.
+
+**Why it might pay.** Questions we are currently answering by brute-force search
+are standard questions there, with machinery behind them:
+
+* *which rows are reachable from which* — the orbit/reachability problem for a
+  rewriting system, and the injectivity/surjectivity theory of CA maps;
+* *do the rules generate everything, or are there invariant classes* — additive
+  invariants and conserved quantities of a local rule, which is the CA way of
+  saying "a derived invariant the moves preserve";
+* *when does a family of rules parameterised by window width collapse to one
+  statement* — H-008's question, and the block/rescaling constructions are built
+  for it;
+* *how much does the boundary matter* — the difference between a CA on `Z` and on
+  a finite interval, which is well studied and is H-007's question.
+
+The nearest formal fit is probably not classical CA (synchronous, everywhere at
+once) but **asynchronous CA** or a **one-dimensional rewriting / subshift**
+presentation, since a mutation applies at one place at a time. Sand-pile and
+chip-firing models are the closest-looking relatives: local, order-independent
+in the right circumstances, with a well-developed theory of reachability and
+invariants.
+
+**What would settle whether it is worth pursuing.** A literature sweep first —
+asynchronous CA and local rewriting on finite words, reachability under a finite
+set of local rewrites, conserved quantities of local rules — then one concrete
+attempt: state the verified move table of `lnaMoves.VERIFIED_MOVES` as a rule set
+in that language and ask whether any standard result gives the orbit structure we
+are currently getting by search.
+
+**Caveat that would sink it.** A move is only valid when every mutation in its
+sequence is admissible (R-005), and admissibility is a condition on the *algebra*,
+not on the row of numbers. If the admissibility side conditions cannot be written
+as part of the local neighbourhood, the CA picture describes something strictly
+larger than the moves and its conclusions do not transfer.
+
+**That check is done, and it passes → F-017.** Whether a rule applies comes out
+of the window's cells plus one bit -- whether a relation covers the window's
+first arrow having started earlier -- over 991,064 comparisons at lengths 5 to 9
+with no disagreement; and wherever a rule matches, its mutations are legal, 1218
+confirmations and no failures. So the side conditions *are* local and the CA
+picture is about the right object.
+
+**What the check also settled, which was not the question asked.** The state has
+to be indexed by **arrows**, not vertices. A per-vertex cell holds a relation
+length, which is unbounded in `n`, so the alphabet is unbounded and a relation
+reaches arbitrarily far right; a per-arrow row carrying "covered / starts /
+ends" has a fixed alphabet and makes that one bit a property of the cell at the
+window's edge. Any attempt at this should start from the arrow row.
+
+**Where it will strain.** Translating a per-vertex row into a per-arrow one needs
+the number of relations open at each arrow. That is bounded by two under *almost
+separate* relations and unbounded otherwise -- and the heavily overlapping LNAs
+are exactly the ones the classification still has to search for (H-003). So the
+CA reading may be exactly a theory of the part that is already easy.
+
+---
+
 ## H-008 — Rule families are parameterised by relation length and overlap, and some need more than three mutations
-*2026-09-14* · **OPEN**
+*2026-09-14, settled 2026-09-15* · **CONFIRMED → F-020**
+
+**Confirmed in both halves.** The lone short-relation slide is one statement for
+every `d`, and it needs `d` mutations -- so its members from d = 4 on are exactly
+the rules a three-mutation search cannot see, however simple they are.  Verified
+for d = 1 to 7, both directions, 63 confirmations each with no failures, and
+generated by `lnaMoves.shortRelationSlideRules` rather than waiting for discovery
+to reach them.  The pair slide (F-013) is the other half: a family whose mutation
+count does *not* grow.  The note below is what was suspected.
 
 The rules found so far are individually verified but individually unilluminating.
 The suspicion is that they are members of a handful of families parameterised by

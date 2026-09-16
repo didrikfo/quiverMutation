@@ -17,8 +17,12 @@ import contextlib
 
 import networkx as nx
 
-import nakayama
-import quiverMutation as qm
+from . import invariants
+from . import lines
+from . import mutation
+from . import nakayama
+from . import pathAlgebra
+
 
 
 def _quiet(function, *args, **kwargs):
@@ -39,7 +43,7 @@ def asRelLengths(pathAlg, length):
         return None
     if nx.dag_longest_path_length(quiver) != length - 1:
         return None
-    relabelled, _ = _quiet(qm.relabelLineAlgebra, pathAlg, {})
+    relabelled, _ = _quiet(lines.relabelLineAlgebra, pathAlg, {})
     relLengths = [0] * (length - 2)
     for rel in relabelled.rels:
         if len(rel) != 1:
@@ -49,10 +53,6 @@ def asRelLengths(pathAlg, length):
             return None
         relLengths[start - 1] = arrows
     return relLengths
-
-
-def className(relLengths):
-    return "".join(str(n) for n in relLengths)
 
 
 def movesFrom(lna, maxSteps = 2, allowLeft = True):
@@ -68,15 +68,13 @@ def movesFrom(lna, maxSteps = 2, allowLeft = True):
     rewrite rule wants both directions.
     """
     length = lna.length
-    start = className(lna.relLengths)
+    start = lines.className(lna.relLengths)
     best = {}
 
     def walk(pathAlg, steps, history):
         if steps == 0:
             return
-        allRels = _quiet(qm.allRelsInPathAlgebra, pathAlg)
-        dual = _quiet(qm.dualPathAlgebra, pathAlg)
-        dualRels = _quiet(qm.allRelsInPathAlgebra, dual)
+        dual = _quiet(pathAlgebra.dualPathAlgebra, pathAlg)
         for vertex in pathAlg.vertices():
             directions = []
             # A mutation is only a tilting mutation where the procedure's
@@ -84,19 +82,19 @@ def movesFrom(lna, maxSteps = 2, allowLeft = True):
             # computes a quiver, but not a derived equivalent one.  Left mutation
             # at v is right mutation at v of the dual, so that is where its
             # condition is tested.
-            if _quiet(qm.mutationIsPossibleAtVertex, pathAlg, vertex, allRels):
+            if _quiet(mutation.mutationIsPossibleAtVertex, pathAlg, vertex):
                 directions.append(vertex)
-            if allowLeft and _quiet(qm.mutationIsPossibleAtVertex, dual, vertex, dualRels):
+            if allowLeft and _quiet(mutation.mutationIsPossibleAtVertex, dual, vertex):
                 directions.append(-vertex)
             for signed in directions:
-                nextAlg = _quiet(qm.quiverMutationAtVertices,
+                nextAlg = _quiet(mutation.quiverMutationAtVertices,
                                  _copy(pathAlg), [signed])
                 if nextAlg is None:
                     continue
                 relLengths = asRelLengths(nextAlg, length)
                 sequence = history + [signed]
                 if relLengths is not None:
-                    name = className(relLengths)
+                    name = lines.className(relLengths)
                     if name != start and (name not in best or len(sequence) < len(best[name])):
                         best[name] = sequence
                 walk(nextAlg, steps - 1, sequence)
@@ -107,8 +105,7 @@ def movesFrom(lna, maxSteps = 2, allowLeft = True):
 
 def _copy(pathAlg):
     import copy
-    import pathAlgebraClass
-    duplicate = pathAlgebraClass.PathAlgebra()
+    duplicate = pathAlgebra.PathAlgebra()
     duplicate.quiver = copy.deepcopy(pathAlg.quiver)
     duplicate.rels = copy.deepcopy(pathAlg.rels)
     return duplicate
@@ -236,7 +233,7 @@ def standardise(pathAlg):
     numbering[p] is the label that the vertex at standard position p carries in
     the quiver as given.  (None, None, None) if the quiver is not a line.
 
-    Note that qm.relabelLineAlgebra renumbers its argument *in place*, so this
+    Note that lines.relabelLineAlgebra renumbers its argument *in place*, so this
     works on a copy.  Getting that wrong is what made composed move sequences
     come out wrong: the numbering reported no longer described the algebra being
     carried forward.
@@ -250,7 +247,7 @@ def standardise(pathAlg):
     """
     length = len(pathAlg.quiver.nodes)
     duplicate = _copy(pathAlg)
-    relabelled, numbering = _quiet(qm.relabelLineAlgebra, duplicate, {})
+    relabelled, numbering = _quiet(lines.relabelLineAlgebra, duplicate, {})
     relLengths = [0] * (length - 2)
     for rel in relabelled.rels:
         if len(rel) != 1:
@@ -279,7 +276,7 @@ def closureUnderMoves(length, relLengths, maxIterations = 10000):
     positions, and translates the move's vertices into original labels through
     the numbering accumulated so far.
     """
-    startName = className(relLengths)
+    startName = lines.className(relLengths)
     identity = {position: position for position in range(1, length + 1)}
     results = {startName: ([], identity)}
     frontier = [(nakayama.LinearNakayamaAlgebra(length, relLengths), relLengths, [], identity)]
@@ -292,9 +289,9 @@ def closureUnderMoves(length, relLengths, maxIterations = 10000):
                 continue
             # standardAlg's own labels are the standard positions, so the move
             # applies to it verbatim; the path needs the original labels.
-            mutated = _quiet(qm.quiverMutationAtVertices, _copy(standardAlg), list(sequence))
+            mutated = _quiet(mutation.quiverMutationAtVertices, _copy(standardAlg), list(sequence))
             nextAlg, nextLengths, stepNumbering = standardise(mutated)
-            if nextLengths is None or className(nextLengths) != name:
+            if nextLengths is None or lines.className(nextLengths) != name:
                 continue
             inOriginalLabels = [
                 numbering[v] if v > 0 else -numbering[-v] for v in sequence
@@ -395,14 +392,14 @@ def discoverMoves(lengths, maxSteps = 2, minOccurrences = 3, allowLeft = True,
     for length in lengths:
         for lna in nakayama.LinearNakayamaAlgebra.allOfLength(length):
             if progress:
-                print('  {0} {1}'.format(length, className(lna.relLengths)))
+                print('  {0} {1}'.format(length, lines.className(lna.relLengths)))
             for name, sequence in movesFrom(lna, maxSteps, allowLeft).items():
                 after = [int(c) for c in name]
                 description = describeLink(length, lna.relLengths, after, sequence)
                 if description is None:
                     continue
                 seen.setdefault(description, []).append(
-                    (length, className(lna.relLengths), name))
+                    (length, lines.className(lna.relLengths), name))
     return {d: places for d, places in seen.items() if len(places) >= minOccurrences}
 
 
@@ -493,11 +490,10 @@ def isLegalSequence(pathAlg, sequence):
     """
     current = _copy(pathAlg)
     for signed in sequence:
-        target = current if signed > 0 else _quiet(qm.dualPathAlgebra, current)
-        allRels = _quiet(qm.allRelsInPathAlgebra, target)
-        if not _quiet(qm.mutationIsPossibleAtVertex, target, abs(signed), allRels):
+        target = current if signed > 0 else _quiet(pathAlgebra.dualPathAlgebra, current)
+        if not _quiet(mutation.mutationIsPossibleAtVertex, target, abs(signed)):
             return False
-        current = _quiet(qm.quiverMutationAtVertices, current, [signed])
+        current = _quiet(mutation.quiverMutationAtVertices, current, [signed])
     return True
 
 
@@ -537,19 +533,19 @@ def verifyMove(description, lengths, checkCoxeter = True):
                 predicted, sequence = applied
                 startAlg = nakayama.LinearNakayamaAlgebra(length, relLengths)
                 if not isLegalSequence(startAlg, sequence):
-                    failures.append((length, className(relLengths),
-                                     className(predicted), None, 'illegal mutation'))
+                    failures.append((length, lines.className(relLengths),
+                                     lines.className(predicted), None, 'illegal mutation'))
                     continue
-                mutated = _quiet(qm.quiverMutationAtVertices, _copy(startAlg), list(sequence))
+                mutated = _quiet(mutation.quiverMutationAtVertices, _copy(startAlg), list(sequence))
                 actual = asRelLengths(mutated, length)
                 if actual != predicted:
-                    failures.append((length, className(relLengths),
-                                     className(predicted),
-                                     className(actual) if actual else None, 'wrong result'))
+                    failures.append((length, lines.className(relLengths),
+                                     lines.className(predicted),
+                                     lines.className(actual) if actual else None, 'wrong result'))
                     continue
                 if checkCoxeter and not _sameCoxeter(length, relLengths, predicted):
-                    failures.append((length, className(relLengths),
-                                     className(predicted), className(actual),
+                    failures.append((length, lines.className(relLengths),
+                                     lines.className(predicted), lines.className(actual),
                                      'Coxeter polynomial moved'))
                     continue
                 confirmed += 1
@@ -558,8 +554,8 @@ def verifyMove(description, lengths, checkCoxeter = True):
 
 def _sameCoxeter(length, before, after):
     import sympy
-    first = _quiet(qm.coxeterPoly, nakayama.LinearNakayamaAlgebra(length, before)).as_expr()
-    second = _quiet(qm.coxeterPoly, nakayama.LinearNakayamaAlgebra(length, after)).as_expr()
+    first = _quiet(invariants.coxeterPoly, nakayama.LinearNakayamaAlgebra(length, before)).as_expr()
+    second = _quiet(invariants.coxeterPoly, nakayama.LinearNakayamaAlgebra(length, after)).as_expr()
     return sympy.expand(first) == sympy.expand(second)
 
 
@@ -649,6 +645,57 @@ VERIFIED_MOVES = [
     (6, ((1, 4), (2, 4)), ((0, 4), (1, 4)), (2, 2)),   # 22 confirmed: window 6 arrows: (1:4) (2:4)  ->  (0:4) (1:4)   via [2, 2]
     (6, ((1, 4), (3, 3)), ((0, 4), (1, 4), (2, 4)), (2, 2)),   # 22 confirmed: window 6 arrows: (1:4) (3:3)  ->  (0:4) (1:4) (2:4)   via [2, 2]
     (6, ((1, 4), (4, 2)), ((0, 4), (1, 4), (3, 3)), (2, 2)),   # 22 confirmed: window 6 arrows: (1:4) (4:2)  ->  (0:4) (1:4) (3:3)   via [2, 2]
+    # Interior discovery at three mutations, E-011: patterns planted in the
+    # middle of A_13 and A_14 and mutated only nearby, so that no end of the
+    # quiver is in reach (H-007).  Each was then verified at
+    # `width + 1 .. width + 4` -- the lengths have to follow the window, and
+    # verifying these at a fixed 7 to 10 admitted 30 rules of window 9 that are
+    # false at length 11 (R-009).  The window-7 and window-8 entries were
+    # checked at lengths 11 and 12 as well.
+    (5, ((0, 2),), ((3, 2),), (-3, -4, -5)),   # 22 confirmed: window 5 arrows: (0:2)  ->  (3:2)   via [-3, -4, -5]
+    (5, ((3, 2),), ((0, 2),), (4, 3, 2)),   # 22 confirmed: window 5 arrows: (3:2)  ->  (0:2)   via [4, 3, 2]
+    (6, ((0, 2), (1, 3), (2, 3)), ((0, 3), (1, 3), (4, 2)), (-5, -3, -6)),   # 22 confirmed: window 6 arrows: (0:2) (1:3) (2:3)  ->  (0:3) (1:3) (4:2)   via [-5, -3, -6]
+    (6, ((0, 2), (2, 2)), ((1, 2), (4, 2)), (-3, -5, -6)),   # 22 confirmed: window 6 arrows: (0:2) (2:2)  ->  (1:2) (4:2)   via [-3, -5, -6]
+    (6, ((0, 2), (2, 3)), ((0, 3), (1, 3), (2, 4)), (-6, 3, -6)),   # 22 confirmed: window 6 arrows: (0:2) (2:3)  ->  (0:3) (1:3) (2:4)   via [-6, 3, -6]
+    (6, ((0, 2), (2, 3)), ((1, 3), (2, 3), (3, 3)), (-3, -6, -6)),   # 22 confirmed: window 6 arrows: (0:2) (2:3)  ->  (1:3) (2:3) (3:3)   via [-3, -6, -6]
+    (6, ((0, 2), (3, 2)), ((2, 2), (4, 2)), (-3, -4, -6)),   # 22 confirmed: window 6 arrows: (0:2) (3:2)  ->  (2:2) (4:2)   via [-3, -4, -6]
+    (6, ((0, 3), (1, 3), (2, 3)), ((1, 3), (4, 2)), (-5, -5, -6)),   # 22 confirmed: window 6 arrows: (0:3) (1:3) (2:3)  ->  (1:3) (4:2)   via [-5, -5, -6]
+    (6, ((0, 4), (2, 3)), ((1, 3), (2, 4)), (-6, 3, -6)),   # 22 confirmed: window 6 arrows: (0:4) (2:3)  ->  (1:3) (2:4)   via [-6, 3, -6]
+    (6, ((1, 2), (2, 2)), ((0, 2), (4, 2)), (2, -5, -6)),   # 22 confirmed: window 6 arrows: (1:2) (2:2)  ->  (0:2) (4:2)   via [2, -5, -6]
+    (6, ((1, 2), (4, 2)), ((0, 2), (2, 2)), (2, 5, 4)),   # 22 confirmed: window 6 arrows: (1:2) (4:2)  ->  (0:2) (2:2)   via [2, 5, 4]
+    (6, ((1, 3), (2, 3), (3, 3)), ((0, 2), (2, 3)), (3, 2, 3)),   # 22 confirmed: window 6 arrows: (1:3) (2:3) (3:3)  ->  (0:2) (2:3)   via [3, 2, 3]
+    (6, ((1, 3), (2, 3), (4, 2)), ((0, 2), (2, 3), (3, 3)), (3, 2, 3)),   # 22 confirmed: window 6 arrows: (1:3) (2:3) (4:2)  ->  (0:2) (2:3) (3:3)   via [3, 2, 3]
+    (6, ((1, 3), (2, 4)), ((0, 4), (2, 3)), (2, -5, 2)),   # 22 confirmed: window 6 arrows: (1:3) (2:4)  ->  (0:4) (2:3)   via [2, -5, 2]
+    (6, ((1, 3), (4, 2)), ((0, 3), (1, 3), (2, 3)), (2, 5, 2)),   # 22 confirmed: window 6 arrows: (1:3) (4:2)  ->  (0:3) (1:3) (2:3)   via [2, 5, 2]
+    (6, ((1, 3), (4, 2)), ((0, 4), (2, 3), (3, 3)), (2, -5, 2)),   # 22 confirmed: window 6 arrows: (1:3) (4:2)  ->  (0:4) (2:3) (3:3)   via [2, -5, 2]
+    (6, ((2, 2), (3, 2)), ((0, 2), (4, 2)), (3, 2, -6)),   # 22 confirmed: window 6 arrows: (2:2) (3:2)  ->  (0:2) (4:2)   via [3, 2, -6]
+    (6, ((2, 2), (4, 2)), ((0, 2), (3, 2)), (3, 2, 5)),   # 22 confirmed: window 6 arrows: (2:2) (4:2)  ->  (0:2) (3:2)   via [3, 2, 5]
+    (7, ((0, 2), (2, 2), (3, 2)), ((1, 2), (2, 2), (5, 2)), (-3, -6, -7)),   # 3 confirmed: window 7 arrows: (0:2) (2:2) (3:2)  ->  (1:2) (2:2) (5:2)   via [-3, -6, -7]
+    (7, ((0, 2), (3, 2)), ((1, 2), (5, 2)), (-3, -6, -7)),   # 3 confirmed: window 7 arrows: (0:2) (3:2)  ->  (1:2) (5:2)   via [-3, -6, -7]
+    (7, ((1, 2), (2, 2), (3, 2)), ((0, 2), (2, 2), (5, 2)), (2, -6, -7)),   # 3 confirmed: window 7 arrows: (1:2) (2:2) (3:2)  ->  (0:2) (2:2) (5:2)   via [2, -6, -7]
+    (7, ((1, 2), (2, 2), (3, 3)), ((0, 2), (2, 3), (3, 3), (4, 3)), (2, -7, -7)),   # 3 confirmed: window 7 arrows: (1:2) (2:2) (3:3)  ->  (0:2) (2:3) (3:3) (4:3)   via [2, -7, -7]
+    (7, ((1, 2), (2, 2), (4, 2)), ((0, 2), (2, 2), (5, 2)), (2, -7)),   # 3 confirmed: window 7 arrows: (1:2) (2:2) (4:2)  ->  (0:2) (2:2) (5:2)   via [2, -7]
+    (7, ((1, 2), (2, 2), (4, 2)), ((0, 2), (3, 2), (5, 2)), (2, -5, -7)),   # 3 confirmed: window 7 arrows: (1:2) (2:2) (4:2)  ->  (0:2) (3:2) (5:2)   via [2, -5, -7]
+    (7, ((1, 2), (2, 3), (3, 3)), ((0, 2), (3, 3), (4, 3)), (2, -7, -7)),   # 3 confirmed: window 7 arrows: (1:2) (2:3) (3:3)  ->  (0:2) (3:3) (4:3)   via [2, -7, -7]
+    (7, ((1, 2), (2, 3), (4, 2)), ((0, 2), (2, 3), (5, 2)), (2, -7)),   # 3 confirmed: window 7 arrows: (1:2) (2:3) (4:2)  ->  (0:2) (2:3) (5:2)   via [2, -7]
+    (7, ((1, 2), (3, 2)), ((0, 2), (5, 2)), (2, -6, -7)),   # 3 confirmed: window 7 arrows: (1:2) (3:2)  ->  (0:2) (5:2)   via [2, -6, -7]
+    (7, ((1, 2), (3, 2), (4, 2)), ((0, 2), (2, 2), (5, 2)), (2, 4, -7)),   # 3 confirmed: window 7 arrows: (1:2) (3:2) (4:2)  ->  (0:2) (2:2) (5:2)   via [2, 4, -7]
+    (7, ((1, 2), (3, 2), (4, 2)), ((0, 2), (3, 2), (5, 2)), (2, -7)),   # 3 confirmed: window 7 arrows: (1:2) (3:2) (4:2)  ->  (0:2) (3:2) (5:2)   via [2, -7]
+    (7, ((1, 2), (4, 2)), ((0, 2), (5, 2)), (2, -7)),   # 3 confirmed: window 7 arrows: (1:2) (4:2)  ->  (0:2) (5:2)   via [2, -7]
+    (7, ((1, 3), (2, 3), (4, 2)), ((0, 3), (1, 3), (5, 2)), (2, 2, -7)),   # 3 confirmed: window 7 arrows: (1:3) (2:3) (4:2)  ->  (0:3) (1:3) (5:2)   via [2, 2, -7]
+    (7, ((1, 3), (3, 2), (4, 2)), ((0, 3), (1, 3), (2, 3), (5, 2)), (2, 2, -7)),   # 3 confirmed: window 7 arrows: (1:3) (3:2) (4:2)  ->  (0:3) (1:3) (2:3) (5:2)   via [2, 2, -7]
+    (7, ((2, 2), (3, 2), (4, 2)), ((0, 2), (3, 2), (5, 2)), (3, 2, -7)),   # 3 confirmed: window 7 arrows: (2:2) (3:2) (4:2)  ->  (0:2) (3:2) (5:2)   via [3, 2, -7]
+    (7, ((2, 2), (3, 2), (5, 2)), ((0, 2), (3, 2), (4, 2)), (3, 2, 6)),   # 3 confirmed: window 7 arrows: (2:2) (3:2) (5:2)  ->  (0:2) (3:2) (4:2)   via [3, 2, 6]
+    (7, ((2, 2), (4, 2)), ((0, 2), (5, 2)), (3, 2, -7)),   # 3 confirmed: window 7 arrows: (2:2) (4:2)  ->  (0:2) (5:2)   via [3, 2, -7]
+    (7, ((2, 2), (5, 2)), ((0, 2), (4, 2)), (3, 2, 6)),   # 3 confirmed: window 7 arrows: (2:2) (5:2)  ->  (0:2) (4:2)   via [3, 2, 6]
+    (8, ((1, 2), (2, 2), (4, 2)), ((0, 2), (2, 2), (6, 2)), (2, -7, -8)),   # 3 confirmed: window 8 arrows: (1:2) (2:2) (4:2)  ->  (0:2) (2:2) (6:2)   via [2, -7, -8]
+    (8, ((1, 2), (2, 3), (4, 2)), ((0, 2), (2, 3), (6, 2)), (2, -7, -8)),   # 3 confirmed: window 8 arrows: (1:2) (2:3) (4:2)  ->  (0:2) (2:3) (6:2)   via [2, -7, -8]
+    (8, ((1, 2), (3, 2), (4, 2)), ((0, 2), (3, 2), (6, 2)), (2, -7, -8)),   # 3 confirmed: window 8 arrows: (1:2) (3:2) (4:2)  ->  (0:2) (3:2) (6:2)   via [2, -7, -8]
+    (8, ((1, 2), (4, 2)), ((0, 2), (6, 2)), (2, -7, -8)),   # 3 confirmed: window 8 arrows: (1:2) (4:2)  ->  (0:2) (6:2)   via [2, -7, -8]
+    (8, ((2, 2), (3, 2), (5, 2)), ((0, 2), (3, 2), (6, 2)), (3, 2, -8)),   # 3 confirmed: window 8 arrows: (2:2) (3:2) (5:2)  ->  (0:2) (3:2) (6:2)   via [3, 2, -8]
+    (8, ((2, 2), (3, 3), (5, 2)), ((0, 2), (3, 3), (6, 2)), (3, 2, -8)),   # 3 confirmed: window 8 arrows: (2:2) (3:3) (5:2)  ->  (0:2) (3:3) (6:2)   via [3, 2, -8]
+    (8, ((2, 2), (4, 2), (5, 2)), ((0, 2), (4, 2), (6, 2)), (3, 2, -8)),   # 3 confirmed: window 8 arrows: (2:2) (4:2) (5:2)  ->  (0:2) (4:2) (6:2)   via [3, 2, -8]
+    (8, ((2, 2), (5, 2)), ((0, 2), (6, 2)), (3, 2, -8)),   # 3 confirmed: window 8 arrows: (2:2) (5:2)  ->  (0:2) (6:2)   via [3, 2, -8]
 ]
 
 
@@ -668,8 +715,8 @@ def movesByRule(length, relLengths):
             if applied is None:
                 continue
             moved, sequence = applied
-            name = className(moved)
-            if name != className(relLengths) and name not in reached:
+            name = lines.className(moved)
+            if name != lines.className(relLengths) and name not in reached:
                 reached[name] = sequence
     return reached
 
@@ -737,7 +784,7 @@ def localMutationSequences(length, relLengths, centreLo, centreHi, maxSteps, mar
     """
     allowed = [v for v in range(max(1, centreLo - margin),
                                 min(length, centreHi + 1 + margin) + 1)]
-    startName = className(relLengths)
+    startName = lines.className(relLengths)
     best = {}
     # Maps an intermediate quiver to the most steps that were still available
     # when it was last explored.  Pruning on mere membership loses paths: a state
@@ -749,22 +796,20 @@ def localMutationSequences(length, relLengths, centreLo, centreHi, maxSteps, mar
     def walk(pathAlg, steps, history):
         if steps == 0:
             return
-        allRels = _quiet(qm.allRelsInPathAlgebra, pathAlg)
-        dual = _quiet(qm.dualPathAlgebra, pathAlg)
-        dualRels = _quiet(qm.allRelsInPathAlgebra, dual)
+        dual = _quiet(pathAlgebra.dualPathAlgebra, pathAlg)
         for vertex in allowed:
             for signed in (vertex, -vertex):
-                target, rels = (pathAlg, allRels) if signed > 0 else (dual, dualRels)
-                if not _quiet(qm.mutationIsPossibleAtVertex, target, vertex, rels):
+                target = pathAlg if signed > 0 else dual
+                if not _quiet(mutation.mutationIsPossibleAtVertex, target, vertex):
                     continue
-                nextAlg = _quiet(qm.quiverMutationAtVertices, _copy(pathAlg), [signed])
+                nextAlg = _quiet(mutation.quiverMutationAtVertices, _copy(pathAlg), [signed])
                 if nextAlg is None:
                     continue
                 key = _stateKey(nextAlg)
                 sequence = history + [signed]
                 reached = asRelLengths(nextAlg, length)
                 if reached is not None:
-                    name = className(reached)
+                    name = lines.className(reached)
                     if name != startName and (name not in best or len(sequence) < len(best[name])):
                         best[name] = sequence
                 if seen.get(key, -1) >= steps - 1:
@@ -831,7 +876,7 @@ def discoverLocalMoves(patterns, maxSteps = 3, margin = 3, embeddings = ((13, 4)
                 if description is None:
                     continue
                 seen.setdefault(description, []).append(
-                    (length, className(relLengths), name))
+                    (length, lines.className(relLengths), name))
     return {d: places for d, places in seen.items()
             if len({p[0] for p in places}) >= minOccurrences or len(places) >= minOccurrences}
 
@@ -878,11 +923,81 @@ def pairSlideRules(maxRelationLength = 9):
     return rules
 
 
+def shortRelationSlideRules(maxDistance = 7):
+    """A lone relation of two arrows travelling d arrows, in d mutations.
+
+    A relation of two arrows with nothing else in its window moves d arrows
+    right under the d left mutations at the window's vertices 3, 4, ..., d + 2,
+    and back under the d right mutations at d + 1, d, ..., 2.  The window is
+    d + 2 arrows wide.
+
+    Unlike the pair slide, whose two mutations serve every relation length, this
+    family's **mutation count grows with its parameter** -- which is why
+    discovery only ever found its first three members: a search bounded at three
+    mutations cannot see d >= 4, however simple the statement is.  That is
+    H-008's prediction, and this is the family that confirms it (F-020).
+    Verified for d = 1 to 7, both directions, at the four lengths d + 3 .. d + 6
+    each -- up to A_14 and its 742900 LNAs -- with 63 confirmations apiece and no
+    failures.
+    """
+    rules = []
+    for distance in range(1, maxDistance + 1):
+        width = distance + 2
+        rules.append((width, ((0, 2),), ((distance, 2),),
+                      tuple(-vertex for vertex in range(3, distance + 3))))
+        rules.append((width, ((distance, 2),), ((0, 2),),
+                      tuple(range(distance + 1, 1, -1))))
+    return rules
+
+
+def trailingRelationWalkRules(maxDistance = 6):
+    """Two adjacent short relations; the right one walks away, in one mutation per arrow.
+
+    Two relations of two arrows covering the arrows 0, 1 and 2, 3 of the window
+    become the relations at 1, 2 and at d + 2, d + 3: the left one steps one
+    arrow right, the right one travels d.  The sequence is the left mutation at
+    vertex 3 followed by the left mutations at 5, 6, ..., d + 4 -- d + 1 in all,
+    so the count grows with d exactly as in `shortRelationSlideRules`.
+
+    Discovery found d = 1 (E-010) and d = 2 (E-011) and could not have found
+    more: d = 3 needs four mutations.  Verified for d = 1 to 6 at three lengths
+    each, 8 confirmations apiece with no failures.  F-020.
+    """
+    rules = []
+    for distance in range(1, maxDistance + 1):
+        width = distance + 4
+        sequence = (-3, -5) + tuple(-vertex for vertex in range(6, width + 1))
+        rules.append((width, ((0, 2), (2, 2)), ((1, 2), (distance + 2, 2)), sequence))
+    return rules
+
+
+def spreadingPairRules(maxDistance = 5):
+    """Two short relations one arrow apart, spreading; again one mutation per arrow.
+
+    Relations of two arrows at the window's arrows 1, 2 and 4, 5 become the ones
+    at 0, 1 and d + 4, d + 5: the left one steps one arrow *left* and the right
+    one travels d right.  The sequence is the right mutation at vertex 2 then
+    the left mutations at 7, 8, ..., d + 6.
+
+    The one family here whose sequence mixes directions, which is why the
+    inverse-for-free transform does not apply to it (E-019).  Discovery found
+    d = 1 and 2 in E-011; verified for d = 1 to 5 at three lengths each -- up to
+    A_14 -- with 8 confirmations apiece and no failures.  F-020.
+    """
+    rules = []
+    for distance in range(1, maxDistance + 1):
+        width = distance + 6
+        sequence = (2,) + tuple(-vertex for vertex in range(7, width + 1))
+        rules.append((width, ((1, 2), (4, 2)), ((0, 2), (distance + 4, 2)), sequence))
+    return rules
+
+
 def _withFamilies(listed):
     """The listed rules together with the generated families, deduplicated."""
     combined = list(listed)
     seen = set(combined)
-    for rule in pairSlideRules():
+    for rule in (pairSlideRules() + shortRelationSlideRules()
+                 + trailingRelationWalkRules() + spreadingPairRules()):
         if rule not in seen:
             seen.add(rule)
             combined.append(rule)

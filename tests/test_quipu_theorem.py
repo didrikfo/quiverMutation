@@ -9,8 +9,8 @@ and against what a mutation search actually reaches.
 
 import pytest
 
-import quipuForms as qf
-import quiverMutation as qm
+from quivermutation import quipuForms as qf
+import quivermutation as qm
 from helpers import line_algebra, quiet, relation_string
 from paper_classification import PAPER_CLASSES, rel_lengths
 

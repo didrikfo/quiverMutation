@@ -13,9 +13,9 @@ import itertools
 import pytest
 import sympy
 
-import lnaMoves as lm
-import nakayama as nk
-import quiverMutation as qm
+from quivermutation import lnaMoves as lm
+from quivermutation import nakayama as nk
+import quivermutation as qm
 from helpers import quiet
 
 
@@ -89,13 +89,52 @@ def test_each_rule_is_well_formed(description):
         assert 1 <= abs(vertex) <= width + 1
 
 
+def lengthsToCheck(width):
+    """The lengths a rule of this window width can be checked at.
+
+    A window of `width` arrows needs a quiver of at least `width + 1` vertices
+    to sit in at all, so a *fixed* range of lengths cannot check every rule in
+    the table: the pair slide is one statement for every relation length and its
+    window grows with that length (F-013), and the widest rules in the table --
+    window 11, relation length 9 -- do not fit in a quiver of length 8.
+
+    This test used to ask for lengths 5 to 8 whatever the rule, which is
+    `width + 1 .. width + 4` for a window of 4 and nothing at all for a window
+    of 8 or more. The eight widest rules therefore got zero confirmations and
+    the test failed on them -- not because they are wrong, but because it was
+    verifying them where they cannot occur.
+
+    Four lengths where that is affordable and two where it is not: verification
+    enumerates every admissible LNA of the length, and there are 208012 of them
+    at length 13.
+    """
+    if width + 4 <= 10:
+        return range(width + 1, width + 5)
+    return range(width + 1, width + 3)
+
+
 @pytest.mark.slow
 @pytest.mark.parametrize("description", lm.VERIFIED_MOVES, ids=str)
 def test_each_rule_holds_wherever_it_applies(description):
     """Re-run the verification the table's entries were admitted by."""
-    confirmed, failures = lm.verifyMove(description, range(5, 9))
-    assert confirmed > 0
+    width = description[0]
+    confirmed, failures = lm.verifyMove(description, lengthsToCheck(width))
+    assert confirmed > 0, "checked at lengths {0} where the window is {1} arrows".format(
+        list(lengthsToCheck(width)), width)
     assert failures == []
+
+
+def test_the_lengths_a_rule_is_checked_at_can_contain_its_window():
+    """The bug the fix above is for, stated as a check of its own.
+
+    Every rule in the table must be verified at lengths that can hold its
+    window, or `confirmed > 0` is asserting about nothing.
+    """
+    for description in lm.VERIFIED_MOVES:
+        width = description[0]
+        lengths = list(lengthsToCheck(width))
+        assert lengths, description
+        assert min(lengths) >= width + 1, (description, lengths)
 
 
 def test_a_plausible_rule_that_is_actually_false_is_rejected():
@@ -177,7 +216,7 @@ def test_an_orbit_records_a_mutation_path_that_works():
             mutated = quiet(qm.quiverMutationAtVertices,
                             lm._copy(nk.LinearNakayamaAlgebra(length, relLengths)),
                             list(sequence))
-            assert lm.className(lm.asRelLengths(mutated, length)) == name, (rels, name, sequence)
+            assert qm.className(lm.asRelLengths(mutated, length)) == name, (rels, name, sequence)
 
 
 @pytest.mark.slow
@@ -198,7 +237,7 @@ def test_every_orbit_is_inside_one_derived_equivalence_class(length):
             got = sympy.expand(quiet(
                 qm.coxeterPoly,
                 nk.LinearNakayamaAlgebra(length, [int(c) for c in name])).as_expr())
-            assert got == expected, (lm.className(relLengths), name)
+            assert got == expected, (qm.className(relLengths), name)
 
 
 def test_admissibility_matches_the_enumeration():
@@ -206,7 +245,7 @@ def test_admissibility_matches_the_enumeration():
     produces."""
     for length in range(3, 8):
         enumerated = {
-            lm.className(qm.relationStringToLineRelLengths(length, qm.relSetToString(relSet)))
+            qm.className(qm.relationStringToLineRelLengths(length, qm.relSetToString(relSet)))
             for relSet in qm.generateAllPossibleLineRelations(length)
         }
         byPredicate = {
@@ -215,3 +254,178 @@ def test_admissibility_matches_the_enumeration():
             if lm.isAdmissible(length, list(candidate))
         }
         assert enumerated == byPredicate, length
+
+
+# -- is a move a *local* rewrite? (research H-009) -------------------------
+
+def coversFromLeft(relLengths, windowStart):
+    """Whether a relation reaches the window's first arrow from outside it."""
+    for start, arrows in lm.relationsOf(relLengths):
+        if start < windowStart and start + arrows - 1 >= windowStart:
+            return True
+    return False
+
+
+def matchesLocally(length, relLengths, description, windowStart):
+    """`lm.matchesAt` decided from a bounded neighbourhood.
+
+    `matchesAt` scans the whole relation-length row. This reads only
+
+    * the window's own cells -- a relation starting at an offset inside the
+      window and staying inside it has at most `width` arrows, so what a cell
+      can say is bounded by the width; and
+    * one bit, whether any relation covers the window's first arrow having
+      started strictly before it.
+
+    That bit is the part the per-vertex encoding cannot supply locally, since a
+    relation of unbounded length reaches arbitrarily far to the right, and the
+    part a per-arrow encoding carries for free.
+    """
+    width, before, _after, _offsets = description
+    windowEnd = windowStart + width - 1
+    if windowStart < 1 or windowEnd > length - 1:
+        return False
+    if coversFromLeft(relLengths, windowStart):
+        return False
+    inside = []
+    for offset in range(width):
+        cell = windowStart + offset
+        arrows = relLengths[cell - 1] if cell - 1 < len(relLengths) else 0
+        if not arrows:
+            continue
+        if cell + arrows - 1 > windowEnd:
+            return False
+        inside.append((offset, arrows))
+    return tuple(sorted(inside)) == before
+
+
+@pytest.mark.parametrize("length", [5, 6, 7])
+def test_whether_a_move_applies_is_a_local_condition(length):
+    """Every rule in the table, every LNA, every window position.
+
+    This is the check research H-009 turns on. The suspicion there is that the
+    move table is a one-dimensional cellular automaton -- a local rewrite on the
+    row of relation lengths -- and the caveat is that a rule whose applicability
+    depended on the row far away would not be local at all, whatever it looked
+    like.
+
+    It does not: the answer comes out of the window's cells plus one bit about
+    what reaches into its left edge. Which also says what the right encoding
+    is -- per arrow, carrying "covered", rather than per vertex carrying a
+    relation length -- because that bit is exactly what a per-arrow row has and
+    a per-vertex row does not.
+    """
+    matched = 0
+    for relLengths in itertools.product(range(0, length), repeat = max(0, length - 2)):
+        relLengths = list(relLengths)
+        if not lm.isAdmissible(length, relLengths):
+            continue
+        for description in lm.VERIFIED_MOVES:
+            for windowStart in range(1, length):
+                actual = lm.matchesAt(length, relLengths, description, windowStart)
+                assert actual == matchesLocally(length, relLengths, description, windowStart), (
+                    length, relLengths, description, windowStart)
+                matched += bool(actual)
+    assert matched > 0, "no rule matched anywhere, so this checked nothing"
+
+
+@pytest.mark.slow
+@pytest.mark.parametrize("length", [8, 9])
+def test_whether_a_move_applies_is_a_local_condition_further_out(length):
+    test_whether_a_move_applies_is_a_local_condition(length)
+
+
+# -- families whose mutation count grows with the parameter ----------------
+
+@pytest.mark.parametrize("distance", [1, 2, 3, 4, 5])
+def test_the_short_relation_slide_takes_one_mutation_per_arrow(distance):
+    """The family's shape, without running the engine.
+
+    A lone relation of two arrows travels `d` arrows under `d` mutations, so the
+    window is `d + 2` wide and the sequence has `d` entries -- which is why
+    discovery bounded at three mutations found only d = 1, 2, 3.  The pair slide
+    is the contrast: two mutations whatever its parameter.
+    """
+    rules = {(rule[1], rule[2]): rule for rule in lm.shortRelationSlideRules(5)}
+    right = rules[(((0, 2),), ((distance, 2),))]
+    left = rules[(((distance, 2),), ((0, 2),))]
+    for rule in (right, left):
+        assert rule[0] == distance + 2
+        assert len(rule[3]) == distance
+    assert all(vertex < 0 for vertex in right[3])
+    assert all(vertex > 0 for vertex in left[3])
+    # Every mutation is inside the window it claims.
+    for rule in (right, left):
+        assert all(2 <= abs(vertex) <= rule[0] + 1 for vertex in rule[3])
+
+
+def test_discovery_found_an_initial_segment_of_the_family():
+    """Generating the family must not contradict the table it extends.
+
+    What discovery can find is an initial segment: `d` needs `d` mutations, so a
+    search bounded at `maxSteps` sees `d <= maxSteps` and no more.  The listed
+    members must therefore be the small ones, with no gaps and nothing beyond.
+    """
+    listed = set(lm.DISCOVERED_MOVES)
+    found = sorted(distance for distance in range(1, 8)
+                   if all(rule in listed
+                          for rule in lm.shortRelationSlideRules(distance)[-2:]))
+    assert found == list(range(1, len(found) + 1)), "an initial segment, no gaps"
+    assert len(found) >= 2
+    assert set(lm.shortRelationSlideRules()) <= set(lm.VERIFIED_MOVES)
+
+
+def test_both_families_are_in_the_table_and_nothing_is_duplicated():
+    assert len(lm.VERIFIED_MOVES) == len(set(lm.VERIFIED_MOVES))
+    for rule in lm.pairSlideRules() + lm.shortRelationSlideRules():
+        assert rule in lm.VERIFIED_MOVES
+
+
+@pytest.mark.parametrize("generator, atDistanceOne", [
+    (lm.shortRelationSlideRules, 1),
+    (lm.trailingRelationWalkRules, 2),
+    (lm.spreadingPairRules, 2),
+])
+def test_each_slide_family_pays_one_mutation_per_arrow(generator, atDistanceOne):
+    """All three families have the same shape: the d-th member costs d mutations
+    for the travel, plus one per companion relation that has to be displaced.
+
+    That is what makes them invisible to a bounded search past their first
+    members, and what makes generating them worth more than searching deeper.
+    """
+    rules = generator()
+    perDistance = {}
+    for rule in rules:
+        # A family's rules are one per d, except the lone slide, which has both
+        # directions at each d.
+        perDistance.setdefault(rule[0], []).append(rule)
+    widths = sorted(perDistance)
+    for index, width in enumerate(widths):
+        for rule in perDistance[width]:
+            assert len(rule[3]) == atDistanceOne + index, (rule, index)
+        assert width == widths[0] + index
+
+
+def test_the_inverse_of_a_rule_is_not_free():
+    """E-019: reverse, negate, shift toward zero inverts a slide and little else.
+
+    Kept as a test because the transform is tempting -- it turns the lone slide's
+    right rule into exactly the left rule the table lists -- and it is wrong for
+    the table at large, so the counterexample is worth pinning.
+    """
+    def inverseOf(rule):
+        width, before, after, sequence = rule
+        flipped = [-vertex for vertex in reversed(sequence)]
+        return (width, after, before,
+                tuple((v - 1) if v > 0 else (v + 1) for v in flipped))
+
+    slide = lm.shortRelationSlideRules(3)
+    for right, left in zip(slide[::2], slide[1::2]):
+        assert inverseOf(right) == left
+
+    # The spreading pair mixes directions, and its "inverse" is not one.
+    spreading = lm.spreadingPairRules(2)[0]
+    candidate = inverseOf(spreading)
+    assert candidate not in lm.VERIFIED_MOVES
+    confirmed, failures = lm.verifyMove(candidate, [candidate[0] + 1])
+    assert failures or confirmed == 0

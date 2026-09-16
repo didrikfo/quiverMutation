@@ -5,8 +5,9 @@ import io
 
 import sympy
 
-import pathAlgebraClass
-import quiverMutation as qm
+from quivermutation import pathAlgebra as pathAlgebraClass
+import quivermutation as qm
+from quivermutation import nakayama
 
 LAMBDA = sympy.Symbol("lambda")
 
@@ -32,9 +33,7 @@ def line_algebra(length, rel_lengths):
     i (0-based) is the number of arrows in the relation starting at vertex i+1,
     or 0 for no relation there.
     """
-    if isinstance(rel_lengths, str):
-        rel_lengths = [int(c) for c in rel_lengths]
-    return qm.lineQuiverExample(length, list(rel_lengths))
+    return nakayama.LinearNakayamaAlgebra(length, rel_lengths)
 
 
 def arrow_set(path_alg):

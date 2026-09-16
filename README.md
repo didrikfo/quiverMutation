@@ -41,6 +41,7 @@ Run the test suite:
 ## Where things are written down
 
 * [`NOTES.md`](NOTES.md) — the code: what the model expresses, known gaps, the backlog.
+  The package layout is listed in [`quivermutation/__init__.py`](quivermutation/__init__.py).
 * [`research/`](research/) — the mathematics: findings, hypotheses, retractions,
   the log of runs made, and summaries of the literature. All dated, nothing
   deleted. Read [`research/README.md`](research/README.md) before adding to it.
@@ -81,6 +82,36 @@ and settle whatever is left by a deeper search. For n <= 8 this reproduces the
 published classification with nothing left over, replacing what used to be a
 hand-merge over the CSV.
 
+## Reading a classification back
+
+A table with one row per LNA is the wrong shape for looking at the answer, and
+there are Catalan(n-1) of them -- 1430 at n = 9, 58786 at n = 12 -- while the
+number of classes stays small. `classes.py` reads the table by class instead:
+
+```bash
+python classes.py 9                       # the classes, largest first
+python classes.py 9 --collisions          # where the Coxeter polynomial stops separating
+python classes.py 9 --kind "not piecewise hereditary"
+python classes.py 9 --members "P^(1,4)_(1,0,1)"
+python classes.py 9 --page A_9.html       # the same thing as a page to browse
+```
+
+Everything but `--members` reads the columns it needs and groups; nothing loads
+the per-LNA rows for the whole table. The page carries the classification inline
+-- no server, nothing to fetch -- and draws each class' quipu and each LNA as its
+quiver with an arc over the span of every relation.
+
+The same thing from Python:
+
+```python
+from quivermutation import classview
+
+nine = classview.Classification.forLength(9)
+nine.classes(kind = classview.QUIPU, minSize = 100)   # the big quipu classes
+nine.coxeterCollisions()                              # what the polynomial cannot separate
+nine.members("P^(1,4)_(1,0,1)")                       # one class, with the path to each member
+```
+
 ### Where the Coxeter polynomial is not enough
 
 ```bash
@@ -98,8 +129,8 @@ two at order 10, four at order 11, thirteen at order 12.
 The library underneath is usable directly:
 
 ```python
-import nakayama as nk
-import quiverMutation as qm
+import quivermutation as qm
+from quivermutation import nakayama as nk
 
 a = nk.LinearNakayamaAlgebra(5, "300")      # 1->2->3->4->5, with 1->2->3->4 = 0
 a.kupischSeries()                            # (3, 4, 3, 2, 1)

@@ -34,9 +34,12 @@ LEGACY_COLUMNS = [RELATIONS, CLASS, PATH, COXETER, NUMBERING]
 #   'P^(...)_(...)'            the quipu the class is derived equivalent to.  A
 #                              complete invariant: same quipu means same class.
 #   'C(2,4,4)'                 the weight type of the canonical algebra whose
-#                              Coxeter polynomial the class has.  Identifying in
-#                              the same sense the rest of the pipeline's Coxeter
-#                              reasoning is.
+#                              Coxeter polynomial the class has.  It names the
+#                              class, but it is *read off the Coxeter
+#                              polynomial*, so it carries no information the
+#                              polynomial does not already carry and must never
+#                              be used to separate two classes that share one --
+#                              see isCoxeterDerivedForm.
 #   NOT_PIECEWISE_HEREDITARY   a certificate that the class is not derived
 #                              equivalent to any hereditary algebra, so not to
 #                              any quipu.  This is a *negative* statement: it
@@ -50,6 +53,31 @@ def isIdentifyingForm(form):
     """Whether a hereditary-form value names the class rather than just excluding
     possibilities for it."""
     return bool(form) and form != NOT_PIECEWISE_HEREDITARY
+
+
+def isCoxeterDerivedForm(form):
+    """Whether a form was read off the class' Coxeter polynomial rather than proved.
+
+    Only the canonical weight types are: `canonicalWeightType` searches the
+    weight types of the right order for one whose canonical algebra has exactly
+    the polynomial the class has.  So a `C(...)` value is a restatement of the
+    polynomial, and two classes sharing a polynomial can differ in this column
+    only because one of them was named some other way -- which is no evidence at
+    all that they are different classes.  F-018.
+    """
+    return form.startswith("C(")
+
+
+def isProvedForm(form):
+    """Whether a form is a proof of which class this is.
+
+    True exactly for the forms a mutation path establishes: a quipu name or a
+    canonical tree encoding, reached by mutating an LNA of the class down to a
+    relation-free quiver, or handed over by the quipu theorem.  Two classes with
+    different proved forms are different classes; nothing else in this column
+    supports that conclusion.
+    """
+    return isIdentifyingForm(form) and not isCoxeterDerivedForm(form)
 
 
 class MutationClassTable:
@@ -165,15 +193,18 @@ class MutationClassTable:
                 row[5] = hereditaryForm
 
     def classesByHereditaryForm(self):
-        """Hereditary form -> the set of class names that reached it.
+        """Proved hereditary form -> the set of class names that reached it.
 
         Classes sharing a form are certainly the same derived equivalence class,
         so this is a merge certificate rather than a merge candidate.  The empty
-        form means the search reached no relation-free quiver and says nothing.
+        form means the search reached no relation-free quiver and says nothing;
+        a `C(...)` weight type is read off the Coxeter polynomial, so two classes
+        carrying one are only known to share that polynomial and merging them
+        here would be circular.
         """
         grouped = {}
         for row in self._rows:
-            if row[1] and isIdentifyingForm(row[5]):
+            if row[1] and isProvedForm(row[5]):
                 grouped.setdefault(row[5], set()).add(row[1])
         return grouped
 

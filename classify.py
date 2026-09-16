@@ -16,9 +16,9 @@ import argparse
 import collections
 import sys
 
-import nakayama as nk
-import quipuForms as qf
-import quiverMutation as qm
+import quivermutation as qm
+from quivermutation import nakayama as nk
+from quivermutation import quipuForms as qf
 
 
 def report_collisions(order):
@@ -58,6 +58,12 @@ def main(argv=None):
     parser.add_argument("--resolve-depth", type=int, default=6,
                         help="depth of the extra search used to settle classes that "
                              "share a Coxeter polynomial (default 6)")
+    parser.add_argument("--form-depth", type=int, default=0, dest="form_depth",
+                        help="also search each class the quipu theorem does not name for "
+                             "a relation-free quiver of its own, to this depth (default "
+                             "0, off). Every quipu class is named by the theorem, so this "
+                             "only ever finds a hereditary form that is not a quipu, and "
+                             "it is the most expensive search in the pipeline.")
     parser.add_argument("--out", default=None, help="output CSV path")
     parser.add_argument("--resume", action="store_true",
                         help="continue from an existing CSV instead of starting over. "
@@ -78,7 +84,7 @@ def main(argv=None):
 
     table, report = qm.classifyLength(
         args.length, args.depth, args.resolve_depth, args.out,
-        printOutput=not args.quiet, resume=args.resume)
+        printOutput=not args.quiet, resume=args.resume, formDepth=args.form_depth)
 
     sizes = collections.Counter(row[1] for row in table.rows())
     print()

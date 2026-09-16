@@ -8,9 +8,10 @@ by linear algebra over the ideal instead, which is exact.
 
 import pytest
 
-import pathAlgebraClass as pac
-import quiverMutation as qm
-import relationAlgebra as ra
+from quivermutation import pathAlgebra as pac
+import quivermutation as qm
+from quivermutation import nakayama as nk
+from quivermutation import relationAlgebra as ra
 from helpers import quiet
 
 
@@ -194,7 +195,7 @@ def test_exact_and_heuristic_cartan_matrices_agree_on_every_lna(length):
         relLengths = [0] * (length - 2)
         for rel in relSet:
             relLengths[rel[0][0] - 1] = len(rel[0]) - 1
-        pa = qm.lineQuiverExample(length, relLengths)
+        pa = nk.LinearNakayamaAlgebra(length, relLengths)
         assert quiet(qm.cartanMatrix, pa) == quiet(ra.cartanMatrixExact, pa), relLengths
 
 
@@ -209,7 +210,7 @@ def test_the_two_cartan_matrices_agree_along_mutation_paths(length, rels):
             return
         allRels = quiet(qm.allRelsInPathAlgebra, pa)
         for vertex in pa.vertices():
-            if not quiet(qm.mutationIsPossibleAtVertex, pa, vertex, allRels):
+            if not quiet(qm.mutationIsPossibleAtVertex, pa, vertex):
                 continue
             mutated = quiet(qm.quiverMutationAtVertex, pa, vertex)
             if any(quiet(qm.isIllegalRelation, mutated, r) for r in mutated.rels):
@@ -248,7 +249,7 @@ def test_reduction_preserves_the_cartan_matrix():
             return
         allRels = quiet(qm.allRelsInPathAlgebra, pa)
         for vertex in pa.vertices():
-            if not quiet(qm.mutationIsPossibleAtVertex, pa, vertex, allRels):
+            if not quiet(qm.mutationIsPossibleAtVertex, pa, vertex):
                 continue
             raw = quiet(qm.quiverMutationAtVertex, pa, vertex)
             if any(quiet(qm.isIllegalRelation, raw, rel) for rel in raw.rels):

@@ -11,8 +11,8 @@ import itertools
 import networkx as nx
 import pytest
 
-import quipuForms as qf
-import quiverMutation as qm
+from quivermutation import quipuForms as qf
+import quivermutation as qm
 from helpers import line_algebra, quiet
 
 
