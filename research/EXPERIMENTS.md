@@ -6,6 +6,101 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-025 — Discovery with the bounds raised, and probes deep and wide
+*2026-09-16* · **3045 rules, n = 8 to 98%, and H-010 tested two deeper** → F-024, F-025
+
+E-024's residue said what to do: of the LNAs at n = 9 for which no rule had the
+pattern at all, 32 of 33 contained a relation of five arrows or more, and every
+run so far had stopped at five arrows in a six-arrow window, where such a
+relation cannot sit beside another. So: raise the bounds, and probe the
+configurations the findings actually turn on.
+
+### The discovery run
+
+```bash
+python discover.py --anchor both --max-arrows 7 --max-width 8 \
+    --anchor-lengths 13,14 --jobs 3 --verify-cap 12
+```
+
+| stage | |
+|---|---|
+| patterns x ends x lengths | 412 x 2 x 2 = 1648 searches, 3 mutations each |
+| rewrites described | 5807, in 6146 s |
+| recurring at both lengths | 3826 |
+| verified with no failures | **3045**, in 579 s |
+| neither listed nor a floating rule restricted to an end | 2929 |
+| changing the orbit partition at lengths 6 to **11** | **728** |
+
+Two hours of search, ten minutes of verification. 1469 of the fresh rules are at
+the source and 1467 at the sink, which is the consistency check the relation
+dual demands.
+
+**The criterion had to change with the bounds, and this is the trap.** A window
+of nine arrows does not fit in A_9 at all, so judging by what changes the
+partition at n <= 9 -- which is what E-023 and E-024 did -- *cannot* select a
+wide rule however useful it is. Judged that way this run yields 209 rules, all
+of window 7 or 8. Judged at lengths 6 to 11 it yields **728**, of which 208 have
+a window of nine arrows or more. The earlier curations should be read with that
+in mind: they were not wrong at the lengths they measured, but they could not
+see past them.
+
+**Coverage, with no mutation search at all:**
+
+| n | LNAs | before this run | after |
+|---|---|---|---|
+| 7 | 132 | 100% | 100% |
+| 8 | 429 | 95% | **98%** -- 10 rows left |
+| 9 | 1430 | 73% | **84%** |
+| 10 | 4862 | 55% | **63%** |
+| 11 | 16796 | 43% | **47%** |
+
+The measurement now reaches n = 10 and n = 11, which it had not before; at 16 s
+for n = 10 and about four minutes for n = 11 there was never a reason not to.
+
+### The probes
+
+`probe.py`, written for this run, plants one named pattern and enumerates what
+the mutations near it reach, reporting the arrows a run can actually rewrite.
+
+**The frozen pair, deeper and honestly interior (F-024).** The earlier probes
+allowed mutations at every vertex of A_13; re-run in A_21 where the ends are out
+of reach, `(1:3) (2:3)` reaches 2 LNAs at three mutations, 4 at four, 4 at five
+and 6 at six -- against 8, 14, 22 and 36 with an end in reach. None of them
+lowers the overlap. Six mutations *with* an end in reach does lower it, to zero,
+by walking the relation down to arrow 1; that sequence is not translation
+invariant and fails at every shift tried.
+
+**Long pairs, in the interior.** `(1:3) (2:6)`, `(1:5) (2:6)`, `(1:5) (2:7)`,
+`(1:3) (2:7)` at four mutations, and the equal pairs `(1:6) (2:6)` and
+`(1:7) (2:7)`: every one frozen, and the overlap goes *up* in a third to a half
+of what they reach.
+
+**Long pairs at the ends, which is where the new family came from (F-025).** The
+same four against each end at three mutations: nothing at all moves at the
+source, and at the sink every one loses an arrow off the shorter relation --
+`(1:3) (2:6)` and `(1:3) (2:7)` going to overlap 0 outright.
+`sinkShortRelationShrinkRules` generates that family and it is verified for
+every 3 <= l < m <= 9, 21 members, 4 confirmations apiece, no failures. The
+mirror at the source gives 1 confirmation and 3 failures.
+
+**A run of three no longer dissolves when the relations are long.** F-022 had it
+that a run of three heavily overlapping relations comes apart where a run of two
+does not, on the evidence of `(1:3) (2:3) (3:3)` and two others. At three
+mutations `(1:3) (2:6) (3:7)` and `(1:5) (2:6) (3:7)` reach two LNAs each and
+neither lowers the overlap. So the dissolution of a run of three is not a
+property of the run; it is a property of the *short* runs that were tested, and
+what it probably costs is mutations -- F-020's one-per-arrow-travelled again.
+Do not quote F-022's run-of-three line without that qualification.
+
+### What to do next
+
+The bounds can go up again -- `--max-arrows 9 --max-width 10`, and the interior
+run at the same bounds, which this session did not get to. And the whole
+judgement should now be made at lengths 6 to 11 as a matter of course, since it
+is affordable and the alternative silently discards every wide rule.
+
+---
+
 ## E-024 — Widening the rules to tolerate a bystander
 *2026-09-16* · **625 verified, and A_7 needs no search at all** → F-023, H-011
 

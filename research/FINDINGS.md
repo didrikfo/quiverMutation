@@ -5,6 +5,115 @@ See [`README.md`](README.md) for conventions.
 
 ---
 
+## F-025 — The two ends of the quiver are not the same end
+*2026-09-16*
+
+`endPairCollapseRules` (F-022) collapses a pair of relations of **equal** length
+against either end, and the two directions are mirror images, as the relation
+dual says they must be. For a pair of **unequal** lengths that symmetry breaks,
+and only one end works.
+
+**The probe.** Each of the four long unequal pairs the residue of E-024 is made
+of, planted flush against each end of A_13 or A_14 and mutated within three
+vertices, at three mutations:
+
+| pattern | at the source | at the sink |
+|---|---|---|
+| `(1:3) (2:6)` | 2 LNAs, **nothing lower** | overlap 2 → **0**, via `[7, 6, 7]` |
+| `(1:3) (2:7)` | 2 LNAs, **nothing lower** | overlap 2 → **0**, via `[7, 6, 7]` |
+| `(1:5) (2:6)` | 2 LNAs, **nothing lower** | overlap 4 → 3, via `[7, 7]` |
+| `(1:5) (2:7)` | 2 LNAs, **nothing lower** | overlap 4 → 3, via `[7, 7]` |
+
+At the source nothing moves at all. At the sink the **shorter** relation, which
+is the one that starts first, loses an arrow — and where it had three arrows to
+begin with, losing one takes the overlap to zero and the LNA into the quipu
+theorem's reach outright.
+
+**Two of them as rules, and the anchor is not decoration.**
+
+```
+window 7 arrows at the right end:  (0:3) (1:6)  ->  (0:2) (1:6)     via [2, 2]
+window 8 arrows at the right end:  (1:3) (2:6)  ->  (0:2) (2:6)     via [3, 2, 3]
+```
+
+4 confirmations each over the three lengths their windows fit in, no failures.
+The identical rewrites stated as floating rules give **4 confirmations and 4
+failures** apiece: they are true against the sink and false elsewhere, checked
+rather than assumed.
+
+**Why the asymmetry is not surprising once stated.** The pair is `(n, l)` and
+`(n+1, m)` with `l < m`, so the two relations start one vertex apart but end
+`m - l + 1` arrows apart. Flush against the sink it is the *ends* that are
+pinned, and the two relations end at different places, so the configuration
+there is genuinely different from the one at the source, where it is the
+*starts* that are pinned and they are one apart either way. The equal-length
+pair is exactly the case where the two descriptions coincide, which is why
+F-022's family is symmetric and this is not.
+
+**What it opens.** The rule is stated here for the two pairs probed, not for a
+family in `(l, m)`. Sweeping `l` and `m` is what E-025's discovery run is for,
+and the family is the thing to look for in its output. E-025.
+
+---
+
+## F-024 — The interior is emptier than it looked, and the boundary was doing the work
+*2026-09-16*
+
+E-021 measured what a heavily overlapping pair can be turned into and found it
+frozen. The measurement was right and the label on it was wrong: those probes
+allowed mutations at every vertex of A_13, ends included, because a margin of 6
+around arrows 5 to 8 of a 13-vertex quiver reaches both of them and even a margin
+of 3 reaches vertex 2, which rewrites arrow 1. Re-run with the quiver lengthened
+so that the ends are genuinely out of reach, the picture changes in size but not
+in conclusion — and the difference is the finding.
+
+**The same pattern, the same margin, with and without an end in reach.**
+
+`(1:3) (2:3)`, margin 3, in A_13 at offset 4 (arrows 1 to 12 rewritable, so both
+ends in reach) against A_21 at offset 8 (arrows 5 to 14 only):
+
+| mutations | LNAs reached, ends in reach | LNAs reached, genuine interior |
+|---|---|---|
+| 3 | 8 | **2** |
+| 4 | 14 | **4** |
+| 5 | 22 | **4** |
+| 6 | 36 | **6** |
+
+In a genuine interior the pair is not so much frozen as nearly immobile: six
+mutations reach six LNAs, and the fifth mutation buys nothing at all. Five of
+every six LNAs the earlier probes reported were reached with the help of an end.
+
+**And the overlap never comes down in the interior, now checked to six.** Every
+one of those 2, 4, 4 and 6 still has two relations sharing two arrows, the
+depth-6 run taking 2583 seconds to say so. That is H-010's claim tested two mutations
+deeper than before, and it survives.
+
+**With an end in reach, six mutations do pull the pair apart** — the one thing
+that has ever done so:
+
+```
+A_13:  00003300000  ->  30000020000   via [-8, 5, 4, 3, 2, -6]
+```
+
+overlap 2 down to 0. The middle of that sequence is `5, 4, 3, 2`: four mutations
+walking down the quiver, one vertex at a time, until the relation is at arrow 1
+and there is no further to go. It is **not translation invariant** — shifted by
+1, 2, 3 or 4 vertices in a quiver lengthened to match, it does not even produce
+an LNA, let alone the shifted answer. So it is not a rule that happens to need
+six mutations; it is the boundary, reached the long way round.
+
+**What this settles and what it costs.** It settles that the escape route is the
+one H-011 names -- walk the run to an end -- and that it is a single mutation
+sequence, not only a composition of table rules. It costs E-021 its framing: the
+rows there labelled interior were whole-quiver rows, which made them stronger
+claims about the *LNA* and weaker ones about *locality*, and the distinction
+matters because locality is what a move rule is. `probe.py` reports the arrows a
+run can rewrite for that reason, and lengthens the quiver unless told not to.
+
+E-025.
+
+---
+
 ## F-023 — What a rule needs to fire is a spectator, and the ends are where they are
 *2026-09-16*
 
@@ -77,6 +186,9 @@ change the orbit partition -- 125 that float and 145 that need an end (E-024).
 | 8 | 429 | 233 (54%) | 246 (57%) | 347 (81%) | **406 (95%)** |
 | 9 | 1430 | 610 (43%) | 644 (45%) | 863 (60%) | **1038 (73%)** |
 
+(E-025 has since raised the last column again, to 98% at n = 8 and 84% at n = 9,
+and measured n = 10 and n = 11 for the first time: 63% and 47%.)
+
 A classification of A_6 or A_7 is now a table lookup; A_8 needs a search for 23
 rows and A_9 for 392. The rows still left are still exactly the heavily
 overlapping ones, so F-021's reading is unchanged; there is simply much less of
@@ -144,7 +256,14 @@ pair: `(1:2) (2:3) (3:3)` has three relations and is as stuck as the bare pair,
 because its first relation shares only one arrow. So the parameter is the length
 of the **overlapping run** -- maximal relations linked by an overlap of two or
 more, `overlap.overlapRuns` -- and a run of two is frozen where a run of three is
-not. The rules that dissolve a run of three were already in the table; nothing in
+not.
+
+**QUALIFIED 2026-09-16 by E-025.** "A run of three is not frozen" is true of the
+short runs in the table above and false in general: `(1:3) (2:6) (3:7)` and
+`(1:5) (2:6) (3:7)` reach two LNAs each at three mutations and neither lowers
+the overlap. What the length of the run buys is probably mutations rather than
+freedom -- F-020's one per arrow travelled -- so a long run may well dissolve
+deeper down. Do not quote the sentence above without this. The rules that dissolve a run of three were already in the table; nothing in
 it dissolves a run of two, and E-021 says why nothing was ever going to be found.
 
 **At an end of the quiver the pair collapses in two mutations.** The source of

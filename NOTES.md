@@ -346,20 +346,21 @@ item 4 is what makes n >= 10 readable at all.
    the window, not a window too small: 126 of the 155 LNAs unplaced at n = 8 had
    a rule whose pattern was present and blocked that way (F-023).
 
-   Coverage with no search at all is now **100% at n = 6 and n = 7**, 95% at
-   n = 8 and 73% at n = 9, against 83 / 72 / 57 / 45 before this line of work.
-   A_6 and A_7 classify by table lookup; A_8 needs a search for 23 of its 429
-   rows and A_9 for 392 of 1430.
+   Coverage with no search at all is now **100% at n = 6 and n = 7**, 98% at
+   n = 8 and 84% at n = 9, against 83 / 72 / 57 / 45 before this line of work,
+   and 63% at n = 10 and 47% at n = 11. A_6 and A_7 classify by table lookup;
+   A_8 needs a search for 10 of its 429 rows.
 
-   The next batch is more of the same, and it is cheap: `discover.py --extend`
-   again with a wider spectator margin, and a discovery run at a **larger
-   `--max-arrows` and `--max-width`**. The second is what the residue asks for:
-   of the 33 LNAs at n = 9 for which no rule has the pattern at all, 32 contain
-   a relation of five arrows or more, and every run so far stopped at five
-   arrows in a six-arrow window, where such a relation cannot sit beside
-   another. Watch that count as a share after each batch -- it is the part more
-   widening cannot fix -- but do not read anything into it until the bounds have
-   been raised.
+   The bounds have been raised once, to `--max-arrows 7 --max-width 8`, and it
+   paid (E-025). Raise them again, run the **interior** search at the same
+   bounds -- this session only did the anchored one -- and run `--extend` again
+   with a wider spectator margin.
+
+   **Judge a batch at lengths 6 to 11, not 6 to 9.** A window of nine arrows
+   does not fit in A_9, so the old criterion could not select a wide rule
+   however useful it was; the wide run yields 209 rules judged to 9 and 728
+   judged to 11. `overlap.coverage` is 16 s at n = 10 and about four minutes at
+   n = 11, so there is no reason to stop short.
 6. ~~**The cellular-automaton reading of the rules.**~~ **Parked**, research
    H-009. Not refuted -- F-017 stands and its caveat passes -- but the reading
    would have to be fitted to the part that is still open, and its own last

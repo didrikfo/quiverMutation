@@ -1187,12 +1187,50 @@ def _withEndMoves(generated):
     combined = list(generated)
     seen = set(combined)
     _extend(combined, seen, endMoves.DISCOVERED_END_MOVES)
+    _extend(combined, seen, endMoves.WIDER_END_MOVES)
     _extend(combined, seen, [rule for rule in spectatorMoves.SPECTATOR_MOVES
                              if anchorOf(rule) is not None])
     return combined
 
 
-ANCHORED_MOVES = _withEndMoves(endPairCollapseRules())
+def sinkShortRelationShrinkRules(maxRelationLength = 9):
+    """At the sink, the shorter relation of an unequal pair loses an arrow.
+
+    Two relations starting at consecutive vertices, of `l` and `m` arrows with
+    l < m, so that the shorter one starts first and they overlap in l - 1
+    arrows.  Where the longer one ends at the sink of the line, two right
+    mutations at the second relation's source shorten the first by one arrow:
+
+        (0:l) (1:m)  ->  (0:l-1) (1:m)
+
+    on a window of m + 1 arrows, which is the pair's whole span.  Applied
+    repeatedly it takes l down to 2, and from l = 3 the step lands on an overlap
+    of one arrow -- inside the quipu theorem outright.
+
+    **Only at the sink.** The mirror of this at the source is false: 1
+    confirmation and 3 failures at each of the (l, m) tried.  The pair starts at
+    consecutive vertices whatever else is true of it, so pinning the *starts*
+    against the source makes the equal and unequal cases look alike; pinning the
+    *ends* against the sink does not, because two relations of different lengths
+    starting one apart end `m - l + 1` apart.  `endPairCollapseRules` is the
+    equal-length case, where the two descriptions coincide -- and it is symmetric
+    for exactly that reason (F-025).
+
+    Verified for every 3 <= l < m <= 9 at the three lengths each window fits in:
+    21 members, 4 confirmations apiece, no failures.
+    """
+    rules = []
+    for longer in range(4, maxRelationLength + 1):
+        for shorter in range(3, longer):
+            rules.append((longer + 1,
+                          ((0, shorter), (1, longer)),
+                          ((0, shorter - 1), (1, longer)),
+                          (2, 2), 'right'))
+    return rules
+
+
+ANCHORED_MOVES = _withEndMoves(endPairCollapseRules()
+                               + sinkShortRelationShrinkRules())
 
 # The whole table.  `VERIFIED_MOVES` stays the floating half, so everything that
 # slides a rule along the quiver and everything that reasons about

@@ -36,6 +36,14 @@ sitting in its window; only 29 had no rule with their pattern at all. The rules
 were not too narrow, they were too **clean** -- and 188 of the 229 anchored
 rules now listed carry a bystander they step around (F-023).
 
+**The residue was the search bound, as predicted, and raising it paid.**
+E-024's 33 unreachable LNAs at n = 9 were almost all pairs with a long relation,
+which no run had ever planted. With `--max-arrows 7 --max-width 8`, discovery
+against the ends verified 3045 more rules and took n = 8 to 98% and n = 9 to
+84%; measured for the first time, n = 10 is 63% and n = 11 is 47% (E-025). So
+the mechanical reading keeps being the right one, and the residue keeps being
+about the bounds rather than about a new obstruction.
+
 **And the first widening batch behaved exactly as the hypothesis predicts.**
 `discover.py --extend` verified 625 widened rules in eight minutes: coverage went
 to **100% at n = 7**, 95% at n = 8 and 73% at n = 9, and the number this
@@ -62,13 +70,28 @@ by hand is cheap and, this time, it was the search bound.
 ---
 
 ## H-010 — Overlap is reducible only at an end, and that is a theorem about the procedure
-*2026-09-16* · **SUPPORTED**
+*2026-09-16, strengthened the same day* · **SUPPORTED**
 
 F-022 is an empirical statement: no interior sequence found so far reduces the
-overlap of an isolated pair, over four probes reaching depth 5 and a margin of 6.
-The suspicion is that it is exact -- that **no** interior mutation sequence does,
-whatever its length -- and that the reason is visible in the procedure rather
-than in the search.
+overlap of an isolated pair. The suspicion is that it is exact -- that **no**
+interior mutation sequence does, whatever its length -- and that the reason is
+visible in the procedure rather than in the search.
+
+**It now rests on better evidence than it did.** The probes F-022 quoted allowed
+mutations at every vertex of A_13, so they were not testing interiority at all.
+Re-run where the ends are genuinely out of reach, `(1:3) (2:3)` reaches 2, 4, 4
+and 6 LNAs at three, four, five and six mutations, and not one of them has a
+smaller overlap (F-024). Six is two deeper than before, and the interior orbit
+turns out to be five times smaller than the earlier numbers suggested -- most of
+what those probes reached, they reached with an end's help.
+
+**And the one sequence that ever lowered it is the boundary in disguise.** With
+an end in reach, six mutations take `00003300000` to `30000020000` in A_13. The
+middle of that sequence walks the relation down the quiver one vertex at a time
+until it is at arrow 1, and the sequence is not translation invariant: shifted
+by one to four, it does not even produce an LNA. So it is not a counterexample
+to this hypothesis; it is H-011's mechanism, arrived at in one sequence rather
+than as a composition of rules.
 
 **Why it should be provable rather than searched for.** The collapse at the end
 uses the one thing an end has: the source of the line has no arrow into it. The
@@ -82,14 +105,24 @@ amount of searching can say.
 
 **What would settle it.** Either a proof from the procedure's step 7, or a
 counterexample: an interior sequence, of any length, that lowers the overlap of
-an isolated pair. `lnaMoves.localMutationSequences` at a larger `maxSteps` and
-`margin` is the search; note that the four probes already run are recorded in
-E-021 and should not be repeated.
+an isolated pair. `python probe.py 1:3,2:3 --steps 7 --clearance 9` is the next
+search, and it is expensive -- six mutations took 43 minutes. The probes already
+run are in E-021 and E-025 and should not be repeated; in particular **do not
+re-run them without a clearance**, which is what made the earlier ones measure
+the wrong thing.
+
+**A cheaper line than searching deeper.** F-025 found that the two ends of the
+quiver behave differently for an unequal pair -- the sink shortens it, the source
+does nothing. Whatever asymmetry in the procedure explains *that* is likely the
+same one that explains this, and it is a question about one mutation rather than
+about seven.
 
 **Caveat.** "Isolated" is doing work. A pair with a third heavily overlapping
-relation is *not* invariant -- it dissolves in three mutations -- so any
-statement has to be about the whole overlapping run, and the right form of it is
-probably about the run's ends rather than the pair.
+relation was thought not to be invariant -- `(1:3) (2:3) (3:3)` dissolves in
+three mutations -- but that turns out to hold only for short runs: at three
+mutations `(1:3) (2:6) (3:7)` is as frozen as a bare pair (E-025). So the
+statement is not simply "runs of two are invariant and longer runs are not", and
+the right form of it is still open.
 
 ---
 

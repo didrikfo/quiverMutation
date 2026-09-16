@@ -193,19 +193,19 @@ def test_the_table_places_every_lna_of_length_six_and_seven():
     """
     for length in (6, 7):
         assert ov.coverage(length)['uncovered'] == []
-    assert len(ov.coverage(8)['uncovered']) == 23
+    assert len(ov.coverage(8)['uncovered']) == 10
 
 
 def test_the_anchored_half_of_the_table_is_what_crosses_the_line():
     """Not a tautology and not a close thing.
 
     Restricted to the rules that hold at every position, the table places 259 of
-    the 429 LNAs at n = 8; with the rules anchored to an end it places 406. The
-    almost separate ones are 233 of them, so 248 floating rules carry 26 rows
-    across the line and 390 anchored ones carry another 147.
+    the 429 LNAs at n = 8; with the rules anchored to an end it places 419 of
+    them. The almost separate ones are 233, so the 248 floating rules carry 26
+    rows across the line and the anchored ones carry another 160.
     """
     floating = ov.coverage(8, lm.VERIFIED_MOVES)
     both = ov.coverage(8)
     assert len(floating['covered']) == 259
-    assert len(both['covered']) == 406
+    assert len(both['covered']) == 419
     assert len(both['seeded']) == 233
