@@ -169,6 +169,17 @@ About a quarter of an hour in total, the depth-5 probe a third of it. Neither de
 is the dial: doubling the margin at four mutations reaches 34 LNAs instead of
 14 and not one of them has a smaller overlap.
 
+**The margin-6 row is stronger than it was written as, and the description was
+wrong.** A margin of 6 around a pattern at arrows 5 to 8 of A_13 admits the
+vertices 1 to 13 -- *every vertex of the quiver*, both ends included. So that
+row is not a probe of the interior at all: it says that from `00003300000`,
+**four mutations anywhere in A_13** reach 34 LNAs and none of them has a smaller
+overlap. That is a claim about the LNA rather than about locality, and it is the
+stronger one. It was recorded here as an interior probe with a wide margin,
+which it was not. `probe.py --allow-ends` is how to ask that question on
+purpose; without the flag the quiver is lengthened to keep the ends out of
+reach, so an interior probe stays one.
+
 **A third relation, and which third relations count.**
 
 | pattern | overlapping run | three mutations |

@@ -114,6 +114,11 @@ six on the right, and enumerate every admissible mutation sequence near it:
 | 5 | 3 | 22 | **0** |
 | 4 | 6 | 34 | **0** |
 
+The last row is stronger than the others and was first recorded as though it
+were not: a margin of 6 around arrows 5 to 8 of A_13 admits *every vertex of the
+quiver*, so it says that four mutations anywhere in A_13 -- ends included --
+leave the pair intact.
+
 Every LNA reachable still has two relations sharing two arrows. The same holds
 for `(1:4) (2:4)` (overlap 3, 17 reached at three mutations, none below 3),
 `(1:5) (2:5)` (overlap 4, 16 reached, none below 4) and for the unequal pairs
