@@ -237,8 +237,9 @@ def verifyAndReport(pool, fresh, args):
         pool.close()
 
     # Two lengths at least: a rule confirmed at one length only has not been
-    # separated from an accident of that quiver's ends, which is the whole point
-    # of planting the pattern in the interior.
+    # separated from an accident of that particular quiver, which is what every
+    # mode here is trying to avoid -- planting a pattern away from the ends, or
+    # against both of them in turn, or widening a rule that already holds.
     survivors = []
     thin = 0
     for description, confirmed, failures in results:
