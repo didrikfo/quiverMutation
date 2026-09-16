@@ -112,6 +112,44 @@ nine.coxeterCollisions()                              # what the polynomial cann
 nine.members("P^(1,4)_(1,0,1)")                       # one class, with the path to each member
 ```
 
+## Where a classification still has to search
+
+```bash
+python overlaps.py 6 7 8 9              # coverage by relation overlap
+python overlaps.py 9 --cores            # what is left, by overlapping run
+python overlaps.py 9 --free             # with relations of two arrows free
+python probe.py 1:3,2:3 --steps 4       # what one configuration can become
+```
+
+The quipu theorem names the class of an LNA whose consecutive relations share at
+most one arrow, and the move rules of `lnaMoves` carry the rest into its reach --
+100% of them at n = 6 and n = 7, 98% at n = 8, 84% at n = 9, 63% at n = 10 and
+47% at n = 11, with no search run at all. What is left over is exactly the LNAs
+with two relations sharing two or more arrows, and `overlaps.py` prints where
+the boundary sits at each length, which configurations are stuck, and how much
+each half of the rule table is worth. See `research/` F-021 to F-025.
+
+`probe.py` is the other half of the same question: instead of "what rules are
+there", it asks what can happen to one named configuration, and reports what it
+reaches grouped by overlap. A run that reaches nothing with a smaller overlap is
+a negative result worth having -- that is how the obstruction above was found.
+
+The two halves are different in kind. A *floating* rule holds at every position
+of the quiver; an *anchored* one holds only against the source or the sink, where
+a mutation does something it cannot do in the interior. The anchored half does
+most of the work above the almost separate line. Both are closed under the
+relation dual -- reverse every arrow and exchange right mutation for left, which
+takes a rule to a rule (`lnaMoves.dualRule`).
+
+Two things reach further than any rule does, and neither is a table row.
+`freeMoves` deletes a relation of **two arrows**, which arXiv:2310.08346 says
+leaves the derived equivalence class alone -- no mutation, no sequence, and it
+merges more at n = 12 than the whole rule table does. `edgeMoves` holds a family the rule
+encoding cannot state at all: a relation at an end of the quiver doubles, and its
+window is allowed to be crossed by a relation it never touches. With both,
+**n = 8 needs no search at all** -- 21 orbits, nothing left over -- and n = 9
+falls from 222 rows to 37. See `research/` F-028 to F-030.
+
 ### Where the Coxeter polynomial is not enough
 
 ```bash

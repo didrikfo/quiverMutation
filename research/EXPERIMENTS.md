@@ -6,6 +6,523 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-027 — The free move, the square walked instead of searched, and the trees
+*2026-09-16* · **the free move beats the whole table; two new families; no non-quipu tree reached** → F-028, F-029, F-030, F-031
+
+Four threads, all suggested from outside the search, and the cheapest of them is
+the largest result this project has had.
+
+### 1. Relations of two arrows are free (F-028)
+
+`corollary:lengthtworelations` of arXiv:2310.08346 has been sitting in
+`research/literature/` unused since that paper was read. Deleting every
+two-arrow relation keeps the Coxeter polynomial in all 4861 cases at `n = 3..10`
+and keeps the quipu name in all 44320 cases at `n = 3..13`. Added to the orbit
+computation it merges 20052 pairs at `n = 12` that the 1794 verified rules of the
+table at the time do not, and cuts what a search must still place by 76% at
+`n = 9` and 90% at `n = 8`.
+
+The reduced space is exactly the LNAs of one fewer vertex, by shortening every
+relation by one arrow — checked as a bijection, not just a count, for
+`n = 4..13`.
+
+### 2. Walking the square instead of searching for it
+
+NOTES backlog 26. Open a relation with one mutation — F-027 says that always
+gives a 2-by-k square — then mutate at consecutive vertices along the side it
+opens. The cost is linear in the relation's length, where a search is exponential
+in the depth, so a family's later members cost no more than its first. The
+instrument was validated against F-020's lone slide, which it reproduced out to
+`d = 9` in 13 seconds; discovery had reached `d = 7` at far greater cost.
+
+**The march must be allowed to repeat its first vertex.** A first version
+advanced one vertex per mutation and found nothing at all, because the two known
+end families are `[1, 1]` and `[2, 2]`. That is worth recording: a walk that
+cannot stand still cannot see either of them.
+
+| planted | where | outcome |
+|---|---|---|
+| a lone relation, `l = 3..6` | interior | nothing — the square closes only by undoing itself, at every length, not just F-027's `l = 5` |
+| a long relation and a two-arrow one, all gaps | interior | nothing but the two-arrow relation sliding past; the long one is a pure spectator |
+| two relations of ≥ 3 arrows, `L, m = 3..7`, all gaps | interior | nothing, in 305 configurations |
+| the same, all gaps ≥ 2 | either end | nothing |
+| an overlapping pair, gap 1 or 2 | interior | **F-030**, the pair-to-triple family |
+| a relation at an end | either end | **F-029**, the doubling |
+
+So the square is a real mechanism and a cheap one, and what it finds is
+concentrated exactly where F-022 and F-024 said the action was: on relations
+that overlap, or against an end. A relation with room around it does nothing,
+whatever its length and whatever it is next to.
+
+### 3. The two families, and what they cost the story
+
+F-029 is not expressible as a table rule at all — the honest conclusion is that
+the encoding needs widening, which is NOTES backlog 27. F-030 is expressible, and
+the table already held its first two members and none of the rest, which is
+H-008's shape for the third time.
+
+Between them and the free move, **`A_8` is fully covered with no search**: 21
+orbits, nothing left. `A_9` falls from 380 orbits and 222 rows needing a search
+to 77 and 37.
+
+**A false start worth recording.** The collapse directions of F-029 were first
+written by inverting the doubling's condition and sequence by hand. Both were
+wrong: the sequence, because the procedure relabels and a left mutation at a
+vertex is not undone by a right mutation there — the collapse is two right
+mutations at the *source*; and the condition, which fired on 97 cases where 282
+were available. Defining each collapse as "the LNA whose doubling is this one"
+fixed both at once, and all four moves then fire 907 times apiece over `n = 7..10`
+with no failures.
+
+### 4. What is left at n = 9, now that it is small enough to read
+
+37 rows in 77 orbits, and they have a property in common: **every one has a
+relation at the source and a relation at the sink**, and every one is already
+reduced. Only 1 of the 37 is certified non-piecewise-hereditary. At `n = 10` the
+same two counts are 670 and 660 of 887, so the characterisation is strong there
+but not complete. Recorded against H-011, whose mechanism it is the natural limit
+of: an LNA with both ends occupied has no free end to walk a run to.
+
+### 5. Trees that are not quipus (F-031)
+
+Every tree of maximum degree three up to order 12, tested for quipu-ness and then
+compared by Coxeter polynomial against every LNA of the same length. The first
+non-quipu appears at order 10 and is unique — the centre with three neighbours,
+each carrying two leaves, which is the tree the question was asked about. Eleven
+non-quipu trees over orders 10, 11 and 12; 80444 LNAs compared; not one shared
+Coxeter polynomial.
+
+---
+
+## E-026 — The dual as a mirror, and what a rule walks through
+*2026-09-16* · **410 duals, all holding; every intermediate a square with a side of two; no shortcut survives** → F-026, F-027, R-011
+
+Four things suggested from outside the search, all cheap, and the first of them
+corrects a finding made the same day.
+
+### 1. The proper mirror of a rule
+
+F-025 read an asymmetry between the two ends of the quiver off a comparison
+between a rule at the sink and *the same pattern* at the source. That is not the
+mirror. The mirror is the relation dual: reverse every arrow **and** exchange
+right mutation for left.
+
+| | |
+|---|---|
+| at the sink | `(0:3) (1:6) -> (0:2) (1:6)` via `[2, 2]` -- 4 confirmations, 0 failures |
+| the same pattern at the source | 1 confirmation, **3 failures** |
+| its **dual** at the source | `(0:6) (4:3) -> (0:6) (5:2)` via `[-7, -7]` -- 4 confirmations, **0 failures** |
+
+Checked at `(l, m)` = (3,6), (4,7), (3,4), (5,6). The pattern's dual is a pair
+sharing an *end*, not a pair sharing a *start*, which is why comparing a pattern
+with itself at the other end says nothing. R-011.
+
+### 2. Closing the table under it
+
+Whether the sequence's **order** reverses under the dual was the one thing not
+obvious. Over 50 rules sampled from both halves of the table, order **kept**
+works for all 50 (8 of them exclusively; the other 42 have sequences symmetric
+enough that both work) and order reversed works for none exclusively. So the
+order is kept.
+
+Then, over the whole table: 1384 rules, **none self-dual**, **410 duals
+missing**, verified at up to four lengths each --
+
+> **410 hold, 0 fail, 0 never apply**, in 106 s on four processes.
+
+The table is generated closed now (364 floating, 1430 anchored). Coverage barely
+moves -- 7 rows at n = 10, none at n = 9 -- because those orbits were already
+joined another way. The value is that it is free, that it halves what a search
+has to look for, and that it is what corrected F-025. F-026.
+
+### 3. What a rule walks through
+
+Every multi-mutation rule in the table run one step at a time, each intermediate
+quiver classified:
+
+| | |
+|---|---|
+| commutative squares | **1364**, sides `2 x k` for k = 2..8 |
+| squares with a short side other than 2 | **0** |
+| a line again, mid-sequence | 336 |
+| anything else | 5 |
+
+So a mutation leaves the line only into a square with a side of exactly two, and
+a rule is: open a relation into such a square, do something along its long side,
+close it back. Exactly the structure the search has been finding by brute force.
+
+**Tried and it does not immediately give a construction.** Opening the lone
+relation of `00500000` in A_10 into its 2-by-4 square and searching four
+mutations over the square's vertices finds one way back to a line: `[-3]`, the
+undo. A square with nothing to interact with closes only onto itself, which is
+F-023's lesson again -- the companion relation is the whole point. F-027.
+
+### 4. Whether mixing directions shortens the rules already known
+
+**Mixed sequences are not an unexplored region.** `localMutationSequences` tries
+both signs at every vertex at every step, so every run so far has been free to
+find them, and 274 of the table's 1794 rules do mix a left mutation with a right
+one -- 82 floating and 192 anchored, almost all of them two or three mutations
+long.
+
+**And no rule in the table got shorter.** 150 rules of three mutations or more
+were sampled; for each, one LNA it matches, and a search at one mutation fewer
+over the vertices of its window. Three came back with a shorter sequence at that
+LNA:
+
+| rule | listed | shorter, at one LNA |
+|---|---|---|
+| `(4:2) -> (0:2)` | `[5, 4, 3, 2]` | `[-2, -7, -8]` |
+| `(5:2) -> (0:2)` | `[6, 5, 4, 3, 2]` | `[-2, -8, -9]` |
+| `(0:2) -> (6:2)` | `[-3, …, -8]` | `[1, 9, 8]` |
+
+All three are the lone short-relation slide of F-020, which would have been the
+interesting place to find a shortcut -- and **none of the three is a rule**.
+Stated as floating rewrites they give 1 confirmation and 21 failures apiece;
+anchored to the left end, 1 confirmation and 8 failures. They work at the single
+LNA the search tried, where the window is flush against both ends of the
+shortest quiver its width fits in, and nowhere else. Checked for every d from 1
+to 7 with the same answer.
+
+**So F-020's one mutation per arrow travelled stands**, and this is the evidence
+against the obvious objection to it. A run that finds a shorter sequence for one
+LNA has found nothing until `verifyMove` says otherwise.
+
+**The limits of this, stated so it can be redone properly.** One matching LNA per
+rule, and mutations only within one vertex of the window. A shortcut that needs
+to reach further out, or that only applies at some positions, would not show up
+here.
+
+---
+
+## E-025 — Discovery with the bounds raised, and probes deep and wide
+*2026-09-16* · **3045 rules, n = 8 to 98%, and H-010 tested two deeper** → F-024, F-025
+
+E-024's residue said what to do: of the LNAs at n = 9 for which no rule had the
+pattern at all, 32 of 33 contained a relation of five arrows or more, and every
+run so far had stopped at five arrows in a six-arrow window, where such a
+relation cannot sit beside another. So: raise the bounds, and probe the
+configurations the findings actually turn on.
+
+### The discovery run
+
+```bash
+python discover.py --anchor both --max-arrows 7 --max-width 8 \
+    --anchor-lengths 13,14 --jobs 3 --verify-cap 12
+```
+
+| stage | |
+|---|---|
+| patterns x ends x lengths | 412 x 2 x 2 = 1648 searches, 3 mutations each |
+| rewrites described | 5807, in 6146 s |
+| recurring at both lengths | 3826 |
+| verified with no failures | **3045**, in 579 s |
+| neither listed nor a floating rule restricted to an end | 2929 |
+| changing the orbit partition at lengths 6 to **11** | **728** |
+
+Two hours of search, ten minutes of verification. 1469 of the fresh rules are at
+the source and 1467 at the sink, which is the consistency check the relation
+dual demands.
+
+**The criterion had to change with the bounds, and this is the trap.** A window
+of nine arrows does not fit in A_9 at all, so judging by what changes the
+partition at n <= 9 -- which is what E-023 and E-024 did -- *cannot* select a
+wide rule however useful it is. Judged that way this run yields 209 rules, all
+of window 7 or 8. Judged at lengths 6 to 11 it yields **728**, of which 208 have
+a window of nine arrows or more. The earlier curations should be read with that
+in mind: they were not wrong at the lengths they measured, but they could not
+see past them.
+
+**Coverage, with no mutation search at all:**
+
+| n | LNAs | before this run | after |
+|---|---|---|---|
+| 7 | 132 | 100% | 100% |
+| 8 | 429 | 95% | **98%** -- 10 rows left |
+| 9 | 1430 | 73% | **84%** |
+| 10 | 4862 | 55% | **63%** |
+| 11 | 16796 | 43% | **47%** |
+
+The measurement now reaches n = 10 and n = 11, which it had not before; at 16 s
+for n = 10 and about four minutes for n = 11 there was never a reason not to.
+
+### The probes
+
+`probe.py`, written for this run, plants one named pattern and enumerates what
+the mutations near it reach, reporting the arrows a run can actually rewrite.
+
+**The frozen pair, deeper and honestly interior (F-024).** The earlier probes
+allowed mutations at every vertex of A_13; re-run in A_21 where the ends are out
+of reach, `(1:3) (2:3)` reaches 2 LNAs at three mutations, 4 at four, 4 at five
+and 6 at six -- against 8, 14, 22 and 36 with an end in reach. None of them
+lowers the overlap. Six mutations *with* an end in reach does lower it, to zero,
+by walking the relation down to arrow 1; that sequence is not translation
+invariant and fails at every shift tried.
+
+**Long pairs, in the interior.** `(1:3) (2:6)`, `(1:5) (2:6)`, `(1:5) (2:7)`,
+`(1:3) (2:7)` at four mutations, and the equal pairs `(1:6) (2:6)` and
+`(1:7) (2:7)`: every one frozen, and the overlap goes *up* in a third to a half
+of what they reach.
+
+**Long pairs at the ends, which is where the new family came from (F-025).** The
+same four against each end at three mutations: nothing at all moves at the
+source, and at the sink every one loses an arrow off the shorter relation --
+`(1:3) (2:6)` and `(1:3) (2:7)` going to overlap 0 outright.
+`sinkShortRelationShrinkRules` generates that family and it is verified for
+every 3 <= l < m <= 9, 21 members, 4 confirmations apiece, no failures. The
+mirror at the source gives 1 confirmation and 3 failures.
+
+**A run of three no longer dissolves when the relations are long.** F-022 had it
+that a run of three heavily overlapping relations comes apart where a run of two
+does not, on the evidence of `(1:3) (2:3) (3:3)` and two others. At three
+mutations `(1:3) (2:6) (3:7)` and `(1:5) (2:6) (3:7)` reach two LNAs each and
+neither lowers the overlap. So the dissolution of a run of three is not a
+property of the run; it is a property of the *short* runs that were tested, and
+what it probably costs is mutations -- F-020's one-per-arrow-travelled again.
+Do not quote F-022's run-of-three line without that qualification.
+
+### What to do next
+
+The bounds can go up again -- `--max-arrows 9 --max-width 10`, and the interior
+run at the same bounds, which this session did not get to. And the whole
+judgement should now be made at lengths 6 to 11 as a matter of course, since it
+is affordable and the alternative silently discards every wide rule.
+
+---
+
+## E-024 — Widening the rules to tolerate a bystander
+*2026-09-16* · **625 verified, and A_7 needs no search at all** → F-023, H-011
+
+F-023 said what stops a known rule from firing is a relation in its window that
+it does not touch. This is that read as a construction rather than a diagnosis:
+take each rule in the table, put one untouched relation -- a *spectator* --
+somewhere in its window, growing the window by up to three arrows to make room,
+and let `verifyMove` decide.
+
+```bash
+python discover.py --extend --jobs 4
+```
+
+| stage | |
+|---|---|
+| widenings generated from the 368 rules then in the table | 10609, in 13 s |
+| of those, firing on an LNA no search had placed at n <= 9 | **1008** |
+| verified with no failures | **625**, in 474 s |
+| changing the orbit partition at n <= 9 | **270** -- 125 floating, 145 anchored |
+
+Eight minutes, no search, no mutation run speculatively. The filter is what makes
+it affordable and is worth keeping: generate freely, throw away everything that
+would not fire on a row still needing a search, then verify.
+
+**Coverage with no search at all.**
+
+| n | theorem | before this batch | after |
+|---|---|---|---|
+| 6 | 81% | 100% | 100% |
+| 7 | 67% | 96% | **100%** |
+| 8 | 54% | 81% | **95%** -- 23 rows left of 429 |
+| 9 | 43% | 60% | **73%** -- 392 of 1430 |
+
+A classification of A_7 is now a table lookup. At n = 8 twenty-three rows need a
+mutation search and at n = 9, 392.
+
+**The number H-011 said to watch stayed small.** Re-running the blocked-rule
+diagnostic -- for each unplaced LNA, the rule whose left-hand pattern is present
+with the fewest extra relations in its window:
+
+| | n = 8 before | n = 8 after | n = 9 after |
+|---|---|---|---|
+| blocked by a bystander | 126 | 18 | 359 |
+| **no rule has this pattern at all** | 29 | **5** | **33** |
+
+So the mechanical half is still the whole story: what is left is overwhelmingly
+more of the same, and another widening pass is the obvious next run.
+
+**And the 33 turn out to say the same thing.** Looked at by hand, they are
+almost all a pair of relations one of which is *long*: `(1:3) (2:6)`,
+`(1:5) (2:6)`, `(1:5) (2:7)` and the like. 32 of the 33 contain a relation of
+five arrows or more and 23 contain one of six or more -- and discovery has never
+been given a pattern like that. Both runs used `--max-arrows 5 --max-width 6`,
+so a six-arrow relation could not appear beside another at all. This is F-013's
+lesson again: *absence of a pattern from the table is evidence about the search,
+not about the mathematics*. Raise the bounds before concluding anything about
+these.
+
+**What this does not say.** Every one of these rules was verified, but 355 of
+the 625 are not listed, and the 270 that are were chosen for changing the
+partition at n <= 9. That is a curation against the lengths measured, not a
+claim about n >= 10. Re-run the command.
+
+---
+
+## E-023 — Discovery against the ends of the quiver
+*2026-09-16* · **630 anchored rules, and coverage at n = 6 becomes complete** → F-023
+
+The first run of `discoverAnchoredMoves`, on the framework F-022 added.
+
+```bash
+python discover.py --anchor both --max-arrows 5 --max-width 6 --jobs 4 --verify-cap 12
+```
+
+74 patterns x 2 ends x 2 lengths (A_11 and A_12) = 296 searches at three
+mutations, margin 3.
+
+| stage | |
+|---|---|
+| rewrites described | 1344, in 286 s |
+| recurring at both lengths | 892 |
+| verified with no failures | 724, in 70 s |
+| a floating rule restricted to an end | 94 |
+| genuinely anchored | **630** -- 315 at each end |
+| changing the orbit partition at n <= 9 | **229**, and those are what is listed |
+
+**A first attempt at the same run had to be abandoned**, and why is worth
+recording. `verifyMove` enumerated the LNAs by building a path algebra for each,
+which at length 12 is 58786 of them and six seconds -- per rule, and there were
+886 to check. The enumeration is now cached as relation-length rows
+(`nakayama.allRelationLengths`), the algebras built only where a rule actually
+matches: 0.3 s instead of 6.5, and the verification of all 886 fell from hours
+to 70 seconds. Anything that verifies many rules over the same lengths should go
+through that function.
+
+**What the run cost and bought.** Ten minutes end to end. Coverage with no
+search at all: 100% at n = 6 (from 83%), 96% at n = 7 (72%), 81% at n = 8 (57%),
+60% at n = 9 (45%).
+
+**What is still not reached, and the next question.** 567 rows at n = 9, all of
+them heavily overlapping, 306 at overlap 2. The diagnostic that pointed at the
+spectators -- for each unplaced LNA, the rule whose left-hand pattern is present
+with the fewest extra relations in the window -- says at n = 8 that 126 of 155
+are blocked by a bystander and 29 by having no rule at all. Run it again after
+the next batch: the count of "no rule has this pattern" is the one to watch,
+because it is the part more discovery cannot fix.
+
+---
+
+## E-022 — Whether the relation dual widens the move orbits
+*2026-09-16* · **it halves the orbit count and adds no coverage**
+
+The relation dual -- reverse every arrow, renumber -- is one of the three
+class-preserving operations of arXiv:2305.06642 and holds for *any* LNA, not
+only an almost separate one (`nakayama.relationDual`). It is free, it is not in
+the move orbit, and the obvious thought is that adding it would carry rows
+across the overlap line for nothing. It does not.
+
+| n | floating | + anchored | + anchored + dual |
+|---|---|---|---|
+| 7 | 95 covered, 84 orbits | 107, 71 | 107, **45** |
+| 8 | 246, 310 | 274, 277 | 274, **156** |
+| 9 | 644, 1106 | 726, 1019 | 726, **542** |
+
+The orbit count roughly halves at every length and the covered count does not
+move by one row. The reason is structural rather than accidental: the almost
+separate condition is itself dual-symmetric, so the dual maps seeded to seeded,
+and the rule table already contains the mirror of every rule it contains, so it
+maps orbit to orbit. The dual therefore identifies orbits pairwise and never
+joins a covered one to an uncovered one.
+
+**Worth knowing, and worth not repeating.** Halving the orbit count is real and
+would be worth having if orbits were the expensive object; they are not, the
+uncovered rows are. Do not reach for the dual again expecting coverage.
+
+---
+
+## E-021 — What can be done to a heavily overlapping run, in the interior
+*2026-09-16* · **the pair is frozen, a run of three is not** → F-022, R-010
+
+The experiment H-003 asked for, aimed where F-021 says to aim it. Each pattern
+planted in the middle of A_13 at offset 4 -- four arrows of empty quiver on the
+left, six on the right -- with `lnaMoves.localMutationSequences` enumerating
+every admissible sequence at vertices within the margin, and the reached LNAs
+reported by maximum overlap.
+
+**The isolated pair, at four settings.**
+
+| pattern | start overlap | mutations | margin | reached | any lower |
+|---|---|---|---|---|---|
+| `(1:3) (2:3)` | 2 | 3 | 3 | 8 | no |
+| `(1:3) (2:3)` | 2 | 4 | 3 | 14 | no |
+| `(1:3) (2:3)` | 2 | 5 | 3 | 22 | no |
+| `(1:3) (2:3)` | 2 | 4 | 6 | 34 | no |
+| `(1:4) (2:4)` | 3 | 3 | 3 | 17 | no |
+| `(1:5) (2:5)` | 4 | 3 | 3 | 16 | no |
+| `(1:3) (2:4)` | 2 | 3 | 3 | 16 | no (3 of them go **up** to 3) |
+| `(1:4) (3:3)` | 2 | 3 | 3 | 16 | no (3 go up to 3) |
+
+About a quarter of an hour in total, the depth-5 probe a third of it. Neither depth nor margin
+is the dial: doubling the margin at four mutations reaches 34 LNAs instead of
+14 and not one of them has a smaller overlap.
+
+**The margin-6 row is stronger than it was written as, and the description was
+wrong.** A margin of 6 around a pattern at arrows 5 to 8 of A_13 admits the
+vertices 1 to 13 -- *every vertex of the quiver*, both ends included. So that
+row is not a probe of the interior at all: it says that from `00003300000`,
+**four mutations anywhere in A_13** reach 34 LNAs and none of them has a smaller
+overlap. That is a claim about the LNA rather than about locality, and it is the
+stronger one. It was recorded here as an interior probe with a wide margin,
+which it was not. `probe.py --allow-ends` is how to ask that question on
+purpose; without the flag the quiver is lengthened to keep the ends out of
+reach, so an interior probe stays one.
+
+**A third relation, and which third relations count.**
+
+| pattern | overlapping run | three mutations |
+|---|---|---|
+| `(1:3) (2:3) (3:3)` | 3 | down to **0**, via `[6, 5, 6]` |
+| `(1:3) (2:4) (3:4)` | 3 | down to **0** |
+| `(1:4) (2:4) (4:3)` | 3 | down to **0** |
+| `(1:4) (2:4) (3:4)` | 3 | down to 2, from 3 |
+| `(1:2) (2:3) (3:3)` | 2 | 31 reached, none lower |
+| `(1:3) (2:3) (4:2)` | 2 | 31 reached, none lower |
+| `(1:3) (2:3) (5:2)` | 2 | 35 reached, none lower |
+
+The parameter is the length of the run of relations linked by an overlap of two
+or more, not the number of relations present: `(1:2) (2:3) (3:3)` has three
+relations and is as frozen as the bare pair, because its first shares one arrow
+and not two. The rewrites that dissolve a run of three were already in the
+table, found at length 8 and in E-011 -- so nothing here is a new rule, and that
+is the result. **Do not run a deeper interior search for a rule that pulls an
+isolated pair apart**; four probes at three settings of depth and two of margin
+say there is none to find, and F-022 says where the pair does come apart.
+
+Reproduce with `lnaMoves.localMutationSequences(13, relLengths, lo, hi, steps,
+margin)` on `lnaMoves.embedPattern(13, pattern, 4)`.
+
+---
+
+## E-020 — What the theorem and the move orbits reach, by relation overlap
+*2026-09-16* · **the gap is exactly overlap two and above** → F-021
+
+The measurement H-003 has been asking for since 2026-09-13, now that there is a
+coordinate to make it in. Every LNA of a length partitioned into orbits under
+the verified rules -- applied as rewrites on the relation lengths, with no
+mutation computed, which F-017 licenses -- and an orbit called covered when it
+contains one the quipu theorem names.
+
+With the 123 floating rules:
+
+| n | LNAs | overlap 0 | 1 | 2 | 3 | 4 | 5 | 6 |
+|---|---|---|---|---|---|---|---|---|
+| 6 | 42 | 16/16 | 18/18 | 1/7 | 0/1 | | | |
+| 7 | 132 | 32/32 | 57/57 | 4/33 | 2/9 | 0/1 | | |
+| 8 | 429 | 64/64 | 169/169 | 9/132 | 4/52 | 0/11 | 0/1 | |
+| 9 | 1430 | 128/128 | 482/482 | 24/484 | 10/247 | 0/75 | 0/13 | 0/1 |
+
+covered over total at each maximum overlap. Two readings, and both matter.
+Everything at overlap 0 or 1 is covered, at every length -- which is the almost
+separate set exactly, so the theorem's reach is not merely *mostly* the low
+overlap rows, it is precisely them. And above the line the table reaches 34 rows
+out of 820 at n = 9, none at all past overlap 3.
+
+The leftovers' heavily overlapping runs, commonest first at n = 9: `(1:3) (2:3)`
+391 times, `(1:4) (2:4)` 198, `(1:3) (2:4)` and `(1:4) (3:3)` 144 each. By the
+longest run in the LNA, 434 of the 786 have nothing longer than a pair.
+
+Seconds per length. `python overlaps.py 6 7 8 9 --cores`, and the same numbers
+are pinned in `tests/test_overlap.py`.
+
+---
+
 ## E-019 — Two more families, and whether a rule's inverse is free
 *2026-09-15* · **two families confirmed, the inverse shortcut refuted** → F-020
 

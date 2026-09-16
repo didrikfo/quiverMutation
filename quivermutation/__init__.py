@@ -25,14 +25,20 @@ The modules, in dependency order:
 | `classview` | reading a finished classification back, one row per class |
 | `classpage` | the same, rendered as a page to browse |
 | `nakayama` | `LinearNakayamaAlgebra` and `QuipuAlgebra`, the two shapes with structure |
-| `lnaMoves` | verified mutation shortcuts between LNAs |
+| `lnaMoves` | verified mutation shortcuts between LNAs, floating and anchored |
+| `endMoves` | the listed half of those: the rewrites that need an end of the quiver |
+| `spectatorMoves` | the rewrites that hold with a relation in the window they do not touch |
+| `overlap` | how much an LNA's relations overlap, and how far the rules reach |
+| `edgeMoves` | the doubling at an end, which the window encoding cannot state |
+| `freeMoves` | relations of two arrows, which cost no mutation at all |
 | `piecewiseHereditary` | certificates that an algebra is in no quipu class |
 | `quiverExamples` | small quivers to try things on by hand |
 | `plotting` | drawing a quiver |
 
 The procedural modules are re-exported flat, so `import quivermutation as qm`
 reaches `qm.classifyLength` and the rest directly.  The modules that carry their
-own namespace -- `nakayama`, `quipuForms`, `lnaMoves`, `piecewiseHereditary`,
+own namespace -- `nakayama`, `quipuForms`, `lnaMoves`, `overlap`, `edgeMoves`, `freeMoves`,
+`piecewiseHereditary`,
 `relationAlgebra`, `procedure`, `mutationClassTable`, `classview`, `classpage`,
 `quiverExamples` -- are imported as names:
 `from quivermutation import nakayama as nk`.
@@ -53,6 +59,11 @@ from . import (
     mutationClassTable,
     nakayama,
     lnaMoves,
+    endMoves,
+    spectatorMoves,
+    overlap,
+    edgeMoves,
+    freeMoves,
     piecewiseHereditary,
     classview,
     classpage,
@@ -149,10 +160,12 @@ __all__ = [
     "classview",
     "coxeterPoly",
     "dualPathAlgebra",
+    "edgeMoves",
     "expandClassByMoves",
     "extendRel",
     "findHereditaryFormForClass",
     "formatHereditaryForms",
+    "freeMoves",
     "generateAllPossibleLineRelations",
     "getVertexNumberingKeyFromValue",
     "hereditaryFormFromTheorem",

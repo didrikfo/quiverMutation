@@ -6,6 +6,83 @@ does not. See [`README.md`](README.md).
 
 ---
 
+## R-011 — "The two ends of the quiver are not the same end" (F-025)
+*retracted 2026-09-16*
+
+F-025 claimed an asymmetry between the source and the sink of the line: a pair
+of relations of unequal length comes apart against the sink and not against the
+source. The evidence was that `(0:l) (1:m)` with l < m loses an arrow at the
+sink under two right mutations, and that *the same rule written at the left end*
+gives 1 confirmation and 3 failures.
+
+**The mirror was the wrong mirror.** Mirroring a rule is not reflecting its
+pattern and keeping the mutations; it is the **relation dual** -- reverse every
+arrow *and* exchange right mutation for left. Under that transform
+
+```
+    right end:  (0:l) (1:m)  ->  (0:l-1) (1:m)         via [2, 2]
+    left  end:  (0:m) (m+1-l:l)  ->  (0:m) (m+2-l:l-1) via [-(m+1), -(m+1)]
+```
+
+and the left-hand one holds: 4 confirmations, no failures, at every `(l, m)`
+tried. What was compared against it instead was the *same pattern* at the other
+end, and that is a different configuration -- a pair sharing a start rather than
+a pair sharing an end -- so of course it behaves differently. The ends are
+mirror images; the pattern was not.
+
+**What survives.** The rule itself, and the family: `(0:l) (1:m)` shortens at the
+sink for every 3 <= l < m <= 9, 21 members, 4 confirmations apiece, and its dual
+does the same at the source. The probe results behind it are also untouched --
+`(1:3) (2:6)` planted at the source really does reach only two LNAs. What is
+withdrawn is the *interpretation*: that asymmetry belongs to the pattern, not to
+the quiver's ends, and no reading of the procedure is needed to explain it.
+
+**What it cost and what it bought.** The mistake was worth making, because
+looking for its cause turned up the transform itself, which the table had never
+been closed under: 410 rules were missing their duals, all 410 verify, and they
+are generated now (F-026). A wrong mirror is how the right one got written down.
+E-026.
+
+---
+
+## R-010 — "Wider rules are what unlock the heavily overlapping LNAs" (H-003)
+*retracted 2026-09-16*
+
+H-003's measurement half is right and is now F-021: the rows a classification
+search still has to place are exactly the heavily overlapping ones, all 786 of
+them at n = 9. Its **diagnosis** -- that the rules found so far are too narrow,
+and that wider ones would reach them -- is wrong for the configuration that
+dominates the leftovers.
+
+**What was believed.** That discovery kept finding rules which keep an LNA inside
+the almost separate set because the windows searched were too small, and that
+aiming discovery at bigger patterns would produce rules crossing the line.
+
+**What is true.** An *isolated pair* of relations sharing two or more arrows --
+434 of the 786 rows left at n = 9 have no heavily overlapping run longer than
+that -- cannot have its overlap reduced by any interior sequence, at any window
+width tried. Planted in the middle of A_13, it reaches 8 LNAs at three mutations,
+14 at four, 22 at five and 34 at four with the mutations allowed twice as far
+out, and **every one of them still has the pair** (F-022, E-021). Widening the
+window is not a dial that turns here; it reaches further along the quiver and
+finds the same thing.
+
+**Where the diagnosis does hold, and why that misled.** A heavily overlapping run
+of *three* relations does dissolve under an interior rule, and the rules that do
+it are wide -- the window-5 and window-6 entries found at length 8 and in E-011.
+So the belief was confirmed every time it was tested on a triple, and the pair,
+which is the commonest core by a factor of four, was never the thing being
+tested.
+
+**What corrects it.** The overlap of an isolated pair is reduced at an **end** of
+the quiver, not by a wider window: two mutations at the source or sink delete one
+of the two relations (F-022). That is a rule the framework could not even state
+until it grew anchored descriptions, because it is false at every other position
+-- so no amount of searching for *floating* rules, at any width, was ever going
+to find it. E-021, E-023.
+
+---
+
 ## R-009 — "A rewrite that verifyMove confirms with no failures is a rule"
 *retracted 2026-09-15*
 

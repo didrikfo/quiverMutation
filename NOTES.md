@@ -330,21 +330,91 @@ item 4 is what makes n >= 10 readable at all.
    count grows like the Catalan numbers (1430 LNAs at n = 9, 58786 at n = 12)
    while the class count does not (20 at n = 9, 127 quipus at order 12), so the
    summary stays small exactly where the table stops being openable.
-5. **Rule discovery, deeper.** Ideas 17, 19 and research H-007, H-008. The main
-   line of mathematical work, and the lever for n >= 11 (idea 16).
-6. **The cellular-automaton reading of the rules.** Research H-009, now
-   SUPPORTED: its own caveat is checked and passes, so the CA picture is about
-   the right object (F-017). What is left is the literature sweep -- listed in
-   `research/literature/README.md`. Note what can and cannot be reached from the
-   session sandbox: `curl` and `WebFetch` to arxiv.org are refused by the egress
-   proxy, but `WebSearch` works, so papers can be found and identified from here
-   and only the reading itself has to happen elsewhere.
+5. **Rule discovery, aimed at relation overlap.** Ideas 17, 19, 24 and research
+   H-010, H-011. The main line of mathematical work, and the lever for n >= 11
+   (idea 16). What it is aimed at is no longer a guess: the rows a search still
+   has to place are **exactly** the LNAs whose consecutive relations share two
+   or more arrows (F-021), and `python overlaps.py 9 --cores` says which
+   configurations they are.
 
-   **Start from the arrow row, not the relation-length row.** F-017's
-   by-product: a per-vertex cell holds a relation length, which is unbounded in
-   n, so a relation reaches arbitrarily far right and no fixed neighbourhood
-   sees it coming. Indexed by arrows instead, carrying covered / starts / ends,
-   the alphabet is fixed and the rules are local with a margin of one cell.
+   Three things are settled about where to look. An isolated pair of relations
+   sharing two or more arrows is **frozen in the interior** -- no sequence of
+   three, four or five mutations moves its overlap, at either margin tried
+   (F-022, E-021) -- so do not spend a deeper interior search on it. It comes
+   apart at an **end** of the quiver instead, which is what anchored rules are
+   for. And what stops the rules that do exist from firing is a **bystander** in
+   the window, not a window too small: 126 of the 155 LNAs unplaced at n = 8 had
+   a rule whose pattern was present and blocked that way (F-023).
+
+   Coverage with no search at all is now **100% at n = 6 and n = 7**, 98% at
+   n = 8 and 84% at n = 9, against 83 / 72 / 57 / 45 before this line of work,
+   and 63% at n = 10 and 47% at n = 11. A_6 and A_7 classify by table lookup;
+   A_8 needs a search for 10 of its 429 rows.
+
+   The bounds have been raised once, to `--max-arrows 7 --max-width 8`, and it
+   paid (E-025). Raise them again, run the **interior** search at the same
+   bounds -- this session only did the anchored one -- and run `--extend` again
+   with a wider spectator margin.
+
+   **Judge a batch at lengths 6 to 11, not 6 to 9.** A window of nine arrows
+   does not fit in A_9, so the old criterion could not select a wide rule
+   however useful it was; the wide run yields 209 rules judged to 9 and 728
+   judged to 11. `overlap.coverage` is 16 s at n = 10 and about four minutes at
+   n = 11, so there is no reason to stop short.
+
+   **Search one end and dual the answers.** A rule's dual is a rule -- reverse
+   the arrows, exchange right mutation for left, keep the order (F-026) -- so a
+   run that plants patterns against both ends is doing twice the work it needs
+   to. `lnaMoves.dualRule` and `closeUnderDual`, and the table is generated
+   closed.
+
+   **Two things that are not rules now reach further than the rules do.**
+   `freeMoves` deletes a relation of two arrows, which `corollary:lengthtworelations`
+   of arXiv:2310.08346 says leaves the derived equivalence class alone. It is not
+   a mutation and carries no sequence, so it may never be used to claim two
+   algebras share a mutation class -- and it merges more at n = 12 than the whole
+   table does (F-028). `edgeMoves` holds the doubling at an end, which
+   `describeLink` cannot state because its window is crossed by a relation it
+   never touches (F-029, backlog 27). Together they take **n = 8 to needing no
+   search at all** and n = 9 from 222 rows to 37. Before searching for more
+   rules, look for more mechanisms: both of these were found by reading, not by
+   discovery, and both cost minutes.
+
+   **Walk the square rather than search for it.** Opening a relation with one
+   mutation always gives a 2-by-k square (F-027), and marching at consecutive
+   vertices from there costs one step per arrow where a search costs
+   exponentially in the depth. That is how F-029 and F-030 were found, and it
+   reproduces F-020's lone slide to d = 9 in 13 seconds. The march must be
+   allowed to **repeat its first vertex** -- the two known end families are
+   `[1,1]` and `[2,2]`, and a version that advanced one vertex per mutation found
+   nothing whatsoever (E-027).
+
+   **Mixed-direction sequences are already searched, and shorten nothing.**
+   `localMutationSequences` tries both signs at every step, 274 of the table's
+   rules mix directions, and a search for shorter sequences over 150 long rules
+   found three candidates of which none survives `verifyMove` (E-026). Do not
+   look for shortcuts again without widening the search first -- one LNA per
+   rule and a margin of one is what was tried.
+
+   **A rule is: open a relation into a square, walk its long side, close.**
+   Every intermediate quiver of every multi-mutation rule in the table is a
+   commutative square with a side of exactly two arrows, or a line (F-027).
+   Whether rules can be *constructed* that way rather than searched for is
+   open, and the thing standing in the way is that the square needs a companion
+   relation to interact with -- a lone one closes only by undoing itself.
+6. ~~**The cellular-automaton reading of the rules.**~~ **Parked**, research
+   H-009. Not refuted -- F-017 stands and its caveat passes -- but the reading
+   would have to be fitted to the part that is still open, and its own last
+   paragraph says the translation to an arrow row is finite-state only under
+   almost separate relations, which is the part that is already easy. Two
+   findings since point away from classical CA as well: the rule that matters is
+   anchored to an **end** rather than a perturbation of an interior one (F-022),
+   and the invariant worth having is a conservation law to prove from the
+   procedure rather than a pattern to recognise in a table (H-010). Unpark if
+   H-010 is proved and reads as a conservation law; start from the arrow row,
+   as F-017 says. The literature sweep is still listed in
+   `research/literature/README.md`, and note that `curl` and `WebFetch` to
+   arxiv.org are refused by the egress proxy while `WebSearch` works.
 7. **An independent separation of the cospectral pair.** Idea 22. Not blocking
    anything, but it is the one claim in the n = 9 classification that rests on a
    single route (F-014). The route to take is **Hochschild cohomology**, not the
@@ -947,10 +1017,56 @@ nothing else, agreeing with the published table.
     doing this — but **deliberately parked** until the search is deeper, since
     generalising from a three-mutation search risks fitting families to an
     artefact of the bound. Research H-008.
-19. **Aim discovery at the patterns that still need a search.** Seeding places
-    45% of the n = 9 table; the rest are the heavily overlapping LNAs. Measure
-    what patterns those actually have and point discovery at them, rather than
-    at small patterns chosen for cheapness. Research H-003.
+19. ~~**Aim discovery at the patterns that still need a search.**~~ **Measured**,
+    F-021, and the diagnosis it came with is wrong (R-010). The rows left over
+    are exactly the ones whose relations overlap in two or more arrows -- nothing
+    below that line is ever left -- and the commonest configuration by a factor
+    of four is an isolated *pair* of relations sharing two, which no wider
+    interior rule reaches. `quivermutation/overlap.py` and `overlaps.py` are the
+    instrument; what to do about the pair is idea 24.
+24. **Rules anchored to an end of the quiver.** `lnaMoves` has them -- a
+    description carries an optional `'left'` or `'right'`, `windowStartsFor` is
+    the gate that keeps it there, and `discoverAnchoredMoves` plants a pattern
+    flush against an end rather than in the middle. `endPairCollapseRules` is
+    the one family among them (F-022); the rest are listed in
+    `quivermutation/endMoves.py`, 229 of the 630 that E-023 verified -- the ones
+    that change the orbit partition at n <= 9. Regenerate with
+    `python discover.py --anchor both --max-arrows 5 --max-width 6 --jobs 4`.
+    A wider or deeper run of the same thing is the obvious next batch.
+28. **Look at the 37 rows of A_9 one at a time.** With the free move and the
+    edge moves, what a search still has to place at n = 9 is 37 LNAs in 77
+    orbits (E-027), down from 222. That is small enough to read rather than to
+    measure, and H-011 stands or falls on what they have in common.
+
+27. **Let a rule's window be crossed by a relation it does not touch.**
+    `matchesAt` rejects a window that any relation straddles, which is what keeps
+    the table honest (R-009) and is also why F-029's doubling cannot be stated as
+    a rule at all -- its window is the arrows the new relation covers, and a
+    companion is allowed to start on the last of them and run out the far side.
+    The fix is a flag on the description saying which edge may be crossed,
+    honoured by `matchesAt`, `applyAt` and `describeLink`; then `edgeMoves` folds
+    back into `lnaMoves` and discovery can find this kind of rule by itself
+    instead of needing it to be noticed by hand.
+
+26. ~~**Build rules from the square instead of searching for them.**~~ **Done**,
+    as the square walk of E-027: open a relation with one mutation -- F-027 says
+    that always gives a 2-by-k square -- then mutate at consecutive vertices
+    along the side it opens, which costs one step per arrow where a search costs
+    exponentially in the depth. It reproduced F-020's lone slide out to d = 9 in
+    13 seconds and found F-029 and F-030. Two things it taught: the march must
+    be allowed to repeat its first vertex, or it cannot see `[1,1]` or `[2,2]`
+    and finds nothing at all; and a relation with room around it does nothing,
+    whatever its length and whatever it sits next to, so the companion is not
+    optional and neither is the overlap.
+25. **Admit a bystander into a rule's window.** What stops a rule firing is
+    usually a relation in the window that it does not touch (F-023, H-011), and
+    `lnaMoves.spectatorExtensions` generates the widened rule that tolerates
+    one. The first pass, `python discover.py --extend --jobs 4`, verified 625 in
+    eight minutes and took n = 7 to complete coverage (E-024);
+    `quivermutation/spectatorMoves.py` lists the 270 that change the orbit
+    partition. Run it again -- `--extend-margin 4`, or a version admitting two
+    spectators -- and keep the filter that makes it affordable: generate freely,
+    keep only what would fire on a row still needing a search, then verify.
 20. **Read `proposition:doubleMutation` of arXiv:2310.08346.** It states that
     certain tilting mutations of Nakayama algebras give new Nakayama algebras —
     which is exactly what a move rule is. It may already contain a family we are
@@ -960,3 +1076,10 @@ nothing else, agreeing with the published table.
     quipu; whether such an algebra can be derived equivalent to an LNA is open.
     `quipuForms.canonicalUndirectedForm` would report one as a canonical tree form
     with no quipu notation. Research H-006.
+
+    **The degree-3 half is now answered as far as order 12** (F-031). Such trees
+    start at order 10, where there is exactly one -- the centre with three
+    neighbours each carrying two leaves -- and none of the eleven at orders 10,
+    11 and 12 shares a Coxeter polynomial with any of the 80444 LNAs of its
+    length. Orders 13 and up are more of the same computation; **maximum degree
+    4 has not been looked at at all**, and is the part of this item still open.
