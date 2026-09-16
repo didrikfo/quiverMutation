@@ -116,12 +116,21 @@ if [ "$WHICH" = "both" ] || [ "$WHICH" = "discover" ]; then
     echo "[B] searching for a rule on $DISCOVER_JOBS core(s)  ->  $LOG_B"
     (
         # Four mutations first: cheaper, and H-009 may already be settled there.
-        # Then five, which no search has ever reached.
+        # Then five, which no search has ever reached.  The two passes share one
+        # budget -- each is given what is left of it, not a fresh copy, or the
+        # night would run to twice the hours asked for.
+        ENDS_AT=$(( $(date +%s) + $(awk -v h="$HOURS" 'BEGIN{printf "%d", h*3600}') ))
         for steps in 4 5; do
+            LEFT=$(( ENDS_AT - $(date +%s) ))
+            if [ "$LEFT" -le 120 ]; then
+                echo "[discover] out of budget before steps=$steps; resume with:"
+                echo "  $PYTHON $HERE/discover.py $TARGET_LENGTH --steps $steps --resume"
+                break
+            fi
             persist "discover steps=$steps" "$LOG_B" \
                 "$PYTHON" "$HERE/discover.py" "$TARGET_LENGTH" \
                 --steps "$steps" --jobs "$DISCOVER_JOBS" --resume \
-                --budget-hours "$HOURS"
+                --budget-hours "$(awk -v s="$LEFT" 'BEGIN{printf "%.4f", s/3600}')"
         done
     ) &
     PIDS+=($!)
