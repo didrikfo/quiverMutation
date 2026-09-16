@@ -22,26 +22,33 @@ everything, and n = 10 and beyond become a matter of counting rather than of
 mutation. If it fails, the LNA it fails on is the first evidence of a genuinely
 different obstruction, which is worth more than another rule.
 
-**Evidence for.** Coverage rises from 45% to 51% at n = 9 on the strength of
-sixteen anchored rules, where 123 floating ones had bought 34 rows (F-022).
+**Evidence for, and it is now substantial.** Coverage at n = 9 has gone from 45%
+to **60%** on nothing but rules anchored to an end -- 100% at n = 6, where a
+classification needs no search at all any more (F-022, F-023). Every rule that
+crosses the almost separate line does so at an end; not one floating rule
+reduces the overlap of an isolated pair.
 
-**Evidence against, and it is the thing to explain.** 704 rows at n = 9 are still
-not placed, and 352 of them have a heavily overlapping run of three or more --
-configurations the interior rules *do* dissolve in isolation (F-022's table).
-So the blockage is not the run itself but what surrounds it: a companion
-relation inside the window a rule needs. Two readings, and they want different
-work:
+**What the first end-discovery run settled.** Of the two readings this
+hypothesis offered for why the runs of three were stuck, the second is right.
+At n = 8, of the 155 LNAs then unplaced, **126 had a rule whose left-hand
+pattern was present and which did not fire**, because further relations were
+sitting in its window; only 29 had no rule with their pattern at all. The rules
+were not too narrow, they were too **clean** -- and 188 of the 229 anchored
+rules now listed carry a bystander they step around (F-023).
 
-1. the runs cannot reach an end because other relations are in the way, and what
-   is missing is rules for moving a run *past* a neighbour; or
-2. the rules that dissolve a run in isolation have windows too clean to match
-   anything real, and what is missing is the same rules with a companion
-   relation admitted into the window.
+**Evidence against.** 567 rows at n = 9 are still not placed. Whether they are
+more of the same -- rules that exist but need one more spectator admitted -- or
+something else is the open part, and the number to watch is the 29: the LNAs for
+which no rule has the pattern at all are the ones more discovery cannot fix.
 
-**What would settle it.** For each uncovered LNA, ask which is the case: whether
-some sequence of known moves brings a run to an end (then the gap is search
-order, not rules), and if not, which relation blocks it. `overlaps.py --cores`
-already reports the runs; what it does not yet report is the blocker.
+**What would settle it.** Re-run the blocked-rule diagnostic after each batch of
+new rules and watch that count. If it stays small while coverage climbs, the
+hypothesis is holding and the work is mechanical; if it grows as a share, there
+is a configuration the whole approach does not reach, and that LNA is worth more
+than another hundred rules. `lnaMoves.spectatorExtensions` generates the
+candidates for the mechanical half -- take a rule, put one untouched relation in
+its window, and let `verifyMove` decide -- and 784 of them match an LNA that is
+still unplaced at n <= 9, none of which has been verified yet.
 
 ---
 

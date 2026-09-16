@@ -17,6 +17,7 @@ import contextlib
 
 import networkx as nx
 
+from . import endMoves
 from . import invariants
 from . import lines
 from . import mutation
@@ -1167,9 +1168,102 @@ def endPairCollapseRules(maxRelationLength = 9):
     return rules
 
 
-ANCHORED_MOVES = endPairCollapseRules()
+def _withEndMoves(generated):
+    """The generated end families together with the listed ones, deduplicated."""
+    combined = list(generated)
+    seen = set(combined)
+    for rule in endMoves.DISCOVERED_END_MOVES:
+        if rule not in seen:
+            seen.add(rule)
+            combined.append(rule)
+    return combined
+
+
+ANCHORED_MOVES = _withEndMoves(endPairCollapseRules())
 
 # The whole table.  `VERIFIED_MOVES` stays the floating half, so everything that
 # slides a rule along the quiver and everything that reasons about
 # translation-invariant rules keeps meaning what it did.
 ALL_MOVES = VERIFIED_MOVES + ANCHORED_MOVES
+
+
+# ---------------------------------------------------------------------------
+# Widening a rule to tolerate a bystander
+#
+# Every rule in the table is stated on a window holding nothing but the
+# relations it rewrites: `matchesAt` refuses a position where any other relation
+# reaches in.  That is what makes a rule true, and it is also why so few of them
+# fire.  Of the LNAs left unplaced at n = 8, most have a rule whose left-hand
+# pattern is present and which does not match anyway, because one more relation
+# is sitting in the window doing nothing (research H-011).
+#
+# So take each rule and ask whether it survives a *spectator* -- one relation
+# added to the window, the same before and after, which the rewrite leaves
+# alone.  Verification decides; most do not survive, and the ones that do are
+# rules the pattern-planting search could not have produced, since planting a
+# pattern with a spectator in it describes a rewrite of the spectator too.
+# ---------------------------------------------------------------------------
+
+
+def windowIsAdmissible(width, relations):
+    """Whether a window's relations could be part of an LNA.
+
+    Each needs at least two arrows and has to fit inside the window, and starts
+    and ends must both strictly increase -- the conditions of arXiv:2305.06642,
+    read on a window rather than a whole quiver.
+    """
+    ordered = sorted(relations)
+    if any(arrows < 2 or start < 0 or start + arrows > width
+           for start, arrows in ordered):
+        return False
+    for earlier, later in zip(ordered, ordered[1:]):
+        if earlier[0] >= later[0] or earlier[0] + earlier[1] >= later[0] + later[1]:
+            return False
+    return True
+
+
+def withSpectator(description, spectator, leftExtra = 0, rightExtra = 0):
+    """The same rewrite with one relation added that it leaves alone.
+
+    Widening on the left moves the window's first arrow, so every relation
+    position and every mutation offset shifts with it; widening on the right
+    costs nothing but the width.  An anchored rule can only grow away from its
+    end, which is the caller's business to respect.
+    """
+    width, before, after, offsets = description[:4]
+    anchor = anchorOf(description)
+    shifted = lambda relations: tuple(
+        sorted(tuple((start + leftExtra, arrows) for start, arrows in relations)
+               + (spectator,)))
+    grown = (width + leftExtra + rightExtra,
+             shifted(before),
+             shifted(after),
+             tuple(vertex + leftExtra if vertex > 0 else vertex - leftExtra
+                   for vertex in offsets))
+    return grown + (anchor,) if anchor else grown
+
+
+def spectatorExtensions(description, maxArrows = 5, leftExtra = 0, rightExtra = 0):
+    """Every way of putting one untouched relation into a rule's window.
+
+    Only the candidates that could occur at all are returned: the spectator has
+    to sit in the widened window, and both sides of the rewrite have to stay
+    admissible with it present.  Whether the rewrite still *holds* is for
+    `verifyMove` to say -- these are candidates, not rules.
+    """
+    anchor = anchorOf(description)
+    if (anchor == 'left' and leftExtra) or (anchor == 'right' and rightExtra):
+        return []
+    width = description[0] + leftExtra + rightExtra
+    candidates = []
+    for start in range(0, width - 1):
+        for arrows in range(2, maxArrows + 1):
+            grown = withSpectator(description, (start, arrows), leftExtra, rightExtra)
+            if not windowIsAdmissible(width, grown[1]):
+                continue
+            if not windowIsAdmissible(width, grown[2]):
+                continue
+            if grown[1] == description[1] or grown[2] == description[2]:
+                continue        # the spectator was already one of the relations
+            candidates.append(grown)
+    return candidates

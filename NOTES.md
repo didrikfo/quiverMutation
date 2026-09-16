@@ -337,12 +337,20 @@ item 4 is what makes n >= 10 readable at all.
    or more arrows (F-021), and `python overlaps.py 9 --cores` says which
    configurations they are.
 
-   Two things are settled about where to look. An isolated pair of relations
+   Three things are settled about where to look. An isolated pair of relations
    sharing two or more arrows is **frozen in the interior** -- no sequence of
    three, four or five mutations moves its overlap, at either margin tried
-   (F-022, E-021) -- so do not spend a deeper interior search on it. And it
-   comes apart at an **end** of the quiver, which is what anchored rules are
-   for. Coverage at n = 9 is 51%, up from 45%, on sixteen of them.
+   (F-022, E-021) -- so do not spend a deeper interior search on it. It comes
+   apart at an **end** of the quiver instead, which is what anchored rules are
+   for. And what stops the rules that do exist from firing is a **bystander** in
+   the window, not a window too small: 126 of the 155 LNAs unplaced at n = 8 had
+   a rule whose pattern was present and blocked that way (F-023).
+
+   Coverage with no search at all is now 100% at n = 6, 96% at n = 7, 81% at
+   n = 8 and 60% at n = 9, against 83 / 72 / 57 / 45 before this line of work.
+   `lnaMoves.spectatorExtensions` is the next batch: take a rule, admit one
+   untouched relation into its window, verify. 784 such candidates match an LNA
+   that is still unplaced and none has been checked yet.
 6. ~~**The cellular-automaton reading of the rules.**~~ **Parked**, research
    H-009. Not refuted -- F-017 stands and its caveat passes -- but the reading
    would have to be fitted to the part that is still open, and its own last
@@ -965,16 +973,22 @@ nothing else, agreeing with the published table.
     of four is an isolated *pair* of relations sharing two, which no wider
     interior rule reaches. `quivermutation/overlap.py` and `overlaps.py` are the
     instrument; what to do about the pair is idea 24.
-24. **Rules anchored to an end of the quiver.** `lnaMoves` now has them --
-    a description carries an optional `'left'` or `'right'`, `windowStartsFor`
-    is the gate that keeps it there, and `discoverAnchoredMoves` plants a pattern
-    flush against an end rather than in the middle. One family is in
-    (`endPairCollapseRules`, F-022) and it is worth more than the 123 floating
-    rules put together. What is left is to find the rest of them, and then to
-    ask why a run of three or more heavily overlapping relations is still not
-    placed although the rules that dissolve one in isolation exist -- research
-    H-011 is that question, and the answer is probably a companion relation
-    sitting inside the window a rule needs.
+24. **Rules anchored to an end of the quiver.** `lnaMoves` has them -- a
+    description carries an optional `'left'` or `'right'`, `windowStartsFor` is
+    the gate that keeps it there, and `discoverAnchoredMoves` plants a pattern
+    flush against an end rather than in the middle. `endPairCollapseRules` is
+    the one family among them (F-022); the rest are listed in
+    `quivermutation/endMoves.py`, 229 of the 630 that E-023 verified -- the ones
+    that change the orbit partition at n <= 9. Regenerate with
+    `python discover.py --anchor both --max-arrows 5 --max-width 6 --jobs 4`.
+    A wider or deeper run of the same thing is the obvious next batch.
+25. **Admit a bystander into a rule's window.** What stops a rule firing is
+    usually a relation in the window that it does not touch (F-023, H-011), and
+    `lnaMoves.spectatorExtensions` generates the widened rule that tolerates
+    one. 784 candidates match an LNA still unplaced at n <= 9 and none has been
+    verified. This is the cheapest lead left: no search, only `verifyMove`.
+    Note the filter that makes it affordable -- generate, keep only the
+    candidates that match something not yet placed, then verify.
 20. **Read `proposition:doubleMutation` of arXiv:2310.08346.** It states that
     certain tilting mutations of Nakayama algebras give new Nakayama algebras —
     which is exactly what a move rule is. It may already contain a family we are

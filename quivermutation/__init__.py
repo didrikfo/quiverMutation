@@ -26,6 +26,7 @@ The modules, in dependency order:
 | `classpage` | the same, rendered as a page to browse |
 | `nakayama` | `LinearNakayamaAlgebra` and `QuipuAlgebra`, the two shapes with structure |
 | `lnaMoves` | verified mutation shortcuts between LNAs, floating and anchored |
+| `endMoves` | the listed half of those: the rewrites that need an end of the quiver |
 | `overlap` | how much an LNA's relations overlap, and how far the rules reach |
 | `piecewiseHereditary` | certificates that an algebra is in no quipu class |
 | `quiverExamples` | small quivers to try things on by hand |
@@ -55,6 +56,7 @@ from . import (
     mutationClassTable,
     nakayama,
     lnaMoves,
+    endMoves,
     overlap,
     piecewiseHereditary,
     classview,

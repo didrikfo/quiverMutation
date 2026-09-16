@@ -6,6 +6,50 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-023 — Discovery against the ends of the quiver
+*2026-09-16* · **630 anchored rules, and coverage at n = 6 becomes complete** → F-023
+
+The first run of `discoverAnchoredMoves`, on the framework F-022 added.
+
+```bash
+python discover.py --anchor both --max-arrows 5 --max-width 6 --jobs 4 --verify-cap 12
+```
+
+74 patterns x 2 ends x 2 lengths (A_11 and A_12) = 296 searches at three
+mutations, margin 3.
+
+| stage | |
+|---|---|
+| rewrites described | 1344, in 286 s |
+| recurring at both lengths | 892 |
+| verified with no failures | 724, in 70 s |
+| a floating rule restricted to an end | 94 |
+| genuinely anchored | **630** -- 315 at each end |
+| changing the orbit partition at n <= 9 | **229**, and those are what is listed |
+
+**A first attempt at the same run had to be abandoned**, and why is worth
+recording. `verifyMove` enumerated the LNAs by building a path algebra for each,
+which at length 12 is 58786 of them and six seconds -- per rule, and there were
+886 to check. The enumeration is now cached as relation-length rows
+(`nakayama.allRelationLengths`), the algebras built only where a rule actually
+matches: 0.3 s instead of 6.5, and the verification of all 886 fell from hours
+to 70 seconds. Anything that verifies many rules over the same lengths should go
+through that function.
+
+**What the run cost and bought.** Ten minutes end to end. Coverage with no
+search at all: 100% at n = 6 (from 83%), 96% at n = 7 (72%), 81% at n = 8 (57%),
+60% at n = 9 (45%).
+
+**What is still not reached, and the next question.** 567 rows at n = 9, all of
+them heavily overlapping, 306 at overlap 2. The diagnostic that pointed at the
+spectators -- for each unplaced LNA, the rule whose left-hand pattern is present
+with the fewest extra relations in the window -- says at n = 8 that 126 of 155
+are blocked by a bystander and 29 by having no rule at all. Run it again after
+the next batch: the count of "no rule has this pattern" is the one to watch,
+because it is the part more discovery cannot fix.
+
+---
+
 ## E-022 — Whether the relation dual widens the move orbits
 *2026-09-16* · **it halves the orbit count and adds no coverage**
 

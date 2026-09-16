@@ -120,11 +120,17 @@ python overlaps.py 9 --cores            # what is left, by overlapping run
 ```
 
 The quipu theorem names the class of an LNA whose consecutive relations share at
-most one arrow, and the move rules of `lnaMoves` carry some of the rest into its
-reach. What is left over is exactly the LNAs with two relations sharing two or
-more arrows -- nothing below that line is ever left -- and `overlaps.py` prints
-where the boundary sits at each length, which configurations are stuck, and how
-many rows each half of the rule table is worth. See `research/` F-021 and F-022.
+most one arrow, and the move rules of `lnaMoves` carry the rest into its reach --
+100% of them at n = 6, 96% at n = 7, 81% at n = 8, 60% at n = 9, with no search
+run at all. What is left over is exactly the LNAs with two relations sharing two
+or more arrows, and `overlaps.py` prints where the boundary sits at each length,
+which configurations are stuck, and how much each half of the rule table is
+worth. See `research/` F-021, F-022 and F-023.
+
+The two halves are different in kind. A *floating* rule holds at every position
+of the quiver; an *anchored* one holds only against the source or the sink, where
+a mutation does something it cannot do in the interior. The anchored half is
+small and recent and does most of the work above the almost separate line.
 
 ### Where the Coxeter polynomial is not enough
 

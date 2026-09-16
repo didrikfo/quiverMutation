@@ -70,10 +70,17 @@ def test_the_pair_slide_walks_a_pair_along_the_quiver_and_off_each_end():
     positions = {
         "33000000", "03300000", "00330000", "00033000", "00003300", "00000330",
     }
-    orbit = lm.closureUnderMoves(10, [3, 3, 0, 0, 0, 0, 0, 0])
-    assert set(orbit) == positions | {"30000000", "00000030"}
-    assert set(lm.closureUnderMoves(10, [3, 3, 0, 0, 0, 0, 0, 0],
-                                    rules = lm.VERIFIED_MOVES)) == positions
+    floating = lm.closureUnderMoves(10, [3, 3, 0, 0, 0, 0, 0, 0],
+                                    rules = lm.VERIFIED_MOVES)
+    assert set(floating) == positions
+
+    # With the ends in, the pair reaches one and loses a relation there, and
+    # what is left is a single relation free to walk back along the quiver --
+    # so the orbit is no longer the pair's positions but a whole class.
+    orbit = set(lm.closureUnderMoves(10, [3, 3, 0, 0, 0, 0, 0, 0]))
+    assert positions <= orbit
+    assert {"30000000", "00000030"} <= orbit
+    assert len(orbit) > len(positions) + 2
 
 
 # ---------------------------------------------------------------------------

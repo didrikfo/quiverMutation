@@ -5,6 +5,84 @@ See [`README.md`](README.md) for conventions.
 
 ---
 
+## F-023 — What a rule needs to fire is a spectator, and the ends are where they are
+*2026-09-16*
+
+F-022 put sixteen rules against the ends of the quiver and coverage rose more
+than the whole floating table had bought. Running discovery there properly says
+how much more there is, and why the rules found until now so rarely fire.
+
+**Discovery against an end.** `discover.py --anchor both --max-arrows 5
+--max-width 6` plants each of the 74 patterns flush against each end of A_11 and
+A_12, mutates within three vertices of it, keeps the rewrites described at both
+lengths, and verifies each at the four lengths its window fits in:
+
+| | |
+|---|---|
+| rewrites described | 1344, in 286 s |
+| recurring at both lengths | 892 |
+| verified, no failures | **724** |
+| of those, a floating rule restricted to an end | 94 |
+| genuinely anchored | **630**, 315 at each end |
+
+315 at each end is a consistency check worth noticing: the relation dual
+exchanges the two ends, so a rule at one has a mirror at the other, and the
+counts had to come out equal.
+
+**Most of them carry a spectator, and that is the finding.** A rule's window has
+until now held nothing but the relations it rewrites -- `matchesAt` refuses a
+position where any other relation reaches in. That is what makes a rule true and
+it is why so few of them match anything: of the 155 LNAs left unplaced at n = 8,
+**126 have a rule whose left-hand pattern is present and which does not fire**,
+because one to four further relations are sitting in the window doing nothing.
+Only 29 have no rule with their pattern at all. Among the 229 anchored rules
+that change the orbit partition, **188 carry at least one relation that appears
+unchanged on both sides** -- a bystander the rewrite steps around.
+
+So the blockage was never that the patterns were too small. It was that they
+were too clean.
+
+**They do not compress into families.** Setting the spectators aside leaves 190
+distinct rewrites among the 229, so unlike the slide families (F-013, F-020)
+there is no statement covering many at once, and `quivermutation/endMoves.py`
+lists them. 38 need one mutation, 99 two, 92 three.
+
+**Two of them are worth reading on their own.**
+
+```
+window 2 arrows at the left end:   (0:2)  ->  -    via [1]
+window 2 arrows at the right end:  (0:2)  ->  -    via [-3]
+```
+
+A lone relation of two arrows at an end of the quiver is simply deleted, by a
+single mutation at the end vertex. That is operation 2 of
+`cor:EquivNakayamaAlgebras` -- "a relation of two arrows does not change the
+class" -- appearing as a mutation rather than as a theorem, and it is the rule
+NOTES warned about: stated as a *floating* two-arrow window it holds 63 times
+and fails 130, which is exactly right, because away from an end it is false.
+
+**What it is worth.** With the anchored table in:
+
+| n | LNAs | theorem | + floating | + anchored |
+|---|---|---|---|---|
+| 6 | 42 | 34 (81%) | 35 (83%) | **42 (100%)** |
+| 7 | 132 | 89 (67%) | 95 (72%) | **127 (96%)** |
+| 8 | 429 | 233 (54%) | 246 (57%) | **347 (81%)** |
+| 9 | 1430 | 610 (43%) | 644 (45%) | **863 (60%)** |
+
+At n = 6 a classification now needs no search at all, and at n = 9 the share
+needing one has gone from 55% to 40%. The rows still left are still exactly the
+heavily overlapping ones -- 306 of the 567 at overlap 2, 186 at overlap 3 -- so
+F-021's reading is unchanged; there is simply less of it.
+
+**The curation, stated plainly.** `endMoves.DISCOVERED_END_MOVES` lists the 229
+rules that change the orbit partition at n <= 9, not all 630 verified ones. A
+rule left out reaches nothing the 229 do not *at the lengths measured*, and
+could in principle be the one that matters at n >= 10; re-running the command
+gets them all back. E-023.
+
+---
+
 ## F-022 — An overlapping pair is frozen in the interior and comes apart at an end
 *2026-09-16*
 

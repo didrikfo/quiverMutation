@@ -165,3 +165,35 @@ def _asRelLengths(relations):
     for start, arrows in relations:
         row[start] = arrows
     return row
+
+
+@pytest.mark.slow
+@pytest.mark.parametrize("rule", lm.ANCHORED_MOVES, ids=str)
+def test_each_anchored_rule_holds_at_its_end(rule):
+    """Re-run the verification the anchored table's entries were admitted by.
+
+    A rule here claims one window position per length, so the lengths still have
+    to follow the window -- R-009's lesson does not stop applying because there
+    is only one position to check.
+    """
+    width = rule[0]
+    lengths = range(width + 1, width + 5) if width + 4 <= 11 else range(width + 1, width + 3)
+    confirmed, failures = lm.verifyMove(rule, lengths)
+    assert failures == []
+    assert confirmed > 0, "checked at lengths {0} for a window of {1} arrows".format(
+        list(lengths), width)
+
+
+def test_the_end_moves_are_what_carries_the_overlapping_rows():
+    """The anchored half of the table is worth more than the floating half.
+
+    Not a tautology and not a close thing: at n = 8 the floating rules place 13
+    LNAs above the almost separate line and the anchored ones place another 101,
+    and at n = 6 the two together leave nothing for a search at all.
+    """
+    withEnds = ov.coverage(6)
+    assert len(withEnds['uncovered']) == 0
+    floating = ov.coverage(8, lm.VERIFIED_MOVES)
+    both = ov.coverage(8)
+    assert len(floating['covered']) == 246
+    assert len(both['covered']) == 347
