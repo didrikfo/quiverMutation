@@ -6,6 +6,41 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-028 — Checkpointing the classification, and what a resumed n = 8 gives
+*2026-09-17* · **the published table, out of two interrupted halves**
+
+E-008 records that a long classification does not survive the night, and F-014
+records the cost: the n = 10 run named 61 classes and kept none of them, because
+only the search step wrote anything as it went. The naming and resolving steps
+now write the table after every class and record what they finished in a sidecar
+JSON file beside the CSV.
+
+Checked by interruption rather than by argument. `classifyLength(8, ...)` with a
+budget of zero seconds stops inside the search with 10 of the 429 rows still
+unplaced and exits 2; resumed, it finishes and gives
+
+    133, 65, 64, 64, 40, 26, 13, 10, 9, 4, 1
+
+which is arXiv:2305.06642's n = 8 table exactly, with nothing left as a
+candidate. Ten tests in `tests/test_checkpointing.py`, ~54 s.
+
+**One thing the first version got wrong.** `stoppedEarly` was computed as "the
+deadline has passed by the time the run returns", which is not the same as "a
+step broke out". A zero budget at n = 7 expires before the first check and still
+leaves a complete classification, because seeding places that whole length
+outright -- and the run reported itself as stopped and unfinished, which would
+send someone to resume a run with nothing in it. It now means a step actually
+broke out of its loop, and is pinned as a test.
+
+**What is still not checkpointed, and deliberately.** `probe.py` holds its
+search in memory and prints at the end, so the deep run H-010 asks for -- seven
+mutations at clearance 9, where six already took 43 minutes -- either completes
+or is lost. `overnight.sh` runs it under a hard timeout for that reason rather
+than pretending otherwise. Making it resumable is the obvious next piece of work
+if that probe is going to be run repeatedly.
+
+---
+
 ## E-027 — The free move, the square walked instead of searched, and the trees
 *2026-09-16* · **the free move beats the whole table; two new families; no non-quipu tree reached** → F-028, F-029, F-030, F-031
 

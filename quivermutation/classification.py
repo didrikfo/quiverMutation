@@ -17,8 +17,10 @@ proves equal, `separated` for ones differing forms prove distinct, `candidate`
 for the rest.
 """
 
+import json
 import math
 import os
+import time
 
 import numpy as np
 
@@ -319,7 +321,105 @@ def nameClassesFromTheorem(table, lineLength, printOutput = True):
     return table
 
 
-def nameRemainingClasses(table, lineLength, maxDepth = 0, printOutput = True):
+# ---------------------------------------------------------------------------
+# Checkpointing a long classification
+#
+# The table is written after every class the *search* places, so step 2 has
+# always been resumable.  The two steps after it were not: they ran entirely in
+# memory and the CSV was written only once both had finished, so a run killed
+# during them lost every class it had named and every link it had found.  That
+# is what happened to the n = 10 run of F-014 -- 61 classes named, none of it
+# kept -- and at these lengths a run *will* be interrupted (E-008).
+#
+# The fix is a sidecar JSON file beside the CSV recording which classes each
+# step has been through.  The CSV layout is deliberately untouched, so a table
+# written here is still readable by everything that read it before, and a
+# missing or corrupt sidecar only costs a redo.
+#
+# A class is recorded with the number of members it had when it was processed.
+# If a later run's search adds members to it, the count no longer matches and
+# the class is processed again -- a new member can carry a form the class did
+# not have, or a mutation path out of it that no other member had.
+# ---------------------------------------------------------------------------
+
+
+def progressPathFor(fileName):
+    """The sidecar progress file that goes with a table's CSV."""
+    stem = fileName[:-4] if fileName.endswith('.csv') else fileName
+    return stem + '.progress.json'
+
+
+def readProgress(fileName):
+    """The recorded progress for a table, or an empty record.
+
+    A sidecar that is missing, unreadable or malformed is treated as empty: the
+    steps it would have let us skip are merely redone, which is never wrong.
+    """
+    empty = {'named': {}, 'resolved': {}}
+    path = progressPathFor(fileName)
+    if not os.path.exists(path):
+        return empty
+    try:
+        with open(path) as f:
+            stored = json.load(f)
+    except (OSError, ValueError):
+        return empty
+    if not isinstance(stored, dict):
+        return empty
+    for key in empty:
+        value = stored.get(key)
+        if isinstance(value, dict):
+            empty[key] = value
+    return empty
+
+
+def writeProgress(fileName, progress):
+    """Record progress beside the table, atomically.
+
+    Written through a temporary file and renamed, so a run killed mid-write
+    leaves the previous record intact rather than a truncated one.
+    """
+    path = progressPathFor(fileName)
+    temporary = path + '.tmp'
+    with open(temporary, 'w') as f:
+        json.dump(progress, f, indent = 2, sort_keys = True)
+    os.replace(temporary, path)
+
+
+def _checkpoint(table, fileName, progress):
+    """Write the table and the progress record, if there is a file to write to."""
+    if fileName is None:
+        return
+    table.writeCSV(fileName, header = True)
+    if progress is not None:
+        writeProgress(fileName, progress)
+
+
+def _outOfTime(deadline, printOutput, step, state = None):
+    """Whether the run has reached its wall-clock budget.
+
+    Checked between classes rather than inside a search, so a stop always leaves
+    the table in a state a resume can continue from.
+
+    `state` is how the caller learns that a step actually *broke out*, which is
+    not the same as the deadline having passed by the time the run ends.  A
+    budget of zero on a length the seeding places outright expires immediately
+    and yet leaves a complete classification, and reporting that as "stopped,
+    not finished" would send someone to resume a run with nothing left in it.
+    """
+    if deadline is not None and time.monotonic() >= deadline:
+        if printOutput:
+            print('budget reached during {0}; stopping cleanly. '
+                  'Resume with --resume.'.format(step))
+        if state is not None:
+            state['stoppedEarly'] = True
+        return True
+    return False
+
+
+def nameRemainingClasses(table, lineLength, maxDepth = 0, printOutput = True,
+                         fileName = None, progress = None, deadline = None,
+                         state = None):
     """Name what `nameClassesFromTheorem` and the merge resolution left over.
 
     In order:
@@ -337,14 +437,27 @@ def nameRemainingClasses(table, lineLength, maxDepth = 0, printOutput = True):
        separate two classes with it.  A domestic weight type is reported as the
        unfound merge it must be.
 
+    Pass `fileName` to checkpoint: the table is written after every class named
+    and the class recorded in `progress`, so a run interrupted here keeps what it
+    named.  `deadline` is a `time.monotonic()` value at which to stop cleanly
+    between classes.
+
     Returns the table.
     """
     # Shared across classes: many algebras delete down to the same smaller one.
     deletionCache = {}
+    alreadyNamed = (progress or {}).get('named', {})
     for className in sorted(table.classNames()):
         rows = [row for row in table.rows() if row[1] == className]
         if any(mutationClassTable.isProvedForm(row[5]) for row in rows):
             continue
+        # Skip a class this or an earlier run already went through, unless its
+        # membership has changed since -- a new member can carry a form the
+        # class did not have.
+        if alreadyNamed.get(className) == len(rows):
+            continue
+        if _outOfTime(deadline, printOutput, 'the naming step', state):
+            break
         form = ''
         source = ''
         if maxDepth > 0:
@@ -376,6 +489,9 @@ def nameRemainingClasses(table, lineLength, maxDepth = 0, printOutput = True):
         table.setHereditaryFormForClass(className, form)
         if printOutput:
             print('class {0}: {1} ({2})'.format(className, form or '-', source or 'nothing'))
+        if progress is not None:
+            progress.setdefault('named', {})[className] = len(rows)
+        _checkpoint(table, fileName, progress)
     return table
 
 
@@ -405,7 +521,9 @@ def _canonicalTypeSource(className, weights):
     return source + ', domestic, type ' + affine
 
 
-def resolveMergeCandidates(table, lineLength, depth = 8, printOutput = True):
+def resolveMergeCandidates(table, lineLength, depth = 8, printOutput = True,
+                           fileName = None, progress = None, deadline = None,
+                           state = None):
     """Settle the classes mergeReport could not, by searching harder for a link.
 
     A candidate is a group of classes sharing a Coxeter polynomial that the
@@ -429,6 +547,15 @@ def resolveMergeCandidates(table, lineLength, depth = 8, printOutput = True):
     is derived equivalent to it, so everything reached either way is in X's
     class.
 
+    This is the open-ended step -- a class that reaches nothing explores the
+    whole tree from every member and every member's dual -- so it is the one that
+    most needs checkpointing.  Pass `fileName` and `progress` and each class is
+    recorded the moment it is settled or given up on, with the depth it was
+    searched at and the number of members it had, so a resumed run does not
+    repeat it.  A later run at a *greater* depth is a different experiment and
+    repeats it.  `deadline` is a `time.monotonic()` value at which to stop
+    cleanly between classes.
+
     Returns the list of (class merged away, class merged into) pairs.
     """
     merges = []
@@ -439,10 +566,19 @@ def resolveMergeCandidates(table, lineLength, depth = 8, printOutput = True):
                   for className in classNames
                   if not mutationClassTable.isProvedForm(formOfClass.get(className, ''))}
 
+    alreadyResolved = (progress or {}).get('resolved', {})
     for className in sorted(unresolved):
         members = sorted(table.membersOfClass(className), key = lambda r: (len(r), r))
         if not members:
             continue
+        previous = alreadyResolved.get(className)
+        if previous and previous[0] >= depth and previous[1] == len(members):
+            if printOutput:
+                print('class {0} already searched to depth {1}; skipping'.format(
+                    className, previous[0]))
+            continue
+        if _outOfTime(deadline, printOutput, 'the resolve step', state):
+            break
         merged = False
         for relationString in members:
             for startPoint in search.memberAndItsDual(lineLength, relationString):
@@ -480,6 +616,11 @@ def resolveMergeCandidates(table, lineLength, depth = 8, printOutput = True):
                 break
         if not merged and printOutput:
             print('class {0} still unresolved at depth {1}'.format(className, depth))
+        if progress is not None and not merged:
+            # Only an unmerged class is worth recording: a merged one no longer
+            # exists under this name, so there is nothing for a resume to skip.
+            progress.setdefault('resolved', {})[className] = [depth, len(members)]
+        _checkpoint(table, fileName, progress)
     return merges
 
 
@@ -540,7 +681,7 @@ def mergeReport(table):
 def mutationSearch(lineLength, mutationDepthStart, startRow = 0, createNewCSVfile = False,
                    printMutations = False, fileName = None, table = None, writeEveryClass = True,
                    collectHereditary = False, seedFromQuipuTheorem = False,
-                   printProgress = True):
+                   printProgress = True, deadline = None, state = None):
     """Classify every LNA of the given length by depth-first tilting mutation.
 
     Walks the table of all Catalan(lineLength - 1) LNAs.  For each one that no
@@ -587,6 +728,8 @@ def mutationSearch(lineLength, mutationDepthStart, startRow = 0, createNewCSVfil
     for i in range(numberOfRows):
         row = table.rows()[(startRow + i) % numberOfRows]
         if not bool(row[1]):
+            if _outOfTime(deadline, printProgress, 'the search step', state):
+                break
             algebra = nakayama.LinearNakayamaAlgebra.fromRelationString(lineLength, row[0])
             lineNumberString = algebra.className()
             if printProgress:
@@ -618,7 +761,8 @@ def mutationSearch(lineLength, mutationDepthStart, startRow = 0, createNewCSVfil
 
 
 def classifyLength(lineLength, mutationDepthStart = 6, resolveDepth = 6, fileName = None,
-                   printOutput = True, resume = False, formDepth = None):
+                   printOutput = True, resume = False, formDepth = None,
+                   budgetSeconds = None):
     """The whole classification of one length, end to end.
 
     1. Seed every LNA the quipu theorem covers, naming each class by its quipu.
@@ -639,10 +783,17 @@ def classifyLength(lineLength, mutationDepthStart = 6, resolveDepth = 6, fileNam
     instead of 20; see F-018.  `formDepth`, off by default, additionally lets
     step 4 search each unnamed class for a relation-free quiver of its own.
 
-    `resume` continues from an existing CSV rather than starting over.  The table
-    is written after every class searched, so an interrupted run -- and a long one
-    will be interrupted, since a length-10 classification takes hours and does not
-    survive the machine going away -- picks up where it stopped.
+    `resume` continues from an existing CSV rather than starting over.  Every step
+    checkpoints: the table is written after every class, and a sidecar progress
+    file records which classes steps 3 and 4 have already been through, so an
+    interrupted run -- and a long one will be interrupted, since a length-10
+    classification takes hours and does not survive the machine going away --
+    picks up where it stopped rather than redoing the naming and the resolving.
+
+    `budgetSeconds` stops the run cleanly once that much wall-clock time has
+    passed, between classes, with everything done so far on disk.  The report
+    then carries `stoppedEarly = True`.  That is how to use a fixed window such
+    as a night: set the budget a little shorter than the window, and resume.
 
     Returns (table, report).  A report with empty 'candidate' means every class
     is settled: 'certain' entries are classes proved equal, 'separated' entries
@@ -653,25 +804,35 @@ def classifyLength(lineLength, mutationDepthStart = 6, resolveDepth = 6, fileNam
     """
     if fileName is None:
         fileName = 'A_{0}_mutation_classes.csv'.format(lineLength)
+    deadline = None if budgetSeconds is None else time.monotonic() + budgetSeconds
+    state = {}
     existing = None
+    progress = {'named': {}, 'resolved': {}}
     if resume and os.path.exists(fileName):
         existing = mutationClassTable.MutationClassTable.fromCSV(fileName, lineLength)
+        progress = readProgress(fileName)
         if printOutput:
-            print('Resuming from {0}: {1} of {2} rows already placed'.format(
-                fileName, len(existing) - len(existing.unassignedRelationStrings()),
-                len(existing)))
+            print('Resuming from {0}: {1} of {2} rows already placed, '
+                  '{3} classes named, {4} classes already searched for a link'.format(
+                      fileName, len(existing) - len(existing.unassignedRelationStrings()),
+                      len(existing), len(progress['named']), len(progress['resolved'])))
     table = mutationSearch(lineLength, mutationDepthStart, 0,
                            createNewCSVfile = existing is None,
                            fileName = fileName, table = existing,
                            seedFromQuipuTheorem = True,
-                           printProgress = printOutput)
+                           printProgress = printOutput, deadline = deadline,
+                           state = state)
     nameClassesFromTheorem(table, lineLength, printOutput = printOutput)
-    merges = resolveMergeCandidates(table, lineLength, resolveDepth, printOutput = printOutput)
+    merges = resolveMergeCandidates(table, lineLength, resolveDepth, printOutput = printOutput,
+                                    fileName = fileName, progress = progress,
+                                    deadline = deadline, state = state)
     for merged, into in merges:
         if printOutput:
             print('merged class {0} into {1}'.format(merged, into))
     nameRemainingClasses(table, lineLength, maxDepth = formDepth or 0,
-                         printOutput = printOutput)
+                         printOutput = printOutput, fileName = fileName,
+                         progress = progress, deadline = deadline,
+                         state = state)
     report = mergeReport(table)
     for polynomial, classNames in report['certain'].items():
         target = sorted(classNames)[0]
@@ -683,7 +844,10 @@ def classifyLength(lineLength, mutationDepthStart = 6, resolveDepth = 6, fileNam
                 sorted(classNames), target))
     table.writeCSV(fileName, header = True)
     table.writeParquet(fileName.replace('.csv', '.parquet'))
+    writeProgress(fileName, progress)
     report = mergeReport(table)
+    report['stoppedEarly'] = bool(state.get('stoppedEarly'))
+    report['unplacedRows'] = len(table.unassignedRelationStrings())
     if printOutput:
         print('{0} LNAs, {1} classes, {2} still candidates, {3} separated'.format(
             len(table), len(table.classNames()), len(report['candidate']),

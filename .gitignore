@@ -7,4 +7,6 @@ __pycache__/
 # Classification output: regenerate with classify.py rather than committing.
 A_*_mutation_classes.csv
 A_*_mutation_classes.parquet
+A_*_mutation_classes.progress.json
 *DF.txt
+logs/

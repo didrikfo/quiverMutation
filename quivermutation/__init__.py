@@ -136,8 +136,11 @@ from .classification import (
     mutationSearch,
     nameClassesFromTheorem,
     nameRemainingClasses,
+    progressPathFor,
+    readProgress,
     resolveMergeCandidates,
     seedTableFromQuipuTheorem,
+    writeProgress,
 )
 
 from .plotting import (
@@ -178,6 +181,9 @@ __all__ = [
     "mergeReport",
     "nameClassesFromTheorem",
     "nameRemainingClasses",
+    "progressPathFor",
+    "readProgress",
+    "writeProgress",
     "mutation",
     "mutationClassTable",
     "mutationIsPossibleAtVertex",

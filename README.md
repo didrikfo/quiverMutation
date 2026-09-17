@@ -68,11 +68,30 @@ directory, with one row per LNA giving
 It prints the classes and their sizes, and exits non-zero if any class was left
 unsettled.
 
-A long run does not have to finish in one sitting -- the table is written after
-every class, and `--resume` continues from the CSV:
+A long run does not have to finish in one sitting. Every step writes the table
+after every class and records what it finished in a JSON file beside the CSV, so
+`--resume` picks up where it stopped rather than redoing the naming and the
+resolving:
 
 ```bash
 python classify.py 10 --resume
+```
+
+`--budget-hours` stops a run cleanly once the budget is spent, between classes,
+with everything done so far on disk -- which is how to fit a classification into
+a fixed window such as a night. It exits 2 when it stops that way, so a wrapper
+can tell "out of time, resume me" from "finished, with something unsettled":
+
+```bash
+python classify.py 10 --budget-hours 9 --resume
+```
+
+[`overnight.sh`](overnight.sh) is that wrapper: it keeps the machine awake,
+restarts a job that dies, and runs the deep interior probe of research H-010
+alongside the classification.
+
+```bash
+./overnight.sh 9
 ```
 
 The classification runs in four steps, described in `NOTES.md`: seed every LNA
