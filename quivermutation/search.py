@@ -3,9 +3,11 @@
 `mutationSearchDepthFirst` is the one search primitive: descend through
 admissible right mutations to a bounded depth, recording every quiver reached
 that is again a line, and every quiver reached with no relations left.  The
-second kind identifies the derived equivalence class completely, since for
-hereditary algebras of tree type the underlying undirected tree is the whole of
-the class -- which is what `hereditaryFormsReachedFrom` collects.
+second kind identifies the class completely, since for hereditary algebras of
+tree type the underlying undirected tree is the whole of the class -- as a
+derived class, and, because the orientations are joined by reflections that are
+themselves mutations (`reflections`, F-036), as a mutation class too.  That is
+what `hereditaryFormsReachedFrom` collects.
 
 Reachability here is one-way: the search only walks right mutations, so A can
 reach B at a depth where B reaches nothing.  Searching from the relation dual as

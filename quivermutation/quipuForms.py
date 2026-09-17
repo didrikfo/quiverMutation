@@ -8,6 +8,11 @@ reflections.  So the underlying undirected graph of any relation-free quiver a
 search reaches is a complete derived invariant of the class, and a far sharper
 one than the Coxeter polynomial.
 
+Those reflections are *mutations* -- right mutation at a source is exactly one,
+and `reflections` writes down the sequence between any two orientations -- so the
+underlying graph is a complete **mutation** invariant here as well, which is what
+the classification needs of it, since its classes are mutation classes.  F-036.
+
 That gives a way to separate two classes that share a Coxeter polynomial: if
 they reach relation-free quivers whose underlying graphs are not isomorphic,
 they are not derived equivalent, whatever the polynomial says.

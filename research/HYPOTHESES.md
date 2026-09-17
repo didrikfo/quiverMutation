@@ -135,6 +135,13 @@ deleted there — `(3,0,0,0,2,0)` in `A_8` reaches `(3,0,0,0,0,2)` and never
 that particular obstruction, but only for a companion starting on the window's
 last arrow. Whether every configuration can be cleared is open.
 
+**2026-09-17, one route tried and closed.** If both an LNA and its strip reached
+a relation-free quiver with the same underlying tree, F-036 would join them by an
+explicit sequence and settle the pair. They do not: of the 8 gap rows at `n = 8`
+and the 44 at `n = 9`, **not one reaches a relation-free quiver at depth 4**, on
+either side. The bridge has nothing to work with here, and the gap is where it
+was. E-031.
+
 **What would settle it.** For each `n` where the mutation classes are known,
 check whether every LNA and its strip share one. A single pair that does not,
 with the mutation classes verified, would be the more interesting outcome: it

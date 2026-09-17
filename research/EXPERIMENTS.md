@@ -6,6 +6,86 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-031 — Is reorientation a mutation, and does it help the search?
+*2026-09-17* · **yes, and it is the merge step rather than the search that needed it** → F-036
+
+Suggested from outside the code: all orientations of a relation-free tree should
+be mutation equivalent, by mutating at a source -- which only flips the outgoing
+arrows -- and then at each newly created source, with left mutation at sinks for
+the other direction. The classification has been merging classes on a shared
+hereditary form all along, which is a statement about mutation classes resting on
+a fact about derived ones, so this is the step in between.
+
+### 1. It is true, and the sequence can be written down (F-036)
+
+Right mutation at a source of a relation-free tree quiver reverses exactly the
+arrows there, creates no relations and does not renumber -- 2339 cases over every
+tree and orientation at orders 3 to 7, no failures, and the same for left
+mutation at a sink. `reflections.reflectionSequence` turns one orientation into
+another by flipping every vertex on one side of a differing edge, in topological
+order; verified against the engine at orders 4 to 10, every step admissible, 5568
+reorientations, no failures.
+
+Right mutations **alone** already connect every orientation of every tree up to
+order 8 -- which matters because the search walks only those -- but the worst
+distance grows: 4, 6, 9, 12, 16 at orders 4 to 8, against 3, 3, 6, 6, 10 when
+sinks are allowed too.
+
+### 2. It does *not* widen a bounded search
+
+Allowing a search to jump to any orientation whenever it reaches a relation-free
+quiver (`reflections.linesReachedThroughReflections`), against the plain search
+from the same start:
+
+| start | depth | plain | with reorientation |
+|---|---|---|---|
+| `kA_7` | 2 | 5 LNAs | 5 |
+| `kA_7` | 3 | 8 | 8 |
+| `kA_8` | 2 | 5 | 5 |
+| `kA_8` | 3 | 9 | 9 |
+
+Not one new LNA, and the reason is in part 1: a right mutation at a source *is* a
+reflection, so the plain search already performs them where they are cheap. What
+the lemma adds is the reflections that are **not** cheap -- and those do not lead
+anywhere new within the depth either. Seeding backwards, from every one of the
+128 orientations of each quipu of order 8 at depth 2, reaches 3 LNAs for the line
+and 0 or 1 for every other quipu: the hereditary side is simply a long way from
+any LNA.
+
+### 3. It is the merge step that needed it
+
+`mergeReport` merges two classes when both reach the same tree. Searching every
+LNA to depth 4 and pairing the ones that reach the same tree:
+
+| | `n = 7` | `n = 8` |
+|---|---|---|
+| LNAs reaching a relation-free quiver | 23 of 132 | 26 of 429 |
+| pairs reaching the same tree | 79 | 80 |
+| of those, pairs reaching **isomorphic quivers** | 61 | 65 |
+| pairs whose orientations must be joined | **18** | **15** |
+
+Those merges are derived equivalences until the orientations are joined, and
+joining them takes 4 to 11 mutations, which is beyond any depth the pipeline runs
+at. `reflections.mutationBridge` produces the whole path and the engine confirms
+where it lands.
+
+**A false start worth recording.** The first version of
+`relationFreeQuiversReached` recorded what the search of the *opposite* algebra
+found without carrying it back through the opposite, so half the orientations in
+each list were reversed. It made the answer to part 3 come out as 4 of 79 at
+`n = 7` and 0 of 80 at `n = 8`, where the true counts are 18 and 15 -- the
+measurement looked like a nearly-empty result when it is a fifth of the pairs.
+
+### 4. What it does not do: H-012
+
+The natural hope was that the bridge would close H-012's gaps -- the 8 LNAs at
+`n = 8` and 44 at `n = 9` that the known moves do not join to their stripped
+form. It cannot: **none of those 52 rows reaches a relation-free quiver at all at
+depth 4**, on either side of the pair, so there is no tree to bridge through.
+Recorded against H-012.
+
+---
+
 ## E-030 — Two other families, measured by Coxeter polynomial
 *2026-09-17* · **no tree outside the quipu shape; quipus *with* relations carry every class the theorem misses** → F-033, F-034, F-035, H-014
 

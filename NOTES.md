@@ -1013,6 +1013,17 @@ underlying graph of any relation-free quiver a search reaches is a **complete**
 derived invariant of the class, where the Coxeter polynomial is only a necessary
 condition.
 
+It is a complete **mutation** invariant as well, which is the form the
+classification actually uses and which needs one more step: those reflections are
+mutations. Right mutation at a source of a relation-free tree reverses exactly
+the arrows there and creates no relations, left mutation at a sink is its
+inverse, and `reflections.reflectionSequence` writes down a sequence between any
+two orientations -- so two classes that reach the same tree in *different*
+orientations are one mutation class, and `reflections.mutationBridge` exhibits
+the path. F-036. The distances are the point: two orientations of a tree on eight
+vertices can be sixteen right mutations apart, where a classification search runs
+at depth six, so this is a path no search would find.
+
 `quipuForms.canonicalTreeForm` encodes a tree canonically (AHU, rooted at the
 centre, smaller of the two encodings when there are two centres), and
 `quipuForms.quipuParameters` recovers the paper's `P^(m)_(k)` notation where the

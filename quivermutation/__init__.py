@@ -20,6 +20,7 @@ The modules, in dependency order:
 | `coxeterTables` | the polynomials of a whole length, as a table to match against |
 | `lines` | the linear quiver, and the names its algebras go by |
 | `search` | walking the mutation graph, and the hereditary quivers it reaches |
+| `reflections` | reorienting a relation-free tree, which costs mutations and nothing else |
 | `classification` | classifying a whole length, end to end |
 | `quipuForms` | canonical forms for quipus, and the quipu theorem inverted |
 | `treeSearch` | every tree as a hereditary algebra, against every LNA |
@@ -42,6 +43,7 @@ The procedural modules are re-exported flat, so `import quivermutation as qm`
 reaches `qm.classifyLength` and the rest directly.  The modules that carry their
 own namespace -- `nakayama`, `quipuForms`, `lnaMoves`, `overlap`, `edgeMoves`, `freeMoves`,
 `piecewiseHereditary`, `coxeterTables`, `treeSearch`, `quipuRelations`,
+`reflections`,
 `relationAlgebra`, `procedure`, `mutationClassTable`, `classview`, `classpage`,
 `quiverExamples` -- are imported as names:
 `from quivermutation import nakayama as nk`.
@@ -58,6 +60,7 @@ from . import (
     coxeterTables,
     lines,
     search,
+    reflections,
     classification,
     quipuForms,
     treeSearch,
@@ -224,6 +227,7 @@ __all__ = [
     "readProgress",
     "reducePathAlgebra",
     "reduction",
+    "reflections",
     "relSetToString",
     "relabelLineAlgebra",
     "relationAlgebra",

@@ -631,7 +631,13 @@ def mergeReport(table):
 
     * 'certain'   -- hereditary form -> class names that all reached it.  More
                      than one name means those classes are provably the same
-                     class and the search simply missed the mutation path.
+                     class and the search simply missed the mutation path.  The
+                     two may have reached the same tree in different
+                     orientations, and joining those is a sequence of
+                     reflections, which are mutations: `reflections.mutationBridge`
+                     produces it, and F-036 is why there always is one.  Without
+                     that step the merge would only be a derived equivalence,
+                     which is not what a class here is.
     * 'candidate' -- Coxeter polynomial -> class names sharing it that the
                      hereditary form does not settle, because at least one of
                      them carries nothing that proves which class it is.  These

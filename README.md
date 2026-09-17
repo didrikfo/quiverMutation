@@ -210,6 +210,24 @@ Coxeter polynomial when it is deleted (F-035). So `--min-arrows 3`, which is wha
 makes order 11 affordable, is a real restriction of the family and not a
 normalisation.
 
+### Reorienting a tree is free
+
+```python
+from quivermutation import reflections as rf
+
+rf.reflectionSequence(rf.arrowsOf(quiver), target)   # the mutations that reorient it
+rf.mutationBridge(oneLNA, another, depth = 4)        # join two classes through their tree
+```
+
+A relation-free quiver on a tree mutates at a source by reversing exactly the
+arrows there, which is the BGP reflection; left mutation at a sink is its
+inverse. So the orientations of a tree are one **mutation** class, not only one
+derived class -- which is what the classification needs, since it merges two
+classes when both reach the same tree, and the two can reach it pointing
+different ways. It does so in about a fifth of the pairs at n = 7 and n = 8, and
+joining those orientations takes up to 11 mutations where a classification search
+runs at depth 6. `mutationBridge` writes the whole path down. See research F-036.
+
 ### Where the Coxeter polynomial is not enough
 
 ```bash

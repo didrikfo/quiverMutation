@@ -5,6 +5,103 @@ See [`README.md`](README.md) for conventions.
 
 ---
 
+## F-036 — Reorienting a relation-free tree is a sequence of mutations, and the hereditary form is a mutation invariant
+*2026-09-17*
+
+The classification names a class by the tree of any relation-free quiver its
+search reaches, and merges two classes that reach the same tree. The
+justification written down for that has always been the *derived* statement --
+two tree algebras are derived equivalent exactly when the trees are isomorphic,
+since the orientations are related by BGP reflections. But a class in this repo
+is a **mutation** class, and two searches can reach the same tree in different
+orientations. The step in between was never checked: **are those reflections
+mutations?**
+
+They are.
+
+**Right mutation at a source is the reflection, exactly.** On a relation-free
+quiver whose underlying graph is a tree, mutating at a source reverses precisely
+the arrows at that vertex, creates no relations, and does not renumber. Left
+mutation at a sink is its inverse. Every tree of orders 3 to 7 in every
+orientation, at every source and every sink:
+
+| | checked | not the reflection | refused by the procedure |
+|---|---|---|---|
+| right mutation at a source | 2339 | **0** | 0 |
+| left mutation at a sink | 2339 | **0** | -- |
+
+**Any two orientations are joined, and the sequence can be written down.** Take
+an edge where they differ and a side of it holding no other differing edge; flip
+every vertex of that side exactly once. Each edge inside the side is reversed
+twice and comes back; the differing edge has one endpoint inside and is reversed
+once. Ordering the flips along a topological order of the side makes every one of
+them a source (or, in the mirror case, a sink), so every step is legal.
+`reflections.reflectionSequence`.
+
+Verified against the engine -- each step put to the procedure's own admissibility
+test, right mutations directly and left ones on the opposite algebra, then the
+result compared with the orientation asked for:
+
+| order | reorientations verified | failures | sequence length, mean / max |
+|---|---|---|---|
+| 4-7 | 3840 (all pairs, sampled) | **0** | -- |
+| 8 | 432 | **0** | 5.5 / 12 |
+| 9 | 432 | **0** | 7.1 / 16 |
+| 10 | 432 | **0** | 8.3 / 20 |
+
+**Right mutations alone already suffice**, which matters because the search walks
+only those: flipping sources, never sinks, still reaches every orientation of
+every tree of orders 4 to 8. Flipping every vertex once in a topological order
+reverses the whole quiver, and twice brings it back, so a source flip is
+undone by source flips.
+
+**But the distance is the point.** The worst case over all trees of an order:
+
+| order | 4 | 5 | 6 | 7 | 8 |
+|---|---|---|---|---|---|
+| right mutations only | 4 | 6 | 9 | 12 | **16** |
+| both directions | 3 | 3 | 6 | 6 | 10 |
+
+A classification search runs at depth 6. At order 8 two orientations can be 16
+right mutations apart, so a search cannot cross between them at any depth it can
+afford -- and the construction supplies the path without searching at all.
+
+**The merges really do rely on it.** Searching every LNA of a length to depth 4
+and pairing up the ones that reach the same tree -- which is exactly what
+`mergeReport` merges on:
+
+| | `n = 7` | `n = 8` |
+|---|---|---|
+| LNAs reaching a relation-free quiver | 23 of 132 | 26 of 429 |
+| trees reached | 4 | 5 |
+| pairs reaching the same tree | 79 | 80 |
+| pairs reaching **isomorphic quivers** | 61 | 65 |
+| pairs whose orientations must be joined | **18** | **15** |
+
+So in about a fifth of them the merge is a derived equivalence and nothing more
+until the orientations are joined.
+
+**And the merge is now constructive.** `reflections.mutationBridge` joins two
+LNAs that reach a common tree by running one's path to the tree, reflecting onto
+the other's orientation, and running the other's path backwards; the engine
+confirms it lands on the second algebra up to relabelling.
+
+| bridge, all at `n = 7` | to the tree | reflecting | back | total |
+|---|---|---|---|---|
+| `00030` to `33000` | 2 | **11** | 4 | 17 |
+| `00300` to `03000` | 3 | **9** | 3 | 15 |
+| `00400` to `40000` | 3 | **7** | 3 | 13 |
+| `05000` to `50000` | 4 | 4 | 4 | 12 |
+
+All four are pairs from the 18. The reflection legs are 4 to 11 mutations on
+their own and the whole sequences 12 to 17, against a classification search that
+runs at depth 6: these are merges that were being made already, correctly, and
+whose path no search in the pipeline could have found.
+
+`reflections`, `tests/test_reflections.py`. E-031.
+
+---
+
 ## F-035 — A relation of two arrows is free on a line and on nothing else
 *2026-09-17*
 
