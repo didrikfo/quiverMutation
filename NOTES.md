@@ -607,6 +607,36 @@ have not turned up yet -- consistent with the crash only appearing at length 12.
    Coxeter polynomial that the hereditary form does not settle, and searches
    deeper for a mutation path between them.
 
+#### Every step checkpoints, because a long run will be interrupted
+
+The table has always been written after every class the *search* places, so step
+2 was resumable. Steps 3 and 4 were not: they ran entirely in memory and the CSV
+was written only once both had finished, so a run killed during them lost every
+class it had named and every link it had found. That is what happened to the
+n = 10 run of F-014, where 61 classes were named and none of it kept, and E-008
+lists three separate ways a run of that length dies.
+
+Now every step checkpoints. The table is written after every class, and a
+sidecar JSON file beside the CSV -- `A_10_mutation_classes.progress.json` --
+records which classes steps 3 and 4 have been through, with the number of
+members each had at the time. A resumed run skips those and redoes any class
+whose membership has changed since, because a new member can carry a form the
+class did not have, or a mutation path out of it that no other member had. A
+class recorded as resolved also carries the depth it was searched at, so asking
+for a *greater* depth is a different experiment and repeats it. The CSV layout
+is untouched, and a missing or corrupt sidecar only costs a redo.
+
+`classifyLength(..., budgetSeconds = ...)`, or `classify.py --budget-hours`,
+stops the run cleanly between classes once the budget is spent, with everything
+done so far on disk. `classify.py` then exits **2** rather than 1, so a wrapper
+can tell "ran out of time, resume me" from "finished, with something unsettled".
+`overnight.sh` is that wrapper.
+
+`report['stoppedEarly']` means a step actually *broke out*, which is not the
+same as the deadline having passed by the time the run ends: a budget of zero at
+n = 7 expires before the first check and still leaves a complete classification,
+because seeding places the whole length outright.
+
 **Reachability is directional**, and this matters. `mutationSearchDepthFirst`
 walks only *right* mutations, so A can reach B at depth d while B reaches nothing
 at that depth. Since `rightMutate(dual(P)) = dual(leftMutate(P))` and the

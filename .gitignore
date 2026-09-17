@@ -10,4 +10,3 @@ A_*_mutation_classes.parquet
 A_*_mutation_classes.progress.json
 *DF.txt
 logs/
-discovery_*.jsonl

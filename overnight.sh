@@ -1,32 +1,33 @@
 #!/usr/bin/env bash
 #
-# Run the two long jobs overnight, side by side, and survive the night.
+# Run the long jobs overnight, and survive the night.
 #
 #     ./overnight.sh                  # both jobs, 9 hours, cores split automatically
 #     ./overnight.sh 7                # both jobs, 7 hours
 #     ./overnight.sh 9 classify       # just the classification
-#     ./overnight.sh 9 discover       # just the rule search
+#     ./overnight.sh 9 probe          # just the deep probe
 #
-# Job A, on one core: finish the n = 10 classification.  Every step checkpoints
-# now, so this is resumable at class granularity and is restarted automatically
-# if it dies.
+# Job A: finish the n = 10 classification. Every step of it checkpoints, so this
+# is resumable at class granularity and is restarted automatically if it dies.
 #
-# Job B, on the rest: search for a mutation rule that breaks the maximally
-# overlapping pair, which blocks a fifth of the rows job A has to search for
-# (research H-009).  Four mutations first, then five.  Also checkpointed, also
-# restarted.
+# Job B: the deep interior probe research H-010 asks for -- whether any
+# sequence, at any depth, lowers the overlap of an isolated pair. Six mutations
+# took 43 minutes; seven is the next unknown. **This one is not resumable**: it
+# holds its search in memory and prints at the end, so a kill loses it. It is
+# run under a hard timeout for that reason, and if the night is not long enough
+# the answer is to raise the hours, not to expect a partial result.
 #
-# Both write their progress to disk continuously, so whatever the night gets
-# through is kept.  Read the logs in the morning; nothing here needs watching.
+# Both jobs print unbuffered, so the logs are live. Whatever job A gets through
+# is kept; job B either answers or does not.
 #
 # Two things that have killed runs before (research E-008), both handled here:
 #
-#   * the machine sleeping.  This script wraps itself in caffeinate on macOS and
-#     systemd-inhibit on Linux, so the laptop stays awake with the lid open.
-#     Closing the lid still suspends most laptops -- leave it open.
+#   * the machine sleeping. This wraps itself in caffeinate on macOS and
+#     systemd-inhibit on Linux. Closing the lid still suspends most laptops --
+#     leave it open.
 #   * an over-broad `pkill -f` typed to clean up, which matches the shell that
-#     issued it.  To stop these jobs, kill the PIDs printed below, or Ctrl-C
-#     this script, which stops its children with it.
+#     issued it. To stop these jobs, kill the PIDs printed below, or Ctrl-C this
+#     script, which stops its children with it.
 
 set -u
 
@@ -35,7 +36,9 @@ WHICH="${2:-both}"
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PYTHON="${PYTHON:-$HERE/.venv/bin/python}"
 LENGTH="${LENGTH:-10}"
-TARGET_LENGTH="${TARGET_LENGTH:-9}"
+PATTERN="${PATTERN:-1:3,2:3}"
+PROBE_STEPS="${PROBE_STEPS:-7}"
+PROBE_CLEARANCE="${PROBE_CLEARANCE:-9}"
 LOGS="$HERE/logs"
 
 if [ ! -x "$PYTHON" ]; then
@@ -43,12 +46,11 @@ if [ ! -x "$PYTHON" ]; then
     echo "note: no .venv found, using $PYTHON"
 fi
 
-# Keep the machine awake.  Re-exec under whichever inhibitor exists, once.
+# Keep the machine awake. Try each inhibitor on a trivial command first:
+# systemd-inhibit is present but unusable without a session bus, and exec'ing
+# into a failing inhibitor would end the run before it started.
 if [ -z "${OVERNIGHT_AWAKE:-}" ]; then
     export OVERNIGHT_AWAKE=1
-    # Try each inhibitor on a trivial command first.  systemd-inhibit is present
-    # but unusable in a container with no session bus, and exec'ing into a
-    # failing inhibitor would end the run before it started.
     if command -v caffeinate >/dev/null 2>&1 && caffeinate -i true >/dev/null 2>&1; then
         exec caffeinate -ims "$0" "$@"
     elif command -v systemd-inhibit >/dev/null 2>&1 \
@@ -64,17 +66,9 @@ fi
 
 mkdir -p "$LOGS"
 STAMP="$(date +%Y%m%d-%H%M)"
-CORES="$( (command -v nproc >/dev/null 2>&1 && nproc) \
-        || sysctl -n hw.ncpu 2>/dev/null || echo 4 )"
+SECONDS_TOTAL="$(awk -v h="$HOURS" 'BEGIN{printf "%d", h*3600}')"
 
-# Job A gets one core; job B gets the rest, less one left for the machine.
-if [ "$WHICH" = "discover" ]; then
-    DISCOVER_JOBS=$(( CORES > 2 ? CORES - 1 : 1 ))
-else
-    DISCOVER_JOBS=$(( CORES > 3 ? CORES - 2 : 1 ))
-fi
-
-# Restart a job if it dies, until it succeeds or the budget is spent.  Exit 2 is
+# Restart a job if it dies, until it succeeds or the budget is spent. Exit 2 is
 # classify.py saying "out of time, resume me"; 0 and 1 are both finished answers.
 persist() {
     local name="$1" log="$2"; shift 2
@@ -98,8 +92,7 @@ persist() {
 }
 
 echo "Quiver mutation, overnight run of $HOURS hour(s), started $(date)"
-echo "  $CORES cores; logs in $LOGS"
-echo "  (python runs unbuffered, so the logs are live -- tail -f them)"
+echo "  logs in $LOGS (python runs unbuffered, so tail -f them)"
 echo
 
 PIDS=()
@@ -112,27 +105,23 @@ if [ "$WHICH" = "both" ] || [ "$WHICH" = "classify" ]; then
     PIDS+=($!)
 fi
 
-if [ "$WHICH" = "both" ] || [ "$WHICH" = "discover" ]; then
-    LOG_B="$LOGS/discover-$STAMP.log"
-    echo "[B] searching for a rule on $DISCOVER_JOBS core(s)  ->  $LOG_B"
+if [ "$WHICH" = "both" ] || [ "$WHICH" = "probe" ]; then
+    LOG_B="$LOGS/probe-$STAMP.log"
+    echo "[B] probing $PATTERN to $PROBE_STEPS mutations  ->  $LOG_B"
+    echo "    (not resumable -- under a hard $HOURS h timeout)"
     (
-        # Four mutations first: cheaper, and H-009 may already be settled there.
-        # Then five, which no search has ever reached.  The two passes share one
-        # budget -- each is given what is left of it, not a fresh copy, or the
-        # night would run to twice the hours asked for.
-        ENDS_AT=$(( $(date +%s) + $(awk -v h="$HOURS" 'BEGIN{printf "%d", h*3600}') ))
-        for steps in 4 5; do
-            LEFT=$(( ENDS_AT - $(date +%s) ))
-            if [ "$LEFT" -le 120 ]; then
-                echo "[discover] out of budget before steps=$steps; resume with:"
-                echo "  $PYTHON $HERE/discover.py $TARGET_LENGTH --steps $steps --resume"
-                break
-            fi
-            persist "discover steps=$steps" "$LOG_B" \
-                "$PYTHON" -u "$HERE/discover.py" "$TARGET_LENGTH" \
-                --steps "$steps" --jobs "$DISCOVER_JOBS" --resume \
-                --budget-hours "$(awk -v s="$LEFT" 'BEGIN{printf "%.4f", s/3600}')"
-        done
+        echo "=== probe $PATTERN --steps $PROBE_STEPS started $(date) ===" >> "$LOG_B"
+        timeout "$SECONDS_TOTAL" \
+            "$PYTHON" -u "$HERE/probe.py" "$PATTERN" \
+            --steps "$PROBE_STEPS" --clearance "$PROBE_CLEARANCE" >> "$LOG_B" 2>&1
+        code=$?
+        if [ "$code" -eq 124 ]; then
+            echo "=== probe ran out of the night at $(date); no partial result ===" >> "$LOG_B"
+            echo "[probe] out of time -- rerun with more hours, or fewer --steps"
+        else
+            echo "=== probe exited $code at $(date) ===" >> "$LOG_B"
+            echo "[probe] finished (exit $code); see $LOG_B"
+        fi
     ) &
     PIDS+=($!)
 fi
@@ -149,4 +138,4 @@ echo "All jobs done at $(date). In the morning:"
 [ -n "${LOG_A:-}" ] && echo "  * $LOG_A"
 [ -n "${LOG_A:-}" ] && echo "      tail it; rerun the same command with --resume if unfinished"
 [ -n "${LOG_B:-}" ] && echo "  * $LOG_B"
-[ -n "${LOG_B:-}" ] && echo "      the verified rules, if any, are at the end of each pass"
+[ -n "${LOG_B:-}" ] && echo "      'nothing lower' is a real result -- record it against H-010"

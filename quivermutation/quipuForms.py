@@ -415,16 +415,3 @@ def cospectralQuipuGroups(order):
         for polynomial, quipus in groups.items()
         if len(quipus) > 1
     }
-
-
-def parseQuipuName(name):
-    """'P^(1,2)_(1,0,1)' -> ((1,0,1), (1,2)), or None if it is not one."""
-    if not name.startswith("P^(") or ")_(" not in name or not name.endswith(")"):
-        return None
-    cords, mains = name[len("P^("):].split(")_(", 1)
-    try:
-        m = tuple(int(v) for v in cords.split(","))
-        k = tuple(int(v) for v in mains.rstrip(")").split(","))
-    except ValueError:
-        return None
-    return (k, m) if len(k) == len(m) + 1 else None
