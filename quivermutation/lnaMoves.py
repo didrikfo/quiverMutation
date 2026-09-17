@@ -17,8 +17,14 @@ import contextlib
 
 import networkx as nx
 
-import nakayama
-import quiverMutation as qm
+from . import endMoves
+from . import invariants
+from . import lines
+from . import mutation
+from . import nakayama
+from . import pathAlgebra
+from . import spectatorMoves
+
 
 
 def _quiet(function, *args, **kwargs):
@@ -39,7 +45,7 @@ def asRelLengths(pathAlg, length):
         return None
     if nx.dag_longest_path_length(quiver) != length - 1:
         return None
-    relabelled, _ = _quiet(qm.relabelLineAlgebra, pathAlg, {})
+    relabelled, _ = _quiet(lines.relabelLineAlgebra, pathAlg, {})
     relLengths = [0] * (length - 2)
     for rel in relabelled.rels:
         if len(rel) != 1:
@@ -49,10 +55,6 @@ def asRelLengths(pathAlg, length):
             return None
         relLengths[start - 1] = arrows
     return relLengths
-
-
-def className(relLengths):
-    return "".join(str(n) for n in relLengths)
 
 
 def movesFrom(lna, maxSteps = 2, allowLeft = True):
@@ -68,15 +70,13 @@ def movesFrom(lna, maxSteps = 2, allowLeft = True):
     rewrite rule wants both directions.
     """
     length = lna.length
-    start = className(lna.relLengths)
+    start = lines.className(lna.relLengths)
     best = {}
 
     def walk(pathAlg, steps, history):
         if steps == 0:
             return
-        allRels = _quiet(qm.allRelsInPathAlgebra, pathAlg)
-        dual = _quiet(qm.dualPathAlgebra, pathAlg)
-        dualRels = _quiet(qm.allRelsInPathAlgebra, dual)
+        dual = _quiet(pathAlgebra.dualPathAlgebra, pathAlg)
         for vertex in pathAlg.vertices():
             directions = []
             # A mutation is only a tilting mutation where the procedure's
@@ -84,19 +84,19 @@ def movesFrom(lna, maxSteps = 2, allowLeft = True):
             # computes a quiver, but not a derived equivalent one.  Left mutation
             # at v is right mutation at v of the dual, so that is where its
             # condition is tested.
-            if _quiet(qm.mutationIsPossibleAtVertex, pathAlg, vertex, allRels):
+            if _quiet(mutation.mutationIsPossibleAtVertex, pathAlg, vertex):
                 directions.append(vertex)
-            if allowLeft and _quiet(qm.mutationIsPossibleAtVertex, dual, vertex, dualRels):
+            if allowLeft and _quiet(mutation.mutationIsPossibleAtVertex, dual, vertex):
                 directions.append(-vertex)
             for signed in directions:
-                nextAlg = _quiet(qm.quiverMutationAtVertices,
+                nextAlg = _quiet(mutation.quiverMutationAtVertices,
                                  _copy(pathAlg), [signed])
                 if nextAlg is None:
                     continue
                 relLengths = asRelLengths(nextAlg, length)
                 sequence = history + [signed]
                 if relLengths is not None:
-                    name = className(relLengths)
+                    name = lines.className(relLengths)
                     if name != start and (name not in best or len(sequence) < len(best[name])):
                         best[name] = sequence
                 walk(nextAlg, steps - 1, sequence)
@@ -107,8 +107,7 @@ def movesFrom(lna, maxSteps = 2, allowLeft = True):
 
 def _copy(pathAlg):
     import copy
-    import pathAlgebraClass
-    duplicate = pathAlgebraClass.PathAlgebra()
+    duplicate = pathAlgebra.PathAlgebra()
     duplicate.quiver = copy.deepcopy(pathAlg.quiver)
     duplicate.rels = copy.deepcopy(pathAlg.rels)
     return duplicate
@@ -236,7 +235,7 @@ def standardise(pathAlg):
     numbering[p] is the label that the vertex at standard position p carries in
     the quiver as given.  (None, None, None) if the quiver is not a line.
 
-    Note that qm.relabelLineAlgebra renumbers its argument *in place*, so this
+    Note that lines.relabelLineAlgebra renumbers its argument *in place*, so this
     works on a copy.  Getting that wrong is what made composed move sequences
     come out wrong: the numbering reported no longer described the algebra being
     carried forward.
@@ -250,7 +249,7 @@ def standardise(pathAlg):
     """
     length = len(pathAlg.quiver.nodes)
     duplicate = _copy(pathAlg)
-    relabelled, numbering = _quiet(qm.relabelLineAlgebra, duplicate, {})
+    relabelled, numbering = _quiet(lines.relabelLineAlgebra, duplicate, {})
     relLengths = [0] * (length - 2)
     for rel in relabelled.rels:
         if len(rel) != 1:
@@ -262,7 +261,7 @@ def standardise(pathAlg):
     return relabelled, relLengths, numbering
 
 
-def closureUnderMoves(length, relLengths, maxIterations = 10000):
+def closureUnderMoves(length, relLengths, maxIterations = 10000, rules = None):
     """Every LNA reachable from this one by any number of verified moves.
 
     All of them are in the same derived equivalence class, with a mutation path
@@ -279,7 +278,7 @@ def closureUnderMoves(length, relLengths, maxIterations = 10000):
     positions, and translates the move's vertices into original labels through
     the numbering accumulated so far.
     """
-    startName = className(relLengths)
+    startName = lines.className(relLengths)
     identity = {position: position for position in range(1, length + 1)}
     results = {startName: ([], identity)}
     frontier = [(nakayama.LinearNakayamaAlgebra(length, relLengths), relLengths, [], identity)]
@@ -287,14 +286,14 @@ def closureUnderMoves(length, relLengths, maxIterations = 10000):
     while frontier and iterations < maxIterations:
         iterations += 1
         standardAlg, current, path, numbering = frontier.pop()
-        for name, sequence in movesByRule(length, current).items():
+        for name, sequence in movesByRule(length, current, rules).items():
             if name in results:
                 continue
             # standardAlg's own labels are the standard positions, so the move
             # applies to it verbatim; the path needs the original labels.
-            mutated = _quiet(qm.quiverMutationAtVertices, _copy(standardAlg), list(sequence))
+            mutated = _quiet(mutation.quiverMutationAtVertices, _copy(standardAlg), list(sequence))
             nextAlg, nextLengths, stepNumbering = standardise(mutated)
-            if nextLengths is None or className(nextLengths) != name:
+            if nextLengths is None or lines.className(nextLengths) != name:
                 continue
             inOriginalLabels = [
                 numbering[v] if v > 0 else -numbering[-v] for v in sequence
@@ -335,7 +334,7 @@ def _relationsInWindow(relations, lo, hi):
     return tuple(sorted(inside))
 
 
-def describeLink(length, before, after, sequence):
+def describeLink(length, before, after, sequence, anchor = None):
     """Describe a link between two LNAs as a local rewrite, or None.
 
     The window is the smallest interval of arrows containing every relation that
@@ -346,6 +345,13 @@ def describeLink(length, before, after, sequence):
 
     Returns (window width, relations before, relations after, sequence offsets),
     with positions given relative to the window's first arrow.
+
+    With `anchor` set to 'left' or 'right' the window is extended to that end of
+    the quiver and the description carries the anchor as a fifth entry, so it is
+    only ever matched there.  That is the honest way to state a rewrite that
+    needs an end of the quiver: clipping the window to the quiver and reporting
+    it as a floating rule is how R-009's false rules arose, since such a rule is
+    then checked at positions it was never true at.
     """
     beforeRelations = relationsOf(before)
     afterRelations = relationsOf(after)
@@ -360,6 +366,10 @@ def describeLink(length, before, after, sequence):
         touched.add(abs(vertex) - 1)
     lo, hi = min(touched), max(touched)
     lo, hi = max(1, lo), min(length - 1, hi)
+    if anchor == 'left':
+        lo = 1
+    elif anchor == 'right':
+        hi = length - 1
 
     # Every relation meeting the window must be contained in it, on both sides,
     # or the rewrite depends on something it does not describe.
@@ -375,10 +385,11 @@ def describeLink(length, before, after, sequence):
         return None
 
     offsets = tuple(v - lo + 1 if v > 0 else v + lo - 1 for v in sequence)
-    return (hi - lo + 1,
-            _relationsInWindow(beforeRelations, lo, hi),
-            _relationsInWindow(afterRelations, lo, hi),
-            offsets)
+    description = (hi - lo + 1,
+                   _relationsInWindow(beforeRelations, lo, hi),
+                   _relationsInWindow(afterRelations, lo, hi),
+                   offsets)
+    return description + (anchor,) if anchor else description
 
 
 def discoverMoves(lengths, maxSteps = 2, minOccurrences = 3, allowLeft = True,
@@ -395,24 +406,104 @@ def discoverMoves(lengths, maxSteps = 2, minOccurrences = 3, allowLeft = True,
     for length in lengths:
         for lna in nakayama.LinearNakayamaAlgebra.allOfLength(length):
             if progress:
-                print('  {0} {1}'.format(length, className(lna.relLengths)))
+                print('  {0} {1}'.format(length, lines.className(lna.relLengths)))
             for name, sequence in movesFrom(lna, maxSteps, allowLeft).items():
                 after = [int(c) for c in name]
                 description = describeLink(length, lna.relLengths, after, sequence)
                 if description is None:
                     continue
                 seen.setdefault(description, []).append(
-                    (length, className(lna.relLengths), name))
+                    (length, lines.className(lna.relLengths), name))
     return {d: places for d, places in seen.items() if len(places) >= minOccurrences}
+
+
+def anchorOf(description):
+    """Which end of the quiver a rewrite is pinned to, or None if it floats.
+
+    A description is (width, before, after, offsets) for a rewrite that holds at
+    every window position, and carries a fifth entry, 'left' or 'right', for one
+    that only holds against that end of the quiver.
+    """
+    return description[4] if len(description) > 4 else None
+
+
+def windowStartsFor(length, description):
+    """The window positions a rewrite may be tried at, in a quiver of a length.
+
+    A floating rewrite is tried everywhere its window fits; an anchored one only
+    at the end it is pinned to.  Every caller that slides a rule along the quiver
+    goes through this, so an anchored rule can never be applied in the interior.
+    """
+    width = description[0]
+    anchor = anchorOf(description)
+    if anchor == 'left':
+        return [1] if width <= length - 1 else []
+    if anchor == 'right':
+        return [length - width] if width <= length - 1 else []
+    return list(range(1, length - width + 1))
+
+
+def dualRule(description):
+    """The same rewrite with every arrow reversed and every mutation turned round.
+
+    The relation dual of arXiv:2305.06642 -- reverse the quiver and renumber --
+    is class-preserving for *any* LNA, and left mutation at a vertex is right
+    mutation at that vertex of the dual, which is how `movesFrom` tests a left
+    mutation in the first place.  So a rule carries over to the dual picture, and
+    the transform is mechanical:
+
+    * a relation covering the window's arrows `s .. s + a - 1` covers
+      `width - s - a .. width - s - 1` after the reversal;
+    * the vertex at window offset `o` becomes the one at `width - o + 2`, and a
+      right mutation there becomes a left one, and the other way about;
+    * the sequence keeps its **order**, since the dual is applied step by step;
+    * an anchor to one end becomes an anchor to the other.
+
+    This is *not* the transform E-019 refuted.  That one tried to read a rule's
+    **inverse** off its window and worked for 12 of 96 rules.  This is the dual,
+    it is a symmetry rather than a shortcut, and it holds: of the 410 duals the
+    table was missing, **410 verify and none fails** (E-026).
+
+    The catch worth stating, because it cost a finding: the dual of a rule is
+    not the same rewrite read backwards, and it is not the same *pattern* at the
+    other end.  `(0:l) (1:m)` flush against the sink duals to `(0:m) (m+1-l:l)`
+    flush against the source -- a pair sharing an end rather than a start. F-025
+    claimed an asymmetry between the two ends on the strength of comparing a
+    pattern with itself at the other end, which is not its dual at all. R-011.
+    """
+    width, before, after, offsets = description[:4]
+    anchor = anchorOf(description)
+    reversed_ = lambda relations: tuple(sorted(
+        (width - start - arrows, arrows) for start, arrows in relations))
+    turned = tuple(-(width - abs(vertex) + 2) if vertex > 0
+                   else (width - abs(vertex) + 2)
+                   for vertex in offsets)
+    dual = (width, reversed_(before), reversed_(after), turned)
+    swapped = {'left': 'right', 'right': 'left'}.get(anchor)
+    return dual + (swapped,) if swapped else dual
+
+
+def closeUnderDual(rules):
+    """The rules together with their duals, deduplicated, order preserved."""
+    combined = list(rules)
+    seen = set(combined)
+    for rule in rules:
+        dual = dualRule(rule)
+        if dual not in seen:
+            seen.add(dual)
+            combined.append(dual)
+    return combined
 
 
 def formatMove(description):
     """A readable one-line form of a rewrite description."""
-    width, before, after, offsets = description
+    width, before, after, offsets = description[:4]
+    anchor = anchorOf(description)
     def relations(rels):
         return " ".join("({0}:{1})".format(start, arrows) for start, arrows in rels) or "-"
-    return "window {0} arrows: {1}  ->  {2}   via {3}".format(
-        width, relations(before), relations(after), list(offsets))
+    return "window {0} arrows{1}: {2}  ->  {3}   via {4}".format(
+        width, "" if anchor is None else " at the {0} end".format(anchor),
+        relations(before), relations(after), list(offsets))
 
 
 # ---------------------------------------------------------------------------
@@ -443,7 +534,7 @@ def matchesAt(length, relLengths, description, windowStart):
     The window must fit in the quiver, the relations inside it must be exactly
     the pattern, and no relation outside may reach into it.
     """
-    width, before, _after, _offsets = description
+    width, before, _after, _offsets = description[:4]
     windowEnd = windowStart + width - 1
     if windowStart < 1 or windowEnd > length - 1:
         return False
@@ -464,7 +555,7 @@ def applyAt(length, relLengths, description, windowStart):
 
     None if the result would not be an admissible LNA.
     """
-    width, before, after, offsets = description
+    width, before, after, offsets = description[:4]
     windowEnd = windowStart + width - 1
     result = list(relLengths)
     for start, arrows in before:
@@ -493,11 +584,10 @@ def isLegalSequence(pathAlg, sequence):
     """
     current = _copy(pathAlg)
     for signed in sequence:
-        target = current if signed > 0 else _quiet(qm.dualPathAlgebra, current)
-        allRels = _quiet(qm.allRelsInPathAlgebra, target)
-        if not _quiet(qm.mutationIsPossibleAtVertex, target, abs(signed), allRels):
+        target = current if signed > 0 else _quiet(pathAlgebra.dualPathAlgebra, current)
+        if not _quiet(mutation.mutationIsPossibleAtVertex, target, abs(signed)):
             return False
-        current = _quiet(qm.quiverMutationAtVertices, current, [signed])
+        current = _quiet(mutation.quiverMutationAtVertices, current, [signed])
     return True
 
 
@@ -525,10 +615,13 @@ def verifyMove(description, lengths, checkCoxeter = True):
     for length in lengths:
         # Enumerate the admissible LNAs directly.  Filtering the full product of
         # relation lengths instead means 10^8 tuples at length 10, against the
-        # 4862 LNAs that actually exist there.
-        for algebra in nakayama.LinearNakayamaAlgebra.allOfLength(length):
-            relLengths = algebra.relLengths
-            for windowStart in range(1, length):
+        # 4862 LNAs that actually exist there.  The rows rather than the
+        # algebras, because the enumeration is cached that way and a run
+        # verifying hundreds of rules over the same lengths would otherwise
+        # rebuild every path algebra once per rule.
+        for relLengths in nakayama.allRelationLengths(length):
+            relLengths = list(relLengths)
+            for windowStart in windowStartsFor(length, description):
                 if not matchesAt(length, relLengths, description, windowStart):
                     continue
                 applied = applyAt(length, relLengths, description, windowStart)
@@ -537,19 +630,19 @@ def verifyMove(description, lengths, checkCoxeter = True):
                 predicted, sequence = applied
                 startAlg = nakayama.LinearNakayamaAlgebra(length, relLengths)
                 if not isLegalSequence(startAlg, sequence):
-                    failures.append((length, className(relLengths),
-                                     className(predicted), None, 'illegal mutation'))
+                    failures.append((length, lines.className(relLengths),
+                                     lines.className(predicted), None, 'illegal mutation'))
                     continue
-                mutated = _quiet(qm.quiverMutationAtVertices, _copy(startAlg), list(sequence))
+                mutated = _quiet(mutation.quiverMutationAtVertices, _copy(startAlg), list(sequence))
                 actual = asRelLengths(mutated, length)
                 if actual != predicted:
-                    failures.append((length, className(relLengths),
-                                     className(predicted),
-                                     className(actual) if actual else None, 'wrong result'))
+                    failures.append((length, lines.className(relLengths),
+                                     lines.className(predicted),
+                                     lines.className(actual) if actual else None, 'wrong result'))
                     continue
                 if checkCoxeter and not _sameCoxeter(length, relLengths, predicted):
-                    failures.append((length, className(relLengths),
-                                     className(predicted), className(actual),
+                    failures.append((length, lines.className(relLengths),
+                                     lines.className(predicted), lines.className(actual),
                                      'Coxeter polynomial moved'))
                     continue
                 confirmed += 1
@@ -558,8 +651,8 @@ def verifyMove(description, lengths, checkCoxeter = True):
 
 def _sameCoxeter(length, before, after):
     import sympy
-    first = _quiet(qm.coxeterPoly, nakayama.LinearNakayamaAlgebra(length, before)).as_expr()
-    second = _quiet(qm.coxeterPoly, nakayama.LinearNakayamaAlgebra(length, after)).as_expr()
+    first = _quiet(invariants.coxeterPoly, nakayama.LinearNakayamaAlgebra(length, before)).as_expr()
+    second = _quiet(invariants.coxeterPoly, nakayama.LinearNakayamaAlgebra(length, after)).as_expr()
     return sympy.expand(first) == sympy.expand(second)
 
 
@@ -649,28 +742,100 @@ VERIFIED_MOVES = [
     (6, ((1, 4), (2, 4)), ((0, 4), (1, 4)), (2, 2)),   # 22 confirmed: window 6 arrows: (1:4) (2:4)  ->  (0:4) (1:4)   via [2, 2]
     (6, ((1, 4), (3, 3)), ((0, 4), (1, 4), (2, 4)), (2, 2)),   # 22 confirmed: window 6 arrows: (1:4) (3:3)  ->  (0:4) (1:4) (2:4)   via [2, 2]
     (6, ((1, 4), (4, 2)), ((0, 4), (1, 4), (3, 3)), (2, 2)),   # 22 confirmed: window 6 arrows: (1:4) (4:2)  ->  (0:4) (1:4) (3:3)   via [2, 2]
+    # Interior discovery at three mutations, E-011: patterns planted in the
+    # middle of A_13 and A_14 and mutated only nearby, so that no end of the
+    # quiver is in reach (H-007).  Each was then verified at
+    # `width + 1 .. width + 4` -- the lengths have to follow the window, and
+    # verifying these at a fixed 7 to 10 admitted 30 rules of window 9 that are
+    # false at length 11 (R-009).  The window-7 and window-8 entries were
+    # checked at lengths 11 and 12 as well.
+    (5, ((0, 2),), ((3, 2),), (-3, -4, -5)),   # 22 confirmed: window 5 arrows: (0:2)  ->  (3:2)   via [-3, -4, -5]
+    (5, ((3, 2),), ((0, 2),), (4, 3, 2)),   # 22 confirmed: window 5 arrows: (3:2)  ->  (0:2)   via [4, 3, 2]
+    (6, ((0, 2), (1, 3), (2, 3)), ((0, 3), (1, 3), (4, 2)), (-5, -3, -6)),   # 22 confirmed: window 6 arrows: (0:2) (1:3) (2:3)  ->  (0:3) (1:3) (4:2)   via [-5, -3, -6]
+    (6, ((0, 2), (2, 2)), ((1, 2), (4, 2)), (-3, -5, -6)),   # 22 confirmed: window 6 arrows: (0:2) (2:2)  ->  (1:2) (4:2)   via [-3, -5, -6]
+    (6, ((0, 2), (2, 3)), ((0, 3), (1, 3), (2, 4)), (-6, 3, -6)),   # 22 confirmed: window 6 arrows: (0:2) (2:3)  ->  (0:3) (1:3) (2:4)   via [-6, 3, -6]
+    (6, ((0, 2), (2, 3)), ((1, 3), (2, 3), (3, 3)), (-3, -6, -6)),   # 22 confirmed: window 6 arrows: (0:2) (2:3)  ->  (1:3) (2:3) (3:3)   via [-3, -6, -6]
+    (6, ((0, 2), (3, 2)), ((2, 2), (4, 2)), (-3, -4, -6)),   # 22 confirmed: window 6 arrows: (0:2) (3:2)  ->  (2:2) (4:2)   via [-3, -4, -6]
+    (6, ((0, 3), (1, 3), (2, 3)), ((1, 3), (4, 2)), (-5, -5, -6)),   # 22 confirmed: window 6 arrows: (0:3) (1:3) (2:3)  ->  (1:3) (4:2)   via [-5, -5, -6]
+    (6, ((0, 4), (2, 3)), ((1, 3), (2, 4)), (-6, 3, -6)),   # 22 confirmed: window 6 arrows: (0:4) (2:3)  ->  (1:3) (2:4)   via [-6, 3, -6]
+    (6, ((1, 2), (2, 2)), ((0, 2), (4, 2)), (2, -5, -6)),   # 22 confirmed: window 6 arrows: (1:2) (2:2)  ->  (0:2) (4:2)   via [2, -5, -6]
+    (6, ((1, 2), (4, 2)), ((0, 2), (2, 2)), (2, 5, 4)),   # 22 confirmed: window 6 arrows: (1:2) (4:2)  ->  (0:2) (2:2)   via [2, 5, 4]
+    (6, ((1, 3), (2, 3), (3, 3)), ((0, 2), (2, 3)), (3, 2, 3)),   # 22 confirmed: window 6 arrows: (1:3) (2:3) (3:3)  ->  (0:2) (2:3)   via [3, 2, 3]
+    (6, ((1, 3), (2, 3), (4, 2)), ((0, 2), (2, 3), (3, 3)), (3, 2, 3)),   # 22 confirmed: window 6 arrows: (1:3) (2:3) (4:2)  ->  (0:2) (2:3) (3:3)   via [3, 2, 3]
+    (6, ((1, 3), (2, 4)), ((0, 4), (2, 3)), (2, -5, 2)),   # 22 confirmed: window 6 arrows: (1:3) (2:4)  ->  (0:4) (2:3)   via [2, -5, 2]
+    (6, ((1, 3), (4, 2)), ((0, 3), (1, 3), (2, 3)), (2, 5, 2)),   # 22 confirmed: window 6 arrows: (1:3) (4:2)  ->  (0:3) (1:3) (2:3)   via [2, 5, 2]
+    (6, ((1, 3), (4, 2)), ((0, 4), (2, 3), (3, 3)), (2, -5, 2)),   # 22 confirmed: window 6 arrows: (1:3) (4:2)  ->  (0:4) (2:3) (3:3)   via [2, -5, 2]
+    (6, ((2, 2), (3, 2)), ((0, 2), (4, 2)), (3, 2, -6)),   # 22 confirmed: window 6 arrows: (2:2) (3:2)  ->  (0:2) (4:2)   via [3, 2, -6]
+    (6, ((2, 2), (4, 2)), ((0, 2), (3, 2)), (3, 2, 5)),   # 22 confirmed: window 6 arrows: (2:2) (4:2)  ->  (0:2) (3:2)   via [3, 2, 5]
+    (7, ((0, 2), (2, 2), (3, 2)), ((1, 2), (2, 2), (5, 2)), (-3, -6, -7)),   # 3 confirmed: window 7 arrows: (0:2) (2:2) (3:2)  ->  (1:2) (2:2) (5:2)   via [-3, -6, -7]
+    (7, ((0, 2), (3, 2)), ((1, 2), (5, 2)), (-3, -6, -7)),   # 3 confirmed: window 7 arrows: (0:2) (3:2)  ->  (1:2) (5:2)   via [-3, -6, -7]
+    (7, ((1, 2), (2, 2), (3, 2)), ((0, 2), (2, 2), (5, 2)), (2, -6, -7)),   # 3 confirmed: window 7 arrows: (1:2) (2:2) (3:2)  ->  (0:2) (2:2) (5:2)   via [2, -6, -7]
+    (7, ((1, 2), (2, 2), (3, 3)), ((0, 2), (2, 3), (3, 3), (4, 3)), (2, -7, -7)),   # 3 confirmed: window 7 arrows: (1:2) (2:2) (3:3)  ->  (0:2) (2:3) (3:3) (4:3)   via [2, -7, -7]
+    (7, ((1, 2), (2, 2), (4, 2)), ((0, 2), (2, 2), (5, 2)), (2, -7)),   # 3 confirmed: window 7 arrows: (1:2) (2:2) (4:2)  ->  (0:2) (2:2) (5:2)   via [2, -7]
+    (7, ((1, 2), (2, 2), (4, 2)), ((0, 2), (3, 2), (5, 2)), (2, -5, -7)),   # 3 confirmed: window 7 arrows: (1:2) (2:2) (4:2)  ->  (0:2) (3:2) (5:2)   via [2, -5, -7]
+    (7, ((1, 2), (2, 3), (3, 3)), ((0, 2), (3, 3), (4, 3)), (2, -7, -7)),   # 3 confirmed: window 7 arrows: (1:2) (2:3) (3:3)  ->  (0:2) (3:3) (4:3)   via [2, -7, -7]
+    (7, ((1, 2), (2, 3), (4, 2)), ((0, 2), (2, 3), (5, 2)), (2, -7)),   # 3 confirmed: window 7 arrows: (1:2) (2:3) (4:2)  ->  (0:2) (2:3) (5:2)   via [2, -7]
+    (7, ((1, 2), (3, 2)), ((0, 2), (5, 2)), (2, -6, -7)),   # 3 confirmed: window 7 arrows: (1:2) (3:2)  ->  (0:2) (5:2)   via [2, -6, -7]
+    (7, ((1, 2), (3, 2), (4, 2)), ((0, 2), (2, 2), (5, 2)), (2, 4, -7)),   # 3 confirmed: window 7 arrows: (1:2) (3:2) (4:2)  ->  (0:2) (2:2) (5:2)   via [2, 4, -7]
+    (7, ((1, 2), (3, 2), (4, 2)), ((0, 2), (3, 2), (5, 2)), (2, -7)),   # 3 confirmed: window 7 arrows: (1:2) (3:2) (4:2)  ->  (0:2) (3:2) (5:2)   via [2, -7]
+    (7, ((1, 2), (4, 2)), ((0, 2), (5, 2)), (2, -7)),   # 3 confirmed: window 7 arrows: (1:2) (4:2)  ->  (0:2) (5:2)   via [2, -7]
+    (7, ((1, 3), (2, 3), (4, 2)), ((0, 3), (1, 3), (5, 2)), (2, 2, -7)),   # 3 confirmed: window 7 arrows: (1:3) (2:3) (4:2)  ->  (0:3) (1:3) (5:2)   via [2, 2, -7]
+    (7, ((1, 3), (3, 2), (4, 2)), ((0, 3), (1, 3), (2, 3), (5, 2)), (2, 2, -7)),   # 3 confirmed: window 7 arrows: (1:3) (3:2) (4:2)  ->  (0:3) (1:3) (2:3) (5:2)   via [2, 2, -7]
+    (7, ((2, 2), (3, 2), (4, 2)), ((0, 2), (3, 2), (5, 2)), (3, 2, -7)),   # 3 confirmed: window 7 arrows: (2:2) (3:2) (4:2)  ->  (0:2) (3:2) (5:2)   via [3, 2, -7]
+    (7, ((2, 2), (3, 2), (5, 2)), ((0, 2), (3, 2), (4, 2)), (3, 2, 6)),   # 3 confirmed: window 7 arrows: (2:2) (3:2) (5:2)  ->  (0:2) (3:2) (4:2)   via [3, 2, 6]
+    (7, ((2, 2), (4, 2)), ((0, 2), (5, 2)), (3, 2, -7)),   # 3 confirmed: window 7 arrows: (2:2) (4:2)  ->  (0:2) (5:2)   via [3, 2, -7]
+    (7, ((2, 2), (5, 2)), ((0, 2), (4, 2)), (3, 2, 6)),   # 3 confirmed: window 7 arrows: (2:2) (5:2)  ->  (0:2) (4:2)   via [3, 2, 6]
+    (8, ((1, 2), (2, 2), (4, 2)), ((0, 2), (2, 2), (6, 2)), (2, -7, -8)),   # 3 confirmed: window 8 arrows: (1:2) (2:2) (4:2)  ->  (0:2) (2:2) (6:2)   via [2, -7, -8]
+    (8, ((1, 2), (2, 3), (4, 2)), ((0, 2), (2, 3), (6, 2)), (2, -7, -8)),   # 3 confirmed: window 8 arrows: (1:2) (2:3) (4:2)  ->  (0:2) (2:3) (6:2)   via [2, -7, -8]
+    (8, ((1, 2), (3, 2), (4, 2)), ((0, 2), (3, 2), (6, 2)), (2, -7, -8)),   # 3 confirmed: window 8 arrows: (1:2) (3:2) (4:2)  ->  (0:2) (3:2) (6:2)   via [2, -7, -8]
+    (8, ((1, 2), (4, 2)), ((0, 2), (6, 2)), (2, -7, -8)),   # 3 confirmed: window 8 arrows: (1:2) (4:2)  ->  (0:2) (6:2)   via [2, -7, -8]
+    (8, ((2, 2), (3, 2), (5, 2)), ((0, 2), (3, 2), (6, 2)), (3, 2, -8)),   # 3 confirmed: window 8 arrows: (2:2) (3:2) (5:2)  ->  (0:2) (3:2) (6:2)   via [3, 2, -8]
+    (8, ((2, 2), (3, 3), (5, 2)), ((0, 2), (3, 3), (6, 2)), (3, 2, -8)),   # 3 confirmed: window 8 arrows: (2:2) (3:3) (5:2)  ->  (0:2) (3:3) (6:2)   via [3, 2, -8]
+    (8, ((2, 2), (4, 2), (5, 2)), ((0, 2), (4, 2), (6, 2)), (3, 2, -8)),   # 3 confirmed: window 8 arrows: (2:2) (4:2) (5:2)  ->  (0:2) (4:2) (6:2)   via [3, 2, -8]
+    (8, ((2, 2), (5, 2)), ((0, 2), (6, 2)), (3, 2, -8)),   # 3 confirmed: window 8 arrows: (2:2) (5:2)  ->  (0:2) (6:2)   via [3, 2, -8]
 ]
 
 
-def movesByRule(length, relLengths):
+def movesByRule(length, relLengths, rules = None):
     """Every LNA reachable from this one by a single verified move.
 
     Returns a dict from the reached class name to the mutation sequence, in the
     same shape as movesFrom, but computed by table lookup rather than by walking
-    a mutation tree.
+    a mutation tree.  `rules` defaults to the whole table, floating and anchored.
     """
+    rules = ALL_MOVES if rules is None else rules
     reached = {}
-    for description in VERIFIED_MOVES:
-        for windowStart in range(1, length):
+    for description in rules:
+        for windowStart in windowStartsFor(length, description):
             if not matchesAt(length, relLengths, description, windowStart):
                 continue
             applied = applyAt(length, relLengths, description, windowStart)
             if applied is None:
                 continue
             moved, sequence = applied
-            name = className(moved)
-            if name != className(relLengths) and name not in reached:
+            name = lines.className(moved)
+            if name != lines.className(relLengths) and name not in reached:
                 reached[name] = sequence
+    return reached
+
+
+def rewritesOf(length, relLengths, rules = None):
+    """The relation lengths a single move reaches, as tuples, without mutating.
+
+    Every rule in the table has been checked against the mutation engine
+    wherever it applies, so the rewrite alone is enough to say where a move
+    goes.  Skipping the mutation is what makes a whole-length orbit partition
+    (`overlap.moveOrbits`) a matter of seconds.
+    """
+    rules = ALL_MOVES if rules is None else rules
+    reached = []
+    for description in rules:
+        for windowStart in windowStartsFor(length, description):
+            if not matchesAt(length, relLengths, description, windowStart):
+                continue
+            applied = applyAt(length, relLengths, description, windowStart)
+            if applied is not None:
+                reached.append(tuple(applied[0]))
     return reached
 
 
@@ -737,7 +902,7 @@ def localMutationSequences(length, relLengths, centreLo, centreHi, maxSteps, mar
     """
     allowed = [v for v in range(max(1, centreLo - margin),
                                 min(length, centreHi + 1 + margin) + 1)]
-    startName = className(relLengths)
+    startName = lines.className(relLengths)
     best = {}
     # Maps an intermediate quiver to the most steps that were still available
     # when it was last explored.  Pruning on mere membership loses paths: a state
@@ -749,22 +914,20 @@ def localMutationSequences(length, relLengths, centreLo, centreHi, maxSteps, mar
     def walk(pathAlg, steps, history):
         if steps == 0:
             return
-        allRels = _quiet(qm.allRelsInPathAlgebra, pathAlg)
-        dual = _quiet(qm.dualPathAlgebra, pathAlg)
-        dualRels = _quiet(qm.allRelsInPathAlgebra, dual)
+        dual = _quiet(pathAlgebra.dualPathAlgebra, pathAlg)
         for vertex in allowed:
             for signed in (vertex, -vertex):
-                target, rels = (pathAlg, allRels) if signed > 0 else (dual, dualRels)
-                if not _quiet(qm.mutationIsPossibleAtVertex, target, vertex, rels):
+                target = pathAlg if signed > 0 else dual
+                if not _quiet(mutation.mutationIsPossibleAtVertex, target, vertex):
                     continue
-                nextAlg = _quiet(qm.quiverMutationAtVertices, _copy(pathAlg), [signed])
+                nextAlg = _quiet(mutation.quiverMutationAtVertices, _copy(pathAlg), [signed])
                 if nextAlg is None:
                     continue
                 key = _stateKey(nextAlg)
                 sequence = history + [signed]
                 reached = asRelLengths(nextAlg, length)
                 if reached is not None:
-                    name = className(reached)
+                    name = lines.className(reached)
                     if name != startName and (name not in best or len(sequence) < len(best[name])):
                         best[name] = sequence
                 if seen.get(key, -1) >= steps - 1:
@@ -831,7 +994,7 @@ def discoverLocalMoves(patterns, maxSteps = 3, margin = 3, embeddings = ((13, 4)
                 if description is None:
                     continue
                 seen.setdefault(description, []).append(
-                    (length, className(relLengths), name))
+                    (length, lines.className(relLengths), name))
     return {d: places for d, places in seen.items()
             if len({p[0] for p in places}) >= minOccurrences or len(places) >= minOccurrences}
 
@@ -878,16 +1041,375 @@ def pairSlideRules(maxRelationLength = 9):
     return rules
 
 
-def _withFamilies(listed):
-    """The listed rules together with the generated families, deduplicated."""
-    combined = list(listed)
-    seen = set(combined)
-    for rule in pairSlideRules():
+def shortRelationSlideRules(maxDistance = 7):
+    """A lone relation of two arrows travelling d arrows, in d mutations.
+
+    A relation of two arrows with nothing else in its window moves d arrows
+    right under the d left mutations at the window's vertices 3, 4, ..., d + 2,
+    and back under the d right mutations at d + 1, d, ..., 2.  The window is
+    d + 2 arrows wide.
+
+    Unlike the pair slide, whose two mutations serve every relation length, this
+    family's **mutation count grows with its parameter** -- which is why
+    discovery only ever found its first three members: a search bounded at three
+    mutations cannot see d >= 4, however simple the statement is.  That is
+    H-008's prediction, and this is the family that confirms it (F-020).
+    Verified for d = 1 to 7, both directions, at the four lengths d + 3 .. d + 6
+    each -- up to A_14 and its 742900 LNAs -- with 63 confirmations apiece and no
+    failures.
+    """
+    rules = []
+    for distance in range(1, maxDistance + 1):
+        width = distance + 2
+        rules.append((width, ((0, 2),), ((distance, 2),),
+                      tuple(-vertex for vertex in range(3, distance + 3))))
+        rules.append((width, ((distance, 2),), ((0, 2),),
+                      tuple(range(distance + 1, 1, -1))))
+    return rules
+
+
+def trailingRelationWalkRules(maxDistance = 6):
+    """Two adjacent short relations; the right one walks away, in one mutation per arrow.
+
+    Two relations of two arrows covering the arrows 0, 1 and 2, 3 of the window
+    become the relations at 1, 2 and at d + 2, d + 3: the left one steps one
+    arrow right, the right one travels d.  The sequence is the left mutation at
+    vertex 3 followed by the left mutations at 5, 6, ..., d + 4 -- d + 1 in all,
+    so the count grows with d exactly as in `shortRelationSlideRules`.
+
+    Discovery found d = 1 (E-010) and d = 2 (E-011) and could not have found
+    more: d = 3 needs four mutations.  Verified for d = 1 to 6 at three lengths
+    each, 8 confirmations apiece with no failures.  F-020.
+    """
+    rules = []
+    for distance in range(1, maxDistance + 1):
+        width = distance + 4
+        sequence = (-3, -5) + tuple(-vertex for vertex in range(6, width + 1))
+        rules.append((width, ((0, 2), (2, 2)), ((1, 2), (distance + 2, 2)), sequence))
+    return rules
+
+
+def spreadingPairRules(maxDistance = 5):
+    """Two short relations one arrow apart, spreading; again one mutation per arrow.
+
+    Relations of two arrows at the window's arrows 1, 2 and 4, 5 become the ones
+    at 0, 1 and d + 4, d + 5: the left one steps one arrow *left* and the right
+    one travels d right.  The sequence is the right mutation at vertex 2 then
+    the left mutations at 7, 8, ..., d + 6.
+
+    The one family here whose sequence mixes directions, which is why the
+    inverse-for-free transform does not apply to it (E-019).  Discovery found
+    d = 1 and 2 in E-011; verified for d = 1 to 5 at three lengths each -- up to
+    A_14 -- with 8 confirmations apiece and no failures.  F-020.
+    """
+    rules = []
+    for distance in range(1, maxDistance + 1):
+        width = distance + 6
+        sequence = (2,) + tuple(-vertex for vertex in range(7, width + 1))
+        rules.append((width, ((1, 2), (4, 2)), ((0, 2), (distance + 4, 2)), sequence))
+    return rules
+
+
+def pairToTripleRules(maxRelationLength = 9):
+    """An unequally overlapping pair becoming a triple, for every pair of lengths.
+
+    Relations of `shorter` and `longer` arrows at consecutive vertices, with
+    `longer > shorter`, become three: the first grows by one arrow and a copy of
+    the second appears one vertex further on.
+
+        (0:shorter) (1:longer)  ->  (0:shorter + 1) (1:longer) (2:longer)
+
+    under two left mutations at the window's last vertex.  The window is
+    `longer + 2` arrows, so it widens with the longer relation while the mutation
+    count stays at two -- the pair slide's shape (F-013), but a family in *both*
+    relation lengths rather than one, which is what H-008 asked for.
+
+    This is a floating rule: it holds at every window position, the interior
+    included, and it is the first family found there that changes the number of
+    relations.  Read backwards it takes a run of three to a run of two, which is
+    the mechanism F-022 saw when a run of three dissolved and a pair did not.
+
+    Discovery listed `longer` = 3 and 4 and could not have found more: `longer`
+    = 5 needs a window of seven arrows.  Verified for every pair with
+    `longer` up to 8 at lengths 8 to 13, no failures (F-030, E-027).
+    """
+    rules = []
+    for longer in range(3, maxRelationLength + 1):
+        for shorter in range(2, longer):
+            width = longer + 2
+            rules.append((width,
+                          ((0, shorter), (1, longer)),
+                          ((0, shorter + 1), (1, longer), (2, longer)),
+                          (-width, -width)))
+    return rules
+
+
+def _extend(combined, seen, rules):
+    """Append the rules not already present, in order, and say so."""
+    for rule in rules:
         if rule not in seen:
             seen.add(rule)
             combined.append(rule)
     return combined
 
 
+def _withFamilies(listed):
+    """The listed floating rules, the generated families, and the widened ones.
+
+    `spectatorMoves` holds both halves of the widening batch in one list, since
+    that is where they came from; they are split here by whether they need an
+    end of the quiver.
+    """
+    combined = list(listed)
+    seen = set(combined)
+    _extend(combined, seen, pairSlideRules() + shortRelationSlideRules()
+            + trailingRelationWalkRules() + spreadingPairRules()
+            + pairToTripleRules())
+    _extend(combined, seen, [rule for rule in spectatorMoves.SPECTATOR_MOVES
+                             if anchorOf(rule) is None])
+    return combined
+
+
 DISCOVERED_MOVES = VERIFIED_MOVES
 VERIFIED_MOVES = _withFamilies(DISCOVERED_MOVES)
+
+
+# ---------------------------------------------------------------------------
+# Rules that need an end of the quiver
+#
+# Everything above is a rewrite that holds at every window position, which is
+# the right notion for a rule about the interior (H-007).  It is not the only
+# kind there is.  The source of the line has no arrow into it and the sink none
+# out of it, so a mutation there does something a mutation in the interior
+# cannot, and a rewrite built on that is true at the end and false everywhere
+# else.
+#
+# Those rules matter more than their two positions suggest.  An isolated pair of
+# relations sharing two or more arrows cannot have that overlap reduced by any
+# interior sequence we can find (F-021), and the overlapping pair is exactly
+# what the quipu theorem does not cover -- but at the end of the quiver the pair
+# collapses in two mutations.  Combined with the pair slide, which walks such a
+# pair along the quiver, the end is where the heavily overlapping LNAs become
+# reachable at all.
+# ---------------------------------------------------------------------------
+
+
+def anchoredOffset(length, anchor, width):
+    """Where to plant a pattern of a width so it sits against an end."""
+    return 0 if anchor == 'left' else length - 1 - width
+
+
+def discoverAnchoredMoves(patterns, anchor, maxSteps = 3, margin = 3,
+                          lengths = (11, 12), minOccurrences = 2, progress = False):
+    """Discover rewrites that hold against one end of the quiver.
+
+    The pattern is planted flush against `anchor`'s end rather than in the
+    middle, mutations are allowed within `margin` of it, and every link is
+    described with the window extended to that end -- so what comes out is an
+    anchored description, checked by `verifyMove` only where it claims to hold.
+
+    Using two lengths and requiring a description at both is what rules out a
+    rewrite that depends on the quiver's *other* end also being close by.
+    """
+    seen = {}
+    for pattern in patterns:
+        width = patternWidth(pattern)
+        for length in lengths:
+            offset = anchoredOffset(length, anchor, width)
+            relLengths = embedPattern(length, pattern, offset)
+            if relLengths is None:
+                continue
+            if progress:
+                print('  {0} at the {1} end of A_{2}'.format(pattern, anchor, length),
+                      flush = True)
+            centreLo = offset + min(start for start, _ in pattern)
+            centreHi = offset + max(start + arrows - 1 for start, arrows in pattern) - 1
+            reached = localMutationSequences(
+                length, relLengths, centreLo, centreHi, maxSteps, margin)
+            for name, sequence in reached.items():
+                description = describeLink(length, relLengths, [int(c) for c in name],
+                                           sequence, anchor = anchor)
+                if description is None:
+                    continue
+                seen.setdefault(description, []).append(
+                    (length, lines.className(relLengths), name))
+    return {d: places for d, places in seen.items()
+            if len({place[0] for place in places}) >= minOccurrences}
+
+
+def endPairCollapseRules(maxRelationLength = 9):
+    """A maximally overlapping pair at an end of the quiver loses one relation.
+
+    Two relations of equal length l starting at consecutive vertices overlap in
+    l - 1 arrows, which is as much as two relations can.  In the interior that
+    overlap cannot be reduced at all (F-021).  Against an end it collapses:
+
+    * at the **left** end, where the pair starts at the source of the line, two
+      right mutations at vertex 1 delete the second relation;
+    * at the **right** end, where the pair ends at the sink, two left mutations
+      at vertex n delete the first.
+
+    Either way the survivor is a single relation of l arrows, whose LNA is
+    almost separate whenever the rest of the quiver is -- so this is the rule
+    that takes a heavily overlapping LNA into the reach of the quipu theorem.
+    The window is l + 1 arrows, exactly the pair's span, so no other relation may
+    touch it.
+    """
+    rules = []
+    for relationLength in range(2, maxRelationLength + 1):
+        width = relationLength + 1
+        rules.append((width,
+                      ((0, relationLength), (1, relationLength)),
+                      ((0, relationLength),),
+                      (1, 1), 'left'))
+        rules.append((width,
+                      ((0, relationLength), (1, relationLength)),
+                      ((1, relationLength),),
+                      (-(width + 1), -(width + 1)), 'right'))
+    return rules
+
+
+def _withEndMoves(generated):
+    """The generated end family, the ones discovered at an end, and the widened ones."""
+    combined = list(generated)
+    seen = set(combined)
+    _extend(combined, seen, endMoves.DISCOVERED_END_MOVES)
+    _extend(combined, seen, endMoves.WIDER_END_MOVES)
+    _extend(combined, seen, [rule for rule in spectatorMoves.SPECTATOR_MOVES
+                             if anchorOf(rule) is not None])
+    return combined
+
+
+def sinkShortRelationShrinkRules(maxRelationLength = 9):
+    """At the sink, the shorter relation of an unequal pair loses an arrow.
+
+    Two relations starting at consecutive vertices, of `l` and `m` arrows with
+    l < m, so that the shorter one starts first and they overlap in l - 1
+    arrows.  Where the longer one ends at the sink of the line, two right
+    mutations at the second relation's source shorten the first by one arrow:
+
+        (0:l) (1:m)  ->  (0:l-1) (1:m)
+
+    on a window of m + 1 arrows, which is the pair's whole span.  Applied
+    repeatedly it takes l down to 2, and from l = 3 the step lands on an overlap
+    of one arrow -- inside the quipu theorem outright.
+
+    **Only at the sink.** The mirror of this at the source is false: 1
+    confirmation and 3 failures at each of the (l, m) tried.  The pair starts at
+    consecutive vertices whatever else is true of it, so pinning the *starts*
+    against the source makes the equal and unequal cases look alike; pinning the
+    *ends* against the sink does not, because two relations of different lengths
+    starting one apart end `m - l + 1` apart.  `endPairCollapseRules` is the
+    equal-length case, where the two descriptions coincide -- and it is symmetric
+    for exactly that reason (F-025).
+
+    Verified for every 3 <= l < m <= 9 at the three lengths each window fits in:
+    21 members, 4 confirmations apiece, no failures.
+    """
+    rules = []
+    for longer in range(4, maxRelationLength + 1):
+        for shorter in range(3, longer):
+            rules.append((longer + 1,
+                          ((0, shorter), (1, longer)),
+                          ((0, shorter - 1), (1, longer)),
+                          (2, 2), 'right'))
+    return rules
+
+
+ANCHORED_MOVES = _withEndMoves(endPairCollapseRules()
+                               + sinkShortRelationShrinkRules())
+
+# Close both halves under the relation dual before anything uses them.  A rule's
+# dual is a rule -- 410 of the ones the table was missing were checked and all
+# 410 hold (E-026) -- so leaving them out was leaving free coverage on the table.
+# The dual of a floating rule floats and the dual of an anchored one is anchored
+# to the other end, so the two halves stay the two halves.
+VERIFIED_MOVES = closeUnderDual(VERIFIED_MOVES)
+ANCHORED_MOVES = closeUnderDual(ANCHORED_MOVES)
+
+# The whole table.  `VERIFIED_MOVES` stays the floating half, so everything that
+# slides a rule along the quiver and everything that reasons about
+# translation-invariant rules keeps meaning what it did.
+ALL_MOVES = VERIFIED_MOVES + ANCHORED_MOVES
+
+
+# ---------------------------------------------------------------------------
+# Widening a rule to tolerate a bystander
+#
+# Every rule in the table is stated on a window holding nothing but the
+# relations it rewrites: `matchesAt` refuses a position where any other relation
+# reaches in.  That is what makes a rule true, and it is also why so few of them
+# fire.  Of the LNAs left unplaced at n = 8, most have a rule whose left-hand
+# pattern is present and which does not match anyway, because one more relation
+# is sitting in the window doing nothing (research H-011).
+#
+# So take each rule and ask whether it survives a *spectator* -- one relation
+# added to the window, the same before and after, which the rewrite leaves
+# alone.  Verification decides; most do not survive, and the ones that do are
+# rules the pattern-planting search could not have produced, since planting a
+# pattern with a spectator in it describes a rewrite of the spectator too.
+# ---------------------------------------------------------------------------
+
+
+def windowIsAdmissible(width, relations):
+    """Whether a window's relations could be part of an LNA.
+
+    Each needs at least two arrows and has to fit inside the window, and starts
+    and ends must both strictly increase -- the conditions of arXiv:2305.06642,
+    read on a window rather than a whole quiver.
+    """
+    ordered = sorted(relations)
+    if any(arrows < 2 or start < 0 or start + arrows > width
+           for start, arrows in ordered):
+        return False
+    for earlier, later in zip(ordered, ordered[1:]):
+        if earlier[0] >= later[0] or earlier[0] + earlier[1] >= later[0] + later[1]:
+            return False
+    return True
+
+
+def withSpectator(description, spectator, leftExtra = 0, rightExtra = 0):
+    """The same rewrite with one relation added that it leaves alone.
+
+    Widening on the left moves the window's first arrow, so every relation
+    position and every mutation offset shifts with it; widening on the right
+    costs nothing but the width.  An anchored rule can only grow away from its
+    end, which is the caller's business to respect.
+    """
+    width, before, after, offsets = description[:4]
+    anchor = anchorOf(description)
+    shifted = lambda relations: tuple(
+        sorted(tuple((start + leftExtra, arrows) for start, arrows in relations)
+               + (spectator,)))
+    grown = (width + leftExtra + rightExtra,
+             shifted(before),
+             shifted(after),
+             tuple(vertex + leftExtra if vertex > 0 else vertex - leftExtra
+                   for vertex in offsets))
+    return grown + (anchor,) if anchor else grown
+
+
+def spectatorExtensions(description, maxArrows = 5, leftExtra = 0, rightExtra = 0):
+    """Every way of putting one untouched relation into a rule's window.
+
+    Only the candidates that could occur at all are returned: the spectator has
+    to sit in the widened window, and both sides of the rewrite have to stay
+    admissible with it present.  Whether the rewrite still *holds* is for
+    `verifyMove` to say -- these are candidates, not rules.
+    """
+    anchor = anchorOf(description)
+    if (anchor == 'left' and leftExtra) or (anchor == 'right' and rightExtra):
+        return []
+    width = description[0] + leftExtra + rightExtra
+    candidates = []
+    for start in range(0, width - 1):
+        for arrows in range(2, maxArrows + 1):
+            grown = withSpectator(description, (start, arrows), leftExtra, rightExtra)
+            if not windowIsAdmissible(width, grown[1]):
+                continue
+            if not windowIsAdmissible(width, grown[2]):
+                continue
+            if grown[1] == description[1] or grown[2] == description[2]:
+                continue        # the spectator was already one of the relations
+            candidates.append(grown)
+    return candidates

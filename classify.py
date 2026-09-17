@@ -16,9 +16,9 @@ import argparse
 import collections
 import sys
 
-import nakayama as nk
-import quipuForms as qf
-import quiverMutation as qm
+import quivermutation as qm
+from quivermutation import nakayama as nk
+from quivermutation import quipuForms as qf
 
 
 def report_collisions(order):
@@ -58,15 +58,17 @@ def main(argv=None):
     parser.add_argument("--resolve-depth", type=int, default=6,
                         help="depth of the extra search used to settle classes that "
                              "share a Coxeter polynomial (default 6)")
+    parser.add_argument("--form-depth", type=int, default=0, dest="form_depth",
+                        help="also search each class the quipu theorem does not name for "
+                             "a relation-free quiver of its own, to this depth (default "
+                             "0, off). Every quipu class is named by the theorem, so this "
+                             "only ever finds a hereditary form that is not a quipu, and "
+                             "it is the most expensive search in the pipeline.")
     parser.add_argument("--out", default=None, help="output CSV path")
     parser.add_argument("--resume", action="store_true",
                         help="continue from an existing CSV instead of starting over. "
                              "The table is written after every class, so a run that was "
                              "interrupted picks up where it stopped.")
-    parser.add_argument("--budget-hours", type=float, default=None,
-                        help="stop cleanly after this many hours, between classes, with "
-                             "everything done so far written to disk. Resume with --resume. "
-                             "Use it to fit a run into a fixed window such as a night.")
     parser.add_argument("--quiet", action="store_true", help="only print the summary")
     parser.add_argument("--collisions", action="store_true",
                         help="do not classify; just report which classes of this order the "
@@ -82,20 +84,14 @@ def main(argv=None):
 
     table, report = qm.classifyLength(
         args.length, args.depth, args.resolve_depth, args.out,
-        printOutput=not args.quiet, resume=args.resume,
-        budgetSeconds=None if args.budget_hours is None else args.budget_hours * 3600)
+        printOutput=not args.quiet, resume=args.resume, formDepth=args.form_depth)
 
-    sizes = collections.Counter(row[1] for row in table.rows() if row[1])
-    unplaced = sum(1 for row in table.rows() if not row[1])
+    sizes = collections.Counter(row[1] for row in table.rows())
     print()
     print("{0} LNAs of length {1} in {2} classes".format(
         len(table), args.length, len(table.classNames())))
     for className, size in sizes.most_common():
         print("  {0:<28} {1:>6}".format(className, size))
-    if unplaced:
-        # Not a class: rows no search has reached yet.  A finished run has none,
-        # so seeing this means the run stopped early.
-        print("  {0:<28} {1:>6}".format("(not yet placed)", unplaced))
     if report["separated"]:
         print()
         print("Classes proved distinct despite sharing a Coxeter polynomial:")
@@ -107,16 +103,6 @@ def main(argv=None):
         print("form was found for all of them. Try a larger --resolve-depth.")
         for polynomial, classNames in report["candidate"].items():
             print("  {0}: {1}".format(polynomial, sorted(classNames)))
-    if report.get("stoppedEarly"):
-        print()
-        print("STOPPED ON BUDGET, not finished: {0} rows still unplaced, {1} groups "
-              "still candidates.".format(report["unplacedRows"], len(report["candidate"])))
-        print("Everything done so far is on disk. Continue with:")
-        print("    python classify.py {0} --resume".format(args.length))
-        # A distinct code so a wrapper can tell "ran out of time" from "finished
-        # with something unsettled", which need different responses.
-        return 2
-    if report["candidate"]:
         return 1
     return 0
 

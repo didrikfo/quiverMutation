@@ -6,70 +6,201 @@ does not. See [`README.md`](README.md).
 
 ---
 
-## R-008 — "A rewrite that verifies with no failures is a valid move"
-*2026-09-16* · corrected by F-015's discovery run, the same day it was written
+## R-011 — "The two ends of the quiver are not the same end" (F-025)
+*retracted 2026-09-16*
 
-`verifyMove` reports (confirmations, failures), and `discover.py` was written to
-accept any candidate with **zero failures**. It promptly accepted a four-mutation
-rewrite of the maximally overlapping pair —
+F-025 claimed an asymmetry between the source and the sink of the line: a pair
+of relations of unequal length comes apart against the sink and not against the
+source. The evidence was that `(0:l) (1:m)` with l < m loses an arrow at the
+sink under two right mutations, and that *the same rule written at the left end*
+gives 1 confirmation and 3 failures.
 
-    window 8 arrows: (2:3) (3:3)  ->  (2:2) (5:3)   via [4, -7, -8, 4]
+**The mirror was the wrong mirror.** Mirroring a rule is not reflecting its
+pattern and keeping the mutations; it is the **relation dual** -- reverse every
+arrow *and* exchange right mutation for left. Under that transform
 
-— on **one confirmation at length 8 and one at length 9**. Verified at lengths
-10, 11 and 12 it fails: 1 confirmation against 1 failure, 2 against 3, 5 against
-9, every failure a wrong result.
+```
+    right end:  (0:l) (1:m)  ->  (0:l-1) (1:m)         via [2, 2]
+    left  end:  (0:m) (m+1-l:l)  ->  (0:m) (m+2-l:l-1) via [-(m+1), -(m+1)]
+```
 
-**Why zero failures was not evidence.** The candidate's own window was too tight
-to state its precondition, so `discover.py` retried it with the window widened —
-which is sound in itself, since a wider window is a stronger precondition. But
-widening also makes the rule fire in *fewer* places, and pad it enough and it
-fires almost nowhere. At lengths 8 and 9 the padded form fired exactly once
-each. A rule that has been checked in one place has not been checked.
+and the left-hand one holds: 4 confirmations, no failures, at every `(l, m)`
+tried. What was compared against it instead was the *same pattern* at the other
+end, and that is a different configuration -- a pair sharing a start rather than
+a pair sharing an end -- so of course it behaves differently. The ends are
+mirror images; the pattern was not.
 
-This is R-005 again in a new disguise. There the missing checks were
-admissibility and the Coxeter polynomial; here all three checks ran and passed,
-and the verification was still vacuous because the *sample* was one. So:
+**What survives.** The rule itself, and the family: `(0:l) (1:m)` shortens at the
+sink for every 3 <= l < m <= 9, 21 members, 4 confirmations apiece, and its dual
+does the same at the source. The probe results behind it are also untouched --
+`(1:3) (2:6)` planted at the source really does reach only two LNAs. What is
+withdrawn is the *interpretation*: that asymmetry belongs to the pattern, not to
+the quiver's ends, and no reading of the procedure is needed to explain it.
 
-**Zero failures is only evidence alongside a count of confirmations.**
-`discover.py` now takes `--min-confirmations` (default 8) and reports a clean
-candidate below it as `unproven` rather than `verified`. E-010 had already found
-that 3 confirmations at two lengths was thin enough to warrant re-verifying over
-four; this is the case where thin became meaningless.
-
-The lesson for the move table as a whole: a rule's evidence is a number, and it
-belongs next to the rule.
+**What it cost and what it bought.** The mistake was worth making, because
+looking for its cause turned up the transform itself, which the table had never
+been closed under: 410 rules were missing their duals, all 410 verify, and they
+are generated now (F-026). A wrong mirror is how the right one got written down.
+E-026.
 
 ---
 
-## R-007 — "Two classes with different names are different classes"
-*2026-09-14* · corrected in `mutationClassTable.formsAreCompatible`
+## R-010 — "Wider rules are what unlock the heavily overlapping LNAs" (H-003)
+*retracted 2026-09-16*
 
-`mergeReport` treated any two differing identifying forms as proof that the
-classes are distinct. That is false when one is a **quipu that is tame
-hereditary** and the other is that quipu's **canonical type**: a tame hereditary
-algebra is also derived equivalent to a canonical algebra, so `P^(1,1)_(1,4,1)`
-and `C(2,2,7)` are two names for one thing.
+H-003's measurement half is right and is now F-021: the rows a classification
+search still has to place are exactly the heavily overlapping ones, all 786 of
+them at n = 9. Its **diagnosis** -- that the rules found so far are too narrow,
+and that wider ones would reach them -- is wrong for the configuration that
+dominates the leftovers.
 
-At n = 10 this reported a false separation — three classes named `C(2,2,7)`
-against the quipu `P^(1,1)_(1,4,1)`, whose own canonical weight type is `(2,2,7)`.
-They are merge candidates, not separated classes.
+**What was believed.** That discovery kept finding rules which keep an LNA inside
+the almost separate set because the windows searched were too small, and that
+aiming discovery at bigger patterns would produce rules crossing the line.
 
-**How it was caught.** The cospectral analysis (F-010) predicts *exactly* two
-collision groups at order 10. The run reported two separated groups, one of which
-was not either of them. A prediction that did not match is what exposed it; the
-count alone would have looked right.
+**What is true.** An *isolated pair* of relations sharing two or more arrows --
+434 of the 786 rows left at n = 9 have no heavily overlapping run longer than
+that -- cannot have its overlap reduced by any interior sequence, at any window
+width tried. Planted in the middle of A_13, it reaches 8 LNAs at three mutations,
+14 at four, 22 at five and 34 at four with the mutations allowed twice as far
+out, and **every one of them still has the pair** (F-022, E-021). Widening the
+window is not a dial that turns here; it reaches further along the quiver and
+finds the same thing.
 
-The earlier note that "the two identifications agree rather than compete" was
-correct and is in `tests/test_nakayama_classes.py` — but the comparison logic did
-not honour it. **A property recorded in a test is not enforced anywhere else.**
+**Where the diagnosis does hold, and why that misled.** A heavily overlapping run
+of *three* relations does dissolve under an interior rule, and the rules that do
+it are wide -- the window-5 and window-6 entries found at length 8 and in E-011.
+So the belief was confirmed every time it was tested on a triple, and the pair,
+which is the commonest core by a factor of four, was never the thing being
+tested.
 
-Does not affect n ≤ 9: the separated pair at n = 9 is two quipus, and no class
-below 10 carries a canonical name against a quipu sharing its polynomial.
+**What corrects it.** The overlap of an isolated pair is reduced at an **end** of
+the quiver, not by a wider window: two mutations at the source or sink delete one
+of the two relations (F-022). That is a rule the framework could not even state
+until it grew anchored descriptions, because it is false at every other position
+-- so no amount of searching for *floating* rules, at any width, was ever going
+to find it. E-021, E-023.
+
+---
+
+## R-009 — "A rewrite that verifyMove confirms with no failures is a rule"
+*retracted 2026-09-15*
+
+`verifyMove` enumerates every admissible LNA of each length it is given, matches
+the rule at every window position and checks all three conditions, so
+`confirmed > 0 and failures == []` reads like verification. It is not, unless the
+lengths are chosen to fit the rule. The lengths have to follow the **window**.
+
+**What it cost.** The three-mutation interior run (E-011) verified everything at
+the fixed lengths 7 to 10, the range E-010 had used. A window of 9 arrows fits in
+A_10 at exactly one position -- flush against both ends -- so each of its 30 rules
+got **one** confirmation from **one** length and was reported as verified.
+Re-checked at length 11, where the window can sit clear of the ends, **all 30
+failed**: not thin evidence, wrong rules. Example: window 9,
+`(1:2) (4:2) -> (0:2) (5:2) (7:2)` via `[2, -7, 9]`, applied to `020020000` at
+length 11, does not even land on a line quiver.
+
+This is H-007 again, on the other side. Discovery was moved into the interior of
+A_13 and A_14 precisely so that an end effect could not pass for a rule -- and
+then the verification put the window back flush against the ends, where every
+special case applies at once, and let the end effects through.
+
+**The correction.** Verify at `width + 1 .. width + 4`, so the window has room to
+move; require confirmations at **two or more lengths**; and drop a rule that
+cannot get them within the affordable range rather than keeping it on one.
+`discover.py` derives the lengths from each rule's width (`--verify-span`,
+`--verify-cap`), and `tests/test_lna_moves.py::lengthsToCheck` already did this
+for the table -- which is why nothing false ever reached `VERIFIED_MOVES`.
+
+**The general lesson.** A count of confirmations is not evidence until you know
+how many *positions* produced it. One position is one case, and one case at the
+only place a window fits is the worst case there is.
+
+---
+
+## R-008 — "LNAs are gentle, so the Avella-Alaminos-Geiss invariant applies directly"
+*retracted 2026-09-15*
+
+Written into `research/literature/README.md`'s candidate list and into NOTES ideas
+14 and 22, as the plan for an independent separation of the cospectral pair.
+
+**Wrong twice.** A gentle algebra's ideal is generated by paths of **length two**;
+an LNA with a relation of three or more arrows is a string algebra but not a
+gentle one. And an LNA that *is* gentle is derived equivalent to the path algebra
+of A_n, by operation 2 of `cor:EquivNakayamaAlgebras` applied to every one of its
+relations — so the gentle LNAs are a single class and a gentle invariant has
+nothing to separate. Neither member of the cospectral pair has a gentle member
+among its 18.
+
+**The correction.** F-019. The candidate list and both ideas now say so. What
+survives of idea 22 is the fallback it already named: Hochschild cohomology, which
+is a derived invariant of any finite-dimensional algebra.
+
+**How it slipped in.** The LNAs are special biserial and monomial on a quiver of
+maximum degree 2, which is most of the definition of gentle, and the one
+remaining condition is the one that fails. Worth the general lesson: a definition
+that is "obviously satisfied except for one clause" is where to look, not where to
+stop.
+
+---
+
+## R-007 — "Step 7 of the mutation procedure is about the new arrows themselves"
+*2026-09-14* · corrected against the paper's own words, → **F-015**
+
+The summary in `literature/` had step 7 as
+
+> `Σ_r ε_r r̄ = 0` is a relation iff `Σ_r ε_r (r/α) = 0` is one in `Q`, for every
+> `α` out of `i`
+
+which reads as a statement about the arrows `r̄`, with scalar coefficients. It is
+not. The paper says the `ε_r` are **linear combinations of paths `t(r) → l`**, for
+**any** vertex `l`, and says it as an **if and only if**. So step 7 is about every
+path out of `i*` — an `r̄` followed by a tail — and it determines them completely:
+the relations out of `i*` to `l` are exactly the kernel of the map that
+precomposes with each `α*`.
+
+**What the abridged reading cost.** Half a day, and nearly the wrong decision.
+Writing the procedure on coefficients, I implemented step 7 as that kernel, found
+it disagreed with the trusted implementation in 2 of 37470 walk steps, and could
+not tell which was right: both preserved the Coxeter polynomial, both survived a
+there-and-back mutation, and both reached the quipu the theorem names. I was
+about to revert the switch and file the disagreement as an open question. The
+paper's actual sentence settles it in one reading: the kernel is right, and the
+old implementation was **missing relations**.
+
+**The lesson, and it is the point of `literature/` existing.** A summary that
+abridges a statement can be worse than no summary, because it reads as
+authoritative. The rule going in: **quote the statements the code implements,
+verbatim.** Step 7 is now quoted in full, and the two things the abridgement
+dropped — that the coefficients are paths, and that it is an iff — are called out
+under the quote, because both are what made it misleading.
+
+**Also corrected:** the same summary said the admissibility criterion was a
+condition for mutation being *allowed*. The paper gives it as two cases where
+mutation is *impossible*, and says explicitly that the homological condition is
+in general **not** equivalent to a condition on the quiver. Ruling out is not the
+same as ruling in, which is why the stricter of our two implementations stays the
+search's gate.
 
 ---
 
 ## R-006 — "The workbook's n = 9 classification has 19 classes"
 *2026-09-13* · superseded by **F-011**
+
+**Challenged 2026-09-14, upheld, challenge withdrawn 2026-09-15 → F-014.**
+The objection was that the two quipus are isomorphic after all, being related by
+the exchange of an end segment of the main string with the cord at the outermost
+foot. That exchange is real and was already implemented; it does not relate
+these two, whose trees have diameters 6 and 5, and the analogous pair is two
+separate rows of the paper's own n <= 8 table. The objection was withdrawn by
+its author the next day as a misread — the quivers had been manipulated in the
+head rather than on paper.
+
+Kept, with the outcome, for two reasons. The exchange **is** a real symmetry of
+the notation and mistaking its reach is an easy error to repeat — F-014 now pins
+where it does and does not apply, including that it fails at an interior gap.
+And it is the record of a doubt that was answered rather than left hanging, which
+is the more useful half of "nothing is deleted".
 
 The hand-made classification merged two classes of 18 into one of 36. Every other
 class matches the computed partition exactly, and the computed partition refines

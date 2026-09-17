@@ -41,6 +41,7 @@ Run the test suite:
 ## Where things are written down
 
 * [`NOTES.md`](NOTES.md) — the code: what the model expresses, known gaps, the backlog.
+  The package layout is listed in [`quivermutation/__init__.py`](quivermutation/__init__.py).
 * [`research/`](research/) — the mathematics: findings, hypotheses, retractions,
   the log of runs made, and summaries of the literature. All dated, nothing
   deleted. Read [`research/README.md`](research/README.md) before adding to it.
@@ -67,22 +68,11 @@ directory, with one row per LNA giving
 It prints the classes and their sizes, and exits non-zero if any class was left
 unsettled.
 
-A long run does not have to finish in one sitting. Every step writes the table
-after every class and records what it has finished in a small JSON file beside
-the CSV, so `--resume` picks up where it stopped rather than redoing the naming
-and the resolving:
+A long run does not have to finish in one sitting -- the table is written after
+every class, and `--resume` continues from the CSV:
 
 ```bash
 python classify.py 10 --resume
-```
-
-`--budget-hours` stops a run cleanly once the budget is spent, between classes,
-with everything done so far on disk -- which is how to fit a classification into
-a fixed window such as a night. It exits 2 when it stops that way, so a wrapper
-can tell "out of time, resume me" from "finished, with something unsettled":
-
-```bash
-python classify.py 10 --budget-hours 9 --resume
 ```
 
 The classification runs in four steps, described in `NOTES.md`: seed every LNA
@@ -92,33 +82,73 @@ and settle whatever is left by a deeper search. For n <= 8 this reproduces the
 published classification with nothing left over, replacing what used to be a
 hand-merge over the CSV.
 
-## What the classification still has to search for, and why
+## Reading a classification back
 
-Seeding from the quipu theorem places every LNA whose consecutive relations
-overlap in at most one arrow; expanding along the verified move orbits adds a
-little. Everything else has to be searched, and searching is what makes a long
-classification long. `unplaced.py` says what is left and which relation patterns
-are to blame, in seconds and with no mutation search:
+A table with one row per LNA is the wrong shape for looking at the answer, and
+there are Catalan(n-1) of them -- 1430 at n = 9, 58786 at n = 12 -- while the
+number of classes stays small. `classes.py` reads the table by class instead:
 
 ```bash
-python unplaced.py 9
+python classes.py 9                       # the classes, largest first
+python classes.py 9 --collisions          # where the Coxeter polynomial stops separating
+python classes.py 9 --kind "not piecewise hereditary"
+python classes.py 9 --members "P^(1,4)_(1,0,1)"
+python classes.py 9 --page A_9.html       # the same thing as a page to browse
 ```
 
-One shape dominates the answer -- a maximally overlapping pair of length-3
-relations blocks a fifth of the unplaced rows at n = 9 -- and no rule in the
-table breaks it. `discover.py` is the search for one that does: it plants the
-commonest blocking patterns in the interior of a long quiver, walks four- and
-five-mutation sequences near them, keeps only what reduces the overlap, and
-verifies each candidate against the mutation engine over a range of lengths.
+Everything but `--members` reads the columns it needs and groups; nothing loads
+the per-LNA rows for the whole table. The page carries the classification inline
+-- no server, nothing to fetch -- and draws each class' quipu and each LNA as its
+quiver with an arc over the span of every relation.
+
+The same thing from Python:
+
+```python
+from quivermutation import classview
+
+nine = classview.Classification.forLength(9)
+nine.classes(kind = classview.QUIPU, minSize = 100)   # the big quipu classes
+nine.coxeterCollisions()                              # what the polynomial cannot separate
+nine.members("P^(1,4)_(1,0,1)")                       # one class, with the path to each member
+```
+
+## Where a classification still has to search
 
 ```bash
-python discover.py 9 --steps 4 --jobs 8
-python discover.py 9 --steps 5 --jobs 8 --resume
+python overlaps.py 6 7 8 9              # coverage by relation overlap
+python overlaps.py 9 --cores            # what is left, by overlapping run
+python overlaps.py 9 --free             # with relations of two arrows free
+python probe.py 1:3,2:3 --steps 4       # what one configuration can become
 ```
 
-It is built to be left running: work is spread over processes one unit at a
-time, every finished unit is appended to a JSONL file, `--resume` skips what is
-already there, and `--budget-hours` stops it cleanly.
+The quipu theorem names the class of an LNA whose consecutive relations share at
+most one arrow, and the move rules of `lnaMoves` carry the rest into its reach --
+100% of them at n = 6 and n = 7, 98% at n = 8, 84% at n = 9, 63% at n = 10 and
+47% at n = 11, with no search run at all. What is left over is exactly the LNAs
+with two relations sharing two or more arrows, and `overlaps.py` prints where
+the boundary sits at each length, which configurations are stuck, and how much
+each half of the rule table is worth. See `research/` F-021 to F-025.
+
+`probe.py` is the other half of the same question: instead of "what rules are
+there", it asks what can happen to one named configuration, and reports what it
+reaches grouped by overlap. A run that reaches nothing with a smaller overlap is
+a negative result worth having -- that is how the obstruction above was found.
+
+The two halves are different in kind. A *floating* rule holds at every position
+of the quiver; an *anchored* one holds only against the source or the sink, where
+a mutation does something it cannot do in the interior. The anchored half does
+most of the work above the almost separate line. Both are closed under the
+relation dual -- reverse every arrow and exchange right mutation for left, which
+takes a rule to a rule (`lnaMoves.dualRule`).
+
+Two things reach further than any rule does, and neither is a table row.
+`freeMoves` deletes a relation of **two arrows**, which arXiv:2310.08346 says
+leaves the derived equivalence class alone -- no mutation, no sequence, and it
+merges more at n = 12 than the whole rule table does. `edgeMoves` holds a family the rule
+encoding cannot state at all: a relation at an end of the quiver doubles, and its
+window is allowed to be crossed by a relation it never touches. With both,
+**n = 8 needs no search at all** -- 21 orbits, nothing left over -- and n = 9
+falls from 222 rows to 37. See `research/` F-028 to F-030.
 
 ### Where the Coxeter polynomial is not enough
 
@@ -137,8 +167,8 @@ two at order 10, four at order 11, thirteen at order 12.
 The library underneath is usable directly:
 
 ```python
-import nakayama as nk
-import quiverMutation as qm
+import quivermutation as qm
+from quivermutation import nakayama as nk
 
 a = nk.LinearNakayamaAlgebra(5, "300")      # 1->2->3->4->5, with 1->2->3->4 = 0
 a.kupischSeries()                            # (3, 4, 3, 2, 1)

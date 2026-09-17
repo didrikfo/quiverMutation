@@ -10,8 +10,8 @@ import collections
 
 import pytest
 
-import quipuForms as qf
-import quiverMutation as qm
+from quivermutation import quipuForms as qf
+import quivermutation as qm
 from helpers import quiet
 from paper_classification import PAPER_CLASSES, relation_string
 

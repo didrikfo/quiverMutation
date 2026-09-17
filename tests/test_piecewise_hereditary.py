@@ -15,8 +15,8 @@ length 9 is not.
 import pytest
 import sympy
 
-import nakayama as nk
-import piecewiseHereditary as pwh
+from quivermutation import nakayama as nk
+from quivermutation import piecewiseHereditary as pwh
 
 
 # The paper's (**): A_9 with relations 1 -> 4, 3 -> 6, 4 -> 7, 6 -> 9.

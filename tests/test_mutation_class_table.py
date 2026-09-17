@@ -4,7 +4,7 @@ import csv
 
 import pytest
 
-import mutationClassTable as mct
+from quivermutation import mutationClassTable as mct
 
 
 def sample_table():

@@ -293,9 +293,3 @@ def cartanMatrixExact(pathAlg, relationReading=fromPathSet):
         for j in vertices:
             matrix[index[j], index[i]] = homDimension(pathAlg.quiver, relations, i, j)
     return matrix
-
-
-def coxeterPolyExact(pathAlg, relationReading=fromPathSet):
-    """The Coxeter polynomial from the exact Cartan matrix."""
-    cartan = cartanMatrixExact(pathAlg, relationReading)
-    return (-cartan.inv().transpose() * cartan).charpoly()

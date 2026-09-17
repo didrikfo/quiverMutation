@@ -6,46 +6,291 @@ it. Status is one of `OPEN`, `SUPPORTED`, `CONFIRMED → F-nnn`, `REFUTED → R-
 
 ---
 
-## H-009 — A short mutation sequence breaks the maximally overlapping pair
-*2026-09-16* · **OPEN** — this is what the overnight discovery run is for
+## H-012 — Every free move is also a mutation equivalence
+*2026-09-16* · **OPEN**
 
-F-015 measures the obstruction: the LNAs that seeding and the move orbits cannot
-place all carry an overlapping run, and the single commonest is the maximally
-overlapping pair of length-3 relations, `(1:3) (2:3)` — 26% of the unplaced rows
-at n = 8, 20% at n = 9. No rule in the table reduces the overlap of a bare pair.
+F-028 establishes that deleting a relation of two arrows keeps the *derived*
+equivalence class. It says nothing about the mutation class, and the two are not
+the same question. The suspicion is that they coincide here: that an LNA is
+always mutation equivalent to its stripped form, so the free move is a shortcut
+through the mutation graph rather than a step outside it.
 
-The hypothesis is that a sequence of **four or five** mutations does, and that it
-is invisible to every search run so far because all of them were bounded at
-three. H-008 is the general form of this; the pair is the instance worth
-settling first, because it is the one that pays.
+**Evidence for.** Against an end it is a single mutation: E-027 found
+`(l, …, 2) → (l)` by one left mutation at the sink, for every `l` it tried, and
+F-029's collapse is the same thing with a spectator. And a two-arrow relation
+alone in its window slides any distance (F-020's lone slide), so one that can
+reach an end can be deleted there.
 
-**Evidence, such as it is.** A four-step search at quiver length 11 does find a
-link out of the pair to a less overlapping LNA, `(0:3)(1:3) -> (0:2)(3:3)` via
-`[2, -5, -6, 2]`, which three steps do not. That particular rewrite is **false**
-as a rule — it fails at lengths 10, 11 and 12 (R-008) — so this is evidence only
-that four-step links out of the pair exist at all, not that a valid one does.
+**Evidence against, or at least in the way.** Sliding needs room. The table
+already shows a two-arrow relation that can be slid to the sink and still not
+deleted there — `(3,0,0,0,2,0)` in `A_8` reaches `(3,0,0,0,0,2)` and never
+`(3,0,0,0,0,0)` — because the collapse rule's window is not clean. F-029 removes
+that particular obstruction, but only for a companion starting on the window's
+last arrow. Whether every configuration can be cleared is open.
 
-**What would settle it.**
+**What would settle it.** For each `n` where the mutation classes are known,
+check whether every LNA and its strip share one. A single pair that does not,
+with the mutation classes verified, would be the more interesting outcome: it
+would be a derived equivalence that is not a mutation equivalence, which the
+classification has never yet had to handle.
 
-    python discover.py 9 --steps 4 --jobs 8 --resume
-    python discover.py 9 --steps 5 --jobs 8 --resume
+**Why it matters either way.** If it holds, the free move can be used anywhere
+the mutation class is what is wanted, and the rule table is simply missing rows.
+If it fails, then `classification` has a real distinction to maintain and
+`freeMoves`' warning is not a formality.
 
-Plant the commonest blocking runs in the interior of A_13 and A_14, walk
-sequences of four and then five mutations near them, keep only what lands on a
-strictly smaller overlap, and verify each over lengths 7 to 10 with a minimum
-confirmation count. A negative result is worth as much as a positive one: if
-five mutations do not break the pair either, the obstruction is not a matter of
-search depth and the move table is the wrong lever for getting past n = 11.
+---
 
-**What it would be worth.** A single valid rule for `(1:3) (2:3)`, with the
-family in relation length that F-013 suggests such a rule would have, would place
-a fifth of the rows that currently need a depth-6 search — at n = 9 and, being
-local, at every length above it.
+## H-011 — Every class is reached by walking a heavily overlapping run to an end
+*2026-09-16* · **OPEN**
+
+F-022 gives the one mechanism known to reduce the overlap of an isolated pair:
+walk it to an end of the quiver with the pair slide and collapse it there. The
+suspicion is that this is not one mechanism among several but **the** mechanism
+-- that the derived equivalence class of any LNA is reached from an almost
+separate one by a sequence of interior moves that carry its heavily overlapping
+runs to an end, and collapses there.
+
+**Why it is worth stating.** If it holds, the classification needs no search at
+all: the seeding, the slide families and the anchored collapses generate
+everything, and n = 10 and beyond become a matter of counting rather than of
+mutation. If it fails, the LNA it fails on is the first evidence of a genuinely
+different obstruction, which is worth more than another rule.
+
+**Evidence for, and it is now substantial.** Coverage at n = 9 has gone from 45%
+to **60%** on nothing but rules anchored to an end -- 100% at n = 6, where a
+classification needs no search at all any more (F-022, F-023). Every rule that
+crosses the almost separate line does so at an end; not one floating rule
+reduces the overlap of an isolated pair.
+
+**What the first end-discovery run settled.** Of the two readings this
+hypothesis offered for why the runs of three were stuck, the second is right.
+At n = 8, of the 155 LNAs then unplaced, **126 had a rule whose left-hand
+pattern was present and which did not fire**, because further relations were
+sitting in its window; only 29 had no rule with their pattern at all. The rules
+were not too narrow, they were too **clean** -- and 188 of the 229 anchored
+rules now listed carry a bystander they step around (F-023).
+
+**The residue was the search bound, as predicted, and raising it paid.**
+E-024's 33 unreachable LNAs at n = 9 were almost all pairs with a long relation,
+which no run had ever planted. With `--max-arrows 7 --max-width 8`, discovery
+against the ends verified 3045 more rules and took n = 8 to 98% and n = 9 to
+84%; measured for the first time, n = 10 is 63% and n = 11 is 47% (E-025). So
+the mechanical reading keeps being the right one, and the residue keeps being
+about the bounds rather than about a new obstruction.
+
+**And the first widening batch behaved exactly as the hypothesis predicts.**
+`discover.py --extend` verified 625 widened rules in eight minutes: coverage went
+to **100% at n = 7**, 95% at n = 8 and 73% at n = 9, and the number this
+hypothesis said to watch -- LNAs for which *no* rule has the pattern at all, the
+ones more widening cannot fix -- fell from 29 to **5** at n = 8 and stands at
+**33** of 392 at n = 9 (E-024).
+
+**Two moves found from outside the search have now taken n = 8 to the end of it
+(E-027).** With F-028's free move and F-029's end doubling added, `A_8` needs
+**no search at all**: 21 orbits and nothing left over, where the rule table alone
+left 10 rows. `A_9` falls from 380 orbits and 222 rows to **77 and 37**. That is
+the strongest evidence this hypothesis has had, and it came from two mechanisms
+the discovery runs could not express rather than from more searching. It also
+sharpens what is left, and the residue at `n = 9` turns out to have one property
+in common, which is the sharpest form this hypothesis has yet taken:
+
+**All 37 have a relation at the source *and* a relation at the sink.** Every one
+of them is also already reduced, so F-028 has nothing left to give them. If the
+mechanism this hypothesis names is walking a heavily overlapping run to an end
+and collapsing it there, then an LNA with both ends already occupied is exactly
+the case where there is no end to walk to — and that is precisely, and only,
+what is left. Just 1 of the 37 is certified non-piecewise-hereditary, so the
+other 36 are a gap in the rules rather than algebras outside any quipu class.
+
+The property is an `n = 9` fact and not yet a general one: at `n = 10`, 670 of
+the 887 rows left have both ends occupied and 660 are reduced, so the
+characterisation is strong but not complete there. Whether it becomes complete
+once `n = 10` has the rules `n = 9` has is the question to ask next, and it is
+the concrete form of this hypothesis to try to break.
+
+**Evidence against, and it is weaker than it looks.** 392 rows at n = 9 are
+still not placed. The 33 with no rule at all were the candidate for a fourth
+configuration, and they are not one: 32 of them contain a relation of five
+arrows or more, and discovery has only ever been run at `--max-arrows 5
+--max-width 6`, where such a relation cannot appear beside another. They are a
+search bound, not a phenomenon.
+
+**What would settle it.** Keep re-running the blocked-rule diagnostic after each
+batch and watch that count as a *share*. While it stays small the hypothesis is
+holding and the remaining work is mechanical -- another widening pass, a wider
+spectator margin, two spectators instead of one. If it grows, there is a
+configuration the whole approach does not reach, and the LNA it first appears on
+is worth more than another hundred rules. Raise `--max-arrows` and
+`--max-width` before reading anything into the current residue -- looking at it
+by hand is cheap and, this time, it was the search bound.
+
+---
+
+## H-010 — Overlap is reducible only at an end, and that is a theorem about the procedure
+*2026-09-16, strengthened the same day* · **SUPPORTED**
+
+F-022 is an empirical statement: no interior sequence found so far reduces the
+overlap of an isolated pair. The suspicion is that it is exact -- that **no**
+interior mutation sequence does, whatever its length -- and that the reason is
+visible in the procedure rather than in the search.
+
+**It now rests on better evidence than it did.** The probes F-022 quoted allowed
+mutations at every vertex of A_13, so they were not testing interiority at all.
+Re-run where the ends are genuinely out of reach, `(1:3) (2:3)` reaches 2, 4, 4
+and 6 LNAs at three, four, five and six mutations, and not one of them has a
+smaller overlap (F-024). Six is two deeper than before, and the interior orbit
+turns out to be five times smaller than the earlier numbers suggested -- most of
+what those probes reached, they reached with an end's help.
+
+**And the one sequence that ever lowered it is the boundary in disguise.** With
+an end in reach, six mutations take `00003300000` to `30000020000` in A_13. The
+middle of that sequence walks the relation down the quiver one vertex at a time
+until it is at arrow 1, and the sequence is not translation invariant: shifted
+by one to four, it does not even produce an LNA. So it is not a counterexample
+to this hypothesis; it is H-011's mechanism, arrived at in one sequence rather
+than as a composition of rules.
+
+**Why it should be provable rather than searched for.** The collapse at the end
+uses the one thing an end has: the source of the line has no arrow into it. The
+procedure's steps at a vertex are about the paths through it, and at the source
+there are none coming in, so the relation ending there has nothing to be
+re-formed against and is dropped. In the interior the incoming arrow puts it
+back. If that argument can be made properly it is a **conserved quantity**
+statement -- the overlap of an isolated run is invariant under interior
+mutation -- and it says the move table is complete in a direction, which no
+amount of searching can say.
+
+**What would settle it.** Either a proof from the procedure's step 7, or a
+counterexample: an interior sequence, of any length, that lowers the overlap of
+an isolated pair. `python probe.py 1:3,2:3 --steps 7 --clearance 9` is the next
+search, and it is expensive -- six mutations took 43 minutes. The probes already
+run are in E-021 and E-025 and should not be repeated; in particular **do not
+re-run them without a clearance**, which is what made the earlier ones measure
+the wrong thing.
+
+**A cheaper line than searching deeper.** F-025 found that the two ends of the
+quiver behave differently for an unequal pair -- the sink shortens it, the source
+does nothing. Whatever asymmetry in the procedure explains *that* is likely the
+same one that explains this, and it is a question about one mutation rather than
+about seven.
+
+**Caveat.** "Isolated" is doing work. A pair with a third heavily overlapping
+relation was thought not to be invariant -- `(1:3) (2:3) (3:3)` dissolves in
+three mutations -- but that turns out to hold only for short runs: at three
+mutations `(1:3) (2:6) (3:7)` is as frozen as a bare pair (E-025). So the
+statement is not simply "runs of two are invariant and longer runs are not", and
+the right form of it is still open.
+
+---
+
+## H-009 — The move rules are a one-dimensional cellular automaton, and its theory applies
+*2026-09-14, first check 2026-09-15, parked 2026-09-16* · **PARKED**
+
+**Parked, deliberately, in favour of H-010 and H-011.** Not because anything
+below is wrong -- F-017 stands, and the caveat it answers was a real one -- but
+because the reading has to be fitted to the part of the problem that is still
+open, and the part that is still open has just been identified precisely
+(F-021): the heavily overlapping LNAs, and among them the isolated overlapping
+pair. Its own last paragraph already says the translation to an arrow row is
+finite-state only under *almost separate* relations, which is the part that is
+already easy. A theory of the easy part, arrived at by fitting this problem to
+another domain, is the likely yield, and the cost of getting it is a literature
+sweep.
+
+The two findings since are also the wrong shape for classical CA. F-022's rule
+is anchored to an end of the quiver, so the boundary is not a perturbation of
+the interior rule but where the interesting behaviour lives; and the empirical
+invariant of H-010 -- the overlap of an isolated run, unchanged by any interior
+sequence -- is a conserved quantity that wants proving from the mutation
+procedure, not recognising in a rule table.
+
+**When to unpark.** If H-010 is proved and the proof reads as a conservation law
+rather than a computation, the CA literature on additive invariants is then
+looking at something known to be there, which is a different proposition from
+looking for one. Start from the arrow row, as F-017 says.
+
+
+An LNA of length `n` is a row of `n - 2` cells, cell `i` holding the number of
+arrows in the relation starting at vertex `i + 1`. Every move rule found so far
+is then literally a **local rewrite on that row**: `lnaMoves.describeLink` only
+admits a rewrite whose *window* contains every relation it touches, `matchesAt`
+slides that window along the row, and the rules themselves read as
+neighbourhood-to-neighbourhood maps — the pair slide (F-013) translates a
+two-cell pattern one place along; the other verified rules lengthen or shorten a
+relation depending on what overlaps it on either side.
+
+That is the setting of **one-dimensional cellular automata**: a finite alphabet
+(relation lengths, bounded by `n`), a finite neighbourhood (the window width), a
+local transition rule, and boundary behaviour at the two ends that differs from
+the interior — which is exactly the phenomenon H-007 is about.
+
+**Why it might pay.** Questions we are currently answering by brute-force search
+are standard questions there, with machinery behind them:
+
+* *which rows are reachable from which* — the orbit/reachability problem for a
+  rewriting system, and the injectivity/surjectivity theory of CA maps;
+* *do the rules generate everything, or are there invariant classes* — additive
+  invariants and conserved quantities of a local rule, which is the CA way of
+  saying "a derived invariant the moves preserve";
+* *when does a family of rules parameterised by window width collapse to one
+  statement* — H-008's question, and the block/rescaling constructions are built
+  for it;
+* *how much does the boundary matter* — the difference between a CA on `Z` and on
+  a finite interval, which is well studied and is H-007's question.
+
+The nearest formal fit is probably not classical CA (synchronous, everywhere at
+once) but **asynchronous CA** or a **one-dimensional rewriting / subshift**
+presentation, since a mutation applies at one place at a time. Sand-pile and
+chip-firing models are the closest-looking relatives: local, order-independent
+in the right circumstances, with a well-developed theory of reachability and
+invariants.
+
+**What would settle whether it is worth pursuing.** A literature sweep first —
+asynchronous CA and local rewriting on finite words, reachability under a finite
+set of local rewrites, conserved quantities of local rules — then one concrete
+attempt: state the verified move table of `lnaMoves.VERIFIED_MOVES` as a rule set
+in that language and ask whether any standard result gives the orbit structure we
+are currently getting by search.
+
+**Caveat that would sink it.** A move is only valid when every mutation in its
+sequence is admissible (R-005), and admissibility is a condition on the *algebra*,
+not on the row of numbers. If the admissibility side conditions cannot be written
+as part of the local neighbourhood, the CA picture describes something strictly
+larger than the moves and its conclusions do not transfer.
+
+**That check is done, and it passes → F-017.** Whether a rule applies comes out
+of the window's cells plus one bit -- whether a relation covers the window's
+first arrow having started earlier -- over 991,064 comparisons at lengths 5 to 9
+with no disagreement; and wherever a rule matches, its mutations are legal, 1218
+confirmations and no failures. So the side conditions *are* local and the CA
+picture is about the right object.
+
+**What the check also settled, which was not the question asked.** The state has
+to be indexed by **arrows**, not vertices. A per-vertex cell holds a relation
+length, which is unbounded in `n`, so the alphabet is unbounded and a relation
+reaches arbitrarily far right; a per-arrow row carrying "covered / starts /
+ends" has a fixed alphabet and makes that one bit a property of the cell at the
+window's edge. Any attempt at this should start from the arrow row.
+
+**Where it will strain.** Translating a per-vertex row into a per-arrow one needs
+the number of relations open at each arrow. That is bounded by two under *almost
+separate* relations and unbounded otherwise -- and the heavily overlapping LNAs
+are exactly the ones the classification still has to search for (H-003). So the
+CA reading may be exactly a theory of the part that is already easy.
 
 ---
 
 ## H-008 — Rule families are parameterised by relation length and overlap, and some need more than three mutations
-*2026-09-14* · **OPEN**
+*2026-09-14, settled 2026-09-15* · **CONFIRMED → F-020**
+
+**Confirmed in both halves.** The lone short-relation slide is one statement for
+every `d`, and it needs `d` mutations -- so its members from d = 4 on are exactly
+the rules a three-mutation search cannot see, however simple they are.  Verified
+for d = 1 to 7, both directions, 63 confirmations each with no failures, and
+generated by `lnaMoves.shortRelationSlideRules` rather than waiting for discovery
+to reach them.  The pair slide (F-013) is the other half: a family whose mutation
+count does *not* grow.  The note below is what was suspected.
 
 The rules found so far are individually verified but individually unilluminating.
 The suspicion is that they are members of a handful of families parameterised by
@@ -137,7 +382,23 @@ certified and actual is unknown and worth measuring at n = 10 by another route.
 ---
 
 ## H-003 — Wider rules are what unlock the heavily overlapping LNAs
-*2026-09-13, measured 2026-09-16* · **SUPPORTED, and sharpened — see F-015**
+*2026-09-13, settled 2026-09-16* · **REFUTED → R-010**
+
+**Its question is answered and its diagnosis is wrong.** The measurement it asked
+for is F-021: the rows a search still has to place are exactly the LNAs whose
+consecutive relations share two or more arrows -- nothing below that line is ever
+left over, and of the 820 above it at n = 9 the whole rule table reaches 34. So
+the diagnosis below is right that the rules keep an LNA inside the almost
+separate set.
+
+What is wrong is the remedy. The commonest blocking configuration, by a factor
+of four, is an *isolated pair* of relations sharing two or more arrows, and its
+overlap cannot be reduced by any interior sequence at any width tried -- three,
+four and five mutations, and a margin of six (F-022, E-021). It comes apart at an
+**end** of the quiver instead, under a rule the framework could not state until
+it grew anchored descriptions. Aiming discovery at bigger interior patterns,
+which is what this hypothesis asked for, would not have found it. R-010.
+
 
 Seeding by the quipu theorem and expanding along move orbits places 72% of the
 n = 7 table, 57% of n = 8, 45% of n = 9 — and the 34 rules added at length 8
@@ -145,17 +406,9 @@ barely moved those numbers. The diagnosis is that the rules found so far mostly
 keep an LNA *inside* the almost-separate set the theorem already covers, while
 the rows still needing a search are the heavily overlapping ones.
 
-**Measured** (E-013, F-015, `python unplaced.py 9`). The diagnosis is right and
-the measurement makes it precise: every unplaced row carries an overlapping run,
-and one shape — the maximally overlapping pair `(1:3) (2:3)` — blocks a fifth to
-a quarter of them.
-
-**But "wider" is the wrong word for what is missing.** Eleven of the 64 rules do
-reduce overlap; they are simply too specialised to fire, needing a third relation
-in the window or relations of length 2, so only 49 of the 820 LNAs of length 9
-with an overlap of 2 or more ever reach a smaller one. What is missing is not a
-wider rule but one that applies to a **bare overlapping pair**. That is H-009,
-which is the successor to this hypothesis.
+**What would settle it.** Measure, for the rows a search still has to place, what
+relation patterns they have; then aim discovery at exactly those patterns rather
+than at small ones.
 
 ---
 

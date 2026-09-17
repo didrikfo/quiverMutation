@@ -34,9 +34,12 @@ LEGACY_COLUMNS = [RELATIONS, CLASS, PATH, COXETER, NUMBERING]
 #   'P^(...)_(...)'            the quipu the class is derived equivalent to.  A
 #                              complete invariant: same quipu means same class.
 #   'C(2,4,4)'                 the weight type of the canonical algebra whose
-#                              Coxeter polynomial the class has.  Identifying in
-#                              the same sense the rest of the pipeline's Coxeter
-#                              reasoning is.
+#                              Coxeter polynomial the class has.  It names the
+#                              class, but it is *read off the Coxeter
+#                              polynomial*, so it carries no information the
+#                              polynomial does not already carry and must never
+#                              be used to separate two classes that share one --
+#                              see isCoxeterDerivedForm.
 #   NOT_PIECEWISE_HEREDITARY   a certificate that the class is not derived
 #                              equivalent to any hereditary algebra, so not to
 #                              any quipu.  This is a *negative* statement: it
@@ -52,51 +55,29 @@ def isIdentifyingForm(form):
     return bool(form) and form != NOT_PIECEWISE_HEREDITARY
 
 
-def formsAreCompatible(first, second, lineLength = None):
-    """Whether two forms could still name the same class.
+def isCoxeterDerivedForm(form):
+    """Whether a form was read off the class' Coxeter polynomial rather than proved.
 
-    Different forms are *not* automatically proof of distinctness.  A quipu that
-    is tame hereditary is also derived equivalent to a canonical algebra, so the
-    quipu name 'P^(1,1)_(1,4,1)' and the canonical name 'C(2,2,7)' can be two
-    names for one class -- they are, at order 10.  Treating the strings as
-    distinct identities reports such a pair as separated when it should be a
-    merge candidate.
-
-    So: two quipu names are compatible only if equal; two canonical names only if
-    equal; and a quipu against a canonical name are compatible exactly when the
-    quipu's own canonical weight type is the one named.
+    Only the canonical weight types are: `canonicalWeightType` searches the
+    weight types of the right order for one whose canonical algebra has exactly
+    the polynomial the class has.  So a `C(...)` value is a restatement of the
+    polynomial, and two classes sharing a polynomial can differ in this column
+    only because one of them was named some other way -- which is no evidence at
+    all that they are different classes.  F-018.
     """
-    if first == second:
-        return True
-    if not (isIdentifyingForm(first) and isIdentifyingForm(second)):
-        return True                      # the negative certificate settles nothing
-    quipu, canonical = None, None
-    for form in (first, second):
-        if form.startswith("P^("):
-            quipu = form if quipu is None else quipu
-        elif form.startswith("C("):
-            canonical = form if canonical is None else canonical
-    if quipu is None or canonical is None:
-        return False                     # two quipus, or two canonical types
-    return _canonicalTypeOfQuipu(quipu) == canonical
+    return form.startswith("C(")
 
 
-def _canonicalTypeOfQuipu(quipuName):
-    """'C(...)' for a quipu that is also of canonical type, else None."""
-    import nakayama
-    import piecewiseHereditary
-    import quipuForms
+def isProvedForm(form):
+    """Whether a form is a proof of which class this is.
 
-    parsed = quipuForms.parseQuipuName(quipuName)
-    if parsed is None:
-        return None
-    k, m = parsed
-    algebra = nakayama.QuipuAlgebra(k, m)
-    weights = piecewiseHereditary.canonicalWeightType(
-        len(algebra.vertices()), algebra.coxeterPolynomial())
-    if weights is None:
-        return None
-    return "C({0})".format(",".join(str(w) for w in weights))
+    True exactly for the forms a mutation path establishes: a quipu name or a
+    canonical tree encoding, reached by mutating an LNA of the class down to a
+    relation-free quiver, or handed over by the quipu theorem.  Two classes with
+    different proved forms are different classes; nothing else in this column
+    supports that conclusion.
+    """
+    return isIdentifyingForm(form) and not isCoxeterDerivedForm(form)
 
 
 class MutationClassTable:
@@ -212,15 +193,18 @@ class MutationClassTable:
                 row[5] = hereditaryForm
 
     def classesByHereditaryForm(self):
-        """Hereditary form -> the set of class names that reached it.
+        """Proved hereditary form -> the set of class names that reached it.
 
         Classes sharing a form are certainly the same derived equivalence class,
         so this is a merge certificate rather than a merge candidate.  The empty
-        form means the search reached no relation-free quiver and says nothing.
+        form means the search reached no relation-free quiver and says nothing;
+        a `C(...)` weight type is read off the Coxeter polynomial, so two classes
+        carrying one are only known to share that polynomial and merging them
+        here would be circular.
         """
         grouped = {}
         for row in self._rows:
-            if row[1] and isIdentifyingForm(row[5]):
+            if row[1] and isProvedForm(row[5]):
                 grouped.setdefault(row[5], set()).add(row[1])
         return grouped
 

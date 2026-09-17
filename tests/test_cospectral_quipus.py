@@ -14,8 +14,8 @@ import networkx as nx
 import pytest
 import sympy
 
-import nakayama as nk
-import quipuForms as qf
+from quivermutation import nakayama as nk
+from quivermutation import quipuForms as qf
 
 # Orders 1 to 12.  The paper's table gives 4, 6 and 11 for orders 6, 7 and 8.
 QUIPU_COUNTS = [1, 1, 1, 2, 2, 4, 6, 11, 18, 36, 64, 127]
@@ -36,6 +36,40 @@ def test_every_quipu_of_an_order_has_that_many_vertices_and_is_canonical(order):
     # No two of them are the same tree.
     forms = {qf.canonicalTreeForm(qf.graphFromQuipuParameters(k, m)) for k, m in quipus}
     assert len(forms) == len(quipus)
+
+
+@pytest.mark.parametrize("order", range(1, 10))
+def test_the_two_routes_to_the_quipus_of_an_order_agree(order):
+    """Enumerating parameters and enumerating trees must find the same quipus.
+
+    `allQuipusOfOrder` enumerates the P^(m)_(k) parameter pairs and
+    canonicalises them; `quipusByTreeEnumeration` enumerates the non-isomorphic
+    trees of the order and keeps the ones whose degrees say they are quipus.
+    Nothing about the notation enters the second one's choice of trees, so
+    agreement checks the parameter enumeration and both readings of the
+    definition of a quipu at once.
+    """
+    assert qf.allQuipusOfOrder(order) == qf.quipusByTreeEnumeration(order)
+
+
+@pytest.mark.slow
+@pytest.mark.parametrize("order", [10, 11, 12])
+def test_the_two_routes_agree_further_out(order):
+    assert qf.allQuipusOfOrder(order) == qf.quipusByTreeEnumeration(order)
+
+
+def test_the_degree_test_and_the_main_string_test_agree_on_non_quipus():
+    """Both readings must reject the same trees, not just accept the same ones."""
+    star = nx.Graph([(1, 2), (1, 3), (1, 4), (1, 5)])                # degree 4
+    # A degree-3 vertex with a degree-3 vertex down each of its three branches.
+    # Four branch vertices is the smallest number that can fail to lie on one
+    # path: with three they always do, since a path through two of them passes
+    # through the third.
+    offMainString = nx.Graph([(1, 2), (1, 3), (1, 4), (2, 5), (2, 6),
+                              (3, 7), (3, 8), (4, 9), (4, 10)])
+    for graph in (star, offMainString):
+        assert not qf.isQuipuByDegrees(graph)
+        assert not qf.isQuipu(graph)
 
 
 @pytest.mark.parametrize("order", range(4, 9))
