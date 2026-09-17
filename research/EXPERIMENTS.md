@@ -6,6 +6,68 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-029 — Reading `proposition:doubleMutation`, and what it does to coverage
+*2026-09-17* · **a mechanism, found by reading; n = 9 needs no search, n = 10 is 16 orbits** → F-032
+
+The first session run locally, with the `.tex` sources of all three papers to
+hand. NOTES item 5 said to look for mechanisms before rules; this is the third,
+and the largest.
+
+1. **Read** the proposition and its proof (`main.tex` lines 331–497 of
+   arXiv:2310.08346v1). Replaced the second-hand lead in the literature summary.
+2. **Implemented** it as an interval rewrite, dual through F-026, `s = 1`
+   extension behind `allowSource`. Reproduced `example:mutationToA11_5` steps
+   `L_8`, `L_9` and `example:A13tworelations` steps `R_1`, `R_1^2` exactly.
+3. **Verified** against the engine at `n = 5..10`, 14 processes: 17556
+   confirmations, 0 failures, 1 min 22 s for `n = 9, 10`.
+4. **Measured** coverage with and without the table, the free move, and the
+   extension. The extension changes nothing (`doubles, paper only` gives the same
+   numbers at `n = 7, 8, 9`). Interior-only (`s > 1` and `t < n`) gives 273 / 429
+   and 770 / 1430 at `n = 8, 9`, with or without the free move.
+5. **Named what is left** by Coxeter polynomial against the quipu polynomials of
+   the order (34 at `n = 10`, 60 at `n = 11`, matching F-010's collision counts),
+   and by the two implemented non-piecewise-hereditary certificates.
+6. **H-012, by known moves only**: with the double mutation, edge moves and the
+   rule table (all mutations), 8 of 429 LNAs at `n = 8` and 44 of 1430 at `n = 9`
+   are not joined to their stripped form. That is a statement about the known
+   moves, not a counterexample; nothing settled.
+7. **H-011's sharp question**: of the 262 rows left at `n = 10`, 190 have a
+   relation at both source and sink (73 %); at `n = 11`, 1743 of 2647. Not a
+   characterisation — but the question has changed, since what is left is no
+   longer a gap in the rules (F-032).
+8. **What an interior application does** (`s > 1`, `t < n`), `n = 6..10`: at
+   `n = 10`, 7164 applications; maximum overlap down in 1416, up in 1416, same in
+   4320; relation count −1 in 1430, +1 in 1430. So interior moves *do* lower
+   overlap when bystanders cross `r`, while on an isolated pair they only slide
+   it. A claim to the contrary was written into H-010 and corrected before
+   commit.
+9. **Relation dual.** The first `merges.py` smoke test at `n = 10`, depth 3,
+   found 18 links and every one was a relation dual, reached at depth 0 because
+   the search starts from each member's dual. Closing the orbits under it is free
+   and takes `n = 10` from 16 leftover orbits to **12 in 7 polynomial groups**,
+   `n = 11` from 86 to **54 in 20**. So the derived classes number 43 to 48 at
+   `n = 10` and 84 to 118 at `n = 11` (H-013).
+10. **Reading, not yet used**: `lemma:taupathimpliesnotpwh` certifies both members
+   of `example:A10double`, which A9, A13 and vertex deletion all miss.
+
+11. **Sweep for further mechanisms, negative.** arXiv:2310.08346 §2 has exactly
+    two derived equivalences (the free move and this one). arXiv:2305.06642's
+    `algorithm:CRswap` needs almost separate relations and is what the seeding
+    already encodes; `corollary:2Rels` is the free move restricted to that case.
+    arXiv:2112.08129 is the procedure itself. No further *merge* mechanism in the
+    three papers; the one unused tool is a *certificate*,
+    `lemma:taupathimpliesnotpwh`.
+
+Reproduce: `python overlaps.py 9 10 11 --free --doubles --no-rules`, and
+`pytest tests/test_double_mutation.py` (the `n = 9, 10` engine checks are
+`slow`).
+
+**What this makes obsolete in the handover plan.** The raised-bound rule
+discovery (`--max-arrows 7 --max-width 8` interior, `--extend` again): its purpose
+was coverage, and the table adds nothing at `n = 10` on top of this. Not run.
+
+---
+
 ## E-028 — Checkpointing the classification, and what a resumed n = 8 gives
 *2026-09-17* · **the published table, out of two interrupted halves**
 

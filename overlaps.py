@@ -7,6 +7,9 @@
     python overlaps.py 9 --floating      the floating rules only, leaving the ends out
     python overlaps.py 9 --free          with relations of two arrows free as well
     python overlaps.py 8 --free --edges  and the doubling at an end: nothing left
+    python overlaps.py 10 --free --doubles --no-rules
+                                         arXiv:2310.08346's double mutation instead
+                                         of the rule table: 95% of A_10 in seconds
 
 The quipu theorem names the class of an LNA whose consecutive relations share at
 most one arrow.  Everything else has to be searched for -- unless a move rule
@@ -27,6 +30,12 @@ of mutation classes -- and it does far more for them than any rule does
 `--edges` adds the doubling at an end of the quiver, which is a rule in every
 sense except that `lnaMoves`' window encoding cannot state it (F-029).  With
 both, n = 8 needs no search at all.
+
+`--doubles` adds `proposition:doubleMutation` of arXiv:2310.08346, which
+generalises the pair slide, the end collapse and the doubling to any number of
+relations crossing the one being moved (research F-032).  It reaches further
+than the whole rule table, so `--no-rules` leaves the table out and is how
+n >= 10 is affordable.
 """
 
 import argparse
@@ -41,8 +50,8 @@ def formatPattern(pattern):
     return " ".join("({0}:{1})".format(start, arrows) for start, arrows in pattern)
 
 
-def report(length, rules, showCores, coreLimit, free = False, edges = False):
-    result = (fm.coverage(length, rules, free, edges) if free or edges
+def report(length, rules, showCores, coreLimit, free = False, edges = False, doubles = False):
+    result = (fm.coverage(length, rules, free, edges, doubles) if free or edges or doubles
               else ov.coverage(length, rules))
     total = len(result['lnas'])
     print("\nA_{0}: {1} LNAs, {2} named by the theorem, {3} covered with the move "
@@ -79,19 +88,28 @@ def main(argv = None):
     parser.add_argument("--edges", action = "store_true",
                         help = "also use the doubling at an end of the quiver, "
                                "which no window rule can state")
+    parser.add_argument("--doubles", action = "store_true",
+                        help = "also use the double mutation of arXiv:2310.08346, "
+                               "which lets any relation cross the one it moves")
+    parser.add_argument("--no-rules", action = "store_true", dest = "noRules",
+                        help = "leave the rule table out, and use only the moves asked for")
     parser.add_argument("--floating", action = "store_true",
                         help = "use only the rules that hold at every position, "
                                "leaving out the ones anchored to an end")
     args = parser.parse_args(argv)
 
     rules = lm.VERIFIED_MOVES if args.floating else lm.ALL_MOVES
+    if args.noRules:
+        rules = []
     print("{0} rules: {1} floating{2}{3}".format(
         len(rules), len(lm.VERIFIED_MOVES),
         "" if args.floating else " + {0} anchored".format(len(lm.ANCHORED_MOVES)),
         "".join([", and relations of two arrows free" if args.free else "",
-                 ", and the doubling at an end" if args.edges else ""])))
+                 ", and the doubling at an end" if args.edges else "",
+                 ", and the double mutation" if args.doubles else "",
+                 " -- table not used" if args.noRules else ""])))
     for length in args.lengths:
-        report(length, rules, args.cores, args.coreLimit, args.free, args.edges)
+        report(length, rules, args.cores, args.coreLimit, args.free, args.edges, args.doubles)
     return 0
 
 

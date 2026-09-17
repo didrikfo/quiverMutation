@@ -5,6 +5,79 @@ See [`README.md`](README.md) for conventions.
 
 ---
 
+## F-032 — The double mutation of arXiv:2310.08346 is the mechanism the rule table was approximating
+*2026-09-17*
+
+`proposition:doubleMutation`: for a relation `r: s → t` with a relation starting
+at `s - 1` and none at `t - 1`, two left mutations at `t` add `s+1 → t+1` (unless
+`t = n`), move the start of every relation starting inside `r` up one, and move
+the end of every relation ending inside `r` up one. Stated in full, with the
+proof's structure, in `literature/2310.08346-*.md`; implemented as
+`quivermutation/doubleMutation.py`, the dual `R_s` taken through F-026.
+
+**It holds against the engine everywhere it applies.** Every LNA of lengths 5 to
+10, every relation satisfying the hypotheses, both directions, checked the three
+ways `verifyMove` checks a rule — predicted LNA, every mutation admissible,
+Coxeter polynomial fixed:
+
+| n | 5 | 6 | 7 | 8 | 9 | 10 |
+|---|---|---|---|---|---|---|
+| confirmed | 18 | 68 | 250 | 922 | 3430 | 12868 |
+| failures | 0 | 0 | 0 | 0 | 0 | 0 |
+
+17556 in all. Included are the cases at `s = 1` with no companion, which the
+paper does not state (its hypothesis is used only to keep the quiver a line, and
+at the source it is one anyway): 1429 per direction at `n = 10`, no failures.
+`tests/test_double_mutation.py` pins the counts.
+
+**It is why no rule could state it.** Every relation it changes crosses `r`, so
+every such relation straddles any window, and `matchesAt` refuses those. The
+table holds only its instances with nothing crossing: `pairSlideRules` (588 of
+588 applications at `n = 5..10` are one double mutation), `endPairCollapseRules`
+(600 of 600), and `edgeMoves.sourceDoubling` (every one, `n = 7..9`). Of all
+1844 table rules' applications at `n = 9`, 1602 of 3754 are a single double
+mutation.
+
+**What it reaches, with no search** (seeding from the quipu theorem, then orbits;
+`python overlaps.py 9 10 --free --doubles --no-rules`):
+
+| n | rule table + edges (mutation) | double mutation alone (mutation) | + free move (derived) | left | orbits left |
+|---|---|---|---|---|---|
+| 8 | 428 / 429 | **429 / 429** | 429 | 0 | 0 |
+| 9 | 1292 / 1430 | 1397 | **1421** | 9 | 2 |
+| 10 | 63 % | | **4600 / 4862 (94.6 %)** | 262 | 16 |
+| 11 | 47 % | | **14149 / 16796 (84.2 %)** | 2647 | 86 |
+| 12 | | | 42836 / 58786 (72.9 %) | 15950 | |
+
+The rule table on top of the double mutation and the free move adds **nothing**
+at `n = 10`: the same 262 rows in the same 16 orbits. The whole run takes seconds
+where the table took minutes.
+
+**At n = 9, 10 and 11 what is left is provably not a quipu class**, so seeding,
+the free move and the double mutation together place every LNA that *is* in one:
+
+- `n = 9`: the 9 rows are two orbits, exactly `3345000` (8 members, `C(2,4,4)`)
+  and `3033030` (1, not piecewise hereditary) — F-011's two non-quipu classes,
+  with nothing searched.
+- `n = 10`: 16 orbits under 7 Coxeter polynomials. Six polynomials belong to no
+  quipu of order 10. The seventh, `T^10 + T^9 + T + 1`, is carried by two
+  singleton orbits `34504030` and `50505000`, which are precisely `Λ` and `Λ'` of
+  the paper's `example:A10double`, proved not piecewise hereditary there by
+  `τ^9(P_2) = P_2[1]`; neither of our criteria certifies them.
+- `n = 11`: 86 orbits under 20 polynomials. One polynomial is shared with a
+  quipu, and both orbits carrying it contain a certified non-piecewise-hereditary
+  member (6 of 8 each), so neither is a quipu class.
+
+**Caveats.** The free move is a derived equivalence only, so the partition with
+it is of derived classes, not mutation classes (H-012). Orbits left over that
+share a polynomial may still be one class. Closed under the relation dual as
+well, which is free, `n = 10` has 12 orbits in 7 polynomial groups and `n = 11`
+has 54 in 20, so 43 to 48 and 84 to 118 derived classes (H-013). The interior half of the move alone reaches much
+less (273 / 429 at `n = 8`, 770 / 1430 at `n = 9`), so the ends are still where
+the work is done (H-010, H-011). `E-029`.
+
+---
+
 ## F-031 — The smallest tree that is not a quipu has ten vertices, and no LNA reaches it
 *2026-09-16*
 
