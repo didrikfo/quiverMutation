@@ -5,6 +5,140 @@ See [`README.md`](README.md) for conventions.
 
 ---
 
+## F-035 — A relation of two arrows is free on a line and on nothing else
+*2026-09-17*
+
+`corollary:lengthtworelations` of arXiv:2310.08346 says a relation of two arrows
+does not change the derived equivalence type of a Nakayama algebra, and F-028
+measured it: 4861 cases at `n = 3..10`, the Coxeter polynomial kept every time.
+The natural guess is that the same holds wherever a two-arrow relation sits. It
+does not, and the counterexample is tiny.
+
+**`D_4` with one two-arrow relation.** Take `3 -> 2 -> 1` with `4 -> 2` and the
+relation on `3 -> 2 -> 1`. Its Coxeter polynomial is `x^4 + x^3 + x^2 + x + 1`,
+the polynomial of `kA_4`; deleting the relation gives `kD_4`, whose polynomial is
+`x^4 + x^3 + x + 1`. So the deletion leaves the derived equivalence class, since
+the polynomial is an invariant of it.
+
+**How often, over the quipus.** Deleting every two-arrow relation from every
+admissible monomial ideal on every orientation of every quipu:
+
+| order | ideals with a two-arrow relation | polynomial kept | **changed** |
+|---|---|---|---|
+| 4 | 11 | 7 | **4** |
+| 5 | 72 | 48 | **24** |
+| 6 | 543 | 300 | **243** |
+| 7 | 4160 | 2138 | **2022** |
+| 8 | 34938 | 15337 | **19601** |
+
+About half, and the half that keeps it is not an accident either: **on the
+linearly oriented line the polynomial is kept in every case**, which is the
+corollary itself and is the control this measurement needed.
+
+**What it costs.** `quipuRelations`' `minArrows = 3`, which is what makes order
+11 affordable, is a real restriction of the family and not a normalisation: the
+ideals with a two-arrow relation are genuinely different algebras and a run that
+leaves them out has not covered them. At orders 9 and 10 the runs use
+`minArrows = 2` and the question does not arise.
+
+`quipuRelations.freeRelationCheck`, `python families.py free 4 5 6 7 8`. E-030.
+
+---
+
+## F-034 — Quipus with relations carry every class the quipu theorem misses
+*2026-09-17*
+
+The quipu theorem is about quipu quivers with **no** relations. Relations are
+what the mutation procedure spends its time on, and a walk from an LNA to its
+quipu passes through quivers that have them, so there is no reason the shape
+should stop mattering once it does. Enumerating every quipu of an order, every
+orientation of it up to the tree's automorphisms, and every admissible monomial
+ideal on the result, and matching the Coxeter polynomial against the LNAs of the
+length:
+
+| order | shortest relation | ideals walked | matching | polynomials of unclassified LNAs covered |
+|---|---|---|---|---|
+| 9 | 2 arrows | 370 483 | 3677 (2820 up to isomorphism) | **2 of 2** |
+| 10 | 2 arrows | 3 411 263 | 306 624 | **7 of 7** |
+| 11 | **3 arrows** | 5 465 194 | 1 246 011 | **20 of 20** |
+
+Every Coxeter polynomial carried by an LNA that lies in no quipu class is also
+carried by quipu algebras with relations, and by thousands of them: 1746 up to
+isomorphism on `3033030` at `n = 9`, spread over 16 of the 18 quipu shapes of
+that order; at `n = 11`, between 10 220 and 60 228 per polynomial, over 61 to 64
+of the order's 64 shapes. The linearly oriented line is excluded throughout, so
+none of this is an LNA matching itself.
+
+The `n = 11` run allows only relations of **three arrows or more**, which is a
+real restriction and not a normalisation (F-035), so its 20 of 20 is a statement
+about that sub-family — and a stronger one for it, since the sub-family is
+smaller.
+
+**A polynomial match is not an equivalence, so the classes were walked as well.**
+Every quiver a mutation search out of an LNA reaches is in its class by
+construction, so the quipus among them are members with a path to prove it.
+
+| | `n = 9` | `n = 10` |
+|---|---|---|
+| LNAs outside a quipu class | 9 | 262 |
+| **reaching a quipu with relations within 3 mutations** | **9** | **262** |
+| reaching none | 0 | 0 |
+| quipu algebras confirmed, per LNA: min / median / max | 8 / 16 / 18 | 3 / 20 / 84 |
+| distinct quipu algebras confirmed | 178 (at depth 4) | 3510 |
+
+So it is not that *some* class outside the theorem has a quipu member: **every
+LNA outside one has, and within three mutations.** Every algebra reached this way
+is in the enumeration; the only quivers reached and not enumerated were the
+linearly oriented lines, which are the LNAs themselves — so the enumeration is
+complete in the sense that matters, and the matches are not all coincidence.
+
+**The smallest case is at order 4 and is not exotic.** `D_4` with one two-arrow
+relation is `kA_4` after a single mutation (F-035). What is new is that the same
+thing happens for the lines the theorem *cannot* name.
+
+**What this does not say.** 178 of 2820 at `n = 9` are confirmed; the rest are
+leads, and a lead is only a necessary condition met. Nor is there a *family* yet:
+a theorem in the shape of `thm:QuipuToAn` would say which quipu-with-relations
+goes with which LNA, and this says only that plenty of them exist. H-014.
+
+`quipuRelations`, `python families.py quipus 9 --min-arrows 2`. E-030.
+
+---
+
+## F-033 — No tree outside the quipu shape carries an unclassified LNA's polynomial
+*2026-09-17*
+
+F-031 enumerated the trees of maximum degree three that are not quipus, up to
+order 12, and found none sharing a Coxeter polynomial with any LNA. This is the
+same question of **every** tree, degree four and above included.
+
+| order | trees | not quipus | sharing a polynomial with a quipu | **leads** |
+|---|---|---|---|---|
+| 9 | 47 | 29 | 3 | **0** |
+| 10 | 106 | 70 | 0 | **0** |
+| 11 | 235 | 171 | 7 | **0** |
+| 12 | 551 | 424 | 15 | **0** |
+
+694 non-quipu trees over the four orders, and not one of them shares its Coxeter
+polynomial with an LNA that lies outside a quipu class.
+
+**The 25 that do share a polynomial are refuted without a search.** In every one
+of those cases the LNAs under that polynomial are all ones the moves place in a
+quipu class, and the tree is *cospectral* with that quipu — the same polynomial,
+a different tree. Two path algebras of trees are derived equivalent exactly when
+the trees are isomorphic, so the tree is not derived equivalent to the quipu, and
+so not to the LNA either. The Coxeter polynomial matching is the whole of the
+coincidence.
+
+**What it is and is not.** Four orders, not a proof for all of them. Taken with
+F-031 it says the hereditary side of the classification is closed as far as
+anything has been able to look: if there is a second family behind the classes
+the theorem misses, its quivers **have relations** — which is F-034.
+
+`treeSearch`, `python families.py trees 9 10 11 12`. E-030.
+
+---
+
 ## F-032 — The double mutation of arXiv:2310.08346 is the mechanism the rule table was approximating
 *2026-09-17*
 

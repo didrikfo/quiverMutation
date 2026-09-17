@@ -6,6 +6,78 @@ it. Status is one of `OPEN`, `SUPPORTED`, `CONFIRMED → F-nnn`, `REFUTED → R-
 
 ---
 
+## H-014 — Every class outside the quipu theorem has a quipu-with-relations member, and one of them is canonical
+*2026-09-17* · **SUPPORTED**
+
+F-034 establishes two things at `n = 9`, `n = 10` and `n = 11`: every Coxeter
+polynomial carried by an LNA in no quipu class is also carried by quipu algebras
+with relations, and at `n = 9` and `n = 10` a mutation walk proves that every
+such LNA really does reach one, within three mutations. The hypothesis is the
+general statement, in two parts.
+
+**Part 1, the existence.** Every derived equivalence class of LNAs contains an
+algebra whose quiver is a quipu — with relations where the theorem's quipus have
+none. The quipu theorem is then the case where the relations can be cleared away
+entirely.
+
+**Part 2, the normal form, which is what would make it a theorem.**
+`thm:QuipuToAn` is useful because it is a *bijection*: one quipu per class, named
+by parameters read off the LNA. What F-034 has is the opposite — 1746 quipu
+algebras on one class at `n = 9`, over 16 of the order's 18 quipu shapes. A
+theorem in the shape of the quipu theorem needs a canonical one, and the
+hypothesis is that some rule (fewest relations? shortest total relation length? a
+particular orientation?) picks it out, and that its parameters are a function of
+the LNA the way `k` and `m` are.
+
+**Part 2 has a shape already, at `n = 9`.** `python families.py members 9
+--depth 3` prints what the walks actually reach, and what they reach first is one
+quipu over and over: **`P^(6)_(1,1)`**, the line on eight vertices with a single
+pendant vertex at the second — one mutation's worth of quipu. `3033030`, whose
+relations are `1-2-3-4`, `3-4-5-6`, `4-5-6-7`, `6-7-8-9`, appears there as
+
+    1 -> 2 -> ... -> 8  with  2 -> 9,  relations  2-3-4-5, 3-4-5-6, 5-6-7-8
+
+— the relations carried along one vertex, one of them absorbed into the branch,
+and the count down by one. Seven of the nine LNAs at `n = 9` reach that same
+shape, the other two reach `P^(5)_(1,2)`. Whether the correspondence is a
+function of the LNA, and what it does to the relations in general, is exactly
+what part 2 is asking; the material to read it off is what `members` prints.
+
+**Part 1 is now measured, not just suspected.** Every one of the 9 LNAs outside a
+quipu class at `n = 9` and every one of the 262 at `n = 10` reaches a quipu with
+relations **within three mutations** — none reaches none, and the median LNA
+reaches 16 and 20 of them respectively (F-034). What is open in part 1 is `n = 11`
+and beyond, and whether it is a theorem rather than a run of small cases.
+
+**Evidence for.** The counts of F-034 and the walks behind them; and the fact
+that the phenomenon is old and small — `D_4` with one two-arrow relation is
+`kA_4` after a single mutation (F-035), so quipu-with-relations to line is a
+mechanism the procedure performs routinely rather than a coincidence of the
+polynomial.
+
+**What is in the way.** A polynomial match is necessary and not sufficient, and
+at `n = 10` one of the seven polynomials -- `T^10 + T^9 + T + 1`, which
+`34504030` and `50505000` carry -- is shared with a quipu class, so a match
+against it says nothing at all about those two (the paper's `remark:Coxeter`
+makes the same point). Those two are the `UNPLACED` rows, and they are exactly
+the ones a polynomial can never settle.
+
+**What would settle it.** For part 1: `quipuRelations.reachedQuipuAlgebras` from
+every LNA outside a quipu class at `n = 11` and `n = 12` — `n = 10` is done, and
+takes 7 minutes. An LNA that reaches none at a depth where its neighbours reach
+twenty is the interesting outcome and is where a counterexample would show. For part 2: take the confirmed members of one
+class and look at what they have in common — the `--verify` path of
+`families.py` produces them, and `classpage`-style drawing would make a family
+visible faster than a table will.
+
+**Why it matters.** It would be the first statement about the classes the quipu
+theorem misses that is about *shape* rather than about search. Every tool the
+project has for those classes at the moment is negative -- a certificate that an
+algebra is in no quipu class -- and F-033 closes the hereditary route, so a
+family with relations is what is left.
+
+---
+
 ## H-013 — The leftover orbits sharing a polynomial are few classes, and the search can say which
 *2026-09-17, written before the overnight run* · **OPEN**
 
