@@ -154,6 +154,60 @@ Coxeter polynomial identifies the candidates, since it is invariant under
 derived equivalence — but it is not a complete invariant, so agreement is not
 proof. It does happen to separate every class for n <= 8.
 
+### Other families, and the polynomial as a table
+
+`families.py` is the second line of work the classification suggests: the quipu
+theorem names a class by a **tree with no relations**, and every class it misses
+needs naming by something. Two candidate families, both measured by Coxeter
+polynomial before any mutation is run.
+
+`invariants.coxeterCoefficients` is what makes that affordable. For an acyclic
+quiver the Cartan matrix is unimodular, so the Coxeter polynomial is
+`det(lambda C^T + C)` — integers and one variable, no inversion — and evaluating
+it at `n + 1` points and interpolating gives an exact integer coefficient tuple.
+Hashable, so a polynomial is a dictionary key rather than something to `simplify`;
+and about a hundred times faster than the symbolic route, which is the difference
+between minutes and half an hour over the LNAs of one length.
+
+`coxeterTables` holds the three tables a search matches against: every LNA's
+polynomial, every quipu's, and every LNA's **status** — in a quipu class by
+F-032's moves, in none (because no quipu of the order carries its polynomial), or
+neither. `lnaStatus` is the one a search calls.
+
+* `treeSearch` — every tree of an order as a hereditary algebra. Cheap: one
+  polynomial per tree, off the reachability matrix of any orientation, since the
+  orientations of a tree are all derived equivalent. F-033.
+* `quipuRelations` — quipu quivers that **do** carry relations, in every
+  orientation and with every admissible monomial ideal. Millions of algebras, so
+  the arithmetic matters: the Cartan matrix is a **bitmask** maintained by one OR
+  per relation as the antichain walk descends; a batched float determinant at 2
+  sieves out what cannot match; and what survives is decided exactly, by the
+  polynomial's values at `n + 1` points **modulo three primes**, computed over
+  the whole batch at once. F-034.
+
+The modular step is not decoration. It replaced a batched fraction-free
+elimination in int64 that was correct up to order 10 and silently overflowed at
+order 11 — the run reported a million algebras through the sieve and **zero**
+matches, which is what an overflow looks like when nothing checks it.
+`tests/test_coxeter_keys.py` now compares the batched route against
+`invariants.coxeterCoefficients`, which carries Python integers and cannot
+overflow, at every order the batched one is used at.
+
+### Relation-free sightings
+
+`search.relationFreeSightings()` is a context manager that records every quiver a
+search reaches with **no relations left**: its underlying graph in canonical
+form, whether that graph is a tree, whether it is a quipu, whether the quiver has
+an oriented cycle or parallel arrows, and the mutation path that got there.
+`classify.py --sightings FILE` writes them as JSON lines and prints the counts.
+
+The searches already pass through these — `hereditaryFormsReachedFrom` is nothing
+else — but they keep the first one and throw the rest away, so what they are has
+never been looked at. Expect trees, and mostly quipus. A relation-free quiver
+whose graph has a **cycle** would be a hereditary algebra of a kind no LNA class
+has produced, and is worth stopping for. Nothing is recorded unless a sink is
+open, so it costs nothing when it is not asked for.
+
 ## Verified against the papers
 
 * `generateAllPossibleLineRelations(n)` returns Catalan(n-1) relation sets for
@@ -958,6 +1012,17 @@ graphs, since their orientations are related by BGP reflections. So the
 underlying graph of any relation-free quiver a search reaches is a **complete**
 derived invariant of the class, where the Coxeter polynomial is only a necessary
 condition.
+
+It is a complete **mutation** invariant as well, which is the form the
+classification actually uses and which needs one more step: those reflections are
+mutations. Right mutation at a source of a relation-free tree reverses exactly
+the arrows there and creates no relations, left mutation at a sink is its
+inverse, and `reflections.reflectionSequence` writes down a sequence between any
+two orientations -- so two classes that reach the same tree in *different*
+orientations are one mutation class, and `reflections.mutationBridge` exhibits
+the path. F-036. The distances are the point: two orientations of a tree on eight
+vertices can be sixteen right mutations apart, where a classification search runs
+at depth six, so this is a path no search would find.
 
 `quipuForms.canonicalTreeForm` encodes a tree canonically (AHU, rooted at the
 centre, smaller of the two encodings when there are two centres), and

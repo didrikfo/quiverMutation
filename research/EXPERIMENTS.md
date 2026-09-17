@@ -6,6 +6,226 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-031 — Is reorientation a mutation, and does it help the search?
+*2026-09-17* · **yes, and it is the merge step rather than the search that needed it** → F-036
+
+Suggested from outside the code: all orientations of a relation-free tree should
+be mutation equivalent, by mutating at a source -- which only flips the outgoing
+arrows -- and then at each newly created source, with left mutation at sinks for
+the other direction. The classification has been merging classes on a shared
+hereditary form all along, which is a statement about mutation classes resting on
+a fact about derived ones, so this is the step in between.
+
+### 1. It is true, and the sequence can be written down (F-036)
+
+Right mutation at a source of a relation-free tree quiver reverses exactly the
+arrows there, creates no relations and does not renumber -- 2339 cases over every
+tree and orientation at orders 3 to 7, no failures, and the same for left
+mutation at a sink. `reflections.reflectionSequence` turns one orientation into
+another by flipping every vertex on one side of a differing edge, in topological
+order; verified against the engine at orders 4 to 10, every step admissible, 5568
+reorientations, no failures.
+
+Right mutations **alone** already connect every orientation of every tree up to
+order 8 -- which matters because the search walks only those -- but the worst
+distance grows: 4, 6, 9, 12, 16 at orders 4 to 8, against 3, 3, 6, 6, 10 when
+sinks are allowed too.
+
+### 2. It does *not* widen a bounded search
+
+Allowing a search to jump to any orientation whenever it reaches a relation-free
+quiver (`reflections.linesReachedThroughReflections`), against the plain search
+from the same start:
+
+| start | depth | plain | with reorientation |
+|---|---|---|---|
+| `kA_7` | 2 | 5 LNAs | 5 |
+| `kA_7` | 3 | 8 | 8 |
+| `kA_8` | 2 | 5 | 5 |
+| `kA_8` | 3 | 9 | 9 |
+
+Not one new LNA, and the reason is in part 1: a right mutation at a source *is* a
+reflection, so the plain search already performs them where they are cheap. What
+the lemma adds is the reflections that are **not** cheap -- and those do not lead
+anywhere new within the depth either. Seeding backwards, from every one of the
+128 orientations of each quipu of order 8 at depth 2, reaches 3 LNAs for the line
+and 0 or 1 for every other quipu: the hereditary side is simply a long way from
+any LNA.
+
+### 3. It is the merge step that needed it
+
+`mergeReport` merges two classes when both reach the same tree. Searching every
+LNA to depth 4 and pairing the ones that reach the same tree:
+
+| | `n = 7` | `n = 8` |
+|---|---|---|
+| LNAs reaching a relation-free quiver | 23 of 132 | 26 of 429 |
+| pairs reaching the same tree | 79 | 80 |
+| of those, pairs reaching **isomorphic quivers** | 61 | 65 |
+| pairs whose orientations must be joined | **18** | **15** |
+
+Those merges are derived equivalences until the orientations are joined, and
+joining them takes 4 to 11 mutations, which is beyond any depth the pipeline runs
+at. `reflections.mutationBridge` produces the whole path and the engine confirms
+where it lands.
+
+**A false start worth recording.** The first version of
+`relationFreeQuiversReached` recorded what the search of the *opposite* algebra
+found without carrying it back through the opposite, so half the orientations in
+each list were reversed. It made the answer to part 3 come out as 4 of 79 at
+`n = 7` and 0 of 80 at `n = 8`, where the true counts are 18 and 15 -- the
+measurement looked like a nearly-empty result when it is a fifth of the pairs.
+
+### 4. What it does not do: H-012
+
+The natural hope was that the bridge would close H-012's gaps -- the 8 LNAs at
+`n = 8` and 44 at `n = 9` that the known moves do not join to their stripped
+form. It cannot: **none of those 52 rows reaches a relation-free quiver at all at
+depth 4**, on either side of the pair, so there is no tree to bridge through.
+Recorded against H-012.
+
+---
+
+## E-030 — Two other families, measured by Coxeter polynomial
+*2026-09-17* · **no tree outside the quipu shape; quipus *with* relations carry every class the theorem misses** → F-033, F-034, F-035, H-014
+
+The question: the quipu theorem names a class by a tree with no relations, and
+every LNA it does not cover has to be classified some other way. Is there a
+second family that does for those what quipus do for the almost separate ones?
+Two candidates were measured, both through the Coxeter polynomial, which is a
+derived invariant and forces the number of simples — so a candidate can only
+match an LNA of its own length, and a difference settles it.
+
+### The instrument
+
+`invariants.coxeterCoefficients`. For a quiver with no oriented cycles the Cartan
+matrix is unimodular, so
+
+    det(lambda I - Phi) = det(lambda C^T + C),
+
+which is a determinant of integers and `lambda` with no inversion in it. Taking
+it at `n + 1` points and interpolating gives the polynomial as an integer
+coefficient tuple: exact, hashable, and a hundred times faster than the symbolic
+route — 16796 LNAs at `n = 11` in 19 s.
+
+`coxeterTables` turns that into the three tables a search matches against: every
+LNA's polynomial, every quipu's, and every LNA's **status** — in a quipu class by
+F-032's moves (QUIPU), in none because no quipu of the order carries its
+polynomial (NOT_QUIPU), or neither (UNPLACED). It reproduces F-032 exactly:
+1421/9/0 at `n = 9`, 4600/260/2 at `n = 10`, 14149/2631/16 at `n = 11`.
+
+### 1. Every tree, not only the quipus (F-033)
+
+`python families.py trees 9 10 11` — and 12.
+
+| order | trees | not quipus | cospectral with a quipu | **leads** |
+|---|---|---|---|---|
+| 9 | 47 | 29 | 3 | **0** |
+| 10 | 106 | 70 | 0 | **0** |
+| 11 | 235 | 171 | 7 | **0** |
+| 12 | 551 | 424 | 15 | **0** |
+
+F-031 asked this of the trees of maximum degree three; these are all of them,
+694 non-quipu trees over the four orders. 25 of them do share a polynomial with
+some LNA — but in every case every LNA under that polynomial is one the moves
+place in a quipu class, and the tree is cospectral with that quipu rather than
+isomorphic to it. Two tree algebras are derived equivalent exactly when the trees
+are isomorphic, so those are refuted outright, with no search.
+
+### 2. Quipus that carry relations (F-034)
+
+`python families.py quipus 9 --min-arrows 2`, and the same at 10 and 11.
+
+Enumerated: each quipu of the order, each orientation of its edges up to the
+tree's automorphisms, each admissible monomial ideal — an antichain of directed
+paths under "is a contiguous subpath of". The relation-free ideal and the
+linearly oriented line are left out, being the quipu theorem's own case and the
+LNAs themselves.
+
+| order | shortest relation | ideals walked | matching | polynomials covered |
+|---|---|---|---|---|
+| 9 | 2 arrows | 370 483 | 3677 (2820 up to isomorphism) | **2 of 2** |
+| 10 | 2 arrows | 3 411 263 | 306 624 | **7 of 7** |
+| 11 | **3 arrows** | 5 465 194 | 1 246 011 | **20 of 20** |
+
+Every Coxeter polynomial of an LNA outside a quipu class is carried by quipu
+algebras with relations, in quantity — 1746 of them on `3033030` alone at
+`n = 9`, over 16 different quipu shapes.
+
+**Confirmed from the other side.** A polynomial match is necessary and not
+sufficient, so the classes were also walked: every quiver a mutation search out
+of an LNA reaches is in its class by construction, and `reachedQuipuAlgebras`
+keeps the ones that are quipus with monomial relations. Walked from **every** LNA
+outside a quipu class, and its dual, to depth 3:
+
+| | `n = 9` | `n = 10` | `n = 11` (sample of 200) |
+|---|---|---|---|
+| LNAs outside a quipu class | 9 | 262 | 2647 |
+| reaching a quipu with relations | **9** | **262** | **200 of 200** |
+| reaching none | 0 | 0 | 0 |
+| confirmed per LNA: min / median / max | 8 / 16 / 18 | 3 / 20 / 84 | 5 / 27 / 117 |
+| distinct algebras confirmed | 178 (depth 4) | 3510 | -- |
+
+Every algebra reached this way is in the enumeration — the only things reached
+and not enumerated were the linearly oriented lines, which are the LNAs. The
+`n = 10` walk takes 7 minutes and `n = 11` would take an hour and a half, so
+`n = 11` is a random sample of 200 of its 2647 rows, seeded, and every one of
+them reaches something too.
+
+**And what they reach is not arbitrary.** `python families.py members 9` prints
+the confirmed members per class, simplest first, and seven of the nine LNAs at
+`n = 9` reach the *same quipu* — `P^(6)_(1,1)`, the line on eight vertices with a
+pendant at the second — carrying their own relations shifted by one vertex with
+one absorbed into the branch. That is the raw material for H-014's second part,
+which is the part that would make this a theorem rather than a census.
+
+**The smallest instance of the phenomenon is at order 4.** `D_4` with a single
+two-arrow relation has the Coxeter polynomial of `kA_4`, and **one** mutation
+takes it there. So a quipu with relations being derived equivalent to a line is
+not exotic; what is new is that it happens for the lines the theorem cannot name.
+
+### 3. A relation of two arrows is not free on a quipu (F-035)
+
+`python families.py free 4 5 6 7 8`. Deleting every two-arrow relation and
+comparing the polynomial:
+
+| order | ideals with one | polynomial kept | **changed** |
+|---|---|---|---|
+| 4 | 11 | 7 | **4** |
+| 5 | 72 | 48 | **24** |
+| 6 | 543 | 300 | **243** |
+| 7 | 4160 | 2138 | **2022** |
+| 8 | 34938 | 15337 | **19601** |
+
+The control passes: on the **linearly oriented line** the polynomial is kept
+every time, which is `corollary:lengthtworelations` of arXiv:2310.08346 and
+F-028. Off the line it fails immediately — the order-4 counterexample above is
+the smallest. So `--min-arrows 3`, which is what makes order 11 affordable, is a
+real restriction of the family and not a normalisation, and the order-11 run is a
+statement about ideals whose relations all have three arrows or more.
+
+### 4. Relation-free sightings, as instrumentation
+
+`search.relationFreeSightings` records every quiver a search reaches with no
+relations left, with whether its underlying graph is a tree, whether it is a
+quipu, whether the quiver has an oriented cycle, and the path that got there;
+`classify.py --sightings FILE` writes them as JSON lines. Nothing is recorded
+unless a sink is open, so it costs nothing when it is not asked for. It answers a
+question nobody had asked of the searches: the hereditary algebras they pass
+through are collected and all but the first thrown away, and whether any of them
+is *not* a tree has never been looked at.
+
+**First measurement: `python classify.py 9 --sightings` records none at all.**
+That is the expected answer and worth having written down. The quipu classes are
+named by the theorem without a search, and the only rows the classification does
+search at `n = 9` are the nine in no quipu class -- which contain no hereditary
+algebra, so there is nothing for a search to find. The instrument will only have
+something to say where a search runs into a class that *does* have one, which
+means `--form-depth` at a length with an unnamed class, or the deeper resolving
+runs of `merges.py`.
+
+---
+
 ## E-029 — Reading `proposition:doubleMutation`, and what it does to coverage
 *2026-09-17* · **a mechanism, found by reading; n = 9 needs no search, n = 10 is 16 orbits** → F-032
 

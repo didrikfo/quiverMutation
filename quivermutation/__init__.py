@@ -17,10 +17,14 @@ The modules, in dependency order:
 | `reduction` | the cleanup, in the set-of-paths model |
 | `mutation` | the procedure, in the set-of-paths model, and admissibility |
 | `invariants` | the Cartan matrix and the Coxeter polynomial |
+| `coxeterTables` | the polynomials of a whole length, as a table to match against |
 | `lines` | the linear quiver, and the names its algebras go by |
 | `search` | walking the mutation graph, and the hereditary quivers it reaches |
+| `reflections` | reorienting a relation-free tree, which costs mutations and nothing else |
 | `classification` | classifying a whole length, end to end |
 | `quipuForms` | canonical forms for quipus, and the quipu theorem inverted |
+| `treeSearch` | every tree as a hereditary algebra, against every LNA |
+| `quipuRelations` | quipus that do carry relations, against every LNA |
 | `mutationClassTable` | the classification table, as CSV and parquet |
 | `classview` | reading a finished classification back, one row per class |
 | `classpage` | the same, rendered as a page to browse |
@@ -38,7 +42,8 @@ The modules, in dependency order:
 The procedural modules are re-exported flat, so `import quivermutation as qm`
 reaches `qm.classifyLength` and the rest directly.  The modules that carry their
 own namespace -- `nakayama`, `quipuForms`, `lnaMoves`, `overlap`, `edgeMoves`, `freeMoves`,
-`piecewiseHereditary`,
+`piecewiseHereditary`, `coxeterTables`, `treeSearch`, `quipuRelations`,
+`reflections`,
 `relationAlgebra`, `procedure`, `mutationClassTable`, `classview`, `classpage`,
 `quiverExamples` -- are imported as names:
 `from quivermutation import nakayama as nk`.
@@ -52,10 +57,14 @@ from . import (
     reduction,
     mutation,
     invariants,
+    coxeterTables,
     lines,
     search,
+    reflections,
     classification,
     quipuForms,
+    treeSearch,
+    quipuRelations,
     mutationClassTable,
     nakayama,
     lnaMoves,
@@ -106,6 +115,8 @@ from .mutation import (
 
 from .invariants import (
     cartanMatrix,
+    coxeterCoefficients,
+    coxeterKey,
     coxeterPoly,
 )
 
@@ -119,11 +130,15 @@ from .lines import (
 )
 
 from .search import (
+    describeRelationFreeQuiver,
     findHereditaryFormForClass,
     formatHereditaryForms,
     hereditaryFormFromTheorem,
     hereditaryFormsReachedFrom,
+    linesReachedFrom,
     mutationSearchDepthFirst,
+    relationFreeSightings,
+    summariseSightings,
 )
 
 from .classification import (
@@ -161,7 +176,11 @@ __all__ = [
     "classifyLength",
     "classpage",
     "classview",
+    "coxeterCoefficients",
+    "coxeterKey",
     "coxeterPoly",
+    "coxeterTables",
+    "describeRelationFreeQuiver",
     "dualPathAlgebra",
     "edgeMoves",
     "expandClassByMoves",
@@ -177,13 +196,9 @@ __all__ = [
     "isIllegalRelation",
     "leftQuiverMutationAtVertex",
     "lines",
+    "linesReachedFrom",
     "lnaMoves",
     "mergeReport",
-    "nameClassesFromTheorem",
-    "nameRemainingClasses",
-    "progressPathFor",
-    "readProgress",
-    "writeProgress",
     "mutation",
     "mutationClassTable",
     "mutationIsPossibleAtVertex",
@@ -191,6 +206,8 @@ __all__ = [
     "mutationSearch",
     "mutationSearchDepthFirst",
     "nakayama",
+    "nameClassesFromTheorem",
+    "nameRemainingClasses",
     "numberOfPathsUpToRels",
     "pathAlgebra",
     "pathHasZeroRel",
@@ -201,15 +218,20 @@ __all__ = [
     "powerset",
     "printPathAlgebra",
     "procedure",
+    "progressPathFor",
     "quipuForms",
+    "quipuRelations",
     "quiverExamples",
     "quiverMutationAtVertex",
     "quiverMutationAtVertices",
+    "readProgress",
     "reducePathAlgebra",
     "reduction",
+    "reflections",
     "relSetToString",
     "relabelLineAlgebra",
     "relationAlgebra",
+    "relationFreeSightings",
     "relationStringToLineRelLengths",
     "resolveMergeCandidates",
     "reverseMutationSequence",
@@ -217,4 +239,7 @@ __all__ = [
     "seedTableFromQuipuTheorem",
     "showMutationSteps",
     "sublistExists",
+    "summariseSightings",
+    "treeSearch",
+    "writeProgress",
 ]

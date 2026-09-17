@@ -14,9 +14,12 @@ notation of arXiv:2305.06642, canonicalised so that one quipu has one name.
 
 import argparse
 import collections
+import contextlib
+import json
 import sys
 
 import quivermutation as qm
+from quivermutation import search as se
 from quivermutation import nakayama as nk
 from quivermutation import quipuForms as qf
 
@@ -48,6 +51,26 @@ def report_collisions(order):
     return 0
 
 
+def write_sightings(sightings, fileName):
+    """Write the relation-free quivers a run saw, and say what kinds they were."""
+    with open(fileName, "w") as handle:
+        for sighting in sightings:
+            handle.write(json.dumps(sighting) + "\n")
+    counts = se.summariseSightings(sightings)
+    print()
+    print("{0} relation-free quivers reached, {1} distinct underlying graphs: "
+          "{2} quipus, {3} other trees, {4} not trees".format(
+              counts["sightings"], counts["distinct"], counts["quipus"],
+              counts["otherTrees"], counts["notTrees"]))
+    for oddity in counts["oddities"][:10]:
+        print("  NOT A TREE: {0}, {1} vertices, {2} arrows, oriented cycle {3}, "
+              "parallel arrows {4}, path {5}".format(
+                  oddity["canonical"], oddity["vertices"], oddity["arrows"],
+                  oddity["hasOrientedCycle"], oddity["parallelArrows"], oddity["path"]))
+    print("written to {0}".format(fileName))
+    return counts
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -76,6 +99,14 @@ def main(argv=None):
                              "everything done so far on disk. Resume with --resume. Use it "
                              "to fit a run into a fixed window such as a night.")
     parser.add_argument("--quiet", action="store_true", help="only print the summary")
+    parser.add_argument("--sightings", default=None, metavar="FILE",
+                        help="record every relation-free quiver the run's searches "
+                             "reach, one JSON object per line, and print what kinds "
+                             "they were. A quiver with no relations is a hereditary "
+                             "algebra and settles its class outright; the searches "
+                             "already pass through them and throw all but the first "
+                             "away. Expect trees, and mostly quipus -- anything else "
+                             "is worth looking at.")
     parser.add_argument("--collisions", action="store_true",
                         help="do not classify; just report which classes of this order the "
                              "Coxeter polynomial cannot separate, which is cheap and needs "
@@ -88,10 +119,15 @@ def main(argv=None):
     if args.length < 2:
         parser.error("a line quiver needs at least 2 vertices")
 
-    table, report = qm.classifyLength(
-        args.length, args.depth, args.resolve_depth, args.out,
-        printOutput=not args.quiet, resume=args.resume, formDepth=args.form_depth,
-        budgetSeconds=None if args.budget_hours is None else args.budget_hours * 3600)
+    with contextlib.ExitStack() as stack:
+        sightings = (stack.enter_context(se.relationFreeSightings())
+                     if args.sightings else None)
+        table, report = qm.classifyLength(
+            args.length, args.depth, args.resolve_depth, args.out,
+            printOutput=not args.quiet, resume=args.resume, formDepth=args.form_depth,
+            budgetSeconds=None if args.budget_hours is None else args.budget_hours * 3600)
+    if sightings is not None:
+        write_sightings(sightings, args.sightings)
 
     sizes = collections.Counter(row[1] for row in table.rows() if row[1])
     unplaced = sum(1 for row in table.rows() if not row[1])

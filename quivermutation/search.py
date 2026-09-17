@@ -3,19 +3,23 @@
 `mutationSearchDepthFirst` is the one search primitive: descend through
 admissible right mutations to a bounded depth, recording every quiver reached
 that is again a line, and every quiver reached with no relations left.  The
-second kind identifies the derived equivalence class completely, since for
-hereditary algebras of tree type the underlying undirected tree is the whole of
-the class -- which is what `hereditaryFormsReachedFrom` collects.
+second kind identifies the class completely, since for hereditary algebras of
+tree type the underlying undirected tree is the whole of the class -- as a
+derived class, and, because the orientations are joined by reflections that are
+themselves mutations (`reflections`, F-036), as a mutation class too.  That is
+what `hereditaryFormsReachedFrom` collects.
 
 Reachability here is one-way: the search only walks right mutations, so A can
 reach B at a depth where B reaches nothing.  Searching from the relation dual as
 well is what covers the other direction -- see `memberAndItsDual`.
 """
 
+import contextlib
 import copy
 
 import networkx as nx
 
+from . import lines
 from . import mutation
 from . import nakayama
 from . import pathAlgebra
@@ -24,7 +28,7 @@ from . import quipuForms
 from . import reduction
 
 
-def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName = 'quiver', vertexRelabeling = None, printOutput = True, collected = None, collectedHereditary = None):
+def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName = 'quiver', vertexRelabeling = None, printOutput = True, collected = None, collectedHereditary = None, visitor = None):
     """Walk mutations of pathAlg to the given depth, recording the lines found.
 
     Every quiver reached that is again a line is recorded as a triple
@@ -36,6 +40,12 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
     underlying undirected graph, the quipu notation for it where it applies,
     mutation path).  Those are the hereditary algebras in the class, and they
     identify it completely.
+
+    Pass `visitor` to see *every* quiver the search reaches, line or not: it is
+    called as `visitor(pathAlg, mutationVertices)` at each node, before the
+    node's children are walked.  The two collectors above are the two questions
+    asked often enough to have been built in; a visitor is for the rest, such as
+    asking which quivers of a given shape a class passes through.
 
     `quiverName` only labels the progress output.  It used to name a
     '<quiverName>DF.txt' transcript that the caller parsed back by string
@@ -65,15 +75,20 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
         print('Numbering: {0}'.format(vertexRelabeling))
         print("Longest path: ", longestPathLength)
         pathAlgebra.printPathAlgebra(pathAlg)
-    if collectedHereditary is not None and not bool(rels):
+    if not bool(rels) and (collectedHereditary is not None or _SIGHTING_SINKS):
         # No relations left: the algebra is hereditary, and the underlying
         # undirected graph of its quiver is a complete derived invariant.
         graph = quipuForms.underlyingGraph(pathAlg)
-        collectedHereditary.append((
-            quipuForms.canonicalUndirectedForm(graph),
-            quipuForms.formatQuipu(quipuForms.quipuParameters(graph)),
-            mutationVertices[:],
-        ))
+        if collectedHereditary is not None:
+            collectedHereditary.append((
+                quipuForms.canonicalUndirectedForm(graph),
+                quipuForms.formatQuipu(quipuForms.quipuParameters(graph)),
+                mutationVertices[:],
+            ))
+        for sink in _SIGHTING_SINKS:
+            sink.append(describeRelationFreeQuiver(pathAlg, mutationVertices, graph))
+    if visitor is not None:
+        visitor(pathAlg, mutationVertices)
     isLine = (longestPathLength == len(vertices) - 1) and (len(baseQuiver.edges) == len(vertices) - 1)
     if isLine and collected is not None:
         foundPathAlg = pathAlgebra.PathAlgebra()
@@ -109,7 +124,7 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
                 if discardMutation:
                     break
                 mutPathAlg = reduction.reducePathAlgebra(mutPathAlg)
-                mutationSearchDepthFirst(copy.deepcopy(mutPathAlg), depth, mutationVerticesAtDepth, quiverName, vertexRelabeling, printOutput, collected, collectedHereditary)
+                mutationSearchDepthFirst(copy.deepcopy(mutPathAlg), depth, mutationVerticesAtDepth, quiverName, vertexRelabeling, printOutput, collected, collectedHereditary, visitor)
     return
 
 
@@ -192,3 +207,143 @@ def hereditaryFormFromTheorem(lineLength, relationString):
     """
     algebra = nakayama.LinearNakayamaAlgebra.fromRelationString(lineLength, relationString)
     return algebra.quipuName()
+
+
+def linesReachedFrom(pathAlg, depth, alsoDual = True):
+    """The LNAs a bounded mutation search out of `pathAlg` reaches.
+
+    Returns a dict from relation string to the shortest mutation path found to
+    it.  This is what settles a Coxeter-polynomial lead: the polynomial says two
+    algebras *could* be derived equivalent, and a mutation path from one to the
+    other says they are, since every step of the procedure is a tilting
+    mutation.
+
+    With `alsoDual`, the search is run from the opposite algebra as well, whose
+    lines are read back through the dual.  Two algebras are derived equivalent
+    exactly when their opposites are, and the opposite of an LNA is an LNA, so a
+    line reached from the opposite is as good a witness as one reached directly
+    -- and it is the only way to see what a *left* mutation path would reach,
+    since the search walks right mutations only.
+    """
+    startPoints = [pathAlg]
+    if alsoDual:
+        startPoints.append(pathAlgebra.dualPathAlgebra(pathAlg))
+    reached = {}
+    for index, startPoint in enumerate(startPoints):
+        collected = []
+        mutationSearchDepthFirst(copy.deepcopy(startPoint), depth, [], 'lines',
+                                 printOutput = False, collected = collected)
+        for found in lines.mutationListLineCleanup(collected, printOutput = False):
+            algebra = found[0] if index == 0 else pathAlgebra.dualPathAlgebra(found[0])
+            # Sorted, because a relation set read off the dual comes out in the
+            # reverse order and `relSetToString` writes it down as it stands --
+            # which would make one LNA look like two.
+            relationString = lines.relSetToString(sorted(_renumberedLine(algebra).rels))
+            path = found[1]
+            if relationString not in reached or len(path) < len(reached[relationString]):
+                reached[relationString] = path
+    return reached
+
+
+def _renumberedLine(pathAlg):
+    """A line algebra with its vertices renumbered 1 -> ... -> n along the line.
+
+    `mutationListLineCleanup` already does this for what it collects; taking the
+    opposite afterwards reverses the numbering, so it has to be done again.
+    """
+    order = nx.topological_sort(pathAlg.quiver)
+    relabeling = {vertex: position for position, vertex in enumerate(order, start = 1)}
+    renumbered = pathAlgebra.PathAlgebra()
+    renumbered.add_vertices_from(sorted(relabeling.values()))
+    for tail, head in pathAlg.quiver.edges():
+        renumbered.add_arrow(relabeling[tail], relabeling[head])
+    for rel in pathAlg.rels:
+        renumbered.add_rel([[relabeling[vertex] for vertex in path] for path in rel])
+    return renumbered
+
+
+# -- relation-free sightings ---------------------------------------------
+#
+# Relations are what the procedure spends its time on, so a mutation that leaves
+# a quiver with *none* is an event: the algebra is hereditary, and the underlying
+# graph of the quiver settles its derived equivalence class outright.  The
+# searches already use that -- `hereditaryFormsReachedFrom` is nothing else --
+# but they use it locally and throw the rest away, which means nobody has ever
+# looked at what those quivers are.  The expectation is that every one is a tree
+# and almost every one a quipu; a relation-free quiver whose graph has a *cycle*
+# would be a hereditary algebra of a kind no LNA class has produced, and would be
+# worth stopping for.  Neither is known, and the cost of finding out is a few
+# lines, since every search already passes through the place where it could be
+# recorded.
+#
+# Sightings are opt-in: with no sink open, the branch above does no more work
+# than it did before.
+
+_SIGHTING_SINKS = []
+
+
+@contextlib.contextmanager
+def relationFreeSightings():
+    """Record every relation-free quiver the searches inside the block reach.
+
+    Yields the list the sightings accumulate in, one dict per sighting, in the
+    order the searches visit them.  Sinks nest, so an inner block does not stop
+    an outer one from seeing what it sees.
+
+        with search.relationFreeSightings() as sightings:
+            classification.classifyLength(9)
+        print(search.summariseSightings(sightings))
+    """
+    sink = []
+    _SIGHTING_SINKS.append(sink)
+    try:
+        yield sink
+    finally:
+        _SIGHTING_SINKS.remove(sink)
+
+
+def describeRelationFreeQuiver(pathAlg, mutationVertices = None, graph = None):
+    """What a relation-free quiver is, in the terms worth counting.
+
+    `isTree` and `isQuipu` are about the *underlying undirected* graph, since
+    that is what decides a hereditary algebra's derived equivalence class.
+    `hasOrientedCycle` is about the quiver, and `parallelArrows` counts arrows
+    the underlying simple graph merges -- either of those would mean the algebra
+    is not the path algebra of a tree, whatever the undirected picture says.
+    """
+    graph = quipuForms.underlyingGraph(pathAlg) if graph is None else graph
+    isTree = nx.is_tree(graph) if graph.number_of_nodes() else False
+    return {
+        'canonical': quipuForms.canonicalUndirectedForm(graph),
+        'quipu': quipuForms.formatQuipu(quipuForms.quipuParameters(graph)),
+        'vertices': graph.number_of_nodes(),
+        'arrows': pathAlg.quiver.number_of_edges(),
+        'isTree': isTree,
+        'isQuipu': bool(isTree and quipuForms.isQuipuByDegrees(graph)),
+        'isConnected': bool(graph.number_of_nodes()) and nx.is_connected(graph),
+        'hasOrientedCycle': bool(list(nx.simple_cycles(pathAlg.quiver))),
+        'parallelArrows': pathAlg.quiver.number_of_edges() - graph.number_of_edges(),
+        'maxDegree': max((degree for _, degree in graph.degree()), default = 0),
+        'path': list(mutationVertices or []),
+    }
+
+
+def summariseSightings(sightings):
+    """Counts of the kinds of relation-free quiver a run saw.
+
+    `quipus`, `otherTrees` and `notTrees` partition the sightings; `distinct` is
+    how many isomorphism classes of underlying graph they came to, which is the
+    number that says whether a run saw one thing many times or many things.
+    `oddities` is the sightings that are not trees, kept in full, since those are
+    the ones there is no reason to expect.
+    """
+    oddities = [sighting for sighting in sightings if not sighting['isTree']]
+    return {
+        'sightings': len(sightings),
+        'distinct': len({sighting['canonical'] for sighting in sightings}),
+        'quipus': sum(1 for sighting in sightings if sighting['isQuipu']),
+        'otherTrees': sum(1 for sighting in sightings
+                          if sighting['isTree'] and not sighting['isQuipu']),
+        'notTrees': len(oddities),
+        'oddities': oddities,
+    }

@@ -169,6 +169,65 @@ window is allowed to be crossed by a relation it never touches. With both,
 **n = 8 needs no search at all** -- 21 orbits, nothing left over -- and n = 9
 falls from 222 rows to 37. See `research/` F-028 to F-030.
 
+## Other families that could carry the classes the theorem misses
+
+```bash
+python families.py trees 9 10 11        # every tree, against every LNA
+python families.py quipus 9             # every quipu with relations, against the
+                                        # LNAs that lie in no quipu class
+python families.py quipus 9 --verify 4  # and search each lead for a mutation path
+python families.py members 9            # the quipu algebras a walk *proves* are in
+                                        # each class the theorem does not name
+python families.py free 8               # are two-arrow relations free on a quipu?
+```
+
+The quipu theorem names the class of an LNA with almost separate relations by a
+**tree with no relations**. Everything it does not cover has to be classified
+some other way, and `families.py` asks whether some other family of quivers
+plays the same role for those. Both halves work by the Coxeter polynomial, which
+is a derived invariant: a candidate whose polynomial no LNA of the length carries
+is ruled out outright, and one that matches is a lead for a mutation search to
+settle.
+
+* `trees` -- every tree of the order, not only the quipus. Research F-031 did
+  this for the trees of maximum degree three; this does the rest, and the answer
+  is still no: **no tree outside the quipu shape carries the polynomial of an LNA
+  outside a quipu class**, at orders 9 to 12 (F-033).
+* `quipus` -- quipu quivers that **do** carry relations, in every orientation.
+  Here the answer is yes, and in quantity: every Coxeter polynomial of an LNA in
+  no quipu class is carried by quipu algebras with relations, thousands of them
+  per polynomial (F-034).
+* `members` walks the other way, out of the LNAs, so everything it prints is in
+  the class it is printed under with a mutation path behind it. Every one of the
+  9 LNAs outside a quipu class at `n = 9` and all 262 at `n = 10` reaches one
+  within three mutations. Whether one of them is *canonical*, which is what would
+  make this a theorem in the shape of the quipu theorem, is research H-014.
+
+`free` is the caveat attached to that. `corollary:lengthtworelations` of
+arXiv:2310.08346 makes a relation of two arrows free on a **line**; on a quipu
+with a branch it is not, and about half the ideals that have one change their
+Coxeter polynomial when it is deleted (F-035). So `--min-arrows 3`, which is what
+makes order 11 affordable, is a real restriction of the family and not a
+normalisation.
+
+### Reorienting a tree is free
+
+```python
+from quivermutation import reflections as rf
+
+rf.reflectionSequence(rf.arrowsOf(quiver), target)   # the mutations that reorient it
+rf.mutationBridge(oneLNA, another, depth = 4)        # join two classes through their tree
+```
+
+A relation-free quiver on a tree mutates at a source by reversing exactly the
+arrows there, which is the BGP reflection; left mutation at a sink is its
+inverse. So the orientations of a tree are one **mutation** class, not only one
+derived class -- which is what the classification needs, since it merges two
+classes when both reach the same tree, and the two can reach it pointing
+different ways. It does so in about a fifth of the pairs at n = 7 and n = 8, and
+joining those orientations takes up to 11 mutations where a classification search
+runs at depth 6. `mutationBridge` writes the whole path down. See research F-036.
+
 ### Where the Coxeter polynomial is not enough
 
 ```bash
