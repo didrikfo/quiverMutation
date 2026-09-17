@@ -78,19 +78,22 @@ smaller.
 Every quiver a mutation search out of an LNA reaches is in its class by
 construction, so the quipus among them are members with a path to prove it.
 
-| | `n = 9` | `n = 10` |
-|---|---|---|
-| LNAs outside a quipu class | 9 | 262 |
-| **reaching a quipu with relations within 3 mutations** | **9** | **262** |
-| reaching none | 0 | 0 |
-| quipu algebras confirmed, per LNA: min / median / max | 8 / 16 / 18 | 3 / 20 / 84 |
-| distinct quipu algebras confirmed | 178 (at depth 4) | 3510 |
+| | `n = 9` | `n = 10` | `n = 11` (sample of 200) |
+|---|---|---|---|
+| LNAs outside a quipu class | 9 | 262 | 2647 |
+| **reaching a quipu with relations within 3 mutations** | **9** | **262** | **200 of 200** |
+| reaching none | 0 | 0 | 0 |
+| quipu algebras confirmed, per LNA: min / median / max | 8 / 16 / 18 | 3 / 20 / 84 | 5 / 27 / 117 |
+| distinct quipu algebras confirmed | 178 (at depth 4) | 3510 | -- |
 
 So it is not that *some* class outside the theorem has a quipu member: **every
-LNA outside one has, and within three mutations.** Every algebra reached this way
-is in the enumeration; the only quivers reached and not enumerated were the
-linearly oriented lines, which are the LNAs themselves — so the enumeration is
-complete in the sense that matters, and the matches are not all coincidence.
+LNA outside one has, and within three mutations** -- exhaustively at `n = 9` and
+`n = 10`, and in a random sample of 200 of the 2647 rows at `n = 11`.
+
+Every algebra reached this way is in the enumeration; the only quivers reached
+and not enumerated were the linearly oriented lines, which are the LNAs
+themselves — so the enumeration is complete in the sense that matters, and the
+matches are not all coincidence.
 
 **The smallest case is at order 4 and is not exotic.** `D_4` with one two-arrow
 relation is `kA_4` after a single mutation (F-035). What is new is that the same

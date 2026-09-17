@@ -44,10 +44,11 @@ function of the LNA, and what it does to the relations in general, is exactly
 what part 2 is asking; the material to read it off is what `members` prints.
 
 **Part 1 is now measured, not just suspected.** Every one of the 9 LNAs outside a
-quipu class at `n = 9` and every one of the 262 at `n = 10` reaches a quipu with
-relations **within three mutations** — none reaches none, and the median LNA
-reaches 16 and 20 of them respectively (F-034). What is open in part 1 is `n = 11`
-and beyond, and whether it is a theorem rather than a run of small cases.
+quipu class at `n = 9`, every one of the 262 at `n = 10`, and every one of a
+random 200 of the 2647 at `n = 11` reaches a quipu with relations **within three
+mutations** — none reaches none, and the median LNA reaches 16, 20 and 27 of them
+(F-034). What is open in part 1 is the rest of `n = 11` and beyond, and whether
+it is a theorem rather than a run of small cases.
 
 **Evidence for.** The counts of F-034 and the walks behind them; and the fact
 that the phenomenon is old and small — `D_4` with one two-arrow relation is
@@ -63,8 +64,8 @@ makes the same point). Those two are the `UNPLACED` rows, and they are exactly
 the ones a polynomial can never settle.
 
 **What would settle it.** For part 1: `quipuRelations.reachedQuipuAlgebras` from
-every LNA outside a quipu class at `n = 11` and `n = 12` — `n = 10` is done, and
-takes 7 minutes. An LNA that reaches none at a depth where its neighbours reach
+every LNA outside a quipu class at `n = 11` and `n = 12` — `n = 10` is done and
+takes 7 minutes, `n = 11` about an hour and a half. An LNA that reaches none at a depth where its neighbours reach
 twenty is the interesting outcome and is where a counterexample would show. For part 2: take the confirmed members of one
 class and look at what they have in common — the `--verify` path of
 `families.py` produces them, and `classpage`-style drawing would make a family

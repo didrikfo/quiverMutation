@@ -197,3 +197,58 @@ def test_the_members_report_prints_what_a_walk_proves(capsys):
     printed = capsys.readouterr().out
     assert "9 LNAs in no quipu class" in printed
     assert "3033030:" in printed
+
+
+# -- relation-free sightings ----------------------------------------------
+
+def test_a_search_records_the_relation_free_quivers_it_reaches():
+    """The sightings hook fires for every relation-free quiver, not just the first.
+
+    `hereditaryFormsReachedFrom` keeps one entry per underlying graph; the
+    sightings keep every visit, which is the point -- how many different ones a
+    run sees, and whether any of them is not a tree, are questions the deduped
+    answer cannot be asked.
+    """
+    from quivermutation import search as se
+
+    algebra = nk.LinearNakayamaAlgebra.fromClassName('300')
+    with se.relationFreeSightings() as sightings:
+        forms = se.hereditaryFormsReachedFrom(algebra, 4)
+    assert forms                                   # it does reach one
+    assert len(sightings) > len(forms)             # and more than once
+    summary = se.summariseSightings(sightings)
+    assert summary['sightings'] == len(sightings)
+    assert summary['distinct'] == len(forms)
+    assert summary['quipus'] == len(sightings)     # D_5, every time
+    assert summary['notTrees'] == 0
+    assert summary['oddities'] == []
+    for sighting in sightings:
+        assert sighting['isTree'] and sighting['isQuipu']
+        assert not sighting['hasOrientedCycle']
+        assert sighting['parallelArrows'] == 0
+
+
+def test_nothing_is_recorded_when_no_sink_is_open():
+    """The hook costs nothing when it is not asked for."""
+    from quivermutation import search as se
+
+    assert se._SIGHTING_SINKS == []
+    se.hereditaryFormsReachedFrom(nk.LinearNakayamaAlgebra.fromClassName('300'), 3)
+    assert se._SIGHTING_SINKS == []
+
+
+def test_the_sightings_are_written_as_json_lines(tmp_path, capsys):
+    """`classify.py --sightings FILE` writes one JSON object per sighting."""
+    import json
+
+    import classify
+    from quivermutation import search as se
+
+    with se.relationFreeSightings() as sightings:
+        se.hereditaryFormsReachedFrom(nk.LinearNakayamaAlgebra.fromClassName('300'), 3)
+    target = tmp_path / "sightings.jsonl"
+    counts = classify.write_sightings(sightings, str(target))
+    written = [json.loads(line) for line in target.read_text().splitlines()]
+    assert len(written) == len(sightings) == counts['sightings']
+    assert written[0]['quipu'] == 'P^(2)_(1,1)'
+    assert "relation-free quivers reached" in capsys.readouterr().out

@@ -78,18 +78,19 @@ of an LNA reaches is in its class by construction, and `reachedQuipuAlgebras`
 keeps the ones that are quipus with monomial relations. Walked from **every** LNA
 outside a quipu class, and its dual, to depth 3:
 
-| | `n = 9` | `n = 10` |
-|---|---|---|
-| LNAs outside a quipu class | 9 | 262 |
-| reaching a quipu with relations | **9** | **262** |
-| reaching none | 0 | 0 |
-| confirmed per LNA: min / median / max | 8 / 16 / 18 | 3 / 20 / 84 |
-| distinct algebras confirmed | 178 (depth 4) | 3510 |
+| | `n = 9` | `n = 10` | `n = 11` (sample of 200) |
+|---|---|---|---|
+| LNAs outside a quipu class | 9 | 262 | 2647 |
+| reaching a quipu with relations | **9** | **262** | **200 of 200** |
+| reaching none | 0 | 0 | 0 |
+| confirmed per LNA: min / median / max | 8 / 16 / 18 | 3 / 20 / 84 | 5 / 27 / 117 |
+| distinct algebras confirmed | 178 (depth 4) | 3510 | -- |
 
 Every algebra reached this way is in the enumeration — the only things reached
 and not enumerated were the linearly oriented lines, which are the LNAs. The
-`n = 10` walk takes 7 minutes; `n = 11`, with ten times the rows, was left for a
-longer run.
+`n = 10` walk takes 7 minutes and `n = 11` would take an hour and a half, so
+`n = 11` is a random sample of 200 of its 2647 rows, seeded, and every one of
+them reaches something too.
 
 **And what they reach is not arbitrary.** `python families.py members 9` prints
 the confirmed members per class, simplest first, and seven of the nine LNAs at
@@ -133,6 +134,15 @@ unless a sink is open, so it costs nothing when it is not asked for. It answers 
 question nobody had asked of the searches: the hereditary algebras they pass
 through are collected and all but the first thrown away, and whether any of them
 is *not* a tree has never been looked at.
+
+**First measurement: `python classify.py 9 --sightings` records none at all.**
+That is the expected answer and worth having written down. The quipu classes are
+named by the theorem without a search, and the only rows the classification does
+search at `n = 9` are the nine in no quipu class -- which contain no hereditary
+algebra, so there is nothing for a search to find. The instrument will only have
+something to say where a search runs into a class that *does* have one, which
+means `--form-depth` at a length with an unnamed class, or the deeper resolving
+runs of `merges.py`.
 
 ---
 
