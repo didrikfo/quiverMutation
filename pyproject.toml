@@ -20,7 +20,7 @@ test = ["pytest>=8.3"]
 
 [tool.setuptools]
 packages = ["quivermutation"]
-py-modules = ["classify", "classes", "discover", "overlaps", "probe"]
+py-modules = ["classify", "classes", "discover", "merges", "overlaps", "overnight", "probe"]
 
 [build-system]
 requires = ["setuptools>=75", "wheel"]

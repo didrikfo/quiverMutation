@@ -368,6 +368,21 @@ item 4 is what makes n >= 10 readable at all.
    to. `lnaMoves.dualRule` and `closeUnderDual`, and the table is generated
    closed.
 
+   **2026-09-17: the third mechanism, and it supersedes the table for coverage.**
+   `doubleMutation` is `proposition:doubleMutation` of arXiv:2310.08346 -- two
+   left mutations at `t` slide a relation `s -> t` one arrow right while
+   carrying *every relation crossing it*, which is exactly the bystander no
+   window rule can tolerate (F-023, backlog 27). The pair slide, the end
+   collapse and F-029's doubling are its instances with nothing crossing.
+   Verified against the engine at every LNA of `n = 5..10`, 17556 cases, no
+   failures (F-032). With the free move and no rule table at all it covers
+   **99.4% of n = 9, 94.6% of n = 10 and 84% of n = 11** in seconds, and the
+   table adds nothing on top at n = 10. What is left at n = 9, 10, 11 is provably
+   not a quipu class, so **raised-bound discovery and `--extend` are no longer
+   worth running for coverage**; the open question is which leftover orbits
+   are one class (H-013, `merges.py`). `python overlaps.py 10 --free --doubles
+   --no-rules`.
+
    **Two things that are not rules now reach further than the rules do.**
    `freeMoves` deletes a relation of two arrows, which `corollary:lengthtworelations`
    of arXiv:2310.08346 says leaves the derived equivalence class alone. It is not
@@ -1097,10 +1112,13 @@ nothing else, agreeing with the published table.
     partition. Run it again -- `--extend-margin 4`, or a version admitting two
     spectators -- and keep the filter that makes it affordable: generate freely,
     keep only what would fire on a row still needing a search, then verify.
-20. **Read `proposition:doubleMutation` of arXiv:2310.08346.** It states that
-    certain tilting mutations of Nakayama algebras give new Nakayama algebras —
-    which is exactly what a move rule is. It may already contain a family we are
-    rediscovering piecemeal.
+20. ~~**Read `proposition:doubleMutation` of arXiv:2310.08346.**~~ **Done**,
+    2026-09-17: it was the family being rediscovered piecemeal, and more --
+    `quivermutation/doubleMutation.py`, F-032, E-029. Still to do with it: fold
+    it into `classifyLength`'s seeding, since it carries a mutation sequence and
+    so can place rows *with a path*, which would make n = 10 and 11 a matter of
+    minutes; and implement `lemma:taupathimpliesnotpwh` of the same paper, which
+    certifies the two n = 10 orbits our criteria miss.
 21. **Check for classes that are tree algebras but not quipu algebras.** A tree
     of maximum degree 4, or with degree-3 vertices off the main string, is not a
     quipu; whether such an algebra can be derived equivalent to an LNA is open.

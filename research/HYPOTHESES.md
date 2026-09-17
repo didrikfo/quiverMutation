@@ -6,6 +6,34 @@ it. Status is one of `OPEN`, `SUPPORTED`, `CONFIRMED → F-nnn`, `REFUTED → R-
 
 ---
 
+## H-013 — The leftover orbits sharing a polynomial are few classes, and the search can say which
+*2026-09-17, written before the overnight run* · **OPEN**
+
+F-032 leaves, at `n = 10`, 12 orbits in 7 Coxeter-polynomial groups once the
+orbits are closed under the relation dual (which is derived equivalence and
+which neither the free move nor the double mutation performs — E-029 caught a
+first search rediscovering only that). So the derived classes at `n = 10`
+number between **36 + 7 = 43** and **36 + 12 = 48**. Three groups have more than
+one orbit:
+
+| polynomial | orbits (members) | certified not p.h. | prediction, before the run |
+|---|---|---|---|
+| `(λ-1)²(λ+1)²(λ²+1)(λ⁴+λ³+λ²+λ+1)`, `C(2,4,5)`'s | 2 (69, 42) | none | **merge**, at depth ≤ 7. Three weights have no parameters, so if both are piecewise hereditary they are the one canonical algebra |
+| `(λ-1)²(λ+1)²(λ²+λ+1)(λ⁴-λ²+1)` | 4 (all tiny) | every member | **at least two stay apart** to the depth reached — their members barely move |
+| `(λ+1)²(λ²-λ+1)(λ⁶-λ³+1)` = `T¹⁰+T⁹+T+1` | 2 (1, 1): `34504030`, `50505000` | neither, by our criteria; both, by the paper's τ-path | **no link** to depth 8 — both are singletons under every move known. Whether they are derived equivalent is open and the paper does not say |
+
+At `n = 11`: 54 orbits in 20 groups, so between 84 and 118 derived classes.
+
+**What would settle it.** `python merges.py 10 --depths 5 6 7 8` and
+`python merges.py 11 --depths 4 5 6`. A link merges; its absence is only a depth
+bound, and a real separation needs an invariant — `τ`-periodicity data or
+Hochschild cohomology, not the Coxeter polynomial.
+
+**An ALARM in either run** — a link between orbits of different polynomials —
+would refute F-032's orbits, and would matter more than any merge.
+
+---
+
 ## H-012 — Every free move is also a mutation equivalence
 *2026-09-16* · **OPEN**
 
@@ -14,6 +42,12 @@ equivalence class. It says nothing about the mutation class, and the two are not
 the same question. The suspicion is that they coincide here: that an LNA is
 always mutation equivalent to its stripped form, so the free move is a shortcut
 through the mutation graph rather than a step outside it.
+
+**2026-09-17.** By the known mutation moves only — double mutation, edge moves
+and the whole rule table — 8 of 429 LNAs at `n = 8` and 44 of 1430 at `n = 9`
+are not joined to their stripped form (E-029). That is a gap in the known moves,
+not a counterexample; the test this hypothesis asks for still needs the
+mutation classes, i.e. a finished classification with its search paths.
 
 **Evidence for.** Against an end it is a single mutation: E-027 found
 `(l, …, 2) → (l)` by one left mutation at the sink, for every `l` it tried, and
@@ -50,6 +84,20 @@ suspicion is that this is not one mechanism among several but **the** mechanism
 -- that the derived equivalence class of any LNA is reached from an almost
 separate one by a sequence of interior moves that carry its heavily overlapping
 runs to an end, and collapses there.
+
+**2026-09-17 — the mechanism is in the literature, and the residue is no longer
+a gap (F-032).** `proposition:doubleMutation` of arXiv:2310.08346 *is* this
+hypothesis's walk-and-collapse, with any number of bystanders allowed: an
+interior double mutation slides a relation while carrying everything crossing
+it, and the same move at `t = n` is the collapse. With the free move it places
+every LNA in a quipu class at `n = 9, 10, 11`; what is left is provably not a
+quipu class. The end still matters — the interior half alone reaches 770 of
+1430 at `n = 9` against 1421 — so the hypothesis's *shape* is confirmed. Its
+literal statement ("every class is reached from an almost separate one") was
+always false for the non-quipu classes, which contain no almost separate LNA;
+read it as quipu classes only. The sharp question below is overtaken: the rows
+left at `n = 10` are not waiting for rules (190 of 262 have both ends occupied,
+and they are non-quipu classes whatever their ends look like).
 
 **Why it is worth stating.** If it holds, the classification needs no search at
 all: the seeding, the slide families and the anchored collapses generate
@@ -134,6 +182,20 @@ F-022 is an empirical statement: no interior sequence found so far reduces the
 overlap of an isolated pair. The suspicion is that it is exact -- that **no**
 interior mutation sequence does, whatever its length -- and that the reason is
 visible in the procedure rather than in the search.
+
+**2026-09-17 — not contradicted by the paper, but "isolated" now carries all
+the weight.** The lead said `proposition:doubleMutation` might be an interior
+overlap-reducing statement. On an *isolated* pair it is not: the companion
+lengthens onto `r`, drops, and `s+1 → t+1` replaces it — the pair slide, nothing
+more. But with bystanders the interior move (`s > 1`, `t < n`) **does** lower
+the maximum overlap of the whole LNA: 1416 of 7164 interior applications at
+`n = 10`, with the relation count going down by one in 1430 (E-029). So an
+interior mechanism reduces overlap when something else crosses `r`, and this
+hypothesis survives only as a statement about a pair with nothing crossing it.
+Coverage still depends on the ends — interior applications alone place 770 of
+1430 at `n = 9` against 1421 with them — so the ends are not incidental. The deep
+probe (`probe.py 1:3,2:3 --steps 7 --clearance 9`) was **not** run on 2026-09-17;
+it tests the isolated case only, which the proposition does not reach.
 
 **It now rests on better evidence than it did.** The probes F-022 quoted allowed
 mutations at every vertex of A_13, so they were not testing interiority at all.

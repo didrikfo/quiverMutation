@@ -30,6 +30,7 @@ the space by the Catalan ratio, about 3.5 by `n = 12` and tending to 4.
 
 import collections
 
+from . import doubleMutation
 from . import edgeMoves
 from . import lnaMoves
 from . import nakayama
@@ -84,15 +85,17 @@ def reducedForms(length):
     return forms
 
 
-def derivedOrbits(length, rules = None, free = True, edges = False):
+def derivedOrbits(length, rules = None, free = True, edges = False, doubles = False):
     """Partition the LNAs of a length under the move rules and what else is asked.
 
     The same union-find as `overlap.moveOrbits`, with each LNA additionally
-    joined to its stripped form when `free`, and to whatever `edgeMoves` reaches
-    when `edges`.  With `free` the result is a partition into sets known to be
+    joined to its stripped form when `free`, to whatever `edgeMoves` reaches
+    when `edges`, and to whatever `doubleMutation` reaches when `doubles`.  With `free` the result is a partition into sets known to be
     derived equivalent, which is coarser than the mutation-class partition that
     `overlap.moveOrbits` gives -- see the module docstring.  With `edges` alone
-    it is still a mutation-class partition, since those moves carry sequences.
+    it is still a mutation-class partition, since those moves carry sequences,
+    and the same holds for `doubles`.  An empty `rules` skips the table, which is
+    most of the cost from n = 10 up.
     """
     rules = lnaMoves.ALL_MOVES if rules is None else rules
     lnas = list(nakayama.allRelationLengths(length))
@@ -122,6 +125,9 @@ def derivedOrbits(length, rules = None, free = True, edges = False):
             for reached, _sequence in edgeMoves.rewritesOf(length, lna):
                 if reached in index:
                     union(index[lna], index[reached])
+        if doubles:
+            for reached, _sequence in doubleMutation.rewritesOf(length, lna):
+                union(index[lna], index[reached])
 
     orbits = collections.defaultdict(list)
     for lna in lnas:
@@ -129,14 +135,14 @@ def derivedOrbits(length, rules = None, free = True, edges = False):
     return lnas, orbits
 
 
-def coverage(length, rules = None, free = True, edges = False):
+def coverage(length, rules = None, free = True, edges = False, doubles = False):
     """`overlap.coverage`, with the free move and the edge moves as asked for.
 
     The same shape of answer, so any two can be printed side by side: what the
     quipu theorem seeds, what the orbits then cover, and what is left for a
     search.
     """
-    lnas, orbits = derivedOrbits(length, rules, free, edges)
+    lnas, orbits = derivedOrbits(length, rules, free, edges, doubles)
     seeded = {lna for lna in lnas if overlap.isAlmostSeparate(length, lna)}
     covered = set()
     for members in orbits.values():
