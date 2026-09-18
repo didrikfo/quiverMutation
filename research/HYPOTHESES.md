@@ -6,6 +6,93 @@ it. Status is one of `OPEN`, `SUPPORTED`, `CONFIRMED → F-nnn`, `REFUTED → R-
 
 ---
 
+## H-016 — What escapes the quipu theorem is a placement, not an overlap
+*2026-09-18* · **OPEN**
+
+F-039 measured that no bound on the overlap separates the LNAs the quipu theorem
+and the move table place from the ones they do not: the smallest step past
+"almost separate" -- one pair of relations sharing two arrows -- already contains
+outsiders at every length from 9 up. What the same measurement suggests instead:
+
+**The conjecture.** An LNA is carried to an almost separate one by the moves iff
+every one of its heavy clusters can be **pushed to an end**. The evidence is that
+the cores with room -- `0^a 4 5 0^b` and its opposite `0^a 5 0 4 0^b` -- are
+outside exactly when `a >= 1` and `b >= 2`, that is, exactly when neither end is
+within reach, while `33`, `44`, `34`, `43`, `54`, `55` and `333` are inside at
+every placement because each of those *can* be pushed out.
+
+**What is odd about it, and is the part to explain.** `55` overlaps in four arrows
+and is always inside; `45` overlaps in three and is not. Whatever "can be pushed
+to an end" means precisely, it is not monotone in the overlap, and the only
+structural handle so far is that the two escaping cores are opposite algebras of
+each other.
+
+**What would settle it.** A census of every core at `n = 14` and `n = 15` -- if a
+third family appears, this phrasing is already too narrow. A move-by-move account
+of why `55` clears and `45` does not; whichever move does the clearing should say
+what the obstruction is. And the sharper version: whether the escapees are outside
+the *classification* or only outside this move set, which the quiver-level search
+can answer where `orbitOf` cannot.
+
+**Why it matters more than the pattern asked for.** If placement is the
+coordinate, then a generalisation of the quipu theorem cannot be a condition on
+the relation profile alone, and the short quivers could never have shown this --
+at `n = 9` every placement of the `45` core is inside. F-039, E-032.
+
+---
+
+## H-015 — A quipu in the class always carries more relations than it has cords
+*2026-09-17* · **OPEN**
+
+F-034 says every LNA outside a quipu class reaches a quipu quiver *with*
+relations. The question this asks is what those quipus look like, because a
+theorem in the shape of `thm:QuipuToAn` needs a normal form and not a census.
+
+**The observation.** Walking every LNA outside a quipu class at `n = 9` to depth
+5 and grouping what it reaches by (cords, relations):
+
+| LNA | excess overlap | (cords, relations) reached |
+|---|---|---|
+| `3033030` | 1 | (1,3) (1,4) (1,5) (2,4) (2,5) (2,6) (3,5) |
+| `3345000` | 4 | (1,2) (1,3) (1,4) (1,5) (2,3) (2,4) (2,5) (2,6) (3,5) |
+| `3505000` | 3 | (1,2) (1,3) (1,4) (1,5) (2,3) (2,4) (2,5) (2,6) (3,4) (3,5) |
+| `4444400` | 8 | (1,3) (1,4) (1,5) (2,4) (2,5) (2,6) |
+
+and so on for the rest. Over all nine LNAs and every member reached, **the number
+of relations exceeds the number of cords, every time**: the pairs seen are
+(1,2) (1,3) (1,4) (1,5) (2,3) (2,4) (2,5) (2,6) (3,4) (3,5), and never (1,1),
+(2,2) or anything below the diagonal.
+
+**Why that would be the right shape.** A quipu class is exactly the case where
+the relations can all be turned into cords, so its members include one with
+relations = 0. Reading `relations - cords` as a **defect**, the theorem's case is
+defect `<= 0` and everything this project cannot classify has defect `>= 1`. The
+minimum over a class is a class invariant by construction; at `n = 9` it is 2 for
+`3033030` and 1 for the eight-member class, so it is not merely "not zero" -- it
+separates the two classes the theorem misses.
+
+**A sharp prediction, and the reason to care.** The polynomial enumeration of
+F-034 offers candidates *below* the diagonal -- `3033030`'s polynomial is carried
+by `P^(1,1,1)_(1,0,1,1)` with three cords and a **single** relation. If the
+observation is a law, that candidate is not in the class and the polynomial match
+is a coincidence. That is a falsifiable statement about a specific algebra, and
+settling it either finds the normal form or kills the pattern.
+
+**What would settle it.** Deeper walks -- depth 6 and 7 at `n = 9`, where the
+depth-5 counts have stopped moving for most rows -- and the same census at
+`n = 10` and `n = 11`. A member below the diagonal refutes it outright. A proof
+would want an invariant that counts relations against cords; the Euler form is
+the obvious place to look, since for a tree quiver of global dimension 2 the
+number of relations is read off it, and what breaks that here is exactly the
+higher `Ext` the overlapping relations create.
+
+**The caveat that applies to all of this.** F-037: at these lengths every LNA
+outside a quipu class is a *single* overlapping cluster, usually against an end.
+A normal form fitted to those may say nothing about a quiver long enough to hold
+two clusters far from both ends.
+
+---
+
 ## H-014 — Every class outside the quipu theorem has a quipu-with-relations member, and one of them is canonical
 *2026-09-17* · **SUPPORTED**
 
@@ -108,7 +195,7 @@ would refute F-032's orbits, and would matter more than any merge.
 ---
 
 ## H-012 — Every free move is also a mutation equivalence
-*2026-09-16* · **OPEN**
+*2026-09-16* · **SUPPORTED** -- settled at `n = 8`, F-038
 
 F-028 establishes that deleting a relation of two arrows keeps the *derived*
 equivalence class. It says nothing about the mutation class, and the two are not
@@ -139,8 +226,27 @@ last arrow. Whether every configuration can be cleared is open.
 a relation-free quiver with the same underlying tree, F-036 would join them by an
 explicit sequence and settle the pair. They do not: of the 8 gap rows at `n = 8`
 and the 44 at `n = 9`, **not one reaches a relation-free quiver at depth 4**, on
-either side. The bridge has nothing to work with here, and the gap is where it
-was. E-031.
+either side. The bridge has nothing to work with here. E-031.
+
+**2026-09-17, and then a route that works.** Asked one relation at a time -- the
+whole strip is a composition of single deletions -- and settled by meeting in the
+middle rather than by one search reaching the other: **every single two-arrow
+deletion at `n = 8` is a mutation equivalence**, 562 by the known moves and the
+last 10 by a meeting at 3 + 3 mutations. So the hypothesis holds outright at
+`n = 8`. At `n = 9` it holds for 1989 of 2002 deletions and at `n = 10` for 6974
+of 7072; of the 13 left at `n = 9`, eleven have both sides almost separate with
+the same quipu, so only two are outside the theorem's reach as well. F-038.
+
+**2026-09-18, the barricade.** The shape the hypothesis is doubted for -- two
+heavy clusters walling a two-arrow relation in, with free arrows between -- built
+at the lengths where it first fits. All 95 shapes at `n = 13` to `16`, six cluster
+types on each side and gaps of one to three arrows: **the moves strip the
+two-arrow relation out of every one of them**. 46 by a one-way walk and the other
+49 by meeting in the middle (`freeMoves.movesJoin`), those 49 having been reported
+as failures by a walk that had merely run out of budget. So the barricade does not
+trap the relation at the lengths where it first exists. It remains untested at the
+lengths the doubt was raised for -- four clusters at 30 to 50 vertices -- where
+nothing can be enumerated. E-032.
 
 **What would settle it.** For each `n` where the mutation classes are known,
 check whether every LNA and its strip share one. A single pair that does not,

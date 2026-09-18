@@ -5,6 +5,171 @@ See [`README.md`](README.md) for conventions.
 
 ---
 
+## F-039 — Where a cluster sits decides it, and no bound on the overlap does
+*2026-09-18*
+
+The quipu theorem names the LNAs whose relations are *almost separate* -- every
+consecutive pair sharing at most one arrow -- so the obvious generalisation to
+look for is a weaker bound on the overlap: at most two shared arrows, or at most
+so many pairs that share more than one. Crossing those two coordinates against
+membership of a quipu class (the theorem's own rows, closed under the move table,
+the edge moves and the double mutation) says the coordinates are wrong.
+
+| (max overlap, how many overlaps `>= 2`) | `n = 9` | `n = 10` | `n = 11` |
+|---|---|---|---|
+| (0, 0) and (1, 0) -- almost separate | 0 / 610 | 0 / 1597 | 0 / 4181 |
+| **(2, 1)** | **1** / 300 | **12** / 954 | **84** / 2939 |
+| (2, 2) | 0 / 132 | 20 / 483 | 169 / 1671 |
+| (3, 1) | 0 / 90 | 21 / 300 | 152 / 954 |
+| (4, 1) | 0 / 25 | 4 / 90 | 51 / 300 |
+
+(outside a quipu class / total). The cell `(2, 1)` is the smallest possible step
+past the theorem -- one pair of relations sharing two arrows, everything else
+separate -- and it already contains outsiders at every length. No bound on the
+overlap, however generous, cuts them off, and no bound on how many overlaps
+exceed one does either.
+
+**What does decide it.** The outsiders with the most free arrows are the same two
+tiny configurations at every length from 10 to 12: a four-arrow relation followed
+by a five-arrow one sharing three arrows (`45`), and `504`. Placing the `45` core
+at every offset:
+
+| | gap to the source: 0 | 1 | 2 | 3 | 4 | 5 | 6 |
+|---|---|---|---|---|---|---|---|
+| `n = 9` | inside | inside | inside | | | | |
+| `n = 10` | inside | **outside** | inside | inside | | | |
+| `n = 11` | inside | **outside** | **outside** | inside | inside | | |
+| `n = 12` | inside | **outside** | **outside** | **outside** | inside | inside | |
+| `n = 13` | inside | **outside** | **outside** | **outside** | **outside** | inside | inside |
+
+Read along a row: the moves carry the core to an almost separate LNA exactly when
+it sits **against the source, or within one arrow of the sink**, and nowhere else.
+The outside band grows one place longer with every vertex added, and the offsets
+1 to 5 at `n = 14` are outside too. The overlap is three at every one of those
+placements, the relations number two, and nothing about the cluster changes --
+only where it is.
+
+**And it is this core, not the overlap.** The same slide for every other small
+core, at `n = 12` and `n = 13`: `33`, `44`, `34`, `43`, `54`, `55` and `333` are
+inside at **every** placement. `55` overlaps in four arrows and is always inside;
+`45` overlaps in three and is not. Even the direction matters -- `54` is inside
+everywhere, `45` is not -- and that is not an inconsistency but the opposite
+algebra at work: reversing the arrows sends the `45` core at offset `o` to the
+`504` core at offset `n - 7 - o`, and `504` is outside at exactly the offsets that
+sends them to. The outsiders with room are one family and its opposite, and the
+size of the overlap does not pick them out.
+
+**The short-quiver artefact, caught in the act.** At `n = 9` the core fits at
+three offsets and **all three are inside**: `0450000` reaches an almost separate
+LNA in 21 rows. Add one vertex at the far end and the same core, `04500000`, never
+reaches one. So a length-9 census of what the moves reach overstates their reach,
+and it does so for a configuration with two relations and a single overlap -- not
+for an exotic one. F-037's warning has a concrete instance.
+
+**The family.** `0^a 4 5 0^b` with `a >= 1` and `b >= 2` is outside the move
+closure at every length tested, with as much free space on either side as wanted.
+Anything that generalises the quipu theorem has to either place these or exclude
+them by where they sit; a condition on the relations alone cannot see the
+difference between `0450000` and `04500000`.
+
+**What is measured.** Membership here is a *certificate*: reaching an almost
+separate LNA proves the class is a quipu class. Failing to reach one is not a
+proof that no derived equivalence exists -- it is a statement about this move set,
+the same caveat `orbitOf` carries.
+
+`freeMoves.movesFrom`, `overlap.overlapProfile`. E-032.
+
+---
+
+## F-038 — Meeting in the middle settles the free move at n = 8, and nearly at 9 and 10
+*2026-09-17*
+
+H-012 asks whether deleting a relation of two arrows -- a derived equivalence by
+`corollary:lengthtworelations` -- is also a **mutation** equivalence. The sharper
+question is one relation at a time, since the whole strip is a composition of
+single deletions, and the sharper tool is to stop insisting that one algebra
+reach the other.
+
+**`search.meetingPoints`.** Every quiver a search passes through is in the class,
+not just the lines it lands on. Two searches that arrive at the same quiver have
+joined their algebras, at **twice the depth for the same cost**. Vertex labels do
+not move under mutation, so two algebras on the same vertices meet on the nose
+and the test is equality of labelled quivers, not isomorphism. Nothing in the
+pipeline did this: `resolveMergeCandidates` collects only the lines a search
+reaches and throws the rest of the tree away.
+
+**What it settles.** Every single two-arrow deletion of every LNA:
+
+| | `n = 8` | `n = 9` | `n = 10` |
+|---|---|---|---|
+| single deletions | 572 | 2002 | 7072 |
+| joined by the known moves | 562 | 1937 | 6768 |
+| joined by meeting in the middle, depth 3 | **10** | **52** | **206** |
+| left open | **0** | 13 | 98 |
+
+So **H-012 holds outright at `n = 8`**: every LNA there is mutation equivalent to
+its stripped form, by composing single deletions. At `n = 9` thirteen deletions
+are left, and eleven of those have both sides almost separate *with the same
+quipu*, so the quipu theorem already calls them one derived class -- whether that
+makes them one mutation class is a question about how that theorem is proved, not
+about these searches. The two that are outside the theorem, `2302330 / 2300330`
+and `3302302 / 3300302`, are the ones actually open, and they do not meet at
+depth 4 either. Nor do any of the 98 left at `n = 10`: a depth-4 pass over them
+joins none, so the extra depth buys nothing on either length and the pairs that
+remain are either far further apart than 4 + 4 mutations or not joined at all.
+
+**Why it works where a one-sided search does not.** The pairs it joins are joined
+at 3 + 3 mutations: a one-sided search would need depth 6, where the pipeline
+runs at 3 to 6 and the cost is exponential in the depth. Meeting in the middle
+buys the same reach for the square root of the work.
+
+`search.meetingPoints`, `search.quiversReachedFrom`. E-032.
+
+---
+
+## F-037 — What lengths 9 to 11 can and cannot show
+*2026-09-17*
+
+Every finding about the LNAs the quipu theorem misses rests on lengths 9, 10 and
+11, and it is worth writing down exactly how narrow that evidence is. Counting
+the **heavy clusters** of an LNA -- maximal runs of relations linked by overlaps
+of two arrows or more, which is what puts an LNA outside the theorem:
+
+| | `n = 8` | `n = 9` | `n = 10` | `n = 11` |
+|---|---|---|---|---|
+| LNAs with 0 heavy clusters | 233 | 610 | 1597 | 4181 |
+| with 1 | 195 | 806 | 3148 | 11853 |
+| with 2 | 1 | 14 | 117 | 761 |
+| with 3 | 0 | 0 | 0 | 1 |
+| **outside a quipu class** | 0 | 9 | 262 | 2647 |
+| of those, with 2 clusters | -- | 0 | 2 | 42 |
+| of those, with two clusters and a **free arrow between them** | -- | **0** | **0** | **0** |
+
+So at every length the project has worked at, **an LNA outside a quipu class is a
+single overlapping cluster**, and the few with two have them touching. Not one
+has two clusters with a relation-free stretch between them. And the cluster is
+usually against an end: at `n = 11`, 2119 of the 2647 have it touching the source
+or the sink, 380 one arrow away, 123 two, 25 three.
+
+**Where the missing configurations start.** Two heavy clusters with a free arrow
+between them first fit at `n = 10` (5 LNAs, all of them in quipu classes). A
+*barricade* -- two heavy clusters with a two-arrow relation walled in between
+them, which is the shape H-012's doubts are about -- needs 4 + 1 + 2 + 1 + 4
+arrows and so first fits at **`n = 13`**, two lengths beyond anything classified
+here.
+
+**What this does and does not undermine.** It does not touch F-033 or F-035, which
+are statements about what was enumerated. It bears directly on anything phrased
+as "every class", F-034 and H-014 above all: those say that every LNA outside a
+quipu class reaches a quipu with relations, and every one of them is a single
+cluster near an end. Whether that survives several clusters far from both ends is
+untested and untestable at these lengths -- and the interaction between separated
+clusters is exactly what a classification would have to handle in general.
+
+`overlap.overlapRuns`. E-032.
+
+---
+
 ## F-036 — Reorienting a relation-free tree is a sequence of mutations, and the hereditary form is a mutation invariant
 *2026-09-17*
 

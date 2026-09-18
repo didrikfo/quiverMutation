@@ -6,6 +6,120 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-032 — What the short quivers can show, and two questions asked properly
+*2026-09-17* · **the evidence base is narrower than it looks; the free move settles at `n = 8`; the barricade does not hold and bounded overlap is not the pattern** → F-037, F-038, F-039, H-015
+
+Prompted from outside the code, and the prompt was the useful part: everything
+known about the classes the quipu theorem misses comes from lengths 9 to 11,
+where an LNA has very little room -- at `n = 11` no vertex is more than five from
+an end -- so patterns found there may be patterns of the small cases rather than
+of the problem.
+
+### 1. How narrow the evidence is (F-037)
+
+Counting heavy clusters -- runs of relations linked by overlaps of two arrows or
+more, which is what puts an LNA outside the theorem:
+
+| | `n = 9` | `n = 10` | `n = 11` |
+|---|---|---|---|
+| LNAs outside a quipu class | 9 | 262 | 2647 |
+| of those, with two heavy clusters | 0 | 2 | 42 |
+| with two clusters and a **free arrow between them** | **0** | **0** | **0** |
+| with the cluster touching an end | 8 | 221 | 2119 |
+
+So every unclassifiable LNA at every length worked on here is **one overlapping
+cluster, usually against an end**. Two clusters with a free arrow between them
+first fit at `n = 10`, and every LNA that has them is in a quipu class. The
+*barricade* -- two clusters walling in a two-arrow relation -- needs 12 arrows and
+first fits at `n = 13`.
+
+### 2. The free move, asked one relation at a time (F-038)
+
+H-012 asks whether deleting a two-arrow relation is a mutation equivalence. Two
+changes to how it is asked:
+
+* **one deletion at a time.** The whole strip is a composition of single
+  deletions, and each of those is a much shorter journey.
+* **meeting in the middle.** `search.meetingPoints`: two searches that reach the
+  same quiver have joined their algebras, at twice the depth for the same cost.
+  Nothing in the pipeline did this -- `resolveMergeCandidates` keeps only the
+  lines a search lands on and throws the rest of the tree away.
+
+| | `n = 8` | `n = 9` | `n = 10` |
+|---|---|---|---|
+| single deletions | 572 | 2002 | 7072 |
+| joined by the known moves | 562 | 1937 | 6768 |
+| joined by meeting at depth 3 | 10 | 52 | 206 |
+| left | **0** | 13 | 98 |
+
+`n = 8` is settled outright. Of the 13 left at `n = 9`, eleven have both sides
+almost separate with the same quipu, so the theorem already calls them one
+derived class; only `2302330 / 2300330` and `3302302 / 3300302` are outside
+everything, and they do not meet at depth 4 either. A depth-4 pass over the 98
+left at `n = 10` joins none of them, at 1060s: depth 4 buys nothing over depth 3
+here, on either length, which says the remaining pairs are either much further
+apart than 4 + 4 mutations or not joined at all.
+
+### 3. The barricade, built on purpose
+
+The shape H-012's doubts are about, built at the lengths where it first fits: a
+heavy cluster, a free arrow, a two-arrow relation, a free arrow, another heavy
+cluster. `freeMoves.orbitOf` walks the moves out of one row, which is what makes
+a length-13-to-16 question affordable at all -- `derivedOrbits` would partition
+208012 rows to answer it about one.
+
+**The moves get it out, in all 95 shapes tried.** Every pairing of six heavy
+clusters on the left and right, at gaps of one to three arrows on each side and
+lengths 13 to 16: `33000200330` at `n = 13` reaches its strip in an orbit of a
+thousand rows, and so does every wider version. **The barricade does not trap a
+two-arrow relation.**
+
+**Two false starts, and both were the measurement rather than the mathematics.**
+
+* Run first with the rule table left out -- F-032 having found that the double
+  mutation subsumes it at `n <= 10` -- the same barricades came out **not**
+  joined, with orbits of 53 to 89 rows against 1073 with the table. The table is
+  not subsumed at these lengths.
+* With the table in, 49 of the 95 still came out not joined -- and every one of
+  them had an orbit of *exactly the 20000-row cap*, so what was measured was the
+  budget. Walking from both ends instead (`freeMoves.movesJoin`, the move-level
+  twin of `search.meetingPoints`) joins **all 49 in 45 seconds**, most of them
+  instantly. A one-way walk that runs out of budget says nothing whatever, and
+  the orbit size is the tell: if it equals the cap, there is no result.
+
+So the shape H-012's doubts are about does not hold the relation in, at the
+lengths where it first exists. What is untested is the user's fuller version --
+four clusters at `n = 30` to `50` -- and the shapes here are the minimal ones.
+
+### 4. Bounded overlap is not the pattern (F-039)
+
+The generalisation asked for was a weaker version of "almost separate": overlaps
+of at most two, or at most so many overlaps above one. Crossing those coordinates
+against membership of a quipu class kills both. The cell `(max overlap 2, exactly
+one of them)` -- the smallest possible step past the theorem -- already holds
+outsiders at `n = 9` (`3033030`), `n = 10` (12 of them) and `n = 11` (84).
+
+Chasing what those outsiders have in common instead: the ones with the most free
+arrows are the same two little cores at every length, `45` and `504`, and sliding
+`45` along the quiver gives a clean law -- inside when it touches the source or
+comes within one arrow of the sink, outside everywhere in between, with the band
+growing by one place per vertex. `0450000` at `n = 9` is inside, `04500000` at
+`n = 10` is not. The condition that decides it is **where the cluster sits**, and
+no condition on the relations by themselves can see the difference. F-039.
+
+### 5. What the quipu members look like (H-015)
+
+Walking every LNA outside a quipu class at `n = 9` to depth 5 and grouping the
+quipu algebras reached by (cords, relations): the pairs that occur are (1,2)
+(1,3) (1,4) (1,5) (2,3) (2,4) (2,5) (2,6) (3,4) (3,5), and **never one with
+relations at most cords**. Reading `relations - cords` as a defect, a quipu class
+is defect `<= 0` and these are all `>= 1`; the minimum over a class is 2 for
+`3033030` and 1 for the eight-member class. That is the beginning of a normal
+form, and it makes a sharp prediction about the polynomial-only candidates of
+F-034 that sit below the diagonal. H-015.
+
+---
+
 ## E-031 — Is reorientation a mutation, and does it help the search?
 *2026-09-17* · **yes, and it is the merge step rather than the search that needed it** → F-036
 
