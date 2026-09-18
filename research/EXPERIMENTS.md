@@ -7,7 +7,7 @@ nothing, which are recorded precisely so they are not repeated. See
 ---
 
 ## E-035 — Lifting the parallel-arrow restriction, and re-measuring E-033
-*2026-09-18* · **every wrong-key node at n = 6 and n = 7 to depth 5 was a mis-count** → F-039, R-013
+*2026-09-18* · **every wrong-key node at n = 6 and n = 7 to depth 5 was a mis-count; the new region reaches nothing new at these sizes** → F-039, R-013, H-016
 
 E-033 walked the search tree with the Coxeter key in hand and split the nodes
 where it had moved into "parallel arrows, harmless" and "clean, the real fault".
@@ -97,9 +97,38 @@ parallel arrows and a genuine commutativity relation
 `5 -> 1 -> 3 -> 6 = 5 -> 1 -> 6` -- a quiver the search could not reach at any
 depth before.
 
+### 5. Does the new region reach anything? Not at these sizes
+
+The point of walking through a parallel-arrow node is what lies beyond it, so:
+for every LNA of the length **and its relation dual**, the set of LNAs the
+guarded search reaches, with the gate allowing parallel arrows and with it
+refusing them, at the same depth.
+
+| | starts | lines reached, allowing | refusing | starts gaining | losing |
+|---|---|---|---|---|---|
+| `n = 6`, depth 6 | 74 | 801 | 801 | 0 | 0 |
+| `n = 7`, depth 6 | 244 | 3,390 | 3,390 | 0 | 0 |
+
+(The counts are the sum over starts of how many LNAs that start reaches, so a
+line reached from two starts counts twice; what matters is that no start gained
+or lost one.)
+
+**So the region is reachable and walkable and yields nothing new here.** Two
+reasons not to read that as "it never will". The comparison holds the *depth*
+fixed, and entering the region and returning from it costs steps, so at depth 6
+the part of it that can come back to a line at all is thin -- the one walk
+looked at by hand, `3030` by `[1, 3, 4, 1, 4]` then 3, takes six mutations to
+get back out to a quiver with no parallel pair, and that quiver is not a line.
+And `n <= 7` is fully covered by the move rules with no search at all (F-021),
+so there is nothing left for a search to find at these lengths whatever it walks
+through. H-016.
+
 Reproduce: `tests/test_parallel_arrows.py`; the sweep is a `visitor` on
 `search.mutationSearchDepthFirst` comparing `search._coxeterKeyOrNone` at each
-node, and the before column is the same script against `git show 78328e7`.
+node, and the before column is the same script against `git show 78328e7`. The
+reachability comparison patches `procedure.isMutable` to pass
+`allowParallelArrows = False` and compares `search.linesReachedFrom` either way;
+it is 84 minutes at `n = 7` depth 6 on one core.
 
 ---
 

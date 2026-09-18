@@ -166,9 +166,13 @@ all. `relationsFrom` checks the cache describes `rels` and names arrows the
 quiver has before trusting it, and raises rather than guess when asked to lift a
 vertex sequence along a parallel pair.
 
-**What this does not settle.** There is no canonical form for a quiver with
-parallel arrows, so two such algebras reached by different routes cannot be
-compared; nothing in the pipeline needs to today, because every answer is
+**What this does not settle.** Whether the region beyond a parallel-arrow node
+*reaches* anything is open and is H-016: at `n = 6` and `n = 7` to depth 6 the
+search reaches exactly the same LNAs with the gate allowing parallel arrows and
+with it refusing them, which is a weak negative -- those lengths need no search
+at all (F-021) and a return from the region costs more depth than was searched.
+There is also no canonical form for a quiver with parallel arrows, so two such
+algebras reached by different routes cannot be compared; nothing in the pipeline needs to today, because every answer is
 recorded at a line and a line has no arrow to spare for a parallel pair. And
 step 3's *cyclic* case is still not implemented (F-002) — the model can now state
 its answer, which is a precondition, and the gate still refuses a loop.
