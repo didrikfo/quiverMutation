@@ -706,6 +706,26 @@ same as the deadline having passed by the time the run ends: a budget of zero at
 n = 7 expires before the first check and still leaves a complete classification,
 because seeding places the whole length outright.
 
+**The search is guarded by the Coxeter polynomial**, and until 2026-09-18 it was
+not. `mutationIsPossibleAtVertex` rules mutation *out*, not in — the paper's
+hypothesis is on the algebra, not the quiver — so a step it admits can still fail
+to be a derived equivalence. R-005 established that for rule discovery and made
+`lnaMoves.verifyMove` require three things: the predicted result, every step
+admissible, and the polynomial unchanged. The search asked only for the second,
+and F-038 measured the consequence: 97 quivers at n = 7 depth 6 alone, acyclic
+and with no parallel arrows, whose polynomial has moved and which the search then
+walks straight on from. At n = 10 depth 8 one of them comes back round to a line
+and gets reported as a class member — which is the ALARM of E-032.
+
+`mutationSearchDepthFirst(..., coxeterGuard = True)` is now the default and
+refuses any step whose `coxeterKey` differs from the start's. It costs **1.85×**
+and changes no answer at n = 6 or 7 (E-033). `coxeterGuard = False` restores the
+old walk, for measuring what the guard does; it is not for producing answers.
+A cyclic quiver has no unimodular Cartan matrix, so `_coxeterKeyOrNone` returns
+None there and the step is let through — the search does not descend from a cycle
+anyway, and computing the key unconditionally turned `test_cycles.py`'s "end the
+branch instead of crashing" into a crash.
+
 **Reachability is directional**, and this matters. `mutationSearchDepthFirst`
 walks only *right* mutations, so A can reach B at depth d while B reaches nothing
 at that depth. Since `rightMutate(dual(P)) = dual(leftMutate(P))` and the

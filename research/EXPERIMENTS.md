@@ -6,6 +6,275 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-034 — Can the guarded search be fooled where the polynomial is known to fail?
+*2026-09-18* · **not at depth 6, at the smallest collision** → H-015
+
+F-038's guard refuses any step that moves the Coxeter polynomial. That is
+necessary for a derived equivalence; H-015 asks whether it is sufficient. The
+place to look is where the polynomial is known to be blind, and F-010 says
+exactly where that is: cospectral quipus, the smallest collision at order 9,
+
+    P^(1,4)_(1,0,1) = A_{9,(1,3)}^{(3,6)}   class 3060000
+    P^(1,2)_(1,1,2) = A_{9,(1,4)}^{(3,4)}   class 3004000
+
+Different trees, so **not derived equivalent**, yet one Coxeter polynomial —
+confirmed here, both `(1, 1, -1, -3, -4, -4, -3, -1, 1, 1)`. If a guarded search
+out of one reaches anything the other reaches, then a step the guard admits is
+not a derived equivalence and H-015 falls.
+
+Searching from each, from the member and from the relation dual:
+
+| depth | guard | LNAs from `3060000` | from `3004000` | **shared** | time |
+|---|---|---|---|---|---|
+| 5 | on | 2 | 7 | **0** | 85 s |
+| 5 | off | 2 | 7 | **0** | 45 s |
+| 6 | on | 2 | 8 | **0** | 395 s |
+| 6 | off | 2 | 8 | **0** | 190 s |
+
+**Nothing shared, either way.** `3060000` is remarkably rigid — it reaches only
+`6000030`, its own dual, at either depth — while `3004000` moves to seven or
+eight. The guarded and unguarded searches return *identical* sets here, which is
+consistent with F-038: at this depth the corrupt region is entered but does not
+come back round to a line.
+
+**What this is worth, and what it is not.** It is the sharpest single test
+available and H-015 survives it. But a negative is a depth bound, not a proof,
+and this probes **one** collision: order 10 has two collision groups and order 11
+has four (F-010), none of them tried. It also cannot detect a guard-passing step
+between two algebras that are cospectral for some *other* reason than being
+quipus.
+
+Reproduce: the pair is `python classify.py 9 --collisions`; the search is
+`search.mutationSearchDepthFirst` from each with `coxeterGuard` both ways.
+
+---
+
+## E-033 — Is the mutation search sound?
+*2026-09-18* · **no, and the fix costs 1.85× and changes no answer** → F-038, R-012, F-037
+
+Prompted by the two ALARMs of E-032. The question is narrow and had never been
+asked directly: **does `mutationSearchDepthFirst` stay inside one derived
+equivalence class?** Every step is meant to be a tilting mutation, so the Coxeter
+polynomial must be constant over the whole search tree — at every quiver reached,
+not only at the lines it records.
+
+### 1. Walk the tree with the invariant in hand
+
+A `visitor` that computes `coxeterKey` at each node and compares it to the start,
+aborting at the first mismatch. **It fails at `n = 6` in 7 seconds**: from
+`3030`, the path `[1, 3, 4, 1, 4]` reaches a quiver whose key has moved from
+`(1,1,-1,-2,-1,1,1)` to `(1,1,0,-1,0,1,1)`. Replaying it one mutation at a time
+shows the last step producing a **parallel arrow**, `1 -> 6` twice.
+
+### 2. Classify every wrong node
+
+| | nodes | wrong key | parallel | cyclic | **clean** | lines | lines wrong |
+|---|---|---|---|---|---|---|---|
+| `n = 6`, depth 5 | 25,398 | 4 | 4 | 0 | **0** | 3,263 | 0 |
+| `n = 7`, depth 6 | 609,474 | 604 | 507 | 0 | **97** | 37,911 | 0 |
+| `n = 8`, depth 5 | 1,093,976 | 1,204 | 1,030 | 0 | **174** | 55,175 | 0 |
+
+The parallel-arrow ones are a limitation of the model and are **harmless**:
+`procedure.isMutable` refuses every vertex of a quiver that has parallel arrows
+anywhere, so the node is terminal, and such a quiver can never be mistaken for a
+line. Not one oriented cycle appeared at all.
+
+**The clean ones are the fault** — acyclic, no parallel arrows, key moved,
+nothing to stop the search descending. Smallest: `n = 7`, from the relation dual
+of `33030`, path `[4, 1, 3, 1, 3, 3]`, where step 6 loses a commutativity
+relation outright. Written up as F-038, retracted as R-012.
+
+**No answer was wrong at these sizes.** All 96,349 lines collected carried the
+starting key. The corrupt region exists but had not reached an answer.
+
+### 3. The guard
+
+`search.mutationSearchDepthFirst(..., coxeterGuard = True)`, now the default,
+refuses a step whose key differs from the start's — R-005's third requirement,
+applied per step rather than per rule.
+
+| | without the guard | with it |
+|---|---|---|
+| wrong-key nodes, `n = 6` depth 5 | 4 | **0** |
+| lines reached, `n = 6` depth 5 | 3,263 | 3,263 |
+| core-seconds, `n = 6` depth 5 | 75 | 138 (**1.85×**) |
+| core-seconds, `n = 7` depth 5 | 759 | 1,403 (**1.85×**) |
+| LNAs losing a reached line, `n = 6`, `n = 7` | — | **0** |
+| LNAs gaining one | — | **0** |
+
+Comparing the *sets* of lines reached, from every LNA and from its dual, at
+`n = 6` and `n = 7` to depth 5: not one line lost, not one gained. **Existing
+results at these sizes stand unchanged.**
+
+A cyclic quiver has no unimodular Cartan matrix, so `coxeterKey` raises there;
+`_coxeterKeyOrNone` returns None and such a step is let through, because the
+search does not descend from a cycle anyway. Without that, starting a search at a
+cyclic algebra crashed — `tests/test_cycles.py` caught it.
+
+### 4. The links of E-032 re-derived and replayed
+
+A link is a positive claim, so each was found again and checked move by move:
+every step admissible, no illegal relation, **no parallel arrow or oriented
+cycle**, and the key held. All five pass.
+
+| link | paths into the target | checked | steps |
+|---|---|---|---|
+| `n = 10` `34504030 -> 50505000` | 19 of 20 lines collected | 5 | 7 |
+| `n = 10` `05040330 -> 33460000` | 9 | 5 | 7 |
+| `n = 11` `030233030 -> 300330400` | 3 | 3 | 3–4 |
+| `n = 11` `346004030 -> 060040400` | 4 | 4 | 3–4 |
+| `n = 11` `302340030 -> 300403030` | 3 | 3 | 3–4 |
+
+The first is F-037.
+
+### 5. The ALARM itself, reproduced
+
+The depth-8 search from `03033030` that raised it takes 8257 s on one core, so it
+was split by first mutation and the branches run in parallel. It reproduces
+exactly, and it is the clean mechanism of part 2:
+
+* From the **member**, ten branches, **not one line reached at all** — everything
+  the overnight run recorded from this side is the start itself.
+* From the **relation dual**, branch `9` reaches one line correctly, and branch
+  `4` reaches **four lines, all four wrong**, all of them `30233330`, which is a
+  member of orbit `00330400`. No parallel arrows, no oriented cycle.
+
+Bisecting `[4, 6, 4, 6, 9, 4, 4, 6]`, every step admissible and acyclic
+throughout:
+
+    steps 1-6   key (1, 1, -2, -3, 1, 4, 1, -3, -2, 1, 1)   held
+    step 7 at vertex 4   -> (1, 1, -1, -2, -1, 0, -1, -2, -1, 1, 1)   moved
+    step 8 at vertex 6   lands on the line 30233330, outside the class
+
+So the ALARM was neither a broken orbit (H-013's guess) nor the alarm test's own
+`polyOf` defect (E-032, part 4): it is one admissible-but-not-derived-equivalent
+mutation at step 7 of eight, and the guard refuses it.
+
+Re-running that one branch both ways settles it:
+
+    coxeterGuard = False   4 lines, 4 WRONG, 534s   ['30233330']
+    coxeterGuard = True    0 lines, 0 WRONG, 941s   []
+
+1.76× here, and the false answer is gone.
+
+**This is why the small-`n` sweeps found nothing.** The corruption needs a deep
+enough tree to come back round to a line: seven clean steps, one bad one, then
+one more. At `n ≤ 8` and depth ≤ 6 the corrupt region is reached but never
+returns to a line, which is exactly what part 2's "lines wrong: 0" column says.
+
+### 6. Which existing results the fix disturbs: none found
+
+The guard only ever *refuses* a step, so it can only shrink what a search
+reaches. Every **negative** in the record — "reaches nothing seeded", "stayed
+apart to depth 8" — is therefore untouched. Every **positive** needed checking,
+and the shallow ones are where most of them live: F-034 and H-014 rest on
+depth-3 walks, F-036 and E-031 on depth-4 searches.
+
+Comparing the sets of lines reached with the guard and without, from each LNA and
+from its dual:
+
+| | sampled | LNAs where the guard changes what is reached |
+|---|---|---|
+| `n = 10`, depth 3 | 300 of 4862 | **0** |
+| `n = 10`, depth 4 | 150 of 4862 | **0** |
+| `n = 9`, depth 4 | 300 of 1430 | **0** |
+| `n = 6`, depth 5 | all 42 | **0** |
+| `n = 7`, depth 5 | all 132 | **0** |
+
+Together with parts 2 and 4 this says the damage was confined to depth 7 and
+beyond, and the only wrong answer the record ever contained is the ALARM itself,
+which was already excluded from E-032's unions by the alarm test. **E-032's
+conclusions stand unchanged: 43–46 classes at `n = 10`, 84–115 at `n = 11`.**
+
+### 7. The `break` that meant `continue`
+
+`search.py` abandoned every remaining vertex at a node as soon as one mutation
+there produced an illegal relation, rather than just that vertex — and the loop
+runs over `reversed(vertices)`, so it lost every lower-numbered one. Fixed.
+**It never fired in E-032**: `isIllegalRelation` prints when it triggers and all
+three overnight logs contain zero such lines over 121 core-hours.
+
+---
+
+## E-032 — The overnight run: H-013 at `n = 10` and `n = 11`
+*2026-09-18* · **`n = 10` settled to 43–46 classes; one prediction wrong; and an ALARM that indicts the search rather than the orbits** → E-033
+
+`python overnight.py`, started 2026-09-17 15:46, budget 9 h, on 16 cores under
+WSL. Three jobs, and all three reached a definite state:
+
+| job | command | outcome |
+|---|---|---|
+| `merges10` | `merges.py 10 --depths 5 6 7 8 --jobs 7` | **finished**, exit 0, 00:38 |
+| `merges11` | `merges.py 11 --depths 4 5 6 --jobs 7` | stopped on its budget, exit 2, 00:51 |
+| `classify10` | `classify.py 10 --resume` | terminated at the deadline, 01:07 |
+
+279 searches at `n = 10` (57.7 core-hours) and 3133 at `n = 11` (63.3), by depth
+`{5: 122, 6: 122, 7: 26, 8: 9}` and `{4: 2415, 5: 718}`. Depth 7 and 8 are thin
+because `settled(poly)` stops searching a group once its orbits have merged. The
+slowest single search was 9691 s, at depth 8.
+
+### 1. `n = 10` is finished, and H-013 was right twice and wrong once
+
+| polynomial group | orbits | H-013 predicted | what happened |
+|---|---|---|---|
+| `(λ-1)²(λ+1)²(λ²+1)(λ⁴+λ³+λ²+λ+1)`, `C(2,4,5)`'s | 2 (69, 42) | merge, depth ≤ 7 | **merged at depth 6**, 9 searches found it |
+| `(λ-1)²(λ+1)²(λ²+λ+1)(λ⁴-λ²+1)` | 4 (4, 2, 2, 1) | at least two stay apart | **all four stayed apart to depth 8** |
+| `(λ+1)²(λ²-λ+1)(λ⁶-λ³+1)` = `T¹⁰+T⁹+T+1` | 2 (1, 1) | **no link to depth 8** | **merged at depth 7**, from both sides |
+
+So 12 orbits fall to **at most 10** non-quipu classes, and the derived classes at
+`n = 10` number between `36 + 7 = 43` and `36 + 10 = 46`, where H-013 said 43–48.
+
+The wrong prediction is the one worth keeping. `34504030` and `50505000` are the
+two the Coxeter polynomial can never separate — the pair `remark:Coxeter` of
+arXiv:2310.08346 makes its point with, and the ones H-013 called singletons under
+every move known. A depth-7 search links them in both directions, in 553 s from
+`34504030` and 1951 s from `50505000`. **A link is a positive claim and the
+search is now known to be unsound in some places, so this one is checked
+separately in E-033 rather than believed here.**
+
+### 2. `n = 11` got through depth 4 and most of depth 5
+
+54 orbits in 20 polynomial groups, down to **at most 51** non-quipu classes, so
+between `64 + 20 = 84` and `64 + 51 = 115`. Three merges, all first seen at depth
+4 and all confirmed from both sides:
+
+    030033030 <-> 300330400     28 searches
+    040344030 <-> 060040400     12
+    300340030 <-> 300403030     12
+
+No group beyond those merged at depth 5, and the two largest groups — 9 orbits
+each — stayed entirely apart. Rerunning the same command resumes from the
+checkpoint.
+
+### 3. `classify10` got nowhere worth keeping
+
+1010 of 4862 rows attempted in 9 hours, 31 resolved and 5 still unresolved at
+depth 6. It is an independent route to the `n = 10` count and it is far too slow
+to be one; `merges.py` answered the same question in a fraction of the time
+because it only searches what the moves leave over. **Do not schedule
+`classify.py 10` again as a whole-range run.**
+
+### 4. The ALARM
+
+Two depth-8 searches, from `03033030` and `30330300`, reported reaching orbit
+`00330400`, which carries a different Coxeter polynomial. H-013 said an alarm
+"would refute F-032's orbits". It does not: both orbits are internally
+consistent, each carrying exactly one polynomial over all its members (4 and 142
+of them). What the alarm indicts is the **search**. That is E-033.
+
+Two things about the alarm test itself, found while reading it:
+
+* `polyOf` is built from the leftover orbits only, so `polyOf.get(other)` is
+  `None` for any orbit a seed reaches. A leftover linking to a **quipu** orbit —
+  which would be the most interesting result the run could produce, an LNA the
+  theorem misses turning out to be in a theorem class after all — is therefore
+  reported as an ALARM and **excluded from the union**, not recorded as a merge.
+  It did not happen here, but the test would have hidden it.
+* An alarm does not stop the run or mark the group, so the two alarms sat in the
+  log for five hours.
+
+---
+
 ## E-031 — Is reorientation a mutation, and does it help the search?
 *2026-09-17* · **yes, and it is the merge step rather than the search that needed it** → F-036
 

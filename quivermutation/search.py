@@ -19,6 +19,7 @@ import copy
 
 import networkx as nx
 
+from . import invariants
 from . import lines
 from . import mutation
 from . import nakayama
@@ -28,7 +29,20 @@ from . import quipuForms
 from . import reduction
 
 
-def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName = 'quiver', vertexRelabeling = None, printOutput = True, collected = None, collectedHereditary = None, visitor = None):
+def _coxeterKeyOrNone(pathAlg):
+    """`coxeterKey`, or None where there is no invariant to be had.
+
+    `coxeterCoefficients` raises when the Cartan matrix is not unimodular, which
+    is what a quiver with an oriented cycle gives -- there are infinitely many
+    paths and the matrix does not mean what the identity needs it to mean.
+    """
+    try:
+        return invariants.coxeterKey(pathAlg)
+    except (ValueError, ZeroDivisionError):
+        return None
+
+
+def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName = 'quiver', vertexRelabeling = None, printOutput = True, collected = None, collectedHereditary = None, visitor = None, coxeterGuard = True, baseKey = None):
     """Walk mutations of pathAlg to the given depth, recording the lines found.
 
     Every quiver reached that is again a line is recorded as a triple
@@ -50,6 +64,23 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
     `quiverName` only labels the progress output.  It used to name a
     '<quiverName>DF.txt' transcript that the caller parsed back by string
     slicing; that round trip is gone -- see NOTES.md idea 11.
+
+    **`coxeterGuard` is what makes the walk a walk in one derived class.**
+    `mutationIsPossibleAtVertex` rules mutation *out*, not in -- the paper's own
+    hypothesis is on the algebra and it says plainly that this is in general not
+    equivalent to a condition on the quiver -- so a step it admits can still fail
+    to be a derived equivalence.  R-005 recorded that for rule discovery and made
+    `lnaMoves.verifyMove` require three things: the predicted result, every step
+    admissible, and the Coxeter polynomial unchanged.  This search asked only for
+    the second, and F-038 is what that let through: 97 quivers at `n = 7` alone,
+    acyclic and with no parallel arrows, whose Coxeter polynomial has moved and
+    which the search then walks straight on from.  The guard is the third
+    requirement, applied per step: a mutation whose `coxeterKey` differs from the
+    start's is not taken.  `baseKey` carries the start's key down the recursion
+    and is computed here when the caller does not supply it.
+
+    Passing `coxeterGuard = False` restores the old behaviour, and is for
+    measuring what the guard changes, not for producing answers.
     """
     # These used to default to [] and {}, which Python evaluates once at
     # definition time.  The relabeling dict is filled in below and so leaked
@@ -57,6 +88,12 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
     # first one's numbering, and crashed as soon as the quiver was longer.
     mutationVertices = [] if mutationVertices is None else mutationVertices
     vertexRelabeling = {} if vertexRelabeling is None else dict(vertexRelabeling)
+    if coxeterGuard and baseKey is None:
+        baseKey = _coxeterKeyOrNone(pathAlg)
+        if baseKey is None:
+            # No usable invariant to compare against -- a cyclic quiver has no
+            # unimodular Cartan matrix.  Nothing to guard with, so do not.
+            coxeterGuard = False
     vertices = list(pathAlg.vertices())
     baseQuiver = copy.deepcopy(pathAlg.quiver)
     quiverAtThisDepth = copy.deepcopy(pathAlg.quiver)
@@ -122,9 +159,23 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
                         discardMutation = True
                         break
                 if discardMutation:
-                    break
+                    # `continue`, not `break`: only this vertex is discarded.
+                    # It used to break the loop over vertices, so one illegal
+                    # relation abandoned every vertex still to be tried at this
+                    # node -- and since the loop runs in reverse, that was every
+                    # lower-numbered one.  E-033.
+                    continue
                 mutPathAlg = reduction.reducePathAlgebra(mutPathAlg)
-                mutationSearchDepthFirst(copy.deepcopy(mutPathAlg), depth, mutationVerticesAtDepth, quiverName, vertexRelabeling, printOutput, collected, collectedHereditary, visitor)
+                if coxeterGuard:
+                    movedKey = _coxeterKeyOrNone(mutPathAlg)
+                    if movedKey is not None and movedKey != baseKey:
+                        # Admissible but not a derived equivalence.  See the note
+                        # on `coxeterGuard` above, and F-038.
+                        continue
+                    # movedKey is None for a cyclic quiver, which the search does
+                    # not descend from anyway; it is let through so that cycles
+                    # end a branch exactly as they did before the guard.
+                mutationSearchDepthFirst(copy.deepcopy(mutPathAlg), depth, mutationVerticesAtDepth, quiverName, vertexRelabeling, printOutput, collected, collectedHereditary, visitor, coxeterGuard, baseKey)
     return
 
 
@@ -215,8 +266,15 @@ def linesReachedFrom(pathAlg, depth, alsoDual = True):
     Returns a dict from relation string to the shortest mutation path found to
     it.  This is what settles a Coxeter-polynomial lead: the polynomial says two
     algebras *could* be derived equivalent, and a mutation path from one to the
-    other says they are, since every step of the procedure is a tilting
-    mutation.
+    other says they are.
+
+    That last step used to be justified here by "every step of the procedure is a
+    tilting mutation", which is true of the procedure and was **not** true of the
+    walk this function performs -- R-012.  It holds now because
+    `mutationSearchDepthFirst` guards every step on the Coxeter polynomial as
+    well as on admissibility (F-038).  What the guard gives is still a necessary
+    condition rather than a proof; H-015 is whether it is also sufficient, and a
+    link that matters is worth replaying and checking rather than trusting.
 
     With `alsoDual`, the search is run from the opposite algebra as well, whose
     lines are read back through the dual.  Two algebras are derived equivalent
