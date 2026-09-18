@@ -6,10 +6,12 @@ it. Status is one of `OPEN`, `SUPPORTED`, `CONFIRMED → F-nnn`, `REFUTED → R-
 
 ---
 
-## H-016 — What escapes the quipu theorem is a placement, not an overlap
+## H-018 — What escapes the quipu theorem is a placement, not an overlap
 *2026-09-18* · **OPEN**
 
-F-039 measured that no bound on the overlap separates the LNAs the quipu theorem
+*Renumbered at merge from `H-016`, which was taken on `main` first by an unrelated entry while this branch was open. Session logs and commit messages from the branch use the old identifier.*
+
+F-042 measured that no bound on the overlap separates the LNAs the quipu theorem
 and the move table place from the ones they do not: the smallest step past
 "almost separate" -- one pair of relations sharing two arrows -- already contains
 outsiders at every length from 9 up. What the same measurement suggests instead:
@@ -37,12 +39,14 @@ can answer where `orbitOf` cannot.
 **Why it matters more than the pattern asked for.** If placement is the
 coordinate, then a generalisation of the quipu theorem cannot be a condition on
 the relation profile alone, and the short quivers could never have shown this --
-at `n = 9` every placement of the `45` core is inside. F-039, E-032.
+at `n = 9` every placement of the `45` core is inside. F-042, E-037.
 
 ---
 
-## H-015 — A quipu in the class always carries more relations than it has cords
+## H-017 — A quipu in the class always carries more relations than it has cords
 *2026-09-17* · **OPEN**
+
+*Renumbered at merge from `H-015`, which was taken on `main` first by an unrelated entry while this branch was open. Session logs and commit messages from the branch use the old identifier.*
 
 F-034 says every LNA outside a quipu class reaches a quipu quiver *with*
 relations. The question this asks is what those quipus look like, because a
@@ -86,10 +90,140 @@ the obvious place to look, since for a tree quiver of global dimension 2 the
 number of relations is read off it, and what breaks that here is exactly the
 higher `Ext` the overlapping relations create.
 
-**The caveat that applies to all of this.** F-037: at these lengths every LNA
+**The caveat that applies to all of this.** F-040: at these lengths every LNA
 outside a quipu class is a *single* overlapping cluster, usually against an end.
 A normal form fitted to those may say nothing about a quiver long enough to hold
 two clusters far from both ends.
+
+---
+
+## H-016 — Walking through a parallel-arrow quiver reaches a merge nothing else does
+*2026-09-18* · **OPEN** *(no gain at n ≤ 7 to depth 6, which is where a gain could not show anyway — E-035; at n = 9 one member of nine reaches the region at all, and it reaches nothing new nine mutations into it — E-036)*
+
+The procedure produces quivers with parallel arrows and, since F-039, the engine
+can state them, the gate admits them and the Coxeter key over them is right. So
+there is a region of the mutation graph that no search has ever entered. **Is
+anything in it?**
+
+The reason to think so is the shape of the one walk looked at by hand. From
+`3030` at `n = 6` by `[1, 3, 4, 1, 4]` the quiver has two arrows `1 -> 6` and a
+commutativity relation between the two parallel paths `5 -> 1 -> 6`; mutating at
+3 comes back out to a quiver with **no** parallel pair carrying
+`5 -> 1 -> 3 -> 6 = 5 -> 1 -> 6`. That quiver was unreachable at any depth
+before. Whether such an exit ever lands on a *line* — which is what a merge
+needs — is the question.
+
+**What is measured.** Nothing gained at `n = 6` or `n = 7` to depth 6: the same
+LNAs are reached with the gate allowing parallel arrows and with it refusing
+them, from every LNA and every relation dual, not one start gaining or losing a
+line (E-035).
+
+**That is a weak negative and should not be read as an answer**, for two reasons
+that are both about where it was measured.
+
+* **Depth.** Entering the region and returning costs mutations. The one exit
+  known takes six to reach a parallel-free quiver and that quiver is not a line,
+  so a depth-6 comparison cannot see a return to a line at all. The test needs
+  depth 8 or more, which is why it was not run here.
+* **Length.** `n <= 7` is covered 100% by the move rules with no search at all
+  (F-021). There is nothing at those lengths for a search to find, whatever it
+  walks through. The lengths where a search still has to place rows are `n >= 9`,
+  and `n = 10`, `n = 11` are where H-013's leftover orbits sit.
+
+**What would settle it.** Run the comparison at `n = 9` or `n = 10` and depth 8,
+against the orbits `merges.py` leaves as singletons — the same targets as H-013.
+A single LNA pair joined only through a parallel-arrow node settles it yes; a
+clean negative at that depth and length is worth having either way, because it
+would say the region is a detour rather than a shortcut and the classification
+need never enter it.
+
+**Do not run it at `n <= 8` again.** E-035 is that run and it found nothing, for
+reasons that are about the sizes and not about the region.
+
+**2026-09-18, amended: the test is much cheaper than it looked, and the first
+part of it is done.** `search.DeeperWhen` gives the extra depth only to the
+branches that reach the region, so the comparison does not cost a whole extra
+level of search. At `n = 9` it costs 2% of the run at depth 4 and 4% at depth 5,
+because **exactly one of the nine leftover members reaches a parallel-arrow
+quiver at all** -- `3033030`, whose walk fires 600 times at depth 5 where the
+other eight fire never (E-036). Nothing is gained at either depth.
+
+That narrows the hypothesis rather than answering it. `3033030` is alone in its
+orbit and alone in its Coxeter polynomial group, so the guard forbids it reaching
+any other leftover: the only outcome visible from it is reaching a **seeded** LNA,
+which would say a leftover is in a quipu class after all. And because it is the
+only member that enters the region, the depth-8 run this hypothesis asks for is a
+run of *one* member, not of nine -- which is what makes it affordable. `n = 10`
+and `n = 11` have not been looked at this way and are where the leftover orbits
+are that H-013 cares about.
+
+**That run has since been made, and it is a negative.** `3033030` from itself and
+its dual at depth 7 with two extra mutations for the region: 29122 firings, 826
+grants, the condition still holding **nine** mutations in, and the only LNA
+reached is its own relation dual -- which depth 5 already reached. Twenty minutes
+on one core. Depth 6 + 2 is the same answer (E-036).
+
+So the `n = 9` half is done, past the depth this hypothesis asked for, and the
+region is a detour there. What it does **not** do is settle the hypothesis:
+`3033030` is alone in its Coxeter polynomial group, so the only outcome it could
+ever have shown is a leftover turning out to be in a quipu class, and one member
+at one length is not the claim. **What is left is `n = 10` and `n = 11`**, where
+H-013's leftover orbits sit several to a polynomial group and a merge between two
+of them is a thing the search can actually find. Find which of their members
+reach the region first -- if it is again a handful, the run is again cheap.
+
+---
+
+## H-015 — The Coxeter guard is sufficient, not merely necessary
+*2026-09-18* · **SUPPORTED** *(survives the sharpest test available, at one collision, to depth 6 — E-034)*
+
+**2026-09-18, first test.** The two cospectral quipus of order 9 — `3060000` and
+`3004000`, different trees and one polynomial, so the guard is blind between them
+— are **not linked**, at depth 5 or 6, with the guard on or off. `3060000`
+reaches only its own dual; `3004000` reaches eight LNAs; the two sets are
+disjoint. E-034. This is the place a guard-passing non-equivalence would show
+first, and it does not show.
+
+F-038 fixed the search by requiring that every step keep the Coxeter polynomial.
+That is a *necessary* condition for a derived equivalence, and the whole repo now
+leans on it as though it were sufficient: a path the guarded search finds is
+taken as proof that two algebras are in one class (F-037 is exactly such a
+proof, and every merge of E-032 rests on it).
+
+**The suspicion is that within this setting it is sufficient** — that an
+admissible mutation which holds the Coxeter polynomial fixed really is a tilting
+mutation here, so the guarded search proves what it claims.
+
+**Why it is not obvious, and might well be false.** The polynomial is not a
+complete invariant, and F-010 says precisely where it fails: cospectral quipus,
+the first pair at order 9. If two algebras can be cospectral without being
+derived equivalent, then in principle a single mutation could step between them,
+hold the key, and pass the guard. Nothing rules that out. The guard removes the
+600-odd failures per `n = 7` search tree that F-038 measured; it does not prove
+there are none left.
+
+**Evidence for, such as it is.** The condition is the same one R-005 imposed on
+rule verification, and under it 16 of 67 candidate rules survived and none has
+since been found false. Every one of the five links of E-032 was replayed
+step by step under it, and independently each pair is already known to share a
+polynomial by a different route. And the guard changes no answer at `n = 6` or
+`n = 7` — the corrupt region it removes never contributed a line at those sizes —
+so it is not doing violence to results that were right.
+
+**What would settle it.** A second invariant applied along a guarded path:
+`τ`-periodicity data, Hochschild cohomology, or the Avella-Alaminos–Geiß
+invariant where it applies (R-008 says it does not apply directly here). Cheaper
+and worth doing first: take every step the guard admits at `n = 6` and `n = 7`,
+and check whether the two algebras have the same *hereditary form* where both
+reach one — F-036 makes that a mutation invariant, and it is independent of the
+polynomial. A step passing the guard and changing the hereditary form would
+refute this outright.
+
+**Why it matters.** If it is false, then the guard is an improvement and not a
+fix, and every positive claim the search makes — F-037, the merges of E-032,
+F-034's walks — needs a second invariant before it can be believed. If it is
+true, the search is sound and can be trusted at depth, which is where the
+remaining classification questions live.
 
 ---
 
@@ -167,7 +301,39 @@ family with relations is what is left.
 ---
 
 ## H-013 — The leftover orbits sharing a polynomial are few classes, and the search can say which
-*2026-09-17, written before the overnight run* · **OPEN**
+*2026-09-17, written before the overnight run* · **SUPPORTED** *(2026-09-18: `n = 10` answered, two predictions right and one wrong; the search's own soundness is now the open question — E-032, E-033)*
+
+**2026-09-18, what the run returned.** `n = 10` finished all four depths. Twelve
+orbits fall to **at most 10** classes, so the derived classes at `n = 10` number
+between **43 and 46**, not the 43–48 written below. `n = 11` got through depth 4
+and most of depth 5: 54 orbits to at most 51, so between 84 and 115. The full
+table of predictions against outcomes is in E-032.
+
+The prediction that failed is the one to keep. `34504030` and `50505000` —
+the pair the Coxeter polynomial can never separate, which this hypothesis called
+singletons under every move known — **are linked by a depth-7 mutation path, from
+both sides**. If that path is real, the invariant that could not separate them
+did not need to: they are one class. The "what would settle it" line below said a
+real separation needs an invariant beyond the polynomial; what this shows is that
+the pair needing one may simply not exist.
+
+**What the alarm clause got wrong.** It said an ALARM "would refute F-032's
+orbits". Two fired, and they refute nothing about the orbits: each of the two
+orbits involved carries exactly one Coxeter polynomial across all of its members.
+The alarm is about the **search**, which is a possibility this hypothesis did not
+consider at all. E-033.
+
+**Still open.** A negative remains a depth bound rather than a separation, and
+nothing here changes that.
+
+The `break`-for-`continue` bug in `mutationSearchDepthFirst` (E-033) would have
+made the depths weaker than they read, by abandoning the remaining vertices at a
+node whenever one mutation there yields an illegal relation — but it **did not
+fire once** in this run: `isIllegalRelation` prints when it triggers, and all
+three logs contain zero such lines over 121 core-hours. The bug is latent here,
+not active, so the depths below stand as searched.
+
+**The original statement and predictions, unchanged:**
 
 F-032 leaves, at `n = 10`, 12 orbits in 7 Coxeter-polynomial groups once the
 orbits are closed under the relation dual (which is derived equivalence and
@@ -195,7 +361,7 @@ would refute F-032's orbits, and would matter more than any merge.
 ---
 
 ## H-012 — Every free move is also a mutation equivalence
-*2026-09-16* · **SUPPORTED** -- settled at `n = 8`, F-038
+*2026-09-16* · **SUPPORTED** -- settled at `n = 8`, F-041
 
 F-028 establishes that deleting a relation of two arrows keeps the *derived*
 equivalence class. It says nothing about the mutation class, and the two are not
@@ -235,7 +401,7 @@ deletion at `n = 8` is a mutation equivalence**, 562 by the known moves and the
 last 10 by a meeting at 3 + 3 mutations. So the hypothesis holds outright at
 `n = 8`. At `n = 9` it holds for 1989 of 2002 deletions and at `n = 10` for 6974
 of 7072; of the 13 left at `n = 9`, eleven have both sides almost separate with
-the same quipu, so only two are outside the theorem's reach as well. F-038.
+the same quipu, so only two are outside the theorem's reach as well. F-041.
 
 **2026-09-18, the barricade.** The shape the hypothesis is doubted for -- two
 heavy clusters walling a two-arrow relation in, with free arrows between -- built
@@ -246,7 +412,7 @@ two-arrow relation out of every one of them**. 46 by a one-way walk and the othe
 as failures by a walk that had merely run out of budget. So the barricade does not
 trap the relation at the lengths where it first exists. It remains untested at the
 lengths the doubt was raised for -- four clusters at 30 to 50 vertices -- where
-nothing can be enumerated. E-032.
+nothing can be enumerated. E-037.
 
 **What would settle it.** For each `n` where the mutation classes are known,
 check whether every LNA and its strip share one. A single pair that does not,

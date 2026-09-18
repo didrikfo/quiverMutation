@@ -73,6 +73,27 @@ def test_length_8(tmp_path, monkeypatch):
 
 
 @pytest.mark.slow
+def test_deeper_probing_does_not_change_the_answer(tmp_path, monkeypatch):
+    """Extra depth may place more rows; it may never place a row differently.
+
+    n = 8 is the shortest length whose classification needs a search at all, and
+    the condition does fire there -- 44 times, buying depth 4 times -- so this is
+    the probe running over a real classification and not a no-op.  The published
+    table is the check, as everywhere else in this file.
+    """
+    from quivermutation import search as se
+
+    monkeypatch.chdir(tmp_path)
+    probe = se.DeeperWhen(se.hasParallelArrows, extraDepth=2)
+    table, report = quiet(qm.classifyLength, 8, 6, 6, None, False, deeperWhen=probe)
+
+    assert probe.firings, "the condition never fired, so this pins nothing"
+    assert probe.grants > 0, "it fired but never bought depth"
+    assert_matches_the_paper(
+        table, report, 8, [133, 65, 64, 64, 40, 26, 13, 10, 9, 4, 1])
+
+
+@pytest.mark.slow
 def test_class_names_are_the_quipus_they_belong_to(tmp_path, monkeypatch):
     """Seeding names each class by its quipu rather than by an arbitrary LNA."""
     table, _report = classify(tmp_path, monkeypatch, 7)

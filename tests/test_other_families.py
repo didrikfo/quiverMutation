@@ -277,7 +277,7 @@ def test_meeting_in_the_middle_reaches_twice_as_far():
     """The pair the known moves miss at n = 8 meets at 3 mutations from each side.
 
     One-sided, that is a depth-6 search; the cost of a search is exponential in
-    the depth, so this is the same reach for the square root of the work. F-038.
+    the depth, so this is the same reach for the square root of the work. F-041.
     """
     from quivermutation import search as se
 
@@ -290,7 +290,7 @@ def test_meeting_in_the_middle_reaches_twice_as_far():
 
 
 def test_every_single_two_arrow_deletion_at_length_eight_is_a_mutation():
-    """H-012's question, one relation at a time, settled at n = 8 (F-038).
+    """H-012's question, one relation at a time, settled at n = 8 (F-041).
 
     The whole strip is a composition of single deletions, so this says every LNA
     of length 8 is mutation equivalent to its stripped form.
@@ -343,7 +343,7 @@ def test_the_orbit_of_one_lna_sits_inside_the_whole_length_partition():
 def test_the_barricade_shape_first_fits_at_length_thirteen():
     """Two heavy clusters walled around a two-arrow relation need 13 vertices.
 
-    The configuration H-012's doubts are about, and F-037's point: it does not
+    The configuration H-012's doubts are about, and F-040's point: it does not
     exist at any length this project has classified.
     """
     from quivermutation import freeMoves as fm
@@ -363,7 +363,7 @@ def test_meeting_in_the_middle_joins_a_barricade_a_one_way_walk_misses():
 
     The barricades at `n = 15` and beyond have orbits of tens of thousands of
     rows, so a one-way walk under any affordable cap reports nothing and proves
-    nothing.  Meeting in the middle finds the join immediately.  E-032.
+    nothing.  Meeting in the middle finds the join immediately.  E-037.
     """
     from quivermutation import freeMoves as fm
 
@@ -396,7 +396,7 @@ def _reachesAlmostSeparate(length, relLengths, limit = 60000):
 
 
 def test_where_a_core_sits_decides_it_and_not_how_much_it_overlaps():
-    """The `45` core is reached from the ends and nowhere else.  F-039.
+    """The `45` core is reached from the ends and nowhere else.  F-042.
 
     A four-arrow relation and a five-arrow one sharing three arrows: one overlap,
     two relations, the same at every placement.  Against the source, or within one

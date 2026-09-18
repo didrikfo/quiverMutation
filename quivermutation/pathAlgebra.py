@@ -28,6 +28,15 @@ class PathAlgebra():
         # `rels` and falls back to the guess if anything has edited `rels`
         # behind its back.
         self.relCombinations = None
+        # The arrows of a mutated quiver are not named by their endpoints: the
+        # procedure produces parallel arrows, and then a path as a sequence of
+        # vertices no longer says which arrow it runs along.  So the relations
+        # are also kept as `arrowPaths` combinations, over paths that are tuples
+        # of `(tail, head, key)` arrows, and *that* is the faithful record --
+        # `rels` is its projection and the table's key.  `procedure.relationsFrom`
+        # prefers this and checks it still describes `rels` and still names
+        # arrows of the quiver before it does.  See NOTES.md, "Parallel arrows".
+        self.arrowRels = None
 
     def vertices(self):
         """ returns the vertices of a quiver """
@@ -47,7 +56,16 @@ class PathAlgebra():
                 self.quiver.add_node(vertex)
 
     def add_arrow(self, arrowStart, arrowEnd):
-        self.quiver.add_edge(arrowStart, arrowEnd)
+        return self.quiver.add_edge(arrowStart, arrowEnd)
+
+    def hasParallelArrows(self):
+        """Whether two distinct arrows share both endpoints.
+
+        Where this is true, `rels` does not determine the algebra and
+        `arrowRels` is the only faithful reading of it.
+        """
+        from . import arrowPaths
+        return arrowPaths.hasParallelArrows(self.quiver)
 
     def add_arrows_from(self, arrows):
         self.quiver.add_edges_from(arrows)
@@ -163,13 +181,46 @@ def printPathAlgebra(pathAlg):
 
 
 def dualPathAlgebra( pathAlg ):
+    """The opposite algebra: every arrow and every relation reversed.
+
+    Arrow names are carried across as well, `(tail, head, key)` going to
+    `(head, tail, key)`, which is injective -- so a parallel pair stays a
+    parallel pair and the arrow relations reverse with it.  Without that, the
+    dual of a quiver with parallel arrows could not be read back at all, and
+    left mutation goes through the dual.
+    """
     dualPathAlg = PathAlgebra()
     dualPathAlg.add_vertices_from(pathAlg.vertices())
-    for arrow in pathAlg.arrows():
-        dualPathAlg.add_arrow(arrow[1], arrow[0])
+    for tail, head, key in pathAlg.quiver.edges(keys = True):
+        dualPathAlg.quiver.add_edge(head, tail, key = key)
     for rel in pathAlg.rels:
         dualRel = []
         for relPath in rel:
             dualRel.append(list(reversed(relPath)))
         dualPathAlg.add_rel(dualRel)
+    arrowRels = getattr(pathAlg, "arrowRels", None)
+    if arrowRels is not None:
+        from . import arrowPaths
+        dualArrowRels = [
+            arrowPaths.combination(
+                (tuple((head, tail, key) for tail, head, key in reversed(path)), coefficient)
+                for path, coefficient in relation.items())
+            for relation in arrowRels
+        ]
+        # `add_rel` sorts each relation's paths, and reversing a relation set
+        # reverses the order they were written in, so the two lists have to be
+        # matched up again rather than zipped as they stand.
+        byProjection = {}
+        for relation in dualArrowRels:
+            key = tuple(sorted(tuple(arrowPaths.projectPath(p)) for p in relation))
+            byProjection.setdefault(key, []).append(relation)
+        matched = []
+        for rel in dualPathAlg.rels:
+            key = tuple(sorted(tuple(p) for p in rel))
+            candidates = byProjection.get(key)
+            if not candidates:
+                matched = None
+                break
+            matched.append(candidates.pop(0))
+        dualPathAlg.arrowRels = matched
     return dualPathAlg

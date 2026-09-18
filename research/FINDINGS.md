@@ -5,8 +5,10 @@ See [`README.md`](README.md) for conventions.
 
 ---
 
-## F-039 — Where a cluster sits decides it, and no bound on the overlap does
+## F-042 — Where a cluster sits decides it, and no bound on the overlap does
 *2026-09-18*
+
+*Renumbered at merge from `F-039`, which was taken on `main` first by an unrelated entry while this branch was open. Session logs and commit messages from the branch use the old identifier.*
 
 The quipu theorem names the LNAs whose relations are *almost separate* -- every
 consecutive pair sharing at most one arrow -- so the obvious generalisation to
@@ -64,7 +66,7 @@ three offsets and **all three are inside**: `0450000` reaches an almost separate
 LNA in 21 rows. Add one vertex at the far end and the same core, `04500000`, never
 reaches one. So a length-9 census of what the moves reach overstates their reach,
 and it does so for a configuration with two relations and a single overlap -- not
-for an exotic one. F-037's warning has a concrete instance.
+for an exotic one. F-040's warning has a concrete instance.
 
 **The family.** `0^a 4 5 0^b` with `a >= 1` and `b >= 2` is outside the move
 closure at every length tested, with as much free space on either side as wanted.
@@ -77,12 +79,14 @@ separate LNA proves the class is a quipu class. Failing to reach one is not a
 proof that no derived equivalence exists -- it is a statement about this move set,
 the same caveat `orbitOf` carries.
 
-`freeMoves.movesFrom`, `overlap.overlapProfile`. E-032.
+`freeMoves.movesFrom`, `overlap.overlapProfile`. E-037.
 
 ---
 
-## F-038 — Meeting in the middle settles the free move at n = 8, and nearly at 9 and 10
-*2026-09-17*
+## F-041 — Meeting in the middle settles the free move at n = 8, and nearly at 9 and 10
+*2026-09-17* · *re-measured 2026-09-19 under the guarded search, unchanged at `n = 8` and `n = 9` — E-038*
+
+*Renumbered at merge from `F-038`, which was taken on `main` first by an unrelated entry while this branch was open. Session logs and commit messages from the branch use the old identifier.*
 
 H-012 asks whether deleting a relation of two arrows -- a derived equivalence by
 `corollary:lengthtworelations` -- is also a **mutation** equivalence. The sharper
@@ -123,12 +127,14 @@ at 3 + 3 mutations: a one-sided search would need depth 6, where the pipeline
 runs at 3 to 6 and the cost is exponential in the depth. Meeting in the middle
 buys the same reach for the square root of the work.
 
-`search.meetingPoints`, `search.quiversReachedFrom`. E-032.
+`search.meetingPoints`, `search.quiversReachedFrom`. E-037.
 
 ---
 
-## F-037 — What lengths 9 to 11 can and cannot show
+## F-040 — What lengths 9 to 11 can and cannot show
 *2026-09-17*
+
+*Renumbered at merge from `F-037`, which was taken on `main` first by an unrelated entry while this branch was open. Session logs and commit messages from the branch use the old identifier.*
 
 Every finding about the LNAs the quipu theorem misses rests on lengths 9, 10 and
 11, and it is worth writing down exactly how narrow that evidence is. Counting
@@ -166,7 +172,330 @@ cluster near an end. Whether that survives several clusters far from both ends i
 untested and untestable at these lengths -- and the interaction between separated
 clusters is exactly what a classification would have to handle in general.
 
-`overlap.overlapRuns`. E-032.
+`overlap.overlapRuns`. E-037.
+
+---
+
+## F-039 — Most of F-038's bad steps were bad *measurements*, and naming the arrows fixes them
+*2026-09-18*
+
+F-038 walked every LNA's search tree comparing `coxeterKey` at each node against
+the start's, found nodes where it had moved, and split them into "parallel
+arrows, a limitation of the model and harmless" and "clean, and the real fault".
+**Both halves were misread, and in the same way: the key was being computed
+wrong, not moved by the mutation.** Two independent mis-counts, one fixed by
+naming arrows and one by closing the commutativity relations properly.
+
+### 1. A parallel pair is two paths, and the Cartan matrix counted one
+
+The procedure of arXiv:2112.08129 **produces parallel arrows**. Step 1 adds a
+composite `alpha beta: h -> j` for every `beta: h -> i` and `alpha: i -> j`, and
+`h -> j` may be an arrow already; step 3 adds one arrow `i* -> k` per relation
+`i ~~> k`, and two relations may share both ends. Neither is a degenerate case:
+the first one shows up five mutations out of an LNA at `n = 6`.
+
+A path was a sequence of vertices, so two parallel arrows gave one path and the
+Cartan matrix entry read 1 where it is 2. The smallest instance is the Kronecker
+quiver — two arrows `1 -> 2`, no relations — whose Coxeter polynomial is
+`(lambda - 1)^2` and which the repo read as `A_2`.
+
+`3030` at `n = 6`, mutated at `[1, 3, 4, 1, 4]`, is the case E-033 found first.
+The fifth step produces two arrows `1 -> 6`, one the composite of `1 -> 4` and
+`4 -> 6` and one that was there before:
+
+    key (1, 1, -1, -2, -1, 1, 1)  ->  (1, 1, 0, -1, 0, 1, 1)   counting vertices
+    key (1, 1, -1, -2, -1, 1, 1)  ->  (1, 1, -1, -2, -1, 1, 1) counting arrows
+
+Every step is admissible, and **the mutation was a derived equivalence all
+along**. What was also lost there is the relation: `5 -> 1 -> 4 -> 6 = 5 -> 1 -> 6`
+runs through the mutated vertex on one side only, so afterwards its two paths use
+the two *different* arrows `1 -> 6` — and as vertex sequences they read alike and
+the relation collapsed to nothing.
+
+### 2. The cheap path count was wrong in two further ways, both about relations
+
+Independent of parallel arrows, and the reason the *other* column of F-038's
+table is not what it says either. The Coxeter key is read off
+`invariants.integerCartanMatrix`, which counted paths rather than taking the rank
+of the ideal, because a search calls it at every node and the exact route costs
+about three times as much.
+
+**It did not close the commutativity relations.** `paths.numberOfPathsUpToRels`
+identifies paths by applying each of a subset of the two-path relations once, in
+every order, and comparing canonical forms. That is not the closure, and a path
+that is zero only through a **chain** of identifications was counted as nonzero.
+From `40030` at `n = 7` by `[1, 4, 2, 5, 2]` — acyclic, no parallel arrows, one
+of the four nodes F-038 called "clean" at that depth:
+
+    1,4,2,5,7  ~  1,6,2,5,7   by  1,4,2 = 1,6,2
+               ~  1,6,2,7     by  6,2,5,7 = 6,2,7
+               ~  1,4,2,7     by  1,4,2 = 1,6,2   = 0  by  4,2,7 = 0
+
+so `dim e_7 A e_1 = 0` and the old count said 1.
+`arrowPaths.homDimensionByClosure` takes the closure to a fixed point and agrees
+with the exact answer here.
+
+**And it has no reading of a relation with three or more paths at all.** A
+one-path relation is "this is zero" and a two-path relation is "these two are the
+same"; a *sum of three* is neither, and both the old count and the new closure
+ignore it outright. **Step 4 of the procedure produces one at every vertex with
+three arrows out**, so this is not exotic. From `34400` at `n = 7` by
+`[1, 3, 4, 2, 2, 1]`:
+
+    arrows      (1,2) (1,4) (1,6) (2,7) (3,1) (4,7) (5,1) (6,7)
+    relations   -(1,2,7) + (1,4,7) + (1,6,7) = 0,   (3,1,6) = 0,   (5,1,2) = 0
+
+The three paths `1 ~~> 7` span two dimensions, not three. The cheap count reads
+3, the key moves from `(1, 1, 0, -2, -2, 0, 1, 1)` to
+`(1, -1, -4, -8, -8, -4, -1, 1)`, and the rank over the ideal gives the starting
+key back. **No amount of closure fixes this**, and it is the bulk of what F-038
+counted as "clean" at `n = 7` depth 6.
+
+**So the key is exact now, except where the cheap route is provably right.**
+`arrowPaths.isMonomial` is the condition: with every relation a single path, a
+path is zero exactly when it contains a generator and counting is the dimension.
+Every LNA, every tree and every quipu with zero relations is of that kind, so the
+seeds and the recorded answers still take the cheap route; a mutated quiver
+generally is not, and takes the rank.
+
+### 3. What the two fixes do to the sweep
+
+Every LNA of the length, searched with `coxeterGuard = False` so the corrupt
+region is visible, `coxeterKey` compared at every node:
+
+| | | nodes | wrong key | parallel | clean | lines |
+|---|---|---|---|---|---|---|
+| `n = 6`, depth 5 | before | 14,693 | 4 | 4 | 0 | 1,789 |
+| | after | 14,701 | **0** | 0 | 0 | 1,789 |
+| `n = 7`, depth 5 | before | 94,446 | 79 | 75 | 4 | 7,175 |
+| | after | 94,498 | **0** | 0 | 0 | 7,175 |
+| `n = 7`, depth 6 | before | 336,760 | 339 | 277 | 62 | 20,683 |
+| | after | 337,360 | **10** | 0 | 10 | 20,683 |
+
+The node count *rises*, by 8, 52 and 600, because a parallel-arrow node is no
+longer terminal and the search descends from it. **Not one line is lost or gained**
+at any of the three, which is the acceptance test F-038's own fix was judged by.
+
+The ten that survive at depth 6 are one bad step and its descendants: every one
+is reached from `30330`, the relation dual of `33030`, along the `[4, 1, 3, 1, …]`
+family of paths, and they are section 4.
+
+(F-038's table counts 25,398 nodes and 3,263 lines at `n = 6` depth 5 against
+14,693 and 1,789 here; that sweep searched each LNA *and its relation dual*, this
+one searches each LNA. The two columns to compare are the wrong-key counts and
+the before/after within each row.)
+
+### 4. What still moves the key, and why the guard stays
+
+**A real failure remains.** From the relation dual of `33030` at `n = 7` by
+`[4, 1, 3, 1, 3, 3]` — F-038's own smallest clean case — the key moves at step 6
+under the arrow model too, and the cheap and exact Cartan matrices agree there,
+so it is the algebra that changed and not the measurement:
+
+    before   arrows (1,4) (1,6) (2,5) (3,7) (4,3) (5,1) (6,3)
+             relations  [1,4,3,7] = [1,6,3,7],  [2,5,1],  [5,1,4,3] = [5,1,6,3]
+    after    arrows (1,4) (1,6) (2,5) (4,7) (5,1) (6,7) (7,3)
+             relations  [1,4,7] = [1,6,7],  [2,5,1],  [4,7,3],  [6,7,3]
+
+    key  (1, 1, -1, -1, -1, -1, 1, 1)  ->  (1, 1, 0, 0, 0, 0, 1, 1)
+
+So R-012 stands and `coxeterGuard` stays on: the criterion still rules mutation
+out rather than in, and a step it admits can still fail to be a derived
+equivalence. What changes is **how much** of the corrupt region is real: none of
+it at `n = 6` and `n = 7` to depth 5, and at `n = 7` depth 6 ten nodes out of 339,
+all of them this one step and what follows it.
+
+### 5. What was fixed, in the code
+
+* `arrowPaths` — the model. An arrow is `(tail, head, key)`, a path is a tuple of
+  arrows, the empty tuple is a trivial path, composition is concatenation. The
+  ideal arithmetic is the same linear algebra as `relationAlgebra` over a
+  different basis, and reuses its row reduction.
+* `procedure` — steps 1 to 7 per *arrow*. Step 5 divides by the arrow `alpha`,
+  not by its target. Step 7 reads each candidate's first arrow back as the
+  relation it came from rather than skipping the target when two relations share
+  it, and reads its tail back into the old quiver (a composite is the two old
+  arrows) before testing membership in `I`. Step 6 and the carried-past relations
+  name the composite arrow they use.
+* `procedure.isMutable` — no longer refuses a quiver with a parallel pair. The
+  refusal said in as many words that it was a restriction of the model and not of
+  the procedure; there is nothing left to restrict.
+  `allowParallelArrows = False` keeps the old gate for measurement.
+* `invariants` — the Cartan matrix, exact and cheap, counts arrow paths.
+* `search` — the illegal-relation check is over arrow relations.
+  `paths.isIllegalRelation` read a commutativity relation between two parallel
+  paths as a repeated path and discarded the mutation, so the branch died even
+  before the gate refused it.
+* `pathAlgebra` — `arrowRels` carries the arrow relations, and the dual carries
+  them across `(tail, head, key) -> (head, tail, key)`, without which a
+  parallel-arrow algebra could not be left-mutated at all.
+
+`rels` stays the table's key and is a **lossy projection**: a relation between
+two parallel paths projects to the same vertex sequence twice, and reading that
+back as this repo reads a two-path relation gives `p - p = 0` — no relation at
+all. `relationsFrom` checks the cache describes `rels` and names arrows the
+quiver has before trusting it, and raises rather than guess when asked to lift a
+vertex sequence along a parallel pair.
+
+**What this does not settle.** Whether the region beyond a parallel-arrow node
+*reaches* anything is open and is H-016: at `n = 6` and `n = 7` to depth 6 the
+search reaches exactly the same LNAs with the gate allowing parallel arrows and
+with it refusing them, which is a weak negative -- those lengths need no search
+at all (F-021) and a return from the region costs more depth than was searched.
+There is also no canonical form for a quiver with parallel arrows, so two such
+algebras reached by different routes cannot be compared; nothing in the pipeline needs to today, because every answer is
+recorded at a line and a line has no arrow to spare for a parallel pair. And
+step 3's *cyclic* case is still not implemented (F-002) — the model can now state
+its answer, which is a precondition, and the gate still refuses a loop.
+
+Reproduce: `tests/test_parallel_arrows.py`, and the sweep is E-035.
+
+---
+
+## F-038 — The search performs mutations that are not derived equivalences, and walks on from them
+*2026-09-18*
+
+`mutationSearchDepthFirst` gated every step on `mutationIsPossibleAtVertex` and
+nothing else. That gate **rules mutation out, not in** — the theorem's hypothesis
+is `Hom(P_i*[1], Λ) = 0`, on the algebra, and arXiv:2112.08129 says plainly that
+this is in general not equivalent to a condition on the quiver. R-005 recorded
+exactly this for rule discovery, where 38 "rules" passed on admissibility alone
+and their orbits had the wrong Coxeter polynomial 6561 times out of 8388, and
+made `lnaMoves.verifyMove` require three things. The search only ever asked for
+one of them.
+
+**Measured.** Walking every LNA's search tree and comparing `coxeterKey` at every
+node against the start's:
+
+| | nodes visited | wrong key | parallel arrows | oriented cycle | **clean** | lines reported | lines wrong |
+|---|---|---|---|---|---|---|---|
+| `n = 6`, depth 5 | 25,398 | 4 | 4 | 0 | **0** | 3,263 | 0 |
+| `n = 7`, depth 6 | 609,474 | 604 | 507 | 0 | **97** | 37,911 | 0 |
+| `n = 8`, depth 5 | 1,093,976 | 1,204 | 1,030 | 0 | **174** | 55,175 | 0 |
+
+**Two mechanisms, and only one of them is dangerous.**
+
+*Parallel arrows* are a limitation of the model, not of the procedure: a path is
+a sequence of vertices and cannot say which of two arrows it uses, so the Cartan
+matrix is misread. These are harmless to answers. `procedure.isMutable` refuses
+mutation at *any* vertex of a quiver that has parallel arrows anywhere, so such a
+node is terminal; and a quiver on `n` vertices with `n - 1` arrows two of which
+are parallel cannot have a path of length `n - 1`, so it can never be mistaken
+for a line either.
+
+*The clean ones are the real fault.* Acyclic, no parallel arrows, Coxeter key
+moved — and since nothing about them refuses mutation, the search descends
+straight through and everything below is outside the class. The smallest is at
+`n = 7`, from the relation dual of `33030` by `[4, 1, 3, 1, 3, 3]`. Every step is
+admissible and no relation is illegal. At step 6, mutating at vertex 3:
+
+    before   arrows (1,4) (1,6) (2,5) (3,7) (4,3) (5,1) (6,3)
+             relations  [1,4,3,7] = [1,6,3,7],  [2,5,1],  [5,1,4,3] = [5,1,6,3]
+    after    arrows (1,4) (1,6) (2,5) (4,7) (5,1) (6,7) (7,3)
+             relations  [1,4,7] = [1,6,7],  [2,5,1],  [4,7,3],  [6,7,3]
+
+    key  (1, 1, -1, -1, -1, -1, 1, 1)  ->  (1, 1, 0, 0, 0, 0, 1, 1)
+
+The commutativity relation `[5,1,4,3] = [5,1,6,3]` is simply gone.
+
+**No reported answer was wrong at `n ≤ 8`** — across 96,349 lines collected in
+the three sweeps above, every one carried the starting Coxeter key. **At
+`n = 10` and depth 8 it does reach an answer**, and that is what the ALARM of
+E-032 was. Searching from the relation dual of `03033030`, four paths of the form
+`[4, 6, 4, 6, 9, 4, 4, 6]` report the line `30233330`, which is in a different
+class. Steps 1 to 6 hold the key, **step 7 — a second consecutive mutation at
+vertex 4 — moves it**, and step 8 lands back on a line. Every step is admissible
+and every quiver acyclic with no parallel arrows.
+
+That is why the small sweeps came up clean: the corruption has to be entered and
+then *returned from* to a line, which takes more depth than `n ≤ 8` was searched
+to. The failure is not rare at depth, and it is invisible without the invariant.
+
+*Amended 2026-09-18 → F-039, R-013.* **The table above does not count what this
+finding says it counts.** A node is in it because the Coxeter key *as computed*
+differed from the start's, and the key was being computed wrong in two ways: a
+parallel pair of arrows counted as one path, and the cheap path count did not
+close the commutativity relations to a fixed point. Correcting both takes the
+wrong-key counts at `n = 6` and `n = 7` to depth 5 to **zero** — every one of
+them, the "clean" ones at that depth included, was a mis-measurement of a
+mutation that was a derived equivalence. The claim in the title still stands:
+the smallest clean case here, from the relation dual of `33030` by
+`[4, 1, 3, 1, 3, 3]`, still moves the key under the corrected count, so the guard
+is still needed. What is retracted is the count and the reading of the parallel
+half as "a limitation of the model and harmless to answers" — it was a
+limitation of the model that made the search *refuse correct mutations*.
+
+**The fix, and what it costs.** `mutationSearchDepthFirst` now takes
+`coxeterGuard`, on by default: a step whose `coxeterKey` differs from the start's
+is not taken. It is R-005's third requirement applied per step.
+
+* It removes the corruption entirely — the wrong-key counts above go to **zero**.
+* It changes **no answer**: over every LNA at `n = 6` and `n = 7` to depth 5,
+  searched from the member and from the dual, not one line is lost and not one is
+  gained.
+* It costs **1.85×** at both lengths.
+
+Reproduce: the guard is `search.mutationSearchDepthFirst(..., coxeterGuard =
+False)` for the old behaviour, and the sweeps are in E-033.
+
+**A second bug, real but dormant.** `search.py` discarded a mutation yielding an
+illegal relation with `break` where it meant `continue`, abandoning every
+remaining vertex at that node — and since the loop runs over `reversed(vertices)`,
+that is every lower-numbered one. It is now `continue`. It never fired in the
+overnight run: `isIllegalRelation` prints when it triggers and all three logs
+contain zero such lines over 121 core-hours, so no result of E-032 is weakened by
+it.
+
+E-033, E-034, R-012.
+
+---
+
+## F-037 — The pair the Coxeter polynomial cannot separate is one class, and there is a path to prove it
+*2026-09-18*
+
+At `n = 10`, `34504030` and `50505000` are the two LNAs whose Coxeter polynomial
+is `T¹⁰ + T⁹ + T + 1`. That polynomial is also carried by a quipu class, which is
+the point `remark:Coxeter` of arXiv:2310.08346 makes: a polynomial match is
+necessary and not sufficient, and for these two the invariant can say nothing at
+all. H-013 recorded them as singletons under every move known — neither the rule
+table, the free move, the edge moves nor the double mutation joins them, and
+neither is certified non-piecewise-hereditary by our criteria — and predicted no
+link to depth 8.
+
+**They are derived equivalent, by seven mutations.** A depth-7 search from
+`34504030` collects 20 lines, **19 of which are `50505000`**, and the reverse
+search finds it too (E-032). Five of the shortest paths, replayed one mutation at
+a time:
+
+    [4, 2, 1, 1, 2, 2, 4]
+    [4, 1, 2, 2, 2, 4, 1]
+    [4, 1, 2, 2, 2, 1, 4]
+    [4, 1, 2, 2, 1, 2, 4]
+    [4, 1, 1, 2, 2, 2, 4]
+
+Each was checked at every intermediate quiver for four things: the mutation was
+admissible by `mutationIsPossibleAtVertex`, no relation was illegal, **no
+parallel arrow or oriented cycle appeared**, and the Coxeter key did not move.
+All five pass on all four counts. The last two conditions are not ceremony —
+F-038 is a failure of exactly that kind, and this verification is what
+distinguishes a real link from one the search fabricated.
+
+**What it settles.** The 12 leftover orbits at `n = 10` fall to at most 10
+classes, so the derived classes at `n = 10` number between 43 and 46. More
+importantly it answers a question H-013 framed as needing a *new invariant*: the
+pair the polynomial cannot separate did not need separating. Before reaching for
+τ-periodicity or Hochschild cohomology on a pair like this, search it.
+
+**Where it does not reach.** Seven mutations is beyond every depth the pipeline
+runs at by default (`classify.py` starts at 6 and decays), which is why an orbit
+this small sat unresolved. And the other leftover group at `n = 10` — the four
+orbits on `(λ-1)²(λ+1)²(λ²+λ+1)(λ⁴-λ²+1)`, every member certified not piecewise
+hereditary — stayed apart through depth 8, so this is not a general collapse.
+
+Reproduce: `python merges.py 10 --depths 5 6 7 8`, or the path check directly
+from `34504030` at depth 7.
+
+E-032, E-033.
 
 ---
 

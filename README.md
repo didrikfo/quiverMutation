@@ -175,7 +175,7 @@ out of one row, and `freeMoves.movesJoin` walks out of **two rows at once** and
 stops where they meet. Use the second for a membership question: a one-way walk
 that stops at its row cap has measured the budget and not the moves, which is how
 49 barricades at `n = 15` and `16` were first recorded as failures and then joined
-in 45 seconds. See `research/` F-039 and E-032.
+in 45 seconds. See `research/` F-042 and E-037.
 
 ## Other families that could carry the classes the theorem misses
 

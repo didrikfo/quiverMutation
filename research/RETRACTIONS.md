@@ -6,6 +6,100 @@ does not. See [`README.md`](README.md).
 
 ---
 
+## R-013 — "A quiver with parallel arrows is a limitation of the model, and harmless"
+*retracted 2026-09-18* · corrected by `arrowPaths` and the arrow-indexed procedure → F-039
+
+NOTES.md said it as a known gap, and F-038 said it as a reading of its own
+measurements:
+
+> **Parallel arrows are rejected outright**, because a path is a vertex sequence
+> and so cannot name which of two parallel arrows it uses.
+
+> *Parallel arrows* are a limitation of the model, not of the procedure [...]
+> These are harmless to answers. `procedure.isMutable` refuses mutation at *any*
+> vertex of a quiver that has parallel arrows anywhere, so such a node is
+> terminal; and a quiver on `n` vertices with `n - 1` arrows two of which are
+> parallel cannot have a path of length `n - 1`, so it can never be mistaken for
+> a line either.
+
+**Every sentence of that is true, and the conclusion does not follow.** "Harmless
+to answers" was argued from the node being terminal — but the node is terminal
+*because of the limitation*, and what lies beyond it is a region of the mutation
+graph the search could not enter. At `n = 7` and depth 5 there are 75 such nodes;
+each is a correct mutation of a correct algebra, and each was a dead end. The cost
+was not a wrong answer, it was the answers never looked for.
+
+Two further things were wrong and neither was noticed, because a node nobody
+descended from is a node nobody checks:
+
+* **The Coxeter key of such a node was wrong**, since two parallel arrows are two
+  paths and the Cartan matrix counted one. So the whole parallel column of
+  F-038's table measures the invariant's mistake, not the procedure's — and once
+  the guard was in, the guard *refused those steps*, turning a dead end into a
+  pruned branch for a reason that did not exist.
+* **The procedure itself was reading three of its own steps wrongly**, in ways
+  only a parallel pair makes visible: step 5 divided a relation by the *target*
+  of an arrow rather than by the arrow, step 7 skipped a target outright whenever
+  two relations `i ~~> k` gave it two arrows `i* -> k`, and a relation carried
+  past the mutated vertex could not tell the new composite arrow from an arrow
+  that had those endpoints already.
+
+**The lesson, and it is the third time this repo has written it down.** A
+limitation recorded as "harmless because we refuse to go there" is not a
+measurement of harm; it is a measurement of where nobody has looked. R-005 and
+R-012 both end with a version of *landing on the right object is not evidence of
+having got there legitimately*; this is the mirror of that. **Never going
+somewhere is not evidence that there is nothing there.** The way to retire a gap
+of this shape is to lift it and re-measure, which cost a day and found two bugs
+in the procedure and one in the invariant.
+
+**What it invalidates.** No published classification: the parallel column of
+F-038's table, and the reading of `paths.numberOfPathsUpToRels` as a sound cheap
+count, and any statement of the form "the search reached nothing from here".
+Every answer at `n <= 8` is recorded at a line, a line has no arrow to spare for
+a parallel pair, and the sweeps of F-039 lose and gain no line at `n = 6` or
+`n = 7`.
+
+---
+
+## R-012 — "Every step of the procedure is a tilting mutation, so a path the search finds proves derived equivalence"
+*retracted 2026-09-18* · corrected by the `coxeterGuard` in `search.mutationSearchDepthFirst` → F-038
+
+`search.linesReachedFrom` said it in as many words:
+
+> the polynomial says two algebras *could* be derived equivalent, and a mutation
+> path from one to the other says they are, since every step of the procedure is
+> a tilting mutation.
+
+Every step of the *procedure* is. Every step the *search took* was not. The
+search gated on `mutationIsPossibleAtVertex` alone, and that criterion rules
+mutation out rather than in — a step it admits can still fail to be a derived
+equivalence. At `n = 7` and depth 6 there are 97 quivers in the search tree,
+acyclic and with no parallel arrows, whose Coxeter polynomial has moved, and the
+search descends from every one of them (F-038).
+
+**This is R-005 again, in the other half of the codebase.** R-005 found 38
+rewrites accepted on admissibility alone whose orbits had the wrong Coxeter
+polynomial 6561 times out of 8388, and its conclusion was that verification needs
+three things: the predicted result, every step admissible, and the polynomial
+unchanged. That conclusion was applied to `lnaMoves.verifyMove` and to
+`movesFrom`, and **not** to the search, which is the thing that produces most of
+the repo's positive claims. The lesson did not travel.
+
+**What it does and does not invalidate.** Not as much as it might: across
+96,349 lines collected at `n ≤ 8`, every one carried the starting Coxeter key, so
+no answer at those sizes was wrong. All four merges the overnight run reported
+(E-032) were re-derived and replayed one mutation at a time, and all four are
+clean. What is now untrustworthy is any *unverified* positive claim from a deep
+search — and the fix is to re-run it with the guard, not to assume the worst.
+
+**The general lesson, which R-005 already wrote and this repeats:** landing on
+the right object is not evidence of having got there legitimately — and a
+correction recorded in one module is not a correction until every module that
+makes the same assumption has been checked.
+
+---
+
 ## R-011 — "The two ends of the quiver are not the same end" (F-025)
 *retracted 2026-09-16*
 
