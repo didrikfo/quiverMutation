@@ -7,18 +7,9 @@ paths; this module is its face for everything that speaks `PathAlgebra` and
 them with `reduction.reducePathAlgebra` after each step, and results carry
 their coefficients so a chain of mutations does not lose them.
 
-`mutationIsPossibleAtVertex` is the admissibility condition, and is the one
-thing here that is *not* delegated.  It is stricter than the criterion the paper
-gives when the vertex has more than one arrow out of it: it rejects as soon as
-one arrow out of the vertex kills a nonzero path, where the paper's theorem rules
-mutation out only when *every* arrow does.  Since the paper is explicit that the
-real condition, `Hom(P_i*[1], Lambda) = 0`, is in general **not** equivalent to
-any condition on the quiver, neither reading is exact, and refusing too much is
-the safe direction -- it loses reachability where being too permissive risks
-performing a rewrite that is not a derived equivalence (research R-005).  So the
-strict one stays the search's gate, and `procedure.isMutable` is the paper's
-criterion read exactly, for when that is what is wanted.  F-015 measures the
-difference.
+`mutationIsPossibleAtVertex` is the admissibility condition, and delegates to
+`procedure.isMutable`, which is the paper's criterion read exactly.  F-016
+measures what that changed when it stopped being a stricter reading.
 
 A mutation applied outside the condition still returns a quiver, just not a
 derived equivalent one -- research R-005 -- so callers that care about the class
@@ -71,20 +62,27 @@ def leftQuiverMutationAtVertex(pathAlg, vertex):
         pathAlg.quiver, procedure.relationsFrom(pathAlg), vertex))
 
 
-def mutationIsPossibleAtVertex(pathAlg, vertex):
+def mutationIsPossibleAtVertex(pathAlg, vertex, allowParallelArrows = True):
     """Whether the mutation procedure may be applied to pathAlg at vertex.
 
-    The paper's criterion, in `procedure.isMutable`; this is its face in the
-    set-of-paths model.  It used to be a stricter reading of the same theorem --
-    see F-016 for what the two differed by and what changing it changed.
+    The paper's criterion, in `procedure.isMutable`; this is its face for
+    callers that speak `PathAlgebra`.  It used to be a stricter reading of the
+    same theorem -- see F-016 for what the two differed by and what changing it
+    changed.
 
     It rules mutation *out*, not in: the theorem's own hypothesis is on the
     algebra, and the paper says it is in general not equivalent to a condition
     on the quiver.  A rewrite performed on the strength of this can still fail
     to be a derived equivalence (research R-005), so a caller that cares about
     the class wants more than this alone.
+
+    `allowParallelArrows = False` restores the refusal of any vertex of a quiver
+    with parallel arrows anywhere, which is what the gate did while a path was a
+    sequence of vertices.  It is for measuring what naming the arrows changed,
+    not for producing answers.
     """
-    return procedure.isMutable(pathAlg.quiver, procedure.relationsFrom(pathAlg), vertex)
+    return procedure.isMutable(pathAlg.quiver, procedure.relationsFrom(pathAlg), vertex,
+                               allowParallelArrows = allowParallelArrows)
 
 
 def showMutationSteps(pathAlg, mutationVertexList, firstDisplayedStep = 0):

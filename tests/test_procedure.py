@@ -1,9 +1,15 @@
 """The mutation procedure on linear combinations, against the model it replaced.
 
-`procedure` is the procedure of arXiv:2112.08129 with relations as
-`relationAlgebra` combinations: the coefficients come out of the steps rather
-than being guessed back from a set of paths.  It is what
+`procedure` is the procedure of arXiv:2112.08129 with relations as `arrowPaths`
+combinations: the coefficients come out of the steps rather than being guessed
+back from a set of paths, and the paths name the arrows they run along rather
+than only the vertices they pass through.  It is what
 `mutation.quiverMutationAtVertex` and `reduction.reducePathAlgebra` now run.
+
+The relations the steps produce are therefore written over `(tail, head, key)`
+arrows, and the assertions below read them back with `arrowPaths.projectPath`
+where a vertex sequence is the clearer thing to write down.  What the projection
+*cannot* say is in `tests/test_parallel_arrows.py`.
 
 Three things are worth pinning, and they are different things:
 
@@ -29,6 +35,7 @@ import quivermutation as qm
 from quivermutation import nakayama as nk
 from quivermutation import procedure as pr
 from quivermutation import relationAlgebra as ra
+from quivermutation import arrowPaths as ap
 from helpers import path_algebra, quiet
 
 
@@ -62,7 +69,9 @@ def test_the_steps_produce_the_coefficients_the_paper_asks_for():
     quiver, relations = pr.mutateAtVertex(algebra.quiver, pr.relationsFrom(algebra), 3)
 
     assert sorted(quiver.edges()) == [(1, 2), (2, 4), (4, 3)]
-    asWritten = {tuple(sorted(r.items())) for r in relations}
+    asWritten = {tuple(sorted((tuple(ap.projectPath(path)), coefficient)
+                              for path, coefficient in r.items()))
+                 for r in relations}
     assert asWritten == {(((1, 2, 4), 1),), (((2, 4, 3), 1),)}
 
 
@@ -77,8 +86,14 @@ def test_step_five_is_a_difference_not_a_sum():
     """
     algebra = nk.LinearNakayamaAlgebra(5, "202")   # relations 1 -> 3 and 3 -> 5
     quiver, relations = pr.mutateAtVertex(algebra.quiver, pr.relationsFrom(algebra), 3)
-    stepFive = [r for r in relations if sorted(r) == [(4, 3, 5), (4, 5)]]
-    assert stepFive, [sorted(r.items()) for r in relations]
+
+    def projected(relation):
+        return {tuple(ap.projectPath(path)): coefficient
+                for path, coefficient in relation.items()}
+
+    stepFive = [projected(r) for r in relations
+                if sorted(projected(r)) == [(4, 3, 5), (4, 5)]]
+    assert stepFive, [sorted(projected(r).items()) for r in relations]
     assert stepFive[0][(4, 3, 5)] == -stepFive[0][(4, 5)]
 
 
@@ -122,20 +137,30 @@ def test_the_coefficients_survive_a_chain_of_mutations():
     """
     algebra = nk.LinearNakayamaAlgebra(6, "3030")
     walked = quiet(qm.quiverMutationAtVertices, algebra, [4, 1, 2])
+    assert walked.arrowRels is not None
+    assert ap.projectToPathSets(walked.arrowRels) == walked.rels
     assert walked.relCombinations is not None
     assert [ra.toPathSet(c) for c in walked.relCombinations] == walked.rels
 
-    walked.rels = [[[1, 2, 3]]]
-    assert pr.relationsFrom(walked) == [ra.combination([(1, 2, 3)])]
+    walked.rels = [[[1, 2, 5]]]
+    assert pr.relationsFrom(walked) == [
+        ap.combination([ap.liftPath(walked.quiver, [1, 2, 5])])]
 
 
-def test_the_opposite_algebra_keeps_the_coefficients():
-    """Left mutation goes through the opposite algebra, which must not lose signs."""
-    relations = [ra.combination([((1, 2, 4), 1), ((1, 3, 4), -1)])]
-    quiver, opposed = pr._opposite(
-        path_algebra([(1, 2), (1, 3), (2, 4), (3, 4)]).quiver, relations)
-    assert sorted(quiver.edges()) == [(2, 1), (3, 1), (4, 2), (4, 3)]
-    assert opposed == [ra.combination([((4, 2, 1), 1), ((4, 3, 1), -1)])]
+def test_the_opposite_algebra_keeps_the_coefficients_and_the_arrow_names():
+    """Left mutation goes through the opposite algebra, which must not lose signs.
+
+    Nor arrow names: `(tail, head, key) -> (head, tail, key)` is injective, so a
+    parallel pair reverses to a parallel pair and the relation survives.  Without
+    that, no algebra with parallel arrows could be left-mutated at all.
+    """
+    quiver = path_algebra([(1, 2), (1, 3), (2, 4), (3, 4)]).quiver
+    relations = [ap.combination([(ap.liftPath(quiver, [1, 2, 4]), 1),
+                                 (ap.liftPath(quiver, [1, 3, 4]), -1)])]
+    opposedQuiver, opposed = pr._opposite(quiver, relations)
+    assert sorted(opposedQuiver.edges()) == [(2, 1), (3, 1), (4, 2), (4, 3)]
+    assert opposed == [ap.combination([(ap.liftPath(opposedQuiver, [4, 2, 1]), 1),
+                                       (ap.liftPath(opposedQuiver, [4, 3, 1]), -1)])]
 
 
 # -- the reduction --------------------------------------------------------
@@ -149,13 +174,14 @@ def test_the_note_after_step_seven_substitutes_rather_than_deletes():
     one on 1 -> 2 -> 3 -> 4 -> 5.
     """
     quiver = path_algebra([(1, 2), (2, 3), (3, 4), (1, 4), (4, 5)]).quiver
+    lift = lambda path: ap.liftPath(quiver, path)
     relations = [
-        ra.combination([((1, 4), 1), ((1, 2, 3, 4), 1)]),
-        ra.combination([((1, 4, 5), 1)]),
+        ap.combination([(lift([1, 4]), 1), (lift([1, 2, 3, 4]), 1)]),
+        ap.combination([(lift([1, 4, 5]), 1)]),
     ]
     reducedQuiver, reduced = pr.reduce(quiver, relations)
     assert (1, 4) not in list(reducedQuiver.edges())
-    assert [ra.toPathSet(r) for r in reduced] == [[[1, 2, 3, 4, 5]]]
+    assert ap.projectToPathSets(reduced) == [[[1, 2, 3, 4, 5]]]
 
 
 def test_minimality_is_decided_over_the_ideal_not_by_containment():
@@ -166,12 +192,13 @@ def test_minimality_is_decided_over_the_ideal_not_by_containment():
     a subrelation cannot see that; reducing against a basis of the ideal can.
     """
     quiver = path_algebra([(1, 2), (1, 3), (2, 4), (3, 4)]).quiver
-    commutativity = ra.combination([((1, 2, 4), 1), ((1, 3, 4), -1)])
-    oneIsZero = ra.combination([((1, 2, 4), 1)])
-    theOther = ra.combination([((1, 3, 4), 1)])
+    lift = lambda path: ap.liftPath(quiver, path)
+    commutativity = ap.combination([(lift([1, 2, 4]), 1), (lift([1, 3, 4]), -1)])
+    oneIsZero = ap.combination([(lift([1, 2, 4]), 1)])
+    theOther = ap.combination([(lift([1, 3, 4]), 1)])
     _, reduced = pr.reduce(quiver, [commutativity, oneIsZero, theOther])
-    assert len(reduced) == 2, [ra.toPathSet(r) for r in reduced]
-    assert ra.isInIdeal(quiver, reduced, theOther)
+    assert len(reduced) == 2, ap.projectToPathSets(reduced)
+    assert ap.isInIdeal(quiver, reduced, theOther)
 
 
 # -- admissibility --------------------------------------------------------
@@ -255,7 +282,12 @@ def test_the_gate_allows_more_than_its_predecessor_and_keeps_the_class(length):
             base = sympy.expand(quiet(qm.coxeterPoly, here).as_expr())
             for second in sorted(quiver.nodes):
                 wasAllowed = strictlyMutable(here, second)
-                isAllowed = pr.isMutable(quiver, mutated, second)
+                # `allowParallelArrows = False`, because that is the gate this
+                # comparison is about: `strictlyMutable` refuses a quiver with a
+                # parallel pair outright, so leaving it on would mix F-016's
+                # difference together with the one naming the arrows made.
+                isAllowed = pr.isMutable(quiver, mutated, second,
+                                         allowParallelArrows = False)
                 if wasAllowed == isAllowed:
                     continue
                 assert (wasAllowed, isAllowed) == (False, True), (algebra, first, second)
@@ -293,5 +325,7 @@ def test_step_seven_finds_the_relation_the_old_implementation_missed():
             [2, 5, 6, 7] in rel for rel in reached.rels), (name, reached.rels)
         # and it is a relation the paper's step 7 requires, not a consequence of
         # the others: dropping it leaves an ideal it is not in
-        others = [r for r in relations if sorted(r) != [(2, 5, 6, 7)]]
-        assert not ra.isInIdeal(quiver, others, ra.combination([(2, 5, 6, 7)])), name
+        theOne = ap.combination([ap.liftPath(quiver, [2, 5, 6, 7])])
+        others = [r for r in relations
+                  if ap.projectToPathSets([r]) != [[[2, 5, 6, 7]]]]
+        assert not ap.isInIdeal(quiver, others, theOne), name

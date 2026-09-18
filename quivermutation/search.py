@@ -19,12 +19,13 @@ import copy
 
 import networkx as nx
 
+from . import arrowPaths
 from . import invariants
 from . import lines
 from . import mutation
 from . import nakayama
 from . import pathAlgebra
-from . import paths
+from . import procedure
 from . import quipuForms
 from . import reduction
 
@@ -154,8 +155,19 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
             if mutation.mutationIsPossibleAtVertex(pathAlg, vertex):
                 mutationVerticesAtDepth.append(vertexRelabeling[vertex])
                 mutPathAlg = mutation.quiverMutationAtVertex(pathAlg, vertex)
-                for rel in mutPathAlg.rels:
-                    if paths.isIllegalRelation(mutPathAlg, rel):
+                # The check is over the *arrow* relations, not `rels`.  Two
+                # parallel paths write down as the same vertex sequence, so
+                # `paths.isIllegalRelation` called a commutativity relation
+                # between them a repeated path and discarded a mutation that is
+                # perfectly legal -- which is how the parallel-arrow branches
+                # used to die even before the gate refused them.
+                for rel in procedure.relationsFrom(mutPathAlg):
+                    if arrowPaths.isIllegalRelation(mutPathAlg.quiver, rel):
+                        print('ILLEGAL RELATION!')
+                        print('The relation {0}'.format(arrowPaths.projectToPathSets([rel])))
+                        print('is illegal in the following path algebra:')
+                        print(arrowPaths.describeQuiver(mutPathAlg.quiver,
+                                                        procedure.relationsFrom(mutPathAlg)))
                         discardMutation = True
                         break
                 if discardMutation:

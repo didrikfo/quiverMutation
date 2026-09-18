@@ -3,17 +3,21 @@
 `mutationIsPossibleAtVertex` rules mutation *out*, not in, so admissibility alone
 does not make a step a derived equivalence -- R-005 recorded that for rule
 discovery and R-012 for the search, where it had gone unchecked. F-038 measured
-what it let through: at `n = 7` and depth 6, 97 quivers in the search tree that
-are acyclic, have no parallel arrows, and carry a different Coxeter polynomial,
-with the search descending from every one.
+what it let through, and F-039 then found that most of that measurement was of
+the *key* being computed wrong rather than of the mutation being bad: a parallel
+pair of arrows counted as one path, and the cheap path count did not close the
+commutativity relations to a fixed point. With both corrected there is nothing
+left at `n = 6` to depth 5, and the smallest surviving case is at `n = 7` and
+depth 6.
 
-These tests pin both halves: that the guard holds the invariant, and that turning
-it off still reproduces the counterexamples, so the tests keep failing for the
-right reason if the guard is ever removed.
+These tests pin both halves: that the guard holds the invariant, and that the
+surviving counterexample is still there with the guard off, so the tests keep
+failing for the right reason if the guard is ever removed.
 """
 
 import pytest
 
+import quivermutation as qm
 from quivermutation import lnaMoves as lm
 from quivermutation import nakayama as nk
 from quivermutation import pathAlgebra
@@ -63,16 +67,35 @@ def test_every_quiver_the_guarded_search_reaches_keeps_the_coxeter_polynomial(re
     assert moved == []
 
 
-def test_without_the_guard_the_search_leaves_the_class_at_n_6():
-    """F-038's smallest case, kept so the guard is testing something."""
+def test_f038s_smallest_case_was_a_mis_measurement_and_now_holds():
+    """`3030` by `[1, 3, 4, 1, 4]` produces a parallel pair, and that is all.
+
+    It was the first node E-033 found with a moved key, and the move was in the
+    Cartan matrix rather than in the algebra: two arrows `1 -> 6`, counted once.
+    Nothing at `n = 6` to depth 5 leaves the class now, with the guard off --
+    which is why the guard's own justification is the slow `n = 7` test below.
+    """
+    algebra = nk.LinearNakayamaAlgebra(6, [3, 0, 3, 0])
+    walked = algebra
+    for vertex in [1, 3, 4, 1, 4]:
+        walked = lm._quiet(qm.reducePathAlgebra,
+                           lm._quiet(qm.quiverMutationAtVertex, walked, vertex))
+    assert walked.hasParallelArrows()
+    assert search._coxeterKeyOrNone(walked) == search._coxeterKeyOrNone(algebra)
+
     base, seen = _keysReached(6, (3, 0, 3, 0), 5, guard = False)
     moved = [path for key, path in seen if key is not None and key != base]
-    assert [1, 3, 4, 1, 4] in moved
+    assert moved == []
 
 
 @pytest.mark.slow
 def test_without_the_guard_a_clean_quiver_leaves_the_class_at_n_7():
-    """Acyclic, no parallel arrows, and outside the class -- the dangerous kind."""
+    """Acyclic, no parallel arrows, and outside the class -- the dangerous kind.
+
+    The one case of F-038 that survives the corrected count of F-039: the cheap
+    and the exact Cartan matrices agree here, so it is the algebra that changed.
+    This is what the guard is for.
+    """
     base, seen = _keysReached(7, (3, 3, 0, 3, 0), 6, guard = False)
     moved = [path for key, path in seen if key is not None and key != base]
     assert [4, 1, 3, 1, 3, 3] in moved

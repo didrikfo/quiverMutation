@@ -181,6 +181,49 @@ def test_the_trivial_path_is_never_in_an_admissible_ideal():
         assert ra.homDimension(pa.quiver, rels, vertex, vertex) == 1
 
 
+# -- the cheap count, and the chain the old one missed -------------------
+
+def test_the_cheap_count_closes_the_commutativity_relations_transitively():
+    """A path is zero when a *chain* of identifications reaches a zero path.
+
+    The quiver reached from `40030` at n = 7 by `[1, 4, 2, 5, 2]`.  Its four
+    paths `1 ~~> 7` are joined in one class by two commutativity relations, and
+    one member of that class, `4 -> 2 -> 7` extended, is a zero relation -- so
+    every one of them is zero and the entry is 0.  Reaching it needs three
+    substitutions in a row:
+
+        1,4,2,5,7  ~  1,6,2,5,7   (by 1,4,2 = 1,6,2)
+                   ~  1,6,2,7     (by 6,2,5,7 = 6,2,7)
+                   ~  1,4,2,7     (by 1,4,2 = 1,6,2)  = 0
+
+    `paths.numberOfPathsUpToRels` applies each relation at most once per pass and
+    compares canonical forms, so it stopped short of that and counted the class
+    as nonzero -- which moved the Coxeter key and is one of the four "clean"
+    wrong-key nodes F-038 recorded at n = 7 to depth 5.  It was a mis-count, not
+    a bad mutation.  `arrowPaths.homDimensionByClosure` takes the full closure
+    and agrees with the exact answer here.
+    """
+    from quivermutation import arrowPaths as ap
+    from quivermutation import procedure as pr
+    from quivermutation import invariants as inv
+    from quivermutation import mutation, reduction
+
+    algebra = nk.LinearNakayamaAlgebra(7, "40030")
+    base = inv.coxeterKey(algebra)
+    for vertex in [1, 4, 2, 5, 2]:
+        algebra = quiet(reduction.reducePathAlgebra,
+                        quiet(mutation.quiverMutationAtVertex, algebra, vertex))
+    assert not algebra.hasParallelArrows()
+    assert algebra.rels == [[[1, 4, 2], [1, 6, 2]], [[3, 6, 2]], [[4, 2, 7]],
+                            [[6, 2, 5, 7], [6, 2, 7]]]
+
+    relations = pr.relationsFrom(algebra)
+    assert ap.homDimensionByClosure(algebra.quiver, relations, 1, 7) == 0
+    assert ap.homDimension(algebra.quiver, relations, 1, 7) == 0
+    assert quiet(qm.numberOfPathsUpToRels, algebra, 1, 7) == 1
+    assert inv.coxeterKey(algebra) == base
+
+
 # -- agreement with the existing Cartan matrix ---------------------------
 
 @pytest.mark.parametrize("length", [3, 4, 5, 6])
@@ -202,23 +245,35 @@ def test_exact_and_heuristic_cartan_matrices_agree_on_every_lna(length):
 @pytest.mark.slow
 @pytest.mark.parametrize("length, rels", [(5, "300"), (6, "3030"), (6, "2300"), (7, "22230")])
 def test_the_two_cartan_matrices_agree_along_mutation_paths(length, rels):
-    """Walk every legal mutation to depth 3 and compare at each step."""
+    """Walk every legal mutation to depth 3 and compare at each step.
+
+    `qm.cartanMatrix` counts arrow paths, exactly or by the cheap closure, and
+    the two must agree everywhere an LNA walk goes.  `ra.cartanMatrixExact` is
+    the *vertex-model* version and is compared as well, but only while no
+    parallel pair has appeared -- past that it counts two paths as one, which is
+    the whole point of `arrowPaths`.
+    """
     from helpers import line_algebra
+    from quivermutation import arrowPaths as ap
+    from quivermutation import procedure as pr
 
     def walk(pa, depth):
         if depth == 0:
             return
-        allRels = quiet(qm.allRelsInPathAlgebra, pa)
         for vertex in pa.vertices():
             if not quiet(qm.mutationIsPossibleAtVertex, pa, vertex):
                 continue
             mutated = quiet(qm.quiverMutationAtVertex, pa, vertex)
-            if any(quiet(qm.isIllegalRelation, mutated, r) for r in mutated.rels):
+            if any(ap.isIllegalRelation(mutated.quiver, r)
+                   for r in pr.relationsFrom(mutated)):
                 continue
             mutated = quiet(qm.reducePathAlgebra, mutated)
-            assert quiet(qm.cartanMatrix, mutated) == quiet(ra.cartanMatrixExact, mutated), (
-                f"A_{length}_{rels}: {sorted(mutated.arrows())} {mutated.rels}"
-            )
+            where = f"A_{length}_{rels}: {sorted(mutated.arrows())} {mutated.rels}"
+            assert quiet(qm.cartanMatrix, mutated) == quiet(
+                qm.cartanMatrix, mutated, False), where
+            if not mutated.hasParallelArrows():
+                assert quiet(qm.cartanMatrix, mutated) == quiet(
+                    ra.cartanMatrixExact, mutated), where
             walk(mutated, depth - 1)
 
     walk(line_algebra(length, rels), 3)
@@ -240,6 +295,8 @@ def test_reduction_preserves_the_cartan_matrix():
     relations being read as sums.
     """
     from helpers import line_algebra
+    from quivermutation import arrowPaths as ap
+    from quivermutation import procedure as pr
 
     checked = 0
 
@@ -247,23 +304,26 @@ def test_reduction_preserves_the_cartan_matrix():
         nonlocal checked
         if depth == 0:
             return
-        allRels = quiet(qm.allRelsInPathAlgebra, pa)
         for vertex in pa.vertices():
             if not quiet(qm.mutationIsPossibleAtVertex, pa, vertex):
                 continue
             raw = quiet(qm.quiverMutationAtVertex, pa, vertex)
-            if any(quiet(qm.isIllegalRelation, raw, rel) for rel in raw.rels):
+            if any(ap.isIllegalRelation(raw.quiver, rel)
+                   for rel in pr.relationsFrom(raw)):
                 continue
-            before = quiet(ra.cartanMatrixExact, raw)
+            # The arrow-path Cartan matrix, not `ra.cartanMatrixExact`: the raw
+            # output of a mutation is exactly where parallel arrows turn up, and
+            # the vertex-model count is wrong there.
+            before = quiet(qm.cartanMatrix, raw)
             reduced = quiet(qm.reducePathAlgebra, raw)
-            after = quiet(ra.cartanMatrixExact, reduced)
+            after = quiet(qm.cartanMatrix, reduced)
             checked += 1
             assert before == after, (
                 "reduction changed the algebra\n"
                 f"  raw: {sorted((a[0], a[1]) for a in raw.arrows())} {raw.rels}\n"
                 f"  red: {sorted((a[0], a[1]) for a in reduced.arrows())} {reduced.rels}"
             )
-            # The heuristic count must agree too, on everything an LNA reaches.
+            # The cheap count must agree too, on everything an LNA reaches.
             assert after == quiet(qm.cartanMatrix, reduced, False)
             walk(reduced, depth - 1)
 

@@ -6,6 +6,62 @@ does not. See [`README.md`](README.md).
 
 ---
 
+## R-013 — "A quiver with parallel arrows is a limitation of the model, and harmless"
+*retracted 2026-09-18* · corrected by `arrowPaths` and the arrow-indexed procedure → F-039
+
+NOTES.md said it as a known gap, and F-038 said it as a reading of its own
+measurements:
+
+> **Parallel arrows are rejected outright**, because a path is a vertex sequence
+> and so cannot name which of two parallel arrows it uses.
+
+> *Parallel arrows* are a limitation of the model, not of the procedure [...]
+> These are harmless to answers. `procedure.isMutable` refuses mutation at *any*
+> vertex of a quiver that has parallel arrows anywhere, so such a node is
+> terminal; and a quiver on `n` vertices with `n - 1` arrows two of which are
+> parallel cannot have a path of length `n - 1`, so it can never be mistaken for
+> a line either.
+
+**Every sentence of that is true, and the conclusion does not follow.** "Harmless
+to answers" was argued from the node being terminal — but the node is terminal
+*because of the limitation*, and what lies beyond it is a region of the mutation
+graph the search could not enter. At `n = 7` and depth 5 there are 75 such nodes;
+each is a correct mutation of a correct algebra, and each was a dead end. The cost
+was not a wrong answer, it was the answers never looked for.
+
+Two further things were wrong and neither was noticed, because a node nobody
+descended from is a node nobody checks:
+
+* **The Coxeter key of such a node was wrong**, since two parallel arrows are two
+  paths and the Cartan matrix counted one. So the whole parallel column of
+  F-038's table measures the invariant's mistake, not the procedure's — and once
+  the guard was in, the guard *refused those steps*, turning a dead end into a
+  pruned branch for a reason that did not exist.
+* **The procedure itself was reading three of its own steps wrongly**, in ways
+  only a parallel pair makes visible: step 5 divided a relation by the *target*
+  of an arrow rather than by the arrow, step 7 skipped a target outright whenever
+  two relations `i ~~> k` gave it two arrows `i* -> k`, and a relation carried
+  past the mutated vertex could not tell the new composite arrow from an arrow
+  that had those endpoints already.
+
+**The lesson, and it is the third time this repo has written it down.** A
+limitation recorded as "harmless because we refuse to go there" is not a
+measurement of harm; it is a measurement of where nobody has looked. R-005 and
+R-012 both end with a version of *landing on the right object is not evidence of
+having got there legitimately*; this is the mirror of that. **Never going
+somewhere is not evidence that there is nothing there.** The way to retire a gap
+of this shape is to lift it and re-measure, which cost a day and found two bugs
+in the procedure and one in the invariant.
+
+**What it invalidates.** No published classification: the parallel column of
+F-038's table, and the reading of `paths.numberOfPathsUpToRels` as a sound cheap
+count, and any statement of the form "the search reached nothing from here".
+Every answer at `n <= 8` is recorded at a line, a line has no arrow to spare for
+a parallel pair, and the sweeps of F-039 lose and gain no line at `n = 6` or
+`n = 7`.
+
+---
+
 ## R-012 — "Every step of the procedure is a tilting mutation, so a path the search finds proves derived equivalence"
 *retracted 2026-09-18* · corrected by the `coxeterGuard` in `search.mutationSearchDepthFirst` → F-038
 

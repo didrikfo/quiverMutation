@@ -4,22 +4,30 @@ The Coxeter polynomial is what the classification compares, being invariant
 along any legal mutation path.  It is not a complete invariant, and research
 F-010 says exactly where it fails: at cospectral quipus, the first pair of which
 is at order 9.
+
+**Both are counted over paths that name their arrows** (`arrowPaths`), not over
+sequences of vertices.  Two parallel arrows are two paths and contribute 2 to
+the Cartan matrix, where a vertex sequence saw one and contributed 1 -- so every
+invariant read off a quiver with parallel arrows used to be wrong, which is the
+harmless-looking half of research F-038: the search met such a quiver, saw the
+Coxeter key move, and either walked on from it or, once the guard was in,
+refused the step.  Neither was right.  See NOTES.md, "Parallel arrows".
 """
 
 from sympy.matrices import eye
 
-from . import paths
-from . import relationAlgebra
+from . import arrowPaths
 
 
 def cartanMatrix(pathAlg, exact = True):
     """The Cartan matrix: entry (j, i) is dim e_j (kQ/I) e_i.
 
-    With exact=True the dimensions come from relationAlgebra, which decides
-    which combinations of paths are zero by linear algebra over the ideal.  With
-    exact=False they come from numberOfPathsUpToRels, which counts paths up to a
-    partial closure under the commutativity relations and calls a path zero when
-    a zero relation sits contiguously inside it.
+    With exact=True the dimensions come from linear algebra over the ideal,
+    which is the only route that is right about a relation nothing contains.
+    With exact=False they come from counting paths up to the closure under the
+    commutativity relations, calling a path zero when a zero relation sits
+    contiguously inside it -- which is exact for a monomial ideal and is what the
+    search can afford at every node.
 
     The two agree on every LNA of length <= 8 and on every quiver reached by
     walking mutations of depth <= 3 out of the LNAs of length 5 to 7, so this
@@ -27,18 +35,16 @@ def cartanMatrix(pathAlg, exact = True):
     commutative grid in tests/test_relation_algebra.py, where a zero relation on
     one path kills all three and only the exact version notices.
 
-    The exact version costs 2 to 4 times as much on LNAs, which is nothing at
-    the rate the pipeline calls it -- once per class, not once per mutation.
+    Both count **arrow** paths, so a parallel pair counts twice.  Vertices are
+    taken in sorted order, as they are throughout `arrowPaths`.
     """
-    if exact:
-        return relationAlgebra.cartanMatrixExact(pathAlg)
-    vertices = pathAlg.quiver.nodes
-    matrix = eye(len(vertices), len(vertices))
-    for i in vertices:
-        for j in vertices:
-            counted = paths.numberOfPathsUpToRels(pathAlg, i, j)
-            # The identity path at a vertex is in the algebra but not in rels.
-            matrix[j - 1, i - 1] = counted + 1 if i == j else counted
+    from . import procedure
+    relations = procedure.relationsFrom(pathAlg)
+    entries = arrowPaths.cartanMatrix(pathAlg.quiver, relations, exact = exact)
+    matrix = eye(len(entries), len(entries))
+    for row, values in enumerate(entries):
+        for column, value in enumerate(values):
+            matrix[row, column] = value
     return matrix
 
 
@@ -79,22 +85,19 @@ def integerCartanMatrix(pathAlg):
     """The Cartan matrix as a list of lists of Python ints, vertices sorted.
 
     Row j, column i is dim e_j (kQ/I) e_i, as in `cartanMatrix`, computed the
-    inexact way -- by counting paths that no relation kills.  For a *monomial*
-    ideal on a quiver with no oriented cycles the two agree, since a path is zero
-    exactly when it contains a generator, and every algebra this is used on --
-    trees, quipus with zero relations, LNAs -- is of that kind.
+    inexact way -- by counting arrow paths that no relation kills.  For a
+    *monomial* ideal on a quiver with no oriented cycles that is exact, since a
+    path is zero exactly when it contains a generator, and every algebra a
+    classification starts from -- trees, quipus with zero relations, LNAs -- is
+    of that kind.
+
+    This is the route `coxeterKey` takes, so it is the one a search calls at
+    every node.  It counts arrow paths: a quiver with two arrows `h -> j` has a
+    2 where the vertex-sequence count had a 1.
     """
-    vertices = sorted(pathAlg.quiver.nodes)
-    index = {vertex: position for position, vertex in enumerate(vertices)}
-    size = len(vertices)
-    matrix = [[0] * size for _ in range(size)]
-    for source in vertices:
-        for target in vertices:
-            counted = paths.numberOfPathsUpToRels(pathAlg, source, target)
-            if source == target:
-                counted += 1
-            matrix[index[target]][index[source]] = counted
-    return matrix
+    from . import procedure
+    relations = procedure.relationsFrom(pathAlg)
+    return arrowPaths.cartanMatrix(pathAlg.quiver, relations, exact = False)
 
 
 def coxeterCoefficients(cartan):

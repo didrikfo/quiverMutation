@@ -5,6 +5,143 @@ See [`README.md`](README.md) for conventions.
 
 ---
 
+## F-039 — Most of F-038's bad steps were bad *measurements*, and naming the arrows fixes them
+*2026-09-18*
+
+F-038 walked every LNA's search tree comparing `coxeterKey` at each node against
+the start's, found nodes where it had moved, and split them into "parallel
+arrows, a limitation of the model and harmless" and "clean, and the real fault".
+**Both halves were misread, and in the same way: the key was being computed
+wrong, not moved by the mutation.** Two independent mis-counts, one fixed by
+naming arrows and one by closing the commutativity relations properly.
+
+### 1. A parallel pair is two paths, and the Cartan matrix counted one
+
+The procedure of arXiv:2112.08129 **produces parallel arrows**. Step 1 adds a
+composite `alpha beta: h -> j` for every `beta: h -> i` and `alpha: i -> j`, and
+`h -> j` may be an arrow already; step 3 adds one arrow `i* -> k` per relation
+`i ~~> k`, and two relations may share both ends. Neither is a degenerate case:
+the first one shows up five mutations out of an LNA at `n = 6`.
+
+A path was a sequence of vertices, so two parallel arrows gave one path and the
+Cartan matrix entry read 1 where it is 2. The smallest instance is the Kronecker
+quiver — two arrows `1 -> 2`, no relations — whose Coxeter polynomial is
+`(lambda - 1)^2` and which the repo read as `A_2`.
+
+`3030` at `n = 6`, mutated at `[1, 3, 4, 1, 4]`, is the case E-033 found first.
+The fifth step produces two arrows `1 -> 6`, one the composite of `1 -> 4` and
+`4 -> 6` and one that was there before:
+
+    key (1, 1, -1, -2, -1, 1, 1)  ->  (1, 1, 0, -1, 0, 1, 1)   counting vertices
+    key (1, 1, -1, -2, -1, 1, 1)  ->  (1, 1, -1, -2, -1, 1, 1) counting arrows
+
+Every step is admissible, and **the mutation was a derived equivalence all
+along**. What was also lost there is the relation: `5 -> 1 -> 4 -> 6 = 5 -> 1 -> 6`
+runs through the mutated vertex on one side only, so afterwards its two paths use
+the two *different* arrows `1 -> 6` — and as vertex sequences they read alike and
+the relation collapsed to nothing.
+
+### 2. The cheap path count did not close the commutativity relations
+
+Independent of parallel arrows. `paths.numberOfPathsUpToRels` identifies paths by
+applying each of a subset of the two-path relations once, in every order, and
+comparing canonical forms. That is not the closure, and a path that is zero only
+through a **chain** of identifications was counted as nonzero.
+
+From `40030` at `n = 7` by `[1, 4, 2, 5, 2]` — acyclic, no parallel arrows, one
+of the four nodes F-038 called "clean" at that depth:
+
+    1,4,2,5,7  ~  1,6,2,5,7   by  1,4,2 = 1,6,2
+               ~  1,6,2,7     by  6,2,5,7 = 6,2,7
+               ~  1,4,2,7     by  1,4,2 = 1,6,2   = 0  by  4,2,7 = 0
+
+so `dim e_7 A e_1 = 0` and the old count said 1. `arrowPaths.homDimensionByClosure`
+takes the closure to a fixed point and agrees with the exact answer, which is the
+rank over the ideal.
+
+### 3. What the two fixes do to the sweep
+
+Every LNA of the length, searched with `coxeterGuard = False` so the corrupt
+region is visible, `coxeterKey` compared at every node:
+
+| | | nodes | wrong key | parallel | clean | lines |
+|---|---|---|---|---|---|---|
+| `n = 6`, depth 5 | before | 14,693 | 4 | 4 | 0 | 1,789 |
+| | after | 14,701 | **0** | 0 | 0 | 1,789 |
+| `n = 7`, depth 5 | before | 94,446 | 79 | 75 | 4 | 7,175 |
+| | after | 94,498 | **0** | 0 | 0 | 7,175 |
+
+The node count *rises*, by 8 and 52, because a parallel-arrow node is no longer
+terminal and the search descends from it. **Not one line is lost or gained** at
+either length, which is the acceptance test F-038's own fix was judged by.
+
+(F-038's table counts 25,398 nodes and 3,263 lines at `n = 6` depth 5 against
+14,693 and 1,789 here; that sweep searched each LNA *and its relation dual*, this
+one searches each LNA. The two columns to compare are the wrong-key counts and
+the before/after within each row.)
+
+### 4. What still moves the key, and why the guard stays
+
+**A real failure remains.** From the relation dual of `33030` at `n = 7` by
+`[4, 1, 3, 1, 3, 3]` — F-038's own smallest clean case — the key moves at step 6
+under the arrow model too, and the cheap and exact Cartan matrices agree there,
+so it is the algebra that changed and not the measurement:
+
+    before   arrows (1,4) (1,6) (2,5) (3,7) (4,3) (5,1) (6,3)
+             relations  [1,4,3,7] = [1,6,3,7],  [2,5,1],  [5,1,4,3] = [5,1,6,3]
+    after    arrows (1,4) (1,6) (2,5) (4,7) (5,1) (6,7) (7,3)
+             relations  [1,4,7] = [1,6,7],  [2,5,1],  [4,7,3],  [6,7,3]
+
+    key  (1, 1, -1, -1, -1, -1, 1, 1)  ->  (1, 1, 0, 0, 0, 0, 1, 1)
+
+So R-012 stands and `coxeterGuard` stays on: the criterion still rules mutation
+out rather than in, and a step it admits can still fail to be a derived
+equivalence. What changes is how much of the corrupt region is real — at these
+two lengths and depth 5, none of it was.
+
+### 5. What was fixed, in the code
+
+* `arrowPaths` — the model. An arrow is `(tail, head, key)`, a path is a tuple of
+  arrows, the empty tuple is a trivial path, composition is concatenation. The
+  ideal arithmetic is the same linear algebra as `relationAlgebra` over a
+  different basis, and reuses its row reduction.
+* `procedure` — steps 1 to 7 per *arrow*. Step 5 divides by the arrow `alpha`,
+  not by its target. Step 7 reads each candidate's first arrow back as the
+  relation it came from rather than skipping the target when two relations share
+  it, and reads its tail back into the old quiver (a composite is the two old
+  arrows) before testing membership in `I`. Step 6 and the carried-past relations
+  name the composite arrow they use.
+* `procedure.isMutable` — no longer refuses a quiver with a parallel pair. The
+  refusal said in as many words that it was a restriction of the model and not of
+  the procedure; there is nothing left to restrict.
+  `allowParallelArrows = False` keeps the old gate for measurement.
+* `invariants` — the Cartan matrix, exact and cheap, counts arrow paths.
+* `search` — the illegal-relation check is over arrow relations.
+  `paths.isIllegalRelation` read a commutativity relation between two parallel
+  paths as a repeated path and discarded the mutation, so the branch died even
+  before the gate refused it.
+* `pathAlgebra` — `arrowRels` carries the arrow relations, and the dual carries
+  them across `(tail, head, key) -> (head, tail, key)`, without which a
+  parallel-arrow algebra could not be left-mutated at all.
+
+`rels` stays the table's key and is a **lossy projection**: a relation between
+two parallel paths projects to the same vertex sequence twice, and reading that
+back as this repo reads a two-path relation gives `p - p = 0` — no relation at
+all. `relationsFrom` checks the cache describes `rels` and names arrows the
+quiver has before trusting it, and raises rather than guess when asked to lift a
+vertex sequence along a parallel pair.
+
+**What this does not settle.** There is no canonical form for a quiver with
+parallel arrows, so two such algebras reached by different routes cannot be
+compared; nothing in the pipeline needs to today, because every answer is
+recorded at a line and a line has no arrow to spare for a parallel pair. And
+step 3's *cyclic* case is still not implemented (F-002) — the model can now state
+its answer, which is a precondition, and the gate still refuses a loop.
+
+Reproduce: `tests/test_parallel_arrows.py`, and the sweep is E-035.
+
+---
+
 ## F-038 — The search performs mutations that are not derived equivalences, and walks on from them
 *2026-09-18*
 
@@ -63,6 +200,20 @@ and every quiver acyclic with no parallel arrows.
 That is why the small sweeps came up clean: the corruption has to be entered and
 then *returned from* to a line, which takes more depth than `n ≤ 8` was searched
 to. The failure is not rare at depth, and it is invisible without the invariant.
+
+*Amended 2026-09-18 → F-039, R-013.* **The table above does not count what this
+finding says it counts.** A node is in it because the Coxeter key *as computed*
+differed from the start's, and the key was being computed wrong in two ways: a
+parallel pair of arrows counted as one path, and the cheap path count did not
+close the commutativity relations to a fixed point. Correcting both takes the
+wrong-key counts at `n = 6` and `n = 7` to depth 5 to **zero** — every one of
+them, the "clean" ones at that depth included, was a mis-measurement of a
+mutation that was a derived equivalence. The claim in the title still stands:
+the smallest clean case here, from the relation dual of `33030` by
+`[4, 1, 3, 1, 3, 3]`, still moves the key under the corrected count, so the guard
+is still needed. What is retracted is the count and the reading of the parallel
+half as "a limitation of the model and harmless to answers" — it was a
+limitation of the model that made the search *refuse correct mutations*.
 
 **The fix, and what it costs.** `mutationSearchDepthFirst` now takes
 `coxeterGuard`, on by default: a step whose `coxeterKey` differs from the start's

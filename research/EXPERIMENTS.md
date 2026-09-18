@@ -6,6 +6,90 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-035 — Lifting the parallel-arrow restriction, and re-measuring E-033
+*2026-09-18* · **every wrong-key node at n = 6 and n = 7 to depth 5 was a mis-count** → F-039, R-013
+
+E-033 walked the search tree with the Coxeter key in hand and split the nodes
+where it had moved into "parallel arrows, harmless" and "clean, the real fault".
+This is the same sweep after the relations were moved onto paths that name their
+arrows, so a parallel pair can be stated, counted and mutated at.
+
+### What was changed
+
+* `arrowPaths` — an arrow is `(tail, head, key)`, a path is a tuple of arrows.
+* `procedure` — steps 1 to 7 per arrow; step 5 divides by the arrow, step 7 reads
+  each candidate's first arrow back as its relation and its tail back into the
+  old quiver, step 6 and the carried-past relations name the composite they use.
+* `procedure.isMutable` — no longer refuses a quiver with a parallel pair.
+* `invariants` — the Cartan matrix counts arrow paths, exactly and cheaply.
+* `search` — the illegal-relation check is over arrow relations.
+* `arrowPaths.homDimensionByClosure` — the cheap count closes the commutativity
+  relations to a fixed point, where `paths.numberOfPathsUpToRels` applied each of
+  a subset once.
+
+### 1. The sweep, before and after
+
+`mutationSearchDepthFirst` from every LNA of the length, `coxeterGuard = False`
+so the corrupt region is visible, `coxeterKey` compared at every node against the
+start's. One core.
+
+| | | nodes | wrong key | parallel | clean | lines | seconds |
+|---|---|---|---|---|---|---|---|
+| `n = 6`, depth 5 | before | 14,693 | 4 | 4 | 0 | 1,789 | 28 |
+| | after | 14,701 | **0** | 0 | 0 | 1,789 | 26 |
+| `n = 7`, depth 5 | before | 94,446 | 79 | 75 | 4 | 7,175 | 254 |
+| | after | 94,498 | **0** | 0 | 0 | 7,175 | 238 |
+
+The node count rises by 8 and 52: a parallel-arrow node is no longer terminal.
+Lines are unchanged, exactly.
+
+Two mechanisms, both mis-counts:
+
+* the 4 and 75 *parallel* nodes had the key computed over vertex sequences, so a
+  parallel pair contributed 1 to the Cartan matrix where it contributes 2;
+* the 4 *clean* nodes at `n = 7` are the incomplete closure. The sweep printed
+  the first three: `40030` by `[1, 4, 2, 5, 2]`, by `[1, 2, 4, 5, 2]` and by
+  `[1, 1, 5, 4]`. Replaying `[1, 4, 2, 5, 2]` in both engines gives the **same quiver and
+  the same `rels`**, and the key holds in one and moves in the other, which is
+  what says it is the measurement.
+
+### 2. What still moves the key
+
+From the relation dual of `33030` at `n = 7` by `[4, 1, 3, 1, 3, 3]`, F-038's own
+smallest clean case, the key moves at step 6 under the arrow model too, and there
+the cheap and the exact Cartan matrices agree -- so it is the algebra. R-012
+stands and the guard stays.
+
+### 3. The classification is unchanged
+
+`classifyLength` on both engines, same machine:
+
+| | classes | rows | before | after |
+|---|---|---|---|---|
+| `n = 6` | 4 | 42 | 0.3 s | 0.2 s |
+| `n = 7` | 6 | 132 | 1.2 s | 1.2 s |
+| `n = 8` | 11 | 429 | 29.9 s | 28.8 s |
+
+Class for class, size for size, identical at all three. The engine change costs
+nothing measurable: the Cartan matrix does more work per node and the closure
+does less.
+
+### 4. What the region beyond a parallel pair looks like
+
+From `3030` at `n = 6`, mutated at `[1, 3, 4, 1, 4]`, the quiver has two arrows
+`1 -> 6` and one relation between the two parallel paths `5 -> 1 -> 6`. The old
+gate refused all six vertices. The paper's criterion admits three, every one
+keeps the Coxeter key, and mutating at 3 comes back out to a quiver with **no**
+parallel arrows and a genuine commutativity relation
+`5 -> 1 -> 3 -> 6 = 5 -> 1 -> 6` -- a quiver the search could not reach at any
+depth before.
+
+Reproduce: `tests/test_parallel_arrows.py`; the sweep is a `visitor` on
+`search.mutationSearchDepthFirst` comparing `search._coxeterKeyOrNone` at each
+node, and the before column is the same script against `git show 78328e7`.
+
+---
+
 ## E-034 — Can the guarded search be fooled where the polynomial is known to fail?
 *2026-09-18* · **not at depth 6, at the smallest collision** → H-015
 

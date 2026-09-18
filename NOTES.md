@@ -37,23 +37,37 @@ express `2p - 3q + r = 0` at all. A relation with one path means that path is
 zero; a relation with two or more means they are identified up to sign.
 
 **This is now the storage format, not the model.** The procedure runs on
-`relationAlgebra` combinations — see below — and an algebra that came out of it
-carries them in `relCombinations`, in the same order as `rels`. That is a cache
-with a checksum, not a second source of truth: `procedure.relationsFrom` checks
-it still describes `rels` and falls back to guessing the coefficients if anything
-has edited `rels` behind its back. `rels` remains what the tables are keyed by
-and what two algebras are compared as, because a class name has to be a string.
+`arrowPaths` combinations — see below and "Parallel arrows" — and an algebra that
+came out of it carries them in `arrowRels`, in the same order as `rels`. That is
+a cache with a checksum, not a second source of truth: `procedure.relationsFrom`
+checks it still describes `rels` and still names arrows the quiver has, and falls
+back to lifting `rels` and guessing the coefficients if anything has edited
+`rels` behind its back. `relCombinations` is the same thing over vertex paths and
+is kept for readers that want to look at coefficients without the arrow keys.
+`rels` remains what the tables are keyed by and what two algebras are compared
+as, because a class name has to be a string.
 
 A vertex has an implied identity path, which nothing in `rels` represents; the
 `+1` on the diagonal of `cartanMatrix` stands in for it.
 
+**`rels` is a lossy projection once the quiver has parallel arrows**, and the
+procedure produces those, so this is not a corner case. Two parallel paths write
+down as the same vertex sequence; a relation between them projects to that
+sequence twice, and reading *that* back as this repo means a two-path relation —
+a difference — gives `p - p = 0`, which is no relation at all. `arrowRels` is
+the faithful record and is what every decision is made over.
+
 ### The mutation procedure
 
-The procedure lives in `procedure`, on linear combinations of paths, because
-that is what the paper's steps produce: step 4 a sum, step 5 a difference, and
-step 7 a combination whose coefficients solve a linear condition and cannot be
-read back off a set of paths at all. `mutation` and `reduction` are its face for
-everything that speaks `PathAlgebra`.
+The procedure lives in `procedure`, on linear combinations of paths **that name
+their arrows**, for two reasons. The paper's steps produce coefficients — step 4
+a sum, step 5 a difference, and step 7 a combination whose coefficients solve a
+linear condition and cannot be read back off a set of paths at all. And they
+produce *parallel arrows*, which a sequence of vertices cannot name: step 1 adds
+a composite `alpha beta: h -> j` whether or not `h -> j` is an arrow already, and
+step 3 adds one arrow `i* -> k` per relation `i ~~> k`. See "Parallel arrows"
+below. `mutation` and `reduction` are its face for everything that speaks
+`PathAlgebra`.
 
 `quiverMutationAtVertex(pathAlg, vertex)` applies steps 1-7 and returns a new
 `PathAlgebra`. It does not clean up after itself: the result routinely contains
@@ -83,8 +97,87 @@ reducing after each. A negative entry means left mutation, which
 `leftQuiverMutationAtVertex` performs as dual -> right mutation -> dual.
 
 `mutationIsPossibleAtVertex(pathAlg, vertex)` is the admissibility test: an
-arrow out of the vertex must exist, the quiver must have no parallel arrows, and
-`Hom(P_i*[1], Lambda)` must vanish.
+arrow out of the vertex must exist, there must be no loop at it, and
+`Hom(P_i*[1], Lambda)` must vanish — read as the paper's quiver criterion, per
+arrow. It no longer refuses a quiver with parallel arrows;
+`allowParallelArrows = False` restores that refusal for measuring what the change
+did.
+
+### Parallel arrows
+
+**The procedure produces them, so the model has to be able to state them.**
+Step 1 adds a composite arrow `alpha beta: h -> j` for every `beta: h -> i` and
+`alpha: i -> j`, and nothing says `h -> j` is not an arrow already; step 3 adds
+one arrow `i* -> k` per relation `i ~~> k`, and nothing says two relations do not
+share both ends. A quiver with two arrows between the same pair of vertices is
+the *correct answer* of the procedure, and until 2026-09-18 the repo could not
+write one down.
+
+**What a path is now.** An arrow is a `(tail, head, key)` triple, which is
+exactly a `networkx.MultiDiGraph` edge with its key; a path is a tuple of arrows;
+the empty tuple is a trivial path, at whichever vertex the context supplies, and
+is the identity for composition, which is concatenation. A path carries its own
+source and target, so nothing has to consult the quiver to read one back.
+`arrowPaths` is that model and the exact ideal arithmetic over it — the same
+linear algebra as `relationAlgebra`, whose `rowReduce` it reuses, over a different
+basis. `arrowPaths.lift` and `arrowPaths.projectPath` are the two directions
+between the two; lifting is possible exactly while nothing is parallel, which is
+every quiver a walk *starts* from.
+
+**Five things were wrong, in three different ways.** Research F-039 has the
+measurements; in short:
+
+* *The invariant was misread.* Two parallel arrows are two paths and the Cartan
+  matrix entry is 2; counting vertex sequences gave 1, so the Coxeter polynomial
+  of every quiver with a parallel pair was wrong. The smallest case is the
+  Kronecker quiver, whose polynomial came out as that of `A_2`.
+* *The gate refused them.* `isMutable` rejected every vertex of a quiver with a
+  parallel pair anywhere, so such a node was terminal and everything beyond it
+  unreachable. It was honest about being a restriction of the model rather than
+  of the procedure; there is nothing left to restrict.
+* *The search discarded them twice over.* With the Coxeter guard on, the step was
+  refused because the misread key had "moved"; and `paths.isIllegalRelation` read
+  a commutativity relation between two parallel paths as a repeated path and
+  called it illegal.
+* *Step 5 divided by a vertex.* `r / alpha` is division by an **arrow**, and the
+  vertex model could only divide by the target of one.
+* *Step 7 gave up, and step 6 and the through-relations lost a distinction.*
+  Step 7 has to read a candidate path's first arrow back as the relation it came
+  from, and where two relations `i ~~> k` gave two arrows `i* -> k` it could not,
+  so the step was skipped for that target. And a relation carried past the
+  mutated vertex has `beta` then `alpha` replaced by the one composite arrow,
+  which is a *different* arrow from any that joined those endpoints before — as
+  vertex sequences the two read alike and the relation collapsed.
+
+**Step 7's tail is read back into the old quiver.** The condition is "every
+`alpha` out of `i` sends this into `I`", which is about `Q`, while the candidate
+paths live in `m_i(Q)`. Naming the arrows makes the translation total and
+obvious: a carried arrow is itself, a composite `alpha beta` is the two old
+arrows `beta` then `alpha`, and a tail out of `i*` that does not return contains
+nothing else. `procedure._inOldQuiver`.
+
+**What is still open.**
+
+* **No canonical form for a quiver with parallel arrows.** Arrow keys are handed
+  out deterministically within one mutation, so the same mutation twice gives the
+  same algebra; but two algebras reached by *different* routes are compared by
+  `rels`, and that projection cannot separate them. Nothing in the pipeline
+  compares two parallel-arrow algebras today — a line has no parallel arrows, so
+  every answer is recorded after the projection is faithful again — but a search
+  that wanted to dedupe its interior nodes would need one. This is the
+  performance backlog's "canonical form for a path algebra" with the hard case
+  added.
+* **The vertex-model consumers are unchanged.** `lines`, `quipuForms`,
+  `mutationClassTable` and the naming all read `rels`, and all of them act on
+  quivers that are lines or trees. That is sound because a quiver on `n` vertices
+  carrying a path of length `n - 1` has no arrow to spare for a parallel pair;
+  it is not sound in general, and anything new that reads `rels` off an interior
+  node needs `arrowRels` instead.
+* **Step 3's cyclic case is still not implemented** (F-002), and it is the other
+  construction that produces parallel arrows: a relation `r: i --> i` gives one
+  arrow `alpha r-bar: i* -> t(alpha)` per arrow `alpha` out of `i`. The model can
+  now express the answer, which is a precondition for implementing it, and the
+  gate still refuses a loop.
 
 ### The algebra classes
 
@@ -291,8 +384,11 @@ plan item 8.
   equivalent to a condition on the quiver. Passing the gate is necessary, not
   sufficient, so a rewrite done on the strength of it can still fail to be a
   derived equivalence — R-005 is 38 "rules" admitted on exactly that mistake.
-* **Parallel arrows are rejected outright**, because a path is a vertex sequence
-  and so cannot name which of two parallel arrows it uses.
+* ~~**Parallel arrows are rejected outright**, because a path is a vertex
+  sequence and so cannot name which of two parallel arrows it uses.~~
+  **Not since 2026-09-18.** Relations are `arrowPaths` combinations over paths of
+  `(tail, head, key)` arrows, the gate no longer refuses them, and the Cartan
+  matrix counts them. See "Parallel arrows" below and research F-039.
 * ~~**The recursive loop at length 12.**~~ **Found and fixed.** It was not about
   length 12 at all, it was about *cycles*. `allRelsBetweenVertices` and
   `extendRel` recurse along the arrows out of a vertex, and neither tracked
@@ -522,9 +618,16 @@ item 4 is what makes n >= 10 readable at all.
    and `reduction` are thin faces over it. See "The mutation procedure" above
    and F-015; the coefficients an algebra was built with ride along in
    `relCombinations` so a chain of mutations does not guess them back.
-6. **Name arrows.** Paths as vertex sequences cannot express parallel arrows or
-   distinguish two arrows with the same endpoints. Arrow identities would lift
-   that restriction and make the quiver a plain `DiGraph` of named arrows.
+6. ~~**Name arrows.**~~ **Done**, 2026-09-18, research F-039 and E-035. An arrow
+   is a `(tail, head, key)` triple — a `networkx.MultiDiGraph` edge, key and all
+   — a path is a tuple of arrows, and `arrowPaths` is the ideal arithmetic over
+   those. The quiver stays a `MultiDiGraph` rather than becoming a `DiGraph` of
+   named arrows, because the keys *are* the names and networkx already hands them
+   out; what changed is that the relations now use them. The procedure, the
+   reduction, the admissibility gate, the Cartan matrix and the search's
+   illegal-relation check all run on arrow paths; `rels` is the projection and
+   the table's key. What is **not** done is a canonical form for a quiver with
+   parallel arrows — see "Parallel arrows".
 
 ### OOP and structure
 
@@ -712,10 +815,20 @@ hypothesis is on the algebra, not the quiver — so a step it admits can still f
 to be a derived equivalence. R-005 established that for rule discovery and made
 `lnaMoves.verifyMove` require three things: the predicted result, every step
 admissible, and the polynomial unchanged. The search asked only for the second,
-and F-038 measured the consequence: 97 quivers at n = 7 depth 6 alone, acyclic
-and with no parallel arrows, whose polynomial has moved and which the search then
-walks straight on from. At n = 10 depth 8 one of them comes back round to a line
-and gets reported as a class member — which is the ALARM of E-032.
+and F-038 measured the consequence: quivers in the search tree whose polynomial
+has moved and which the search then walks straight on from, one of which comes
+back round to a line at n = 10 depth 8 and gets reported as a class member —
+the ALARM of E-032.
+
+**Most of that measurement was of the key, not of the mutation** (F-039, later
+the same day). The Coxeter key was being computed two ways wrongly: a parallel
+pair of arrows counted as one path, and the cheap path count did not close the
+commutativity relations to a fixed point. With both corrected, **nothing** at
+n = 6 or n = 7 to depth 5 leaves the class with the guard off, where before there
+were 4 and 79 such nodes. What survives is real — the relation dual of `33030` by
+`[4, 1, 3, 1, 3, 3]` still moves the key, and the cheap and exact matrices agree
+there — so the guard stays on and R-012 stands. The lesson is R-013's: a node
+nobody descends from is a node nobody checks.
 
 `mutationSearchDepthFirst(..., coxeterGuard = True)` is now the default and
 refuses any step whose `coxeterKey` differs from the start's. It costs **1.85×**
