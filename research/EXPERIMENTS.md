@@ -6,6 +6,79 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-036 — What conditional deeper probing costs, and what it reaches at n = 9
+*2026-09-18* · **the parallel-arrow region is reached by exactly one of the nine leftover members at n = 9, and giving its branches two more mutations costs 2-4% of the run and gains nothing to depth 5** → H-016
+
+A depth-bounded search gives every branch the same budget. `search.DeeperWhen`
+gives extra mutations to the branches that reach a quiver meeting a condition,
+with a per-branch budget so the walk still terminates; `merges.py --deeper-on`
+asks for it from a command line. This measures the two things that decide
+whether it is worth using: what it costs, and whether the extra depth it buys
+reaches anything.
+
+### 1. Cost and gain at n = 9
+
+Every member of every leftover orbit at `n = 9` (9 members: the eight of
+`3345000` and `3033030`), searched from itself and from its relation dual, plain
+against `parallel-arrows:2` — two extra mutations for a branch that reaches a
+quiver with a parallel pair, once per branch. Four cores; the seconds are the
+sum over the nine members, not wall clock.
+
+| depth | firings | grants | LNAs gained | LNAs lost | plain | probed |
+|---|---|---|---|---|---|---|
+| 4 | 58 | 4 | 0 | 0 | 89s | 91s |
+| 5 | 600 | 32 | 0 | 0 | 418s | 435s |
+
+**Every firing is `3033030`.** The other eight members never reach a quiver with
+parallel arrows at all at these depths, so the probe is free for them and the
+whole cost is one member's: 19s to 36s at depth 5, where raising the depth for
+everyone from 5 to 7 would cost about twenty-five times the run. That ratio is
+the case for the mechanism, and it is the one thing here that is not about
+parallel arrows in particular.
+
+**Nothing is gained, to depth 5.** The same LNAs are reached either way. This is
+a weaker negative than E-035's: `3033030` is alone in its orbit *and* alone in
+its Coxeter polynomial group, so the only outcome that would show here is it
+reaching a **seeded** LNA — a leftover turning out to be in a quipu class after
+all — and at depth 5 it reaches one LNA, its own dual.
+
+### 2. One pass against two
+
+Whether granting depth inside one search differs from recording the interesting
+quivers and searching from those afterwards. The second contains the first, and
+the containment can only be strict for a branch that leaves the region and comes
+back, since a firing *below* the one that bought the depth is already inside the
+subtree the grant paid for, at exactly the remaining depth a re-search would
+give it.
+
+| start | depth | extra | plain | one pass | two passes |
+|---|---|---|---|---|---|
+| `3030` | 4 | 3 | 50 | 105 | 105 |
+| `3030` | 5 | 2 | 118 | 195 | 195 |
+| `30330` | 4 | 2 | 67 | 86 | 86 |
+| `30330` | 5 | 2 | 158 | 237 | 237 |
+
+Nodes reached, counted by the quiver with its arrow names and its relations.
+**Equal in every case**: no branch at these sizes leaves the region and returns
+within the depth searched. So the one-go run is not the weaker of the two in
+practice, which is the practical answer — the two-pass route's advantage is that
+the count of firings is visible before the second round is paid for, not that it
+reaches more.
+
+### Reproducing
+
+Section 1 is `merges.py 9 --depths 4 5 --all-groups` run twice, once with
+`--deeper-on parallel-arrows:2` and once without, comparing `lnasReached` and
+`deeperFirings` per checkpoint record. The two runs can share one checkpoint
+file: it records the condition, and a plain record does not count as covering a
+probed search or the other way round.
+
+Section 2 is the computation of
+`tests/test_deeper_probing.py::test_recording_and_searching_again_contains_deepening_in_one_pass`
+at the four settings in the table.
+
+---
+
 ## E-035 — Lifting the parallel-arrow restriction, and re-measuring E-033
 *2026-09-18* · **every wrong-key node at n = 6 and n = 7 to depth 5 was a mis-count; the new region reaches nothing new at these sizes** → F-039, R-013, H-016
 

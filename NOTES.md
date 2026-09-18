@@ -312,6 +312,51 @@ whose graph has a **cycle** would be a hereditary algebra of a kind no LNA class
 has produced, and is worth stopping for. Nothing is recorded unless a sink is
 open, so it costs nothing when it is not asked for.
 
+### Conditional deeper probing
+
+**A depth-bounded search gives every branch the same budget, and the branches are
+not equally interesting.** `search.DeeperWhen(condition, extraDepth, budget)`
+gives extra mutations to the branches that reach a quiver meeting a condition and
+to no others. The condition is asked at every node, and `search.DEEPER_CONDITIONS`
+names the ones a command line can ask for: `parallel-arrows`, `no-relations`,
+`oriented-cycle`. `merges.py --deeper-on parallel-arrows:3` is the intended use.
+
+**The budget is the whole safety argument.** A grant renewed at every node where
+the condition held would not terminate — parallel arrows beget parallel arrows,
+so a branch inside that region would refill its depth faster than it spent it.
+`budget` caps the total extra depth one branch may accumulate, so no branch runs
+longer than `depth + budget` and the search is as finite as it was. It defaults to
+`extraDepth`, meaning the grant is made once per branch: the first quiver meeting
+the condition buys the depth, and re-entering the region later on the same branch
+buys nothing. `limit` caps the grants across a whole run, as a valve for an
+overnight job.
+
+**A grant of nothing makes the same object a recorder**, which is the other way
+of asking the question — note down every interesting quiver a pass goes through
+and search from those afterwards. `search.recordOnly(condition)` is that, with the
+quivers kept so a second pass can start from them. The two are not quite the same
+search, and the difference is exactly the budget: a recorded firing re-searched
+afterwards starts a fresh budget, so
+
+    one pass at depth d with budget b  ⊆  the union over what a plain pass
+    records of a plain search from each firing to its remaining depth + b
+
+and the two differ only on a branch that *leaves* the region and comes back,
+because a firing below the one that bought the depth is already inside the
+subtree the grant paid for, at exactly the depth re-searching it would give.
+At every size measured they come out equal (E-036), so the one-go run is not the
+weaker of the two in practice.
+
+**A condition on oriented cycles can record but can never deepen.** The search
+does not descend from a cyclic quiver at all, so a node where that fires has no
+children to spend the grant on. It is registered for counting how often the walk
+walks into one, and `hasOrientedCycle` says so.
+
+**A probed run is not a plain run at the same depth**, so `merges.py` writes the
+condition into each checkpoint record and only counts a record as covering a
+member when the condition matches. A link found is a link whatever found it, so
+the unions take every record either way.
+
 ## Verified against the papers
 
 * `generateAllPossibleLineRelations(n)` returns Catalan(n-1) relation sets for
@@ -1271,6 +1316,15 @@ nothing else, agreeing with the published table.
     query API plus a handful of canned views is probably enough, and a rendered
     page per length beats a live app for something that is regenerated once per
     classification run.
+29. ~~**Spend the depth where it is worth spending.**~~ Done, as
+    `search.DeeperWhen` and `merges.py --deeper-on`: a condition on the quivers
+    the walk passes through, and extra mutations for the branches that meet it.
+    A per-branch budget is what keeps it finite. See "Conditional deeper probing"
+    above. The condition this was built for is `parallel-arrows`, which is the
+    region F-039 opened and H-016 asks about; it costs 2% at n = 9 to depth 4
+    where raising the depth for everyone costs about fivefold a level (E-036).
+    What is *not* here is a condition on the mutation path rather than the
+    quiver — "only deepen after step 3", say — and no use has wanted one yet.
 
 ### Rule discovery — the main line of work
 

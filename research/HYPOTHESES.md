@@ -7,7 +7,7 @@ it. Status is one of `OPEN`, `SUPPORTED`, `CONFIRMED → F-nnn`, `REFUTED → R-
 ---
 
 ## H-016 — Walking through a parallel-arrow quiver reaches a merge nothing else does
-*2026-09-18* · **OPEN** *(no gain at n ≤ 7 to depth 6, which is where a gain could not show anyway — E-035)*
+*2026-09-18* · **OPEN** *(no gain at n ≤ 7 to depth 6, which is where a gain could not show anyway — E-035; no gain at n = 9 to depth 5, where one member of nine reaches the region at all — E-036)*
 
 The procedure produces quivers with parallel arrows and, since F-039, the engine
 can state them, the gate admits them and the Coxeter key over them is right. So
@@ -48,6 +48,23 @@ need never enter it.
 
 **Do not run it at `n <= 8` again.** E-035 is that run and it found nothing, for
 reasons that are about the sizes and not about the region.
+
+**2026-09-18, amended: the test is much cheaper than it looked, and the first
+part of it is done.** `search.DeeperWhen` gives the extra depth only to the
+branches that reach the region, so the comparison does not cost a whole extra
+level of search. At `n = 9` it costs 2% of the run at depth 4 and 4% at depth 5,
+because **exactly one of the nine leftover members reaches a parallel-arrow
+quiver at all** -- `3033030`, whose walk fires 600 times at depth 5 where the
+other eight fire never (E-036). Nothing is gained at either depth.
+
+That narrows the hypothesis rather than answering it. `3033030` is alone in its
+orbit and alone in its Coxeter polynomial group, so the guard forbids it reaching
+any other leftover: the only outcome visible from it is reaching a **seeded** LNA,
+which would say a leftover is in a quipu class after all. And because it is the
+only member that enters the region, the depth-8 run this hypothesis asks for is a
+run of *one* member, not of nine -- which is what makes it affordable. `n = 10`
+and `n = 11` have not been looked at this way and are where the leftover orbits
+are that H-013 cares about.
 
 ---
 

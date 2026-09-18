@@ -5,6 +5,7 @@
     python merges.py 10 --depths 5 6 --jobs 7 --budget-hours 9
     python merges.py 11 --depths 4 5 6 --jobs 7
     python merges.py 10 --summary                        what the checkpoint says, no search
+    python merges.py 10 --depths 6 --deeper-on parallel-arrows:3
 
 Seeding from the quipu theorem, the free move and the double mutation of
 arXiv:2310.08346 place every LNA that is in a quipu class at n = 9, 10 and 11,
@@ -22,6 +23,14 @@ whose orbits have all merged is not searched further.
 
 **A negative answer is a lower bound on depth, not a separation.** Two orbits
 that never meet are only known not to meet within the depth searched.
+
+`--deeper-on` spends depth unevenly instead.  It names a condition on the
+quivers the walk passes through -- `parallel-arrows` is the one this was built
+for -- and the branches that reach one get extra mutations that the rest of the
+walk does not pay for.  A run with it is *not* the same search as a run without
+at the same depth, so the checkpoint records the condition alongside the depth
+and a plain record never counts as covering a probed search, or the other way
+round.  See `search.DeeperWhen`.
 
 Every finished search is appended to a JSONL checkpoint as it completes, so a
 killed run loses only what was in flight and `--resume` is the default. A link
@@ -111,20 +120,28 @@ def leftoverGroups(length, pool):
 
 
 def searchFrom(args):
-    """Every LNA a depth-bounded search reaches from a member and from its dual."""
-    length, relLengths, depth = args
+    """Every LNA a depth-bounded search reaches from a member and from its dual.
+
+    `deeperSpec` is a `search.deeperWhenFromSpec` string or ''.  The probe is
+    built here, inside the worker, because what it records cannot come back from
+    a pool any other way -- only its summary does.
+    """
+    length, relLengths, depth, deeperSpec = args
     started = time.time()
     relationString = nk.LinearNakayamaAlgebra(length, list(relLengths)).relationString()
+    probe = search.deeperWhenFromSpec(deeperSpec) if deeperSpec else None
     reached = set()
     for startPoint in search.memberAndItsDual(length, relationString):
         collected = []
         search.mutationSearchDepthFirst(startPoint, depth, [], 'merges',
-                                        printOutput = False, collected = collected)
+                                        printOutput = False, collected = collected,
+                                        deeperWhen = probe)
         for pathAlg, _path, _numbering in collected:
             row = lm.asRelLengths(lm._copy(pathAlg), length)
             if row is not None:
                 reached.add(tuple(row))
-    return tuple(relLengths), depth, sorted(reached), time.time() - started
+    return (tuple(relLengths), depth, sorted(reached), time.time() - started,
+            probe.summarise() if probe is not None else None)
 
 
 class Unions:
@@ -144,9 +161,12 @@ class Unions:
             self.parent[max(a, b)] = min(a, b)
 
 
-def summarise(length, groups, unions, searched, out = sys.stdout):
+def summarise(length, groups, unions, searched, out = sys.stdout, deeper = ''):
     print("\nA_{0}: {1} polynomial groups left over, {2} orbits".format(
         length, len(groups), sum(len(g) for g in groups.values())), file = out)
+    if deeper:
+        # Without this the file reads as a plain depth-N result, which it is not.
+        print("  deeper probing on: {0}".format(deeper), file = out)
     total = 0
     for poly, orbits in sorted(groups.items(), key = lambda kv: -sum(len(o['members']) for o in kv[1])):
         classes = collections.defaultdict(list)
@@ -180,7 +200,15 @@ def main(argv = None):
                                "as a check that they reach nothing seeded")
     parser.add_argument("--summary", action = "store_true",
                         help = "print what the checkpoint establishes and stop")
+    parser.add_argument("--deeper-on", default = None, dest = "deeperOn",
+                        help = "condition[:extraDepth[:budget[:limit]]] -- give the branches "
+                               "that reach a quiver meeting the condition extra depth. "
+                               "Conditions: " + ", ".join(sorted(search.DEEPER_CONDITIONS)))
     args = parser.parse_args(argv)
+    deeperSpec = args.deeperOn or ''
+    if deeperSpec:
+        # Fail here rather than in a worker, where the traceback is a pool's.
+        search.deeperWhenFromSpec(deeperSpec)
 
     keepAwake()
     length = args.length
@@ -205,13 +233,19 @@ def main(argv = None):
                     except ValueError:
                         continue            # a line cut off by a kill
                     member = tuple(record['member'])
-                    searched[member] = max(searched.get(member, 0), record['depth'])
+                    # A link found is a link, whatever the run that found it, so
+                    # the unions take every record.  Coverage is not: a plain
+                    # depth-6 record does not say a probed depth-6 search has
+                    # been done, nor the reverse, so only records made under the
+                    # same condition count towards `searched`.
+                    if record.get('deeper', '') == deeperSpec:
+                        searched[member] = max(searched.get(member, 0), record['depth'])
                     for other in record['reachedOrbits']:
                         unions.union(orbitOf[member], other)
             print("resumed {0} searches from {1}".format(len(searched), checkpoint), flush = True)
 
         if args.summary:
-            summarise(length, groups, unions, searched)
+            summarise(length, groups, unions, searched, deeper = deeperSpec)
             return 0
 
         def settled(poly):
@@ -237,13 +271,14 @@ def main(argv = None):
                     poly, member, depth = tasks.popleft()
                     if searched.get(member, 0) >= depth or (settled(poly) and not args.allGroups):
                         continue
-                    inFlight[(member, depth)] = pool.apply_async(searchFrom, ((length, member, depth),))
+                    inFlight[(member, depth)] = pool.apply_async(
+                        searchFrom, ((length, member, depth, deeperSpec),))
                 done = [key for key, result in inFlight.items() if result.ready()]
                 if not done:
                     time.sleep(1)
                     continue
                 for key in done:
-                    member, depth, reached, seconds = inFlight.pop(key).get()
+                    member, depth, reached, seconds, probed = inFlight.pop(key).get()
                     own = orbitOf[member]
                     others = sorted({orbitOf[r] for r in reached if r in orbitOf} - {own})
                     # Three kinds of link, and the first version conflated the
@@ -262,6 +297,9 @@ def main(argv = None):
                     log.write(json.dumps({'length': length, 'member': list(member),
                                           'class': lines.className(member), 'orbit': own,
                                           'depth': depth, 'lnasReached': len(reached),
+                                          'deeper': deeperSpec,
+                                          'deeperFirings': probed and probed['firings'],
+                                          'deeperGrants': probed and probed['grants'],
                                           'reachedOrbits': [o for o in others
                                                             if o not in alarms and o not in covered],
                                           'coveredOrbits': covered,
@@ -277,15 +315,18 @@ def main(argv = None):
                     if alarms:
                         note += ("  ALARM: different Coxeter polynomial -- " + ", ".join(alarms)
                                  + " -- with the Coxeter guard on this should not happen (F-038)")
+                    if probed:
+                        note += "  [{0}: {1} firings, {2} grants]".format(
+                            deeperSpec, probed['firings'], probed['grants'])
                     print("{0} depth {1} from {2} (orbit {3}): {4} LNAs, {5:.0f}s{6}".format(
                         time.strftime('%H:%M:%S'), depth, lines.className(member), own,
                         len(reached), seconds, note), flush = True)
 
-        total = summarise(length, groups, unions, searched)
+        total = summarise(length, groups, unions, searched, deeper = deeperSpec)
         summaryPath = os.path.join(os.path.dirname(checkpoint) or ".",
                                    "merges-{0}-summary.txt".format(length))
         with open(summaryPath, "w") as out:
-            summarise(length, groups, unions, searched, out)
+            summarise(length, groups, unions, searched, out, deeper = deeperSpec)
         print("summary written to", summaryPath)
         if stoppedOnBudget:
             print("stopped on the budget; rerun the same command to continue")

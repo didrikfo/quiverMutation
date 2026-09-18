@@ -43,7 +43,238 @@ def _coxeterKeyOrNone(pathAlg):
         return None
 
 
-def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName = 'quiver', vertexRelabeling = None, printOutput = True, collected = None, collectedHereditary = None, visitor = None, coxeterGuard = True, baseKey = None):
+# -- conditional deeper probing ------------------------------------------
+#
+# A depth-bounded search spends its budget uniformly: every branch gets the
+# same number of mutations, whether it is passing through quivers that look
+# like nothing in particular or through the few that look like something.  The
+# quivers with parallel arrows are the current example -- the procedure only
+# learned to mutate into them in F-039, they are rare, and the one exit traced
+# by hand out of `3030` takes six further mutations to come back to a quiver
+# without them, which a run that stops at depth 8 will never see.  Raising the
+# depth for *every* branch to reach them costs about fivefold per level.
+#
+# A `DeeperWhen` raises it only where a condition holds.  The same object with
+# `extraDepth = 0` is a pure recorder, which is the other way of asking the
+# question -- note down every interesting quiver a pass goes through and search
+# from those afterwards -- so the two are one mechanism here, not two.  They are
+# not equivalent, and the difference is the budget: see `DeeperWhen`.
+
+
+def hasParallelArrows(pathAlg):
+    """Two distinct arrows sharing both endpoints."""
+    return arrowPaths.hasParallelArrows(pathAlg.quiver)
+
+
+def parallelArrowsAtLeast(count):
+    """At least `count` arrows beyond the ones a simple quiver would have."""
+    def condition(pathAlg):
+        return countParallelArrows(pathAlg.quiver) >= count
+    condition.__name__ = 'parallelArrowsAtLeast({0})'.format(count)
+    return condition
+
+
+def hasNoRelations(pathAlg):
+    """The algebra is hereditary -- its derived class is settled outright."""
+    return not bool(pathAlg.rels)
+
+
+def hasOrientedCycle(pathAlg):
+    """The quiver has an oriented cycle.
+
+    **This one cannot deepen anything.**  `mutationSearchDepthFirst` does not
+    descend from a cyclic quiver at all, so a node where this fires has no
+    children to spend extra depth on whatever the grant says.  It is here to be
+    recorded with, and is registered so that a run can ask how often the search
+    walks into one.
+    """
+    # Lazily, unlike the `noCycles` the walk computes: this is asked at every
+    # node and the first cycle is the whole answer.
+    return next(nx.simple_cycles(pathAlg.quiver), None) is not None
+
+
+def anyOf(*conditions):
+    """True where any of the conditions is."""
+    def condition(pathAlg):
+        return any(each(pathAlg) for each in conditions)
+    condition.__name__ = 'anyOf({0})'.format(
+        ', '.join(getattr(each, '__name__', '?') for each in conditions))
+    return condition
+
+
+def allOf(*conditions):
+    """True where all of the conditions are."""
+    def condition(pathAlg):
+        return all(each(pathAlg) for each in conditions)
+    condition.__name__ = 'allOf({0})'.format(
+        ', '.join(getattr(each, '__name__', '?') for each in conditions))
+    return condition
+
+
+DEEPER_CONDITIONS = {
+    'parallel-arrows': hasParallelArrows,
+    'no-relations': hasNoRelations,
+    'oriented-cycle': hasOrientedCycle,
+}
+
+
+def countParallelArrows(quiver):
+    """How many arrows the underlying simple *directed* graph would lose.
+
+    Not what `describeRelationFreeQuiver` counts: that one subtracts the edges
+    of the underlying *undirected* graph, which also merges a pair of opposite
+    arrows.  Here a 2-cycle is two arrows, as it should be -- they are not
+    parallel.
+    """
+    return quiver.number_of_edges() - len({(tail, head)
+                                           for tail, head, _ in quiver.edges(keys = True)})
+
+
+def describeNode(pathAlg, mutationVertices = None):
+    """The cheap summary of a node, for recording a probe firing.
+
+    Deliberately much less than `describeRelationFreeQuiver`: this runs at every
+    firing of a condition that may hold at thousands of nodes, and canonical
+    forms are not free.
+    """
+    return {
+        'path': list(mutationVertices or []),
+        'vertices': pathAlg.quiver.number_of_nodes(),
+        'arrows': pathAlg.quiver.number_of_edges(),
+        'parallelArrows': countParallelArrows(pathAlg.quiver),
+        'relations': len(pathAlg.rels),
+    }
+
+
+class DeeperWhen:
+    """Extra depth for the branches that reach a quiver worth looking at.
+
+    `condition(pathAlg)` is asked at every node the search reaches, before the
+    node's children are walked.  Where it holds, the branch is given up to
+    `extraDepth` more mutations -- and `budget` is what keeps that finite.
+
+    **The budget is the whole safety argument.**  A grant that renewed at every
+    node where the condition holds would not terminate: parallel arrows tend to
+    beget parallel arrows, so a branch inside that region would refill its depth
+    faster than it spent it.  `budget` caps the total extra depth one branch may
+    ever accumulate, so no branch runs longer than `depth + budget` mutations
+    and the search is as finite as it was.  It defaults to `extraDepth`, which
+    means the grant is made once: the first quiver on a branch that meets the
+    condition buys the extra depth, and re-entering the region later on the same
+    branch buys nothing.  Pass a larger budget to allow that.
+
+    `limit` caps the number of *grants* in the whole run, across branches, as a
+    valve for an overnight job: past it the condition still records but buys
+    nothing.  Firings are recorded either way, in `firings`, in visit order,
+    with `keepQuivers` deciding whether each record carries a copy of the
+    algebra as well as its summary -- copies are what makes a second pass
+    possible and are also what makes a long run large, so they are off by
+    default.
+
+    With `extraDepth = 0` nothing is granted and the object is a recorder; see
+    `recordOnly`.  Recording and re-searching afterwards is not quite the same
+    search, and it is the wider of the two:
+
+        one pass at depth d with budget b  <=  union over the firings a plain
+        pass at depth d records of a plain search to that firing's remaining
+        depth + b
+
+    because every recorded firing starts its own fresh budget, where one pass
+    spends a single budget along the whole branch.  The containment can only be
+    strict for a branch that *leaves* the region and comes back: a firing below
+    the one that bought the depth is already inside the subtree the grant paid
+    for, at exactly the remaining depth re-searching it would give.  At every
+    size measured the two come out equal (E-036), so the difference is not what
+    to choose between them on -- the second's advantage is that the count of
+    firings is visible before the deeper round is paid for.
+    """
+
+    def __init__(self, condition, extraDepth = 2, budget = None, limit = None,
+                 keepQuivers = False, name = None):
+        if extraDepth < 0:
+            raise ValueError("extraDepth is a grant, not a penalty: {0}".format(extraDepth))
+        self.condition = condition
+        self.extraDepth = extraDepth
+        self.budget = extraDepth if budget is None else budget
+        if self.budget < 0:
+            raise ValueError("a negative budget is not a budget: {0}".format(self.budget))
+        self.limit = limit
+        self.keepQuivers = keepQuivers
+        self.name = name or getattr(condition, '__name__', 'condition')
+        self.firings = []
+        self.grants = 0
+
+    def grant(self, pathAlg, mutationVertices, depth, spent):
+        """(depth, spent) for a node the search has reached, after any grant."""
+        if not self.condition(pathAlg):
+            return depth, spent
+        allowed = max(0, min(self.extraDepth, self.budget - spent))
+        if self.limit is not None and self.grants >= self.limit:
+            allowed = 0
+        firing = describeNode(pathAlg, mutationVertices)
+        firing['depth'] = depth
+        firing['granted'] = allowed
+        if self.keepQuivers:
+            firing['pathAlg'] = copy.deepcopy(pathAlg)
+        self.firings.append(firing)
+        if allowed:
+            self.grants += 1
+        return depth + allowed, spent + allowed
+
+    def summarise(self):
+        """What a run's firings came to."""
+        return {
+            'condition': self.name,
+            'extraDepth': self.extraDepth,
+            'budget': self.budget,
+            'firings': len(self.firings),
+            'grants': self.grants,
+            'depthGranted': sum(firing['granted'] for firing in self.firings),
+            'shallowest': min((len(f['path']) for f in self.firings), default = None),
+            'deepest': max((len(f['path']) for f in self.firings), default = None),
+        }
+
+
+def recordOnly(condition, keepQuivers = True):
+    """A `DeeperWhen` that grants nothing and only writes down what it sees.
+
+    This is the other half of the mechanism: run a pass at the depth you were
+    going to run anyway, see how many interesting quivers it went through and
+    what they are, and only then decide what a deeper pass from those is worth.
+    `keepQuivers` is on here because a record you cannot search from again is
+    the one thing this is for.
+    """
+    return DeeperWhen(condition, extraDepth = 0, keepQuivers = keepQuivers)
+
+
+def deeperWhenFromSpec(spec):
+    """Parse 'parallel-arrows', 'parallel-arrows:3', 'parallel-arrows:3:6:100'.
+
+    The fields are condition, extraDepth, budget, limit, in that order, and any
+    tail of them may be left off.  This is what lets a run be asked for from a
+    command line; `DEEPER_CONDITIONS` is the set of names.
+    """
+    fields = spec.split(':')
+    name = fields[0]
+    if name not in DEEPER_CONDITIONS:
+        raise ValueError("no such condition {0!r}; known: {1}".format(
+            name, ', '.join(sorted(DEEPER_CONDITIONS))))
+    numbers = []
+    for field in fields[1:]:
+        try:
+            numbers.append(int(field))
+        except ValueError:
+            raise ValueError("{0!r} is not a number, in {1!r}".format(field, spec))
+    if len(numbers) > 3:
+        raise ValueError("at most condition:extraDepth:budget:limit, in {0!r}".format(spec))
+    extraDepth = numbers[0] if len(numbers) > 0 else 2
+    budget = numbers[1] if len(numbers) > 1 else None
+    limit = numbers[2] if len(numbers) > 2 else None
+    return DeeperWhen(DEEPER_CONDITIONS[name], extraDepth = extraDepth,
+                      budget = budget, limit = limit, name = name)
+
+
+def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName = 'quiver', vertexRelabeling = None, printOutput = True, collected = None, collectedHereditary = None, visitor = None, coxeterGuard = True, baseKey = None, deeperWhen = None, deeperSpent = 0):
     """Walk mutations of pathAlg to the given depth, recording the lines found.
 
     Every quiver reached that is again a line is recorded as a triple
@@ -61,6 +292,13 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
     node's children are walked.  The two collectors above are the two questions
     asked often enough to have been built in; a visitor is for the rest, such as
     asking which quivers of a given shape a class passes through.
+
+    `deeperWhen` is a `DeeperWhen`: a condition that buys the branches reaching
+    a quiver worth a longer look more depth than the rest of the walk gets, and
+    records every node it fires at.  `deeperSpent` carries how much of its
+    budget the branch has already taken down the recursion, and is not for
+    callers to pass.  See the class for why a budget is what makes the deeper
+    walk terminate.
 
     `quiverName` only labels the progress output.  It used to name a
     '<quiverName>DF.txt' transcript that the caller parsed back by string
@@ -137,6 +375,10 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
     # for i in range(7, len(debugVertexList)):
     #      if mutationVertices == debugVertexList[:i]:
     #          input('Press enter to continue...')
+    if deeperWhen is not None:
+        # Before the depth test, not after: the node this is for is typically
+        # the one the walk has just run out of budget at.
+        depth, deeperSpent = deeperWhen.grant(pathAlg, mutationVertices, depth, deeperSpent)
     if depth > 0 and noCycles:
         depth = depth - 1
         for vertex in reversed(vertices):
@@ -187,7 +429,7 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
                     # movedKey is None for a cyclic quiver, which the search does
                     # not descend from anyway; it is let through so that cycles
                     # end a branch exactly as they did before the guard.
-                mutationSearchDepthFirst(copy.deepcopy(mutPathAlg), depth, mutationVerticesAtDepth, quiverName, vertexRelabeling, printOutput, collected, collectedHereditary, visitor, coxeterGuard, baseKey)
+                mutationSearchDepthFirst(copy.deepcopy(mutPathAlg), depth, mutationVerticesAtDepth, quiverName, vertexRelabeling, printOutput, collected, collectedHereditary, visitor, coxeterGuard, baseKey, deeperWhen, deeperSpent)
     return
 
 
@@ -272,7 +514,7 @@ def hereditaryFormFromTheorem(lineLength, relationString):
     return algebra.quipuName()
 
 
-def linesReachedFrom(pathAlg, depth, alsoDual = True):
+def linesReachedFrom(pathAlg, depth, alsoDual = True, deeperWhen = None):
     """The LNAs a bounded mutation search out of `pathAlg` reaches.
 
     Returns a dict from relation string to the shortest mutation path found to
@@ -294,6 +536,11 @@ def linesReachedFrom(pathAlg, depth, alsoDual = True):
     line reached from the opposite is as good a witness as one reached directly
     -- and it is the only way to see what a *left* mutation path would reach,
     since the search walks right mutations only.
+
+    `deeperWhen` is passed straight through, and is shared by both searches:
+    what it records is the whole run, and its per-branch budget starts afresh at
+    each of the two start points, as a branch of one is not a branch of the
+    other.
     """
     startPoints = [pathAlg]
     if alsoDual:
@@ -302,7 +549,8 @@ def linesReachedFrom(pathAlg, depth, alsoDual = True):
     for index, startPoint in enumerate(startPoints):
         collected = []
         mutationSearchDepthFirst(copy.deepcopy(startPoint), depth, [], 'lines',
-                                 printOutput = False, collected = collected)
+                                 printOutput = False, collected = collected,
+                                 deeperWhen = deeperWhen)
         for found in lines.mutationListLineCleanup(collected, printOutput = False):
             algebra = found[0] if index == 0 else pathAlgebra.dualPathAlgebra(found[0])
             # Sorted, because a relation set read off the dual comes out in the
