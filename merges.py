@@ -246,23 +246,37 @@ def main(argv = None):
                     member, depth, reached, seconds = inFlight.pop(key).get()
                     own = orbitOf[member]
                     others = sorted({orbitOf[r] for r in reached if r in orbitOf} - {own})
-                    alarms = [o for o in others if polyOf.get(o) != polyOf[own]]
+                    # Three kinds of link, and the first version conflated the
+                    # last two by asking `polyOf.get(o) != polyOf[own]`: `polyOf`
+                    # holds only the leftover orbits, so *every* link to a seeded
+                    # orbit came out as an ALARM and was dropped from the union.
+                    # That is the most interesting result this run can produce --
+                    # an LNA the quipu theorem misses turning out to be in a
+                    # theorem class after all -- and it was the one being hidden.
+                    covered = [o for o in others if o not in polyOf]
+                    alarms = [o for o in others if o in polyOf and polyOf[o] != polyOf[own]]
                     for other in others:
-                        if other not in alarms:
+                        if other not in alarms and other not in covered:
                             unions.union(own, other)
                     searched[member] = max(searched.get(member, 0), depth)
                     log.write(json.dumps({'length': length, 'member': list(member),
                                           'class': lines.className(member), 'orbit': own,
                                           'depth': depth, 'lnasReached': len(reached),
-                                          'reachedOrbits': [o for o in others if o not in alarms],
+                                          'reachedOrbits': [o for o in others
+                                                            if o not in alarms and o not in covered],
+                                          'coveredOrbits': covered,
                                           'alarms': alarms, 'seconds': round(seconds, 1),
                                           'at': time.strftime('%Y-%m-%d %H:%M:%S')}) + "\n")
                     log.flush()
                     note = ""
                     if others:
                         note = "  LINK to " + ", ".join(others)
+                    if covered:
+                        note += ("  COVERED: reaches the seeded orbit(s) " + ", ".join(covered)
+                                 + " -- this leftover is in a quipu class; verify the path")
                     if alarms:
-                        note += "  ALARM: different Coxeter polynomial -- " + ", ".join(alarms)
+                        note += ("  ALARM: different Coxeter polynomial -- " + ", ".join(alarms)
+                                 + " -- with the Coxeter guard on this should not happen (F-038)")
                     print("{0} depth {1} from {2} (orbit {3}): {4} LNAs, {5:.0f}s{6}".format(
                         time.strftime('%H:%M:%S'), depth, lines.className(member), own,
                         len(reached), seconds, note), flush = True)

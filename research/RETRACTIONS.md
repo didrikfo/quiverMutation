@@ -6,6 +6,44 @@ does not. See [`README.md`](README.md).
 
 ---
 
+## R-012 — "Every step of the procedure is a tilting mutation, so a path the search finds proves derived equivalence"
+*retracted 2026-09-18* · corrected by the `coxeterGuard` in `search.mutationSearchDepthFirst` → F-038
+
+`search.linesReachedFrom` said it in as many words:
+
+> the polynomial says two algebras *could* be derived equivalent, and a mutation
+> path from one to the other says they are, since every step of the procedure is
+> a tilting mutation.
+
+Every step of the *procedure* is. Every step the *search took* was not. The
+search gated on `mutationIsPossibleAtVertex` alone, and that criterion rules
+mutation out rather than in — a step it admits can still fail to be a derived
+equivalence. At `n = 7` and depth 6 there are 97 quivers in the search tree,
+acyclic and with no parallel arrows, whose Coxeter polynomial has moved, and the
+search descends from every one of them (F-038).
+
+**This is R-005 again, in the other half of the codebase.** R-005 found 38
+rewrites accepted on admissibility alone whose orbits had the wrong Coxeter
+polynomial 6561 times out of 8388, and its conclusion was that verification needs
+three things: the predicted result, every step admissible, and the polynomial
+unchanged. That conclusion was applied to `lnaMoves.verifyMove` and to
+`movesFrom`, and **not** to the search, which is the thing that produces most of
+the repo's positive claims. The lesson did not travel.
+
+**What it does and does not invalidate.** Not as much as it might: across
+96,349 lines collected at `n ≤ 8`, every one carried the starting Coxeter key, so
+no answer at those sizes was wrong. All four merges the overnight run reported
+(E-032) were re-derived and replayed one mutation at a time, and all four are
+clean. What is now untrustworthy is any *unverified* positive claim from a deep
+search — and the fix is to re-run it with the guard, not to assume the worst.
+
+**The general lesson, which R-005 already wrote and this repeats:** landing on
+the right object is not evidence of having got there legitimately — and a
+correction recorded in one module is not a correction until every module that
+makes the same assumption has been checked.
+
+---
+
 ## R-011 — "The two ends of the quiver are not the same end" (F-025)
 *retracted 2026-09-16*
 

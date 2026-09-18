@@ -6,6 +6,59 @@ it. Status is one of `OPEN`, `SUPPORTED`, `CONFIRMED → F-nnn`, `REFUTED → R-
 
 ---
 
+## H-015 — The Coxeter guard is sufficient, not merely necessary
+*2026-09-18* · **SUPPORTED** *(survives the sharpest test available, at one collision, to depth 6 — E-034)*
+
+**2026-09-18, first test.** The two cospectral quipus of order 9 — `3060000` and
+`3004000`, different trees and one polynomial, so the guard is blind between them
+— are **not linked**, at depth 5 or 6, with the guard on or off. `3060000`
+reaches only its own dual; `3004000` reaches eight LNAs; the two sets are
+disjoint. E-034. This is the place a guard-passing non-equivalence would show
+first, and it does not show.
+
+F-038 fixed the search by requiring that every step keep the Coxeter polynomial.
+That is a *necessary* condition for a derived equivalence, and the whole repo now
+leans on it as though it were sufficient: a path the guarded search finds is
+taken as proof that two algebras are in one class (F-037 is exactly such a
+proof, and every merge of E-032 rests on it).
+
+**The suspicion is that within this setting it is sufficient** — that an
+admissible mutation which holds the Coxeter polynomial fixed really is a tilting
+mutation here, so the guarded search proves what it claims.
+
+**Why it is not obvious, and might well be false.** The polynomial is not a
+complete invariant, and F-010 says precisely where it fails: cospectral quipus,
+the first pair at order 9. If two algebras can be cospectral without being
+derived equivalent, then in principle a single mutation could step between them,
+hold the key, and pass the guard. Nothing rules that out. The guard removes the
+600-odd failures per `n = 7` search tree that F-038 measured; it does not prove
+there are none left.
+
+**Evidence for, such as it is.** The condition is the same one R-005 imposed on
+rule verification, and under it 16 of 67 candidate rules survived and none has
+since been found false. Every one of the five links of E-032 was replayed
+step by step under it, and independently each pair is already known to share a
+polynomial by a different route. And the guard changes no answer at `n = 6` or
+`n = 7` — the corrupt region it removes never contributed a line at those sizes —
+so it is not doing violence to results that were right.
+
+**What would settle it.** A second invariant applied along a guarded path:
+`τ`-periodicity data, Hochschild cohomology, or the Avella-Alaminos–Geiß
+invariant where it applies (R-008 says it does not apply directly here). Cheaper
+and worth doing first: take every step the guard admits at `n = 6` and `n = 7`,
+and check whether the two algebras have the same *hereditary form* where both
+reach one — F-036 makes that a mutation invariant, and it is independent of the
+polynomial. A step passing the guard and changing the hereditary form would
+refute this outright.
+
+**Why it matters.** If it is false, then the guard is an improvement and not a
+fix, and every positive claim the search makes — F-037, the merges of E-032,
+F-034's walks — needs a second invariant before it can be believed. If it is
+true, the search is sound and can be trusted at depth, which is where the
+remaining classification questions live.
+
+---
+
 ## H-014 — Every class outside the quipu theorem has a quipu-with-relations member, and one of them is canonical
 *2026-09-17* · **SUPPORTED**
 
@@ -80,7 +133,39 @@ family with relations is what is left.
 ---
 
 ## H-013 — The leftover orbits sharing a polynomial are few classes, and the search can say which
-*2026-09-17, written before the overnight run* · **OPEN**
+*2026-09-17, written before the overnight run* · **SUPPORTED** *(2026-09-18: `n = 10` answered, two predictions right and one wrong; the search's own soundness is now the open question — E-032, E-033)*
+
+**2026-09-18, what the run returned.** `n = 10` finished all four depths. Twelve
+orbits fall to **at most 10** classes, so the derived classes at `n = 10` number
+between **43 and 46**, not the 43–48 written below. `n = 11` got through depth 4
+and most of depth 5: 54 orbits to at most 51, so between 84 and 115. The full
+table of predictions against outcomes is in E-032.
+
+The prediction that failed is the one to keep. `34504030` and `50505000` —
+the pair the Coxeter polynomial can never separate, which this hypothesis called
+singletons under every move known — **are linked by a depth-7 mutation path, from
+both sides**. If that path is real, the invariant that could not separate them
+did not need to: they are one class. The "what would settle it" line below said a
+real separation needs an invariant beyond the polynomial; what this shows is that
+the pair needing one may simply not exist.
+
+**What the alarm clause got wrong.** It said an ALARM "would refute F-032's
+orbits". Two fired, and they refute nothing about the orbits: each of the two
+orbits involved carries exactly one Coxeter polynomial across all of its members.
+The alarm is about the **search**, which is a possibility this hypothesis did not
+consider at all. E-033.
+
+**Still open.** A negative remains a depth bound rather than a separation, and
+nothing here changes that.
+
+The `break`-for-`continue` bug in `mutationSearchDepthFirst` (E-033) would have
+made the depths weaker than they read, by abandoning the remaining vertices at a
+node whenever one mutation there yields an illegal relation — but it **did not
+fire once** in this run: `isIllegalRelation` prints when it triggers, and all
+three logs contain zero such lines over 121 core-hours. The bug is latent here,
+not active, so the depths below stand as searched.
+
+**The original statement and predictions, unchanged:**
 
 F-032 leaves, at `n = 10`, 12 orbits in 7 Coxeter-polynomial groups once the
 orbits are closed under the relation dual (which is derived equivalence and
