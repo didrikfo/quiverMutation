@@ -6,6 +6,259 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-036 — What conditional deeper probing costs, and what it reaches at n = 9
+*2026-09-18* · **the parallel-arrow region is reached by exactly one of the nine leftover members at n = 9; giving its branches two more mutations costs 2-4% of the run, and nine mutations into the region it still reaches nothing but its own dual** → H-016
+
+A depth-bounded search gives every branch the same budget. `search.DeeperWhen`
+gives extra mutations to the branches that reach a quiver meeting a condition,
+with a per-branch budget so the walk still terminates; `merges.py --deeper-on`
+asks for it from a command line. This measures the two things that decide
+whether it is worth using: what it costs, and whether the extra depth it buys
+reaches anything.
+
+### 1. Cost and gain at n = 9
+
+Every member of every leftover orbit at `n = 9` (9 members: the eight of
+`3345000` and `3033030`), searched from itself and from its relation dual, plain
+against `parallel-arrows:2` — two extra mutations for a branch that reaches a
+quiver with a parallel pair, once per branch. Four cores; the seconds are the
+sum over the nine members, not wall clock.
+
+| depth | firings | grants | LNAs gained | LNAs lost | plain | probed |
+|---|---|---|---|---|---|---|
+| 4 | 58 | 4 | 0 | 0 | 89s | 91s |
+| 5 | 600 | 32 | 0 | 0 | 418s | 435s |
+
+**Every firing is `3033030`.** The other eight members never reach a quiver with
+parallel arrows at all at these depths, so the probe is free for them and the
+whole cost is one member's: 19s to 36s at depth 5, where raising the depth for
+everyone from 5 to 7 would cost about twenty-five times the run. That ratio is
+the case for the mechanism, and it is the one thing here that is not about
+parallel arrows in particular.
+
+**Nothing is gained, to depth 5.** The same LNAs are reached either way. This is
+a weaker negative than E-035's: `3033030` is alone in its orbit *and* alone in
+its Coxeter polynomial group, so the only outcome that would show here is it
+reaching a **seeded** LNA — a leftover turning out to be in a quipu class after
+all — and at depth 5 it reaches one LNA, its own dual.
+
+### 2. One pass against two
+
+Whether granting depth inside one search differs from recording the interesting
+quivers and searching from those afterwards. The second contains the first, and
+the containment can only be strict for a branch that leaves the region and comes
+back, since a firing *below* the one that bought the depth is already inside the
+subtree the grant paid for, at exactly the remaining depth a re-search would
+give it.
+
+| start | depth | extra | plain | one pass | two passes |
+|---|---|---|---|---|---|
+| `3030` | 4 | 3 | 50 | 105 | 105 |
+| `3030` | 5 | 2 | 118 | 195 | 195 |
+| `30330` | 4 | 2 | 67 | 86 | 86 |
+| `30330` | 5 | 2 | 158 | 237 | 237 |
+
+Nodes reached, counted by the quiver with its arrow names and its relations.
+**Equal in every case**: no branch at these sizes leaves the region and returns
+within the depth searched. So the one-go run is not the weaker of the two in
+practice, which is the practical answer — the two-pass route's advantage is that
+the count of firings is visible before the second round is paid for, not that it
+reaches more.
+
+### 3. The one member that reaches the region, pushed to depth 9 inside it
+
+`3033030` is the only member of either leftover orbit whose walk ever reaches a
+quiver with parallel arrows, so it is the whole of the `n = 9` test and it is
+cheap. From it and its relation dual, plain against `parallel-arrows:2`:
+
+| depth | firings | grants | deepest firing | reaches | seconds |
+|---|---|---|---|---|---|
+| 6 | — | — | — | itself | 98s |
+| 6 + 2 | 4322 | 154 | 8 | itself | 221s |
+| 7 | — | — | — | itself | 350s |
+| 7 + 2 | 29122 | 826 | 9 | itself | 1200s |
+
+The four ran together on four cores and the last two shared the machine with a
+test run, so the seconds are an upper bound and the ratio between them is the
+part worth reading.
+
+"Deepest firing" is the length of the longest mutation path at which the
+condition still held, so the last row walked **nine** mutations into the region.
+It reaches nothing but its own relation dual, which is what depth 5 already
+reached.
+
+This is the `n = 9` half of what H-016 asks for, and past the depth it asks for.
+It does not settle H-016: `3033030` is alone in its Coxeter polynomial group, so
+the only thing it *could* show is a leftover turning out to be in a quipu class,
+and one member at one length is not the hypothesis. `n = 10` and `n = 11`, where
+H-013's leftover orbits sit, have not been looked at this way. But it is a
+negative at a depth and a length E-035 could not reach, and it cost 20 minutes
+on one core rather than the run over every member that a uniform depth 9 would
+have been.
+
+### 4. Over a whole classification
+
+`classify.py --deeper-on` gives one probe to all three searching steps. At
+`n = 8`, the shortest length whose classification needs a search at all:
+
+| | classes | rows | firings | grants | seconds |
+|---|---|---|---|---|---|
+| plain | 11 | 429 | — | — | 38s |
+| `parallel-arrows:2` | 11 | 429 | 44 | 4 | 39s |
+
+**The answer does not move**, which is the check that matters: extra depth may
+place a row the depth could not reach, and may never place one differently. The
+published table of arXiv:2305.06642 is what both are checked against, as
+`tests/test_classify_end_to_end.py` does. The condition does fire here, four
+times buying depth, so this is the probe running over a real classification
+rather than a no-op.
+
+### Reproducing
+
+Section 4 is `classify.py 8 --quiet` with and without
+`--deeper-on parallel-arrows:2`.
+
+Section 1 is `merges.py 9 --depths 4 5 --all-groups` run twice, once with
+`--deeper-on parallel-arrows:2` and once without, comparing `lnasReached` and
+`deeperFirings` per checkpoint record. The two runs can share one checkpoint
+file: it records the condition, and a plain record does not count as covering a
+probed search or the other way round.
+
+Section 2 is the computation of
+`tests/test_deeper_probing.py::test_recording_and_searching_again_contains_deepening_in_one_pass`
+at the four settings in the table.
+
+Section 3 is `merges.searchFrom((9, (3, 0, 3, 3, 0, 3, 0), depth, spec))` for
+each row.
+
+---
+
+## E-035 — Lifting the parallel-arrow restriction, and re-measuring E-033
+*2026-09-18* · **every wrong-key node at n = 6 and n = 7 to depth 5 was a mis-count; the new region reaches nothing new at these sizes** → F-039, R-013, H-016
+
+E-033 walked the search tree with the Coxeter key in hand and split the nodes
+where it had moved into "parallel arrows, harmless" and "clean, the real fault".
+This is the same sweep after the relations were moved onto paths that name their
+arrows, so a parallel pair can be stated, counted and mutated at.
+
+### What was changed
+
+* `arrowPaths` — an arrow is `(tail, head, key)`, a path is a tuple of arrows.
+* `procedure` — steps 1 to 7 per arrow; step 5 divides by the arrow, step 7 reads
+  each candidate's first arrow back as its relation and its tail back into the
+  old quiver, step 6 and the carried-past relations name the composite they use.
+* `procedure.isMutable` — no longer refuses a quiver with a parallel pair.
+* `invariants` — the Cartan matrix counts arrow paths, exactly and cheaply.
+* `search` — the illegal-relation check is over arrow relations.
+* `arrowPaths.homDimensionByClosure` — the cheap count closes the commutativity
+  relations to a fixed point, where `paths.numberOfPathsUpToRels` applied each of
+  a subset once.
+* `invariants.integerCartanMatrix` — and the key is **exact** wherever the cheap
+  count is not provably right, which is wherever the ideal is not monomial. No
+  closure makes the cheap count see a relation of three or more paths, and step 4
+  produces one at every vertex with three arrows out.
+
+### 1. The sweep, before and after
+
+`mutationSearchDepthFirst` from every LNA of the length, `coxeterGuard = False`
+so the corrupt region is visible, `coxeterKey` compared at every node against the
+start's. One core.
+
+| | | nodes | wrong key | parallel | clean | lines | seconds |
+|---|---|---|---|---|---|---|---|
+| `n = 6`, depth 5 | before | 14,693 | 4 | 4 | 0 | 1,789 | 28 |
+| | after | 14,701 | **0** | 0 | 0 | 1,789 | 27 |
+| `n = 7`, depth 5 | before | 94,446 | 79 | 75 | 4 | 7,175 | 254 |
+| | after | 94,498 | **0** | 0 | 0 | 7,175 | 268 |
+| `n = 7`, depth 6 | before | 336,760 | 339 | 277 | 62 | 20,683 | 866 |
+| | after | 337,360 | **10** | 0 | 10 | 20,683 | 949 |
+
+The node count rises by 8, 52 and 600: a parallel-arrow node is no longer
+terminal. Lines are unchanged, exactly, at all three. The cost is 10% at depth 6,
+which is the exact Cartan matrix against the cheap one, and it is not optional.
+
+Three mechanisms, all three mis-counts:
+
+* the *parallel* nodes -- 4, 75 and 277 of them -- had the key computed over
+  vertex sequences, so a parallel pair contributed 1 to the Cartan matrix where
+  it contributes 2;
+* some *clean* nodes are the incomplete closure. The four at `n = 7` depth 5 are
+  `40030` by `[1, 4, 2, 5, 2]`, by `[1, 2, 4, 5, 2]`, by `[1, 1, 5, 4]` and one
+  more;
+* the rest are relations of three or more paths, which the cheap count has no
+  reading of and ignores, e.g. `34400` by `[1, 3, 4, 2, 2, 1]`.
+
+The ten that survive at depth 6 are **one bad step and its descendants**: all ten
+are reached from `30330` along the `[4, 1, 3, 1, ...]` family. Replaying `[1, 4, 2, 5, 2]` in both engines gives the **same quiver and
+  the same `rels`**, and the key holds in one and moves in the other, which is
+  what says it is the measurement.
+
+### 2. What still moves the key
+
+From the relation dual of `33030` at `n = 7` by `[4, 1, 3, 1, 3, 3]`, F-038's own
+smallest clean case, the key moves at step 6 under the arrow model too, and there
+the cheap and the exact Cartan matrices agree -- so it is the algebra. R-012
+stands and the guard stays.
+
+### 3. The classification is unchanged
+
+`classifyLength` on both engines, same machine:
+
+| | classes | rows | before | after |
+|---|---|---|---|---|
+| `n = 6` | 4 | 42 | 0.3 s | 0.3 s |
+| `n = 7` | 6 | 132 | 1.2 s | 1.3 s |
+| `n = 8` | 11 | 429 | 29.9 s | 33.4 s |
+
+Class for class, size for size, identical at all three, and about 10% dearer --
+the exact Cartan matrix where the ideal is not monomial, against the cheap count
+everywhere.
+
+### 4. What the region beyond a parallel pair looks like
+
+From `3030` at `n = 6`, mutated at `[1, 3, 4, 1, 4]`, the quiver has two arrows
+`1 -> 6` and one relation between the two parallel paths `5 -> 1 -> 6`. The old
+gate refused all six vertices. The paper's criterion admits three, every one
+keeps the Coxeter key, and mutating at 3 comes back out to a quiver with **no**
+parallel arrows and a genuine commutativity relation
+`5 -> 1 -> 3 -> 6 = 5 -> 1 -> 6` -- a quiver the search could not reach at any
+depth before.
+
+### 5. Does the new region reach anything? Not at these sizes
+
+The point of walking through a parallel-arrow node is what lies beyond it, so:
+for every LNA of the length **and its relation dual**, the set of LNAs the
+guarded search reaches, with the gate allowing parallel arrows and with it
+refusing them, at the same depth.
+
+| | starts | lines reached, allowing | refusing | starts gaining | losing |
+|---|---|---|---|---|---|
+| `n = 6`, depth 6 | 74 | 801 | 801 | 0 | 0 |
+| `n = 7`, depth 6 | 244 | 3,390 | 3,390 | 0 | 0 |
+
+(The counts are the sum over starts of how many LNAs that start reaches, so a
+line reached from two starts counts twice; what matters is that no start gained
+or lost one.)
+
+**So the region is reachable and walkable and yields nothing new here.** Two
+reasons not to read that as "it never will". The comparison holds the *depth*
+fixed, and entering the region and returning from it costs steps, so at depth 6
+the part of it that can come back to a line at all is thin -- the one walk
+looked at by hand, `3030` by `[1, 3, 4, 1, 4]` then 3, takes six mutations to
+get back out to a quiver with no parallel pair, and that quiver is not a line.
+And `n <= 7` is fully covered by the move rules with no search at all (F-021),
+so there is nothing left for a search to find at these lengths whatever it walks
+through. H-016.
+
+Reproduce: `tests/test_parallel_arrows.py`; the sweep is a `visitor` on
+`search.mutationSearchDepthFirst` comparing `search._coxeterKeyOrNone` at each
+node, and the before column is the same script against `git show 78328e7`. The
+reachability comparison patches `procedure.isMutable` to pass
+`allowParallelArrows = False` and compares `search.linesReachedFrom` either way;
+it is 84 minutes at `n = 7` depth 6 on one core.
+
+---
+
 ## E-034 — Can the guarded search be fooled where the polynomial is known to fail?
 *2026-09-18* · **not at depth 6, at the smallest collision** → H-015
 

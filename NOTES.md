@@ -37,23 +37,37 @@ express `2p - 3q + r = 0` at all. A relation with one path means that path is
 zero; a relation with two or more means they are identified up to sign.
 
 **This is now the storage format, not the model.** The procedure runs on
-`relationAlgebra` combinations — see below — and an algebra that came out of it
-carries them in `relCombinations`, in the same order as `rels`. That is a cache
-with a checksum, not a second source of truth: `procedure.relationsFrom` checks
-it still describes `rels` and falls back to guessing the coefficients if anything
-has edited `rels` behind its back. `rels` remains what the tables are keyed by
-and what two algebras are compared as, because a class name has to be a string.
+`arrowPaths` combinations — see below and "Parallel arrows" — and an algebra that
+came out of it carries them in `arrowRels`, in the same order as `rels`. That is
+a cache with a checksum, not a second source of truth: `procedure.relationsFrom`
+checks it still describes `rels` and still names arrows the quiver has, and falls
+back to lifting `rels` and guessing the coefficients if anything has edited
+`rels` behind its back. `relCombinations` is the same thing over vertex paths and
+is kept for readers that want to look at coefficients without the arrow keys.
+`rels` remains what the tables are keyed by and what two algebras are compared
+as, because a class name has to be a string.
 
 A vertex has an implied identity path, which nothing in `rels` represents; the
 `+1` on the diagonal of `cartanMatrix` stands in for it.
 
+**`rels` is a lossy projection once the quiver has parallel arrows**, and the
+procedure produces those, so this is not a corner case. Two parallel paths write
+down as the same vertex sequence; a relation between them projects to that
+sequence twice, and reading *that* back as this repo means a two-path relation —
+a difference — gives `p - p = 0`, which is no relation at all. `arrowRels` is
+the faithful record and is what every decision is made over.
+
 ### The mutation procedure
 
-The procedure lives in `procedure`, on linear combinations of paths, because
-that is what the paper's steps produce: step 4 a sum, step 5 a difference, and
-step 7 a combination whose coefficients solve a linear condition and cannot be
-read back off a set of paths at all. `mutation` and `reduction` are its face for
-everything that speaks `PathAlgebra`.
+The procedure lives in `procedure`, on linear combinations of paths **that name
+their arrows**, for two reasons. The paper's steps produce coefficients — step 4
+a sum, step 5 a difference, and step 7 a combination whose coefficients solve a
+linear condition and cannot be read back off a set of paths at all. And they
+produce *parallel arrows*, which a sequence of vertices cannot name: step 1 adds
+a composite `alpha beta: h -> j` whether or not `h -> j` is an arrow already, and
+step 3 adds one arrow `i* -> k` per relation `i ~~> k`. See "Parallel arrows"
+below. `mutation` and `reduction` are its face for everything that speaks
+`PathAlgebra`.
 
 `quiverMutationAtVertex(pathAlg, vertex)` applies steps 1-7 and returns a new
 `PathAlgebra`. It does not clean up after itself: the result routinely contains
@@ -83,8 +97,101 @@ reducing after each. A negative entry means left mutation, which
 `leftQuiverMutationAtVertex` performs as dual -> right mutation -> dual.
 
 `mutationIsPossibleAtVertex(pathAlg, vertex)` is the admissibility test: an
-arrow out of the vertex must exist, the quiver must have no parallel arrows, and
-`Hom(P_i*[1], Lambda)` must vanish.
+arrow out of the vertex must exist, there must be no loop at it, and
+`Hom(P_i*[1], Lambda)` must vanish — read as the paper's quiver criterion, per
+arrow. It no longer refuses a quiver with parallel arrows;
+`allowParallelArrows = False` restores that refusal for measuring what the change
+did.
+
+### Parallel arrows
+
+**The procedure produces them, so the model has to be able to state them.**
+Step 1 adds a composite arrow `alpha beta: h -> j` for every `beta: h -> i` and
+`alpha: i -> j`, and nothing says `h -> j` is not an arrow already; step 3 adds
+one arrow `i* -> k` per relation `i ~~> k`, and nothing says two relations do not
+share both ends. A quiver with two arrows between the same pair of vertices is
+the *correct answer* of the procedure, and until 2026-09-18 the repo could not
+write one down.
+
+**What a path is now.** An arrow is a `(tail, head, key)` triple, which is
+exactly a `networkx.MultiDiGraph` edge with its key; a path is a tuple of arrows;
+the empty tuple is a trivial path, at whichever vertex the context supplies, and
+is the identity for composition, which is concatenation. A path carries its own
+source and target, so nothing has to consult the quiver to read one back.
+`arrowPaths` is that model and the exact ideal arithmetic over it — the same
+linear algebra as `relationAlgebra`, whose `rowReduce` it reuses, over a different
+basis. `arrowPaths.lift` and `arrowPaths.projectPath` are the two directions
+between the two; lifting is possible exactly while nothing is parallel, which is
+every quiver a walk *starts* from.
+
+**Five things were wrong, in three different ways.** Research F-039 has the
+measurements; in short:
+
+* *The invariant was misread.* Two parallel arrows are two paths and the Cartan
+  matrix entry is 2; counting vertex sequences gave 1, so the Coxeter polynomial
+  of every quiver with a parallel pair was wrong. The smallest case is the
+  Kronecker quiver, whose polynomial came out as that of `A_2`. (Two further
+  mis-counts turned up alongside it, neither about parallel arrows: the cheap
+  path count did not close the commutativity relations to a fixed point, and it
+  ignores a relation of three or more paths outright. The Coxeter key is exact
+  now except on a monomial ideal, where the cheap count is provably right.)
+* *The gate refused them.* `isMutable` rejected every vertex of a quiver with a
+  parallel pair anywhere, so such a node was terminal and everything beyond it
+  unreachable. It was honest about being a restriction of the model rather than
+  of the procedure; there is nothing left to restrict.
+* *The search discarded them twice over.* With the Coxeter guard on, the step was
+  refused because the misread key had "moved"; and `paths.isIllegalRelation` read
+  a commutativity relation between two parallel paths as a repeated path and
+  called it illegal.
+* *Step 5 divided by a vertex.* `r / alpha` is division by an **arrow**, and the
+  vertex model could only divide by the target of one.
+* *Step 7 gave up, and step 6 and the through-relations lost a distinction.*
+  Step 7 has to read a candidate path's first arrow back as the relation it came
+  from, and where two relations `i ~~> k` gave two arrows `i* -> k` it could not,
+  so the step was skipped for that target. And a relation carried past the
+  mutated vertex has `beta` then `alpha` replaced by the one composite arrow,
+  which is a *different* arrow from any that joined those endpoints before — as
+  vertex sequences the two read alike and the relation collapsed.
+
+**Step 7's tail is read back into the old quiver.** The condition is "every
+`alpha` out of `i` sends this into `I`", which is about `Q`, while the candidate
+paths live in `m_i(Q)`. Naming the arrows makes the translation total and
+obvious: a carried arrow is itself, a composite `alpha beta` is the two old
+arrows `beta` then `alpha`, and a tail out of `i*` that does not return contains
+nothing else. `procedure._inOldQuiver`.
+
+**What is still open.**
+
+* **Whether the region beyond a parallel-arrow node reaches anything is open**,
+  and is research H-016. At n = 6 and n = 7 to depth 6 the search reaches exactly
+  the same LNAs whether the gate allows parallel arrows or refuses them — a weak
+  negative, since those lengths need no search at all and returning from the
+  region costs more depth than was searched. Do not re-run it at n <= 8.
+  **At n = 9 it is now a strong negative**: exactly one of the nine leftover
+  members reaches the region at all, and walking it nine mutations in reaches
+  nothing but its own relation dual (E-036). That member is alone in its Coxeter
+  polynomial group, so it could never have shown a merge between leftovers; what
+  is left is n = 10 and n = 11, where those groups have several orbits each.
+* **No canonical form for a quiver with parallel arrows.** Arrow keys are handed
+  out deterministically within one mutation, so the same mutation twice gives the
+  same algebra; but two algebras reached by *different* routes are compared by
+  `rels`, and that projection cannot separate them. Nothing in the pipeline
+  compares two parallel-arrow algebras today — a line has no parallel arrows, so
+  every answer is recorded after the projection is faithful again — but a search
+  that wanted to dedupe its interior nodes would need one. This is the
+  performance backlog's "canonical form for a path algebra" with the hard case
+  added.
+* **The vertex-model consumers are unchanged.** `lines`, `quipuForms`,
+  `mutationClassTable` and the naming all read `rels`, and all of them act on
+  quivers that are lines or trees. That is sound because a quiver on `n` vertices
+  carrying a path of length `n - 1` has no arrow to spare for a parallel pair;
+  it is not sound in general, and anything new that reads `rels` off an interior
+  node needs `arrowRels` instead.
+* **Step 3's cyclic case is still not implemented** (F-002), and it is the other
+  construction that produces parallel arrows: a relation `r: i --> i` gives one
+  arrow `alpha r-bar: i* -> t(alpha)` per arrow `alpha` out of `i`. The model can
+  now express the answer, which is a precondition for implementing it, and the
+  gate still refuses a loop.
 
 ### The algebra classes
 
@@ -208,6 +315,63 @@ whose graph has a **cycle** would be a hereditary algebra of a kind no LNA class
 has produced, and is worth stopping for. Nothing is recorded unless a sink is
 open, so it costs nothing when it is not asked for.
 
+### Conditional deeper probing
+
+**A depth-bounded search gives every branch the same budget, and the branches are
+not equally interesting.** `search.DeeperWhen(condition, extraDepth, budget)`
+gives extra mutations to the branches that reach a quiver meeting a condition and
+to no others. The condition is asked at every node, and `search.DEEPER_CONDITIONS`
+names the ones a command line can ask for: `parallel-arrows`, `no-relations`,
+`oriented-cycle`. Both long-running scripts take it: `merges.py --deeper-on
+parallel-arrows:3`, which is the merge hunt it was built for, and
+`classify.py --deeper-on parallel-arrows:3`, where one probe is shared by all
+three searching steps — the main pass, the resolve step, and the hereditary-form
+search under `--form-depth` — so its `limit` and its firing count are the run's
+rather than one step's. `classify.py` prints what the probe did at the end,
+including when it never fired, which is the difference between "the condition
+found nothing" and "the condition never held".
+
+**The budget is the whole safety argument.** A grant renewed at every node where
+the condition held would not terminate — parallel arrows beget parallel arrows,
+so a branch inside that region would refill its depth faster than it spent it.
+`budget` caps the total extra depth one branch may accumulate, so no branch runs
+longer than `depth + budget` and the search is as finite as it was. It defaults to
+`extraDepth`, meaning the grant is made once per branch: the first quiver meeting
+the condition buys the depth, and re-entering the region later on the same branch
+buys nothing. `limit` caps the grants across a whole run, as a valve for an
+overnight job.
+
+**A grant of nothing makes the same object a recorder**, which is the other way
+of asking the question — note down every interesting quiver a pass goes through
+and search from those afterwards. `search.recordOnly(condition)` is that, with the
+quivers kept so a second pass can start from them. The two are not quite the same
+search, and the difference is exactly the budget: a recorded firing re-searched
+afterwards starts a fresh budget, so
+
+    one pass at depth d with budget b  ⊆  the union over what a plain pass
+    records of a plain search from each firing to its remaining depth + b
+
+and the two differ only on a branch that *leaves* the region and comes back,
+because a firing below the one that bought the depth is already inside the
+subtree the grant paid for, at exactly the depth re-searching it would give.
+At every size measured they come out equal (E-036), so the one-go run is not the
+weaker of the two in practice.
+
+**A condition on oriented cycles can record but can never deepen.** The search
+does not descend from a cyclic quiver at all, so a node where that fires has no
+children to spend the grant on. It is registered for counting how often the walk
+walks into one, and `hasOrientedCycle` says so.
+
+**A probed run is not a plain run at the same depth**, so both scripts record
+the condition and neither lets one run's work stand for the other's.
+`merges.py` writes it into each checkpoint record and only counts a record as
+covering a member when the condition matches — a link found is a link whatever
+found it, so the unions take every record either way. `classify.py` records it
+once for the whole run, since a probe is asked for once for a whole run: a
+`--resume` under a different condition drops the records that would let the
+resolve and naming steps be skipped, and keeps the table, because a row placed
+is placed whatever placed it.
+
 ## Verified against the papers
 
 * `generateAllPossibleLineRelations(n)` returns Catalan(n-1) relation sets for
@@ -261,10 +425,20 @@ Run times for the full `classifyLength` pipeline, as the engine has changed:
 | set-of-paths procedure, strict gate | 13 s | 37 s | 4 min | 56 min |
 | coefficients, strict gate | 5 s | 38 s | | |
 | coefficients, the paper's gate | 5 s | **20 s** | | |
+| vertex paths, the Coxeter guard | 0.3 s | 1.2 s | 30 s | |
+| arrow paths, the exact key | 0.3 s | 1.3 s | 33 s | |
 
-Lengths 6, 7 and 8 are pinned as `slow` tests, and all three give the same
-classes with the same sizes throughout. n = 9 has not been re-run since; that is
-plan item 8.
+Lengths 6, 7 and 8 are pinned as `slow` tests, and all five give the same
+classes with the same sizes throughout. n = 9 has not been re-run since the
+coefficients went in; that is plan item 8, and it is now also the first length
+where the arrow engine has not been measured.
+
+The last two rows are the same machine on the same day, so they compare: naming
+the arrows and taking the Cartan matrix exactly off a monomial ideal costs about
+10%. The rows above them are older hardware and older seeding and do not.
+
+The slow suite is **1915 tests and about 40 minutes**, not the 20 the paragraph
+above was written for.
 
 ## Known gaps and limitations
 
@@ -291,8 +465,11 @@ plan item 8.
   equivalent to a condition on the quiver. Passing the gate is necessary, not
   sufficient, so a rewrite done on the strength of it can still fail to be a
   derived equivalence — R-005 is 38 "rules" admitted on exactly that mistake.
-* **Parallel arrows are rejected outright**, because a path is a vertex sequence
-  and so cannot name which of two parallel arrows it uses.
+* ~~**Parallel arrows are rejected outright**, because a path is a vertex
+  sequence and so cannot name which of two parallel arrows it uses.~~
+  **Not since 2026-09-18.** Relations are `arrowPaths` combinations over paths of
+  `(tail, head, key)` arrows, the gate no longer refuses them, and the Cartan
+  matrix counts them. See "Parallel arrows" below and research F-039.
 * ~~**The recursive loop at length 12.**~~ **Found and fixed.** It was not about
   length 12 at all, it was about *cycles*. `allRelsBetweenVertices` and
   `extendRel` recurse along the arrows out of a vertex, and neither tracked
@@ -522,9 +699,16 @@ item 4 is what makes n >= 10 readable at all.
    and `reduction` are thin faces over it. See "The mutation procedure" above
    and F-015; the coefficients an algebra was built with ride along in
    `relCombinations` so a chain of mutations does not guess them back.
-6. **Name arrows.** Paths as vertex sequences cannot express parallel arrows or
-   distinguish two arrows with the same endpoints. Arrow identities would lift
-   that restriction and make the quiver a plain `DiGraph` of named arrows.
+6. ~~**Name arrows.**~~ **Done**, 2026-09-18, research F-039 and E-035. An arrow
+   is a `(tail, head, key)` triple — a `networkx.MultiDiGraph` edge, key and all
+   — a path is a tuple of arrows, and `arrowPaths` is the ideal arithmetic over
+   those. The quiver stays a `MultiDiGraph` rather than becoming a `DiGraph` of
+   named arrows, because the keys *are* the names and networkx already hands them
+   out; what changed is that the relations now use them. The procedure, the
+   reduction, the admissibility gate, the Cartan matrix and the search's
+   illegal-relation check all run on arrow paths; `rels` is the projection and
+   the table's key. What is **not** done is a canonical form for a quiver with
+   parallel arrows — see "Parallel arrows".
 
 ### OOP and structure
 
@@ -712,10 +896,26 @@ hypothesis is on the algebra, not the quiver — so a step it admits can still f
 to be a derived equivalence. R-005 established that for rule discovery and made
 `lnaMoves.verifyMove` require three things: the predicted result, every step
 admissible, and the polynomial unchanged. The search asked only for the second,
-and F-038 measured the consequence: 97 quivers at n = 7 depth 6 alone, acyclic
-and with no parallel arrows, whose polynomial has moved and which the search then
-walks straight on from. At n = 10 depth 8 one of them comes back round to a line
-and gets reported as a class member — which is the ALARM of E-032.
+and F-038 measured the consequence: quivers in the search tree whose polynomial
+has moved and which the search then walks straight on from, one of which comes
+back round to a line at n = 10 depth 8 and gets reported as a class member —
+the ALARM of E-032.
+
+**Most of that measurement was of the key, not of the mutation** (F-039, later
+the same day). The Coxeter key was being computed three ways wrongly: a parallel
+pair of arrows counted as one path; the cheap path count did not close the
+commutativity relations to a fixed point; and it has no reading of a relation
+with three or more paths, which step 4 produces at every vertex with three
+arrows out. With all three corrected, **nothing** at n = 6 or n = 7 to depth 5
+leaves the class with the guard off, where before there were 4 and 79 such
+nodes, and at n = 7 depth 6 ten nodes remain out of 339 — one bad step and its
+descendants, from `30330` along `[4, 1, 3, 1, …]`. That one is real, so the
+guard stays on and R-012 stands. The lesson is R-013's: a node nobody descends
+from is a node nobody checks.
+
+The key is exact now wherever the cheap count is not provably right, which is
+wherever the ideal is not monomial (`arrowPaths.isMonomial`). It costs about 10%
+on a classification and on a deep search.
 
 `mutationSearchDepthFirst(..., coxeterGuard = True)` is now the default and
 refuses any step whose `coxeterKey` differs from the start's. It costs **1.85×**
@@ -1131,6 +1331,16 @@ nothing else, agreeing with the published table.
     query API plus a handful of canned views is probably enough, and a rendered
     page per length beats a live app for something that is regenerated once per
     classification run.
+29. ~~**Spend the depth where it is worth spending.**~~ Done, as
+    `search.DeeperWhen`, `merges.py --deeper-on` and `classify.py --deeper-on`:
+    a condition on the quivers
+    the walk passes through, and extra mutations for the branches that meet it.
+    A per-branch budget is what keeps it finite. See "Conditional deeper probing"
+    above. The condition this was built for is `parallel-arrows`, which is the
+    region F-039 opened and H-016 asks about; it costs 2% at n = 9 to depth 4
+    where raising the depth for everyone costs about fivefold a level (E-036).
+    What is *not* here is a condition on the mutation path rather than the
+    quiver — "only deepen after step 3", say — and no use has wanted one yet.
 
 ### Rule discovery — the main line of work
 

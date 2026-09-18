@@ -1,56 +1,68 @@
-"""The mutation procedure on linear combinations of paths.
+"""The mutation procedure on linear combinations of paths that name their arrows.
 
-`mutation.quiverMutationAtVertex` implements steps 1-7 of arXiv:2112.08129 on
-the set-of-paths model, where a relation is a list of paths and there are no
-coefficients.  That model cannot say what the procedure's steps produce: step 4
-produces a *sum*, step 5 a *difference*, and step 7 a combination whose
-coefficients are the solution of a linear condition and are not recoverable from
-the set of paths at all.  Reading a relation back out of the set-of-paths model
-means guessing the signs, and guessing them wrong has cost real work before --
-research R-003.
+Two things the set-of-paths model cannot say, and this module says both.
 
-So this is the procedure again, with relations as `relationAlgebra`
-combinations.  Nothing here guesses a sign: the coefficients come out of the
-steps, and step 7 comes out of a kernel computation over the ideal.  An LNA's
-own relations are single paths, so there is nothing to guess at the start
-either, and the whole walk out of an LNA is exact.
+**Coefficients.**  Step 4 of arXiv:2112.08129 produces a *sum*, step 5 a
+*difference*, and step 7 a combination whose coefficients solve a linear
+condition and are not recoverable from a set of paths at all.  Guessing them
+back has cost real work before -- research R-003, R-007.
+
+**Which arrow.**  The procedure *produces parallel arrows*: step 1 adds a
+composite `alpha beta: h -> j` whether or not `h -> j` is an arrow already, and
+step 3 adds one arrow `i* -> k` per relation `i ~~> k`, so two relations sharing
+both ends give two.  A path as a sequence of vertices cannot say which of two
+arrows with the same endpoints it runs along, so until 2026-09-18 the engine ran
+on vertex sequences and three things went wrong: step 5 divided a relation by the
+*target* of an arrow rather than by the arrow, step 7 gave up on a target
+whenever two relations led to it, and a relation carried past the mutated vertex
+lost the difference between the new composite `alpha beta` and an arrow `h -> j`
+that was there all along.  The relations are `arrowPaths` combinations now, over
+paths that are tuples of `(tail, head, key)` arrows, and all three are exact.
 
 The steps, on a quiver `Q` with relations `I` and a vertex `i`, writing `A` for
-the targets of the arrows out of `i` and `B` for the sources of the arrows in:
+the arrows out of `i` and `B` for the arrows into it:
 
-1. each `beta: h -> i` and `alpha: i -> j` compose to an arrow `h -> j`;
+1. each `beta: h -> i` and `alpha: i -> j` compose to an arrow `alpha beta: h -> j`,
+   one per *pair*;
 2. each `alpha: i -> j` flips to `alpha*: j -> i*`;
 3. each relation `r: i ~~> k` becomes an arrow `rbar: i* -> k`;
-4. each `beta: h -> i` gives the relation `sum_alpha alpha* alpha beta = 0`,
-   which in the new quiver is the sum of the paths `(h, j, i)` over `j` in `A`;
-5. `rbar alpha* = r / alpha`, so `(j, i, k) - r/alpha = 0`, where `r / alpha` is
-   the part of `r` whose paths begin with `alpha`, with `alpha` removed;
-6. a relation ending at `i` gives one ending at each `j` in `A`, its last arrow
-   `beta` replaced by the composite from step 1;
+4. each `beta: h -> i` gives the relation `sum_alpha alpha* (alpha beta) = 0`;
+5. `rbar alpha* = r / alpha`, where `r / alpha` is the part of `r` whose paths
+   begin with the arrow `alpha`, with `alpha` removed;
+6. a relation ending at `i` gives one ending at each `t(alpha)`, its last arrow
+   `beta` replaced by the composite `alpha beta` of step 1;
 7. the relations out of `i*`, which is the kernel computation below.
 
-A relation not meeting `i` at either end survives with `i` deleted from any path
-that ran through it, since that composition is one arrow now.
+A relation not meeting `i` at either end survives with the two arrows it ran
+through `i` along, `beta` then `alpha`, replaced by the one composite arrow
+`alpha beta`.
 
-**Step 7, and why it is a kernel.** A combination of paths out of `i*` is a
+**Step 7, and why it is a kernel.**  A combination of paths out of `i*` is a
 relation exactly when what it says about `Q` is already true there.  A path out
-of `i*` is `rbar` followed by a path `s: k_r ~~> v`, and the procedure sends it
-to `(r / alpha) s` for each `alpha` out of `i`.  So a combination
-`sum_P eps_P P` of paths `i* ~~> v` is a relation iff, for every `alpha`,
-`sum_P eps_P (r_P / alpha) s_P` lies in `I` -- which is a linear condition on
-the `eps_P` over the rationals, and its solution space is a kernel.  The paper
-states the case where every `s_P` is trivial; taking the kernel over all paths
-out of `i*` gives that case and the longer ones together.
+of `i*` is `rbar` followed by a path `s: k_r ~~> v` in the new quiver, and the
+procedure sends it to `(r / alpha) s` for each `alpha` out of `i`.  So a
+combination `sum_P eps_P P` of paths `i* ~~> v` is a relation iff, for every
+`alpha`, `sum_P eps_P (r_P / alpha) s_P` lies in `I` -- a linear condition on the
+`eps_P` over the rationals, whose solution space is a kernel.  The paper states
+the case where every `s_P` is trivial; taking the kernel over all paths out of
+`i*` gives that case and the longer ones together.
 
-Cyclic quivers are out of scope here, as they are in `mutation`: step 3's cyclic
-case is not implemented (research F-002), and the LNA search stops at the first
-cycle.
+The tail `s_P` is a path of the **new** quiver and the condition is about the
+**old** one, so it is read back arrow by arrow before the membership test: a
+carried arrow is itself, and a composite `alpha beta` is the two old arrows
+`beta` then `alpha`.  A tail out of `i*` that never returns to `i*` contains no
+flip and no `rbar` after the first, so it is always one or the other and the
+reading is total.  `_inOldQuiver` is it.
+
+Cyclic quivers are still out of scope: step 3's cyclic case is not implemented
+(research F-002), and the LNA search stops at the first cycle.
 """
 
 from fractions import Fraction
 
 import networkx as nx
 
+from . import arrowPaths as ap
 from . import pathAlgebra
 from . import relationAlgebra as ra
 
@@ -58,27 +70,33 @@ from . import relationAlgebra as ra
 # -- reading in and out of the set-of-paths model --------------------------
 
 def relationsFrom(pathAlg):
-    """The relations of a path algebra as combinations.
+    """The relations of a path algebra as combinations of arrow paths.
 
-    Uses the coefficients the algebra is carrying if it has them and they still
-    describe its relations; otherwise falls back to
-    `relationAlgebra.fromPathSet`, which *guesses*: one path is zero, two paths
-    are a difference, three or more a sum.
+    Prefers the arrow relations the algebra is carrying, `arrowRels`, which is
+    what a mutation leaves behind and the only faithful record once the quiver
+    has parallel arrows.  Failing that it lifts `rels` -- the vertex sequences
+    the tables are keyed by -- which is possible exactly while no relation runs
+    along a parallel pair, and guesses the coefficients the way
+    `relationAlgebra.fromPathSet` does: one path is zero, two are a difference,
+    three or more a sum.
 
-    For an LNA there is nothing to guess -- every relation is a single path --
-    so a walk that starts at one and goes through `toPathAlgebra` at each step
-    keeps exact coefficients the whole way.  The fallback matters for an algebra
-    built by hand, and as the safe answer when something has edited `rels`
-    directly and left the cache describing a different relation set.
+    For an LNA there is nothing to guess and nothing parallel, so a walk that
+    starts at one and goes through `toPathAlgebra` at each step is exact the
+    whole way.  The lift is what makes an algebra built by hand work, and is the
+    safe answer when something has edited `rels` directly.
     """
-    stored = getattr(pathAlg, "relCombinations", None)
-    if stored is not None and _describes(stored, pathAlg.rels):
+    stored = getattr(pathAlg, "arrowRels", None)
+    if (stored is not None and ap.usesOnlyArrowsOf(pathAlg.quiver, stored)
+            and ap.describesRels(stored, pathAlg.rels)):
         return [dict(relation) for relation in stored]
-    return [ra.fromPathSet(rel) for rel in pathAlg.rels]
+    legacy = getattr(pathAlg, "relCombinations", None)
+    if legacy is not None and _describes(legacy, pathAlg.rels):
+        return [ap.liftCombination(pathAlg.quiver, dict(relation)) for relation in legacy]
+    return ap.lift(pathAlg.quiver, pathAlg.rels)
 
 
 def _describes(combinations, rels):
-    """Whether the cached combinations are the same relation sets as `rels`."""
+    """Whether the cached vertex-model combinations are the same sets as `rels`."""
     if len(combinations) != len(rels):
         return False
     return all(ra.toPathSet(c) == sorted(list(p) for p in rel)
@@ -86,32 +104,44 @@ def _describes(combinations, rels):
 
 
 def toPathAlgebra(quiver, relations):
-    """A `PathAlgebra` in the set-of-paths model, for the rest of the repo.
+    """A `PathAlgebra` carrying both models: `arrowRels` and the projected `rels`.
 
-    The coefficients are dropped, so this is lossy in exactly the way the model
-    is.  Relations are sorted, and so are the paths within each, so that two
-    runs that find the same algebra produce the same object.
+    `rels` is the vertex-sequence form the tables are keyed by and two algebras
+    are compared as, and it is **lossy exactly when the quiver has parallel
+    arrows** -- two parallel paths write down as the same vertex sequence.  So
+    `arrowRels` is set alongside it and is what `relationsFrom` reads; the
+    projection is kept because a class name has to be a string.
+
+    The quiver is copied with its keys intact, since those keys are the arrow
+    names the relations are written in.  Relations are sorted by their
+    projection, then by the arrow paths themselves, so that two runs that find
+    the same algebra produce the same object.
     """
     algebra = pathAlgebra.PathAlgebra()
-    algebra.add_vertices_from(list(quiver.nodes))
-    algebra.add_arrows_from([[a, b] for a, b in quiver.edges()])
-    ordered = sorted(((ra.toPathSet(rel), rel) for rel in relations if rel),
-                     key=lambda pair: pair[0])
+    algebra.quiver = nx.MultiDiGraph(quiver)
+    ordered = sorted(
+        ((sorted(ap.projectPath(path) for path in relation), relation)
+         for relation in relations if relation),
+        key = lambda pair: (pair[0], sorted(pair[1])),
+    )
     algebra.add_rels_from([paths for paths, _ in ordered])
-    algebra.relCombinations = [combination for _, combination in ordered]
+    algebra.arrowRels = [relation for _, relation in ordered]
+    algebra.relCombinations = [ap.projectCombination(relation) for _, relation in ordered]
     return algebra
 
 
 # -- admissibility ---------------------------------------------------------
 
-def isMutable(quiver, relations, vertex):
+def isMutable(quiver, relations, vertex, allowParallelArrows = True):
     """Whether the procedure may be applied at `vertex`.  The search's gate.
 
     The paper's theorem names two cases where mutation is impossible: no arrow
     out of the vertex at all, and *there is a nonzero path ending at the vertex
-    whose composite with **every** arrow out of it is zero*.  This is that,
-    read exactly: "nonzero" is decided by `relationAlgebra.isInIdeal`, over the
-    ideal, rather than by looking for a zero relation sitting inside the path.
+    whose composite with **every** arrow out of it is zero*.  This is that, read
+    exactly: "nonzero" is decided by `arrowPaths.isInIdeal`, over the ideal,
+    rather than by looking for a zero relation sitting inside the path, and
+    "every arrow out" means every arrow, so two parallel arrows out of the vertex
+    count twice.
 
     Two things it is worth being precise about.
 
@@ -123,35 +153,30 @@ def isMutable(quiver, relations, vertex):
     research R-005 exists and why F-016 checks the Coxeter polynomial across
     every mutation this allows that its predecessor did not.
 
-    The predecessor was stricter in two ways, both now gone: it rejected as soon
-    as *one* arrow out of the vertex killed a nonzero path, where the paper asks
-    that every one does, and it decided "nonzero" by looking for a zero relation
-    written inside the path rather than over the ideal.  See F-016 for what
-    changing it changed.
-
-    Parallel arrows are refused rather than raised on, because that is what the
-    search needs from a gate: it is a restriction of this repo's model, where a
-    path is a sequence of vertices and so cannot say which of two arrows with
-    the same endpoints it uses, and not a restriction of the procedure.
+    **Parallel arrows are no longer refused.**  They used to be, and the reason
+    given was honest about what it was: a restriction of this repo's model, where
+    a path was a sequence of vertices, and not a restriction of the procedure.
+    Since the relations name their arrows there is nothing left to refuse, and
+    `allowParallelArrows = False` restores the old gate for measuring what the
+    change does -- not for producing answers.
     """
     if quiver.has_edge(vertex, vertex):
         return False
-    outTargets = sorted(set(quiver.successors(vertex)))
-    if not outTargets:
+    outArrows = ap.arrowsOutOf(quiver, vertex)
+    if not outArrows:
         return False
-    if any(quiver.number_of_edges(a, b) > 1 for a, b in quiver.edges()):
+    if not allowParallelArrows and ap.hasParallelArrows(quiver):
         return False
 
-    for source in quiver.nodes:
-        if source == vertex:
+    for sourceVertex in quiver.nodes:
+        if sourceVertex == vertex:
             continue
-        for path in ra.allPathsBetween(quiver, source, vertex):
-            if ra.isInIdeal(quiver, relations, ra.combination([path])):
+        for path in ap.allPathsBetween(quiver, sourceVertex, vertex):
+            if ap.isInIdeal(quiver, relations, ap.combination([path])):
                 continue
             if not any(
-                not ra.isInIdeal(quiver, relations,
-                                 ra.combination([path + (target,)]))
-                for target in outTargets
+                not ap.isInIdeal(quiver, relations, ap.combination([path + (arrow,)]))
+                for arrow in outArrows
             ):
                 return False
     return True
@@ -159,75 +184,145 @@ def isMutable(quiver, relations, vertex):
 
 # -- the procedure ---------------------------------------------------------
 
+class _Arrows:
+    """The arrows of the mutated quiver, named by where they came from.
+
+    Steps 1 to 3 each add arrows, and steps 4 to 7 have to refer to them by
+    name: step 4 to the composite of a given `beta` with a given `alpha`, step 5
+    to a given `alpha*` and `rbar`, step 6 to the composite again.  With
+    parallel arrows a name is no longer `(tail, head)`, so this hands out the
+    `(tail, head, key)` triples and remembers which is which.
+
+    Keys are assigned per pair of endpoints in one deterministic order -- the
+    arrows carried over first, in their old order, then the flips, the
+    composites and the relation arrows -- so the same mutation twice gives the
+    same arrow names and two runs produce comparable algebras.
+    """
+
+    CARRIED, FLIP, COMPOSITE, RBAR = 0, 1, 2, 3
+
+    def __init__(self):
+        self._entries = []
+        self._arrow = {}
+
+    def declare(self, tag, tail, head, rank, order):
+        self._entries.append((tail, head, rank, order, tag))
+
+    def build(self, vertices):
+        quiver = nx.MultiDiGraph()
+        quiver.add_nodes_from(vertices)
+        for tail, head, _rank, _order, tag in sorted(self._entries):
+            key = quiver.add_edge(tail, head)
+            self._arrow[tag] = (tail, head, key)
+        return quiver
+
+    def arrow(self, tag):
+        return self._arrow[tag]
+
+    def tagged(self, rank):
+        return {tag: arrow for tag, arrow in self._arrow.items() if tag[0] == rank}
+
+
 def mutateAtVertex(quiver, relations, vertex):
     """Steps 1 to 7 at `vertex`, returning (new quiver, new relations).
 
-    Does not reduce: like `mutation.quiverMutationAtVertex` it leaves the
-    cleanup after the paper's step 7 to the caller, which is `reduce` below.
-    Does not check admissibility either -- `isMutable` is that, and applying the
-    rewrite without it gives a quiver that is not derived equivalent (R-005).
+    Does not reduce: like the paper, it leaves the cleanup after step 7 to the
+    caller, which is `reduce` below.  Does not check admissibility either --
+    `isMutable` is that, and applying the rewrite without it gives a quiver that
+    is not derived equivalent (R-005).
     """
-    outTargets = sorted(set(quiver.successors(vertex)))
-    inSources = sorted(set(quiver.predecessors(vertex)))
-    outRelations = [r for r in relations if ra.source(r) == vertex]
-    inRelations = [r for r in relations if ra.target(r) == vertex]
+    outArrows = ap.arrowsOutOf(quiver, vertex)
+    inArrows = ap.arrowsInto(quiver, vertex)
+    outRelations = [r for r in relations if ap.source(r) == vertex]
+    inRelations = [r for r in relations if ap.target(r) == vertex]
     throughRelations = [r for r in relations
-                        if ra.source(r) != vertex and ra.target(r) != vertex]
+                        if ap.source(r) != vertex and ap.target(r) != vertex]
 
-    newQuiver = nx.MultiDiGraph()
-    newQuiver.add_nodes_from(quiver.nodes)
-    for source, target in quiver.edges():
-        if source != vertex and target != vertex:
-            newQuiver.add_edge(source, target)          # untouched
-    for target in outTargets:
-        newQuiver.add_edge(target, vertex)              # step 2: alpha*
-    for source in inSources:
-        for target in outTargets:
-            newQuiver.add_edge(source, target)          # step 1: alpha beta
-    relationArrow = {}
-    for relation in outRelations:
-        end = ra.target(relation)
-        newQuiver.add_edge(vertex, end)                 # step 3: rbar
-        relationArrow.setdefault(end, []).append(relation)
+    arrows = _Arrows()
+    for order, arrow in enumerate(ap.arrowsOf(quiver)):
+        tail, head, _key = arrow
+        if tail != vertex and head != vertex:
+            arrows.declare((_Arrows.CARRIED, arrow), tail, head, _Arrows.CARRIED, order)
+    for order, alpha in enumerate(outArrows):                    # step 2: alpha*
+        arrows.declare((_Arrows.FLIP, alpha), alpha[1], vertex, _Arrows.FLIP, order)
+    for order, beta in enumerate(inArrows):                      # step 1: alpha beta
+        for inner, alpha in enumerate(outArrows):
+            arrows.declare((_Arrows.COMPOSITE, beta, alpha), beta[0], alpha[1],
+                           _Arrows.COMPOSITE, (order, inner))
+    for order, relation in enumerate(outRelations):              # step 3: rbar
+        arrows.declare((_Arrows.RBAR, order), vertex, ap.target(relation),
+                       _Arrows.RBAR, order)
+    newQuiver = arrows.build(quiver.nodes)
+
+    composite = lambda beta, alpha: arrows.arrow((_Arrows.COMPOSITE, beta, alpha))
+    flip = lambda alpha: arrows.arrow((_Arrows.FLIP, alpha))
+    carried = lambda arrow: arrows.arrow((_Arrows.CARRIED, arrow))
+    rbar = lambda index: arrows.arrow((_Arrows.RBAR, index))
 
     newRelations = []
 
     # Step 4: one relation per arrow into the vertex.
-    for source in inSources:
-        newRelations.append(ra.combination(
-            [(source, target, vertex) for target in outTargets]))
+    for beta in inArrows:
+        newRelations.append(ap.combination(
+            [(composite(beta, alpha), flip(alpha)) for alpha in outArrows]))
 
     # Step 5: rbar alpha* = r / alpha.
-    for relation in outRelations:
-        end = ra.target(relation)
-        for target in outTargets:
-            composite = ra.combination([((target, vertex, end), 1)])
-            quotient = ra.leftDivide(relation, target)
-            newRelations.append(ra.add(composite, ra.negate(quotient)))
+    for index, relation in enumerate(outRelations):
+        for alpha in outArrows:
+            through = ap.combination([((flip(alpha), rbar(index)), 1)])
+            quotient = _carry(ap.leftDivide(relation, alpha), carried)
+            newRelations.append(ap.add(through, ap.negate(quotient)))
 
     # Step 6: a relation into the vertex extends along each arrow out of it.
     for relation in inRelations:
-        for target in outTargets:
-            newRelations.append(ra.combination(
-                (path[:-1] + (target,), coefficient)
+        for alpha in outArrows:
+            newRelations.append(ap.combination(
+                (_carryPath(path[:-1], carried) + (composite(path[-1], alpha),), coefficient)
                 for path, coefficient in relation.items()))
 
-    # A relation past the vertex keeps its paths, with the vertex spliced out.
+    # A relation past the vertex keeps its paths, with `beta` then `alpha`
+    # replaced by the one composite arrow.
     for relation in throughRelations:
-        newRelations.append(ra.combination(
-            (tuple(v for v in path if v != vertex), coefficient)
+        newRelations.append(ap.combination(
+            (_spliceOutVertex(path, vertex, carried, composite), coefficient)
             for path, coefficient in relation.items()))
 
     # Step 7: the relations out of the mutated vertex.
     newRelations.extend(
         _relationsOutOfMutatedVertex(quiver, relations, vertex, newQuiver,
-                                     outTargets, relationArrow))
+                                     outArrows, outRelations, arrows))
 
     return newQuiver, normalise(newRelations)
 
 
+def _carryPath(path, carried):
+    """An old path whose arrows all avoid the mutated vertex, under its new names."""
+    return tuple(carried(arrow) for arrow in path)
+
+
+def _carry(comb, carried):
+    return ap.combination((_carryPath(path, carried), coefficient)
+                          for path, coefficient in comb.items())
+
+
+def _spliceOutVertex(path, vertex, carried, composite):
+    """`path` with the two arrows it runs through `vertex` along made one.
+
+    `beta` into the vertex followed by `alpha` out of it is the single composite
+    arrow `alpha beta` of step 1 -- which is a *different* arrow from any that
+    joined those endpoints before, and the whole reason the vertex model could
+    not do this: after deleting the vertex from the sequence the two read alike.
+    """
+    for position in range(len(path) - 1):
+        if path[position][1] == vertex and path[position + 1][0] == vertex:
+            return (_carryPath(path[:position], carried)
+                    + (composite(path[position], path[position + 1]),)
+                    + _carryPath(path[position + 2:], carried))
+    return _carryPath(path, carried)
+
+
 def _relationsOutOfMutatedVertex(quiver, relations, vertex, newQuiver,
-                                 outTargets, relationArrow):
+                                 outArrows, outRelations, arrows):
     """Step 7, as a kernel, target by target.
 
     For a target `v`, the candidate paths out of `i*` are `rbar` followed by a
@@ -239,7 +334,16 @@ def _relationsOutOfMutatedVertex(quiver, relations, vertex, newQuiver,
 
     and only the part of that kernel not already forced by a relation to a
     nearer target is a new generator.
+
+    Every arrow out of `i*` is an `rbar`, since the flips point into it and
+    nothing else touches it, so a candidate's first arrow always names the
+    relation it came from.  In the vertex model two relations `i ~~> k` gave two
+    arrows the sequence could not tell apart and the step was skipped for that
+    target outright.
     """
+    relationOfArrow = {arrows.arrow((_Arrows.RBAR, index)): relation
+                       for index, relation in enumerate(outRelations)}
+    oldArrow = _oldArrowReading(arrows)
     found = []
     for target in _targetsInOrder(newQuiver, vertex):
         candidates = _pathsOutOfMutatedVertex(newQuiver, vertex, target)
@@ -247,24 +351,44 @@ def _relationsOutOfMutatedVertex(quiver, relations, vertex, newQuiver,
             continue
         shadow = {}
         for path in candidates:
-            relation = _relationOfFirstArrow(relationArrow, path)
+            relation = relationOfArrow.get(path[0])
             if relation is None:
-                # This path's first arrow cannot be read as one `rbar`, so the
-                # step has nothing to say about paths to this target.  Other
-                # targets may still be reachable through arrows that can, so
-                # skip the target rather than abandoning the step.
-                shadow = None
-                break
-            tail = path[1:]
-            for arrow in outTargets:
-                quotient = ra.leftDivide(relation, arrow)
-                shadow[(path, arrow)] = ra.postCompose(quotient, tail) if quotient else {}
-        if shadow is None:
-            continue
-        for element in _kernelOverIdeal(quiver, relations, candidates, outTargets, shadow):
+                raise ValueError("a path out of the mutated vertex does not begin "
+                                 "with a relation arrow: {0}".format(path))
+            tail = _inOldQuiver(path[1:], oldArrow)
+            for alpha in outArrows:
+                quotient = ap.leftDivide(relation, alpha)
+                shadow[(path, alpha)] = ap.postCompose(quotient, tail) if quotient else {}
+        for element in _kernelOverIdeal(quiver, relations, candidates, outArrows, shadow):
             if not _isForcedByNearer(newQuiver, found, element, vertex):
                 found.append(element)
     return found
+
+
+def _oldArrowReading(arrows):
+    """Each new arrow as the old path it stands for, where it stands for one.
+
+    A carried arrow is the old arrow itself; a composite `alpha beta` is the old
+    two-arrow path `beta` then `alpha`.  A flip and an `rbar` stand for no path
+    of the old quiver, and neither can occur in a tail out of `i*` that does not
+    return to `i*`.
+    """
+    reading = {}
+    for tag, arrow in arrows.tagged(_Arrows.CARRIED).items():
+        reading[arrow] = (tag[1],)
+    for tag, arrow in arrows.tagged(_Arrows.COMPOSITE).items():
+        reading[arrow] = (tag[1], tag[2])
+    return reading
+
+
+def _inOldQuiver(path, oldArrow):
+    """A path of the mutated quiver read back as a path of the old one."""
+    read = ()
+    for arrow in path:
+        if arrow not in oldArrow:
+            raise ValueError("{0} has no reading in the old quiver".format((arrow,)))
+        read = read + oldArrow[arrow]
+    return read
 
 
 def _targetsInOrder(newQuiver, vertex):
@@ -276,66 +400,43 @@ def _targetsInOrder(newQuiver, vertex):
 
 def _pathsOutOfMutatedVertex(newQuiver, vertex, target):
     """Paths from the mutated vertex to `target` that leave and do not return."""
-    return [p for p in ra.allPathsBetween(newQuiver, vertex, target)
-            if len(p) > 1 and vertex not in p[1:]]
+    return [p for p in ap.allPathsBetween(newQuiver, vertex, target)
+            if p and vertex not in ap.pathVertices(p)[1:]]
 
 
-def _relationOfFirstArrow(relationArrow, path):
-    """The relation the path's first arrow came from, or None if it is not one.
-
-    Step 3 can give two arrows `i* -> k` from two relations `i ~~> k`, which a
-    vertex sequence cannot tell apart; when that happens there is no reading of
-    the path as `rbar s` and step 7 has nothing to say.
-    """
-    candidates = relationArrow.get(path[1])
-    if not candidates or len(candidates) > 1:
-        return None
-    return candidates[0]
-
-
-def _kernelOverIdeal(quiver, relations, candidates, outTargets, shadow):
+def _kernelOverIdeal(quiver, relations, candidates, outArrows, shadow):
     """The eps with sum_P eps_P shadow[P, alpha] in the ideal, for every alpha.
 
     Solved as a linear system over the rationals: reduce each shadow against a
     basis of the ideal between its endpoints, and the residues are the rows.
     """
     rows = {}
-    for arrow in outTargets:
+    for alpha in outArrows:
         residues = {}
         for path in candidates:
-            element = shadow.get((path, arrow)) or {}
-            residues[path] = _reduceAgainstIdeal(quiver, relations, element, arrow)
+            element = shadow.get((path, alpha)) or {}
+            residues[path] = _reduceAgainstIdeal(quiver, relations, element)
         basis = sorted({key for r in residues.values() for key in r})
         for key in basis:
-            rows[(arrow, key)] = {path: residues[path].get(key, Fraction(0))
+            rows[(alpha, key)] = {path: residues[path].get(key, Fraction(0))
                                   for path in candidates}
     if not rows:
         # Every candidate is sent to zero, so every combination of them is a
         # relation; the single paths generate all of that.
-        return [ra.combination([(path, 1)]) for path in candidates]
+        return [ap.combination([(path, 1)]) for path in candidates]
     return [
-        ra.combination((path, _asInteger(coefficient))
+        ap.combination((path, _asInteger(coefficient))
                        for path, coefficient in solution.items() if coefficient)
         for solution in _nullSpace(candidates, rows)
     ]
 
 
-def _reduceAgainstIdeal(quiver, relations, element, arrow):
+def _reduceAgainstIdeal(quiver, relations, element):
     """`element` reduced modulo the ideal, as a dict of residual coefficients."""
     if not element:
         return {}
-    pivots = ra.idealBasis(quiver, relations, ra.source(element), ra.target(element))
-    row = {k: Fraction(v) for k, v in element.items()}
-    while row:
-        head = min(row)
-        if head not in pivots:
-            break
-        factor = row[head]
-        pivotRow = pivots[head]
-        row = {k: row.get(k, Fraction(0)) - factor * pivotRow.get(k, Fraction(0))
-               for k in set(row) | set(pivotRow)}
-        row = {k: v for k, v in row.items() if v != 0}
-    return row
+    pivots = ap.idealBasis(quiver, relations, ap.source(element), ap.target(element))
+    return ap.reduceAgainstPivots(element, pivots)
 
 
 def _nullSpace(columns, rows):
@@ -411,30 +512,20 @@ def _isForcedByNearer(newQuiver, found, element, vertex):
     """Whether `element` is already a consequence of a relation to a nearer target."""
     if not found:
         return False
-    target = ra.target(element)
+    target = ap.target(element)
     spanning = []
     for relation in found:
-        end = ra.target(relation)
+        end = ap.target(relation)
         if end == target:
             spanning.append(relation)
             continue
-        for after in ra.allPathsBetween(newQuiver, end, target):
-            if len(after) > 1 and vertex not in after[1:]:
-                spanning.append(ra.postCompose(relation, after))
+        for after in ap.allPathsBetween(newQuiver, end, target):
+            if after and vertex not in ap.pathVertices(after)[1:]:
+                spanning.append(ap.postCompose(relation, after))
     if not spanning:
         return False
     pivots = ra._rowReduce([dict(s) for s in spanning])
-    row = {k: Fraction(v) for k, v in element.items()}
-    while row:
-        head = min(row)
-        if head not in pivots:
-            return False
-        factor = row[head]
-        pivotRow = pivots[head]
-        row = {k: row.get(k, Fraction(0)) - factor * pivotRow.get(k, Fraction(0))
-               for k in set(row) | set(pivotRow)}
-        row = {k: v for k, v in row.items() if v != 0}
-    return True
+    return not ap.reduceAgainstPivots(element, pivots)
 
 
 # -- the cleanup after step 7 ---------------------------------------------
@@ -446,16 +537,13 @@ def reduce(quiver, relations):
     a combination of longer paths, so the arrow and the relation both go, and
     every other relation has that arrow substituted out.  On combinations this
     is arithmetic rather than list surgery -- `c alpha + rest = 0` means
-    `alpha = -rest / c`, and splicing that into a path is `preCompose` and
-    `postCompose` -- which is the part the set-of-paths model could only
-    approximate.
+    `alpha = -rest / c`, and splicing that into a path is concatenation -- which
+    is the part the set-of-paths model could only approximate.  Naming the arrow
+    also makes *which* arrow leaves the quiver unambiguous: `remove_edge` on a
+    pair of endpoints drops an arbitrary one of a parallel pair.
 
     Minimality: a relation is dropped when it lies in the ideal generated by the
-    others, decided by linear algebra over that ideal.  That is the exact
-    version of `reduction.removeRedundantRelations` and
-    `reduction.removeExistingSubrelations`, which look for a syntactic
-    substitution instead and so can only find the redundancies that happen to
-    be visible as one.
+    others, decided by linear algebra over that ideal.
     """
     quiver = nx.MultiDiGraph(quiver)
     relations = [dict(r) for r in relations if r]
@@ -468,55 +556,25 @@ def reduce(quiver, relations):
 
 
 def _substituteOutAnArrow(quiver, relations):
-    """One pass of the Note, or None when no relation has a length-one path."""
+    """One pass of the Note, or None when no relation has a path of one arrow."""
     for index, relation in enumerate(relations):
-        singles = sorted(p for p in relation if len(p) == 2)
+        singles = sorted(p for p in relation if len(p) == 1)
         if not singles:
             continue
-        arrow = singles[0]
-        coefficient = relation[arrow]
-        rest = {p: c for p, c in relation.items() if p != arrow}
-        replacement = ra.scale(rest, Fraction(-1, 1) / coefficient) if rest else {}
+        arrow = singles[0][0]
+        coefficient = relation[singles[0]]
+        rest = {p: c for p, c in relation.items() if p != singles[0]}
+        replacement = ap.scale(rest, Fraction(-1, 1) / coefficient) if rest else {}
 
         newQuiver = nx.MultiDiGraph(quiver)
         if newQuiver.has_edge(*arrow):
             newQuiver.remove_edge(*arrow)
         newRelations = []
         for other in relations[:index] + relations[index + 1:]:
-            rewritten = _substituteArrow(other, arrow, replacement)
+            rewritten = ap.substituteArrow(other, arrow, replacement)
             if rewritten:
                 newRelations.append(rewritten)
         return newQuiver, newRelations
-    return None
-
-
-def _substituteArrow(relation, arrow, replacement):
-    """`relation` with every occurrence of `arrow` replaced by `replacement`.
-
-    An empty replacement means the arrow is zero in the algebra, so every path
-    through it drops out.
-    """
-    while True:
-        for path, coefficient in relation.items():
-            position = _firstOccurrence(path, arrow)
-            if position is None:
-                continue
-            others = {p: c for p, c in relation.items() if p != path}
-            spliced = {}
-            for piece, pieceCoefficient in replacement.items():
-                grafted = path[:position] + piece + path[position + 2:]
-                spliced[grafted] = spliced.get(grafted, 0) + coefficient * pieceCoefficient
-            relation = ra.add(others, spliced)
-            break
-        else:
-            return relation
-
-
-def _firstOccurrence(path, arrow):
-    """The index where `arrow` sits inside `path` as two consecutive vertices."""
-    for position in range(len(path) - 1):
-        if (path[position], path[position + 1]) == arrow:
-            return position
     return None
 
 
@@ -534,7 +592,7 @@ def _minimalGenerators(quiver, relations):
     kept = []
     for index, relation in enumerate(ordered):
         others = kept + ordered[index + 1:]
-        if not ra.isInIdeal(quiver, others, relation):
+        if not ap.isInIdeal(quiver, others, relation):
             kept.append(relation)
     return kept
 
@@ -556,13 +614,19 @@ def mutateAtVertices(quiver, relations, vertices):
 
 
 def _opposite(quiver, relations):
-    """Every arrow and every path reversed, coefficients kept."""
+    """Every arrow and every path reversed, coefficients and arrow names kept.
+
+    An arrow `(tail, head, key)` becomes `(head, tail, key)`, which is injective,
+    so a parallel pair stays a parallel pair and every relation can be read back.
+    """
     reversed_ = nx.MultiDiGraph()
     reversed_.add_nodes_from(quiver.nodes)
-    for source, target in quiver.edges():
-        reversed_.add_edge(target, source)
+    for tail, head, key in quiver.edges(keys = True):
+        reversed_.add_edge(head, tail, key = key)
     return reversed_, [
-        ra.combination((path[::-1], coefficient) for path, coefficient in relation.items())
+        ap.combination((tuple((head, tail, key) for tail, head, key in reversed(path)),
+                        coefficient)
+                       for path, coefficient in relation.items())
         for relation in relations
     ]
 

@@ -75,6 +75,20 @@ def pathHasZeroRel(path, relSet):
 
 
 def numberOfPathsUpToRels(pathAlg, source, target):
+    """The old cheap count, kept for comparison rather than used.
+
+    Two things are wrong with it and `arrowPaths.homDimensionByClosure` is what
+    the invariants count with instead.  It enumerates paths as sequences of
+    *vertices*, so a parallel pair counts once; and it closes the commutativity
+    relations by applying each of a subset once, in every order, rather than to a
+    fixed point, so a path that is zero only through a **chain** of
+    identifications is counted as nonzero.  Both moved the Coxeter key on quivers
+    a mutation reaches -- research F-038 and the entry above it.
+
+    `test_relation_algebra.py` pins the chain it misses, and
+    `procedure.isMutable`'s predecessor in `test_procedure.py` is the only other
+    caller left.
+    """
     # networkx >= 3.1 yields the trivial length-zero path when source == target.
     # This function counts non-trivial paths only (the trivial path is accounted
     # for separately by the +1 on the diagonal of the Cartan matrix), so drop it.

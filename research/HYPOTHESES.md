@@ -6,6 +6,83 @@ it. Status is one of `OPEN`, `SUPPORTED`, `CONFIRMED → F-nnn`, `REFUTED → R-
 
 ---
 
+## H-016 — Walking through a parallel-arrow quiver reaches a merge nothing else does
+*2026-09-18* · **OPEN** *(no gain at n ≤ 7 to depth 6, which is where a gain could not show anyway — E-035; at n = 9 one member of nine reaches the region at all, and it reaches nothing new nine mutations into it — E-036)*
+
+The procedure produces quivers with parallel arrows and, since F-039, the engine
+can state them, the gate admits them and the Coxeter key over them is right. So
+there is a region of the mutation graph that no search has ever entered. **Is
+anything in it?**
+
+The reason to think so is the shape of the one walk looked at by hand. From
+`3030` at `n = 6` by `[1, 3, 4, 1, 4]` the quiver has two arrows `1 -> 6` and a
+commutativity relation between the two parallel paths `5 -> 1 -> 6`; mutating at
+3 comes back out to a quiver with **no** parallel pair carrying
+`5 -> 1 -> 3 -> 6 = 5 -> 1 -> 6`. That quiver was unreachable at any depth
+before. Whether such an exit ever lands on a *line* — which is what a merge
+needs — is the question.
+
+**What is measured.** Nothing gained at `n = 6` or `n = 7` to depth 6: the same
+LNAs are reached with the gate allowing parallel arrows and with it refusing
+them, from every LNA and every relation dual, not one start gaining or losing a
+line (E-035).
+
+**That is a weak negative and should not be read as an answer**, for two reasons
+that are both about where it was measured.
+
+* **Depth.** Entering the region and returning costs mutations. The one exit
+  known takes six to reach a parallel-free quiver and that quiver is not a line,
+  so a depth-6 comparison cannot see a return to a line at all. The test needs
+  depth 8 or more, which is why it was not run here.
+* **Length.** `n <= 7` is covered 100% by the move rules with no search at all
+  (F-021). There is nothing at those lengths for a search to find, whatever it
+  walks through. The lengths where a search still has to place rows are `n >= 9`,
+  and `n = 10`, `n = 11` are where H-013's leftover orbits sit.
+
+**What would settle it.** Run the comparison at `n = 9` or `n = 10` and depth 8,
+against the orbits `merges.py` leaves as singletons — the same targets as H-013.
+A single LNA pair joined only through a parallel-arrow node settles it yes; a
+clean negative at that depth and length is worth having either way, because it
+would say the region is a detour rather than a shortcut and the classification
+need never enter it.
+
+**Do not run it at `n <= 8` again.** E-035 is that run and it found nothing, for
+reasons that are about the sizes and not about the region.
+
+**2026-09-18, amended: the test is much cheaper than it looked, and the first
+part of it is done.** `search.DeeperWhen` gives the extra depth only to the
+branches that reach the region, so the comparison does not cost a whole extra
+level of search. At `n = 9` it costs 2% of the run at depth 4 and 4% at depth 5,
+because **exactly one of the nine leftover members reaches a parallel-arrow
+quiver at all** -- `3033030`, whose walk fires 600 times at depth 5 where the
+other eight fire never (E-036). Nothing is gained at either depth.
+
+That narrows the hypothesis rather than answering it. `3033030` is alone in its
+orbit and alone in its Coxeter polynomial group, so the guard forbids it reaching
+any other leftover: the only outcome visible from it is reaching a **seeded** LNA,
+which would say a leftover is in a quipu class after all. And because it is the
+only member that enters the region, the depth-8 run this hypothesis asks for is a
+run of *one* member, not of nine -- which is what makes it affordable. `n = 10`
+and `n = 11` have not been looked at this way and are where the leftover orbits
+are that H-013 cares about.
+
+**That run has since been made, and it is a negative.** `3033030` from itself and
+its dual at depth 7 with two extra mutations for the region: 29122 firings, 826
+grants, the condition still holding **nine** mutations in, and the only LNA
+reached is its own relation dual -- which depth 5 already reached. Twenty minutes
+on one core. Depth 6 + 2 is the same answer (E-036).
+
+So the `n = 9` half is done, past the depth this hypothesis asked for, and the
+region is a detour there. What it does **not** do is settle the hypothesis:
+`3033030` is alone in its Coxeter polynomial group, so the only outcome it could
+ever have shown is a leftover turning out to be in a quipu class, and one member
+at one length is not the claim. **What is left is `n = 10` and `n = 11`**, where
+H-013's leftover orbits sit several to a polynomial group and a merge between two
+of them is a thing the search can actually find. Find which of their members
+reach the region first -- if it is again a handful, the run is again cheap.
+
+---
+
 ## H-015 — The Coxeter guard is sufficient, not merely necessary
 *2026-09-18* · **SUPPORTED** *(survives the sharpest test available, at one collision, to depth 6 — E-034)*
 

@@ -12,7 +12,8 @@ The modules, in dependency order:
 |---|---|
 | `pathAlgebra` | the container: a quiver and a list of relations |
 | `paths` | paths and relations inside one, and what a relation set does to a path |
-| `relationAlgebra` | relations as integer combinations of paths, and exact ideals |
+| `relationAlgebra` | relations as integer combinations of vertex paths, and exact ideals |
+| `arrowPaths` | the same over paths that name their arrows, so parallel arrows can be said |
 | `procedure` | steps 1-7 and the cleanup, on those combinations |
 | `reduction` | the cleanup, in the set-of-paths model |
 | `mutation` | the procedure, in the set-of-paths model, and admissibility |
@@ -44,8 +45,8 @@ reaches `qm.classifyLength` and the rest directly.  The modules that carry their
 own namespace -- `nakayama`, `quipuForms`, `lnaMoves`, `overlap`, `edgeMoves`, `freeMoves`,
 `piecewiseHereditary`, `coxeterTables`, `treeSearch`, `quipuRelations`,
 `reflections`,
-`relationAlgebra`, `procedure`, `mutationClassTable`, `classview`, `classpage`,
-`quiverExamples` -- are imported as names:
+`relationAlgebra`, `arrowPaths`, `procedure`, `mutationClassTable`, `classview`,
+`classpage`, `quiverExamples` -- are imported as names:
 `from quivermutation import nakayama as nk`.
 """
 
@@ -53,6 +54,7 @@ from . import (
     pathAlgebra,
     paths,
     relationAlgebra,
+    arrowPaths,
     procedure,
     reduction,
     mutation,
@@ -130,13 +132,22 @@ from .lines import (
 )
 
 from .search import (
+    DEEPER_CONDITIONS,
+    DeeperWhen,
+    deeperWhenFromSpec,
+    describeNode,
     describeRelationFreeQuiver,
     findHereditaryFormForClass,
     formatHereditaryForms,
     hereditaryFormFromTheorem,
     hereditaryFormsReachedFrom,
+    hasNoRelations,
+    hasOrientedCycle,
+    hasParallelArrows,
     linesReachedFrom,
     mutationSearchDepthFirst,
+    parallelArrowsAtLeast,
+    recordOnly,
     relationFreeSightings,
     summariseSightings,
 )
@@ -165,6 +176,7 @@ from .plotting import (
 __all__ = [
     "PathAlgebra",
     "adoptClassesByMoves",
+    "arrowPaths",
     "allRelsBetweenVertices",
     "allRelsInPathAlgebra",
     "annotateHereditaryForms",
@@ -180,6 +192,10 @@ __all__ = [
     "coxeterKey",
     "coxeterPoly",
     "coxeterTables",
+    "DEEPER_CONDITIONS",
+    "DeeperWhen",
+    "deeperWhenFromSpec",
+    "describeNode",
     "describeRelationFreeQuiver",
     "dualPathAlgebra",
     "edgeMoves",
@@ -190,6 +206,9 @@ __all__ = [
     "freeMoves",
     "generateAllPossibleLineRelations",
     "getVertexNumberingKeyFromValue",
+    "hasNoRelations",
+    "hasOrientedCycle",
+    "hasParallelArrows",
     "hereditaryFormFromTheorem",
     "hereditaryFormsReachedFrom",
     "invariants",
@@ -209,6 +228,7 @@ __all__ = [
     "nameClassesFromTheorem",
     "nameRemainingClasses",
     "numberOfPathsUpToRels",
+    "parallelArrowsAtLeast",
     "pathAlgebra",
     "pathHasZeroRel",
     "paths",
@@ -225,6 +245,7 @@ __all__ = [
     "quiverMutationAtVertex",
     "quiverMutationAtVertices",
     "readProgress",
+    "recordOnly",
     "reducePathAlgebra",
     "reduction",
     "reflections",
