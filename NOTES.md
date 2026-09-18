@@ -358,10 +358,20 @@ Run times for the full `classifyLength` pipeline, as the engine has changed:
 | set-of-paths procedure, strict gate | 13 s | 37 s | 4 min | 56 min |
 | coefficients, strict gate | 5 s | 38 s | | |
 | coefficients, the paper's gate | 5 s | **20 s** | | |
+| vertex paths, the Coxeter guard | 0.3 s | 1.2 s | 30 s | |
+| arrow paths, the exact key | 0.3 s | 1.3 s | 33 s | |
 
-Lengths 6, 7 and 8 are pinned as `slow` tests, and all three give the same
-classes with the same sizes throughout. n = 9 has not been re-run since; that is
-plan item 8.
+Lengths 6, 7 and 8 are pinned as `slow` tests, and all five give the same
+classes with the same sizes throughout. n = 9 has not been re-run since the
+coefficients went in; that is plan item 8, and it is now also the first length
+where the arrow engine has not been measured.
+
+The last two rows are the same machine on the same day, so they compare: naming
+the arrows and taking the Cartan matrix exactly off a monomial ideal costs about
+10%. The rows above them are older hardware and older seeding and do not.
+
+The slow suite is **1915 tests and about 40 minutes**, not the 20 the paragraph
+above was written for.
 
 ## Known gaps and limitations
 
