@@ -5,7 +5,7 @@ See [`README.md`](README.md) for conventions.
 
 ---
 
-## F-046 — The literature merges two pairs at `n = 11` that no move we have reaches
+## F-046 — The literature merges pairs from `n = 11` up that no move we have reaches
 *2026-09-19*
 
 The point of the sweep, and the only part of it that hands us something the
@@ -68,6 +68,26 @@ Here the direction reverses.
    there is a move behind `N_n(a) ≃ N_n(b)` for `n = (a-1)(b-1) ± 1`, the search
    has never found it, and a targeted search between exactly these pairs — which
    is what `meetingPoints` is for — is the cheapest way to ask.
+
+**It is not only `n = 11`.** Enumerating Prop. 4.1 over `a`, `b` and all three
+offsets for `5 <= n <= 15` gives 21 instances; the moves join 15 and miss **six**,
+and the long run over those six finished after the above was written. Every one
+has both forward orbits **exhausted** well under a 400000-row cap:
+
+| | rows walked from each side |
+|---|---|
+| `n = 11`, `N(3)` vs `N(7)` | 948 / 34 |
+| `n = 11`, `N(4)` vs `N(5)` | 439 / 74 |
+| `n = 13`, `N(3)` vs `N(7)` | 5882 / 608 |
+| `n = 13`, `N(3)` vs `N(8)` | 5882 / 608 |
+| `n = 13`, `N(4)` vs `N(5)` | 1570 / 3220 |
+| `n = 15`, `N(3)` vs `N(8)` | 53472 / 531 |
+
+So the gap is not an artefact of one length. The pattern across the 21 is sharp:
+**part (1) of Prop. 4.1 — the Happel–Seidel symmetry proper, at `n = (a-1)(b-1)` —
+is joined by our moves at every instance; the `n ± 1` extensions, which are this
+paper's own contribution, are the ones that are not**, from `n = 11` up. Whatever
+move would explain part (1) does not survive the offset.
 
 Reproduce: `hs.py` and `hsgap.py` in the sweep's scratchpad; the authoritative
 line is `freeMoves.derivedOrbits(11, free = True, edges = True, doubles = True)`

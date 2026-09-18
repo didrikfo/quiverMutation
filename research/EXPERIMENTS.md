@@ -73,7 +73,7 @@ the findings above are findings.
 | Happel–Seidel Table 1, 11 star types, against `treeCoxeterKey` | 11/11, and an invented 12th row correctly fails (F-044) |
 | Happel–Seidel Table 1, 12 sheaf types, against `canonicalWeightType` | 12/12 (F-044) |
 | Brüstle Thm. 1.2, reimplemented, at `n = 9, 10, 11` | reproduces F-011's tame partition; 1 new merge per length; 0 contradictions (F-045) |
-| LMR Prop. 4.1, 21 instances, against `movesJoin` | 15 joined, 6 not — and the orbits are **exhausted**, not capped (F-046) |
+| LMR Prop. 4.1, 21 instances, against `movesJoin` | 15 joined, 6 not — all six with both orbits **exhausted**, not capped, at `n = 11, 13, 15` (F-046) |
 | the three `n = 11` merges, against `derivedOrbits(11)` | four of our orbits merge into two (F-046) |
 | de la Peña's periodicity criterion, naive reading, at `n = 9` | **certifies 273 LNAs including `A_9` itself** — the Dynkin exclusion is the whole criterion, caveat recorded in the file |
 
