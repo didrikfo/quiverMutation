@@ -269,8 +269,14 @@ def test_the_two_cartan_matrices_agree_along_mutation_paths(length, rels):
                 continue
             mutated = quiet(qm.reducePathAlgebra, mutated)
             where = f"A_{length}_{rels}: {sorted(mutated.arrows())} {mutated.rels}"
-            assert quiet(qm.cartanMatrix, mutated) == quiet(
-                qm.cartanMatrix, mutated, False), where
+            # The cheap count only where it is provably right: a relation of
+            # three or more paths has no reading in it at all, and two-path
+            # relations whose identifications close a cycle lose a dimension it
+            # cannot see.  `isMonomial` is the condition `integerCartanMatrix`
+            # itself uses.  F-039.
+            if ap.isMonomial(pr.relationsFrom(mutated)):
+                assert quiet(qm.cartanMatrix, mutated) == quiet(
+                    qm.cartanMatrix, mutated, False), where
             if not mutated.hasParallelArrows():
                 assert quiet(qm.cartanMatrix, mutated) == quiet(
                     ra.cartanMatrixExact, mutated), where
@@ -323,8 +329,10 @@ def test_reduction_preserves_the_cartan_matrix():
                 f"  raw: {sorted((a[0], a[1]) for a in raw.arrows())} {raw.rels}\n"
                 f"  red: {sorted((a[0], a[1]) for a in reduced.arrows())} {reduced.rels}"
             )
-            # The cheap count must agree too, on everything an LNA reaches.
-            assert after == quiet(qm.cartanMatrix, reduced, False)
+            # The cheap count must agree too, wherever it is taken -- which is
+            # on a monomial ideal and nowhere else.  F-039.
+            if ap.isMonomial(pr.relationsFrom(reduced)):
+                assert after == quiet(qm.cartanMatrix, reduced, False)
             walk(reduced, depth - 1)
 
     for length in (5, 6):
