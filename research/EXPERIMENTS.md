@@ -6,6 +6,132 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-040 — A literature sweep aimed at merging classes of LNAs
+*2026-09-19* · **21 summaries; one criterion that classifies the tame half outright, and three merges at `n = 11` no move of ours makes** → F-043, F-044, F-045, F-046
+
+The question put to the literature was narrow on purpose: **what merges two
+LNAs?** Not what classifies Nakayama algebras, not what invariants exist — what
+would let two of our orbits be joined, or be proved distinct. Anything that could
+not be tied to that in a sentence was rejected.
+
+### How it was searched
+
+Three passes, and the third is the one that paid.
+
+1. **Backwards**, through the reference lists of the three papers the project
+   already uses (arXiv:2112.08129, 2305.06642, 2310.08346). Seventeen distinct
+   references between them — a small enough set to read in full. This is what the
+   `literature/README.md` candidate list was built from.
+2. **Outwards**, from those into the authors' own corpora: Ladkani's 27 arXiv
+   papers, the Happel school, the silting-mutation line.
+3. **Forwards**, by citation. Semantic Scholar's graph API on the three papers'
+   arXiv ids, plus `export.arxiv.org` title and abstract search on "Nakayama" ×
+   "derived equivalence". **This found the two best papers in the sweep, and no
+   backward reference list could have**: arXiv:2302.02880 (Ueda) and
+   arXiv:2203.15735 (Dong–Lin–Ruan) are both later than everything we cite, and
+   Brüstle came in as a reference of arXiv:1910.01494, which itself was only found
+   forwards. *Do the forward pass first next time.*
+
+Roughly 60 papers screened on abstracts, 21 read closely enough for a file, 22 of
+Ladkani's rejected with a recorded one-line reason each so they are not re-screened.
+
+### What came back, sorted by what it does
+
+**Merges.** `research/literature/` now holds four sources that produce derived
+equivalences between LNAs: Ueda's Cor. 1.3 (F-043), the Happel–Seidel symmetry and
+its extension in Lenzing–Meltzer–Ruan Prop. 4.1, Dong–Lin–Ruan Prop. 4.5, and
+Ladkani's `A(mn, m+1) ≃ kA_m ⊗ kA_n` (0911.5137 Cor. 1.2). Every one of them is
+about **radical powers** `kA_n/rad^r` or a tensor of two lines — the thinnest
+family of rows we have. Nothing found speaks about an LNA with relations of
+several different lengths, which is the open case.
+
+**A classification.** Brüstle's Theorem 1.2, which decides the derived class of
+any LNA with non-negative Euler form from three numbers: F-045.
+
+**Separators.** Ladkani's Cartan-matrix-up-to-`Z`-congruence (math/0610685
+Cor. 3.13), reported to split cospectral quipu groups the Coxeter polynomial
+cannot; and two periodicity criteria (math/0611201 Thm. 3.4; de la Peña,
+arXiv:1310.1557) certifying non-piecewise-heredity, one of which is reported to
+certify `34504030`, `50505000` and `45050400` at `n = 10`, which our own criteria
+miss. **Neither has been re-verified here** — they are the obvious next thing to
+check.
+
+**Two lines closed.** `HH*(A) = k` for every LNA (arXiv:2312.14699), so idea 22
+is dead; and no extension of the Avella-Alaminos–Geiß invariant to string algebras
+exists, so R-008's line stays closed — arXiv:1910.01494's skewed-gentle conclusion
+does not reach us, because its hypothesis is "no simple projective module" and
+every LNA has one (`P_n = S_n`, from the sink).
+
+### What was checked against the code, and what it cost
+
+Everything below was run here rather than taken on trust, which is the only reason
+the findings above are findings.
+
+| check | result |
+|---|---|
+| Ueda Cor. 1.3, 15 instances at `n ≤ 16`, against `movesJoin` | all 15 joined — but by the **double mutation**, not the rule table (F-043) |
+| Happel–Seidel Table 1, 11 star types, against `treeCoxeterKey` | 11/11, and an invented 12th row correctly fails (F-044) |
+| Happel–Seidel Table 1, 12 sheaf types, against `canonicalWeightType` | 12/12 (F-044) |
+| Brüstle Thm. 1.2, reimplemented, at `n = 9, 10, 11` | reproduces F-011's tame partition; 1 new merge per length; 0 contradictions (F-045) |
+| LMR Prop. 4.1, 21 instances, against `movesJoin` | 15 joined, 6 not — and the orbits are **exhausted**, not capped (F-046) |
+| the three `n = 11` merges, against `derivedOrbits(11)` | four of our orbits merge into two (F-046) |
+| de la Peña's periodicity criterion, naive reading, at `n = 9` | **certifies 273 LNAs including `A_9` itself** — the Dynkin exclusion is the whole criterion, caveat recorded in the file |
+
+That last row is the one to remember: a criterion quoted out of a proof, applied
+without its exclusions, certified the hereditary line as non-piecewise-hereditary.
+Every summary in this sweep that states an implementable criterion should be
+assumed to be missing a hypothesis until it has been run against something whose
+answer we already know.
+
+### What was not done
+
+* The two separators above are unverified here (Ladkani's congruence invariant and
+  the two periodicity criteria). They are the highest-value follow-up, because a
+  separator is what F-010 has wanted since R-008.
+* `n = 12` and up for Brüstle: the Smith normal form is cheap but `derivedOrbits`
+  is not, so there is nothing to compare against past `n = 11`.
+* Three papers are summarised **from secondary sources** — Happel–Seidel, Rickard,
+  Assem–Happel — because they are journal-only and pre-arXiv. Happel–Seidel's has
+  been checked (F-044); the other two have not.
+* The cellular-automaton sweep of `literature/README.md` (H-009) was not touched;
+  this sweep was about merging, not about the move rules as a rewriting system.
+
+---
+
+## E-039 — Ueda's radical-power equivalence, checked against the move table
+*2026-09-19* · **15 instances at `n <= 16`, all 15 joined by the moves alone** → F-043
+
+Prompted by the literature sweep: arXiv:2302.02880 Corollary 1.3 gives a triangle
+equivalence `per N(n, l+1) -> per N(n, l)` for `n = p(p+1)q + p(p-1)r`,
+`l = (p+1)q + pr`. Enumerating `p` in 2..5, `q` in 1..4, `r` in 0..4 plus the
+half-integer case `p = 2`, and keeping `4 <= n <= 16`, gives 15 distinct `(n, l)`.
+
+For each: build both LNAs, compare `coxeterKey`, and ask `freeMoves.movesJoin`
+whether the moves join them, with the meeting row then checked reachable from
+**both** ends by `orbitOf(..., target = meet)` -- a `movesJoin` result alone is
+one walk from each side and worth confirming when the conclusion is that a paper
+adds nothing.
+
+* Coxeter keys agree in all 15, as they must.
+* All 15 joined with `free = True` (derived equivalence, the same relation Ueda
+  proves).
+* All 15 joined again with **`free = False`**, so they are joined by *mutation*
+  moves alone -- a stronger statement than the paper's, for these instances.
+* Both-ends check passed in all 15.
+
+Cost: under a minute for the whole sweep, `limit = 20000` rows per walk, never
+approached.
+
+**What was not done.** `n > 16` was not tried: the parameter grid thins out fast
+(the next instances are at `n = 18` and `n = 20`) and the orbits grow, and the
+point was made. The *other* corollary of the paper -- an equivalence from every
+`N(n,l)` to an algebra of global dimension at most 2 -- was not checked, because
+the target is not an LNA and the pipeline has nothing to compare it against.
+
+Reproduce: `ueda2.py` in the merge session's scratchpad.
+
+---
+
 ## E-038 — The branch's free-move table, re-measured under the guarded search
 *2026-09-19* · **both rows reproduce exactly, and the merge changes no number** → E-037, F-041
 

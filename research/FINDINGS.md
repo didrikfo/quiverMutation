@@ -5,6 +5,277 @@ See [`README.md`](README.md) for conventions.
 
 ---
 
+## F-046 — The literature merges two pairs at `n = 11` that no move we have reaches
+*2026-09-19*
+
+The point of the sweep, and the only part of it that hands us something the
+pipeline does not already do. Three published equivalences between radical-power
+LNAs at `n = 11`:
+
+| | source |
+|---|---|
+| `N_11(3) ≃ N_11(7)` | arXiv:2112.15587 Prop. 4.1(2), `a = 3`, `b = 7`, `n = (a-1)(b-1) = 12`, taken at `n - 1` |
+| `N_11(6) ≃ N_11(7)` | arXiv:2203.15735 Prop. 4.5, `N(2r-1, r) ≃ N(2r-1, r+1)` at `r = 6` |
+| `N_11(4) ≃ N_11(5)` | arXiv:2112.15587 Prop. 4.1(2), `a = 4`, `b = 5`, `n = 12`, at `n - 1` |
+
+In relation-length lists (**not** digit strings — a relation of ten arrows has no
+digit, and this is `n = 11`):
+
+    N_11(3) = (3,3,3,3,3,3,3,3,0)      N_11(6) = (6,6,6,6,6,0,0,0,0)
+    N_11(4) = (4,4,4,4,4,4,4,0,0)      N_11(7) = (7,7,7,7,0,0,0,0,0)
+    N_11(5) = (5,5,5,5,5,0,0,0,0)
+
+**Against the full union-find partition of `n = 11`** — the rule table, the edge
+moves, the double mutation and the free move, which is every move we have —
+`N_11(3)` and `N_11(6)` share an orbit of 954 rows, and `N_11(7)` sits in a
+different orbit of 406, `N_11(4)` in one of 461 and `N_11(5)` in one of 74. So
+the three equivalences above **merge four of our orbits into two**, and not one of
+those merges is a move.
+
+This is not a budget artefact. `derivedOrbits` is a union-find over every LNA of
+the length, not a bounded walk, and it is the same computation the classification
+runs on. As a second reading, `movesJoin` at a cap of 400000 rows **exhausts**
+both orbits for `N_11(3)` against `N_11(7)` — 948 and 34 rows walked forward,
+cap never approached — so the walk ran out of moves, not of budget, which is the
+distinction E-037 section 3 was burned by.
+
+**Nothing else we have reaches them either.**
+
+* Coxeter polynomials agree in all three pairs, as they must, so the invariant is
+  silent rather than confirming.
+* **No tree of order 11 carries that polynomial**, so these classes are outside
+  the quipu theorem entirely — this is the region the project is actually stuck
+  in, not a corner of it.
+* All five algebras are derived **wild** (Euler form indefinite), so F-045's
+  criterion says nothing about them by construction.
+* The quipu theorem does not name them, `canonicalWeightType` does not, and the
+  moves do not.
+
+**So: at `n = 11`, three lines of a paper do what the whole pipeline cannot.**
+That is worth stating plainly, because every other result of this sweep runs the
+other way — F-043 found the literature's radical-power merge already inside the
+move table, and F-044 found its classification already reproduced by our naming.
+Here the direction reverses.
+
+**What to do with it.** Two things, in order.
+
+1. *Use them.* Three merges is three merges; fold them into the seeding the way
+   F-032's double mutation was folded in. They are cheap: both sides are named by
+   a closed form in `(n, r)`, so the rule is a lookup, not a search.
+2. *Ask what move they would be.* Each pair is two rows of the same length whose
+   relation lengths differ throughout, joined by a proof that goes through
+   `vect-X(2,a,b)` and one-point extensions rather than through mutation. If
+   there is a move behind `N_n(a) ≃ N_n(b)` for `n = (a-1)(b-1) ± 1`, the search
+   has never found it, and a targeted search between exactly these pairs — which
+   is what `meetingPoints` is for — is the cheapest way to ask.
+
+Reproduce: `hs.py` and `hsgap.py` in the sweep's scratchpad; the authoritative
+line is `freeMoves.derivedOrbits(11, free = True, edges = True, doubles = True)`
+and comparing the two orbit keys. E-040,
+`research/literature/2112.15587-nakayama-fuchsian-singularities.md`,
+`research/literature/2203.15735-one-branch-extensions-rectangles.md`.
+
+---
+
+## F-045 — Brüstle's invariant classifies the derived-tame LNAs outright
+*2026-09-19*
+
+Brüstle, *Derived-tame tree algebras*, Compositio Math. 129 (2001), Theorem 1.2:
+a connected derived-tame tree algebra is determined **up to derived equivalence**
+by three numbers — the vertex count, the corank of its Euler form, and the Dynkin
+type of that form. Every LNA is a tree algebra with no extra hypothesis, and
+Theorem 1.1 says derived-tame is exactly "Euler form positive semidefinite". So
+for every LNA whose Euler form is non-negative, the class is decided with **no
+search and no look at the relations at all**: invert the Cartan matrix, symmetrise,
+take the rank and the Smith normal form.
+
+**Implemented twice, independently, and the two agree.** `G = C^{-1} + C^{-T}`;
+derived tame iff `G` is positive semidefinite; corank `= n - rank G`; Dynkin type
+read off `(rank, product of the nonzero elementary divisors)` against the Cartan
+determinants `A_r → r+1`, `D_r → 4`, `E_6 → 3`, `E_7 → 2`, `E_8 → 1`.
+
+| | tame / total | classes | Coxeter polynomials per class |
+|---|---|---|---|
+| `n = 9` | 697 / 1430 | 6 | 1 each |
+| `n = 10` | 810 / 4862 | 5 | 1 each |
+| `n = 11` | 1514 / 16796 | 4 | 1 each |
+
+At `n = 9` the six are `A_9` (128 members), `D_9` (145), `D̃_8` (38), `Ẽ_8` (377),
+the tubular `(2,4,4)` (8) and `3033030` alone (corank 2, type `D_7`). That is
+**exactly F-011's partition of the tame part**, arrived at without any mutation.
+
+**It merges, and it never contradicts.** Against the full move orbits:
+
+| | our orbits it merges | our orbits straddling two of its classes |
+|---|---|---|
+| `n = 9` | 2 into 1 | **0** |
+| `n = 10` | 2 into 1 | **0** |
+| `n = 11` | 2 into 1 | **0** |
+
+One new merge at each length, every time inside the corank-0 type `D_n` class, and
+never a contradiction — which is the check that matters, since a single orbit
+split across two of Brüstle's classes would falsify either the theorem as stated
+here or our moves.
+
+**Why this is the first of its kind here.** Everything else we have is one-sided.
+The quipu theorem names a class but only under almost separate relations; the
+Coxeter polynomial rules a merge out and never in; the moves prove equivalence and
+never inequivalence; the piecewise-hereditary criteria certify exclusion only.
+Brüstle's is **two-sided on its domain**: two derived-tame LNAs agreeing on all
+three numbers *are* derived equivalent, and disagreeing on any one they are *not*.
+
+**Where it stops, and it stops hard.** The derived-**wild** LNAs, which are the
+majority and are growing: 733 of 1430 at `n = 9`, 4052 of 4862 at `n = 10`, 15282
+of 16796 at `n = 11`. Theorem 1.2 says nothing about any of them, and they are
+where the open problem lives — F-046's three merges are all in there, and so is
+the cospectral pair of F-010. What Brüstle does do at the boundary is split those
+wild algebras off from the tame class that shares their Coxeter polynomial: at
+`n = 10`, `T^10 + T^9 + T + 1` is carried by the 321-member tame `D_10` class and
+by `34504030` and `50505000`, and the Euler form separates the first from the
+other two. It says nothing about how those two stand to each other — F-037 has
+that, and they are one class.
+
+Note "non-negative" means **positive semidefinite**, not weakly non-negative; a
+search over the positive cone does not see these.
+
+Reproduce: `bruestle.py` and `bruestle_vs.py` in the sweep's scratchpad. E-040,
+`research/literature/bruestle-derived-tame-tree-algebras.md`.
+
+---
+
+## F-044 — Happel–Seidel's table and our own naming agree, on both halves
+*2026-09-19*
+
+`research/literature/happel-seidel-piecewise-hereditary-nakayama.md` had to be
+written from **secondary sources** — the paper is journal-only and was not
+reachable — so the table in it is at second hand, and a table at second hand that
+nothing checks is a liability. It checks out, on both halves, by two independent
+routes the repo already had.
+
+The setting is `N(n, r) = kA_n / rad^r`, our `[r] * (n - r) + [0] * (r - 2)`.
+
+**Module type — the rows the table says are derived equivalent to a hereditary
+star `T(a,b,c)`.** Compare `invariants.coxeterKey` of the LNA against
+`treeSearch.treeCoxeterKey` of the star:
+
+| | claimed | |
+|---|---|---|
+| `N_5(3)`, `N_6(4)`, `N_7(5)`, `N_10(8)` | `[2,3,r-1]` | match |
+| `N_6(3)`, `N_9(5)` | `[2,3,r]` | match |
+| `N_7(3)`, `N_8(3)`, `N_8(4)`, `N_9(3)`, `N_10(5)` | as tabulated | match |
+
+**11 of 11 match.** A twelfth row, `N_11(6)` against `T(2,3,8)`, does **not**
+match — and it is not one the table claims; it was invented here as a control, by
+extending the `N_{r+2}` and `N_{r+3}` families to an `N_{r+5}` that the table does
+not have. The table is not over-claiming, and the check has teeth.
+
+**Sheaf type — the rows the table says are piecewise hereditary but derived
+equivalent to a *canonical* algebra, so in no quipu class.** Compare the LNA's
+Coxeter polynomial against `piecewiseHereditary.canonicalWeightType`:
+
+| | Happel–Seidel | ours |
+|---|---|---|
+| `N_9(3)`, `N_9(5)`, `N_9(6)`, `N_9(7)` | `C(2,3,5)` | `(2,3,5)` |
+| `N_9(4)` | `C(2,4,4)` | `(2,4,4)` |
+| `N_10(3)`, `N_10(6)` | `C(2,3,6)` | `(2,3,6)` |
+| `N_10(4)` | `C(2,4,5)` | `(2,4,5)` |
+| `N_11(3)`, `N_11(6)`, `N_11(7)` | `C(2,3,7)` | `(2,3,7)` |
+| `N_8(4)` | `C(2,3,4)` | `(2,3,4)` |
+
+**12 of 12 agree.** And the split between the two halves falls exactly where the
+theory says it must: enumerating every tree of the order against each polynomial,
+a tree exists precisely for the **domestic** weight types (`1/p + 1/q + 1/s > 1`:
+`(2,3,4)`, `(2,3,5)`) and for none of the tubular or wild ones (`(2,4,4)`,
+`(2,3,6)` tubular; `(2,4,5)`, `(2,3,7)` wild). That is the trichotomy
+`piecewiseHereditary` is built on, arrived at from the other end.
+
+**What this is worth.** Two things, and neither is a new merge.
+
+*The summary can be trusted.* Twelve published weight types and eleven published
+tree types, none of which came from this codebase, reproduced by it.
+
+*`canonicalWeightType` can be trusted.* It is the step of the pipeline with the
+least independent support — a positive identification made from a Coxeter
+polynomial, which is not a complete invariant — and this is the first time its
+output has been checked against values published by someone else. Twelve for
+twelve.
+
+**What it is not.** No row here is a class the pipeline could not already name;
+`N(n,r)` is a radical power, and the classification names those already. The
+value is the audit, not the coverage. And the agreement is on Coxeter
+polynomials, so it inherits their weakness: it confirms that we and Happel–Seidel
+compute the same invariant and read it the same way, not that either reading is a
+proof.
+
+Reproduce: the two comparisons are in E-040.
+`research/literature/happel-seidel-piecewise-hereditary-nakayama.md`.
+
+---
+
+## F-043 — The literature's radical-power merge is already in the move table
+*2026-09-19*
+
+arXiv:2302.02880 (Ueda) proves a triangle equivalence `per N(n, l+1) -> per N(n, l)`
+for the radical-power Nakayama algebras `N(n, l) = kA_n / rad^l`, whenever
+`n = p(p+1)q + p(p-1)r` and `l = (p+1)q + pr` for integers `p >= 2`, `q >= 1` and
+`r >= 0` (or `p = 2` and `r` a half-integer). In our notation `N(n, l)` is the LNA
+`[l] * (n - l) + [0] * (l - 2)`, so this is a statement about a thin but infinite
+family of the rows we classify, and it is the only merge *between different
+relation lengths* that any paper hands us outright.
+
+**Every instance of it at `n <= 16` is joined by the moves we already have**, and
+without needing the free move: 15 parameter triples fall in range, and for each,
+`freeMoves.movesJoin(n, N(n,l), N(n,l+1), free = False)` finds a row both orbits
+reach, checked from both ends with `orbitOf(..., target = meet)`.
+
+**Which move does it matters, and the answer is not the rule table.** Asked with
+each move set in turn, at every instance from `n = 10` up:
+
+| | `n = 10` to `16` |
+|---|---|
+| the rule table alone | **no join, at any of them** |
+| table + `edgeMoves` | no join |
+| table + edges + `doubleMutation` | **join, at every one** |
+
+So it is `proposition:doubleMutation` of arXiv:2310.08346 (F-032) that carries
+these, and the table reaches them only below `n = 10`. Anyone re-measuring this
+with `lnaMoves.closureUnderMoves` and the default rules will get "not joined" from
+`n = 10` on and be right; the claim above is about the whole move set.
+
+| | `N(n, l)` | `N(n, l+1)` | they meet at |
+|---|---|---|---|
+| `n = 6` | `3330` | `4400` | `4030` |
+| `n = 8` | `555000` | `660000` | `605000` |
+| `n = 12` | `4444444400` | `5555555000` | `4444555000` |
+| `n = 16` | `10,10,10,10,10,10,0,…` | `11,11,11,11,11,0,…` | `80700558000000` |
+
+(the full run is E-039; `10,10,…` is a comma list because a relation of ten arrows
+has no single digit.)
+
+**Two things this is worth, and one it is not.**
+
+*It is an independent check on the move table.* The table was discovered by
+search and verified against the Coxeter polynomial (R-005); here a published
+theorem, proved by tilting objects and exceptional sequences rather than by
+mutation, predicts 15 specific merges and the table produces all 15. Nothing in
+the derivation of the table knew about Ueda's paper.
+
+*It says where the literature currently sits relative to us.* The most on-target
+merge result found in the sweep is **subsumed** at every length we can compute
+at. Radical-power LNAs are a one-parameter family; the rows that are actually
+open are the ones with relations of several different lengths overlapping, and
+no paper found so far speaks about those.
+
+*It is not evidence that the table is complete.* `N(n, l)` has all its relations
+the same length and packed against the source, which is the easiest shape for the
+moves; F-042 shows that where a cluster sits is what decides reachability, and
+these sit where reachability is easiest.
+
+Reproduce: `ueda2.py` in the merge session's scratchpad, or `movesJoin` on any row
+of the table. E-039, `research/literature/2302.02880-ueda-derived-equivalences-nakayama.md`.
+
+---
+
 ## F-042 — Where a cluster sits decides it, and no bound on the overlap does
 *2026-09-18*
 

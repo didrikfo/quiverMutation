@@ -1331,6 +1331,44 @@ nothing else, agreeing with the published table.
     query API plus a handful of canned views is probably enough, and a rendered
     page per length beats a live app for something that is regenerated once per
     classification run.
+30. **Use the merges the literature has and we do not.** E-040's sweep found
+    three published derived equivalences between radical-power LNAs at `n = 11`
+    that no move we have makes, and F-046 confirmed them against the full
+    union-find partition: `N_11(3) ≃ N_11(7)`, `N_11(6) ≃ N_11(7)` and
+    `N_11(4) ≃ N_11(5)`, merging four of our orbits into two. Both sides of each
+    are given by a closed form in `(n, r)`, so this is a lookup and not a search.
+    Fold it into `classifyLength`'s seeding the way F-032's double mutation was.
+    Sources: arXiv:2112.15587 Prop. 4.1 and arXiv:2203.15735 Prop. 4.5. Then ask
+    the harder question: these pairs differ in every relation length and are
+    joined by a proof that never mutates, so if there is a *move* behind them the
+    search has never found it -- point `search.meetingPoints` at exactly these
+    pairs and see.
+
+31. **Implement Brüstle's invariant.** F-045: for any LNA whose Euler form is
+    positive semidefinite, `(n, corank, Dynkin type)` decides the derived class
+    outright, two-sidedly, with no search and without looking at the relations.
+    One matrix inverse and one Smith normal form per LNA. It reproduces F-011's
+    tame partition at `n = 9, 10, 11`, merges one pair of our orbits at each of
+    those lengths, and contradicts nothing. It belongs next to
+    `piecewiseHereditary` as a *positive* classifier, and it should run before any
+    search: a tame LNA never needs one. It says nothing about the derived wild
+    majority, which is 15282 of 16796 rows at `n = 11` and is where the problem
+    actually is. `bruestle.py` in E-040's scratchpad is a working implementation
+    to port.
+
+32. **Check the two separators the sweep found, before trusting either.**
+    Both are reported to do what F-010 has wanted since R-008 and neither has been
+    re-verified here. (a) Ladkani, math/0610685 Cor. 3.13: the Cartan matrix up to
+    `Z`-congruence -- equivalently the Coxeter matrix up to `Z`-conjugacy -- is a
+    derived invariant *strictly finer* than the Coxeter polynomial, computed as a
+    Smith normal form of `g(Φ)` per irreducible factor, and reported to split every
+    cospectral quipu group at orders 9 and 10. (b) The periodicity criteria of
+    math/0611201 Thm. 3.4 and arXiv:1310.1557, reported to certify `34504030`,
+    `50505000` and `45050400` at `n = 10`, which our criteria miss and which idea
+    20 wants `lemma:taupathimpliesnotpwh` for. **Verify before implementing**: a
+    naive reading of the second, without its Dynkin exclusion, certified 273 LNAs
+    at `n = 9` including the hereditary line `A_9` itself (E-040).
+
 29. ~~**Spend the depth where it is worth spending.**~~ Done, as
     `search.DeeperWhen`, `merges.py --deeper-on` and `classify.py --deeper-on`:
     a condition on the quivers
