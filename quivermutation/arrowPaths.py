@@ -141,6 +141,12 @@ def combination(terms):
     A pair is told from a bare path by its *second* element: a coefficient is a
     number and an arrow is a tuple, and a bare path of two arrows is itself a
     two-element tuple, so the length cannot decide it.
+
+    The empty tuple is accepted and means the trivial path.  It is a legal path
+    -- `allPathsBetween` returns it at a vertex and it is the identity of the
+    composition -- but never a legal member of a relation, since an admissible
+    ideal does not contain one; `isHomogeneous` says so, and `isInIdeal` raises
+    on it rather than answering.
     """
     if hasattr(terms, "items"):
         terms = terms.items()
@@ -200,11 +206,17 @@ def leftDivide(comb, arrow):
 
     The paper's own notation, and the point of naming arrows: in the vertex
     model this could only be `r` divided by *an* arrow to a given vertex.
+
+    A path of the arrow alone is skipped rather than divided down to the trivial
+    path, as `relationAlgebra.leftDivide` skips it.  An admissible ideal contains
+    no path of length one, so this cannot arise from a reduced algebra; keeping
+    the guard means an unreduced one gives the same answer here as it did before
+    the arrows were named, rather than a relation with a trivial path in it.
     """
     return combination(
         (path[1:], coefficient)
         for path, coefficient in comb.items()
-        if path and path[0] == arrow
+        if len(path) > 1 and path[0] == arrow
     )
 
 
@@ -213,7 +225,7 @@ def rightDivide(comb, arrow):
     return combination(
         (path[:-1], coefficient)
         for path, coefficient in comb.items()
-        if path and path[-1] == arrow
+        if len(path) > 1 and path[-1] == arrow
     )
 
 
@@ -317,15 +329,29 @@ def homDimension(quiver, relations, sourceVertex, targetVertex):
     return len(paths) - rank
 
 
-# -- the cheap count, for the invariant the search compares --------------
+# -- the cheap count, and exactly how far it may be trusted --------------
 #
 # `homDimension` is exact and costs a row reduction per pair of vertices, which
-# is too much for something a search calls at every node.  The cheap count is
-# what `paths.numberOfPathsUpToRels` does, over arrow paths: classes of paths
-# under substituting one side of a two-path relation for the other, and a class
-# is zero when any of its members runs through a one-path relation.  For a
-# monomial ideal that is exact, and every algebra the classification starts from
-# has one.
+# is more than something called at every node of a search would like.  The cheap
+# count is what `paths.numberOfPathsUpToRels` does, over arrow paths: classes of
+# paths under substituting one side of a two-path relation for the other, and a
+# class is zero when any of its members runs through a one-path relation.
+#
+# **It is exact for a monomial ideal and unsound otherwise**, and `isMonomial`
+# below is the test.  A relation of three or more paths is ignored by it
+# altogether -- there is no "identify these" reading of a sum of three paths --
+# and step 4 of the procedure produces one at every vertex with three arrows out.
+# Research F-039 has the case: `34400` at `n = 7` by `[1, 3, 4, 2, 2, 1]` reaches
+# a quiver whose relation `-(1,2,7) + (1,4,7) + (1,6,7) = 0` cuts the span from 1
+# to 7 from three dimensions to two, and the cheap count reads 3.  Two-path
+# relations are counted right dimension by dimension, whatever their
+# coefficients, except where the identifications close a cycle -- three
+# commutativity relations among three parallel paths force one of them to zero
+# and the cheap count does not see it (F-006).
+#
+# So `invariants.integerCartanMatrix`, which is what the search's Coxeter key is
+# read off, takes the cheap route only on a monomial ideal -- which is what every
+# LNA, tree and quipu-with-zero-relations has -- and the exact route otherwise.
 
 def _occurrences(path, piece):
     """Where `piece` sits inside `path` as a contiguous run of arrows."""
@@ -397,13 +423,29 @@ def _classesNotKilled(paths, relations):
     return len(classes - zeroClasses)
 
 
-def cartanMatrix(quiver, relations, exact = False):
+def isMonomial(relations):
+    """Whether every relation is a single path, so the ideal is monomial.
+
+    The condition under which the cheap count is exact: a path is zero exactly
+    when it contains a generator, so counting the paths no generator sits inside
+    is the dimension.  LNAs, trees and quipus with zero relations are all of that
+    kind; a mutation of one is generally not, since steps 4, 5 and 7 all produce
+    relations with more than one path.
+    """
+    return all(len(relation) == 1 for relation in relations)
+
+
+def cartanMatrix(quiver, relations, exact = True):
     """The Cartan matrix as nested lists of ints, vertices sorted.
 
     Entry (j, i) is dim e_j (kQ/I) e_i.  `exact` picks `homDimension` over
-    `homDimensionByClosure`; the two agree on a monomial ideal and the cheap one
-    is what the search can afford.
+    `homDimensionByClosure`; `exact = None` picks the cheap route where it is
+    provably right, which is `isMonomial(relations)`, and the exact one
+    otherwise.  A bare `exact = False` is the cheap route unconditionally and is
+    for measuring what it gets wrong, not for deciding anything.
     """
+    if exact is None:
+        exact = not isMonomial(relations)
     dimension = homDimension if exact else homDimensionByClosure
     vertices = sorted(quiver.nodes)
     index = {vertex: position for position, vertex in enumerate(vertices)}

@@ -92,12 +92,21 @@ def integerCartanMatrix(pathAlg):
     of that kind.
 
     This is the route `coxeterKey` takes, so it is the one a search calls at
-    every node.  It counts arrow paths: a quiver with two arrows `h -> j` has a
-    2 where the vertex-sequence count had a 1.
+    every node, and it is **exact** -- which costs about three times as much as
+    the cheap count and is not optional.  The cheap count is exact on a monomial
+    ideal and unsound otherwise: it has no reading of a relation with three or
+    more paths and ignores it, and step 4 of the procedure makes one at every
+    vertex with three arrows out.  Research F-039 has the case where that moved
+    the key on a quiver the search reaches.  So the route is chosen by
+    `arrowPaths.isMonomial`, cheap where it is provably right and exact where it
+    is not.
+
+    It counts arrow paths either way: a quiver with two arrows `h -> j` has a 2
+    where the vertex-sequence count had a 1.
     """
     from . import procedure
     relations = procedure.relationsFrom(pathAlg)
-    return arrowPaths.cartanMatrix(pathAlg.quiver, relations, exact = False)
+    return arrowPaths.cartanMatrix(pathAlg.quiver, relations, exact = None)
 
 
 def coxeterCoefficients(cartan):

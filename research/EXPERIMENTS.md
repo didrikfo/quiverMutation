@@ -26,6 +26,10 @@ arrows, so a parallel pair can be stated, counted and mutated at.
 * `arrowPaths.homDimensionByClosure` — the cheap count closes the commutativity
   relations to a fixed point, where `paths.numberOfPathsUpToRels` applied each of
   a subset once.
+* `invariants.integerCartanMatrix` — and the key is **exact** wherever the cheap
+  count is not provably right, which is wherever the ideal is not monomial. No
+  closure makes the cheap count see a relation of three or more paths, and step 4
+  produces one at every vertex with three arrows out.
 
 ### 1. The sweep, before and after
 
@@ -36,20 +40,29 @@ start's. One core.
 | | | nodes | wrong key | parallel | clean | lines | seconds |
 |---|---|---|---|---|---|---|---|
 | `n = 6`, depth 5 | before | 14,693 | 4 | 4 | 0 | 1,789 | 28 |
-| | after | 14,701 | **0** | 0 | 0 | 1,789 | 26 |
+| | after | 14,701 | **0** | 0 | 0 | 1,789 | 27 |
 | `n = 7`, depth 5 | before | 94,446 | 79 | 75 | 4 | 7,175 | 254 |
-| | after | 94,498 | **0** | 0 | 0 | 7,175 | 238 |
+| | after | 94,498 | **0** | 0 | 0 | 7,175 | 268 |
+| `n = 7`, depth 6 | before | 336,760 | 339 | 277 | 62 | 20,683 | 866 |
+| | after | 337,360 | **10** | 0 | 10 | 20,683 | 949 |
 
-The node count rises by 8 and 52: a parallel-arrow node is no longer terminal.
-Lines are unchanged, exactly.
+The node count rises by 8, 52 and 600: a parallel-arrow node is no longer
+terminal. Lines are unchanged, exactly, at all three. The cost is 10% at depth 6,
+which is the exact Cartan matrix against the cheap one, and it is not optional.
 
-Two mechanisms, both mis-counts:
+Three mechanisms, all three mis-counts:
 
-* the 4 and 75 *parallel* nodes had the key computed over vertex sequences, so a
-  parallel pair contributed 1 to the Cartan matrix where it contributes 2;
-* the 4 *clean* nodes at `n = 7` are the incomplete closure. The sweep printed
-  the first three: `40030` by `[1, 4, 2, 5, 2]`, by `[1, 2, 4, 5, 2]` and by
-  `[1, 1, 5, 4]`. Replaying `[1, 4, 2, 5, 2]` in both engines gives the **same quiver and
+* the *parallel* nodes -- 4, 75 and 277 of them -- had the key computed over
+  vertex sequences, so a parallel pair contributed 1 to the Cartan matrix where
+  it contributes 2;
+* some *clean* nodes are the incomplete closure. The four at `n = 7` depth 5 are
+  `40030` by `[1, 4, 2, 5, 2]`, by `[1, 2, 4, 5, 2]`, by `[1, 1, 5, 4]` and one
+  more;
+* the rest are relations of three or more paths, which the cheap count has no
+  reading of and ignores, e.g. `34400` by `[1, 3, 4, 2, 2, 1]`.
+
+The ten that survive at depth 6 are **one bad step and its descendants**: all ten
+are reached from `30330` along the `[4, 1, 3, 1, ...]` family. Replaying `[1, 4, 2, 5, 2]` in both engines gives the **same quiver and
   the same `rels`**, and the key holds in one and moves in the other, which is
   what says it is the measurement.
 
@@ -66,13 +79,13 @@ stands and the guard stays.
 
 | | classes | rows | before | after |
 |---|---|---|---|---|
-| `n = 6` | 4 | 42 | 0.3 s | 0.2 s |
-| `n = 7` | 6 | 132 | 1.2 s | 1.2 s |
-| `n = 8` | 11 | 429 | 29.9 s | 28.8 s |
+| `n = 6` | 4 | 42 | 0.3 s | 0.3 s |
+| `n = 7` | 6 | 132 | 1.2 s | 1.3 s |
+| `n = 8` | 11 | 429 | 29.9 s | 33.4 s |
 
-Class for class, size for size, identical at all three. The engine change costs
-nothing measurable: the Cartan matrix does more work per node and the closure
-does less.
+Class for class, size for size, identical at all three, and about 10% dearer --
+the exact Cartan matrix where the ideal is not monomial, against the cheap count
+everywhere.
 
 ### 4. What the region beyond a parallel pair looks like
 

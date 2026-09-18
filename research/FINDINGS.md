@@ -41,13 +41,18 @@ runs through the mutated vertex on one side only, so afterwards its two paths us
 the two *different* arrows `1 -> 6` — and as vertex sequences they read alike and
 the relation collapsed to nothing.
 
-### 2. The cheap path count did not close the commutativity relations
+### 2. The cheap path count was wrong in two further ways, both about relations
 
-Independent of parallel arrows. `paths.numberOfPathsUpToRels` identifies paths by
-applying each of a subset of the two-path relations once, in every order, and
-comparing canonical forms. That is not the closure, and a path that is zero only
-through a **chain** of identifications was counted as nonzero.
+Independent of parallel arrows, and the reason the *other* column of F-038's
+table is not what it says either. The Coxeter key is read off
+`invariants.integerCartanMatrix`, which counted paths rather than taking the rank
+of the ideal, because a search calls it at every node and the exact route costs
+about three times as much.
 
+**It did not close the commutativity relations.** `paths.numberOfPathsUpToRels`
+identifies paths by applying each of a subset of the two-path relations once, in
+every order, and comparing canonical forms. That is not the closure, and a path
+that is zero only through a **chain** of identifications was counted as nonzero.
 From `40030` at `n = 7` by `[1, 4, 2, 5, 2]` — acyclic, no parallel arrows, one
 of the four nodes F-038 called "clean" at that depth:
 
@@ -55,9 +60,32 @@ of the four nodes F-038 called "clean" at that depth:
                ~  1,6,2,7     by  6,2,5,7 = 6,2,7
                ~  1,4,2,7     by  1,4,2 = 1,6,2   = 0  by  4,2,7 = 0
 
-so `dim e_7 A e_1 = 0` and the old count said 1. `arrowPaths.homDimensionByClosure`
-takes the closure to a fixed point and agrees with the exact answer, which is the
-rank over the ideal.
+so `dim e_7 A e_1 = 0` and the old count said 1.
+`arrowPaths.homDimensionByClosure` takes the closure to a fixed point and agrees
+with the exact answer here.
+
+**And it has no reading of a relation with three or more paths at all.** A
+one-path relation is "this is zero" and a two-path relation is "these two are the
+same"; a *sum of three* is neither, and both the old count and the new closure
+ignore it outright. **Step 4 of the procedure produces one at every vertex with
+three arrows out**, so this is not exotic. From `34400` at `n = 7` by
+`[1, 3, 4, 2, 2, 1]`:
+
+    arrows      (1,2) (1,4) (1,6) (2,7) (3,1) (4,7) (5,1) (6,7)
+    relations   -(1,2,7) + (1,4,7) + (1,6,7) = 0,   (3,1,6) = 0,   (5,1,2) = 0
+
+The three paths `1 ~~> 7` span two dimensions, not three. The cheap count reads
+3, the key moves from `(1, 1, 0, -2, -2, 0, 1, 1)` to
+`(1, -1, -4, -8, -8, -4, -1, 1)`, and the rank over the ideal gives the starting
+key back. **No amount of closure fixes this**, and it is the bulk of what F-038
+counted as "clean" at `n = 7` depth 6.
+
+**So the key is exact now, except where the cheap route is provably right.**
+`arrowPaths.isMonomial` is the condition: with every relation a single path, a
+path is zero exactly when it contains a generator and counting is the dimension.
+Every LNA, every tree and every quipu with zero relations is of that kind, so the
+seeds and the recorded answers still take the cheap route; a mutated quiver
+generally is not, and takes the rank.
 
 ### 3. What the two fixes do to the sweep
 
@@ -70,10 +98,16 @@ region is visible, `coxeterKey` compared at every node:
 | | after | 14,701 | **0** | 0 | 0 | 1,789 |
 | `n = 7`, depth 5 | before | 94,446 | 79 | 75 | 4 | 7,175 |
 | | after | 94,498 | **0** | 0 | 0 | 7,175 |
+| `n = 7`, depth 6 | before | 336,760 | 339 | 277 | 62 | 20,683 |
+| | after | 337,360 | **10** | 0 | 10 | 20,683 |
 
-The node count *rises*, by 8 and 52, because a parallel-arrow node is no longer
-terminal and the search descends from it. **Not one line is lost or gained** at
-either length, which is the acceptance test F-038's own fix was judged by.
+The node count *rises*, by 8, 52 and 600, because a parallel-arrow node is no
+longer terminal and the search descends from it. **Not one line is lost or gained**
+at any of the three, which is the acceptance test F-038's own fix was judged by.
+
+The ten that survive at depth 6 are one bad step and its descendants: every one
+is reached from `30330`, the relation dual of `33030`, along the `[4, 1, 3, 1, …]`
+family of paths, and they are section 4.
 
 (F-038's table counts 25,398 nodes and 3,263 lines at `n = 6` depth 5 against
 14,693 and 1,789 here; that sweep searched each LNA *and its relation dual*, this
@@ -96,8 +130,9 @@ so it is the algebra that changed and not the measurement:
 
 So R-012 stands and `coxeterGuard` stays on: the criterion still rules mutation
 out rather than in, and a step it admits can still fail to be a derived
-equivalence. What changes is how much of the corrupt region is real — at these
-two lengths and depth 5, none of it was.
+equivalence. What changes is **how much** of the corrupt region is real: none of
+it at `n = 6` and `n = 7` to depth 5, and at `n = 7` depth 6 ten nodes out of 339,
+all of them this one step and what follows it.
 
 ### 5. What was fixed, in the code
 

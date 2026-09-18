@@ -288,23 +288,42 @@ def test_the_projection_of_a_parallel_relation_cannot_be_read_back():
         ap.lift(algebra.quiver, algebra.rels)
 
 
+def test_the_cheap_count_has_no_reading_of_a_three_path_relation():
+    """Which is why the search's key is exact off a monomial ideal.
+
+    `34400` at `n = 7` by `[1, 3, 4, 2, 2, 1]` reaches a quiver carrying
+    `-(1,2,7) + (1,4,7) + (1,6,7) = 0` -- step 4 at a vertex with three arrows
+    out.  That relation cuts the span of the paths `1 ~~> 7` from three
+    dimensions to two.  The cheap count collects one-path relations as zeros and
+    two-path relations as identifications, and has nothing to do with a sum of
+    three, so it ignores it and reads 3; the key then moves, which is one of the
+    nodes F-038 called "clean" at `n = 7` depth 6.
+    """
+    algebra = walk(nk.LinearNakayamaAlgebra(7, "34400"), [1, 3, 4, 2, 2, 1])
+    assert algebra.rels == [[[1, 2, 7], [1, 4, 7], [1, 6, 7]], [[3, 1, 6]], [[5, 1, 2]]]
+    relations = pr.relationsFrom(algebra)
+    assert not ap.isMonomial(relations)
+    assert ap.homDimensionByClosure(algebra.quiver, relations, 1, 7) == 3
+    assert ap.homDimension(algebra.quiver, relations, 1, 7) == 2
+    assert inv.coxeterKey(algebra) == inv.coxeterKey(nk.LinearNakayamaAlgebra(7, "34400"))
+
+
 @pytest.mark.slow
 @pytest.mark.parametrize("length, depth", [(6, 4), (7, 3)])
-def test_the_cheap_count_agrees_with_the_exact_one_everywhere_a_walk_goes(length, depth):
-    """The cheap count is what the search compares, so it had better be right.
+def test_the_cheap_count_is_exact_where_the_key_takes_it(length, depth):
+    """The cheap route is taken exactly on a monomial ideal, where it is right.
 
-    `homDimensionByClosure` counts classes of arrow paths under the commutativity
-    relations and drops a class with a zero member; `homDimension` takes the rank
-    of the ideal.  The first is exact for a monomial ideal and an upper bound in
-    general, and the whole search rests on it agreeing with the second on what an
-    LNA walk reaches -- 4,872 nodes at `n = 6` to depth 4, two of them with
-    parallel arrows, no disagreement (E-035).
+    `isMonomial` is the condition, and the point of the sweep is that it is the
+    *right* condition: on every node of an LNA walk whose relations are all
+    single paths, the cheap count and the rank over the ideal agree.
     """
-    nodes = [0]
+    monomial = [0]
 
     def visitor(pathAlg, path):
-        nodes[0] += 1
         relations = pr.relationsFrom(pathAlg)
+        if not ap.isMonomial(relations):
+            return
+        monomial[0] += 1
         assert (ap.cartanMatrix(pathAlg.quiver, relations, exact = False)
                 == ap.cartanMatrix(pathAlg.quiver, relations, exact = True)), (
                     sorted(pathAlg.quiver.edges(keys = True)), pathAlg.rels, path)
@@ -312,7 +331,7 @@ def test_the_cheap_count_agrees_with_the_exact_one_everywhere_a_walk_goes(length
     for algebra in nk.LinearNakayamaAlgebra.allOfLength(length):
         search.mutationSearchDepthFirst(algebra, depth, printOutput = False,
                                         visitor = visitor)
-    assert nodes[0] > 100
+    assert monomial[0] > 100
 
 
 def test_the_search_walks_through_a_parallel_arrow_quiver():

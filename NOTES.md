@@ -130,7 +130,11 @@ measurements; in short:
 * *The invariant was misread.* Two parallel arrows are two paths and the Cartan
   matrix entry is 2; counting vertex sequences gave 1, so the Coxeter polynomial
   of every quiver with a parallel pair was wrong. The smallest case is the
-  Kronecker quiver, whose polynomial came out as that of `A_2`.
+  Kronecker quiver, whose polynomial came out as that of `A_2`. (Two further
+  mis-counts turned up alongside it, neither about parallel arrows: the cheap
+  path count did not close the commutativity relations to a fixed point, and it
+  ignores a relation of three or more paths outright. The Coxeter key is exact
+  now except on a monomial ideal, where the cheap count is provably right.)
 * *The gate refused them.* `isMutable` rejected every vertex of a quiver with a
   parallel pair anywhere, so such a node was terminal and everything beyond it
   unreachable. It was honest about being a restriction of the model rather than
@@ -821,14 +825,20 @@ back round to a line at n = 10 depth 8 and gets reported as a class member —
 the ALARM of E-032.
 
 **Most of that measurement was of the key, not of the mutation** (F-039, later
-the same day). The Coxeter key was being computed two ways wrongly: a parallel
-pair of arrows counted as one path, and the cheap path count did not close the
-commutativity relations to a fixed point. With both corrected, **nothing** at
-n = 6 or n = 7 to depth 5 leaves the class with the guard off, where before there
-were 4 and 79 such nodes. What survives is real — the relation dual of `33030` by
-`[4, 1, 3, 1, 3, 3]` still moves the key, and the cheap and exact matrices agree
-there — so the guard stays on and R-012 stands. The lesson is R-013's: a node
-nobody descends from is a node nobody checks.
+the same day). The Coxeter key was being computed three ways wrongly: a parallel
+pair of arrows counted as one path; the cheap path count did not close the
+commutativity relations to a fixed point; and it has no reading of a relation
+with three or more paths, which step 4 produces at every vertex with three
+arrows out. With all three corrected, **nothing** at n = 6 or n = 7 to depth 5
+leaves the class with the guard off, where before there were 4 and 79 such
+nodes, and at n = 7 depth 6 ten nodes remain out of 339 — one bad step and its
+descendants, from `30330` along `[4, 1, 3, 1, …]`. That one is real, so the
+guard stays on and R-012 stands. The lesson is R-013's: a node nobody descends
+from is a node nobody checks.
+
+The key is exact now wherever the cheap count is not provably right, which is
+wherever the ideal is not monomial (`arrowPaths.isMonomial`). It costs about 10%
+on a classification and on a deep search.
 
 `mutationSearchDepthFirst(..., coxeterGuard = True)` is now the default and
 refuses any step whose `coxeterKey` differs from the start's. It costs **1.85×**
