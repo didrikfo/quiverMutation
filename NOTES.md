@@ -166,9 +166,12 @@ nothing else. `procedure._inOldQuiver`.
   and is research H-016. At n = 6 and n = 7 to depth 6 the search reaches exactly
   the same LNAs whether the gate allows parallel arrows or refuses them — a weak
   negative, since those lengths need no search at all and returning from the
-  region costs more depth than was searched. The test that would settle it is
-  n = 9 or n = 10 at depth 8, against H-013's leftover orbits. Do not re-run it
-  at n <= 8.
+  region costs more depth than was searched. Do not re-run it at n <= 8.
+  **At n = 9 it is now a strong negative**: exactly one of the nine leftover
+  members reaches the region at all, and walking it nine mutations in reaches
+  nothing but its own relation dual (E-036). That member is alone in its Coxeter
+  polynomial group, so it could never have shown a merge between leftovers; what
+  is left is n = 10 and n = 11, where those groups have several orbits each.
 * **No canonical form for a quiver with parallel arrows.** Arrow keys are handed
   out deterministically within one mutation, so the same mutation twice gives the
   same algebra; but two algebras reached by *different* routes are compared by

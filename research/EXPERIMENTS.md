@@ -7,7 +7,7 @@ nothing, which are recorded precisely so they are not repeated. See
 ---
 
 ## E-036 — What conditional deeper probing costs, and what it reaches at n = 9
-*2026-09-18* · **the parallel-arrow region is reached by exactly one of the nine leftover members at n = 9, and giving its branches two more mutations costs 2-4% of the run and gains nothing to depth 5** → H-016
+*2026-09-18* · **the parallel-arrow region is reached by exactly one of the nine leftover members at n = 9; giving its branches two more mutations costs 2-4% of the run, and nine mutations into the region it still reaches nothing but its own dual** → H-016
 
 A depth-bounded search gives every branch the same budget. `search.DeeperWhen`
 gives extra mutations to the branches that reach a quiver meeting a condition,
@@ -65,6 +65,37 @@ practice, which is the practical answer — the two-pass route's advantage is th
 the count of firings is visible before the second round is paid for, not that it
 reaches more.
 
+### 3. The one member that reaches the region, pushed to depth 9 inside it
+
+`3033030` is the only member of either leftover orbit whose walk ever reaches a
+quiver with parallel arrows, so it is the whole of the `n = 9` test and it is
+cheap. From it and its relation dual, plain against `parallel-arrows:2`:
+
+| depth | firings | grants | deepest firing | reaches | seconds |
+|---|---|---|---|---|---|
+| 6 | — | — | — | itself | 98s |
+| 6 + 2 | 4322 | 154 | 8 | itself | 221s |
+| 7 | — | — | — | itself | 350s |
+| 7 + 2 | 29122 | 826 | 9 | itself | 1200s |
+
+The four ran together on four cores and the last two shared the machine with a
+test run, so the seconds are an upper bound and the ratio between them is the
+part worth reading.
+
+"Deepest firing" is the length of the longest mutation path at which the
+condition still held, so the last row walked **nine** mutations into the region.
+It reaches nothing but its own relation dual, which is what depth 5 already
+reached.
+
+This is the `n = 9` half of what H-016 asks for, and past the depth it asks for.
+It does not settle H-016: `3033030` is alone in its Coxeter polynomial group, so
+the only thing it *could* show is a leftover turning out to be in a quipu class,
+and one member at one length is not the hypothesis. `n = 10` and `n = 11`, where
+H-013's leftover orbits sit, have not been looked at this way. But it is a
+negative at a depth and a length E-035 could not reach, and it cost 20 minutes
+on one core rather than the run over every member that a uniform depth 9 would
+have been.
+
 ### Reproducing
 
 Section 1 is `merges.py 9 --depths 4 5 --all-groups` run twice, once with
@@ -76,6 +107,9 @@ probed search or the other way round.
 Section 2 is the computation of
 `tests/test_deeper_probing.py::test_recording_and_searching_again_contains_deepening_in_one_pass`
 at the four settings in the table.
+
+Section 3 is `merges.searchFrom((9, (3, 0, 3, 3, 0, 3, 0), depth, spec))` for
+each row.
 
 ---
 

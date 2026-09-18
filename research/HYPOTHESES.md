@@ -7,7 +7,7 @@ it. Status is one of `OPEN`, `SUPPORTED`, `CONFIRMED → F-nnn`, `REFUTED → R-
 ---
 
 ## H-016 — Walking through a parallel-arrow quiver reaches a merge nothing else does
-*2026-09-18* · **OPEN** *(no gain at n ≤ 7 to depth 6, which is where a gain could not show anyway — E-035; no gain at n = 9 to depth 5, where one member of nine reaches the region at all — E-036)*
+*2026-09-18* · **OPEN** *(no gain at n ≤ 7 to depth 6, which is where a gain could not show anyway — E-035; at n = 9 one member of nine reaches the region at all, and it reaches nothing new nine mutations into it — E-036)*
 
 The procedure produces quivers with parallel arrows and, since F-039, the engine
 can state them, the gate admits them and the Coxeter key over them is right. So
@@ -65,6 +65,21 @@ only member that enters the region, the depth-8 run this hypothesis asks for is 
 run of *one* member, not of nine -- which is what makes it affordable. `n = 10`
 and `n = 11` have not been looked at this way and are where the leftover orbits
 are that H-013 cares about.
+
+**That run has since been made, and it is a negative.** `3033030` from itself and
+its dual at depth 7 with two extra mutations for the region: 29122 firings, 826
+grants, the condition still holding **nine** mutations in, and the only LNA
+reached is its own relation dual -- which depth 5 already reached. Twenty minutes
+on one core. Depth 6 + 2 is the same answer (E-036).
+
+So the `n = 9` half is done, past the depth this hypothesis asked for, and the
+region is a detour there. What it does **not** do is settle the hypothesis:
+`3033030` is alone in its Coxeter polynomial group, so the only outcome it could
+ever have shown is a leftover turning out to be in a quipu class, and one member
+at one length is not the claim. **What is left is `n = 10` and `n = 11`**, where
+H-013's leftover orbits sit several to a polynomial group and a merge between two
+of them is a thing the search can actually find. Find which of their members
+reach the region first -- if it is again a handful, the run is again cheap.
 
 ---
 
