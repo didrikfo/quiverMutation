@@ -26,7 +26,10 @@ def test_a_finished_run_leaves_a_progress_record(tmp_path, monkeypatch):
     quiet(qm.classifyLength, 6, 6, 6, None, False)
 
     recorded = json.loads((tmp_path / "A_6_mutation_classes.progress.json").read_text())
-    assert set(recorded) == {"named", "resolved"}
+    assert set(recorded) == {"named", "resolved", "condition"}
+    # '' is "no deeper probing", which is what a resume compares against: a run
+    # under a condition cannot skip what a plain run recorded.
+    assert recorded["condition"] == ""
 
 
 def test_a_budget_stops_the_run_with_everything_on_disk(tmp_path, monkeypatch):
@@ -151,7 +154,7 @@ def test_a_corrupt_progress_file_only_costs_a_redo(tmp_path):
     """A half-written record must not stop a resume."""
     fileName = str(tmp_path / "A_6_mutation_classes.csv")
     (tmp_path / "A_6_mutation_classes.progress.json").write_text('{"named": {"x"')
-    assert qm.readProgress(fileName) == {"named": {}, "resolved": {}}
+    assert qm.readProgress(fileName) == {"named": {}, "resolved": {}, "condition": ""}
 
 
 def test_the_progress_file_is_written_atomically(tmp_path):

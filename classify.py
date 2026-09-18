@@ -3,6 +3,7 @@
 
     python classify.py 8
     python classify.py 8 --depth 6 --out A_8.csv
+    python classify.py 10 --deeper-on parallel-arrows:3
 
 Writes a CSV (and a parquet alongside it) with one row per LNA, giving the class
 it belongs to, the mutation path from the class representative, its Coxeter
@@ -71,6 +72,27 @@ def write_sightings(sightings, fileName):
     return counts
 
 
+def report_probing(deeperWhen):
+    """What the deeper probing did, which is the only record it leaves.
+
+    A run that granted nothing searched exactly what a plain run would have, and
+    saying so is the point: it is the difference between "the condition found
+    nothing" and "the condition never fired".
+    """
+    counts = deeperWhen.summarise()
+    print()
+    print("deeper probing on {0}: fired at {1} node(s), bought depth at {2}, "
+          "{3} extra mutation(s) in all".format(
+              counts["condition"], counts["firings"], counts["grants"],
+              counts["depthGranted"]))
+    if counts["firings"]:
+        print("  shallowest firing {0} mutation(s) in, deepest {1}".format(
+            counts["shallowest"], counts["deepest"]))
+    else:
+        print("  the condition never held, so this run searched what a plain one would")
+    return counts
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -107,6 +129,14 @@ def main(argv=None):
                              "already pass through them and throw all but the first "
                              "away. Expect trees, and mostly quipus -- anything else "
                              "is worth looking at.")
+    parser.add_argument("--deeper-on", default=None, dest="deeper_on", metavar="SPEC",
+                        help="condition[:extraDepth[:budget[:limit]]] -- give the branches "
+                             "that reach a quiver meeting the condition extra mutations, "
+                             "and no others. Applies to all three searching steps. "
+                             "Conditions: " + ", ".join(sorted(se.DEEPER_CONDITIONS)) + ". "
+                             "A probed run is not a plain run at the same depth, so "
+                             "--resume redoes what an earlier run did under a different "
+                             "condition rather than skipping it.")
     parser.add_argument("--collisions", action="store_true",
                         help="do not classify; just report which classes of this order the "
                              "Coxeter polynomial cannot separate, which is cheap and needs "
@@ -115,6 +145,11 @@ def main(argv=None):
 
     if args.collisions:
         return report_collisions(args.length)
+
+    try:
+        deeperWhen = se.deeperWhenFromSpec(args.deeper_on) if args.deeper_on else None
+    except ValueError as bad:
+        parser.error(str(bad))
 
     if args.length < 2:
         parser.error("a line quiver needs at least 2 vertices")
@@ -125,9 +160,12 @@ def main(argv=None):
         table, report = qm.classifyLength(
             args.length, args.depth, args.resolve_depth, args.out,
             printOutput=not args.quiet, resume=args.resume, formDepth=args.form_depth,
-            budgetSeconds=None if args.budget_hours is None else args.budget_hours * 3600)
+            budgetSeconds=None if args.budget_hours is None else args.budget_hours * 3600,
+            deeperWhen=deeperWhen)
     if sightings is not None:
         write_sightings(sightings, args.sightings)
+    if deeperWhen is not None:
+        report_probing(deeperWhen)
 
     sizes = collections.Counter(row[1] for row in table.rows() if row[1])
     unplaced = sum(1 for row in table.rows() if not row[1])

@@ -322,7 +322,14 @@ not equally interesting.** `search.DeeperWhen(condition, extraDepth, budget)`
 gives extra mutations to the branches that reach a quiver meeting a condition and
 to no others. The condition is asked at every node, and `search.DEEPER_CONDITIONS`
 names the ones a command line can ask for: `parallel-arrows`, `no-relations`,
-`oriented-cycle`. `merges.py --deeper-on parallel-arrows:3` is the intended use.
+`oriented-cycle`. Both long-running scripts take it: `merges.py --deeper-on
+parallel-arrows:3`, which is the merge hunt it was built for, and
+`classify.py --deeper-on parallel-arrows:3`, where one probe is shared by all
+three searching steps — the main pass, the resolve step, and the hereditary-form
+search under `--form-depth` — so its `limit` and its firing count are the run's
+rather than one step's. `classify.py` prints what the probe did at the end,
+including when it never fired, which is the difference between "the condition
+found nothing" and "the condition never held".
 
 **The budget is the whole safety argument.** A grant renewed at every node where
 the condition held would not terminate — parallel arrows beget parallel arrows,
@@ -355,10 +362,15 @@ does not descend from a cyclic quiver at all, so a node where that fires has no
 children to spend the grant on. It is registered for counting how often the walk
 walks into one, and `hasOrientedCycle` says so.
 
-**A probed run is not a plain run at the same depth**, so `merges.py` writes the
-condition into each checkpoint record and only counts a record as covering a
-member when the condition matches. A link found is a link whatever found it, so
-the unions take every record either way.
+**A probed run is not a plain run at the same depth**, so both scripts record
+the condition and neither lets one run's work stand for the other's.
+`merges.py` writes it into each checkpoint record and only counts a record as
+covering a member when the condition matches — a link found is a link whatever
+found it, so the unions take every record either way. `classify.py` records it
+once for the whole run, since a probe is asked for once for a whole run: a
+`--resume` under a different condition drops the records that would let the
+resolve and naming steps be skipped, and keeps the table, because a row placed
+is placed whatever placed it.
 
 ## Verified against the papers
 
@@ -1320,7 +1332,8 @@ nothing else, agreeing with the published table.
     page per length beats a live app for something that is regenerated once per
     classification run.
 29. ~~**Spend the depth where it is worth spending.**~~ Done, as
-    `search.DeeperWhen` and `merges.py --deeper-on`: a condition on the quivers
+    `search.DeeperWhen`, `merges.py --deeper-on` and `classify.py --deeper-on`:
+    a condition on the quivers
     the walk passes through, and extra mutations for the branches that meet it.
     A per-branch budget is what keeps it finite. See "Conditional deeper probing"
     above. The condition this was built for is `parallel-arrows`, which is the

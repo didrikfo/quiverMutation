@@ -205,10 +205,13 @@ def main(argv = None):
                                "that reach a quiver meeting the condition extra depth. "
                                "Conditions: " + ", ".join(sorted(search.DEEPER_CONDITIONS)))
     args = parser.parse_args(argv)
-    deeperSpec = args.deeperOn or ''
-    if deeperSpec:
-        # Fail here rather than in a worker, where the traceback is a pool's.
-        search.deeperWhenFromSpec(deeperSpec)
+    deeperSpec = ''
+    if args.deeperOn:
+        # Built here rather than only in a worker, so a bad spec fails with its
+        # own message instead of a pool's traceback, and normalised so that
+        # `parallel-arrows` and `parallel-arrows:2` are one entry in the
+        # checkpoint rather than two names for the same search.
+        deeperSpec = search.deeperWhenFromSpec(args.deeperOn).spec()
 
     keepAwake()
     length = args.length

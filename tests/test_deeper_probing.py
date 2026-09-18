@@ -253,3 +253,51 @@ def test_the_summary_is_what_a_run_prints():
     assert summary['firings'] == len(probe.firings)
     assert summary['depthGranted'] == 2 * summary['grants']
     assert summary['shallowest'] <= summary['deepest']
+
+
+# -- the classification pipeline ------------------------------------------
+
+def test_the_spec_round_trips_for_a_registered_condition():
+    """What a checkpoint stores has to name the same search when it is read."""
+    for spec in ['parallel-arrows:2:2', 'parallel-arrows:3:6', 'no-relations:1:4:50']:
+        assert search.deeperWhenFromSpec(spec).spec() == spec
+    # A shorthand normalises, so one search is one entry rather than two names.
+    assert search.deeperWhenFromSpec('parallel-arrows').spec() == 'parallel-arrows:2:2'
+    # A condition of one's own is named but cannot be read back; the docstring
+    # says so, and this is what it means.
+    own = search.DeeperWhen(lambda pathAlg: True, extraDepth = 1, name = 'mine')
+    assert own.spec() == 'mine:1:1'
+    with pytest.raises(ValueError):
+        search.deeperWhenFromSpec(own.spec())
+
+
+def test_a_resume_under_a_different_condition_redoes_rather_than_skips(tmp_path, monkeypatch):
+    """A probed run is not the plain run at the same depth, so its records are not.
+
+    The table is kept either way -- a row placed is placed, whatever placed it --
+    and only the records that would let a step be skipped are dropped.
+    """
+    import quivermutation as qm
+    from helpers import quiet
+
+    monkeypatch.chdir(tmp_path)
+    quiet(qm.classifyLength, 6, 6, 6, None, False)
+    fileName = "A_6_mutation_classes.csv"
+
+    fabricated = {'named': {'someClass': 99}, 'resolved': {'other': [6, 1]}, 'condition': ''}
+    qm.writeProgress(fileName, dict(fabricated))
+    quiet(qm.classifyLength, 6, 6, 6, None, False, True)
+    kept = qm.readProgress(fileName)
+    assert kept['named'] == fabricated['named'], "a plain resume should keep them"
+    assert kept['resolved'] == fabricated['resolved']
+
+    qm.writeProgress(fileName, dict(fabricated))
+    probe = search.DeeperWhen(search.hasParallelArrows, extraDepth = 2)
+    quiet(qm.classifyLength, 6, 6, 6, None, False, True, deeperWhen = probe)
+    dropped = qm.readProgress(fileName)
+    assert dropped['named'] == {}, "the records of a plain run were reused"
+    assert dropped['resolved'] == {}
+    assert dropped['condition'] == probe.spec()
+    # And the rows are all still placed: the table is not what was dropped.
+    table = qm.mutationClassTable.MutationClassTable.fromCSV(fileName, 6)
+    assert not table.unassignedRelationStrings()

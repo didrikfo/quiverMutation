@@ -221,6 +221,21 @@ class DeeperWhen:
             self.grants += 1
         return depth + allowed, spent + allowed
 
+    def spec(self):
+        """The `deeperWhenFromSpec` string for this probe.
+
+        What a checkpoint records, so that a run resumed under a *different*
+        condition does not skip the work the condition would have changed.  It
+        round-trips only for a registered condition -- a probe built around a
+        function of one's own has that function's name here and
+        `deeperWhenFromSpec` will not know it, which is a reason to keep
+        `DEEPER_CONDITIONS` the vocabulary a long run is asked for in.
+        """
+        fields = [self.name, str(self.extraDepth), str(self.budget)]
+        if self.limit is not None:
+            fields.append(str(self.limit))
+        return ':'.join(fields)
+
     def summarise(self):
         """What a run's firings came to."""
         return {
@@ -433,7 +448,7 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
     return
 
 
-def hereditaryFormsReachedFrom(pathAlg, depth):
+def hereditaryFormsReachedFrom(pathAlg, depth, deeperWhen = None):
     """The hereditary algebras reachable from pathAlg within `depth` mutations.
 
     Returns a dict mapping the canonical form of the underlying undirected graph
@@ -443,7 +458,8 @@ def hereditaryFormsReachedFrom(pathAlg, depth):
     """
     found = []
     mutationSearchDepthFirst(pathAlg, depth, [], 'hereditary', printOutput = False,
-                             collected = None, collectedHereditary = found)
+                             collected = None, collectedHereditary = found,
+                             deeperWhen = deeperWhen)
     forms = {}
     for canonical, quipu, path in found:
         if canonical not in forms or len(path) < len(forms[canonical][1]):
@@ -451,7 +467,8 @@ def hereditaryFormsReachedFrom(pathAlg, depth):
     return forms
 
 
-def findHereditaryFormForClass(table, lineLength, className, maxDepth = 8, printOutput = False):
+def findHereditaryFormForClass(table, lineLength, className, maxDepth = 8, printOutput = False,
+                               deeperWhen = None):
     """Search the members of one class for a relation-free quiver.
 
     Iterative deepening from each member in turn, returning as soon as any
@@ -475,7 +492,7 @@ def findHereditaryFormForClass(table, lineLength, className, maxDepth = 8, print
     for depth in range(2, maxDepth + 1):
         for relationString in members:
             for startPoint in memberAndItsDual(lineLength, relationString):
-                forms = hereditaryFormsReachedFrom(startPoint, depth)
+                forms = hereditaryFormsReachedFrom(startPoint, depth, deeperWhen)
                 if forms:
                     if printOutput:
                         print('class {0} reaches {1} at depth {2} from {3!r}'.format(

@@ -354,8 +354,12 @@ def readProgress(fileName):
 
     A sidecar that is missing, unreadable or malformed is treated as empty: the
     steps it would have let us skip are merely redone, which is never wrong.
+
+    `condition` is the deeper-probing condition the recorded work was done under,
+    '' for none.  It is the run's, not a class', because a probe is asked for
+    once for a whole run.
     """
-    empty = {'named': {}, 'resolved': {}}
+    empty = {'named': {}, 'resolved': {}, 'condition': ''}
     path = progressPathFor(fileName)
     if not os.path.exists(path):
         return empty
@@ -366,10 +370,16 @@ def readProgress(fileName):
         return empty
     if not isinstance(stored, dict):
         return empty
-    for key in empty:
+    for key in ('named', 'resolved'):
         value = stored.get(key)
         if isinstance(value, dict):
             empty[key] = value
+    # A sidecar written before `deeperWhen` existed has no condition, which reads
+    # as '' -- the same as a plain run, so such a record keeps skipping exactly
+    # what it used to skip.
+    condition = stored.get('condition')
+    if isinstance(condition, str):
+        empty['condition'] = condition
     return empty
 
 
@@ -384,6 +394,11 @@ def writeProgress(fileName, progress):
     with open(temporary, 'w') as f:
         json.dump(progress, f, indent = 2, sort_keys = True)
     os.replace(temporary, path)
+
+
+def _conditionOf(deeperWhen):
+    """The spec string a progress record stores for a probe, or '' for none."""
+    return '' if deeperWhen is None else deeperWhen.spec()
 
 
 def _checkpoint(table, fileName, progress):
@@ -419,7 +434,7 @@ def _outOfTime(deadline, printOutput, step, state = None):
 
 def nameRemainingClasses(table, lineLength, maxDepth = 0, printOutput = True,
                          fileName = None, progress = None, deadline = None,
-                         state = None):
+                         state = None, deeperWhen = None):
     """Name what `nameClassesFromTheorem` and the merge resolution left over.
 
     In order:
@@ -453,7 +468,9 @@ def nameRemainingClasses(table, lineLength, maxDepth = 0, printOutput = True,
             continue
         # Skip a class this or an earlier run already went through, unless its
         # membership has changed since -- a new member can carry a form the
-        # class did not have.
+        # class did not have.  A run under a different deeper-probing condition
+        # is a different search, and `classifyLength` clears these records
+        # wholesale rather than each step having to ask.
         if alreadyNamed.get(className) == len(rows):
             continue
         if _outOfTime(deadline, printOutput, 'the naming step', state):
@@ -462,7 +479,8 @@ def nameRemainingClasses(table, lineLength, maxDepth = 0, printOutput = True,
         source = ''
         if maxDepth > 0:
             form = search.findHereditaryFormForClass(
-                table, lineLength, className, maxDepth, printOutput)
+                table, lineLength, className, maxDepth, printOutput,
+                deeperWhen = deeperWhen)
             source = 'search' if form else ''
         if not form:
             # No quipu.  Either the class is not piecewise hereditary at all, in
@@ -523,7 +541,7 @@ def _canonicalTypeSource(className, weights):
 
 def resolveMergeCandidates(table, lineLength, depth = 8, printOutput = True,
                            fileName = None, progress = None, deadline = None,
-                           state = None):
+                           state = None, deeperWhen = None):
     """Settle the classes mergeReport could not, by searching harder for a link.
 
     A candidate is a group of classes sharing a Coxeter polynomial that the
@@ -556,6 +574,12 @@ def resolveMergeCandidates(table, lineLength, depth = 8, printOutput = True,
     repeats it.  `deadline` is a `time.monotonic()` value at which to stop
     cleanly between classes.
 
+    A later run at a greater depth repeats the class.  So does a run under a
+    different `deeperWhen` condition, which is a different search at the same
+    depth -- but that is `classifyLength`'s doing, not this function's: it
+    records the condition once for the whole run and drops these records when it
+    changes.
+
     Returns the list of (class merged away, class merged into) pairs.
     """
     merges = []
@@ -584,7 +608,7 @@ def resolveMergeCandidates(table, lineLength, depth = 8, printOutput = True,
             for startPoint in search.memberAndItsDual(lineLength, relationString):
                 reached = []
                 search.mutationSearchDepthFirst(startPoint, depth, [], 'resolve', printOutput = False,
-                                         collected = reached)
+                                         collected = reached, deeperWhen = deeperWhen)
                 for mut in lines.mutationListLineCleanup(reached, printOutput = False):
                     row = table.rowFor(lines.relSetToString(mut[0].rels))
                     if row is None or not row[1] or row[1] == className:
@@ -687,7 +711,7 @@ def mergeReport(table):
 def mutationSearch(lineLength, mutationDepthStart, startRow = 0, createNewCSVfile = False,
                    printMutations = False, fileName = None, table = None, writeEveryClass = True,
                    collectHereditary = False, seedFromQuipuTheorem = False,
-                   printProgress = True, deadline = None, state = None):
+                   printProgress = True, deadline = None, state = None, deeperWhen = None):
     """Classify every LNA of the given length by depth-first tilting mutation.
 
     Walks the table of all Catalan(lineLength - 1) LNAs.  For each one that no
@@ -749,7 +773,8 @@ def mutationSearch(lineLength, mutationDepthStart, startRow = 0, createNewCSVfil
             search.mutationSearchDepthFirst(pathAlg, mutationDepth, [],
                                      'A{0}_{1}'.format(lineLength, lineNumberString),
                                      printOutput=printMutations, collected=mutList,
-                                     collectedHereditary=hereditaryFound)
+                                     collectedHereditary=hereditaryFound,
+                                     deeperWhen=deeperWhen)
             cleanMutList = lines.mutationListLineCleanup(mutList, printOutput=printMutations)
             className = assignMutationClassInTable(table, cleanMutList, lineNumberString,
                                                    printOutput=printMutations)
@@ -768,7 +793,7 @@ def mutationSearch(lineLength, mutationDepthStart, startRow = 0, createNewCSVfil
 
 def classifyLength(lineLength, mutationDepthStart = 6, resolveDepth = 6, fileName = None,
                    printOutput = True, resume = False, formDepth = None,
-                   budgetSeconds = None):
+                   budgetSeconds = None, deeperWhen = None):
     """The whole classification of one length, end to end.
 
     1. Seed every LNA the quipu theorem covers, naming each class by its quipu.
@@ -796,6 +821,16 @@ def classifyLength(lineLength, mutationDepthStart = 6, resolveDepth = 6, fileNam
     classification takes hours and does not survive the machine going away --
     picks up where it stopped rather than redoing the naming and the resolving.
 
+    `deeperWhen` is a `search.DeeperWhen`, shared by all three searching steps --
+    the main pass, the resolve step and, with `formDepth`, the hereditary-form
+    search -- so what it records and what its `limit` counts are the run's, not
+    one step's.  Its per-branch budget starts afresh at every start point, since
+    a branch of one search is not a branch of another.  A probed run is a
+    different search from a plain one at the same depth, so the progress record
+    carries the condition it was made under: a `resume` under a different one
+    drops the records that would let the resolve and naming steps be skipped, and
+    keeps the table, because a row placed is placed whatever placed it.
+
     `budgetSeconds` stops the run cleanly once that much wall-clock time has
     passed, between classes, with everything done so far on disk.  The report
     then carries `stoppedEarly = True`.  That is how to use a fixed window such
@@ -813,10 +848,22 @@ def classifyLength(lineLength, mutationDepthStart = 6, resolveDepth = 6, fileNam
     deadline = None if budgetSeconds is None else time.monotonic() + budgetSeconds
     state = {}
     existing = None
-    progress = {'named': {}, 'resolved': {}}
+    condition = _conditionOf(deeperWhen)
+    progress = {'named': {}, 'resolved': {}, 'condition': condition}
     if resume and os.path.exists(fileName):
         existing = mutationClassTable.MutationClassTable.fromCSV(fileName, lineLength)
         progress = readProgress(fileName)
+        if progress['condition'] != condition:
+            # A probed run is not a plain run at the same depth, and two
+            # different conditions are two different searches, so what the
+            # recorded run skipped says nothing about this one.  The *table* is
+            # kept -- a row placed is placed, whatever placed it -- and only the
+            # records that would skip a step are dropped.
+            if printOutput:
+                print('the recorded run used deeper probing {0!r} and this one uses '
+                      '{1!r}, so the resolve and naming steps are redone rather than '
+                      'skipped'.format(progress['condition'], condition))
+            progress = {'named': {}, 'resolved': {}, 'condition': condition}
         if printOutput:
             print('Resuming from {0}: {1} of {2} rows already placed, '
                   '{3} classes named, {4} classes already searched for a link'.format(
@@ -827,18 +874,19 @@ def classifyLength(lineLength, mutationDepthStart = 6, resolveDepth = 6, fileNam
                            fileName = fileName, table = existing,
                            seedFromQuipuTheorem = True,
                            printProgress = printOutput, deadline = deadline,
-                           state = state)
+                           state = state, deeperWhen = deeperWhen)
     nameClassesFromTheorem(table, lineLength, printOutput = printOutput)
     merges = resolveMergeCandidates(table, lineLength, resolveDepth, printOutput = printOutput,
                                     fileName = fileName, progress = progress,
-                                    deadline = deadline, state = state)
+                                    deadline = deadline, state = state,
+                                    deeperWhen = deeperWhen)
     for merged, into in merges:
         if printOutput:
             print('merged class {0} into {1}'.format(merged, into))
     nameRemainingClasses(table, lineLength, maxDepth = formDepth or 0,
                          printOutput = printOutput, fileName = fileName,
                          progress = progress, deadline = deadline,
-                         state = state)
+                         state = state, deeperWhen = deeperWhen)
     report = mergeReport(table)
     for polynomial, classNames in report['certain'].items():
         target = sorted(classNames)[0]

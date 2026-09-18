@@ -96,7 +96,27 @@ negative at a depth and a length E-035 could not reach, and it cost 20 minutes
 on one core rather than the run over every member that a uniform depth 9 would
 have been.
 
+### 4. Over a whole classification
+
+`classify.py --deeper-on` gives one probe to all three searching steps. At
+`n = 8`, the shortest length whose classification needs a search at all:
+
+| | classes | rows | firings | grants | seconds |
+|---|---|---|---|---|---|
+| plain | 11 | 429 | — | — | 38s |
+| `parallel-arrows:2` | 11 | 429 | 44 | 4 | 39s |
+
+**The answer does not move**, which is the check that matters: extra depth may
+place a row the depth could not reach, and may never place one differently. The
+published table of arXiv:2305.06642 is what both are checked against, as
+`tests/test_classify_end_to_end.py` does. The condition does fire here, four
+times buying depth, so this is the probe running over a real classification
+rather than a no-op.
+
 ### Reproducing
+
+Section 4 is `classify.py 8 --quiet` with and without
+`--deeper-on parallel-arrows:2`.
 
 Section 1 is `merges.py 9 --depths 4 5 --all-groups` run twice, once with
 `--deeper-on parallel-arrows:2` and once without, comparing `lnasReached` and
