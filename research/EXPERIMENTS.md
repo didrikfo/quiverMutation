@@ -6,6 +6,60 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-041 — The two separators of the sweep, checked
+*2026-09-19* · **both hold; one reproduces the quipu boundary exactly, the other certifies 619 rows at `n = 11`** → F-047, F-048
+
+E-040 ended by naming two criteria as its highest-value unverified output, and
+warning that a criterion quoted out of a paper should be assumed to be missing a
+hypothesis until it has been run against a known answer. This is that run.
+
+### (a) The `Z`-congruence invariant (math/0610685 Cor. 3.15) → F-047
+
+Profile: the Smith normal form of `g(Φ)` for each irreducible factor `g` of the
+Coxeter polynomial.
+
+* **Soundness, on every member of every orbit** rather than a sample: 1430 LNAs in
+  48 orbits at `n = 9`, 4862 in 113 at `n = 10`. **Zero orbits split.**
+* **Sharpness:** splits 1 of the 11 cospectral orbit-groups at `n = 9`, 3 of 25 at
+  `n = 10`.
+* **The `n = 9` split was then named by the quipu theorem**, which is the check
+  that turns a refinement into a separation: all four orbits on one profile are
+  `P^(1,4)_(1,0,1)`, both on the other are `P^(1,2)_(1,1,2)`, no orbit on the
+  wrong side. The invariant reproduces the true class boundary on the exact pair
+  the Coxeter polynomial cannot see.
+
+Cost: about three minutes for `n = 9`, fifteen for `n = 10`, in sympy. The Smith
+normal form is the expensive part and it is per irreducible factor, so this scales
+with the factorisation rather than with `n`.
+
+### (b) The periodicity criterion (math/0611201 Thm. 3.4) → F-048
+
+`Φ` periodic and the Euler form indefinite certifies not piecewise hereditary.
+
+* Fires on **0** LNAs at `n = 5` to `9`, **3** at `n = 10`, **638** at `n = 11`.
+* At `n = 10` the three are `34504030`, `50505000`, `45050400` and
+  `piecewiseHereditary` certifies **none** of them — the rows backlog 20 wants
+  `lemma:taupathimpliesnotpwh` for. At `n = 11`, 619 of the 638 are new.
+* **Falsification test:** an almost separate LNA is piecewise hereditary by the
+  quipu theorem, so the criterion must never fire on one. Over 30648 rows at
+  `n = 5` to `11` it fires on 641, **not one almost separate**.
+
+This is the criterion E-040's warning was about, in its usable form. The version
+that misfired there was de la Peña's, which needs "not of Dynkin module type"
+supplied separately; Ladkani's asks for an indefinite Euler form instead, and
+indefiniteness rules the Dynkin and Euclidean cases out by itself. **The same
+mathematics, and one statement of it is safe to implement while the other is
+not** — which is the concrete lesson, rather than the general caution.
+
+### What is still not done
+
+Both are verified as *criteria*; neither is in the code. F-047's profile has been
+checked at two lengths and F-048's at seven, so porting them is now a matter of
+writing them into `invariants` and `piecewiseHereditary` rather than of deciding
+whether they are true. Backlog 32 is updated.
+
+---
+
 ## E-040 — A literature sweep aimed at merging classes of LNAs
 *2026-09-19* · **21 summaries; one criterion that classifies the tame half outright, and three merges at `n = 11` no move of ours makes** → F-043, F-044, F-045, F-046
 

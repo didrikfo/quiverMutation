@@ -5,6 +5,120 @@ See [`README.md`](README.md) for conventions.
 
 ---
 
+## F-048 — Periodic Coxeter plus indefinite Euler form certifies 619 LNAs at `n = 11`
+*2026-09-19*
+
+Ladkani, math/0611201 Theorem 3.4: if the Coxeter transformation `Φ_A` is
+**periodic** and the Euler form is **indefinite**, `A` is not piecewise hereditary.
+Backlog 32(b), verified.
+
+**It has no exclusion to forget**, which is what makes it usable where the
+criterion E-040 caught out is not. De la Peña's periodicity statement needs "not
+of Dynkin module type" bolted on, and without it certifies the hereditary line
+`A_9` itself. Here indefiniteness of the Euler form already rules the Dynkin and
+Euclidean cases out — they are positive definite and positive semidefinite — so
+the hypothesis is self-contained. Two conditions, both computed from the Cartan
+matrix: `Φ^m = I` for some `m` (tested on the matrix, not on the polynomial's
+factorisation), and the least eigenvalue of `C^{-1} + C^{-T}` negative.
+
+| | fires on | our criteria already certify | **new** |
+|---|---|---|---|
+| `n = 5` to `9` | 0 | — | 0 |
+| `n = 10` | 3 | **0** | **3** |
+| `n = 11` | 638 | 19 | **619** |
+
+**The three at `n = 10` are the ones we have been unable to certify.**
+`34504030`, `50505000` and `45050400` — the first two being `example:A10double`
+of arXiv:2310.08346 and, by F-037, one class rather than two. Backlog 20 wants
+`lemma:taupathimpliesnotpwh` implemented precisely to certify these; this does it
+with a matrix power and an eigenvalue instead. `piecewiseHereditary` certifies
+none of the three.
+
+**Falsification test passed at every length.** An LNA with almost separate
+relations is in a quipu class *by the theorem*, hence piecewise hereditary, so the
+criterion must never fire on one. Over every LNA at `n = 5` to `11` — 30648 rows —
+it fires on 641 and **not one of them is almost separate**.
+
+**What it is and is not.** It is a certificate of *exclusion*, like the rest of
+`piecewiseHereditary`: it rules a merge out, never in. It is silent below `n = 10`,
+so it is orthogonal to the A9 and A13 criteria rather than stronger than them —
+they fire where it does not. And periodicity is rare: 638 of 16796 rows at
+`n = 11` have it at all. Where it does fire it is cheap and decisive.
+
+Reproduce: `periodic3.py` in E-040's scratchpad. E-041,
+`research/literature/math-0611201-coxeter-periodicity-euler-form.md`.
+
+---
+
+## F-047 — The Coxeter matrix up to Z-conjugacy separates the quipus the polynomial cannot
+*2026-09-19*
+
+Ladkani, math/0610685 Corollary 3.15: a derived equivalence makes the Cartan
+matrices congruent over `Z`, hence the Coxeter matrices conjugate over `Z`. The
+Coxeter *polynomial* is only the characteristic polynomial of `Φ`, so this is
+strictly finer. Backlog 32(a), verified — and it is the separation F-010 has
+wanted since R-008 closed the Avella-Alaminos–Geiß route.
+
+**The computable shadow.** `Z`-conjugacy itself is not decidable in practice, so
+take the profile
+
+    for each irreducible factor g of the Coxeter polynomial,
+        the Smith normal form over Z of g(Φ)
+
+which is invariant under `Φ → P^{-1} Φ P` for `P ∈ GL_n(Z)`, and so is constant on
+a derived class.
+
+**Sound, on every member rather than a sample.**
+
+| | LNAs | our orbits | orbits the profile splits |
+|---|---|---|---|
+| `n = 9` | 1430 | 48 | **0** |
+| `n = 10` | 4862 | 113 | **0** |
+
+A single orbit split across two profiles would falsify the invariant or the
+implementation, since every member of an orbit is provably derived equivalent.
+None is.
+
+**And it separates exactly where the polynomial fails.** At `n = 9` there are 11
+groups of orbits sharing a Coxeter polynomial. The profile splits **one** — and
+that one is the cospectral quipu pair of F-010:
+
+| profile | orbits | named by the quipu theorem |
+|---|---|---|
+| SNFs of 1s | 4 orbits: `2223030…` (8 rows), `3030000…` (8), `3060000` (1), `6000030` (1) | `P^(1,4)_(1,0,1)` |
+| SNFs with 2s | 2 orbits: `2400230…` (9 rows), `3304000…` (9) | `P^(1,2)_(1,1,2)` |
+
+**The split is the class boundary, exactly.** Every orbit on the first profile is
+named by one quipu and every orbit on the second by the other, with no orbit
+landing on the wrong side. The two quipus are cospectral — that is the whole
+reason F-010 exists — and the invariant tells them apart. The smallest witness is
+`3060000` against `3304000`, where the factor `x² + x + 1` gives
+`(1,1,1,1,1,1,1,0,0)` on one side and `(1,1,1,1,1,2,2,0,0)` on the other.
+
+At `n = 10` it splits 3 of the 25 cospectral groups.
+
+**Conservative where it should be.** It leaves the other 10 groups at `n = 9` and
+22 at `n = 10` intact — which is the right answer if, as H-003 suspects, those are
+orbits that ought to merge rather than distinct classes. An invariant that split
+everything would be telling us nothing.
+
+**What it does not do.** It is a necessary condition, like every invariant here:
+equal profiles do not prove a merge. It cannot see inside a group it fails to
+split, so it does not settle H-003. And it says nothing about the pair of F-037,
+which needed a search.
+
+**Why it matters anyway.** It is the first separator the project has that is
+*strictly* finer than the Coxeter polynomial, it is cheap — one characteristic
+polynomial, one factorisation, one Smith normal form per factor — and it is
+sound on every row of two full lengths. Where the pipeline currently reports a
+group of orbits sharing a polynomial and cannot say whether they are one class or
+several, this answers "several" whenever it splits.
+
+Reproduce: `congruence.py` in E-040's scratchpad. E-041,
+`research/literature/math-0610685-sheaves-over-finite-posets.md`.
+
+---
+
 ## F-046 — The literature merges pairs from `n = 11` up that no move we have reaches
 *2026-09-19*
 

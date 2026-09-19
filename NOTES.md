@@ -1356,7 +1356,23 @@ nothing else, agreeing with the published table.
     actually is. `bruestle.py` in E-040's scratchpad is a working implementation
     to port.
 
-32. **Check the two separators the sweep found, before trusting either.**
+32. ~~**Check the two separators the sweep found, before trusting either.**~~
+    **Checked, 2026-09-19 — both hold; now implement them.** E-041, F-047, F-048.
+    (a) The `Z`-congruence profile is sound on every member of every orbit at
+    `n = 9` and `n = 10`, splits the cospectral quipu pair at `n = 9` **exactly
+    along the quipu boundary**, and 3 of 25 cospectral groups at `n = 10`. It
+    belongs in `invariants` next to `coxeterKey`, and in the classification
+    wherever a group of orbits currently shares a polynomial with no way to tell
+    them apart. (b) Ladkani's periodicity criterion certifies `34504030`,
+    `50505000` and `45050400` at `n = 10` — which nothing of ours certifies — and
+    619 further rows at `n = 11`, never firing on an almost separate LNA over
+    30648 rows. It belongs in `piecewiseHereditary` as a new `CRITERIA` member.
+    **Take Ladkani's form, not de la Peña's**: the indefinite Euler form makes the
+    hypothesis self-contained, where de la Peña's needs a Dynkin exclusion
+    supplied separately and misfires badly without it. Working implementations to
+    port: `congruence.py` and `periodic3.py` in E-040's scratchpad.
+
+    *Superseded text:* Check the two separators the sweep found, before trusting either.
     Both are reported to do what F-010 has wanted since R-008 and neither has been
     re-verified here. (a) Ladkani, math/0610685 Cor. 3.13: the Cartan matrix up to
     `Z`-congruence -- equivalently the Coxeter matrix up to `Z`-conjugacy -- is a
