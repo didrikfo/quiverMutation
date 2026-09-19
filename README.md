@@ -169,6 +169,14 @@ window is allowed to be crossed by a relation it never touches. With both,
 **n = 8 needs no search at all** -- 21 orbits, nothing left over -- and n = 9
 falls from 222 rows to 37. See `research/` F-028 to F-030.
 
+Past `n = 12` the orbits cannot be partitioned at all -- `n = 13` has 208012 LNAs
+and the interesting rows are a handful -- so `freeMoves.orbitOf` walks the moves
+out of one row, and `freeMoves.movesJoin` walks out of **two rows at once** and
+stops where they meet. Use the second for a membership question: a one-way walk
+that stops at its row cap has measured the budget and not the moves, which is how
+49 barricades at `n = 15` and `16` were first recorded as failures and then joined
+in 45 seconds. See `research/` F-042 and E-037.
+
 ## Other families that could carry the classes the theorem misses
 
 ```bash

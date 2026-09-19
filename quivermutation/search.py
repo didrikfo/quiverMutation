@@ -682,3 +682,90 @@ def summariseSightings(sightings):
         'notTrees': len(oddities),
         'oddities': oddities,
     }
+
+
+# -- meeting in the middle ------------------------------------------------
+#
+# `mutationSearchDepthFirst` walks right mutations and records the *lines* it
+# reaches, so two algebras are joined only when one of them reaches the other.
+# That wastes most of what a search sees: every quiver on the way is in the
+# class as well, and two searches that arrive at the same quiver -- line or not
+# -- have joined their algebras just as surely, at twice the depth for the same
+# cost.  Nothing in the pipeline did this, which is why the searches for a link
+# between two classes have always been one-sided.
+#
+# Vertex labels do not move under mutation, so two searches starting from
+# algebras on the same vertices meet on the nose: the key below is the labelled
+# quiver with its relations, and equality of keys is equality of algebras, not
+# merely isomorphism.  That makes the test cheap and the certificate exact.
+
+
+def quiverKey(pathAlg):
+    """A hashable key for a quiver with relations, labels and all.
+
+    `None` where the quiver has **parallel arrows**, and that is not a
+    convenience.  `rels` names a path by its vertices, so where two arrows share
+    both endpoints it no longer says which one a path runs along, and two
+    different algebras write down the same `rels` (F-039; `arrowRels` is the
+    faithful record).  Keying on `rels` there would let two searches "meet" at
+    algebras that are not equal.  `arrowRels` cannot be the key either: the
+    arrow keys are handed out by the procedure in the order it builds them, so
+    the same algebra reached along two routes generally carries different ones,
+    and there is no canonical form to compare across routes.  So a
+    parallel-arrow node is not a meeting point, in either direction -- the
+    search still walks through it, it just cannot be met at.
+    """
+    if arrowPaths.hasParallelArrows(pathAlg.quiver):
+        return None
+    return (
+        tuple(sorted(pathAlg.quiver.edges())),
+        tuple(sorted(tuple(sorted(tuple(path) for path in rel)) for rel in pathAlg.rels)),
+    )
+
+
+def quiversReachedFrom(pathAlg, depth, alsoDual = False):
+    """Every quiver a bounded search out of `pathAlg` reaches, keyed as above.
+
+    The value is the shortest mutation path found to it.  With `alsoDual` the
+    opposite algebra is searched as well and what it reaches is carried back
+    through the opposite, so every key is a quiver `pathAlg` itself reaches.
+    """
+    found = {}
+
+    def visit(quiver, mutationVertices, dualised = False):
+        if dualised:
+            quiver = pathAlgebra.dualPathAlgebra(quiver)
+        key = quiverKey(quiver)
+        if key is None:
+            return
+        path = [(-step if dualised else step) for step in mutationVertices]
+        if key not in found or len(path) < len(found[key]):
+            found[key] = path
+
+    mutationSearchDepthFirst(copy.deepcopy(pathAlg), depth, [], 'meet',
+                             printOutput = False, visitor = visit)
+    if alsoDual:
+        mutationSearchDepthFirst(
+            pathAlgebra.dualPathAlgebra(pathAlg), depth, [], 'meet', printOutput = False,
+            visitor = lambda quiver, path: visit(quiver, path, dualised = True))
+    return found
+
+
+def meetingPoints(first, second, depth, alsoDual = False, limit = None):
+    """Quivers both algebras reach, with the two paths to each.
+
+    A single meeting point is a proof that the two are mutation equivalent: both
+    sides walked mutations to get there, and a mutation is invertible.  The
+    effective depth is `2 * depth`, which is the point -- a one-sided search that
+    has to land on the other algebra exactly is doing the same work for half the
+    reach.
+
+    Returns a list of `(key, path from first, path to second)`, shortest first,
+    empty when the two searches do not meet.  Empty is not a proof of anything.
+    """
+    left = quiversReachedFrom(first, depth, alsoDual)
+    right = quiversReachedFrom(second, depth, alsoDual)
+    shared = set(left) & set(right)
+    meetings = sorted(((key, left[key], right[key]) for key in shared),
+                      key = lambda meeting: len(meeting[1]) + len(meeting[2]))
+    return meetings if limit is None else meetings[:limit]

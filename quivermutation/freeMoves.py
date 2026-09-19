@@ -164,3 +164,105 @@ def coverage(length, rules = None, free = True, edges = False, doubles = False):
         'uncovered': [lna for lna in lnas if lna not in covered],
         'byMaxOverlap': dict(sorted(byMaxOverlap.items())),
     }
+
+
+def movesFrom(length, relLengths, rules = None, free = False, edges = True,
+              doubles = True):
+    """Every LNA one move away from this one, as a list of relation-length tuples."""
+    rules = lnaMoves.ALL_MOVES if rules is None else rules
+    current = tuple(relLengths)
+    reached = [tuple(name) for name in lnaMoves.rewritesOf(length, list(current), rules)]
+    if edges:
+        reached += [tuple(name) for name, _sequence in edgeMoves.rewritesOf(length, current)]
+    if doubles:
+        reached += [tuple(name) for name, _sequence in doubleMutation.rewritesOf(length, current)]
+    if free:
+        stripped = stripLengthTwo(current)
+        if stripped != current:
+            reached.append(stripped)
+    return reached
+
+
+def orbitOf(length, relLengths, rules = None, free = False, edges = True,
+            doubles = True, limit = 100000, target = None):
+    """The move orbit of **one** LNA, without partitioning the whole length.
+
+    `derivedOrbits` answers the same question for every LNA at once, which is the
+    right shape below `n = 12` and unaffordable above it: at `n = 13` there are
+    208012 rows and the interesting configurations are a handful of them.  This
+    walks outwards from one row instead, so a single long quiver can be asked
+    about directly.
+
+    Returns the set of relation-length tuples reached.  With `free` the orbit is
+    of derived equivalence and with it off of mutation equivalence, exactly as in
+    `derivedOrbits`.
+
+    **It walks forwards only**, which `derivedOrbits` does not: that one unions
+    the rewrites of *every* LNA, so it sees a move into this row from a row this
+    row cannot reach.  The moves are not symmetric as rewrites -- `000000` has no
+    relation for any of them to act on, while `000002` double-mutates onto it --
+    so a reachable target is a proof and an unreachable one is not a disproof.
+    Ask it in the direction the moves run: from the LNA that has the relation
+    towards the one that does not.
+
+    `target` stops the walk the moment that LNA is reached, which is what a
+    membership question wants: the orbit of a long quiver runs to thousands of
+    rows and every step costs the whole rule table, where the answer is usually
+    in the first few hundred.
+    """
+    rules = lnaMoves.ALL_MOVES if rules is None else rules
+    start = tuple(relLengths)
+    seen = {start}
+    if target is not None and tuple(target) == start:
+        return seen
+    frontier = [start]
+    while frontier and len(seen) < limit:
+        current = frontier.pop()
+        for name in movesFrom(length, current, rules, free, edges, doubles):
+            if name not in seen:
+                seen.add(name)
+                frontier.append(name)
+                if target is not None and name == tuple(target):
+                    return seen
+    return seen
+
+
+def movesJoin(length, first, second, rules = None, free = False, edges = True,
+              doubles = True, limit = 100000):
+    """Do the moves join these two LNAs?  Walked from **both** ends at once.
+
+    Every move is a mutation equivalence, and equivalence is symmetric even where
+    the rewrite that certifies it is not, so two rows whose forward orbits share
+    a row are equivalent.  That is worth having because `orbitOf` walking one way
+    answers a membership question only while the orbit stays small enough to
+    enumerate, and the orbits of the long quivers are not: at `n = 15` a walk that
+    misses its target after twenty thousand rows has proved nothing at all.
+    Meeting in the middle reaches the same rows for the square root of the work,
+    exactly as `search.meetingPoints` does for quivers.
+
+    Returns the row the two walks meet at, or `None` if neither orbit grew past
+    `limit` rows without meeting.  `None` is still not a disproof: it says the
+    moves did not join them within the budget.  With `free` on, the deletion of a
+    two-arrow relation joins the walk and what is proved is a *derived*
+    equivalence rather than a mutation one, exactly as in `derivedOrbits`.
+    """
+    ends = [tuple(first), tuple(second)]
+    seen = [{ends[0]}, {ends[1]}]
+    frontier = [[ends[0]], [ends[1]]]
+    if ends[0] == ends[1]:
+        return ends[0]
+    while frontier[0] or frontier[1]:
+        side = 0 if len(seen[0]) <= len(seen[1]) else 1
+        if not frontier[side]:
+            side = 1 - side
+        if len(seen[side]) >= limit:
+            return None
+        current = frontier[side].pop()
+        for name in movesFrom(length, current, rules, free, edges, doubles):
+            if name in seen[side]:
+                continue
+            if name in seen[1 - side]:
+                return name
+            seen[side].add(name)
+            frontier[side].append(name)
+    return None
