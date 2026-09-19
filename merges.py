@@ -51,6 +51,7 @@ import sys
 import time
 
 from quivermutation import doubleMutation as dm
+from quivermutation import fingerprint
 from quivermutation import freeMoves as fm
 from quivermutation import invariants
 from quivermutation import lines
@@ -125,23 +126,41 @@ def searchFrom(args):
     `deeperSpec` is a `search.deeperWhenFromSpec` string or ''.  The probe is
     built here, inside the worker, because what it records cannot come back from
     a pool any other way -- only its summary does.
+
+    **The walk is deduplicated** unless `dedupe` is false.  Without it the search
+    reaches the same algebra along many routes and walks the subtree below each
+    -- 11.4x the nodes at `n = 9` and depth 6, and the factor roughly doubles per
+    level (research E-042, F-049).  It reaches the same set of LNAs either way,
+    checked over every LNA of `n = 5` to `7` and over these two starts at `n = 9`
+    (E-043), and is 5x to 6x faster at the depths this runs at.
+
+    A fresh visited set per start point, not one shared across the pool: the two
+    walks out of a member and out of its dual are different searches, and the
+    workers are separate processes in any case.
     """
-    length, relLengths, depth, deeperSpec = args
+    length, relLengths, depth, deeperSpec, dedupe = args
     started = time.time()
     relationString = nk.LinearNakayamaAlgebra(length, list(relLengths)).relationString()
     probe = search.deeperWhenFromSpec(deeperSpec) if deeperSpec else None
     reached = set()
+    walk = {'nodes': 0, 'distinct': 0, 'skipped': 0}
     for startPoint in search.memberAndItsDual(length, relationString):
         collected = []
+        visited = fingerprint.Visited() if dedupe else None
         search.mutationSearchDepthFirst(startPoint, depth, [], 'merges',
                                         printOutput = False, collected = collected,
-                                        deeperWhen = probe)
+                                        deeperWhen = probe, visited = visited)
+        if visited is not None:
+            summary = visited.summarise()
+            for field in walk:
+                walk[field] += summary[field]
         for pathAlg, _path, _numbering in collected:
             row = lm.asRelLengths(lm._copy(pathAlg), length)
             if row is not None:
                 reached.add(tuple(row))
     return (tuple(relLengths), depth, sorted(reached), time.time() - started,
-            probe.summarise() if probe is not None else None)
+            probe.summarise() if probe is not None else None,
+            walk if dedupe else None)
 
 
 class Unions:
@@ -200,6 +219,12 @@ def main(argv = None):
                                "as a check that they reach nothing seeded")
     parser.add_argument("--summary", action = "store_true",
                         help = "print what the checkpoint establishes and stop")
+    parser.add_argument("--no-dedupe", action = "store_true", dest = "noDedupe",
+                        help = "walk every mutation sequence, including the ones "
+                               "reaching an algebra the walk has already been to "
+                               "-- about 5x slower at these depths, and for "
+                               "measuring what the dedup changes, not for "
+                               "producing answers")
     parser.add_argument("--deeper-on", default = None, dest = "deeperOn",
                         help = "condition[:extraDepth[:budget[:limit]]] -- give the branches "
                                "that reach a quiver meeting the condition extra depth. "
@@ -275,13 +300,14 @@ def main(argv = None):
                     if searched.get(member, 0) >= depth or (settled(poly) and not args.allGroups):
                         continue
                     inFlight[(member, depth)] = pool.apply_async(
-                        searchFrom, ((length, member, depth, deeperSpec),))
+                        searchFrom, ((length, member, depth, deeperSpec,
+                                      not args.noDedupe),))
                 done = [key for key, result in inFlight.items() if result.ready()]
                 if not done:
                     time.sleep(1)
                     continue
                 for key in done:
-                    member, depth, reached, seconds, probed = inFlight.pop(key).get()
+                    member, depth, reached, seconds, probed, walk = inFlight.pop(key).get()
                     own = orbitOf[member]
                     others = sorted({orbitOf[r] for r in reached if r in orbitOf} - {own})
                     # Three kinds of link, and the first version conflated the
@@ -307,6 +333,10 @@ def main(argv = None):
                                                             if o not in alarms and o not in covered],
                                           'coveredOrbits': covered,
                                           'alarms': alarms, 'seconds': round(seconds, 1),
+                                          # What the dedup skipped, so a run's
+                                          # cost can be read back off the
+                                          # checkpoint rather than re-measured.
+                                          'walk': walk,
                                           'at': time.strftime('%Y-%m-%d %H:%M:%S')}) + "\n")
                     log.flush()
                     note = ""

@@ -6,6 +6,175 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-044 — The sampler, calibrated against the lengths whose answer is known
+*2026-09-19* · **agrees at `n = 9`, 10 and 11; `n = 12` is 28% leftover** → H-019
+
+`batch.py sample` is only worth running at `n = 16` if it gives the right answer
+at `n = 10`, where the answer is known exhaustively. This is that check. The
+draw is uniform over all Catalan(n - 1) LNAs of the length; each is put through
+the cheap pipeline one row at a time (`sampling.probe`), where F-032 measured the
+same thing a length at a time.
+
+| n | LNAs | drawn | theorem | moves | **leftover** | exhaustive leftover |
+|---|---|---|---|---|---|---|
+| 9 | 1430 | 60 | 40% | 58% | **1.7% +- 1.7** | **0.70%** (F-032: 0.6%) |
+| 10 | 4862 | 400 | 31.2% | 64.0% | **4.8% +- 1.1** | **5.4%** (F-032) |
+| 11 | 16796 | 6 | 33% | 50% | 17% +- 15 | 16% (F-032) |
+| 12 | 208012 | 60 | 27% | 45% | **28% +- 5.8** | not known |
+
+**`n = 10` is the load-bearing row**: 400 draws put the leftover rate at
+4.8% +- 1.1, and the exhaustive answer is 5.4%. `n = 11` drew only 6 before the
+run's time limit — the orbit walk is much slower there — so its agreement is
+suggestive and no more.
+
+**The exhaustive `n = 9` pass was run here too**, over all 1430 rows, as a check
+that `probe` asked one row at a time agrees with `overlaps.py` asked a length at
+a time: 610 by the theorem, 810 by the moves, **10 leftovers, 0.70%**. It does.
+
+**`n = 12` is the new number.** 28% +- 5.8, against 0.7% at `n = 9` — the rate
+is rising steeply and the sampler is the only way to see it above `n = 11`.
+Preliminary: 60 draws, one seed. H-019 is the hypothesis this feeds and says
+what would settle it.
+
+**A leftover rate from a sample is an upper bound, not an estimate of the
+truth.** `freeMoves.orbitOf` walks forwards only and stops at `--orbit-limit`,
+so a row it fails to place may still be placeable — by a longer walk, or by a
+walk from the other direction, which is the asymmetry E-037 recorded. The rates
+above are therefore "not placed by this much walking", and the exhaustive
+figures they are checked against carry the same caveat.
+
+**The run that was cut off resumed correctly**, which was not the point of the
+experiment but is worth recording: `n = 11` stopped at 6 of 400 draws on a time
+limit, and the ledger holds those 6, so the same command continues from draw 7.
+
+Reproduce:
+
+```bash
+python batch.py sample 10 --count 400 --jobs 4
+python batch.py sample 10 --summary
+```
+
+---
+
+## E-043 — The deduplicated walk, checked against the plain walk
+*2026-09-19* · **same answers everywhere it was checked; 2.2x to 6.1x faster** → F-049, F-050
+
+The dedup of E-042 is only worth having if it changes no answer. Checked by
+running both walks over **every LNA of a length** and comparing three things at
+once: the set of lines collected, the set of hereditary forms collected, and the
+set of canonical keys the visitor was shown.
+
+| length | depth | LNAs | mismatches | nodes plain | nodes deduped | ratio |
+|---|---|---|---|---|---|---|
+| 5 | 4 | 14 | **0** | 847 | 674 | 1.3x |
+| 6 | 5 | 42 | **0** | 14701 | 7427 | 2.0x |
+| 7 | 5 | 132 | **0** | 94498 | 39280 | 2.4x |
+| 8 | 4 | 429 | **0** | 143068 | 78295 | 1.8x |
+
+**It failed first, and the failure was real.** Before the sign gauge was
+quotiented out, `n = 7`, `30300`, depth 5 lost one node: the walk reached one
+algebra under two presentations differing only in the sign of a zero relation,
+which are the same ideal, so the dedup was right to identify them — and the
+*procedure* then gave two different answers from them. That is F-050, and it was
+found by this check rather than by reading.
+
+**Wall clock, on the searches the merge hunt runs** (`n = 9`, one container, one
+process):
+
+| start | depth | plain | deduped | speedup |
+|---|---|---|---|---|
+| `3345000` | 4 | 8.0 s | 3.6 s | 2.2x |
+| `3345000` | 5 | 38.4 s | 10.7 s | 3.6x |
+| `3345000` | 6 | 184.9 s | 30.5 s | **6.1x** |
+| `3033030` | 4 | 4.9 s | 2.4 s | 2.1x |
+| `3033030` | 5 | 18.4 s | 5.9 s | 3.1x |
+| `3033030` | 6 | 77.1 s | 15.2 s | **5.1x** |
+
+The speedup is below the node ratio because the key costs something at every
+node; it grows with depth for the same reason the node ratio does.
+
+**What the dedup does not preserve is the number of *visits*.** At `n = 9`,
+`3345000`, depth 6 the plain walk collects 54 line records and the deduped walk
+13 — and the **set** of LNAs reached is identical, 4 either way, at depths 4 and
+5 as well. Every consumer in the repo builds a set, so this is invisible to all
+of them; a caller that counted records would be counting routes, which was never
+a meaningful number.
+
+**And end to end, through `merges.py` itself.** The same run at `n = 9`, depth 4,
+`--all-groups`, once with the dedup and once with `--no-dedupe`: all 9 members
+searched, **every `lnasReached`, `reachedOrbits`, `coveredOrbits` and `alarms`
+identical**, 121.5 s against 215.1 s of search time — 1.8x. That is the shallow
+end; the depths the overnight job runs at are 5 to 8, where the single-search
+measurement above is 3.6x to 6.1x.
+
+`merges.py` now passes a `fingerprint.Visited` by default and records what it
+skipped in the checkpoint's `walk` field, so a run's cost can be read back
+rather than re-measured. `--no-dedupe` restores the old walk, for measuring what
+the dedup changes rather than for producing answers.
+
+Reproduce: `tests/test_fingerprint.py::test_dedup_reaches_exactly_what_the_plain_walk_reaches`
+pins the n = 5 to 7 cases at the depths above.
+
+```bash
+python merges.py 9 --depths 4 --all-groups --checkpoint logs/a.jsonl
+python merges.py 9 --depths 4 --all-groups --no-dedupe --checkpoint logs/b.jsonl
+```
+
+---
+
+## E-042 — How much of a mutation search is repeated work
+*2026-09-19* · **3.6x at depth 4, 6.3x at 5, 11.4x at 6, and compounding** → F-049
+
+`mutationSearchDepthFirst` walks mutation *sequences* and has never deduplicated
+the algebras they reach. This counts what that costs, over the two leftover
+orbits at `n = 9` that `merges.py` searches from, by keying every node the
+visitor is shown with `search.quiverKey`.
+
+| start | depth | nodes | distinct | ratio | parallel-arrow nodes |
+|---|---|---|---|---|---|
+| `3345000` | 4 | 779 | 216 | 3.6x | 0 |
+| `3345000` | 5 | 3887 | 615 | 6.3x | 0 |
+| `3345000` | 6 | 19483 | 1708 | **11.4x** | 40 (0.2%) |
+| `3033030` | 4 | 350 | 108 | 3.2x | 4 (1.1%) |
+| `3033030` | 5 | 1435 | 262 | 5.5x | 44 (3.1%) |
+| `3033030` | 6 | 6088 | 639 | **9.5x** | 284 (4.7%) |
+
+**The ratio roughly doubles per level**, which is the number that matters: the
+waste is not a constant overhead to be shrugged at but the dominant term at the
+depths the merge hunt wants. Extrapolating the two columns, depth 8 is 30x to
+40x, and depth 8 at `n = 10` is exactly what `overnight.py` is running.
+
+**Why there are so many routes.** A mutation is invertible and mutations at
+distant vertices commute, so the number of sequences reaching a given algebra
+grows with the depth faster than the number of algebras does. Nothing about
+this is specific to these two starts.
+
+**The parallel-arrow census, which decides whether a canonical form is hard.**
+Over the two depth-5 walks, 44 of 5322 nodes have parallel arrows, and **every
+one of them has exactly one bundle of exactly two arrows**. So the arrow-key
+ambiguity that NOTES.md has recorded as an open want since F-039 costs a
+minimisation over 2 relabelings, not a search. There was no node with two
+bundles, and none with a bundle of three.
+
+**Vertex labels do not move under mutation**, so none of this is graph
+isomorphism testing: two algebras reached from one start are equal on the nose
+or not at all. That is why the key is exact and cheap, and why the probabilistic
+fingerprint this measurement was meant to justify turned out not to be needed
+for identification at all — only, in `fingerprint.digest`, for storing a very
+large visited set in less memory.
+
+Reproduce:
+
+```python
+from quivermutation import nakayama as nk, search, fingerprint
+alg = nk.LinearNakayamaAlgebra(9, [3, 5, 0, 5, 0, 0, 0])
+visited = fingerprint.Visited()
+search.mutationSearchDepthFirst(alg, 6, [], 'x', printOutput = False)   # plain
+print(visited.summarise())
+```
+
+---
+
 ## E-041 — The two separators of the sweep, checked
 *2026-09-19* · **both hold; one reproduces the quipu boundary exactly, the other certifies 619 rows at `n = 11`** → F-047, F-048
 

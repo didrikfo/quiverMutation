@@ -6,6 +6,62 @@ it. Status is one of `OPEN`, `SUPPORTED`, `CONFIRMED → F-nnn`, `REFUTED → R-
 
 ---
 
+## H-019 — The leftovers do not thin out with the length, and past `n = 12` they are most of it
+*2026-09-19* · **SUPPORTED**
+
+**The conjecture.** The fraction of LNAs that neither the quipu theorem names nor
+the moves carry to one it names does not tend to 0 with the length. It rises,
+and the classification's present machinery covers a share of `A_n` that goes to
+nothing.
+
+**Why it is worth stating as a hypothesis rather than assuming either way.**
+Every complete answer the repo has is at a length where **every vertex is within
+three arrows of an end** — `n = 8` is the last length classified without a
+search — and the anchored rules are exactly the ones an end is in reach of. So
+the short lengths are not a small version of the long ones, they are the case
+where the mechanism that does the work is always available. Nothing measured so
+far distinguishes "the leftovers are a boundary effect that thins out" from "the
+leftovers are the generic case and the short lengths are the exception".
+
+**What is already known, exhaustively** (F-032, by coverage rather than by
+sampling): the moves with no rule table leave 0.6% of `n = 9`, 5.4% of `n = 10`
+and 16% of `n = 11` unplaced. So the series so far is 0.6, 5.4, 16, 28 — rising,
+and rising faster than linearly in the first three steps.
+
+**What a first sample says** (E-044). `batch.py sample`, uniform over all the
+LNAs of the length: **28% +- 5.8 leftovers at `n = 12`**, from 60 draws. The
+sampler is calibrated where the answer is known — 400 draws at `n = 10` give
+4.8% +- 1.1 against the exhaustive 5.4%, and an exhaustive pass at `n = 9` gives
+0.70% — so the `n = 12` figure is a measurement and not a guess. Preliminary
+nonetheless: 60 draws, one seed. The orbit walk is forward only and capped, so a
+row it fails to place may still be placeable and every rate here is an **upper**
+bound on the true leftover fraction.
+
+**What would settle it.** Samples of a few thousand at `n = 12, 14, 16, 18, 20`,
+which is what the `sample` task exists to run and what a machine can be left
+doing:
+
+```
+python batch.py sample 16 --count 4000 --jobs 7 --budget-hours 9
+python batch.py sample 16 --summary
+```
+
+The rate is the first thing to read off. The second, and the reason each
+leftover is recorded with its overlap profile and relation count, is **whether
+long leftovers take shapes the short lengths have no room for** — a
+configuration needing, say, six clear arrows on both sides cannot exist below
+`n = 14` at all, and if the shapes at `n = 16` are the `n = 11` ones scaled up
+then the mechanism is understood and only the coverage is missing. If they are
+not, there is something new to find, and H-018's "pushed to an end" is the
+reading to test it against.
+
+**What would refute it.** A rate that levels off or falls between `n = 14` and
+`n = 20`. That is a real possibility and not a formality: the moves get more
+room to act as the quiver lengthens, and the double mutation of F-032 in
+particular carries every relation crossing the one it slides.
+
+---
+
 ## H-018 — What escapes the quipu theorem is a placement, not an overlap
 *2026-09-18* · **OPEN**
 

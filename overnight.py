@@ -16,12 +16,20 @@ exists on Windows. This does the same three things from Python:
   budget is spent -- exit 0 and 1 are finished answers, 2 is "out of budget";
 * logs every job unbuffered to `logs/<job>-<stamp>.log`.
 
-The default jobs, aimed by research F-032 and H-013 (2026-09-17):
+The default jobs, aimed by research F-032 and H-013 (2026-09-17), and H-019
+(2026-09-19):
 
     merges10    python merges.py 10 --depths 5 6 7 8     7 processes
     merges11    python merges.py 11 --depths 4 5 6       7 processes
     classify10  python classify.py 10 --resume           1 process, an independent
                                                           route to the n = 10 count
+    sample14    python batch.py sample 14 --count 4000   2 processes, the leftover
+    sample16    python batch.py sample 16 --count 4000     rate at lengths that
+                                                           cannot be enumerated
+
+The two sampling jobs are the ones to widen when there is machine time to spare:
+raise `--count` and rerun, and the ledger makes the extra draws the only work
+done. `python batch.py sample 14 --summary` reads the answer back.
 
 Stop it with Ctrl-C, which stops the children. Every job resumes from its own
 checkpoint when rerun, so stopping loses only the work in flight.
@@ -42,6 +50,8 @@ def jobs(hours):
         'merges10': ["merges.py", "10", "--depths", "5", "6", "7", "8", "--jobs", "7"] + budget,
         'merges11': ["merges.py", "11", "--depths", "4", "5", "6", "--jobs", "7"] + budget,
         'classify10': ["classify.py", "10", "--resume"] + budget,
+        'sample14': ["batch.py", "sample", "14", "--count", "4000", "--jobs", "2"] + budget,
+        'sample16': ["batch.py", "sample", "16", "--count", "4000", "--jobs", "2"] + budget,
     }
 
 
@@ -134,8 +144,11 @@ def main(argv = None):
     print("done at {0}. Logs:".format(time.strftime("%Y-%m-%d %H:%M")))
     for name, path in logPaths.items():
         print("  ", path)
-    print("In the morning: `python merges.py 10 --summary` and `python merges.py 11 --summary`, "
-          "and record the outcome against H-013 in research/EXPERIMENTS.md.")
+    print("In the morning: `python merges.py 10 --summary` and `python merges.py 11 --summary` "
+          "against H-013, and `python batch.py sample 14 --summary` and "
+          "`python batch.py sample 16 --summary` against H-019. Record the outcomes "
+          "in research/EXPERIMENTS.md whichever way they went -- a run that found "
+          "nothing is worth recording precisely so it is not repeated.")
     return 0
 
 

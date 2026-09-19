@@ -5,6 +5,111 @@ See [`README.md`](README.md) for conventions.
 
 ---
 
+## F-049 — A mutation search repeats itself by a factor that compounds with depth, and an exact key removes it
+*2026-09-19*
+
+Evidence: E-042, E-043.
+
+**The claim.** `mutationSearchDepthFirst` reaches the same algebra along many
+mutation sequences and walks the whole subtree below each. The factor is 3.6x at
+depth 4, 6.3x at 5 and 11.4x at 6 out of the `n = 9` leftover `3345000`, and
+9.5x at depth 6 out of `3033030` — roughly doubling per level, because a
+mutation is invertible and mutations at distant vertices commute, so the routes
+to a place multiply faster than the places do.
+
+**The key that removes it is exact, and the reason is that there is no
+isomorphism problem here.** Vertex labels do not move under mutation, so two
+algebras reached from one start are equal on the nose or not at all. The whole
+of the ambiguity is
+
+1. **the naming of parallel arrows** — the procedure hands out `networkx` edge
+   keys in build order, so one algebra reached two ways carries two namings. The
+   canonical form is the least relabeling within each bundle, at a cost of the
+   product of the bundle sizes' factorials. Over 5322 nodes of two depth-5
+   walks, **every node with parallel arrows had one bundle of two** (E-042), so
+   that cost is 2; and
+2. **the sign gauge** — F-050.
+
+This closes, in the form a search needs, the "no canonical form for a quiver
+with parallel arrows" that NOTES.md has carried since F-039, and the
+"canonical form for a path algebra" of the performance backlog.
+
+**It changes no answer.** Checked over every LNA of `n = 5`, 6, 7 and 8 at depths 4
+and 5: the same lines, the same hereditary forms, the same nodes, no mismatch,
+and `merges.py` itself gives identical answers end to end (E-043). Wall clock on the merge hunt's own searches: 2.2x at depth 4 rising to
+**6.1x at depth 6**.
+
+**What was expected and did not happen.** The question this was opened to answer
+was whether a cheap *probabilistic* fingerprint could stand in for graph
+isomorphism. It cannot be needed for that, because the isomorphism problem is not
+there. Hashing survives in `fingerprint.digest` for one purpose only — holding a
+visited set of a very long run in about a thirtieth of the memory — and its
+collisions cost **recall and never soundness**: a false match prunes a subtree
+that was not visited, so the walk can miss a meeting point, and cannot invent
+one, every reported path being one it actually walked. At `10^8` distinct
+algebras a 128-bit digest collides with probability `1.5e-23` and a 64-bit one
+with `2.7e-4`.
+
+**The dedup is still conservative in one direction**: it keys the presentation,
+so two presentations generating one ideal by genuinely different generators are
+two keys, and the walk does them both. Closing that would want a canonical basis
+of the ideal per source-target pair, at about what the Cartan matrix costs.
+
+`quivermutation/fingerprint.py`; `search.mutationSearchDepthFirst(..., visited = fingerprint.Visited())`.
+
+---
+
+## F-050 — The mutation procedure is sensitive to the sign gauge, and the search was walking it
+*2026-09-19*
+
+Evidence: E-043, where this was found by a dedup that lost a node.
+
+**Rescaling an arrow by a nonzero scalar is an automorphism of the path
+algebra.** It changes the presentation and not the algebra, so it is a gauge and
+nothing computed from the algebra may depend on it. The procedure depends on it.
+
+**The case.** At `n = 7`, out of `30300`, a depth-4 walk reaches the quiver
+`1->2, 2->6, 3->4, 4->1, 4->5, 5->6, 6->7` along two routes, once carrying the
+zero relation `(3,4)(4,1)(1,2) = 0` and once carrying `-(3,4)(4,1)(1,2) = 0`.
+A generator and its negative generate the same ideal, so these are **one
+algebra**. Mutating each at vertex 3 gives
+
+    (4,1)(1,2) - (4,3)(3,2) = 0        from the first
+    (4,1)(1,2) + (4,3)(3,2) = 0        from the second
+
+which differ by the sign of one term — that is, by rescaling the arrow `3 -> 2`
+— so they too are one algebra, presented two ways. The Coxeter key agrees, being
+`(1, 1, -1, -3, -3, -1, 1, 1)` for both. Of the seven vertices, only vertex 3
+shows the difference; the other six give identical results from both signs.
+
+**So a walk that does not quotient by the gauge visits one algebra twice and
+searches the whole subtree below each copy.** This is a second source of the
+repetition F-049 measures, and it is not removed by keying on the presentation
+as written.
+
+**Quotienting is linear algebra over F_2 and costs nothing.** Write 0 for a
+positive coefficient and 1 for a negative one; rescaling an arrow adds to that
+vector the indicator of the terms whose path uses the arrow an odd number of
+times, and negating a relation adds the indicator of its terms. The reachable
+presentations are one coset of the span of those generators, so the canonical
+one is the vector reduced against a fixed echelon basis — a few dozen XORs on
+Python ints. `fingerprint._gaugeGenerators` and `_reduceModuloSpan`;
+`canonicalKey(..., gauge = False)` is the unquotiented key, kept for measuring
+what the quotient is worth.
+
+**What is not claimed.** Only the sign subgroup `{-1, +1}^arrows` is quotiented.
+The full gauge is `k*^arrows`, which would also relate presentations differing by
+larger scalars — step 7 can produce coefficients outside `{-1, 0, 1}` — and
+nothing here canonicalises those. That is the conservative direction: it costs
+recall, not soundness.
+
+**Whether the engine should be making an arbitrary sign choice at all is open.**
+This finding records that it does and quotients it away downstream; it does not
+say the choice is a bug. If it is one, the place to look is the step that
+introduces the sign, and the two presentations above are the smallest case.
+
+---
+
 ## F-048 — Periodic Coxeter plus indefinite Euler form certifies 619 LNAs at `n = 11`
 *2026-09-19*
 
