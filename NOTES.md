@@ -1371,8 +1371,6 @@ nothing else, agreeing with the published table.
     hypothesis self-contained, where de la Peña's needs a Dynkin exclusion
     supplied separately and misfires badly without it. Working implementations to
     port: `congruence.py` and `periodic3.py` in E-040's scratchpad.
-
-    *Superseded text:* Check the two separators the sweep found, before trusting either.
     Both are reported to do what F-010 has wanted since R-008 and neither has been
     re-verified here. (a) Ladkani, math/0610685 Cor. 3.13: the Cartan matrix up to
     `Z`-congruence -- equivalently the Coxeter matrix up to `Z`-conjugacy -- is a
