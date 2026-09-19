@@ -21,6 +21,9 @@ The modules, in dependency order:
 | `coxeterTables` | the polynomials of a whole length, as a table to match against |
 | `lines` | the linear quiver, and the names its algebras go by |
 | `search` | walking the mutation graph, and the hereditary quivers it reaches |
+| `fingerprint` | identifying an algebra the walk has met before, so it is walked once |
+| `sampling` | drawing LNAs at lengths with too many to enumerate, and probing one |
+| `jobs` | the ledger and the driver a long, resumable run is built on |
 | `reflections` | reorienting a relation-free tree, which costs mutations and nothing else |
 | `classification` | classifying a whole length, end to end |
 | `quipuForms` | canonical forms for quipus, and the quipu theorem inverted |
@@ -62,6 +65,9 @@ from . import (
     coxeterTables,
     lines,
     search,
+    fingerprint,
+    sampling,
+    jobs,
     reflections,
     classification,
     quipuForms,

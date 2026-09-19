@@ -289,7 +289,7 @@ def deeperWhenFromSpec(spec):
                       budget = budget, limit = limit, name = name)
 
 
-def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName = 'quiver', vertexRelabeling = None, printOutput = True, collected = None, collectedHereditary = None, visitor = None, coxeterGuard = True, baseKey = None, deeperWhen = None, deeperSpent = 0):
+def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName = 'quiver', vertexRelabeling = None, printOutput = True, collected = None, collectedHereditary = None, visitor = None, coxeterGuard = True, baseKey = None, deeperWhen = None, deeperSpent = 0, visited = None):
     """Walk mutations of pathAlg to the given depth, recording the lines found.
 
     Every quiver reached that is again a line is recorded as a triple
@@ -335,6 +335,23 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
 
     Passing `coxeterGuard = False` restores the old behaviour, and is for
     measuring what the guard changes, not for producing answers.
+
+    **`visited` is what stops the walk redoing itself.**  Pass a
+    `fingerprint.Visited` and every node is looked up before its children are
+    walked: one already expanded with at least this much depth left is skipped,
+    since everything below it has been walked already.  The walk reaches the
+    same algebras either way -- it is the *routes* that are deduplicated, and
+    there are many of them, because a mutation is invertible and mutations at
+    distant vertices commute.  At n = 9, depth 6, out of the leftover orbits the
+    merge hunt starts from, that is 11.4x and 9.5x fewer nodes (E-042), and the
+    factor roughly doubles per level.
+
+    The node itself is still recorded before the check, so `collected`,
+    `collectedHereditary` and `visitor` see every node the undeduped walk shows
+    them at least once.  What a caller must not assume is that the *first* path
+    offered to a node is the shortest one; see `fingerprint.Visited`.
+
+    Leaving `visited` as `None` is the undeduped walk, unchanged.
     """
     # These used to default to [] and {}, which Python evaluates once at
     # definition time.  The relabeling dict is filled in below and so leaked
@@ -394,6 +411,12 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
         # Before the depth test, not after: the node this is for is typically
         # the one the walk has just run out of budget at.
         depth, deeperSpent = deeperWhen.grant(pathAlg, mutationVertices, depth, deeperSpent)
+    # After the grant, because the grant is what decides how much depth this
+    # node actually has left, and it is that number the visited set compares.
+    # A node the grant has just bought four extra levels for is not the same
+    # node as the one that arrived here with none.
+    if visited is not None and visited.seen(pathAlg, depth):
+        return
     if depth > 0 and noCycles:
         depth = depth - 1
         for vertex in reversed(vertices):
@@ -444,7 +467,7 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
                     # movedKey is None for a cyclic quiver, which the search does
                     # not descend from anyway; it is let through so that cycles
                     # end a branch exactly as they did before the guard.
-                mutationSearchDepthFirst(copy.deepcopy(mutPathAlg), depth, mutationVerticesAtDepth, quiverName, vertexRelabeling, printOutput, collected, collectedHereditary, visitor, coxeterGuard, baseKey, deeperWhen, deeperSpent)
+                mutationSearchDepthFirst(copy.deepcopy(mutPathAlg), depth, mutationVerticesAtDepth, quiverName, vertexRelabeling, printOutput, collected, collectedHereditary, visitor, coxeterGuard, baseKey, deeperWhen, deeperSpent, visited)
     return
 
 

@@ -172,15 +172,20 @@ nothing else. `procedure._inOldQuiver`.
   nothing but its own relation dual (E-036). That member is alone in its Coxeter
   polynomial group, so it could never have shown a merge between leftovers; what
   is left is n = 10 and n = 11, where those groups have several orbits each.
-* **No canonical form for a quiver with parallel arrows.** Arrow keys are handed
-  out deterministically within one mutation, so the same mutation twice gives the
-  same algebra; but two algebras reached by *different* routes are compared by
-  `rels`, and that projection cannot separate them. Nothing in the pipeline
-  compares two parallel-arrow algebras today — a line has no parallel arrows, so
-  every answer is recorded after the projection is faithful again — but a search
-  that wanted to dedupe its interior nodes would need one. This is the
-  performance backlog's "canonical form for a path algebra" with the hard case
-  added.
+* ~~**No canonical form for a quiver with parallel arrows.**~~ **There is one:**
+  `fingerprint.canonicalKey`, research F-049. Arrow keys are handed out
+  deterministically within one mutation, so two algebras reached by *different*
+  routes could carry different namings and `rels` cannot separate them. The
+  ambiguity is exactly a permutation of the arrows within each parallel bundle,
+  so the canonical form is the least such relabeling, and the cost is the
+  product of the bundle sizes' factorials — which over 5322 nodes of two
+  depth-5 walks was **always 2**, every parallel-arrow node having one bundle of
+  two (E-042). Above `fingerprint.DEFAULT_CAP` relabelings the key refuses
+  rather than guesses, and a refused node is walked, never skipped.
+
+  What the same work turned up is that this was not the only ambiguity: the
+  **sign gauge** is the other, and it was the one costing real search time. See
+  F-050 and "Deduplicating the search" below.
 * **The vertex-model consumers are unchanged.** `lines`, `quipuForms`,
   `mutationClassTable` and the naming all read `rels`, and all of them act on
   quivers that are lines or trees. That is sound because a quiver on `n` vertices
@@ -314,6 +319,69 @@ never been looked at. Expect trees, and mostly quipus. A relation-free quiver
 whose graph has a **cycle** would be a hereditary algebra of a kind no LNA class
 has produced, and is worth stopping for. Nothing is recorded unless a sink is
 open, so it costs nothing when it is not asked for.
+
+### Deduplicating the search
+
+**The walk enumerates mutation sequences, and many of them reach the same
+algebra.** Out of the `n = 9` leftover `3345000`, a depth-6 walk visits 19483
+nodes that are 1708 distinct algebras, and the ratio roughly doubles per level:
+3.6x at depth 4, 6.3x at 5, 11.4x at 6 (research E-042, F-049). A mutation is
+invertible and mutations at distant vertices commute, so the routes to a place
+multiply faster than the places do, and everything below a repeated node is
+walked twice.
+
+`fingerprint.Visited` is the visited set that stops it, and
+`mutationSearchDepthFirst(..., visited = fingerprint.Visited())` is how the
+search is asked to use it. Off by default; the plain walk is unchanged.
+
+**It is depth-aware, and that is the correctness condition.** A node first met
+with one mutation left and met again with four has three levels below it that
+were never walked, so what is stored is the largest *remaining* depth a node has
+been expanded at, and only a node already expanded at least that deep is
+skipped. Checked over every LNA of `n = 5` to `8`: the same lines, the same hereditary
+forms, the same nodes, no mismatch (E-043). It is 6.1x faster at `n = 9`, depth
+6, and `merges.py` passes one by default -- `--no-dedupe` restores the old walk.
+
+**Two things are ambiguous about a presentation, and the key quotients both.**
+The naming of parallel arrows — see "Parallel arrows" above — and the **sign
+gauge**: rescaling an arrow by `-1` is an automorphism, so it changes the
+presentation and not the algebra, and the procedure is sensitive to it (F-050).
+Quotienting the second is linear algebra over `F_2` and costs nothing.
+
+**What it does not preserve is which route is recorded first.** The plain walk
+reaches a node once per route and the deduped walk once, so a caller keeping the
+shortest mutation path may be handed a longer one. Nothing in the repo depends
+on that — `quiversReachedFrom` keeps the shortest it is shown and a merge
+certificate is checked rather than minimised — but a caller that did would have
+to search breadth-first instead.
+
+**`fingerprint.digest` is for memory, not for speed.** It hashes the canonical
+key to 128 bits for a visited set that will not fit as keys, about 30x smaller.
+It does not make identification cheaper, the key having to be built to hash it.
+A collision prunes a subtree that was not visited, so it costs **recall and
+never soundness**: the walk can miss a meeting point and cannot invent one.
+`fingerprint.collisionChance` is there to size it against a run rather than
+guess.
+
+### Long runs, and leaving a machine working
+
+`jobs.py` is the checkpoint machinery `classify.py` and `merges.py` each grew
+separately, written once: a **unit** of work named by a string, an append-only
+JSONL **ledger** that a finished unit is flushed to immediately, a run that
+resumes from the ledger by default, and a `--budget-hours` that stops between
+units and exits 2 so `overnight.py` restarts it. `batch.py` is the command line
+over the registry, and `batch.py --list` is the inventory of long jobs including
+the ones that keep their own front door.
+
+The task it was built for is `sample`. Above about `n = 13` there are too many
+LNAs to classify them all — 208012 at `n = 13`, 1767263190 at `n = 20` — so the
+question a long length can be asked is a statistical one: draw LNAs uniformly
+and count what the quipu theorem names, what the moves carry, and what is left
+over. `sampling.py` is the draw, and it is uniform *exactly*, by a dynamic
+program over the same recursion `lines.generateAllPossibleLineRelations`
+enumerates by; `sampling.countLNAs` agrees with the enumerator wherever the
+enumerator can still be run, which is the test. Research H-019 is what the task
+is aimed at.
 
 ### Conditional deeper probing
 
@@ -681,16 +749,40 @@ item 4 is what makes n >= 10 readable at all.
    is `nx.all_simple_paths`, called 93k times in one depth-4 search on quivers
    that have not changed between calls. Needs a cheap structural key for a path
    algebra — which is also what a proper `__hash__`/`__eq__` on `PathAlgebra`
-   would give.
+   would give. **The key now exists** (`fingerprint.canonicalKey`, item 3), so
+   this is unblocked; note that it is not free, so memoizing on it pays only
+   where the enumeration it saves costs more than building it does.
 2. ~~**Find and fix the length-12 recursive loop.**~~ Done — it was cycles, not
    length. See research F-009.
-3. **Canonical form for a path algebra.** A normalised, hashable representation
-   would replace the dedupe-by-list-comparison machinery, let the search
-   memoize on quivers it has already visited, and make `reducePathAlgebra`
-   testable as "reduces to the canonical form".
+3. ~~**Canonical form for a path algebra.**~~ **Done**, 2026-09-19, research
+   F-049 and F-050. `fingerprint.canonicalKey` is the normalised, hashable
+   representation, and `fingerprint.Visited` is the search memoizing on it:
+   `search.mutationSearchDepthFirst(..., visited = ...)` is 6.1x faster at
+   `n = 9`, depth 6, and the factor grows with the depth (E-043). Two of the
+   three things this item wanted are therefore done; **making
+   `reducePathAlgebra` testable as "reduces to the canonical form" is not**, and
+   is still worth doing — the key is now there to write that test against.
 4. **Avoid re-deriving relations from scratch after each mutation.** The search
    recomputes every relation between every pair of vertices at each node; most
    of that is unchanged by a mutation at a single vertex.
+5. **Give `classify.py` the dedup that `merges.py` now has.** `merges.py`
+   passes a `fingerprint.Visited` and is 5x to 6x faster at its depths;
+   `classification` still walks every mutation sequence. The equivalence is
+   checked over every LNA of `n = 5` to `8` (E-043), so what is missing is the
+   wiring and a re-run of the `n <= 8` acceptance test, not an argument.
+6. **A canonical form for the *ideal*, not the presentation.** `canonicalKey`
+   keys the presentation, so two presentations generating one ideal by genuinely
+   different generators are two keys and the walk does both. A canonical basis
+   of the ideal per source-target pair would close it, at about what the Cartan
+   matrix costs — which is not obviously worth it, and is the measurement to
+   make before building it. Research F-049.
+7. **Should the procedure be making an arbitrary sign choice at all?** F-050
+   records that it is: two presentations of one algebra, differing only in the
+   sign of a zero relation, mutate at one vertex to results differing by an
+   arrow rescaling. `fingerprint` quotients that away downstream, which is the
+   right thing for a search to do and says nothing about whether the engine
+   should be producing it. If it should not, the place to look is the step that
+   introduces the sign, and F-050 has the smallest case.
 
 ### The model
 

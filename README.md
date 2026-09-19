@@ -177,6 +177,58 @@ that stops at its row cap has measured the budget and not the moves, which is ho
 49 barricades at `n = 15` and `16` were first recorded as failures and then joined
 in 45 seconds. See `research/` F-042 and E-037.
 
+## Lengths too long to enumerate
+
+Past about `n = 13` there is no complete pass to be had -- 208012 LNAs at
+`n = 13`, 1767263190 at `n = 20` -- and the lengths that *can* be done completely
+are unrepresentative, because in a quiver of length 8 every vertex is within
+three arrows of an end and the anchored rules are exactly the ones an end is in
+reach of. So the question a long length can be asked is a statistical one:
+
+```bash
+python batch.py sample 16 --count 4000 --jobs 7 --budget-hours 9
+python batch.py sample 16 --summary
+```
+
+This draws LNAs **uniformly** -- exactly so, by a dynamic program over the same
+recursion the enumerator uses, not by rejection over relation-length vectors --
+and puts each through the cheap pipeline: named by the quipu theorem, carried by
+the moves to one that is, or left over. The leftovers are the point, and each is
+recorded with its overlap profile so their shapes can be counted afterwards.
+Research H-019 is the hypothesis it is aimed at; the first 60 draws at `n = 12`
+put the leftover rate at 28% against 0.6% at `n = 9`.
+
+Every task writes an append-only ledger under `logs/`, one line per finished
+draw, and resumes from it, so a run can be stopped and restarted and a run of
+1000 can be widened to 2000 without redoing the first 1000. `--budget-hours`
+stops cleanly and exits 2, which is what `overnight.py` restarts on.
+`python batch.py --list` is the inventory of long jobs, including the ones that
+keep their own front door.
+
+### Searching without walking the same algebra twice
+
+A mutation search enumerates mutation *sequences*, and many of them reach the
+same algebra: at `n = 9` and depth 6 a walk visits 19483 nodes that are 1708
+distinct algebras, and the ratio roughly doubles per level.
+
+```python
+from quivermutation import fingerprint, search
+
+visited = fingerprint.Visited()
+search.mutationSearchDepthFirst(algebra, 6, visited = visited, printOutput = False)
+visited.summarise()          # nodes, distinct, skipped, ratio
+```
+
+The key is **exact**, not probabilistic, and the reason is that there is no
+isomorphism problem: vertex labels do not move under mutation, so two algebras
+reached from one start are equal on the nose or not at all. What is ambiguous is
+the naming of parallel arrows -- a permutation within each bundle, and in
+practice always one bundle of two -- and the **sign gauge**, rescaling an arrow
+by `-1` being an automorphism that the procedure turns out to be sensitive to.
+Both are quotiented out. It reaches exactly what the plain walk reaches, checked
+over every LNA of `n = 5` to `8`, and is 6.1x faster at `n = 9`, depth 6.
+`merges.py` uses it by default. See `research/` F-049, F-050 and E-042, E-043.
+
 ## Other families that could carry the classes the theorem misses
 
 ```bash
