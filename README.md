@@ -94,6 +94,28 @@ alongside the classification.
 ./overnight.sh 9
 ```
 
+[`overnight.py`](overnight.py) is the same thing without `caffeinate` or bash
+job control, so it runs on Windows too -- and, under WSL, holds the *Windows*
+host awake through interop, since nothing Linux does has any say over whether
+the machine the VM sits on sleeps at midnight. `--only` picks a set of jobs,
+`--dry-run` prints them without starting anything, and each job resumes from its
+own checkpoint:
+
+```bash
+python overnight.py --hours 9 --only sample15 cores15 cores13
+```
+
+`--run` takes a job the table does not name, as one quoted string, so a run of
+nights at different lengths and widths needs no code change:
+
+```bash
+python overnight.py --hours 9 --run "batch.py cores 16 --max-word 4 --jobs 7"
+```
+
+**[`OVERNIGHT.md`](OVERNIGHT.md) is the place to start for an actual night.** It
+has the exact commands for this machine, what every parameter changes, what a
+census of each length costs, and a menu of runs worth making.
+
 The classification runs in four steps, described in `NOTES.md`: seed every LNA
 the quipu theorem of arXiv:2305.06642 covers, search by mutation for the rest,
 name any class the theorem missed by the hereditary algebra its search reaches,
@@ -204,6 +226,47 @@ draw, and resumes from it, so a run can be stopped and restarted and a run of
 stops cleanly and exits 2, which is what `overnight.py` restarts on.
 `python batch.py --list` is the inventory of long jobs, including the ones that
 keep their own front door.
+
+### Sliding one configuration along a long line
+
+Sampling asks what a *typical* LNA of a long length does, and the answer is
+dominated by dense rows. The simple patterns are in the sparse ones, and the
+way to reach those is to put one small overlapping configuration -- a **core**
+-- into an otherwise empty quiver at every offset, and ask where the moves place
+it:
+
+```bash
+python batch.py cores 15 --max-word 4 --jobs 6
+python batch.py cores 15 --max-word 4 --summary
+```
+
+That is how F-042 was found by hand: the `45` core is placed by the moves when
+it sits against the source or within one arrow of the sink and nowhere else, the
+outside band growing a place longer with every vertex added. The law is
+invisible at `n = 9`, where the core fits at three offsets and all three are
+inside, which is the whole reason to run this at a length nothing can be
+enumerated at. Research H-018 asks for exactly this census at `n = 14` and
+`n = 15`; `--gaps` adds the two-cluster shapes F-040 counted zero of below
+`n = 12` because they barely fit there.
+
+Every placement gets one of **three** verdicts, and the third is what keeps the
+run honest:
+
+| verdict | what it means |
+|---|---|
+| `inside` | the walk reached an almost separate LNA, or a two-ended `movesJoin` met one -- a certificate |
+| `outside` | the forward orbit **closed** without holding one: a statement about this move set, not about derived equivalence |
+| `undecided` | the orbit hit its cap and no join met -- the budget was measured, not the moves |
+
+E-037 is why. Forty-nine barricades at `n = 15` and `n = 16` were once recorded
+as failures by a one-way walk that had merely run out of rows, and `movesJoin`
+then joined them in 45 seconds. A census that collapses `undecided` into
+`outside` manufactures exactly that finding.
+
+`tests/test_cores_task.py` pins the instrument against F-042's published slide
+at lengths 9 to 12, and against the mirrored `504` slide, so a census at a
+length where nothing is known is run by something that reproduces the one census
+that was done by hand.
 
 ### Searching without walking the same algebra twice
 

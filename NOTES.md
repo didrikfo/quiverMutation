@@ -383,6 +383,59 @@ enumerates by; `sampling.countLNAs` agrees with the enumerator wherever the
 enumerator can still be run, which is the test. Research H-019 is what the task
 is aimed at.
 
+The second task is `cores`, and it asks the opposite question. A uniform draw at
+`n = 15` is a dense row with five or six relations, so the sparse configurations
+— one small overlapping cluster in an otherwise empty quiver — are the ones the
+sampler almost never lands on, and they are where the simple patterns are:
+F-042's law came out of sliding the `45` core along the line by hand. `cores`
+is that slide as a job, over every heavily overlapping core word at every
+offset, with `--gaps` adding the two-cluster shapes F-040 counted zero of
+because they barely fit below `n = 12`. Research H-018 is what it is aimed at.
+
+Its one design decision worth stating is the **three** verdicts. `orbitOf` walks
+forwards only and stops at a row cap, so "did not reach an almost separate LNA"
+is two different statements: the orbit closed without one, or the walk ran out
+of budget. The first is `outside` and the second is `undecided`, and a capped
+walk additionally gets `movesJoin` run against a handful of nearby almost
+separate rows before it is given up on. E-037 is why the distinction is in the
+instrument and not left to the reader: 49 barricades at `n = 15` and `n = 16`
+were recorded as failures by a one-way walk that had merely run out of rows, and
+meeting in the middle joined them in 45 seconds. `tests/test_cores_task.py`
+pins the whole thing against F-042's published slide at lengths 9 to 12 and
+against the mirrored `504` slide, so the census at a length where nothing is
+known is produced by something that reproduces the census already done by hand.
+
+**Both tasks stop their walk at the first certificate, and it took a wasted
+night to notice they did not.** Every question either task asks of the move
+orbit is a membership question — is there an almost separate row in here — and
+both were answering it by enumerating the orbit to its 20000-row cap and *then*
+looking through the result. E-045 measured the price: of the 932 placements the
+second overnight run finished, the 666 that came back `inside` cost 49 of its
+53.8 core-hours, and re-running a random twelve of them with the walk stopping
+at the first certificate took 5.8 seconds against 2818. A whole census of
+`n = 15` is now under four core-hours.
+
+`freeMoves.orbitReport` is where that lives, and the reason it exists rather
+than a bare `stopWhen` on `orbitOf` is that a short orbit now has two possible
+meanings. Stopped early it is a prefix, and a row's absence from it says
+nothing; run to an empty frontier it is the whole forward orbit, and absence is
+evidence. `OrbitWalk.stoppedBy` says which — `found`, `closed` or `cap` — so
+`outside` can go on requiring a closed orbit rather than inferring closure from
+a row count. `sampling.probe` records the same distinction as `orbitClosed`,
+which also splits its leftovers: at `n = 15` one in six of them was the cap and
+not the moves.
+
+**Which flags name the ledger is a correctness question, not a naming one.**
+Anything that changes what an answer *means* is in the filename — `--max-word`,
+`--pair-word`, `--max-arrows`, `--gaps`, `--orbit-limit`, `--join-limit`, and
+`--seed` and `--depth` for the sampler — because a run under one value must not
+resume from, or be read as, a run under another. Anything that changes only
+*how much* of the same question gets asked is not: `--count`, `--jobs`, and the
+`--cores` and `--core-limit` filters, which exist so two nights can split one
+census between them. `OVERNIGHT.md` is the menu of what to run and
+`tests/test_overnight_doc.py` parses every command in it, because that file is
+meant to be copied unread at midnight.
+
 ### Conditional deeper probing
 
 **A depth-bounded search gives every branch the same budget, and the branches are

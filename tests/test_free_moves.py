@@ -188,3 +188,72 @@ def test_stripping_keeps_the_coxeter_polynomial(length):
 
     for relLengths in nk.allRelationLengths(length):
         assert poly(relLengths) == poly(fm.stripLengthTwo(relLengths)), relLengths
+
+
+# -- stopping the walk early, and saying why it stopped ---------------------
+#
+# `orbitOf` enumerated the orbit to its cap and left the caller to look through
+# it.  Every caller here was asking a membership question, so the walk paid for
+# the whole orbit to answer something the first few hundred rows had settled:
+# the second overnight run spent 49 of its 54 core-hours that way.  `stopWhen`
+# is the fix and `orbitReport` is what keeps it honest -- a short return now
+# means either "closed" or "stopped early", and only the first is evidence.
+
+def test_a_stopped_walk_returns_the_row_that_stopped_it():
+    length = 11
+    row = (0, 4, 5, 0, 0, 0, 0, 0, 0)
+    whole = fm.orbitOf(length, row, free = True, edges = True, doubles = True)
+    fewest = min(sum(1 for value in member if value) for member in whole)
+    walk = fm.orbitReport(length, row, free = True, edges = True, doubles = True,
+                          limit = 20000,
+                          stopWhen = lambda member:
+                              sum(1 for value in member if value) == fewest)
+    assert walk.stoppedBy == 'found'
+    assert sum(1 for value in walk.found if value) == fewest
+    assert walk.found in walk.rows
+    assert not walk.closed
+    assert len(walk.rows) <= len(whole)
+
+
+def test_a_predicate_that_never_holds_walks_the_same_orbit_as_before():
+    length = 10
+    row = (0, 4, 5, 0, 0, 0, 0, 0)
+    plain = fm.orbitOf(length, row, free = True, edges = True, doubles = True)
+    walk = fm.orbitReport(length, row, free = True, edges = True, doubles = True,
+                          stopWhen = lambda member: False)
+    assert walk.rows == plain
+    assert walk.stoppedBy == 'closed'
+    assert walk.closed
+
+
+def test_a_walk_that_runs_out_of_budget_says_so_rather_than_looking_closed():
+    length = 13
+    row = (0, 0, 0, 4, 5, 0, 0, 0, 0, 0, 0)
+    walk = fm.orbitReport(length, row, free = True, edges = True, doubles = True,
+                          limit = 40, stopWhen = lambda member: False)
+    assert walk.stoppedBy == 'cap'
+    assert not walk.closed, "a capped walk read as closed is the E-037 mistake"
+    assert len(walk.rows) >= 40
+
+
+def test_stopping_early_does_not_change_which_rows_are_reachable():
+    # The point of the economy is that it is only an economy: what the walk
+    # would have concluded is what it concludes, sooner.
+    length = 10
+    for row in [(0, 4, 5, 0, 0, 0, 0, 0), (0, 0, 5, 0, 4, 0, 0, 0),
+                (3, 0, 0, 4, 0, 0, 0, 0)]:
+        whole = fm.orbitOf(length, row, free = True, edges = True, doubles = True)
+        for member in sorted(whole)[:5]:
+            walk = fm.orbitReport(length, row, free = True, edges = True,
+                                  doubles = True,
+                                  stopWhen = lambda seen, want = member: seen == want)
+            assert walk.found == member
+            assert walk.rows <= whole
+
+
+def test_the_start_row_can_itself_stop_the_walk():
+    length = 9
+    row = (0, 0, 0, 0, 0, 0, 0)
+    walk = fm.orbitReport(length, row, free = True, stopWhen = lambda member: True)
+    assert walk.found == row
+    assert walk.rows == {row}

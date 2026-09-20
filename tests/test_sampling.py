@@ -152,3 +152,29 @@ def test_probe_is_json_serialisable():
     import json
     record = sampling.probe(9, [3, 0, 3, 3, 0, 3, 0])
     assert json.loads(json.dumps(record)) == record
+
+
+# -- which kind of leftover it is ------------------------------------------
+#
+# `settledBy == 'leftover'` covers two different facts: an orbit that emptied
+# its frontier without holding an almost separate row, and a walk that ran out
+# of budget.  At n = 15 one leftover in six was the second kind, so a leftover
+# rate read without the split is part rate and part cap.  E-037 is what reading
+# one as the other costs.
+
+def test_a_probe_says_whether_its_orbit_closed():
+    record = sampling.probe(9, (0, 4, 5, 0, 0, 0, 0))
+    assert record['orbitClosed'] in (True, False)
+
+
+def test_a_leftover_found_under_a_tiny_limit_is_not_reported_as_closed():
+    record = sampling.probe(13, (0, 0, 0, 4, 5, 0, 0, 0, 0, 0, 0), orbitLimit = 30)
+    if record['settledBy'] == 'leftover':
+        assert record['orbitClosed'] is False
+
+
+def test_a_row_the_theorem_names_needs_no_walk_and_says_its_orbit_closed():
+    record = sampling.probe(9, (2, 0, 0, 2, 0, 0, 0))
+    assert record['settledBy'] == 'theorem'
+    assert record['orbitClosed'] is True
+    assert record['orbit'] == 1

@@ -167,13 +167,25 @@ def probe(length, relLengths, orbitLimit = 20000):
 
     * `'theorem'`  -- almost separate, so the quipu theorem names it;
     * `'moves'`    -- the moves carry it to one that is, and `movesTo` says
-                      which and `orbit` how many rows were walked to find it;
+                      which and `orbit` how many rows were walked to find it.
+                      `movesTo` is the *first* such row the walk meets, which
+                      before 2026-09-20 was the smallest of all of them: the
+                      walk used to enumerate the orbit before looking.  Which
+                      certificate it is has never been load-bearing, and
+                      `settledBy` is the same either way;
     * `'leftover'` -- neither, within the orbit limit.
 
     A `'leftover'` is a lower bound and not a proof: `orbitOf` walks forwards
     only and stops at `orbitLimit`, so a row it does not place may still be
     placeable.  That is the same caveat the exhaustive runs carry and is why the
     limit is recorded alongside the answer.
+
+    `orbitClosed` says which kind of leftover it is, and the two are not the
+    same fact.  Closed, the frontier emptied and the whole forward orbit holds
+    no almost separate row.  Not closed, the walk hit `orbitLimit` and measured
+    the budget, which is the mistake E-037 recorded as a result -- at `n = 15`
+    that is one leftover in six, so a leftover *rate* read without the split is
+    part rate and part cap.
     """
     from . import freeMoves as fm
     from . import overlap as ov
@@ -189,15 +201,21 @@ def probe(length, relLengths, orbitLimit = 20000):
         'orbitLimit': orbitLimit,
     }
     if ov.isAlmostSeparate(length, relLengths):
-        record.update(settledBy = 'theorem', orbit = 1, movesTo = record['name'])
+        record.update(settledBy = 'theorem', orbit = 1, movesTo = record['name'],
+                      orbitClosed = True)
         return record
-    orbit = fm.orbitOf(length, relLengths, free = True, edges = True,
-                       doubles = True, limit = orbitLimit)
-    record['orbit'] = len(orbit)
-    for member in sorted(orbit):
-        if ov.isAlmostSeparate(length, member):
-            record.update(settledBy = 'moves',
-                          movesTo = ''.join(str(value) for value in member))
-            return record
+    # Stop the walk at the first almost separate row rather than enumerating the
+    # orbit and then looking: the answer is usually in the first few hundred
+    # rows, and walking to the cap first cost the second overnight run fifteen
+    # core-hours to learn nothing the first three hundred rows had not said.
+    walk = fm.orbitReport(length, relLengths, free = True, edges = True,
+                          doubles = True, limit = orbitLimit,
+                          stopWhen = lambda row: ov.isAlmostSeparate(length, row))
+    record['orbit'] = len(walk.rows)
+    record['orbitClosed'] = walk.closed
+    if walk.found is not None:
+        record.update(settledBy = 'moves',
+                      movesTo = ''.join(str(value) for value in walk.found))
+        return record
     record.update(settledBy = 'leftover', movesTo = None)
     return record

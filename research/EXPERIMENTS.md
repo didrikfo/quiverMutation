@@ -6,6 +6,110 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-045 — The length-15 night: two censuses and a sample, all three cut off
+*2026-09-20* · **no census finished; the instrument was the bottleneck, not the machine** → H-018, H-019, H-020
+
+The night `overnight.py --hours 9 --only sample15 cores15 cores13` was left to
+run. All three jobs used their whole budget and all three stopped on it, with
+the work they had done on disk:
+
+| job | units done | of | core-hours | what it was for |
+|---|---|---|---|---|
+| `cores15` | 932 | 2591 | 53.8 | H-018, the census at a length with room |
+| `cores13` | 367 | 1705 | 18.0 | the control length F-042 already covered |
+| `sample15` | 879 | 6000 | 62.7 | H-019, the leftover rate at `n = 15` |
+
+The machine was not the problem: 134 core-hours came back from 15 workers in 9
+hours, which is a saturated machine. **The instrument was.** Three things came
+out of reading the ledgers, and the first is much the largest.
+
+**1. The walk was paying for the whole orbit to answer a membership question.**
+Of `cores15`'s 932 placements, the 666 that came back `inside` cost 49 of the
+53.8 core-hours; the 260 `outside` ones cost 3.8. That is backwards -- `inside`
+is the *easy* answer -- and the reason was that `_verdictFor` called
+`freeMoves.orbitOf`, which enumerates to its 20000-row cap, and only then looked
+through the result for an almost separate row. Re-running a random twelve of
+those `inside` placements with the walk stopping at the first almost separate
+row it meets: every one of them found its certificate within 351 rows, nine of
+the twelve within 100, and the twelve together took **5.8 seconds against the
+2818 seconds they cost on the night** -- 486x. `sampling.probe` had the same
+shape and the same 15.5 core-hours of `moves` rows to show for it.
+
+`freeMoves.orbitReport` is the fix, with a `stopWhen` predicate and, because a
+walk that stops early must not be mistaken for one that closed, an explicit
+`stoppedBy` of `closed`, `found` or `cap`. The verdicts are unchanged; what
+changed is the price. Measured afterwards, single core, over a random sample of
+each catalogue:
+
+| census | placements | median | mean | one core |
+|---|---|---|---|---|
+| `cores 13 --max-word 4` | 1705 | 0.18s | 2.35s | **1.1 h** |
+| `cores 15 --max-word 4` | 2591 | 0.28s | 5.27s | **3.8 h** |
+| `cores 16 --max-word 4` | 3034 | 0.61s | 10.35s | **8.7 h** |
+| `cores 17 --max-word 4` | 3477 | 2.66s | 38.82s | **37.5 h** |
+
+`cores15` was four nights of work and is now half an hour on eight workers. The
+catalogue grows slowly and the price of a placement does not: `n = 17` is still
+a night, `n = 18` at this width is several.
+
+**2. The two censuses walked their catalogues at different speeds, so only
+their overlap could be read.** `cores13` reached 62 cores and `cores15` reached
+125, both from the front of the same catalogue. A census read against another
+length is the entire point of running one, and the budget, not the question,
+decided where each stopped. `--core-limit` and `--cores` now cut the catalogue
+deliberately instead, and neither is in the ledger's name, so two nights can
+split one census between them.
+
+**3. The shapes the length was chosen for got no units at all.** `--gaps` puts
+two-cluster cores in the catalogue after every single core, and at the rate the
+night ran neither length reached them: "rows with two heavy clusters and a free
+arrow between them: 0" in both summaries. F-040's question -- the one that needs
+`n >= 13` to be askable -- was not asked. It needs its own run, which
+`--max-word 2 --pair-word 2` gives, and that is now in `OVERNIGHT.md`.
+
+**What the partial data looks like, recorded and not concluded from.** Of the 62
+cores done at both lengths, 25 have an `outside` somewhere in their slide. Every
+one of those 25 has the same shape at both lengths: some number of inside
+offsets at the source end, some number at the sink end, and outside everywhere
+between, with **both counts identical at `n = 13` and `n = 15`** and the outside
+middle absorbing the two extra offsets. Not one of the 25 has an inside in its
+interior. H-020 is that observation written down as something to test; it rests
+on two lengths, one of them a third finished, and is not a finding.
+
+Two smaller things worth having on the record:
+
+* **Six placements came back `undecided`, and five of the six sit exactly at the
+  boundary** between the outside middle and the inside tail (`ooooo?ii`,
+  `oooo?ii`, `ooooo?i`), the sixth at the head boundary (`ii?ooooo`). The hard
+  cases are where the answer changes, which is where a sharper limit is worth
+  spending on: `--cores 245,2045,2245,2555,2556,3344 --join-limit 40000`.
+* **81 of the 510 sampled leftovers, one in six, had walks that hit the cap**
+  rather than closing. `settledBy == 'leftover'` was covering both, so a
+  leftover *rate* at `n = 15` is part rate and part budget. `probe` now records
+  `orbitClosed` and the summary splits them, and `--orbit-limit` has joined the
+  sampler's ledger name, which it should always have been in -- the same
+  mistake `--pair-word` made in `cores` before the first night.
+
+Reproduce, or continue:
+
+```bash
+python batch.py cores 15 --max-word 4 --summary
+python batch.py cores 13 --max-word 4 --summary
+python batch.py sample 15 --count 6000 --depth 4 --summary
+```
+
+The ledgers from the night are kept and the new runs resume from them. Their
+rows carry no `stopped` or `orbitClosed` field, which is how a row written
+before the walk learned to stop early can be told from one written after. The
+sample ledger was renamed from `sample-n15-s0-d4.jsonl` to
+`sample-n15-s0-d4-o20000.jsonl`, because `--orbit-limit` was missing from the
+name and two runs under different limits disagree about what a leftover is.
+
+`OVERNIGHT.md` is the menu this run produced: what each parameter changes, what
+a census of each length costs, and the runs worth making next.
+
+---
+
 ## E-044 — The sampler, calibrated against the lengths whose answer is known
 *2026-09-19* · **agrees at `n = 9`, 10 and 11; `n = 12` is 28% leftover** → H-019
 
