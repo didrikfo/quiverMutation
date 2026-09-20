@@ -6,6 +6,62 @@ it. Status is one of `OPEN`, `SUPPORTED`, `CONFIRMED → F-nnn`, `REFUTED → R-
 
 ---
 
+## H-020 — Where a core may sit is fixed by its distance to the two ends, not by the length
+*2026-09-20* · **OPEN**
+
+**The conjecture.** For an overlapping core placed alone in a line, whether the
+moves carry it to an almost separate LNA depends only on how far it sits from
+the source and how far from the sink. There are two numbers `head(c)` and
+`tail(c)`, belonging to the core and not to the length, such that the core at
+offset `k` in a line of `n` is placeable exactly when `k < head(c)` or the core
+ends within `tail(c)` of the sink, and is outside everywhere between.
+
+**Where it comes from.** F-042 found one instance of this by hand: the `45` core
+is placed against the source or within one arrow of the sink and nowhere else,
+at every length from 9 to 13, and the law is invisible at `n = 9` where all
+three offsets are inside. E-045's census is the first run to ask it of many
+cores at once. Of the 62 cores it completed at both `n = 13` and `n = 15`, the
+25 that have an `outside` anywhere all read as `i…i o…o i…i` with the head and
+the tail **the same at both lengths** and the outside middle taking up both
+extra offsets. Not one has an inside in its interior.
+
+**Why that is not yet a finding.** It is two lengths, and the shorter of the two
+is the one F-042 already covered, so `n = 15` is carrying the claim alone. Both
+censuses stopped a third of the way through their catalogue and both stopped at
+the same place in it, so the 62 cores are the *front* of the catalogue — short
+words, small overlaps — and not a sample of it. Six placements at `n = 15` are
+undecided, and five of them sit exactly on a head or tail boundary, which is
+precisely where a wrong `head` or `tail` would come from. And `outside` is a
+statement about this move set, not about derived equivalence.
+
+**What would settle it.** The same census at a run of lengths, complete rather
+than truncated, which E-045's 486x now makes a night's work rather than a
+month's:
+
+```
+python overnight.py --hours 9   --run "batch.py cores 12 --max-word 4 --jobs 4"   --run "batch.py cores 14 --max-word 4 --jobs 5"   --run "batch.py cores 16 --max-word 4 --jobs 5"
+python batch.py cores 14 --max-word 4 --summary
+```
+
+The summary prints `head` and `tail` per core. The hypothesis says those two
+columns are identical at every length; a single core whose head or tail moves
+with `n` refutes it as stated, and a single core with an inside in its interior
+refutes the shape. Resolving the six undecideds is worth doing first, since they
+sit where the answer changes:
+
+```
+python batch.py cores 15 --max-word 4 --join-limit 40000   --cores 245,2045,2245,2555,2556,3344 --jobs 6
+```
+
+**What it would mean if it held.** Placeability would be a boundary condition
+and nothing else — the interior of a long line would be uniform, and the whole
+question would reduce to two finite numbers per core. It would also say what is
+*not* happening: no interaction between the core and the length, and nothing
+that appears only at some particular `n`. H-018 asks the same question the other
+way round, in terms of overlap rather than placement.
+
+---
+
 ## H-019 — The leftovers do not thin out with the length, and past `n = 12` they are most of it
 *2026-09-19* · **SUPPORTED**
 
@@ -60,6 +116,52 @@ reading to test it against.
 room to act as the quiver lengthens, and the double mutation of F-032 in
 particular carries every relation crossing the one it slides.
 
+**2026-09-20: `n = 15` is set up and not yet run**, with a mutation search out
+of every leftover, which no sampling run has done before -- `--depth` was added
+with the task and E-044 used depth 0:
+
+```
+python batch.py sample 15 --count 6000 --depth 4 --jobs 7
+python batch.py sample 15 --count 6000 --depth 4 --summary
+```
+
+A pilot of 12 draws timed while setting it up came out 1 by the theorem, 6 by
+the moves, **5 leftover**, which is the right order for the series 0.7, 5.4, 16,
+28 to be continuing but is 12 draws and means nothing on its own. The costs, for
+whoever sizes the next one: a draw is about 52 s of one core, ranging 0 to 150,
+and a depth-4 deduplicated search out of a leftover is 27 to 65 s.
+
+The search records `reached`, `hereditary` and the walk's dedup ratio per
+leftover. That is H-017's census -- relations against cords over what each
+leftover reaches -- asked at a length where F-040's caveat about single clusters
+near an end may not hold.
+
+**2026-09-20: 879 of the 6000 draws are in, and the number they give is not yet
+comparable with the series above** (E-045). The raw split is 7.7% theorem, 34.2%
+moves, **58.0% +- 1.7 leftover**. Before that is read against 0.7, 5.4, 16, 28,
+two things have to be settled, and neither is a matter of drawing more:
+
+* **One leftover in six was the cap and not the moves.** 81 of the 510 had
+  walks that hit the 20000-row limit rather than closing, so the figure is an
+  upper bound with a known and sizeable slack in it, and the slack grows with
+  the length -- which is exactly the direction that would manufacture a rising
+  series out of a flat one. `probe` now records `orbitClosed` and the summary
+  splits the two. The number to compare with the exhaustive figures is the
+  closed one; the way to shrink the gap is a larger `--orbit-limit`, which is
+  now in the ledger's name so the two runs cannot be mixed.
+* **The earlier points in the series were measured a different way.** 0.6, 5.4
+  and 16 are F-032's exhaustive coverage counts, and 28 is 60 sampled draws at
+  `n = 12`. A clean series wants the same instrument at every length, which is
+  cheap now that the walk stops early: `--depth 0` is about a millisecond a draw
+  below `n = 13`, so `n = 12, 13, 14` can be re-measured by sampling in minutes
+  and compared with the exhaustive answers they already have.
+
+The cost note above is superseded. A draw at `n = 15` with `--depth 4` cost 257
+s of one core over the 879, which is five times the depth-0 pilot estimate --
+the depth-4 search runs on every leftover, and leftovers are most of the draws
+at this length. Depth 0 and depth 4 are worth running as two different jobs at
+two different counts rather than one.
+
 ---
 
 ## H-018 — What escapes the quipu theorem is a placement, not an overlap
@@ -96,6 +198,55 @@ can answer where `orbitOf` cannot.
 coordinate, then a generalisation of the quipu theorem cannot be a condition on
 the relation profile alone, and the short quivers could never have shown this --
 at `n = 9` every placement of the `45` core is inside. F-042, E-037.
+
+**2026-09-20: the census this asks for now has a command, and has not been run.**
+`batch.py cores` slides every heavily overlapping core word along a line at every
+offset, which is F-042's hand slide as a resumable job. Written against this
+entry and against F-040's count of separated clusters:
+
+```
+python overnight.py --hours 9 --only sample15 cores15 cores13
+python batch.py cores 15 --max-word 4 --summary
+python batch.py cores 13 --max-word 4 --summary
+```
+
+Three things about it are worth stating before the answer is in, so that they
+are not read into the answer afterwards.
+
+* **`n = 13` is run as a control, and is the more important half.** A census at
+  one length is a list of rows; the law in F-042 is what *changes* between
+  lengths, and the table there is five rows for one core. The two runs give the
+  same table for every core at two lengths.
+* **A verdict of "outside" here means the forward move orbit closed**, which is
+  a statement about this move set and not about derived equivalence -- the same
+  caveat `orbitOf` has always carried. A placement whose orbit hit its cap comes
+  back `undecided` and not `outside`, which is the E-037 lesson built into the
+  instrument: 49 barricades were once recorded as failures by a walk that had
+  run out of rows, and `movesJoin` joined them in 45 seconds.
+* **What would already be new.** F-040 found no LNA outside a quipu class with
+  two heavy clusters separated by a free arrow, at any length it could count,
+  and said the shape barely fits below `n = 12`. The summary counts exactly
+  those rows. Either they are all placed, which extends F-040's count to a
+  length with room, or one is not, and then the single-cluster reading that
+  every finding since F-040 rests on is too narrow.
+
+The instrument is checked against F-042's published slide at lengths 9 to 12 and
+against the mirrored `504` slide, in `tests/test_cores_task.py`.
+
+**2026-09-20: it was run, it was cut off a third of the way through both
+lengths, and none of the three things above got an answer** (E-045). What came
+back is 62 cores at both lengths, from the front of the catalogue -- short words
+and small overlaps -- which is the part of it F-042 had already looked at. In
+particular the count this entry says would already be new got **no units at
+all**: the two-cluster words are appended to the catalogue after every single
+core, and neither length reached them. They need a run of their own, and
+`--max-word 2 --pair-word 2` is it.
+
+The partial table does say one thing, and H-020 is that thing written down
+separately rather than folded in here, since it is a different shape of claim:
+the head and the tail of every slide that has an outside in it are the same at
+`n = 13` as at `n = 15`. This entry asks *which* configurations escape; H-020
+asks where an escaping one may sit.
 
 ---
 
