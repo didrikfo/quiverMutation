@@ -5,8 +5,46 @@ See [`README.md`](README.md) for conventions.
 
 ---
 
-## F-051 — A core's outside band is one closed orbit, and many cores share it
+## F-052 — The walk made the free move one-way, and one class got two verdicts
 *2026-09-22*
+
+Evidence: E-049.
+
+**The claim.** A relation of two arrows can be added or deleted without
+changing the derived class (F-028). The walks used by the census and the
+sampler only deleted. So an LNA and its stripped form, which are one class,
+could get different verdicts, and they did: at `n = 11` and 12, 19 of 438 such
+pairs, always with the copy that *has* the relation inside and the stripped
+copy outside. Walking the quotient by the free move -- adding one relation as
+well as deleting -- gives them one state and one verdict by construction, loses
+no certificate any copy had, and moves **60** placements of the two censuses
+from outside to inside.
+
+**What it says about earlier results.** An `outside` from the plain walk is
+still a true statement about that move set; it was never a statement about
+derived equivalence. But it was a weaker statement than the move set could
+make, and the census records built on it -- H-020's slides, F-051's outside
+bands, E-046's head and tail counts -- are records of the plain walk. F-042's
+`45`/`504` family does not move. The shapes that do include the ones at the
+edges of H-020's law (`4056`), so H-020 needs asking again under the reduced
+walk before it is read as a statement about the moves.
+
+**Why it was missed.** F-028 says the value of the free move is bridging,
+"an LNA that no rule reaches strips to one that the rules do reach". That is
+the deleting direction only. The adding direction bridges just as well, and
+it is the one a rule needing a spectator (F-023) depends on.
+
+**What it costs.** The reduced walk is 2x the plain one per placement at
+`n = 11` and 3.7x at `n = 12`, even with 20 percent fewer placements, so it is
+the better instrument and not the cheaper one. Asking one of each mirror pair
+(E-049: every pair agreed) takes back 12 to 17 percent.
+
+`freeMoves.reducedMovesFrom`, `freeMoves.REDUCED`, `batch.py --walk reduced`.
+
+---
+
+## F-051 — A core's outside band is one closed orbit, and many cores share it
+*2026-09-22* · *amended 2026-09-22 (F-052): `245` at 0 is `45` at 1 with a two-arrow relation added, so the "four different cores" below are three, and `2045`, `2245`, `2555`, `2556` are `45`, `555` and `556` at other offsets. Every verdict here is the plain walk's; under the reduced walk some outside bands shrink.*
 
 Evidence: E-046.
 

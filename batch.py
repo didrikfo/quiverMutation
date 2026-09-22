@@ -21,6 +21,7 @@ import argparse
 import itertools
 import sys
 
+from quivermutation import freeMoves as fm
 from quivermutation import jobs
 from quivermutation import sampling
 
@@ -65,6 +66,14 @@ class SampleTask(jobs.Task):
                             dest = "orbitLimit",
                             help = "how far to walk a move orbit before calling "
                                    "the row a leftover (default 20000)")
+        parser.add_argument("--walk", choices = WALKS, default = "plain",
+                            help = "how the free move is walked: 'plain' only "
+                                   "deletes a two-arrow relation, as every run "
+                                   "before 2026-09-22 did; 'reduced' treats an LNA "
+                                   "and its stripped form as one state and may add "
+                                   "one as well -- it places more, and costs about "
+                                   "four times as much at n = 12 (E-049) "
+                                   "(default plain)")
 
     def ledgerPath(self, args):
         # The depth is in the name because a run with a search and a run without
@@ -73,8 +82,10 @@ class SampleTask(jobs.Task):
         # stronger reason: it decides whether a draw is recorded as a leftover,
         # so two runs under different limits disagree about the answer and not
         # merely about the effort, and one must not resume from the other.
-        return "logs/sample-n{0}-s{1}-d{2}-o{3}.jsonl".format(
-            args.length, args.seed, args.depth, args.orbitLimit)
+        # The walk is in it for the same reason: the reduced walk places rows the
+        # plain one leaves over (E-049), so the two disagree about the answer.
+        return "logs/sample-n{0}-s{1}-d{2}-o{3}{4}.jsonl".format(
+            args.length, args.seed, args.depth, args.orbitLimit, _walkSuffix(args))
 
     def units(self, args):
         return ["{0}/{1}/{2}".format(args.length, args.seed, index)
@@ -84,7 +95,8 @@ class SampleTask(jobs.Task):
         index = int(unit.rsplit("/", 1)[1])
         relLengths = sampling.drawFor(args.length, args.seed, index)
         record = sampling.probe(args.length, relLengths,
-                                orbitLimit = args.orbitLimit)
+                                orbitLimit = args.orbitLimit,
+                                free = _freeFor(args))
         record['index'] = index
         if args.depth > 0 and record['settledBy'] == 'leftover':
             record['search'] = _searchFrom(args.length, relLengths, args.depth)
@@ -221,6 +233,14 @@ class CoresTask(jobs.Task):
                             dest = "joinLimit",
                             help = "rows per side for each two-ended join "
                                    "(default 6000)")
+        parser.add_argument("--walk", choices = WALKS, default = "plain",
+                            help = "how the free move is walked: 'plain' only "
+                                   "deletes a two-arrow relation, as every run "
+                                   "before 2026-09-22 did; 'reduced' treats an LNA "
+                                   "and its stripped form as one state and may add "
+                                   "one as well -- it places more, and costs about "
+                                   "four times as much at n = 12 (E-049) "
+                                   "(default plain)")
         parser.add_argument("--cores", default = "",
                             help = "run only these core words, comma separated; "
                                    "the ledger is the same one, so this is a "
@@ -229,14 +249,20 @@ class CoresTask(jobs.Task):
                             dest = "coreLimit",
                             help = "run only the first this many core words of "
                                    "the catalogue (default 0, meaning all)")
+        parser.add_argument("--no-mirror", dest = "mirror", action = "store_false",
+                            help = "ask both a row and its relation dual, rather "
+                                   "than one and reading the other in the mirror")
 
     def ledgerPath(self, args):
         # Every parameter that changes what a unit *means* is in the name: the
         # two limits decide a verdict, so a ledger written under one must not be
         # read as though it answered under another.
-        return "logs/cores-n{0}-w{1}p{2}a{3}g{4}-o{5}j{6}.jsonl".format(
+        # The walk is a third: the reduced walk places rows the plain one calls
+        # outside (E-049).  A plain ledger keeps the name it always had.
+        return "logs/cores-n{0}-w{1}p{2}a{3}g{4}-o{5}j{6}{7}.jsonl".format(
             args.length, args.maxWord, args.pairWord, args.maxArrows,
-            args.gaps.replace(",", "") or "none", args.orbitLimit, args.joinLimit)
+            args.gaps.replace(",", "") or "none", args.orbitLimit, args.joinLimit,
+            _walkSuffix(args))
 
     def units(self, args):
         return ["{0}@{1}".format(word, offset)
@@ -246,7 +272,8 @@ class CoresTask(jobs.Task):
         word, offset = unit.split("@")
         return _verdictFor(args.length, word, int(offset),
                            orbitLimit = args.orbitLimit,
-                           joinLimit = args.joinLimit)
+                           joinLimit = args.joinLimit,
+                           free = _freeFor(args))
 
     def summarise(self, records, args, out = sys.stdout):
         import collections
@@ -257,6 +284,14 @@ class CoresTask(jobs.Task):
         byWord = collections.defaultdict(dict)
         for result in results:
             byWord[result['core']][result['offset']] = result['verdict']
+        # A mirrored census asks one row of each dual pair; the other half of
+        # every slide is the same verdict read in the mirror.  Only filled in
+        # where the ledger has nothing of its own for that placement.
+        if getattr(args, 'mirror', False):
+            for result in list(results):
+                row = tuple(int(letter) for letter in result['name'])
+                word, offset = _placementOf(_mirror(args.length, row))
+                byWord[word].setdefault(offset, result['verdict'])
         tally = collections.Counter(result['verdict'] for result in results)
         print("n = {0}: {1} placements of {2} cores".format(
             args.length, len(results), len(byWord)), file = out)
@@ -314,6 +349,20 @@ class CoresTask(jobs.Task):
                 result.get('orbit')), file = out)
 
 
+WALKS = ("reduced", "plain")
+
+
+def _freeFor(args):
+    """The `free` argument a walk takes, from `--walk`."""
+    return fm.REDUCED if getattr(args, 'walk', 'plain') == 'reduced' else True
+
+
+def _walkSuffix(args):
+    """What the walk adds to a ledger's name: nothing for the plain walk, so the
+    ledgers written before the reduced one existed keep their names."""
+    return "-reduced" if _freeFor(args) is fm.REDUCED else ""
+
+
 def _slideOf(offsets):
     """One core's verdicts across its offsets, as `i` / `o` / `?` / `.`.
 
@@ -369,10 +418,16 @@ def _placements(args):
     diffs it against the ledger, so it must not walk any orbits and must give the
     same list on a resumed run as on the first one.
     """
-    cores = _singleCores(args.maxWord, args.maxArrows)
+    # Under the reduced walk a word holding a two-arrow relation is not a core
+    # of its own: it is the word without it, placed one or more vertices along,
+    # and that placement is already in the catalogue -- `245` at 0 is `45` at 1.
+    # They are one state of the walk, so asking both is the same work twice
+    # (E-049: 489 of the 3034 placements at n = 16).
+    withTwos = _freeFor(args) is not fm.REDUCED
+    cores = _singleCores(args.maxWord, args.maxArrows, withTwos)
     gaps = [int(piece) for piece in args.gaps.split(",") if piece.strip()]
     if gaps:
-        atoms = _singleCores(args.pairWord, args.maxArrows)
+        atoms = _singleCores(args.pairWord, args.maxArrows, withTwos)
         for gap in gaps:
             for first in atoms:
                 for second in atoms:
@@ -383,7 +438,38 @@ def _placements(args):
         for offset in range(0, max(0, args.length - 2)):
             if _rowFor(args.length, word, offset) is not None:
                 placements.append((word, offset))
+    if getattr(args, 'mirror', False):
+        # The relation dual keeps the class and the move set is closed under
+        # it (F-026), so a row and its mirror get one verdict: `45` at `o` and
+        # `504` at `n - 7 - o` are one question.  Ask the smaller row of each
+        # pair; `summarise` writes the answer in under both.  1370 pairs at
+        # n = 11 and 12, under both walks, agreed without exception (E-049).
+        # Of the two, the one earlier in catalogue order is asked, so that a
+        # `--core-limit` prefix asks exactly what the whole census would.
+        order = {_rowFor(args.length, word, offset): rank
+                 for rank, (word, offset) in enumerate(placements)}
+        placements = [(word, offset) for rank, (word, offset) in enumerate(placements)
+                      if order.get(_mirror(args.length,
+                                           _rowFor(args.length, word, offset)),
+                                   rank) >= rank]
     return placements
+
+
+def _mirror(length, row):
+    """The relation dual of a row: vertex `v` goes to `n + 1 - v`."""
+    mirrored = [0] * len(row)
+    for position, arrows in enumerate(row):
+        if arrows:
+            start = position + 1
+            mirrored[length - start - arrows] = arrows
+    return tuple(mirrored)
+
+
+def _placementOf(row):
+    """(word, offset) for a row: the word is the row without its outer zeros."""
+    nonzero = [index for index, value in enumerate(row) if value]
+    first, last = nonzero[0], nonzero[-1]
+    return "".join(str(value) for value in row[first:last + 1]), first
 
 
 def _selected(cores, args):
@@ -406,6 +492,13 @@ def _selected(cores, args):
     if wanted:
         known = set(cores)
         missing = [word for word in wanted if word not in known]
+        aliases = [word for word in missing if "2" in word]
+        if aliases and _freeFor(args) is fm.REDUCED:
+            raise ValueError(
+                "{0}: a relation of two arrows is free, so under the reduced "
+                "walk this is the same state as the word without it, one or "
+                "more offsets along -- ask for that word, or pass "
+                "--walk plain".format(", ".join(aliases)))
         if missing:
             raise ValueError(
                 "not in this catalogue: {0} -- widen --max-word/--max-arrows/"
@@ -418,8 +511,12 @@ def _selected(cores, args):
     return cores
 
 
-def _singleCores(maxWord, maxArrows):
+def _singleCores(maxWord, maxArrows, withTwos = True):
     """The core words: short, heavily overlapping, no relation shorter than two.
+
+    `withTwos = False` leaves out every word holding a relation of two arrows,
+    which is the catalogue the reduced walk needs: such a word is its stripped
+    form at another offset (see `_placements`).
 
     A core is a relation-length word with no leading or trailing zero whose
     relations overlap somewhere in **two or more arrows** -- which is exactly the
@@ -433,6 +530,8 @@ def _singleCores(maxWord, maxArrows):
     for size in range(2, maxWord + 1):
         for code in itertools.product(range(0, maxArrows + 1), repeat = size):
             if code[0] == 0 or code[-1] == 0 or 1 in code:
+                continue
+            if not withTwos and 2 in code:
                 continue
             if ov.maxOverlap(list(code)) < 2:
                 continue
@@ -469,7 +568,7 @@ def _rowFor(length, word, offset):
     return tuple(row)
 
 
-def _verdictFor(length, word, offset, orbitLimit, joinLimit):
+def _verdictFor(length, word, offset, orbitLimit, joinLimit, free = True):
     """Place the core, walk out of it, and say which of the three verdicts holds.
 
     Cheapest first, and the second step exists only because the first one's
@@ -499,6 +598,7 @@ def _verdictFor(length, word, offset, orbitLimit, joinLimit):
         'freeGap': freeGap,
         'orbitLimit': orbitLimit,
         'joinLimit': joinLimit,
+        'walk': 'reduced' if free == fm.REDUCED else 'plain',
     }
     if ov.isAlmostSeparate(length, row):
         # Not reachable from `_singleCores`, which only builds heavy words, but a
@@ -514,7 +614,7 @@ def _verdictFor(length, word, offset, orbitLimit, joinLimit):
     # sample of twelve found its certificate inside the first 351 rows of an
     # orbit the walk had taken to 20000.  The verdicts are unchanged; what
     # changes is that a census of a length now fits in a night instead of four.
-    walk = fm.orbitReport(length, row, free = True, edges = True, doubles = True,
+    walk = fm.orbitReport(length, row, free = free, edges = True, doubles = True,
                           limit = orbitLimit,
                           stopWhen = lambda member: ov.isAlmostSeparate(length, member))
     # `orbit` is rows *walked*, which is the orbit's size only when it closed.
@@ -537,7 +637,7 @@ def _verdictFor(length, word, offset, orbitLimit, joinLimit):
     record['targetsTried'] = ["".join(str(value) for value in target)
                               for target in targets]
     for target in targets:
-        meeting = fm.movesJoin(length, row, target, free = True, edges = True,
+        meeting = fm.movesJoin(length, row, target, free = free, edges = True,
                                doubles = True, limit = joinLimit)
         if meeting is not None:
             record.update(verdict = 'inside', by = 'join',

@@ -92,10 +92,28 @@ and `tail` — how many offsets at the source end and at the sink end are inside
 | `--max-arrows` | the longest relation in a core | `6` (default), `8`, `10` |
 | `--pair-word` | each half of a two-cluster core | `2` `3` |
 | `--gaps` | zeros between the two halves | `5,6` for separated clusters, `1,2,3` (default), empty for none |
-| `--cores` | run only these words | `45,504` — `245,2045,2245,2555,2556,3344` |
+| `--cores` | run only these words | `45,504` — `45,555,556,3344` |
+| `--walk` | how the free move is walked | `plain` (default), `reduced` — see below |
+| `--no-mirror` | ask both halves of each mirror pair | off by default; the mirror halves are read off the other |
 | `--core-limit` | only the first N words of the catalogue | `40` `60` `120` `400` |
 | `--orbit-limit` | rows before a placement is undecided | `20000` (default), `60000`, `200000` |
 | `--join-limit` | rows per side for the two-ended join | `6000` (default), `40000` |
+
+**`--walk reduced` asks one question per derived class, and costs more.** A
+relation of two arrows is free both ways, and the default walk only deletes
+them, so `245` at 0 and `45` at 1 -- one LNA up to such a relation -- were two
+units and could get two verdicts. Under `--walk reduced` they are one state and
+the catalogue holds no word with a `2`. It places 60 placements at `n = 11` and
+12 that the plain walk calls outside, and costs 2x (at 11) to 3.7x (at 12) as
+much per census (E-049, F-052). Its ledgers end `-reduced`, so a reduced census
+starts from nothing; the plain ones on disk are not reused. Size a first
+reduced night with `--plan` and a short foreground run.
+
+**The mirror is asked once.** `45` at `o` and `504` at `n - 7 - o` are one
+question (E-049), so a census asks the first of each pair in catalogue order
+and `--summary` prints both slides. It is a filter like `--cores`: the ledger is
+the same, and a census already on disk simply has fewer units left.
+`--no-mirror` asks both.
 
 **A gap is zeros, not free arrows.** The last relation of the first half
 reaches over the zeros, so with every relation two arrows or more a gap of 1 or
@@ -162,6 +180,17 @@ finishes them.*
 
 ```bash
 wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 9 --run 'batch.py cores 11 --max-word 4 --jobs 2' --run 'batch.py cores 12 --max-word 4 --jobs 2' --run 'batch.py cores 14 --max-word 4 --jobs 3' --run 'batch.py cores 16 --max-word 4 --jobs 5'"
+```
+
+**H-020 again, with the free move walked both ways.** The law was measured by
+the plain walk, and at `n = 11` and 12 the reduced walk changes slides it rests
+on (`4056` is `oii` at 12; F-052). Before building on H-020, ask it again at
+the lengths where it is claimed. `n = 12` took 1.6 core-hours reduced, so
+expect several times the plain costs below; `--plan` and a short foreground run
+first:
+
+```bash
+wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 9 --run 'batch.py cores 13 --max-word 4 --walk reduced --jobs 3' --run 'batch.py cores 14 --max-word 4 --walk reduced --jobs 4'"
 ```
 
 **Two clusters with a free arrow between them, for F-040 and H-018.** The

@@ -6,7 +6,7 @@ Keep it current.
 **The research record lives in [`research/`](research/)** — findings, hypotheses,
 retractions, the log of runs made, and summaries of the literature, all dated.
 This file is about the *code*; that one is about the *mathematics and the
-investigation*. When something here changes status because of a result, the
+investigation*. The words both use are defined in [`GLOSSARY.md`](GLOSSARY.md). When something here changes status because of a result, the
 result belongs there and this file should point at it.
 
 ## What the code does
