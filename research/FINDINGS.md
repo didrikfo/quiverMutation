@@ -5,6 +5,62 @@ See [`README.md`](README.md) for conventions.
 
 ---
 
+## F-051 — A core's outside band is one closed orbit, and many cores share it
+*2026-09-22*
+
+Evidence: E-046.
+
+**The observation.** At `n = 14`, six outside placements from four different
+cores -- `45` at offsets 1 and 5, `245` at 0, `504` at 2 and 6, `555` at 1 --
+were each walked on their own with `freeMoves.orbitReport`. All six forward
+orbits closed, and all six are **the same set of 484 rows**, each start lying in
+the orbit of every other.
+
+Eight of the 72 placements whose orbit closed at 7393 rows (`245`, `2045`,
+`3344`, `3445`, `350044` and `3600034` at three offsets) fall into exactly
+**two** orbits of 7393 rows each, sharing 1485 rows between them -- the size
+coincidence is not an accident, and the two are consistent with a core and its
+opposite. The six undecideds of E-045, resolved at a larger limit, repeat the
+pattern by size: `245`, `2045`, `2245`, `2555` and `2556` close at 597, 3519,
+5125, 10519, 16766 and 21709 rows at matching offsets, and `3344` at the same
+sizes in mirror order. The sets were compared for the first two groups only.
+
+**What it says about H-020.** `45` at offset 1 and `45` at offset 5 are in one
+orbit: the moves carry the cluster **through the interior** of the line, but the
+orbit is closed and contains neither offset 0 nor the two offsets next to the
+sink, which is where `45` is inside. That is the head/tail law seen from the
+other side -- the interior is one orbit, so it gets one verdict, and only the
+ends differ. It also puts `45` and `504`, which F-042 related as opposite
+algebras, in the same move orbit at this length: the moves reach the opposite
+placement in place.
+
+**Why the undecideds sit where they do.** Along an outside band the orbit grows
+towards the inside end: `245` at `n = 15` is outside at offsets 0 to 5 and inside
+at the two nearest the sink, and its orbits run 597, 3519, 5125, 10519, 16766,
+21709 from offset 0 to offset 5. The outside placement next to the inside end
+has the largest orbit, and that is exactly where every undecided of E-045 and
+E-046 sits. (That the orbit at offset 0 is smaller than at offset 5 while `45`'s
+offsets 1 and 5 share one is the directionality of F-007: a forward orbit need
+not contain the placements that reach it.)
+At `n = 16` and 17 the band is longer and more of its tail end crosses the cap.
+
+**Why it matters for the instrument.** A closed forward orbit without an almost
+separate row is a set of outside rows: any row in it has a forward orbit inside
+it, and so no certificate either. Caching the rows of each such orbit therefore
+settles every later placement that starts in one **exactly**, not heuristically,
+and a walk that steps into a cached orbit need not expand it. At `n = 14` the
+896 outside placements have 107 distinct orbit sizes; walking each size once
+would have cost 0.5 core-hours rather than 9.2 (1.0 rather than 12.5 at
+`n = 16`). The size is only a proxy for the orbit, so that saving is an estimate
+of what a cache keyed on rows would give, not a measurement of one.
+
+**What it does not say.** Forward orbits are not symmetric (F-007): the two
+7393-row orbits overlap without being equal, so reaching a cached row does not
+make the start *equal* to that orbit, only no better off. And `outside` is about
+this move set, as always.
+
+---
+
 ## F-049 — A mutation search repeats itself by a factor that compounds with depth, and an exact key removes it
 *2026-09-19*
 
@@ -666,6 +722,11 @@ single overlapping cluster**, and the few with two have them touching. Not one
 has two clusters with a relation-free stretch between them. And the cluster is
 usually against an end: at `n = 11`, 2119 of the 2647 have it touching the source
 or the sink, 380 one arrow away, 123 two, 25 three.
+
+*2026-09-22: asked of the move closure at `n = 14` to 17 in E-047. The shape is
+outside there -- 32 of 434 free-gap rows, the first at `n = 14` -- but every one
+of the 32 has a cluster that is outside on its own where it sits, so the
+single-cluster reading survives at those lengths in that weaker form. H-018.*
 
 **Where the missing configurations start.** Two heavy clusters with a free arrow
 between them first fit at `n = 10` (5 LNAs, all of them in quipu classes). A
