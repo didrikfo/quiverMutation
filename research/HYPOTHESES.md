@@ -7,7 +7,7 @@ it. Status is one of `OPEN`, `SUPPORTED`, `CONFIRMED → F-nnn`, `REFUTED → R-
 ---
 
 ## H-020 — Where a core may sit is fixed by its distance to the two ends, not by the length
-*2026-09-20* · **OPEN**
+*2026-09-20* · **SUPPORTED** *(for a single heavy cluster, 283 cores at `n = 13` to 17 without an exception, with the ends read as words rather than counts -- E-046; two clusters do not obey it -- E-047)*
 
 **The conjecture.** For an overlapping core placed alone in a line, whether the
 moves carry it to an almost separate LNA depends only on how far it sits from
@@ -59,6 +59,43 @@ question would reduce to two finite numbers per core. It would also say what is
 *not* happening: no interaction between the core and the length, and nothing
 that appears only at some particular `n`. H-018 asks the same question the other
 way round, in terms of overlap rather than placement.
+
+**2026-09-22: asked at a run of lengths, and it holds for one cluster** (E-046).
+The censuses at `n = 11, 12, 14, 16` are complete and `13, 15, 17` are partial.
+Every single-cluster core decided at two lengths from 13 to 17 was compared
+between them: **975 comparisons over 283 cores, no failure**. `45` is head 1,
+tail 2 at every length from 11 to 17 and `504` head 2, tail 1. The six
+undecideds this entry said to resolve first are all outside at three times the
+limit, with the heads and tails unchanged. Three amendments to the statement:
+
+* **The ends are words, not counts.** `4056` is `oio`, `oooio`, `oooooio` at
+  12, 14, 16: inside one offset from the sink and outside at the sink itself.
+  Its suffix `io` does not move with `n`, which is the conjecture's substance,
+  but "inside exactly when `k < head(c)` or within `tail(c)` of the sink" is too
+  narrow a way to say it. The statement that survives: *there are two fixed words
+  `P(c)` and `S(c)` and a verdict `v(c)` such that the slide at every long
+  enough `n` is `P(c) v(c)^m S(c)`.* Every mixed single-cluster slide seen has
+  `v(c) = o`; none is inside in the interior and outside at an end.
+* **"Long enough" is about 13.** Twelve single-cluster cores change shape
+  between 11 and 12 or 12 and 14, all of them words long enough that their
+  slide at the shorter length is three offsets or fewer and every placement
+  is near both ends.
+* **One cluster only.** Pair words break it 31 times, as they must: each of
+  two clusters has its own distance to its own end, and the one far from the
+  sink drifts further away as the line grows (`3500035`: `iio` at 14, `ooooo`
+  at 16). What two clusters obey is H-018's question, answered in part by E-047.
+
+F-051 is the mechanism, seen from the orbits: the outside interior of `45` at
+`n = 14` is one closed orbit, containing offsets 1 and 5, so it can only have
+one verdict.
+
+**What would settle it now.** A proof, not more lengths: the moves carry a
+cluster through the interior of the line (F-051), so the claim is that the rule
+table acts the same way on every interior position, and only the anchored and
+edge moves see the ends. The two partial lengths are worth finishing for the
+record -- `cores 13` and `cores 15` at `--max-word 4` are a few core-hours each
+-- and `n = 18` is the length at which a counterexample would first have room
+beyond anything checked.
 
 ---
 
@@ -162,6 +199,29 @@ the depth-4 search runs on every leftover, and leftovers are most of the draws
 at this length. Depth 0 and depth 4 are worth running as two different jobs at
 two different counts rather than one.
 
+**2026-09-22: `n = 13` and `n = 17` by the same instrument** (E-048). `n = 13`,
+4575 draws at depth 0: **39.9% +- 0.7 leftover, every one of them a closed
+orbit**, so no cap in the number at all. The series by one definition is 0.7,
+5.4, 16, 28, 39.9 -- still rising, by about twelve points a length. `n = 17`, 214
+draws: 47.2% +- 3.4 leftover with a closed orbit and 22.4% more whose walk hit
+the cap; E-045's `n = 15` rows split the same way give 48.8% closed and 9.2%
+capped.
+
+So the rise is established through `n = 13` and **not above it**. The closed
+fraction, a lower bound, is flat from 15 to 17; the capped fraction, which could
+land on either side, more than doubles. "Most of it past `n = 12`" is true of the
+upper bound from `n = 15` and not yet of the lower one anywhere. The one run that
+separates the readings is the same draws at a larger walk:
+
+```
+python batch.py sample 15 --count 20000 --orbit-limit 100000 --jobs 4
+python batch.py sample 15 --count 20000 --orbit-limit 100000 --summary
+```
+
+and the same at `n = 17` if `n = 15`'s capped rows turn out to close. A depth-0
+draw is 14 s at `n = 13` and 152 s at `n = 17`, not the millisecond the entry
+above guessed -- the closing walk is the whole cost.
+
 ---
 
 ## H-018 — What escapes the quipu theorem is a placement, not an overlap
@@ -247,6 +307,35 @@ separately rather than folded in here, since it is a different shape of claim:
 the head and the tail of every slide that has an outside in it are the same at
 `n = 13` as at `n = 15`. This entry asks *which* configurations escape; H-020
 asks where an escaping one may sit.
+
+**2026-09-22: the two-cluster shapes, run at `n = 14` to 17, and the count
+this entry said would already be new** (E-047). Of 434 rows with two heavy
+clusters and a free arrow between them, **32 are outside** -- so the shape is
+not all placed, and the first outsider is at `n = 14`: `330004500000`. But
+looking each half up alone at the same offset of the same length:
+
+* **no outside pair has two placeable halves** -- 364 pairs whose halves are
+  each inside alone are all inside, and all 32 outsiders have a half that is
+  outside alone (in `330004500000` it is the `45`, sitting in its own outside
+  band);
+* **the halves are not independent**: 24 pairs are inside although one half is
+  outside alone -- a `33`, `34` or `44` at the source end, three or four arrows
+  before a `35` or `36`, carries the pair in;
+* **without a free arrow it goes the other way too**: eight pairs touching
+  through a one-arrow overlap (`35 0^g xx` at offset 1) are outside with both
+  halves inside alone.
+
+For the conjecture as stated, "every heavy cluster can be pushed to an end":
+the direction "some cluster cannot, so the LNA is outside" fails if "cannot" is
+read as "cannot on its own" -- the 24 are counterexamples to that reading. The
+other direction survives everything run. The single-cluster reading that the
+findings since F-040 rest on survives in the weaker form: at these lengths a
+separated two-cluster LNA is outside only where one of its clusters would be.
+
+What E-047 could not ask: whether the rescue survives a wider gap (it reaches
+three offsets at gap 3 and two at gap 4, at `n = 17`), and anything about
+`--pair-word 3`, whose run spent its catalogue cut on gap-1 pairs that can never
+have a free arrow. Both want `--gaps 5,6`.
 
 ---
 

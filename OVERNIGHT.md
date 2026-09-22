@@ -50,12 +50,18 @@ wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python b
 ## Tonight, if you have no particular question
 
 ```bash
-wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 9 --run 'batch.py cores 14 --max-word 4 --jobs 2' --run 'batch.py cores 16 --max-word 4 --jobs 3' --run 'batch.py cores 17 --max-word 4 --core-limit 250 --jobs 3' --run 'batch.py cores 15 --max-word 2 --pair-word 2 --gaps 1,2,3,4 --jobs 3' --run 'batch.py sample 13 --count 50000 --jobs 2' --run 'batch.py sample 17 --count 20000 --jobs 1'"
+wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 9 --run 'batch.py cores 13 --max-word 4 --jobs 2' --run 'batch.py cores 15 --max-word 4 --jobs 3' --run 'batch.py cores 17 --max-word 2 --pair-word 2 --gaps 5,6 --jobs 3' --run 'batch.py sample 15 --count 20000 --orbit-limit 100000 --jobs 4' --run 'batch.py sample 17 --count 20000 --jobs 2'"
 ```
 
-Three new lengths of the core census — `n = 17` deliberately cut to its first
-250 cores rather than cut by the clock — the two-cluster shapes that have never
-been run at all, and two sampling lengths.
+Written 2026-09-22, after the nights of E-046 to E-048. It finishes the two
+`--max-word 4` censuses that are still partial, so H-020 has every length from
+11 to 16 complete; asks the two-cluster question at the gaps where the clusters
+are actually separated (E-047: a gap of 1 or 2 never is); walks `n = 15`'s draws
+five times further, which is the one thing that can say whether the leftover
+rate still rises past 15 (H-019); and adds draws at `n = 17`.
+
+The previous line -- cores 14, 16, 17 (`--core-limit 250`), the `n = 15`
+two-cluster shapes, samples at 13 and 17 -- has been run; E-046 to E-048.
 
 **Give every job more work than the night can finish.** A job that runs out of
 units exits and leaves its cores idle until morning; a job that runs out of
@@ -85,11 +91,18 @@ and `tail` — how many offsets at the source end and at the sink end are inside
 | `--max-word` | how many vertices one core spans | `2` `3` `4` `5` |
 | `--max-arrows` | the longest relation in a core | `6` (default), `8`, `10` |
 | `--pair-word` | each half of a two-cluster core | `2` `3` |
-| `--gaps` | free arrows between the two halves | `1,2,3` (default), `1,2,3,4,5`, empty for none |
+| `--gaps` | zeros between the two halves | `5,6` for separated clusters, `1,2,3` (default), empty for none |
 | `--cores` | run only these words | `45,504` — `245,2045,2245,2555,2556,3344` |
 | `--core-limit` | only the first N words of the catalogue | `40` `60` `120` `400` |
 | `--orbit-limit` | rows before a placement is undecided | `20000` (default), `60000`, `200000` |
 | `--join-limit` | rows per side for the two-ended join | `6000` (default), `40000` |
+
+**A gap is zeros, not free arrows.** The last relation of the first half
+reaches over the zeros, so with every relation two arrows or more a gap of 1 or
+2 **never** separates the clusters, gap 3 separates one placement in ten, and
+gap 6 every one (E-047). A run meant for two clusters with a free arrow between
+them — F-040's shape — wants `--gaps 5,6`; the small gaps ask about clusters
+that touch, which is a different and also real question.
 
 `--cores` and `--core-limit` are **filters**: they narrow what a run does
 without changing what an answer means, so they share the ledger with the full
@@ -100,20 +113,42 @@ the ledger's name, because it changes what a verdict says.
 catalogue is built the same way regardless of `n`. That is what makes two
 part-finished censuses comparable, and it is what the last run got wrong.
 
+**`--core-limit` counts catalogue words, not cores.** The catalogue lists every
+word the digit ranges allow, sorted by length, and most longer words are not
+LNAs at all. `--core-limit 250` at `--max-word 4` is **89** cores; `--core-limit
+900` with `--pair-word 3` is 135, every one of them a gap-1 pair. `--plan` shows
+the placements, which is the number to size by.
+
 ### What a census costs, on one core
 
-| command | placements | one core | 6 workers |
-|---|---|---|---|
-| `cores 13 --max-word 4` | 1705 | 1.1 h | ~11 min |
-| `cores 15 --max-word 4` | 2591 | 3.8 h | ~38 min |
-| `cores 16 --max-word 4` | 3034 | 8.7 h | ~1.5 h |
-| `cores 17 --max-word 4` | 3477 | 37.5 h | ~6 h |
+Measured on the nights of E-046 and E-047, in core-hours — divide by `--jobs`
+for the wall clock:
 
-The catalogue grows slowly and the cost per placement does not: 13 to 16 is
-about a doubling a length, and 16 to 17 is more than four times. `n = 18` at
-this width has not been timed — expect a long night at best, so start it with a
-`--core-limit` and let it resume. `--max-word 3` is about a third of
-`--max-word 4`; `--max-word 5` is several times more.
+| command | placements | core-hours | of which undecided |
+|---|---|---|---|
+| `cores 11 --max-word 4` | 859 | 0.3 | 0 |
+| `cores 12 --max-word 4` | 1262 | 0.7 | 0 |
+| `cores 14 --max-word 4` | 2148 | 9.9 | 0 |
+| `cores 16 --max-word 4` | 3034 | **34.6** | 20.3 |
+| `cores 17 --max-word 4 --core-limit 250` | 856 | 11.3 | 6.5 |
+| `cores 15 --max-word 2 --pair-word 2 --gaps 1,2,3,4` | 1548 | 18.1 | 3.1 |
+| `cores 17 --max-word 2 --pair-word 2 --gaps 1,2,3,4` | 2256 | 41.9 | 24.3 |
+| `cores 16 --max-word 2 --pair-word 3 --gaps 1,2,3 --core-limit 900` | 859 | 17.9 | 9.7 |
+
+The table this replaces, estimated from a random sample of placements, said
+8.7 core-hours for `n = 16`; the whole census took four times that. **The cap
+is what it missed**: at `n = 16` the 157 undecided placements took 20 of the 35
+hours, 7.8 minutes each, and every one of them is almost certainly outside
+(E-046). Inside answers are now nearly free; outside ones cost what closing the
+orbit costs; undecided ones cost the whole cap. So the price of a length is set
+by how many placements sit near the cap, which grows with `n`.
+
+By interpolation, what is left of the two partial censuses is a few core-hours
+at `n = 13` and about a dozen at `n = 15`; the rest of `n = 17` is of the order
+of 50 to 60, and `n = 18` more than that. Before `n = 18`, build the orbit cache
+F-051 describes: the census walks the same closed orbits dozens of times — one
+orbit 72 times at `n = 14` — and caching them would cut the outside rows about
+tenfold.
 
 **Always `--plan` first at a new length.** The number that matters is
 `left`, and the cost per unit is what the table above is for.
@@ -121,29 +156,37 @@ this width has not been timed — expect a long night at best, so start it with 
 ### Nights worth running
 
 **A run of lengths, for H-020.** The head and the tail should not move with `n`.
+*Run 2026-09-21 (E-046): 11, 12, 14 and 16 are complete, and for a single
+cluster they do not move. 13 and 15 are still partial; the "tonight" line
+finishes them.*
 
 ```bash
 wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 9 --run 'batch.py cores 11 --max-word 4 --jobs 2' --run 'batch.py cores 12 --max-word 4 --jobs 2' --run 'batch.py cores 14 --max-word 4 --jobs 3' --run 'batch.py cores 16 --max-word 4 --jobs 5'"
 ```
 
-**The two-cluster shapes, for F-040 and H-018.** These have never been run: the
-catalogue puts them after every single core, and no run has ever reached them.
-A length of 15 or more is needed for a barricade to fit at all.
+**Two clusters with a free arrow between them, for F-040 and H-018.** The
+first attempt (E-047) ran `--gaps 1,2,3,4` at 15 and 17 and `--pair-word 3
+--gaps 1,2,3 --core-limit 900` at 16, and most of it asked about clusters that
+touch: a gap of 1 or 2 is never a free arrow, and the `--pair-word 3` cut held
+nothing but gap-1 pairs. What it found -- an outside pair always has a half
+that is outside alone, but a half can be *rescued* by its neighbour -- wants
+asking again at the gaps where the clusters really are apart:
 
 ```bash
-wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 9 --run 'batch.py cores 15 --max-word 2 --pair-word 2 --gaps 1,2,3,4 --jobs 5' --run 'batch.py cores 17 --max-word 2 --pair-word 2 --gaps 1,2,3,4 --jobs 5' --run 'batch.py cores 16 --max-word 2 --pair-word 3 --gaps 1,2,3 --core-limit 900 --jobs 4'"
+wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 9 --run 'batch.py cores 17 --max-word 2 --pair-word 2 --gaps 5,6 --jobs 5' --run 'batch.py cores 18 --max-word 2 --pair-word 2 --gaps 5,6 --jobs 5'"
 ```
 
-`--pair-word 3` without the `--core-limit` is 21072 placements, which is several
-nights; 900 makes it one, and the rest resume into the same ledger later.
+`--pair-word 3 --gaps 5,6` is 4632 placements at `n = 16`, all of them
+separated; at the 75 s a placement the last `--pair-word 3` night averaged, that
+is several nights. `--plan` it, and cut it with `--core-limit` knowing the cut
+is of words.
 
-**The six undecideds, sharpened.** They sit exactly where the verdict changes,
-which is where a wrong head or tail would come from. This writes its own ledger,
-because a different limit is a different question.
-
-```bash
-wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 6 --run 'batch.py cores 15 --max-word 4 --orbit-limit 60000 --join-limit 40000 --cores 245,2045,2245,2555,2556,3344 --jobs 6'"
-```
+**The six undecideds, sharpened.** *Run 2026-09-21 (E-046): all six are
+outside, closed orbits of 21709 rows, just past the default cap; heads and tails
+unchanged.* Not worth repeating for the undecideds at 16 and 17: every slide
+holding one is consistent with the other lengths only if it is outside, and
+the cap is spent where F-051 says it will be -- on the biggest outside orbit,
+next to the inside end.
 
 **Wider cores, one length.** Everything so far is words of at most four
 vertices. Five is the first width nothing has looked at.
@@ -205,9 +248,11 @@ is for.
 **`--depth 0` and `--depth 4` are two different jobs, not one.** At `n = 15` a
 depth-4 draw cost 257 s of one core on the night of E-045 — the search runs on
 every leftover, and at that length most draws are leftovers. Depth 0 drops the
-search and leaves the orbit walk, which is itself most of the remaining cost at
-a long length and very little of it below about `n = 13`. Run depth 0 at a
-large count for the *rate*, and depth 4 at a small count for the *structure*.
+search and leaves the orbit walk, which is still nearly all of the cost: a
+depth-0 draw is **14 s** at `n = 13` and **152 s** at `n = 17` (E-048), almost
+all of it spent closing leftover orbits. One worker is about 2300 draws a night
+at 13 and about 210 at 17. Run depth 0 at a large count for the *rate*, and
+depth 4 at a small count for the *structure*.
 
 Neither is worth guessing at: start a new length with a short foreground run and
 read the per-unit rate off the progress lines.
@@ -219,7 +264,8 @@ wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python b
 ### Nights worth running
 
 **The rate, at every length, cheaply.** This is the series 0.7, 5.4, 16, 28, …
-measured by one instrument instead of three.
+measured by one instrument instead of three. *`n = 13` has 4575 draws (E-048):
+39.9% +- 0.7, which is enough; rerunning it only continues it.*
 
 ```bash
 wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 9 --run 'batch.py sample 12 --count 50000 --jobs 2' --run 'batch.py sample 13 --count 50000 --jobs 2' --run 'batch.py sample 14 --count 20000 --jobs 2' --run 'batch.py sample 16 --count 20000 --jobs 3' --run 'batch.py sample 18 --count 8000 --jobs 3' --run 'batch.py sample 20 --count 4000 --jobs 2'"
@@ -227,9 +273,12 @@ wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python o
 
 **How much of the leftover rate is the cap.** Same draws, a much larger walk;
 the two ledgers are separate and the difference between them is the slack.
+This is now **the** sampling question (H-019): the closed-orbit rate is flat
+from 15 to 17 (48.8%, 47.2%) while the capped share goes from 9% to 22%. `n =
+13` has no capped leftovers at all, so there is nothing to sharpen there.
 
 ```bash
-wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 9 --run 'batch.py sample 15 --count 4000 --orbit-limit 100000 --jobs 7' --run 'batch.py sample 13 --count 20000 --orbit-limit 100000 --jobs 7'"
+wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 9 --run 'batch.py sample 15 --count 20000 --orbit-limit 100000 --jobs 7' --run 'batch.py sample 17 --count 20000 --orbit-limit 100000 --jobs 7'"
 ```
 
 **A second seed, for an error bar.**

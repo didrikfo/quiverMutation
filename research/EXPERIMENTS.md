@@ -6,6 +6,236 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-048 — The leftover rate at `n = 13` and `n = 17`, by one instrument
+*2026-09-22* · **`n = 13` is 39.9% +- 0.7 with no cap in it; `n = 17` is somewhere between 47% and 70%** → H-019
+
+Two depth-0 samples from `OVERNIGHT.md`'s first "tonight" line, run on the night
+of 2026-09-20 alongside the censuses of E-046 and E-047. Both stopped on the
+9-hour budget, which for a sample is a prefix and still uniform.
+
+| n | drawn | core-h | s/draw | theorem | moves | **leftover, orbit closed** | leftover, orbit capped |
+|---|---|---|---|---|---|---|---|
+| 13 | 4575 | 18.0 | 14.1 | 13.5% | 46.6% | **39.9% +- 0.7** | **0** |
+| 15 *(E-045, depth 4, old rows)* | 879 | 62.7 | 257 | 7.7% | 34.2% | **48.8% +- 1.7** | 9.2% |
+| 17 | 214 | 9.0 | 152 | 3.7% | 26.6% | **47.2% +- 3.4** | 22.4% |
+
+**`n = 13` is the first clean point above `n = 11`.** Every one of its 1825
+leftovers had a forward orbit that *closed*, so the rate carries no cap slack at
+all -- it is exactly "the moves do not reach an almost separate row", the same
+statement as F-032's exhaustive 0.6, 5.4 and 16. The series by one definition is
+now 0.7, 5.4, 16, 28 (60 draws), **39.9**.
+
+**Above that the cap decides the answer.** The closed-orbit fraction, which is a
+lower bound on the leftover rate, reads 48.8% at `n = 15` and 47.2% +- 3.4 at
+`n = 17`: flat. The capped fraction, which could go either way, goes from 9% to
+22%. So "still rising past 15" and "levelling off near a half" are both
+consistent with what is on disk, and only a larger `--orbit-limit` separates
+them. The `n = 15` row is E-045's, whose rows predate the closed/capped split;
+its 81 capped leftovers were counted there from the orbit sizes.
+
+**What it costs, which the menu had wrong.** `OVERNIGHT.md` said a depth-0 draw
+is about a millisecond below `n = 13`. At `n = 13` it is **14 s**, and 17.5 of
+the 18 core-hours went on leftovers -- closing an orbit is the whole cost, and
+at `n = 13` that is most draws. At `n = 17` a draw is 152 s, and the 48 capped
+ones took 4.7 of the 9 core-hours between them. One worker at `n = 17` is 214
+draws a night; the `--count 20000` on the menu was two orders of magnitude past
+what a night does, which is harmless (the budget cuts it) but should not be read
+as a plan.
+
+**By overlap, at `n = 13`**, the leftovers are 254 at overlap 2, 696 at 3, 509
+at 4, 251 at 5 and 115 above. Overlap 2 -- F-042's cell `(2, 1)` and its
+neighbours -- is one leftover in seven, as it should be if no bound on the overlap
+cuts the leftovers off.
+
+**A correction to E-044 found on the way.** Its table gives `n = 12` 208012
+LNAs. That is Catalan(12), the count at `n = 13` (this run's summary prints it
+for `n = 13`); `n = 12` has Catalan(11) = 58786. The rate there is unaffected,
+since the draw is by index and the count is only printed.
+
+Reproduce:
+
+```bash
+python batch.py sample 13 --count 50000 --summary
+python batch.py sample 17 --count 20000 --summary
+```
+
+---
+
+## E-047 — Two heavy clusters in one line, at lengths with room for them
+*2026-09-22* · **outsiders with a free arrow between the clusters exist from `n = 14`; every one has a half that is outside on its own** → H-018, F-040
+
+F-040 found no LNA outside a quipu class with two heavy clusters and a free arrow
+between them, at every length up to 11, and noted the shape barely fits there.
+Three runs from `OVERNIGHT.md` asked the same of the move closure at lengths
+with room:
+
+| run | placements | core-h | inside | outside | undecided | free-gap rows |
+|---|---|---|---|---|---|---|
+| `cores 15 --max-word 2 --pair-word 2 --gaps 1,2,3,4` | 1548 | 18.1 | 776 | 751 | 21 | 130 |
+| `cores 17 --max-word 2 --pair-word 2 --gaps 1,2,3,4` | 2256 | 41.9 | 1017 | 1029 | 210 | 210 |
+| `cores 16 --max-word 2 --pair-word 3 --gaps 1,2,3 --core-limit 900` | 859 | 17.9 | 391 | 401 | 67 | **0** |
+
+The single-core censuses of E-046 hold pair words too (their default `--gaps
+1,2,3`), and contribute 4, 10, 30 and 50 free-gap rows at `n = 11, 12, 14, 16`.
+
+**The count F-040 made, at lengths it could not reach.** Over all 434 rows with
+two heavy clusters and a free arrow between them: **388 inside, 32 outside, 14
+undecided.** None at `n = 11` or 12 is outside. The first is at `n = 14`:
+`330004500000`, a `33` against the source and a `45` five arrows in, whose
+forward orbit closes at 1895 rows without an almost separate member.
+
+**Every outsider is explained by one of its halves.** Looking each half up alone,
+at the same offset in the same length:
+
+| left half alone | right half alone | the pair | rows |
+|---|---|---|---|
+| inside | inside | inside | **364** |
+| inside | inside | outside | **0** |
+| inside | outside | outside | 32 |
+| inside | outside | **inside** | **24** |
+| inside | outside | undecided | 14 |
+
+So with a free arrow between them, two placeable clusters make a placeable pair
+every time (364 of 364), and each of the 32 outside pairs has a half that is
+outside where it sits. The `45` in `330004500000` sits in its own outside band
+(`45` at `n = 14` is `ioooooii`; it is at offset 5). What looked like the case
+that would break the single-cluster reading is a single-cluster outsider with a
+harmless neighbour.
+
+**But the halves are not independent, and the 24 say so.** A `33`, `34` or `44`
+at or near the source, three or four arrows before a `35` or `36`, carries the
+pair inside where the `35` or `36` alone is outside: `3300035` at offsets 0 to 2
+at `n = 17`, `33000035` at 0 and 1, and so on through `34` and `44`, at `n = 15,
+16, 17`. The rescue reaches less far as the gap widens -- three offsets at gap 3,
+two at gap 4 -- and every right half involved is one whose own slide has an
+inside head (`35`: `ii…`, `36`: `i…`). One reading is that the left cluster,
+pushed off the source, lets the right one reach its own head; nothing here
+checks that.
+
+**Without a free arrow the interaction goes the other way too.** Among the rows
+where the two clusters touch through a one-arrow overlap, eight have both halves
+inside alone and the pair outside -- all of them `35 0^g xx` at offset 1
+(`3500033` at `n = 11`, `3500034` and `3500044` at 12, `3500036`, `3500046`,
+`3500056`, `3500066` at 14, `3500035` at 15), where the `5` reaches over the gap
+into the second cluster.
+
+**The run that answered nothing, and why.** `--pair-word 3 --core-limit 900` at
+`n = 16` has no free-gap row at all. The catalogue is sorted by word length, so
+its first 900 words are the gap-1 pairs -- and **a gap of one or two never has a
+free arrow** when every relation is two arrows or more: the last relation of the
+first half reaches over it. Measured on the catalogue at `n = 16`:
+
+| pair-word 2, gap | 1 | 2 | 3 | 4 | 5 | 6 |
+|---|---|---|---|---|---|---|
+| placements | 406 | 496 | 500 | 400 | 300 | 200 |
+| with a free arrow | 0 | 0 | 50 | 120 | 180 | **200** |
+
+and for `--pair-word 3`, 0 of 6135 at gap 1, 170 of 7520 at gap 2, and all 1447
+at gap 6. The night's 859 placements at `--pair-word 3` are real rows about
+touching clusters and are kept, but the free-gap question needs `--gaps 5,6`.
+
+Reproduce:
+
+```bash
+python batch.py cores 15 --max-word 2 --pair-word 2 --gaps 1,2,3,4 --summary
+python batch.py cores 17 --max-word 2 --pair-word 2 --gaps 1,2,3,4 --summary
+python batch.py cores 16 --max-word 2 --pair-word 3 --gaps 1,2,3 --summary
+```
+
+The half-by-half table is not something `--summary` prints; it came from joining
+each pair row to the single-core rows of the same length on `(core, offset)`.
+
+---
+
+## E-046 — The core census at lengths 11 to 17, and the six undecideds resolved
+*2026-09-22* · **H-020 holds for every single cluster from `n = 13` to 17; the undecideds were all outside; the census walks the same orbits over and over** → H-020, F-051
+
+Four `overnight.py` invocations between 2026-09-20 19:15 and 2026-09-21 23:17,
+all from `OVERNIGHT.md`: the first "tonight" line, the "run of lengths", the
+"two-cluster shapes" (E-047) and the "six undecideds, sharpened". The
+`--max-word 4` ledgers now stand at:
+
+| n | placements | cores | inside | outside | undecided | complete | core-h |
+|---|---|---|---|---|---|---|---|
+| 11 | 859 | 337 | 675 | 184 | 0 | yes | 0.3 |
+| 12 | 1262 | 403 | 873 | 389 | 0 | yes | 0.7 |
+| 13 | 367 | 62 | 287 | 80 | 0 | no (E-045) | -- |
+| 14 | 2148 | 443 | 1252 | 896 | 0 | **yes** | 9.9 |
+| 15 | 932 | 125 | 666 | 260 | 6 | no (E-045) | -- |
+| 16 | 3034 | 443 | 1599 | 1278 | 157 | **yes** | 34.6 |
+| 17 | 856 | 89 | 636 | 196 | 24 | `--core-limit 250` | 11.3 |
+
+**H-020, asked properly.** Every core with one heavy cluster that is decided at
+two lengths from 13 to 17 was compared between them: **975 comparisons over 283
+cores, no failure** of "the longer slide is the shorter one with the interior
+verdict repeated". The `45` core, F-042's example, reads `iooii`, `ioooii`, …,
+`iooooooooii` from `n = 11` to 17 -- head 1, tail 2 at every length -- and its
+opposite `504` is head 2, tail 1 at every length. At `n = 14` the 343
+single-cluster cores split 118 inside everywhere, 97 outside everywhere, 127
+inside at the ends and outside between, and **one** with a shape the head/tail
+reading does not cover: `4056`, `oio` / `oooio` / `oooooio` at 12, 14, 16, which
+is inside one offset from the sink and outside at the sink itself. Its suffix
+`io` is as fixed as any tail; it is a word, not a count. No single-cluster slide
+is inside in its interior and outside at an end.
+
+**Below `n = 13` the law is not visible yet, as F-042 predicted.** Twelve
+single-cluster cores change shape between 11 and 12 or 12 and 14 -- `44066`
+`io` → `oooo`, `6600044` `oi` → `oooo`, `550066` `i` → `ooo` -- and every one of
+them is a long word whose slide at the shorter length is three offsets or
+fewer, where a placement is near both ends at once.
+
+**Two-cluster cores do not obey it, and should not.** 31 incompatibilities
+between lengths, all from pair words: `3500035` is `iio` at 14 and `ooooo` at 16,
+because its right `35` moves away from the sink as the line grows while its left
+one stays at the source. E-047 is what they obey instead.
+
+**The six undecideds of E-045, at three times the orbit limit.** `--orbit-limit
+60000 --join-limit 40000 --cores 245,2045,2245,2555,2556,3344` at `n = 15`, 43
+placements, 2.3 core-hours: **all six are outside**, each a closed orbit of
+**21709 rows** -- just past the 20000 the census had. The heads and tails E-045
+read off are unchanged. And across the whole census, the 92 slides that hold an
+undecided are every one consistent with the other lengths when `?` is read as
+`o`, and two of them also when read as `i`; none only as `i`. The undecideds
+are the largest outside orbits, which sit next to the inside end (F-051), and
+they are almost certainly outside.
+
+**Where the time went -- and it is the opposite of E-045.** The inside answers
+are now nearly free: 1.8 of `n = 16`'s 34.6 core-hours. Outside took 12.5, and
+**the 157 undecided took 20.3**, 7.8 minutes each, for placements every other
+line of evidence says are outside. The cost table in `OVERNIGHT.md` estimated
+8.7 core-hours for `n = 16`; the real figure is four times that, and it is the
+cap that the estimate missed.
+
+**The census walks the same orbits again and again.** Placements with the same
+closed-orbit size are frequent -- at `n = 14`, the 896 outside placements have
+**107** distinct orbit sizes between them, and one size, 7393, was walked 72
+times for 3.7 core-hours. Walking a handful of them again and comparing the sets
+(F-051): same size is same orbit, or a mirror pair of orbits. If each distinct
+orbit were walked once, the outside rows would cost 0.5 core-hours instead of
+9.2 at `n = 14`, 1.0 instead of 12.5 at `n = 16`, and 2.1 instead of 13.9 for
+the `n = 17` pairs.
+
+**A catalogue word is not a core.** `--core-limit 250` at `n = 17` gave 89
+cores, not 250: the catalogue lists every word the digit ranges allow, and most
+four-letter words are not LNAs at all (their relations' ends do not increase)
+and have no placement at any length. The cut is still the same at every length,
+which is what it is for, but it is a cut of the catalogue, not a count of cores.
+
+Reproduce:
+
+```bash
+python batch.py cores 14 --max-word 4 --summary
+python batch.py cores 16 --max-word 4 --summary
+python batch.py cores 15 --max-word 4 --orbit-limit 60000 --join-limit 40000 --summary
+```
+
+The cross-length comparison is not in `--summary`: it reads every
+`cores-n*-w4p2a6g123-o20000j6000.jsonl` ledger, builds each core's slide per
+length, and checks that each pair of decided slides differs by a run of the
+interior verdict.
+
+---
+
 ## E-045 — The length-15 night: two censuses and a sample, all three cut off
 *2026-09-20* · **no census finished; the instrument was the bottleneck, not the machine** → H-018, H-019, H-020
 
@@ -124,7 +354,7 @@ same thing a length at a time.
 | 9 | 1430 | 60 | 40% | 58% | **1.7% +- 1.7** | **0.70%** (F-032: 0.6%) |
 | 10 | 4862 | 400 | 31.2% | 64.0% | **4.8% +- 1.1** | **5.4%** (F-032) |
 | 11 | 16796 | 6 | 33% | 50% | 17% +- 15 | 16% (F-032) |
-| 12 | 208012 | 60 | 27% | 45% | **28% +- 5.8** | not known |
+| 12 | 208012 *(sic: 58786 -- E-048)* | 60 | 27% | 45% | **28% +- 5.8** | not known |
 
 **`n = 10` is the load-bearing row**: 400 draws put the leftover rate at
 4.8% +- 1.1, and the exhaustive answer is 5.4%. `n = 11` drew only 6 before the
