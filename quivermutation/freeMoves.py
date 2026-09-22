@@ -394,3 +394,160 @@ def movesJoin(length, first, second, rules = None, free = False, edges = True,
             seen[side].add(name)
             frontier[side].append(name)
     return None
+
+
+# ---------------------------------------------------------------------------
+# A walk that remembers what every earlier walk learned
+# ---------------------------------------------------------------------------
+
+
+def mirrorRow(length, relLengths):
+    """The relation dual of a row: vertex `v` goes to `n + 1 - v`.
+
+    It keeps the derived class (F-026) and the move set is closed under it, so
+    a row and its mirror are one question.
+    """
+    relLengths = tuple(relLengths)
+    mirrored = [0] * len(relLengths)
+    for position, arrows in enumerate(relLengths):
+        if arrows:
+            mirrored[length - (position + 1) - arrows] = arrows
+    return tuple(mirrored)
+
+
+SHARED = 'shared'
+
+
+class SharedWalk(object):
+    """Walks out of many rows of one length, each using what the others found.
+
+    Every move, the free move in both directions and the relation dual is an
+    equivalence, so what a walk learns is about a *class*, not a row:
+
+    * **inside spreads both ways.**  Every row a walk passes through is in the
+      class of its start, so once one of them is shown to be in a quipu class,
+      all of them are, including rows that only reach it and rows only reached
+      from it.  A union-find over classes, keyed by the stripped row and its
+      mirror, carries that; a walk stops the moment it touches a class already
+      known to be inside.
+    * **outside is directional and is only cached as such.**  A closed forward
+      orbit without an almost separate row is remembered row by row, and a
+      later walk that reaches one of its rows does not expand it: everything
+      beyond it is known and holds nothing (F-051's cache).
+
+    `verdict` walks in two phases: the plain walk, which is cheap per row, then,
+    only if that closes without a certificate, the reduced walk
+    (`reducedMovesFrom`), which can add a two-arrow relation partway along.
+    At `n = 11` and 12 this gives the reduced walk's verdict on every placement
+    of the core census, at a thirtieth of the reduced walk's cost and a tenth of
+    the plain one's (E-050).
+
+    An `outside` given early can become `inside` when a later walk joins its
+    class to an inside one.  `verdict` returns the earlier starts it promoted,
+    so a caller writing verdicts as it goes can record the correction.  The
+    answers are therefore at least as strong as a walk from each row alone, and
+    how much stronger depends on which rows were walked first.
+    """
+
+    def __init__(self, length, limit = 20000):
+        self.length = length
+        self.limit = limit
+        self._parent = {}
+        self._inside = set()
+        self._closedPlain = set()
+        self._closedReduced = set()
+        self._outsideStarts = {}
+
+    def classKey(self, relLengths):
+        reduced = stripLengthTwo(relLengths)
+        return min(reduced, mirrorRow(self.length, reduced))
+
+    def _find(self, key):
+        parent = self._parent
+        parent.setdefault(key, key)
+        while parent[key] != key:
+            parent[key] = parent[parent[key]]
+            key = parent[key]
+        return key
+
+    def _union(self, first, second):
+        first, second = self._find(first), self._find(second)
+        if first != second:
+            self._parent[first] = second
+            if first in self._inside:
+                self._inside.discard(first)
+                self._inside.add(second)
+
+    def isInside(self, relLengths):
+        """Whether this row's class is known to hold an almost separate row."""
+        return self._find(self.classKey(relLengths)) in self._inside
+
+    def _markInside(self, relLengths):
+        self._inside.add(self._find(self.classKey(relLengths)))
+
+    def _walk(self, start, step, closed):
+        seen = {start}
+        frontier = [start]
+        while frontier and len(seen) < self.limit:
+            current = frontier.pop()
+            if current in closed:
+                continue
+            for name in step(current):
+                if name in seen:
+                    continue
+                seen.add(name)
+                self._union(self.classKey(current), self.classKey(name))
+                if overlap.isAlmostSeparate(self.length, name) or self.isInside(name):
+                    return 'found', name, seen
+                frontier.append(name)
+        return ('closed' if not frontier else 'cap'), None, seen
+
+    def verdict(self, relLengths, label = None):
+        """(verdict, how, rows walked, the row that settled it, promoted labels).
+
+        `how` is `'theorem'`, `'shared'` (the class was already known inside),
+        `'plain'` or `'reduced'` (the phase that found a certificate),
+        `'closed'` or `'cap'`.  `label` names this start in the promotions a
+        later call returns; it defaults to the row.
+        """
+        length = self.length
+        start = tuple(relLengths)
+        label = start if label is None else label
+        if overlap.isAlmostSeparate(length, start):
+            self._markInside(start)
+            return 'inside', 'theorem', 1, start, self._promotions()
+        if self.isInside(start):
+            return 'inside', 'shared', 0, None, []
+        walked = 0
+        phases = (
+            (start, lambda row: movesFrom(length, row, free = True), self._closedPlain, 'plain'),
+            (stripLengthTwo(start), lambda row: reducedMovesFrom(length, row),
+             self._closedReduced, 'reduced'),
+        )
+        capped = False
+        for phaseStart, step, closed, name in phases:
+            stopped, found, seen = self._walk(phaseStart, step, closed)
+            walked += len(seen)
+            if stopped == 'found':
+                self._union(self.classKey(start), self.classKey(found))
+                self._markInside(start)
+                return 'inside', name, walked, found, self._promotions()
+            if stopped == 'closed':
+                closed |= seen
+            else:
+                capped = True
+        self._outsideStarts[label] = start
+        return ('undecided' if capped else 'outside'), \
+            ('cap' if capped else 'closed'), walked, None, []
+
+    def markInside(self, relLengths):
+        """Record a certificate found some other way (a join), and promote."""
+        self._markInside(relLengths)
+        return self._promotions()
+
+    def _promotions(self):
+        promoted = [label for label, row in self._outsideStarts.items()
+                    if self.isInside(row)]
+        for label in promoted:
+            del self._outsideStarts[label]
+        return promoted
