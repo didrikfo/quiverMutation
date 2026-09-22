@@ -166,9 +166,80 @@ def coverage(length, rules = None, free = True, edges = False, doubles = False):
     }
 
 
+def addableLengthTwo(length, relLengths):
+    """The start vertices at which a relation of two arrows can be added.
+
+    The inverse of the single deletions `stripLengthTwo` composes: an empty
+    vertex that a two-arrow relation can start at without breaking the
+    strictly increasing starts and ends.
+    """
+    relLengths = tuple(relLengths)
+    found = []
+    for position, arrows in enumerate(relLengths):
+        if arrows:
+            continue
+        candidate = list(relLengths)
+        candidate[position] = 2
+        if lnaMoves.isAdmissible(length, candidate):
+            found.append(position + 1)
+    return tuple(found)
+
+
+def reducedMovesFrom(length, relLengths, rules = None, edges = True, doubles = True):
+    """Every reduced LNA one step away from this one's reduced form.
+
+    The walk on the quotient by the free move, which is what the free move
+    *means*: a relation of two arrows can be deleted **or added**, so an LNA and
+    its stripped form are one state, and a state is named by its reduced
+    representative.  A step is one mutation move out of the reduced row, or out
+    of the reduced row with a single two-arrow relation added, stripped again.
+
+    `movesFrom(free = True)` only ever deletes.  That makes the free move one-way
+    in a walk, and the walk then answers differently for two rows that are one
+    derived class: at `n = 11` the row `0404…` has **no** move at all while
+    `2404…` reaches an almost separate LNA in nine rows (E-049).  This is what
+    adding a relation buys -- the two-arrow relation is the spectator or the
+    companion a rule needs to fire (F-023, F-032).
+
+    Adding one relation at a time is not the whole class: a row with two
+    two-arrow relations is two steps away and is not tried as a starting point
+    for a move.  So this is sound -- every step is a derived equivalence -- and
+    still a statement about a move set, never a proof of absence.
+    """
+    rules = lnaMoves.ALL_MOVES if rules is None else rules
+    current = stripLengthTwo(relLengths)
+    starts = [current]
+    for vertex in addableLengthTwo(length, current):
+        decorated = list(current)
+        decorated[vertex - 1] = 2
+        starts.append(tuple(decorated))
+    reached = []
+    seen = {current}
+    for start in starts:
+        for name in movesFrom(length, start, rules, free = False, edges = edges,
+                              doubles = doubles):
+            reduced = stripLengthTwo(name)
+            if reduced not in seen:
+                seen.add(reduced)
+                reached.append(reduced)
+    return reached
+
+
+# `free = REDUCED` in `movesFrom`, `orbitReport` and `movesJoin` walks the
+# quotient by the free move: every state is a reduced row, named by
+# `stripLengthTwo`.  `free = True` is the one-way deletion it always was.
+REDUCED = 'reduced'
+
+
+def _startOf(relLengths, free):
+    return stripLengthTwo(relLengths) if free == REDUCED else tuple(relLengths)
+
+
 def movesFrom(length, relLengths, rules = None, free = False, edges = True,
               doubles = True):
     """Every LNA one move away from this one, as a list of relation-length tuples."""
+    if free == REDUCED:
+        return reducedMovesFrom(length, relLengths, rules, edges, doubles)
     rules = lnaMoves.ALL_MOVES if rules is None else rules
     current = tuple(relLengths)
     reached = [tuple(name) for name in lnaMoves.rewritesOf(length, list(current), rules)]
@@ -263,9 +334,9 @@ def orbitReport(length, relLengths, rules = None, free = False, edges = True,
                 doubles = True, limit = 100000, target = None, stopWhen = None):
     """`orbitOf`'s walk, with why it stopped.  See `OrbitWalk`."""
     rules = lnaMoves.ALL_MOVES if rules is None else rules
-    start = tuple(relLengths)
+    start = _startOf(relLengths, free)
     seen = {start}
-    wanted = None if target is None else tuple(target)
+    wanted = None if target is None else _startOf(target, free)
     if wanted is not None and wanted == start:
         return OrbitWalk(seen, 'found', start)
     if stopWhen is not None and stopWhen(start):
@@ -303,7 +374,7 @@ def movesJoin(length, first, second, rules = None, free = False, edges = True,
     two-arrow relation joins the walk and what is proved is a *derived*
     equivalence rather than a mutation one, exactly as in `derivedOrbits`.
     """
-    ends = [tuple(first), tuple(second)]
+    ends = [_startOf(first, free), _startOf(second, free)]
     seen = [{ends[0]}, {ends[1]}]
     frontier = [[ends[0]], [ends[1]]]
     if ends[0] == ends[1]:

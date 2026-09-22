@@ -159,7 +159,7 @@ def drawFor(length, seed, index, counts = None):
 #    have no room for, is what a sample measures.
 
 
-def probe(length, relLengths, orbitLimit = 20000):
+def probe(length, relLengths, orbitLimit = 20000, free = True):
     """Put one drawn LNA through the cheap pipeline, and say where it stopped.
 
     Returns a dict with the LNA's name, its overlap profile, and `settledBy`,
@@ -186,6 +186,11 @@ def probe(length, relLengths, orbitLimit = 20000):
     the budget, which is the mistake E-037 recorded as a result -- at `n = 15`
     that is one leftover in six, so a leftover *rate* read without the split is
     part rate and part cap.
+
+    `free` is passed to the walk: `True` deletes two-arrow relations and never
+    adds them, `freeMoves.REDUCED` walks an LNA and its stripped form as one
+    state.  The second places rows the first leaves over (E-049), so the two
+    give different rates and `walk` records which one this was.
     """
     from . import freeMoves as fm
     from . import overlap as ov
@@ -199,6 +204,7 @@ def probe(length, relLengths, orbitLimit = 20000):
         'maxOverlap': ov.maxOverlap(list(relLengths)),
         'overlapProfile': list(profile),
         'orbitLimit': orbitLimit,
+        'walk': 'reduced' if free == fm.REDUCED else 'plain',
     }
     if ov.isAlmostSeparate(length, relLengths):
         record.update(settledBy = 'theorem', orbit = 1, movesTo = record['name'],
@@ -208,7 +214,7 @@ def probe(length, relLengths, orbitLimit = 20000):
     # orbit and then looking: the answer is usually in the first few hundred
     # rows, and walking to the cap first cost the second overnight run fifteen
     # core-hours to learn nothing the first three hundred rows had not said.
-    walk = fm.orbitReport(length, relLengths, free = True, edges = True,
+    walk = fm.orbitReport(length, relLengths, free = free, edges = True,
                           doubles = True, limit = orbitLimit,
                           stopWhen = lambda row: ov.isAlmostSeparate(length, row))
     record['orbit'] = len(walk.rows)

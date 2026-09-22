@@ -40,6 +40,9 @@ Run the test suite:
 
 ## Where things are written down
 
+* [`GLOSSARY.md`](GLOSSARY.md) — every term the project uses, what it means here,
+  and the equivalences that make two runs the same run. Start here if a word in
+  the other files is unfamiliar.
 * [`NOTES.md`](NOTES.md) — the code: what the model expresses, known gaps, the backlog.
   The package layout is listed in [`quivermutation/__init__.py`](quivermutation/__init__.py).
 * [`research/`](research/) — the mathematics: findings, hypotheses, retractions,

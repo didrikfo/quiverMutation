@@ -8,6 +8,9 @@ results found in the course of the work were things already known and forgotten,
 and more than one line of work was pursued on an assumption that had already been
 shown false. The point of these files is to make that cheap to check.
 
+Terms used across these files are defined in [`../GLOSSARY.md`](../GLOSSARY.md).
+When an entry coins a word, add it there.
+
 ## The files
 
 | file | holds |
