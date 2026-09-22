@@ -6,6 +6,88 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-049 — A core and the same core with a two-arrow relation, walked both ways
+*2026-09-22* · **the plain walk gave one derived class two verdicts 19 times at `n = 11` and 12; walked as one state, 60 placements move from outside to inside and none the other way; the census also asks every mirror pair twice** → F-052, H-020, F-051
+
+**The question.** F-051 lists `45` at offset 1 and `245` at offset 0 as two of
+"four different cores" in one orbit. They are one LNA up to a relation of two
+arrows, so one derived class by the free move (F-028). Does the census treat
+them as one, and what does asking both cost?
+
+**How often it happens.** Under `--max-word 4 --gaps 1,2,3` a word holding a
+`2` is its stripped word at another offset, and that stripped row is always
+another placement of the same catalogue:
+
+| n | 11 | 12 | 13 | 14 | 15 | 16 | 17 |
+|---|---|---|---|---|---|---|---|
+| placements | 859 | 1262 | 1705 | 2148 | 2591 | 3034 | 3477 |
+| holding a two-arrow relation | 189 | 249 | 309 | 369 | 429 | 489 | 549 |
+| stripped row also in the census | 189 | 249 | 309 | 369 | 429 | 489 | 549 |
+
+Five of E-045's six undecideds -- `245`, `2045`, `2245`, `2555`, `2556` -- are
+such words: `45` at one or two offsets further on, `555` and `556` at one.
+
+**The two did not get the same verdict.** Every alias and its stripped
+placement were run through `_verdictFor` at `n = 11` and 12 with the default
+limits. **6 of 189 and 13 of 249 disagree**, always the same way round: the
+alias `inside`, the stripped row `outside`. The smallest: `404` at offset 1 of
+`n = 11` has **no move at all** (a closed orbit of one row), while `2404` at
+offset 0 reaches an almost separate row in nine. The cause is that
+`freeMoves.movesFrom(free = True)` only deletes two-arrow relations. The free
+move is symmetric and the walk made it one-way, and the added relation is
+exactly the spectator a rule needs (F-023).
+
+**Walked as one state.** `freeMoves.REDUCED`: every state is a reduced row, and a
+step is a move out of it or out of it with one two-arrow relation added,
+stripped again. Every reduced placement at `n = 11` and 12 was run under both
+walks and compared with the best verdict any of its aliases had under the plain
+walk:
+
+| n | placements, plain | reduced | reduced worse than the best alias | outside → inside | core-seconds, plain | reduced |
+|---|---|---|---|---|---|---|
+| 11 | 859 | 670 | **0** | 20 | 464 | 950 |
+| 12 | 1262 | 1013 | **0** | 40 | 1516 | 5628 |
+
+So the reduced walk loses nothing any alias had and places 60 placements the
+plain walk called outside. The `45` and `504` slides are unchanged at both
+lengths (`iooii`, `ioooii`; `iiooi`, `iioooi`), so F-042 stands. The ones that
+move include `404` (`ioooi` → `iiiii` at 11, `iooooi` → `iiiiii` at 12),
+`405`, `5004`, `36`, `6006` (`ooo` → `iii` at 12), and `4056` (`oio` →
+`oii` at 12), the one shape H-020 had to amend its statement for.
+
+**It costs more, and that is not a saving.** A reduced step tries every vertex
+a two-arrow relation can be added at, so a row costs about twice as much, and
+the outside orbits it has to close are the dearest part: 307 outside placements
+took 4145 core-seconds at `n = 12`, against 1311 for 389 under the plain walk.
+Walking plain first and reduced only where plain did not find a certificate
+barely helps (5454 against 5628), because it is the outside orbits and not the
+inside answers that cost. The factor went from 2.0 at 11 to 3.7 at 12;
+nothing longer has been measured.
+
+**The mirror is a second duplication.** The relation dual sends a row to a row
+of the same class and the move set is closed under it (F-026), so the verdicts
+of a row and its mirror should agree. Over the same runs: **300 of 300** mirror
+pairs agree at `n = 11` under the plain walk, 288 of 288 under the reduced one,
+398 of 398 and 384 of 384 at `n = 12`. Asking one of each pair removes 12 to 17
+percent of a census (3034 → 2637 placements at `n = 16` under the plain walk,
+2545 → 2159 under the reduced one).
+
+**What changed in the code.** `batch.py cores` and `batch.py sample` take
+`--walk plain|reduced`; the default is `plain`, so every command in
+`OVERNIGHT.md` means what it meant, and `reduced` writes a ledger whose name
+ends `-reduced`. Under `reduced` the catalogue drops every word holding a `2`.
+Under both, the census asks only the first of each mirror pair in catalogue
+order and `--summary` reads the other half of each slide in the mirror;
+`--no-mirror` turns that off. The mirror is a filter, not an instrument, so
+the ledger is the same one.
+
+Reproduce: the comparison is `_verdictFor(n, word, offset, 20000, 6000, free =
+...)` over `batch._placements` with `--walk plain` and `--walk reduced`, which
+at `n = 12` is about 2 core-hours. `tests/test_reduced_walk.py` pins the `404`
+case, the catalogue and the mirror.
+
+---
+
 ## E-048 — The leftover rate at `n = 13` and `n = 17`, by one instrument
 *2026-09-22* · **`n = 13` is 39.9% +- 0.7 with no cap in it; `n = 17` is somewhere between 47% and 70%** → H-019
 

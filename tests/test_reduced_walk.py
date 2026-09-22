@@ -64,7 +64,7 @@ def _args(*flags):
 
 
 def test_the_reduced_catalogue_holds_no_two_arrow_relation():
-    task, args = _args("14", "--max-word", "4")
+    task, args = _args("14", "--max-word", "4", "--walk", "reduced")
     for unit in task.units(args):
         word, offset = unit.split("@")
         assert fm.isReduced(batch._rowFor(14, word, int(offset))), unit
@@ -74,8 +74,10 @@ def test_the_reduced_catalogue_holds_no_two_arrow_relation():
 def test_every_alias_the_plain_catalogue_asks_is_a_reduced_placement(length):
     # The census loses nothing by dropping them: each is its stripped row, and
     # that row is already a unit of the reduced catalogue.
-    task, plain = _args(str(length), "--max-word", "4", "--walk", "plain")
-    _t, reduced = _args(str(length), "--max-word", "4")
+    task, plain = _args(str(length), "--max-word", "4", "--walk", "plain",
+                        "--no-mirror")
+    _t, reduced = _args(str(length), "--max-word", "4", "--walk", "reduced",
+                        "--no-mirror")
     rows = {batch._rowFor(length, *_split(unit)) for unit in task.units(reduced)}
     aliases = 0
     for unit in task.units(plain):
@@ -92,7 +94,8 @@ def _split(unit):
 
 
 def test_asking_for_an_alias_under_the_reduced_walk_says_what_it_is():
-    task, args = _args("13", "--max-word", "4", "--cores", "45,245")
+    task, args = _args("13", "--max-word", "4", "--cores", "45,245",
+                       "--walk", "reduced")
     with pytest.raises(ValueError) as raised:
         task.units(args)
     assert "245" in str(raised.value) and "two arrows" in str(raised.value)
@@ -102,14 +105,53 @@ def test_asking_for_an_alias_under_the_reduced_walk_says_what_it_is():
 
 
 def test_the_walk_is_in_both_ledger_names_and_plain_keeps_the_old_name():
-    task, reduced = _args("15", "--max-word", "4")
-    _t, plain = _args("15", "--max-word", "4", "--walk", "plain")
+    task, reduced = _args("15", "--max-word", "4", "--walk", "reduced")
+    _t, plain = _args("15", "--max-word", "4")
     assert task.ledgerPath(reduced) != task.ledgerPath(plain)
     assert task.ledgerPath(plain) == "logs/cores-n15-w4p2a6g123-o20000j6000.jsonl"
     sample = batch.SampleTask()
     parser = argparse.ArgumentParser()
     sample.addArguments(parser)
-    assert sample.ledgerPath(parser.parse_args(["15"])) != \
-        sample.ledgerPath(parser.parse_args(["15", "--walk", "plain"]))
-    assert sample.ledgerPath(parser.parse_args(["15", "--walk", "plain"])) == \
+    assert sample.ledgerPath(parser.parse_args(["15", "--walk", "reduced"])) != \
+        sample.ledgerPath(parser.parse_args(["15"]))
+    assert sample.ledgerPath(parser.parse_args(["15"])) == \
         "logs/sample-n15-s0-d0-o20000.jsonl"
+
+
+# -- the relation dual ------------------------------------------------------
+
+def test_the_mirror_of_45_is_504_at_the_reflected_offset():
+    for length in (11, 14, 17):
+        for offset in range(length - 6):
+            row = batch._rowFor(length, "45", offset)
+            if row is None:
+                continue
+            assert batch._placementOf(batch._mirror(length, row)) == \
+                ("504", length - 7 - offset)
+            assert batch._mirror(length, batch._mirror(length, row)) == row
+
+
+@pytest.mark.parametrize("walk", ["plain", "reduced"])
+def test_a_mirrored_census_asks_one_row_of_each_dual_pair_and_loses_none(walk):
+    task, whole = _args("13", "--max-word", "4", "--walk", walk, "--no-mirror")
+    _t, halved = _args("13", "--max-word", "4", "--walk", walk)
+    every = {batch._rowFor(13, *_split(unit)) for unit in task.units(whole)}
+    asked = {batch._rowFor(13, *_split(unit)) for unit in task.units(halved)}
+    assert asked < every
+    for row in every - asked:
+        assert batch._mirror(13, row) in asked, row
+    # Filtering is not a different instrument: the ledger is the same one.
+    assert task.ledgerPath(whole) == task.ledgerPath(halved)
+
+
+def test_the_summary_reads_the_unasked_half_of_a_slide_in_the_mirror():
+    import io
+    task, args = _args("12", "--max-word", "4", "--cores", "45,504")
+    verdicts = {0: 'inside', 1: 'outside', 2: 'outside', 3: 'outside',
+                4: 'inside', 5: 'inside'}
+    records = [{'result': {'core': '45', 'offset': offset, 'verdict': verdict,
+                           'name': "".join(map(str, batch._rowFor(12, '45', offset)))}}
+               for offset, verdict in verdicts.items()]
+    out = io.StringIO()
+    task.summarise(records, args, out)
+    assert "504" in out.getvalue() and "iioooi" in out.getvalue()

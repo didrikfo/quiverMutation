@@ -342,15 +342,18 @@ more than one arrow, so the free move never changes whether an LNA is almost
 separate: its whole value is **bridging** orbits, by removing or supplying the
 spectator a rule needs.
 
-**Plain walk**, `free = True`. The free move as the walks used it until
-2026-09-22: delete every two-arrow relation, never add one. One-way, so it can
-reach from `2404…` what it cannot reach from `0404…`.
+**Plain walk**, `free = True`, `--walk plain` (the default). The free move as
+every walk used it until 2026-09-22: delete every two-arrow relation, never add
+one. One-way, so it can reach from `2404…` what it cannot reach from `0404…`
+(F-052).
 
 **Reduced walk**, `free = freeMoves.REDUCED`, `--walk reduced`. The walk on the
 quotient by the free move: every state is a reduced row, and each step is a
 move out of the reduced row or out of it with **one** two-arrow relation added,
 stripped again (`freeMoves.reducedMovesFrom`). An LNA and its reduced form are
-the same state, so they get the same verdict. E-049.
+the same state, so they get the same verdict. Places strictly more than the
+plain walk and costs 2x to 4x as much at `n = 11` and 12; its ledgers end in
+`-reduced`. E-049, F-052.
 
 **Class-preserving operations** of `cor:EquivNakayamaAlgebras`: dropping short
 relations, the exchanges at the first and last foot, and the relation dual
@@ -420,7 +423,8 @@ four-letter words are not LNAs at all (E-046).
 `--pair-word`, `--gaps`), sorted by length then value. Built the same way at
 every length, so `--core-limit` cuts the same words everywhere. Under the
 reduced walk it holds no word with a `2`, since that word is its reduced form at
-another offset (E-049).
+another offset. Under either walk only the first of each **mirror pair** is
+asked, unless `--no-mirror` (E-049).
 
 **Placement.** A word at an offset in a line of length `n`: one unit of a
 census, `45@1`.
@@ -428,7 +432,13 @@ census, `45@1`.
 **Alias.** A placement whose row holds a two-arrow relation. It is the same state
 of the reduced walk as its stripped row, which is always another placement of
 the same catalogue: `245@0` is `45@1`, `2045@k` and `2245@k` are `45@k+2`,
-`2555@k` is `555@k+1`.
+`2555@k` is `555@k+1`. Under the **plain** walk the two are not the same
+computation and can get different verdicts, the alias being the better placed
+(E-049), so the plain catalogue keeps them.
+
+**Mirror pair.** A placement and its relation dual: `45@o` and `504@(n-7-o)`.
+One verdict for both in every case measured (E-049). The census asks whichever
+comes first in catalogue order, and `--summary` fills in the other.
 
 **Single-cluster word, pair word.** A word with one heavy cluster, or two
 single-cluster words joined by `--gaps` zeros. A gap counts **zeros**, not free
@@ -538,8 +548,8 @@ go down this list and say for each one whether it is quotiented out.
 
 | equivalence | what it identifies | kind | used by | not yet used by |
 |---|---|---|---|---|
-| **free move** (F-028) | an LNA and the same LNA with a two-arrow relation added or removed | derived | `derivedOrbits`, `coverage`, the quipu theorem's naming (F-003), the reduced walk and the census catalogue (E-049) | the plain walk (`free = True`), the sampler's *draws* (on purpose: the rate is over all LNAs) |
-| **relation dual** (F-026) | `45` at offset `o` and `504` at offset `n - 7 - o`; any row and its mirror | derived; the moves are closed under it | the rule table (`closeUnderDual`), edge moves, double mutation | the core census, which runs both halves of every dual pair; the orbit cache F-051 proposes |
+| **free move** (F-028) | an LNA and the same LNA with a two-arrow relation added or removed | derived | `derivedOrbits`, `coverage`, the quipu theorem's naming (F-003), `--walk reduced` and its census catalogue (E-049, F-052) | the plain walk, still the default because it is 2x to 4x cheaper; the sampler's *draws* (on purpose: the rate is over all LNAs) |
+| **relation dual** (F-026) | `45` at offset `o` and `504` at offset `n - 7 - o`; any row and its mirror | derived; the moves are closed under it | the rule table (`closeUnderDual`), edge moves, double mutation, the core census (one of each mirror pair, E-049) | `derivedOrbits` and the sampler; the orbit cache F-051 proposes |
 | **move orbit** (F-051) | every placement in one closed forward orbit | move set | nothing yet | the census walks the same orbit dozens of times; F-051's cache |
 | **vertex labels** (F-049) | nothing: labels do not move under mutation | exact | `fingerprint` | -- |
 | **parallel-arrow naming** (F-049) | permutations within a bundle | exact | `fingerprint.canonicalKey` | -- |
@@ -553,4 +563,8 @@ Before E-049 the census ran both, and the plain walk -- which could delete the
 relation but never add it -- gave some such pairs **different** verdicts: at
 `n = 11`, `2404@0` reaches an almost separate row in nine steps while `404@1`
 has no move at all. The derived truth is that both are inside. The reduced walk
-gives both one state, so one verdict, and the catalogue asks it once.
+gives both one state, so one verdict, and its catalogue asks it once. It is
+not free: the reduced walk costs more per placement than the two placements
+cost together under the plain walk, so the gain is in what is placed, not in
+time. The saving in time is the mirror, which removes 12 to 17 percent of a
+census and changes no verdict.

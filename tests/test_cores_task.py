@@ -217,10 +217,13 @@ def test_the_same_core_limit_asks_about_the_same_cores_at_every_length():
 
 
 def test_naming_cores_selects_exactly_those_and_keeps_catalogue_order():
-    task, args = _coresArgs("13", "--max-word", "3", "--cores", "45,504,33")
+    # Without the mirror: `504` is `45` reflected, so a mirrored run asks only
+    # the `45` half of the pair, which is `test_reduced_walk`'s business.
+    task, args = _coresArgs("13", "--max-word", "3", "--cores", "45,504,33",
+                            "--no-mirror")
     units = task.units(args)
     assert {unit.split("@")[0] for unit in units} == {"45", "504", "33"}
-    _task, wide = _coresArgs("13", "--max-word", "3")
+    _task, wide = _coresArgs("13", "--max-word", "3", "--no-mirror")
     order = [unit for unit in task.units(wide) if unit in set(units)]
     assert units == order
 

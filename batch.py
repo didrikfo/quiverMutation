@@ -66,12 +66,14 @@ class SampleTask(jobs.Task):
                             dest = "orbitLimit",
                             help = "how far to walk a move orbit before calling "
                                    "the row a leftover (default 20000)")
-        parser.add_argument("--walk", choices = WALKS, default = "reduced",
-                            help = "how the free move is walked: 'reduced' treats "
-                                   "an LNA and its stripped form as one state and "
-                                   "may add a two-arrow relation as well as delete "
-                                   "one; 'plain' only deletes, as every run before "
-                                   "2026-09-22 did (default reduced)")
+        parser.add_argument("--walk", choices = WALKS, default = "plain",
+                            help = "how the free move is walked: 'plain' only "
+                                   "deletes a two-arrow relation, as every run "
+                                   "before 2026-09-22 did; 'reduced' treats an LNA "
+                                   "and its stripped form as one state and may add "
+                                   "one as well -- it places more, and costs about "
+                                   "four times as much at n = 12 (E-049) "
+                                   "(default plain)")
 
     def ledgerPath(self, args):
         # The depth is in the name because a run with a search and a run without
@@ -231,12 +233,14 @@ class CoresTask(jobs.Task):
                             dest = "joinLimit",
                             help = "rows per side for each two-ended join "
                                    "(default 6000)")
-        parser.add_argument("--walk", choices = WALKS, default = "reduced",
-                            help = "how the free move is walked: 'reduced' treats "
-                                   "an LNA and its stripped form as one state and "
-                                   "may add a two-arrow relation as well as delete "
-                                   "one; 'plain' only deletes, as every run before "
-                                   "2026-09-22 did (default reduced)")
+        parser.add_argument("--walk", choices = WALKS, default = "plain",
+                            help = "how the free move is walked: 'plain' only "
+                                   "deletes a two-arrow relation, as every run "
+                                   "before 2026-09-22 did; 'reduced' treats an LNA "
+                                   "and its stripped form as one state and may add "
+                                   "one as well -- it places more, and costs about "
+                                   "four times as much at n = 12 (E-049) "
+                                   "(default plain)")
         parser.add_argument("--cores", default = "",
                             help = "run only these core words, comma separated; "
                                    "the ledger is the same one, so this is a "
@@ -245,6 +249,9 @@ class CoresTask(jobs.Task):
                             dest = "coreLimit",
                             help = "run only the first this many core words of "
                                    "the catalogue (default 0, meaning all)")
+        parser.add_argument("--no-mirror", dest = "mirror", action = "store_false",
+                            help = "ask both a row and its relation dual, rather "
+                                   "than one and reading the other in the mirror")
 
     def ledgerPath(self, args):
         # Every parameter that changes what a unit *means* is in the name: the
@@ -277,6 +284,14 @@ class CoresTask(jobs.Task):
         byWord = collections.defaultdict(dict)
         for result in results:
             byWord[result['core']][result['offset']] = result['verdict']
+        # A mirrored census asks one row of each dual pair; the other half of
+        # every slide is the same verdict read in the mirror.  Only filled in
+        # where the ledger has nothing of its own for that placement.
+        if getattr(args, 'mirror', False):
+            for result in list(results):
+                row = tuple(int(letter) for letter in result['name'])
+                word, offset = _placementOf(_mirror(args.length, row))
+                byWord[word].setdefault(offset, result['verdict'])
         tally = collections.Counter(result['verdict'] for result in results)
         print("n = {0}: {1} placements of {2} cores".format(
             args.length, len(results), len(byWord)), file = out)
@@ -423,7 +438,38 @@ def _placements(args):
         for offset in range(0, max(0, args.length - 2)):
             if _rowFor(args.length, word, offset) is not None:
                 placements.append((word, offset))
+    if getattr(args, 'mirror', False):
+        # The relation dual keeps the class and the move set is closed under
+        # it (F-026), so a row and its mirror get one verdict: `45` at `o` and
+        # `504` at `n - 7 - o` are one question.  Ask the smaller row of each
+        # pair; `summarise` writes the answer in under both.  1370 pairs at
+        # n = 11 and 12, under both walks, agreed without exception (E-049).
+        # Of the two, the one earlier in catalogue order is asked, so that a
+        # `--core-limit` prefix asks exactly what the whole census would.
+        order = {_rowFor(args.length, word, offset): rank
+                 for rank, (word, offset) in enumerate(placements)}
+        placements = [(word, offset) for rank, (word, offset) in enumerate(placements)
+                      if order.get(_mirror(args.length,
+                                           _rowFor(args.length, word, offset)),
+                                   rank) >= rank]
     return placements
+
+
+def _mirror(length, row):
+    """The relation dual of a row: vertex `v` goes to `n + 1 - v`."""
+    mirrored = [0] * len(row)
+    for position, arrows in enumerate(row):
+        if arrows:
+            start = position + 1
+            mirrored[length - start - arrows] = arrows
+    return tuple(mirrored)
+
+
+def _placementOf(row):
+    """(word, offset) for a row: the word is the row without its outer zeros."""
+    nonzero = [index for index, value in enumerate(row) if value]
+    first, last = nonzero[0], nonzero[-1]
+    return "".join(str(value) for value in row[first:last + 1]), first
 
 
 def _selected(cores, args):

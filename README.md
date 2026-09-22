@@ -261,6 +261,13 @@ run honest:
 | `outside` | the forward orbit **closed** without holding one: a statement about this move set, not about derived equivalence |
 | `undecided` | the orbit hit its cap and no join met -- the budget was measured, not the moves |
 
+`--walk reduced` treats an LNA and the same LNA with a relation of two arrows
+as one state, adding such a relation as well as deleting it. The default walk
+only deletes, which gave `404` and `2404` -- one derived class -- different
+verdicts; the reduced walk places strictly more and costs several times as much
+(research F-052, E-049). Either way, a row and its mirror are asked once. The
+terms are in [`GLOSSARY.md`](GLOSSARY.md).
+
 E-037 is why. Forty-nine barricades at `n = 15` and `n = 16` were once recorded
 as failures by a one-way walk that had merely run out of rows, and `movesJoin`
 then joined them in 45 seconds. A census that collapses `undecided` into

@@ -85,6 +85,22 @@ limit, with the heads and tails unchanged. Three amendments to the statement:
   sink drifts further away as the line grows (`3500035`: `iio` at 14, `ooooo`
   at 16). What two clusters obey is H-018's question, answered in part by E-047.
 
+**2026-09-22: the census above was measured with a one-way free move** (F-052,
+E-049). Walked with the relation added as well as deleted, 60 placements at
+`n = 11` and 12 move from outside to inside. `45` and `504` do not move, but
+`4056` becomes `oii` at 12 (outside at the source, inside in the interior),
+which is the shape the amended statement says is never seen, and `404`, `405`,
+`5004` lose their outside bands altogether at those lengths. Twelve is below
+the "long enough" of the second amendment, so this refutes nothing yet, but the
+975 comparisons are comparisons of the plain walk and the law has to be asked
+again of the reduced one, at 13 and above, before it is read as a property of
+the moves:
+
+```
+python batch.py cores 13 --max-word 4 --walk reduced --jobs 4
+python batch.py cores 14 --max-word 4 --walk reduced --jobs 4
+```
+
 F-051 is the mechanism, seen from the orbits: the outside interior of `45` at
 `n = 14` is one closed orbit, containing offsets 1 and 5, so it can only have
 one verdict.
