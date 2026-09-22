@@ -6,6 +6,88 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-050 — A census that shares what each walk settles
+*2026-09-22* · **the reduced walk's verdict on every placement at `n = 11` and 12, at a thirtieth of its cost and a ninth of the plain census's; sharing does not survive being split over workers** → F-052, H-020, F-051
+
+**The idea.** Asked in response to E-049: once one placement is settled, all
+its aliases and its mirror are settled too, so the census need not keep to the
+reduced cores; it should use every move to the fullest. Every move, the free
+move and the relation dual is an equivalence, so what a walk learns is about a
+*class*. "Inside" spreads both ways: every row a walk passes through is in its
+start's class, so a certificate for any of them is a certificate for all.
+"Outside" is directional, but a closed orbit's rows are each known to reach
+nothing, so a later walk need not expand them (F-051's cache).
+
+**First, the question as asked: are some aliases faster?** From E-049's
+per-placement data, grouping each alias by where its two-arrow relations sit
+relative to the first relation of its core:
+
+| where the `2`s are | aliases | inside with the bare core outside | both inside: alias faster |
+|---|---|---|---|
+| one vertex before the core (`-1`) | 285 | 15 | 8 of 218 |
+| two before (`-2`) | 70 | 2 | 0 of 63 |
+| two and one before (`-2,-1`) | 70 | 2 | 4 of 63 |
+| three after (`+3`) | 13 | 0 | 0 of 13 |
+
+So no decoration makes an answer the bare core already gets come faster -- 12
+of 357, and on average the alias walks slightly *more* rows. What a `2` right
+in front of the core does is reach answers the bare core does not reach at all.
+The reduced walk's slowness is not the aliases' doing either: on the classes
+that come out inside it spent 430 s at `n = 11` and 1450 s at 12, where the
+fastest plain member of each class took 94 s and 166 s in all. It was its order
+of search and the price of each step.
+
+**The shared walk.** `freeMoves.SharedWalk`: a union-find over classes keyed by
+`min(stripped row, its mirror)`; a set of rows known to lie in closed orbits
+without a certificate, one per phase; each unit walks plain, then reduced only
+if the plain walk closed. A walk stops at the first row whose class is inside
+and skips every row already in a closed orbit. A unit whose class a later unit
+shows to be inside is listed in that unit's `promotes`, and `--summary` applies
+it. One process, catalogue order, every placement including aliases, mirror
+pairs asked once:
+
+| n | plain census | reduced census | shared, plain phase | shared, reduced phase | agrees with reduced |
+|---|---|---|---|---|---|
+| 11 | 464 s | 950 s | 18 s | 14 s, on 146 left | **709 of 709** |
+| 12 | 1516 s | 5628 s | 75 s | 92 s, on 313 left | **1063 of 1063** |
+
+The plain phase alone already gives the reduced walk's verdict on all but 5 and
+14 placements; the reduced phase closes those, finding 3 and 7 certificates and
+closing the rest. Putting the aliases first changes nothing but a few cached
+answers. No promotion happened at either length: every placement's verdict was
+settled by the time it was asked.
+
+**Sharing does not survive being split.** Through `jobs.runTask` at `n = 12`:
+one worker 170 s; four workers, units dealt one at a time, 147 s of wall clock
+and 585 s of work; four workers dealt contiguous runs of the catalogue, 158 s
+and 601 s. The orbits are shared *across* words -- F-051's 484-row orbit holds
+`45`, `504` and `555` -- so every worker walks the big ones again whichever way
+the units are dealt. A shared census is one worker per census, and the cores go
+to running more censuses.
+
+**At `n = 14`**, one worker, the whole `--max-word 4` catalogue (1850
+placements after the mirror): **2745 s** of wall clock and 187 MB at most;
+1135 inside, 715 outside, none undecided. The plain census of the same length
+(2148 placements, both halves of each mirror pair) took 9.9 core-hours on the
+laptop, which is about 5.8 on this machine, so the shared census is about
+**7.6x** cheaper at 14 against 8.9x at 12 -- it grew sixteenfold from 12 to 14
+where the plain one grew fourteenfold. The `45` slide is `ioooooii`, head 1 and
+tail 2, as under the plain walk. Whether every verdict equals the reduced
+walk's was not checked at this length: the reduced census alone would take the
+better part of a day here.
+
+Reproduce:
+
+```bash
+python batch.py cores 12 --max-word 4 --jobs 1            # the shared census
+python batch.py cores 12 --max-word 4 --walk reduced --no-mirror --jobs 4
+```
+
+The comparison joins the two on each placement's class. `tests/test_reduced_walk.py`
+pins it at `n = 11` for the `--max-word 3` catalogue.
+
+---
+
 ## E-049 — A core and the same core with a two-arrow relation, walked both ways
 *2026-09-22* · **the plain walk gave one derived class two verdicts 19 times at `n = 11` and 12; walked as one state, 60 placements move from outside to inside and none the other way; the census also asks every mirror pair twice** → F-052, H-020, F-051
 

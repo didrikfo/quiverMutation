@@ -265,7 +265,10 @@ run honest:
 as one state, adding such a relation as well as deleting it. The default walk
 only deletes, which gave `404` and `2404` -- one derived class -- different
 verdicts; the reduced walk places strictly more and costs several times as much
-(research F-052, E-049). Either way, a row and its mirror are asked once. The
+(research F-052, E-049). `--walk shared`, the census default, gets the reduced
+walk's answers for a fraction of the plain walk's cost by remembering every
+class a walk settles; run it with `--jobs 1` (E-050). Either way, a row and its
+mirror are asked once. The
 terms are in [`GLOSSARY.md`](GLOSSARY.md).
 
 E-037 is why. Forty-nine barricades at `n = 15` and `n = 16` were once recorded
