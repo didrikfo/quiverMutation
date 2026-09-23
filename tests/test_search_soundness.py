@@ -114,7 +114,8 @@ def test_the_guarded_search_never_leaves_the_class_anywhere(length, depth):
 # ---------------------------------------------------------------------------
 
 
-@pytest.mark.parametrize("length, depth", [(5, 4), (6, 4)])
+@pytest.mark.parametrize("length, depth", [
+    (5, 4), pytest.param(6, 4, marks = pytest.mark.slow)])
 def test_the_guard_loses_no_line_and_gains_none(length, depth):
     """F-038: over every LNA at n = 6 and 7 to depth 5, the two agree exactly."""
     for relLengths in nk.allRelationLengths(length):

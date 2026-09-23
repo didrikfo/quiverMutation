@@ -21,7 +21,10 @@ from quivermutation import quipuForms as qf
 QUIPU_COUNTS = [1, 1, 1, 2, 2, 4, 6, 11, 18, 36, 64, 127]
 
 
-@pytest.mark.parametrize("order, expected", list(enumerate(QUIPU_COUNTS, start=1)))
+@pytest.mark.parametrize("order, expected", [
+    (order, expected) if order < 12 else
+    pytest.param(order, expected, marks = pytest.mark.slow)
+    for order, expected in enumerate(QUIPU_COUNTS, start=1)])
 def test_the_number_of_quipus_of_each_order(order, expected):
     assert len(qf.allQuipusOfOrder(order)) == expected
 

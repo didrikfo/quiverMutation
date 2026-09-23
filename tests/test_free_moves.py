@@ -15,7 +15,7 @@ here -- two independent routes to the corollary, neither of them its proof.
 import pytest
 
 from quivermutation import freeMoves as fm
-from quivermutation import invariants
+from quivermutation import coxeterTables as ct
 from quivermutation import lnaMoves as lm
 from quivermutation import nakayama as nk
 from quivermutation import overlap as ov
@@ -178,16 +178,9 @@ def test_the_table_deletes_a_two_arrow_relation_only_against_an_end():
 @pytest.mark.parametrize("length", [5, 6, 7, 8, 9])
 def test_stripping_keeps_the_coxeter_polynomial(length):
     """Necessary for the corollary, since the polynomial is a derived invariant."""
-    cache = {}
-
-    def poly(relLengths):
-        if relLengths not in cache:
-            cache[relLengths] = invariants.coxeterPoly(
-                nk.LinearNakayamaAlgebra(length, list(relLengths)))
-        return cache[relLengths]
-
     for relLengths in nk.allRelationLengths(length):
-        assert poly(relLengths) == poly(fm.stripLengthTwo(relLengths)), relLengths
+        assert ct.lnaCoxeterKey(length, relLengths) == \
+            ct.lnaCoxeterKey(length, fm.stripLengthTwo(relLengths)), relLengths
 
 
 # -- stopping the walk early, and saying why it stopped ---------------------

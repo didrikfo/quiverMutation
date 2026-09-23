@@ -18,7 +18,6 @@ import contextlib
 import networkx as nx
 
 from . import endMoves
-from . import invariants
 from . import lines
 from . import mutation
 from . import nakayama
@@ -650,10 +649,15 @@ def verifyMove(description, lengths, checkCoxeter = True):
 
 
 def _sameCoxeter(length, before, after):
-    import sympy
-    first = _quiet(invariants.coxeterPoly, nakayama.LinearNakayamaAlgebra(length, before)).as_expr()
-    second = _quiet(invariants.coxeterPoly, nakayama.LinearNakayamaAlgebra(length, after)).as_expr()
-    return sympy.expand(first) == sympy.expand(second)
+    """Whether two LNAs of one length share a Coxeter polynomial, exactly.
+
+    The integer key off the relation lengths, not the symbolic polynomial off
+    the path algebra: the same answer (`tests/test_coxeter_keys.py`), and the
+    symbolic route had been well over half of what `verifyMove` cost.
+    """
+    from . import coxeterTables    # imports freeMoves, which imports this
+    return (coxeterTables.lnaCoxeterKey(length, before)
+            == coxeterTables.lnaCoxeterKey(length, after))
 
 
 # ---------------------------------------------------------------------------

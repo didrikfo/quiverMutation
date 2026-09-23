@@ -56,6 +56,27 @@ def _swap(first, second):
     return {first: second, second: first}
 
 
+def test_the_rule_check_separates_exactly_what_the_symbolic_route_separates():
+    """`lnaMoves._sameCoxeter` admits every rule, and runs on the integer key.
+
+    Over every pair of LNAs of length 6 it must say "same" exactly when the
+    symbolic polynomials are equal -- including the pairs where they are not,
+    or a check that always said "same" would pass the tests above.
+    """
+    from quivermutation import lnaMoves as lm
+
+    rows = list(nk.allRelationLengths(6))
+    symbolic = {row: sympy.expand(inv.coxeterPoly(
+        nk.LinearNakayamaAlgebra(6, list(row))).as_expr()) for row in rows}
+    different = 0
+    for first in rows:
+        for second in rows:
+            same = symbolic[first] == symbolic[second]
+            assert lm._sameCoxeter(6, list(first), list(second)) == same
+            different += not same
+    assert different
+
+
 def test_the_determinant_identity_needs_a_unimodular_cartan_matrix():
     with pytest.raises(ValueError):
         inv.coxeterCoefficients([[2, 0], [0, 1]])

@@ -11,8 +11,8 @@ deleted", stated on a two-arrow window, holds 63 times and fails 130 times.
 import itertools
 
 import pytest
-import sympy
 
+from quivermutation import coxeterTables as ct
 from quivermutation import lnaMoves as lm
 from quivermutation import nakayama as nk
 import quivermutation as qm
@@ -249,12 +249,11 @@ def test_every_orbit_is_inside_one_derived_equivalence_class(length):
         orbit = lm.closureUnderMoves(length, relLengths)
         if len(orbit) < 2:
             continue
-        expected = sympy.expand(
-            quiet(qm.coxeterPoly, nk.LinearNakayamaAlgebra(length, relLengths)).as_expr())
+        # The exact integer key, which `test_coxeter_keys` pins to the symbolic
+        # polynomial on every LNA.
+        expected = ct.lnaCoxeterKey(length, relLengths)
         for name in orbit:
-            got = sympy.expand(quiet(
-                qm.coxeterPoly,
-                nk.LinearNakayamaAlgebra(length, [int(c) for c in name])).as_expr())
+            got = ct.lnaCoxeterKey(length, [int(c) for c in name])
             assert got == expected, (qm.className(relLengths), name)
 
 
