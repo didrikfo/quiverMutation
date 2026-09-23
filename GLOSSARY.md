@@ -342,7 +342,7 @@ more than one arrow, so the free move never changes whether an LNA is almost
 separate: its whole value is **bridging** orbits, by removing or supplying the
 spectator a rule needs.
 
-**Plain walk**, `free = True`, `--walk plain` (the default). The free move as
+**Plain walk**, `free = True`, `--walk plain` (the sampler's default). The free move as
 every walk used it until 2026-09-22: delete every two-arrow relation, never add
 one. One-way, so it can reach from `2404…` what it cannot reach from `0404…`
 (F-052).
@@ -354,6 +354,18 @@ stripped again (`freeMoves.reducedMovesFrom`). An LNA and its reduced form are
 the same state, so they get the same verdict. Places strictly more than the
 plain walk and costs 2x to 4x as much at `n = 11` and 12; its ledgers end in
 `-reduced`. E-049, F-052.
+
+**Shared walk**, `freeMoves.SharedWalk`, `--walk shared` (the census default).
+Walks many rows of one length in one process and shares what each settles: a
+union-find over classes (stripped row and mirror) carries "inside" to every row
+of a class, and rows of closed orbits are never expanded twice. Plain first,
+reduced only if that closes. Gives the reduced walk's verdicts at a thirtieth of
+its cost at `n = 11` and 12, and wants **one worker per census**: split over
+workers, each re-walks the shared orbits (E-050).
+
+**Promotion.** A shared-walk unit recorded `outside` whose class a later unit
+shows to be inside. The later unit lists it in `promotes`, and `--summary`
+reads it as inside.
 
 **Class-preserving operations** of `cor:EquivNakayamaAlgebras`: dropping short
 relations, the exchanges at the first and last foot, and the relation dual
@@ -548,9 +560,10 @@ go down this list and say for each one whether it is quotiented out.
 
 | equivalence | what it identifies | kind | used by | not yet used by |
 |---|---|---|---|---|
-| **free move** (F-028) | an LNA and the same LNA with a two-arrow relation added or removed | derived | `derivedOrbits`, `coverage`, the quipu theorem's naming (F-003), `--walk reduced` and its census catalogue (E-049, F-052) | the plain walk, still the default because it is 2x to 4x cheaper; the sampler's *draws* (on purpose: the rate is over all LNAs) |
+| **free move** (F-028) | an LNA and the same LNA with a two-arrow relation added or removed | derived | `derivedOrbits`, `coverage`, the quipu theorem's naming (F-003), the reduced and shared walks, the census (E-049, E-050) | the plain walk, still the sampler's default; the sampler's *draws* (on purpose: the rate is over all LNAs) |
 | **relation dual** (F-026) | `45` at offset `o` and `504` at offset `n - 7 - o`; any row and its mirror | derived; the moves are closed under it | the rule table (`closeUnderDual`), edge moves, double mutation, the core census (one of each mirror pair, E-049) | `derivedOrbits` and the sampler; the orbit cache F-051 proposes |
-| **move orbit** (F-051) | every placement in one closed forward orbit | move set | nothing yet | the census walks the same orbit dozens of times; F-051's cache |
+| **move orbit** (F-051) | every placement in one closed forward orbit | move set | the shared walk's closed-orbit cache (E-050) | the plain and reduced walks, and the sampler unless `--walk shared` |
+| **the class of a walk** (E-050) | every row a walk passes through, in both directions | derived | the shared walk's union-find | anything run with `--jobs` above 1, which splits it per worker |
 | **vertex labels** (F-049) | nothing: labels do not move under mutation | exact | `fingerprint` | -- |
 | **parallel-arrow naming** (F-049) | permutations within a bundle | exact | `fingerprint.canonicalKey` | -- |
 | **sign gauge** (F-050) | `p` and `-p` in a relation | exact | `fingerprint.canonicalKey` | -- |
@@ -566,5 +579,7 @@ has no move at all. The derived truth is that both are inside. The reduced walk
 gives both one state, so one verdict, and its catalogue asks it once. It is
 not free: the reduced walk costs more per placement than the two placements
 cost together under the plain walk, so the gain is in what is placed, not in
-time. The saving in time is the mirror, which removes 12 to 17 percent of a
-census and changes no verdict.
+time. The saving in time came from the next step: the **shared walk** (E-050)
+remembers every class it settles, so the alias, the mirror and every row the
+walk passed through are answered for free, and it reaches the reduced walk's
+verdicts at a ninth of the plain census's cost.

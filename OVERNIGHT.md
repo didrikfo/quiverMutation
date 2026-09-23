@@ -32,11 +32,14 @@ Check before committing a night to it — `--dry-run` prints the commands and
 starts nothing:
 
 ```bash
-wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --dry-run --hours 9 --run 'batch.py cores 16 --max-word 4 --jobs 7'"
+wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --dry-run --hours 9 --run 'batch.py cores 16 --max-word 4 --jobs 1'"
 ```
 
 **Sixteen cores.** Keep the `--jobs` across all the night's jobs at **14 or
-fewer**, or they fight each other and the machine gets slower, not faster.
+fewer**, or they fight each other and the machine gets slower, not faster. A
+shared census is one job of `--jobs 1` and holds what it has learned in memory:
+187 MB at most for all of `n = 14`. Ten of them side by side is a few GB at
+worst at the lengths timed so far; watch it the first time `n = 18` runs.
 
 **Size a job before you pick it.** `--plan` prints the ledger it would write,
 how many units it is, and how many of them are already done. It runs nothing:
@@ -50,18 +53,27 @@ wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python b
 ## Tonight, if you have no particular question
 
 ```bash
-wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 9 --run 'batch.py cores 13 --max-word 4 --jobs 2' --run 'batch.py cores 15 --max-word 4 --jobs 3' --run 'batch.py cores 17 --max-word 2 --pair-word 2 --gaps 5,6 --jobs 3' --run 'batch.py sample 15 --count 20000 --orbit-limit 100000 --jobs 4' --run 'batch.py sample 17 --count 20000 --jobs 2'"
+wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 9 --run 'batch.py cores 13 --max-word 4 --jobs 1' --run 'batch.py cores 14 --max-word 4 --jobs 1' --run 'batch.py cores 15 --max-word 4 --jobs 1' --run 'batch.py cores 16 --max-word 4 --jobs 1' --run 'batch.py cores 17 --max-word 4 --jobs 1' --run 'batch.py cores 18 --max-word 4 --jobs 1' --run 'batch.py cores 14 --max-word 5 --gaps , --jobs 1' --run 'batch.py cores 16 --max-word 5 --gaps , --jobs 1' --run 'batch.py cores 17 --max-word 2 --pair-word 2 --gaps 5,6 --jobs 1' --run 'batch.py cores 18 --max-word 2 --pair-word 2 --gaps 5,6 --jobs 1' --run 'batch.py sample 15 --count 20000 --orbit-limit 100000 --jobs 2' --run 'batch.py sample 17 --count 20000 --jobs 2'"
 ```
 
-Written 2026-09-22, after the nights of E-046 to E-048. It finishes the two
-`--max-word 4` censuses that are still partial, so H-020 has every length from
-11 to 16 complete; asks the two-cluster question at the gaps where the clusters
-are actually separated (E-047: a gap of 1 or 2 never is); walks `n = 15`'s draws
-five times further, which is the one thing that can say whether the leftover
-rate still rises past 15 (H-019); and adds draws at `n = 17`.
+Written 2026-09-22, after E-049 and E-050, and the first night of the **shared
+walk** (see Menu 1). Every census here is a shared one, which is now the
+default: one worker per census, ten of them side by side, twelve jobs' worth of
+cores in all. It asks H-020 again at every length from 13 to 18 with the free
+move walked both ways, which is what the law has to survive before it is read
+as a property of the moves (F-052); widens the cores to five vertices at 14 and
+16; asks the two-cluster question at the gaps where the clusters are actually
+apart (E-047); and keeps the two plain samples of the previous line going.
 
-The previous line -- cores 14, 16, 17 (`--core-limit 250`), the `n = 15`
-two-cluster shapes, samples at 13 and 17 -- has been run; E-046 to E-048.
+**None of the census ledgers on disk are reused.** A shared census writes
+`...-shared.jsonl`, and every earlier census was plain. That is deliberate: the
+shared walk places things the plain one called outside, so the two must not be
+mixed, and a shared census of a length costs a fraction of what finishing the
+plain one would. The plain ledgers stay readable with `--walk plain --summary`.
+
+The previous line -- cores 13 and 15 finished plain, pairs at gaps 5,6, samples
+at 15 and 17 -- was superseded before it was run; E-046 to E-048 are the nights
+before it.
 
 **Give every job more work than the night can finish.** A job that runs out of
 units exits and leaves its cores idle until morning; a job that runs out of
@@ -93,21 +105,44 @@ and `tail` — how many offsets at the source end and at the sink end are inside
 | `--pair-word` | each half of a two-cluster core | `2` `3` |
 | `--gaps` | zeros between the two halves | `5,6` for separated clusters, `1,2,3` (default), empty for none |
 | `--cores` | run only these words | `45,504` — `45,555,556,3344` |
-| `--walk` | how the free move is walked | `plain` (default), `reduced` — see below |
+| `--walk` | how the free move is walked | `shared` (default for `cores`), `reduced`, `plain` — see below |
 | `--no-mirror` | ask both halves of each mirror pair | off by default; the mirror halves are read off the other |
 | `--core-limit` | only the first N words of the catalogue | `40` `60` `120` `400` |
 | `--orbit-limit` | rows before a placement is undecided | `20000` (default), `60000`, `200000` |
 | `--join-limit` | rows per side for the two-ended join | `6000` (default), `40000` |
 
-**`--walk reduced` asks one question per derived class, and costs more.** A
-relation of two arrows is free both ways, and the default walk only deletes
-them, so `245` at 0 and `45` at 1 -- one LNA up to such a relation -- were two
-units and could get two verdicts. Under `--walk reduced` they are one state and
-the catalogue holds no word with a `2`. It places 60 placements at `n = 11` and
-12 that the plain walk calls outside, and costs 2x (at 11) to 3.7x (at 12) as
-much per census (E-049, F-052). Its ledgers end `-reduced`, so a reduced census
-starts from nothing; the plain ones on disk are not reused. Size a first
-reduced night with `--plan` and a short foreground run.
+**Three walks, and the census wants the shared one.** Every move, the free move
+and the mirror is an equivalence, so what one placement's walk settles is
+settled for its whole class (GLOSSARY, "Equivalences that save work").
+
+| `--walk` | what it does | ledger | at `n = 11` / `12` |
+|---|---|---|---|
+| `plain` | deletes two-arrow relations, never adds one; each unit alone | the old names | 464 s / 1516 s, and one derived class can get two verdicts (E-049) |
+| `reduced` | adds or deletes them, so `245@0` and `45@1` are one state; each unit alone | `-reduced` | 950 s / 5628 s; 60 more placements inside |
+| `shared` | plain then reduced, and **shares** every class it settles with every later unit in the same process | `-shared` | **33 s / 170 s**; exactly the reduced verdicts, every placement (E-050) |
+
+(Seconds of one core on the cloud machine these were measured on, which runs
+the plain census about 1.7 times faster than this laptop does.)
+
+**Run a shared census with `--jobs 1`.** The sharing is within one process:
+a walk stops at the first row of a class some earlier walk put inside, and
+never expands a row an earlier closed orbit has already shown to hold nothing.
+Spread over four workers, each re-walks the big orbits for itself, and the
+census took 147 s of wall clock against 170 s on one (E-050). So give each
+census one worker and use the cores for **more censuses**: lengths, widths and
+gap sets side by side, one `--run` each.
+
+**A resumed shared census starts with an empty memory.** The ledger is still
+the ledger -- nothing finished is redone -- but what the walks had learned is
+not on disk, so the first units after a restart are dearer than they would
+have been. A census that fits in one night is the cheap way to run it; a
+budget-cut one is still right, only slower on the second night.
+
+**Aliases stay in a shared catalogue.** Under `--walk shared` a word with a `2`
+in it costs next to nothing once its class is settled, so the catalogue keeps
+them and `--summary` prints their slides too. Under `--walk reduced` it drops
+them. `--walk plain` is only for finishing or reading the census ledgers
+written before 2026-09-22.
 
 **The mirror is asked once.** `45` at `o` and `504` at `n - 7 - o` are one
 question (E-049), so a census asks the first of each pair in catalogue order
@@ -139,8 +174,26 @@ the placements, which is the number to size by.
 
 ### What a census costs, on one core
 
-Measured on the nights of E-046 and E-047, in core-hours — divide by `--jobs`
-for the wall clock:
+**Under the shared walk**, measured on the cloud machine of E-050 (about 1.7
+times faster than this laptop), one worker each:
+
+| command | placements | wall clock |
+|---|---|---|
+| `cores 11 --max-word 4` | 709 | 33 s |
+| `cores 12 --max-word 4` | 1063 | 170 s |
+| `cores 14 --max-word 4` | 1850 | 46 min, 187 MB at most |
+
+On this laptop, allow 1.7 times those: `n = 14` is about an hour and a half on
+one core, against 9.9 core-hours plain. The shared census grew sixteenfold from
+12 to 14, about as the plain one did (fourteenfold), so the saving held at
+about 7.6x. Nothing past 14 has been timed shared. If 14 to 16 grows as it did
+plain (3.5x), `n = 16` is four to five hours here; 17 and 18 may not finish in
+nine, and that is what the budget is for -- they resume, a little slower for
+the empty memory. `--plan` says how many units; a short foreground run says how
+fast.
+
+**Under the plain walk**, measured on the nights of E-046 and E-047, in
+core-hours — divide by `--jobs` for the wall clock:
 
 | command | placements | core-hours | of which undecided |
 |---|---|---|---|
@@ -163,10 +216,8 @@ by how many placements sit near the cap, which grows with `n`.
 
 By interpolation, what is left of the two partial censuses is a few core-hours
 at `n = 13` and about a dozen at `n = 15`; the rest of `n = 17` is of the order
-of 50 to 60, and `n = 18` more than that. Before `n = 18`, build the orbit cache
-F-051 describes: the census walks the same closed orbits dozens of times — one
-orbit 72 times at `n = 14` — and caching them would cut the outside rows about
-tenfold.
+of 50 to 60, and `n = 18` more than that, under the plain walk. The orbit cache
+F-051 asked for before `n = 18` is part of the shared walk now.
 
 **Always `--plan` first at a new length.** The number that matters is
 `left`, and the cost per unit is what the table above is for.
@@ -174,24 +225,28 @@ tenfold.
 ### Nights worth running
 
 **A run of lengths, for H-020.** The head and the tail should not move with `n`.
-*Run 2026-09-21 (E-046): 11, 12, 14 and 16 are complete, and for a single
-cluster they do not move. 13 and 15 are still partial; the "tonight" line
-finishes them.*
+*Run 2026-09-21 (E-046) under the plain walk: 11, 12, 14 and 16 are complete,
+and for a single cluster they do not move. 13 and 15 are still partial, and are
+not worth finishing plain: the next night below asks every length again,
+shared. The command now runs shared, one worker per length; add `--walk plain`
+to reach the old ledgers.*
 
 ```bash
-wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 9 --run 'batch.py cores 11 --max-word 4 --jobs 2' --run 'batch.py cores 12 --max-word 4 --jobs 2' --run 'batch.py cores 14 --max-word 4 --jobs 3' --run 'batch.py cores 16 --max-word 4 --jobs 5'"
+wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 9 --run 'batch.py cores 11 --max-word 4 --jobs 1' --run 'batch.py cores 12 --max-word 4 --jobs 1' --run 'batch.py cores 14 --max-word 4 --jobs 1' --run 'batch.py cores 16 --max-word 4 --jobs 1'"
 ```
 
 **H-020 again, with the free move walked both ways.** The law was measured by
 the plain walk, and at `n = 11` and 12 the reduced walk changes slides it rests
 on (`4056` is `oii` at 12; F-052). Before building on H-020, ask it again at
-the lengths where it is claimed. `n = 12` took 1.6 core-hours reduced, so
-expect several times the plain costs below; `--plan` and a short foreground run
-first:
+the lengths where it is claimed. This is the first half of tonight's line; on
+its own, one core per length:
 
 ```bash
-wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 9 --run 'batch.py cores 13 --max-word 4 --walk reduced --jobs 3' --run 'batch.py cores 14 --max-word 4 --walk reduced --jobs 4'"
+wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 9 --run 'batch.py cores 11 --max-word 4 --jobs 1' --run 'batch.py cores 12 --max-word 4 --jobs 1' --run 'batch.py cores 13 --max-word 4 --jobs 1' --run 'batch.py cores 14 --max-word 4 --jobs 1' --run 'batch.py cores 15 --max-word 4 --jobs 1' --run 'batch.py cores 16 --max-word 4 --jobs 1' --run 'batch.py cores 17 --max-word 4 --jobs 1' --run 'batch.py cores 18 --max-word 4 --jobs 1'"
 ```
+
+The morning's comparison is the one E-046 made -- each single-cluster core's
+slide at every pair of lengths -- read off the `-shared` ledgers.
 
 **Two clusters with a free arrow between them, for F-040 and H-018.** The
 first attempt (E-047) ran `--gaps 1,2,3,4` at 15 and 17 and `--pair-word 3
@@ -202,7 +257,7 @@ that is outside alone, but a half can be *rescued* by its neighbour -- wants
 asking again at the gaps where the clusters really are apart:
 
 ```bash
-wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 9 --run 'batch.py cores 17 --max-word 2 --pair-word 2 --gaps 5,6 --jobs 5' --run 'batch.py cores 18 --max-word 2 --pair-word 2 --gaps 5,6 --jobs 5'"
+wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 9 --run 'batch.py cores 17 --max-word 2 --pair-word 2 --gaps 5,6 --jobs 1' --run 'batch.py cores 18 --max-word 2 --pair-word 2 --gaps 5,6 --jobs 1'"
 ```
 
 `--pair-word 3 --gaps 5,6` is 4632 placements at `n = 16`, all of them
@@ -221,7 +276,7 @@ next to the inside end.
 vertices. Five is the first width nothing has looked at.
 
 ```bash
-wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 9 --run 'batch.py cores 14 --max-word 5 --gaps , --jobs 7' --run 'batch.py cores 16 --max-word 5 --gaps , --core-limit 400 --jobs 7'"
+wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 9 --run 'batch.py cores 14 --max-word 5 --gaps , --jobs 1' --run 'batch.py cores 16 --max-word 5 --gaps , --core-limit 400 --jobs 1'"
 ```
 
 (`--gaps ,` leaves the pairs out, so the night is single cores only.)
@@ -230,7 +285,7 @@ wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python o
 eight arrows needs a long line before it means anything.
 
 ```bash
-wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 9 --run 'batch.py cores 17 --max-word 3 --max-arrows 8 --gaps , --jobs 7' --run 'batch.py cores 18 --max-word 3 --max-arrows 8 --gaps , --jobs 7'"
+wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 9 --run 'batch.py cores 17 --max-word 3 --max-arrows 8 --gaps , --jobs 1' --run 'batch.py cores 18 --max-word 3 --max-arrows 8 --gaps , --jobs 1'"
 ```
 
 **A handful of cores, every length.** Cheap enough to run in the foreground, and
@@ -238,7 +293,7 @@ the fastest way to see whether a head or a tail moves. One length per `--run`,
 so it is the same command shape as everything else:
 
 ```bash
-wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 4 --run 'batch.py cores 11 --max-word 4 --cores 45,504,455,605,3344 --jobs 2' --run 'batch.py cores 13 --max-word 4 --cores 45,504,455,605,3344 --jobs 2' --run 'batch.py cores 15 --max-word 4 --cores 45,504,455,605,3344 --jobs 3' --run 'batch.py cores 17 --max-word 4 --cores 45,504,455,605,3344 --jobs 3' --run 'batch.py cores 18 --max-word 4 --cores 45,504,455,605,3344 --jobs 4'"
+wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 4 --run 'batch.py cores 11 --max-word 4 --cores 45,504,455,605,3344 --jobs 1' --run 'batch.py cores 13 --max-word 4 --cores 45,504,455,605,3344 --jobs 1' --run 'batch.py cores 15 --max-word 4 --cores 45,504,455,605,3344 --jobs 1' --run 'batch.py cores 17 --max-word 4 --cores 45,504,455,605,3344 --jobs 1' --run 'batch.py cores 18 --max-word 4 --cores 45,504,455,605,3344 --jobs 1'"
 ```
 
 Because `--cores` is a filter, those rows land in the full census's ledger and

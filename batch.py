@@ -71,8 +71,10 @@ class SampleTask(jobs.Task):
                                    "deletes a two-arrow relation, as every run "
                                    "before 2026-09-22 did; 'reduced' treats an LNA "
                                    "and its stripped form as one state and may add "
-                                   "one as well -- it places more, and costs about "
-                                   "four times as much at n = 12 (E-049) "
+                                   "one as well, at about four times the cost "
+                                   "(E-049); 'shared' walks plain then reduced and "
+                                   "shares every class it settles with the units "
+                                   "after it in the same process (E-050) "
                                    "(default plain)")
 
     def ledgerPath(self, args):
@@ -108,6 +110,7 @@ class SampleTask(jobs.Task):
         if not results:
             print("nothing in the ledger yet", file = out)
             return
+        results = _latest(records, ('settledBy', 'moves'))
         tally = collections.Counter(result['settledBy'] for result in results)
         total = len(results)
         print("n = {0}, seed {1}: {2} of {3} drawn".format(
@@ -233,14 +236,16 @@ class CoresTask(jobs.Task):
                             dest = "joinLimit",
                             help = "rows per side for each two-ended join "
                                    "(default 6000)")
-        parser.add_argument("--walk", choices = WALKS, default = "plain",
+        parser.add_argument("--walk", choices = WALKS, default = "shared",
                             help = "how the free move is walked: 'plain' only "
                                    "deletes a two-arrow relation, as every run "
                                    "before 2026-09-22 did; 'reduced' treats an LNA "
                                    "and its stripped form as one state and may add "
-                                   "one as well -- it places more, and costs about "
-                                   "four times as much at n = 12 (E-049) "
-                                   "(default plain)")
+                                   "one as well, at about four times the cost "
+                                   "(E-049); 'shared' walks plain then reduced and "
+                                   "shares every class it settles with the units "
+                                   "after it in the same process (E-050) "
+                                   "(default shared)")
         parser.add_argument("--cores", default = "",
                             help = "run only these core words, comma separated; "
                                    "the ledger is the same one, so this is a "
@@ -277,7 +282,7 @@ class CoresTask(jobs.Task):
 
     def summarise(self, records, args, out = sys.stdout):
         import collections
-        results = [record['result'] for record in records]
+        results = _latest(records, ('verdict', 'inside'))
         if not results:
             print("nothing in the ledger yet", file = out)
             return
@@ -349,18 +354,59 @@ class CoresTask(jobs.Task):
                 result.get('orbit')), file = out)
 
 
-WALKS = ("reduced", "plain")
+WALKS = ("shared", "reduced", "plain")
 
 
 def _freeFor(args):
     """The `free` argument a walk takes, from `--walk`."""
-    return fm.REDUCED if getattr(args, 'walk', 'plain') == 'reduced' else True
+    walk = getattr(args, 'walk', 'plain')
+    return {'reduced': fm.REDUCED, 'shared': fm.SHARED}.get(walk, True)
 
 
 def _walkSuffix(args):
     """What the walk adds to a ledger's name: nothing for the plain walk, so the
-    ledgers written before the reduced one existed keep their names."""
-    return "-reduced" if _freeFor(args) is fm.REDUCED else ""
+    ledgers written before the others existed keep their names."""
+    free = _freeFor(args)
+    return {fm.REDUCED: "-reduced", fm.SHARED: "-shared"}.get(free, "") \
+        if free is not True else ""
+
+
+# One `SharedWalk` per length and limit, per process.  A worker keeps it for
+# every unit it is handed, so with `--jobs 1` every unit shares with every
+# earlier one and with more jobs each worker shares with its own.
+_SHARED_WALKS = {}
+
+
+def _sharedWalk(length, orbitLimit):
+    key = (length, orbitLimit)
+    if key not in _SHARED_WALKS:
+        _SHARED_WALKS[key] = fm.SharedWalk(length, limit = orbitLimit)
+    return _SHARED_WALKS[key]
+
+
+def _latest(records, promotedTo):
+    """The last result per unit, with the promotions later units recorded.
+
+    A shared walk can show, after it has written an `outside`, that the class
+    of that earlier unit is inside after all; the unit that showed it carries
+    the earlier unit's label in `promotes`.  Records are otherwise read as the
+    ledger holds them, last line winning.
+    """
+    latest = {}
+    promoted = set()
+    for record in records:
+        result = record['result']
+        latest[record.get('unit', id(record))] = result
+        promoted.update(result.get('promotes', ()))
+    results = []
+    for result in latest.values():
+        label = result.get('label')
+        if label in promoted and result.get(promotedTo[0]) != promotedTo[1]:
+            result = dict(result)
+            result[promotedTo[0]] = promotedTo[1]
+            result['promotedBy'] = 'a later walk in the same class'
+        results.append(result)
+    return results
 
 
 def _slideOf(offsets):
@@ -423,6 +469,8 @@ def _placements(args):
     # and that placement is already in the catalogue -- `245` at 0 is `45` at 1.
     # They are one state of the walk, so asking both is the same work twice
     # (E-049: 489 of the 3034 placements at n = 16).
+    # The shared walk keeps them: an alias costs it nothing once its class is
+    # settled, and it prints the alias's slide as well (E-050).
     withTwos = _freeFor(args) is not fm.REDUCED
     cores = _singleCores(args.maxWord, args.maxArrows, withTwos)
     gaps = [int(piece) for piece in args.gaps.split(",") if piece.strip()]
@@ -598,8 +646,13 @@ def _verdictFor(length, word, offset, orbitLimit, joinLimit, free = True):
         'freeGap': freeGap,
         'orbitLimit': orbitLimit,
         'joinLimit': joinLimit,
-        'walk': 'reduced' if free == fm.REDUCED else 'plain',
+        'walk': {fm.REDUCED: 'reduced', fm.SHARED: 'shared'}.get(free, 'plain')
+                if free is not True else 'plain',
     }
+    if free == fm.SHARED:
+        return _sharedVerdict(record, length, row, orbitLimit, joinLimit,
+                              "{0}@{1}".format(word, offset))
+
     if ov.isAlmostSeparate(length, row):
         # Not reachable from `_singleCores`, which only builds heavy words, but a
         # caller with its own catalogue would hit it and the answer is free.
@@ -645,6 +698,40 @@ def _verdictFor(length, word, offset, orbitLimit, joinLimit, free = True):
                           meetsAt = "".join(str(value) for value in meeting))
             return record
     record.update(verdict = 'undecided', by = 'orbit capped', certificate = None)
+    return record
+
+
+def _sharedVerdict(record, length, row, orbitLimit, joinLimit, label):
+    """`_verdictFor` under `--walk shared`: the same three verdicts, and the
+    labels of earlier units in this process that this one promoted to inside."""
+    walker = _sharedWalk(length, orbitLimit)
+    verdict, how, walked, found, promotes = walker.verdict(row, label = label)
+    record.update(label = label, orbit = walked, stopped = how,
+                  certificate = None if found is None
+                  else "".join(str(value) for value in found))
+    if verdict == 'inside':
+        record.update(verdict = 'inside',
+                      by = {'theorem': 'theorem', 'shared': 'shared class'}.get(
+                          how, how + ' orbit'),
+                      promotes = promotes)
+        return record
+    if verdict == 'outside':
+        record.update(verdict = 'outside', by = 'closed orbit', promotes = [])
+        return record
+    targets = _separatedTargets(length, row)
+    record['targetsTried'] = ["".join(str(value) for value in target)
+                              for target in targets]
+    for target in targets:
+        meeting = fm.movesJoin(length, row, target, free = True, edges = True,
+                               doubles = True, limit = joinLimit)
+        if meeting is not None:
+            record.update(verdict = 'inside', by = 'join',
+                          certificate = "".join(str(value) for value in target),
+                          meetsAt = "".join(str(value) for value in meeting),
+                          promotes = walker.markInside(row))
+            return record
+    record.update(verdict = 'undecided', by = 'orbit capped', certificate = None,
+                  promotes = [])
     return record
 
 

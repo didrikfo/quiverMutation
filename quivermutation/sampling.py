@@ -204,12 +204,15 @@ def probe(length, relLengths, orbitLimit = 20000, free = True):
         'maxOverlap': ov.maxOverlap(list(relLengths)),
         'overlapProfile': list(profile),
         'orbitLimit': orbitLimit,
-        'walk': 'reduced' if free == fm.REDUCED else 'plain',
+        'walk': {fm.REDUCED: 'reduced', fm.SHARED: 'shared'}.get(free, 'plain')
+                if free is not True else 'plain',
     }
     if ov.isAlmostSeparate(length, relLengths):
         record.update(settledBy = 'theorem', orbit = 1, movesTo = record['name'],
                       orbitClosed = True)
         return record
+    if free == fm.SHARED:
+        return _sharedProbe(record, length, relLengths, orbitLimit)
     # Stop the walk at the first almost separate row rather than enumerating the
     # orbit and then looking: the answer is usually in the first few hundred
     # rows, and walking to the cap first cost the second overnight run fifteen
@@ -224,4 +227,27 @@ def probe(length, relLengths, orbitLimit = 20000, free = True):
                       movesTo = ''.join(str(value) for value in walk.found))
         return record
     record.update(settledBy = 'leftover', movesTo = None)
+    return record
+
+
+# One `SharedWalk` per length and limit, per process: every draw a worker probes
+# uses the classes the draws before it settled (E-050).
+_SHARED_WALKS = {}
+
+
+def _sharedProbe(record, length, relLengths, orbitLimit):
+    from . import freeMoves as fm
+
+    key = (length, orbitLimit)
+    if key not in _SHARED_WALKS:
+        _SHARED_WALKS[key] = fm.SharedWalk(length, limit = orbitLimit)
+    verdict, how, walked, found, promotes = _SHARED_WALKS[key].verdict(
+        relLengths, label = record['name'])
+    record.update(label = record['name'], orbit = walked, how = how,
+                  orbitClosed = how != 'cap', promotes = promotes)
+    if verdict == 'inside':
+        record.update(settledBy = 'moves', movesTo = None if found is None
+                      else ''.join(str(value) for value in found))
+    else:
+        record.update(settledBy = 'leftover', movesTo = None)
     return record

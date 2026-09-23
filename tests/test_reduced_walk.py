@@ -106,7 +106,7 @@ def test_asking_for_an_alias_under_the_reduced_walk_says_what_it_is():
 
 def test_the_walk_is_in_both_ledger_names_and_plain_keeps_the_old_name():
     task, reduced = _args("15", "--max-word", "4", "--walk", "reduced")
-    _t, plain = _args("15", "--max-word", "4")
+    _t, plain = _args("15", "--max-word", "4", "--walk", "plain")
     assert task.ledgerPath(reduced) != task.ledgerPath(plain)
     assert task.ledgerPath(plain) == "logs/cores-n15-w4p2a6g123-o20000j6000.jsonl"
     sample = batch.SampleTask()
@@ -155,3 +155,63 @@ def test_the_summary_reads_the_unasked_half_of_a_slide_in_the_mirror():
     out = io.StringIO()
     task.summarise(records, args, out)
     assert "504" in out.getvalue() and "iioooi" in out.getvalue()
+
+
+# -- the shared walk ---------------------------------------------------------
+
+def test_the_shared_walk_gives_the_reduced_verdict_and_spreads_it_to_the_class():
+    walker = fm.SharedWalk(11)
+    bare = batch._rowFor(11, "404", 1)
+    alias = batch._rowFor(11, "2404", 0)
+    verdict, how, _walked, _found, _promotes = walker.verdict(bare)
+    assert verdict == 'inside' and how in ('plain', 'reduced')
+    # The alias and the mirror are the same class, so neither is walked again.
+    assert walker.verdict(alias)[:2] == ('inside', 'shared')
+    assert walker.verdict(fm.mirrorRow(11, bare))[:2] == ('inside', 'shared')
+
+
+def test_an_outside_verdict_is_a_closed_orbit_and_is_cached_row_by_row():
+    walker = fm.SharedWalk(11)
+    first = walker.verdict(batch._rowFor(11, "45", 1))
+    assert first[:2] == ('outside', 'closed')
+    # `45` at 2 is in the same closed orbit (F-051): its walk expands nothing new.
+    second = walker.verdict(batch._rowFor(11, "45", 2))
+    assert second[:2] == ('outside', 'closed')
+    assert second[2] < first[2]
+
+
+def test_a_later_certificate_promotes_an_earlier_outside_in_its_class():
+    walker = fm.SharedWalk(11)
+    row = batch._rowFor(11, "45", 1)
+    assert walker.verdict(row, label = "45@1")[0] == 'outside'
+    # Pretend a join found a certificate for a row of that class.
+    assert walker.markInside(fm.mirrorRow(11, row)) == ["45@1"]
+    assert walker.isInside(row)
+
+
+def test_the_summary_applies_promotions_recorded_by_later_units():
+    records = [
+        {'unit': 'a', 'result': {'label': 'a', 'verdict': 'outside'}},
+        {'unit': 'b', 'result': {'label': 'b', 'verdict': 'inside', 'promotes': ['a']}},
+    ]
+    latest = {result['label']: result['verdict']
+              for result in batch._latest(records, ('verdict', 'inside'))}
+    assert latest == {'a': 'inside', 'b': 'inside'}
+
+
+@pytest.mark.slow
+def test_a_shared_census_agrees_with_the_reduced_walk_placement_by_placement():
+    # E-050 at n = 11, in miniature: every placement of the `--max-word 3`
+    # catalogue, one process, against the reduced walk run alone on each.
+    task, args = _args("11", "--max-word", "3", "--gaps", "")
+    rows = [batch._rowFor(11, *_split(unit)) for unit in task.units(args)]
+    walker = fm.SharedWalk(11)
+    shared = [walker.verdict(row)[0] for row in rows]
+    shared = ['inside' if walker.isInside(row) else verdict
+              for row, verdict in zip(rows, shared)]
+    alone = [batch._verdictFor(11, *_split(unit), 20000, 2000,
+                               free = fm.REDUCED)['verdict']
+             for unit in task.units(args)]
+    # The reduced walk alone is asked of the unit's own row; an alias there can
+    # lose to its stripped row only under the plain walk, never the reduced one.
+    assert shared == alone
