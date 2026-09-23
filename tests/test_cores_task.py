@@ -304,3 +304,19 @@ def test_the_sampler_s_orbit_limit_is_in_its_ledger_name():
     tight = parser.parse_args(["15", "--orbit-limit", "20000"])
     loose = parser.parse_args(["15", "--orbit-limit", "200000"])
     assert task.ledgerPath(tight) != task.ledgerPath(loose)
+
+
+def test_min_word_is_a_filter_that_leaves_out_the_narrower_catalogue():
+    parser = argparse.ArgumentParser()
+    task = batch.CoresTask()
+    task.addArguments(parser)
+    wide = parser.parse_args(["14", "--max-word", "5", "--gaps", ""])
+    new = parser.parse_args(["14", "--max-word", "5", "--gaps", "", "--min-word", "5"])
+    narrow = parser.parse_args(["14", "--max-word", "4", "--gaps", ""])
+    assert task.ledgerPath(new) == task.ledgerPath(wide)
+    # Together they ask everything the wide census asks.  They may ask a little
+    # more: a five-letter word whose mirror is a four-letter word is asked here
+    # because its mirror is not in this filtered list, and another ledger of
+    # the length then answers it for nothing (E-051).
+    assert set(task.units(new)) | set(task.units(narrow)) >= set(task.units(wide))
+    assert all(len(unit.split("@")[0]) >= 5 for unit in task.units(new))
