@@ -5,6 +5,49 @@ See [`README.md`](README.md) for conventions.
 
 ---
 
+## F-053 — A core's offsets pair up by a reflection, and each pair is one self-dual orbit
+*2026-09-23*
+
+Evidence: E-052.
+
+**The claim.** Under the reduced walk, `45` at offset `o` and `45` at offset
+`n - 8 - o` lie in one closed orbit, no other offset of `45` lies in it, and the
+orbit contains the mirror of both (`504` at `n - 7 - o` and at `o + 1`). Checked
+at every offset of every length from 12 to 17: all 18 outside orbits closed,
+each holding exactly its pair. The inside offsets pair the same way, `0` with
+`n - 8`; offset `n - 7` has no partner and is the extra inside at the sink.
+
+**It is not special to `45`.** At `n = 13` and 14 the same holds with a
+core-dependent centre for `46` and `56` (pairs summing to `n - 9`), `505` and
+`555` (`n - 8`), `556` (`n - 10`), `3344` (`n - 6`), `3345` (`n - 9`) and
+`666` (`n - 9`). It fails for `3346`, whose five offsets at `n = 14` are five
+orbits, and `4056` pairs 0 with 1 and leaves 2 alone.
+
+**What it explains.**
+
+* **Why `45`'s tail is its head plus one** (F-042, H-020): the slide is a
+  palindrome on offsets `0 .. n - 8` because each offset shares an orbit, hence a
+  verdict, with its reflection; the one offset past the reflection's reach is
+  the difference.
+* **F-051's "one orbit" at `n = 14`**, `45` at 1 and 5: that is one reflected
+  pair, not the whole interior. Under the reduced walk the interior of `45` is
+  `floor((n - 8) / 2)` orbits, one per pair, and their sizes are not monotone in
+  the distance from the end (`n = 16`: 3114, 77735, 16174, 26919).
+* **Why the census capped where it did** (E-051): at `n = 16` and 17 the pairs
+  at distance 2 and 3 have orbits of 60000 to 120000 rows, and each pair was
+  walked twice.
+
+**What it does not say.** Why. Each orbit is closed under the relation dual,
+and the dual of `45@o` is `504@(n - 7 - o)`, so the pairing is the same thing as
+"the moves carry `504@p` to `45@(p - 1)`" composed with the mirror. Whether
+that is one rule of the table or a long composite has not been looked at, and
+it is H-021's question for the cores where the pairing fails.
+
+`freeMoves.orbitReport(free = freeMoves.REDUCED)`; `tests/test_reduced_walk.py`
+pins `45` at `n = 13`.
+
+---
+
 ## F-052 — The walk made the free move one-way, and one class got two verdicts
 *2026-09-22*
 
@@ -44,7 +87,7 @@ the better instrument and not the cheaper one. Asking one of each mirror pair
 ---
 
 ## F-051 — A core's outside band is one closed orbit, and many cores share it
-*2026-09-22* · *amended 2026-09-22 (F-052): `245` at 0 is `45` at 1 with a two-arrow relation added, so the "four different cores" below are three, and `2045`, `2245`, `2555`, `2556` are `45`, `555` and `556` at other offsets. Every verdict here is the plain walk's; under the reduced walk some outside bands shrink.*
+*2026-09-22* · *amended 2026-09-23 (F-053): under the reduced walk the outside band is not one orbit but one per **reflected pair** of offsets -- `45` at 1 and 5 at `n = 14` are such a pair, which is why they share an orbit. The recurring sizes across cores hold per pair.* · *amended 2026-09-22 (F-052): `245` at 0 is `45` at 1 with a two-arrow relation added, so the "four different cores" below are three, and `2045`, `2245`, `2555`, `2556` are `45`, `555` and `556` at other offsets. Every verdict here is the plain walk's; under the reduced walk some outside bands shrink.*
 
 Evidence: E-046.
 

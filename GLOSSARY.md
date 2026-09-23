@@ -420,6 +420,19 @@ split into **closed** and **capped** leftovers, which are different facts.
 **Outside band.** The run of offsets at which a core is outside, between its
 head and tail (F-042, F-051).
 
+**Reflection pair.** Two offsets of one core that share a closed orbit under the
+reduced walk: `45@o` and `45@(n - 8 - o)`. Each pair's orbit also holds both
+mirrors, so it is one self-dual class. An outside band is one orbit per pair,
+not one orbit (F-053, E-052).
+
+**Shared cap.** A shared-walk verdict of `undecided` given without walking,
+because an earlier walk that ran out of budget already passed through the
+start, so the two are one class (E-051).
+
+**Reused.** A census verdict taken from another ledger of the same length for
+the same row or its mirror, `"by": "reused"`. `inside` from any walk,
+`outside` only from the same walk family (E-051).
+
 ---
 
 ## The core census
@@ -463,7 +476,9 @@ are inside. H-020 says they belong to the core and not to the length.
 prefix word, the interior verdict repeated, and a fixed suffix word.
 
 **Rescued.** A half of a pair word that is outside on its own but inside next to
-its partner (E-047).
+its partner (E-047). Every rescue on record involves a `35` or a `36`, which the
+reduced walk places alone at every offset: an artifact of the plain walk
+(E-051).
 
 ---
 
@@ -563,7 +578,9 @@ go down this list and say for each one whether it is quotiented out.
 | **free move** (F-028) | an LNA and the same LNA with a two-arrow relation added or removed | derived | `derivedOrbits`, `coverage`, the quipu theorem's naming (F-003), the reduced and shared walks, the census (E-049, E-050) | the plain walk, still the sampler's default; the sampler's *draws* (on purpose: the rate is over all LNAs) |
 | **relation dual** (F-026) | `45` at offset `o` and `504` at offset `n - 7 - o`; any row and its mirror | derived; the moves are closed under it | the rule table (`closeUnderDual`), edge moves, double mutation, the core census (one of each mirror pair, E-049) | `derivedOrbits` and the sampler; the orbit cache F-051 proposes |
 | **move orbit** (F-051) | every placement in one closed forward orbit | move set | the shared walk's closed-orbit cache (E-050) | the plain and reduced walks, and the sampler unless `--walk shared` |
-| **the class of a walk** (E-050) | every row a walk passes through, in both directions | derived | the shared walk's union-find | anything run with `--jobs` above 1, which splits it per worker |
+| **the class of a walk** (E-050) | every row a walk passes through, in both directions | derived | the shared walk's union-find, including walks that capped (E-051) | anything run with `--jobs` above 1, which splits it per worker |
+| **reflection pair** (F-053) | a core at `o` and at `s(c) - o`, e.g. `45@o` and `45@(n - 8 - o)` | move set, reduced walk | the shared walk, once one of the pair's walks has closed or capped (E-051) | anything that asks both offsets of a pair in separate processes |
+| **same length, another ledger** (E-051) | a row's verdict in any census of its length, whatever the catalogue | none: the same question | the census, unless `--no-reuse` | the sampler |
 | **vertex labels** (F-049) | nothing: labels do not move under mutation | exact | `fingerprint` | -- |
 | **parallel-arrow naming** (F-049) | permutations within a bundle | exact | `fingerprint.canonicalKey` | -- |
 | **sign gauge** (F-050) | `p` and `-p` in a relation | exact | `fingerprint.canonicalKey` | -- |

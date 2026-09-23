@@ -805,17 +805,14 @@ def movesByRule(length, relLengths, rules = None):
     """
     rules = ALL_MOVES if rules is None else rules
     reached = {}
-    for description in rules:
-        for windowStart in windowStartsFor(length, description):
-            if not matchesAt(length, relLengths, description, windowStart):
-                continue
-            applied = applyAt(length, relLengths, description, windowStart)
-            if applied is None:
-                continue
-            moved, sequence = applied
-            name = lines.className(moved)
-            if name != lines.className(relLengths) and name not in reached:
-                reached[name] = sequence
+    for description, windowStart in matchingWindows(length, relLengths, rules):
+        applied = applyAt(length, relLengths, description, windowStart)
+        if applied is None:
+            continue
+        moved, sequence = applied
+        name = lines.className(moved)
+        if name != lines.className(relLengths) and name not in reached:
+            reached[name] = sequence
     return reached
 
 
@@ -829,14 +826,91 @@ def rewritesOf(length, relLengths, rules = None):
     """
     rules = ALL_MOVES if rules is None else rules
     reached = []
-    for description in rules:
-        for windowStart in windowStartsFor(length, description):
-            if not matchesAt(length, relLengths, description, windowStart):
-                continue
-            applied = applyAt(length, relLengths, description, windowStart)
-            if applied is not None:
-                reached.append(tuple(applied[0]))
+    for description, windowStart in matchingWindows(length, relLengths, rules):
+        applied = applyAt(length, relLengths, description, windowStart)
+        if applied is not None:
+            reached.append(tuple(applied[0]))
     return reached
+
+
+# A rule's window holds exactly its left-hand side, so its first relation sits
+# on one of the row's own relations.  Trying every rule at every window costs
+# about 5400 `matchesAt` calls a row at n = 17 and was nine tenths of a census
+# walk (E-051); keyed on that first relation's length, only the windows a
+# relation of the row could anchor are tried.  One index per rule list,
+# rebuilt if the list is not the same object at the same length.
+_RULE_INDEX = {}
+
+
+def _ruleIndex(rules):
+    entry = _RULE_INDEX.get(id(rules))
+    if entry is not None and entry[0] is rules and entry[1] == len(rules):
+        return entry[2]
+    byArrows = {}
+    for position, description in enumerate(rules):
+        firstStart, firstArrows = description[1][0]
+        byArrows.setdefault(firstArrows, []).append(
+            (position, firstStart, description[0], anchorOf(description),
+             description))
+    _RULE_INDEX[id(rules)] = (rules, len(rules), byArrows)
+    return byArrows
+
+
+def matchingWindows(length, relLengths, rules = None):
+    """Every (rule, window start) whose left-hand side sits in this row.
+
+    Exactly the pairs `windowStartsFor` and `matchesAt` accept, in the order
+    trying every rule at every window gives -- rule by rule, windows ascending
+    -- so a walk visits its rows in the same order it always did.
+    """
+    rules = ALL_MOVES if rules is None else rules
+    byArrows = _ruleIndex(rules)
+    relations = relationsOf(relLengths)
+    count = len(relations)
+    found = []
+    for first, (start, arrows) in enumerate(relations):
+        for position, firstStart, width, anchor, description in byArrows.get(arrows, ()):
+            windowStart = start - firstStart
+            if anchor == 'left':
+                allowed = windowStart == 1 and width <= length - 1
+            elif anchor == 'right':
+                allowed = windowStart == length - width and width <= length - 1
+            else:
+                allowed = 1 <= windowStart <= length - width
+            if allowed and _matchesFrom(relations, count, first, description,
+                                        windowStart):
+                found.append((position, windowStart, description))
+    found.sort(key = lambda item: (item[0], item[1]))
+    return [(description, windowStart) for _position, windowStart, description in found]
+
+
+def _matchesFrom(relations, count, first, description, windowStart):
+    """`matchesAt`, for a window whose first relation is `relations[first]`.
+
+    Starts and ends both increase along an LNA, so the relations meeting a
+    window are a run of the list: the rule's pattern must be exactly the run
+    from `first`, the run must end inside the window, and the relations on
+    either side of it must stay out.
+    """
+    width, before = description[0], description[1]
+    windowEnd = windowStart + width - 1
+    size = len(before)
+    if first + size > count:
+        return False
+    for offset in range(size):
+        start, arrows = relations[first + offset]
+        if before[offset] != (start - windowStart, arrows):
+            return False
+    start, arrows = relations[first + size - 1]
+    if start + arrows - 1 > windowEnd:
+        return False
+    if first > 0:
+        start, arrows = relations[first - 1]
+        if start + arrows - 1 >= windowStart:
+            return False
+    if first + size < count and relations[first + size][0] <= windowEnd:
+        return False
+    return True
 
 
 # ---------------------------------------------------------------------------

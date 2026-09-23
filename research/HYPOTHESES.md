@@ -6,8 +6,39 @@ it. Status is one of `OPEN`, `SUPPORTED`, `CONFIRMED → F-nnn`, `REFUTED → R-
 
 ---
 
+## H-021 — A core's slide is a palindrome when its class is self-dual, and the head/tail difference is the reflection's shortfall
+*2026-09-23* · **OPEN** *(eight cores pair their offsets by a reflection at `n = 13` and 14, `3346` does not -- E-052, F-053)*
+
+**The conjecture.** For a single-cluster core `c` there is a centre `s(c)` with
+`s(c) = n - k(c)` such that, under the reduced walk, `c@o` and `c@(s(c) - o)`
+are always in one orbit, **exactly when** the orbit of some placement of `c`
+holds the mirror of a placement of `c`. Then the slide of `c` read on offsets
+`0 .. s(c)` is a palindrome, and the offsets beyond `s(c)` -- one for `45`,
+where `s = n - 8` and the last offset is `n - 7` -- are what make the head and
+the tail of H-020 differ.
+
+**Why it is worth asking.** H-020 says the head and the tail are two numbers per
+core; this would make them one number and a shift, and would say which cores
+can have a head that differs from their tail by more than the shift. It would
+also halve every census of such a core at no risk: half its offsets are the
+other half's reflections, which the shared walk already exploits when an orbit
+closes and now, since E-051, when one caps.
+
+**What would settle it.** For every single-cluster core of `--max-word 4` at
+`n = 14`: walk each offset under the reduced walk to closure (a few seconds
+each since E-051), record which offsets and which mirrors each orbit holds, and
+check the two sides of "exactly when". `3346` is the known case without a
+pairing and should have no orbit holding a mirror of its own placements; a core
+with a mirror in its orbit and no reflection pairing refutes it.
+
+**What it would not explain.** Cores with a different centre for their inside
+and outside offsets, and the two-cluster words, where each cluster has its own
+distance to its own end (H-020's third amendment).
+
+---
+
 ## H-020 — Where a core may sit is fixed by its distance to the two ends, not by the length
-*2026-09-20* · **SUPPORTED** *(for a single heavy cluster, 283 cores at `n = 13` to 17 without an exception, with the ends read as words rather than counts -- E-046; two clusters do not obey it -- E-047)*
+*2026-09-20* · **SUPPORTED** *(for a single heavy cluster, 283 cores at `n = 13` to 17 without an exception under the plain walk -- E-046; under the reduced walk 1186 of 1192 comparisons from 13 to 18, the six failures all words whose slide at 13 is one or two offsets -- E-051; `45` closed at every offset to `n = 17` -- E-052; two clusters do not obey it -- E-047)*
 
 **The conjecture.** For an overlapping core placed alone in a line, whether the
 moves carry it to an almost separate LNA depends only on how far it sits from
@@ -112,6 +143,21 @@ edge moves see the ends. The two partial lengths are worth finishing for the
 record -- `cores 13` and `cores 15` at `--max-word 4` are a few core-hours each
 -- and `n = 18` is the length at which a counterexample would first have room
 beyond anything checked.
+
+**2026-09-23: asked again under the reduced walk** (E-051, E-052). The shared
+censuses at `n = 13` and 14 are complete, and 15 to 18 are partial. No
+single-cluster slide at 13 or 14 is inside in its interior. Every pair of
+complete slides from 13 to 18 was compared: 1186 of 1192 hold, and the six that
+do not are at `n = 13`, for words of six or seven letters whose slide there has
+one or two offsets -- the "long enough" of the second amendment is better read
+as *three offsets or more* than as a length. `45` walked to closure at every
+offset from 12 to 17 is `i o^(n-9) i i`, head 1, tail 2, as under the plain walk.
+F-053 gives a mechanism for part of it: the outside band of `45` is one closed
+orbit per **reflected pair** of offsets, so the slide is a palindrome up to one
+offset at the sink; H-021 asks whether that is the general shape.
+
+**What would settle it now.** The census at 15 to 18 under the reduced walk,
+finished, which E-051's faster walk and larger cap make a night's work.
 
 ---
 
@@ -238,6 +284,23 @@ and the same at `n = 17` if `n = 15`'s capped rows turn out to close. A depth-0
 draw is 14 s at `n = 13` and 152 s at `n = 17`, not the millisecond the entry
 above guessed -- the closing walk is the whole cost.
 
+**2026-09-23: the capped share at `n = 15` was all outside** (E-051). The same
+draws at `--orbit-limit 100000`, 1444 of them: **57.4% +- 1.3** leftover, and
+every leftover orbit closed -- the largest at 60852 rows. E-045's 48.8% closed
+plus 9.2% capped was 58.0%, so the cap was hiding no placements at all. The
+series by one instrument, closed orbits only, is now 0.7, 5.4, 16, 28, 39.9, --,
+**57.4** at `n = 11` to 15: still rising, and "most of it past `n = 12`" holds
+from 15. `n = 17` (1131 draws at 20000) is 49.6% closed and 22.9% capped; if
+its capped draws close as `n = 15`'s did, it is 72.5%. Read as the fraction the
+moves *place*, 84, 72, 60, 43 and perhaps 27 percent from 11 to 17: a fall of
+about a sixth per unit of length, steady enough to be worth fitting once `n = 17`
+is clean.
+
+**What would settle it now.** `sample 17` at `--orbit-limit 500000`, which
+E-051's faster walk makes a few seconds a draw; and the same at 15 under
+`--walk shared`, since every number in this series is the plain walk's and the
+reduced walk places more (E-049).
+
 ---
 
 ## H-018 — What escapes the quipu theorem is a placement, not an overlap
@@ -352,6 +415,16 @@ What E-047 could not ask: whether the rescue survives a wider gap (it reaches
 three offsets at gap 3 and two at gap 4, at `n = 17`), and anything about
 `--pair-word 3`, whose run spent its catalogue cut on gap-1 pairs that can never
 have a free arrow. Both want `--gaps 5,6`.
+
+**2026-09-23: the rescues were the plain walk's** (E-051). With a free arrow
+between the clusters (gaps 5 and 6 at `n = 17`, complete, plain walk) two
+placeable halves made a placeable pair 330 times in 330. The 62 pairs rescued
+from an outside half all had a `35` or a `36` as that half, and the reduced walk
+places `35` and `36` at every offset from 13 to 18. Under the shared walk at 17
+and 18 (partial) no half is rescued: every pair that is not inside has a half
+that is outside or undecided alone. So far the two-cluster verdict is the worse
+of its halves' and nothing else, which is the answer this hypothesis predicts
+for clusters that are genuinely apart.
 
 ---
 

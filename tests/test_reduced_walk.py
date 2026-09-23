@@ -215,3 +215,86 @@ def test_a_shared_census_agrees_with_the_reduced_walk_placement_by_placement():
     # The reduced walk alone is asked of the unit's own row; an alias there can
     # lose to its stripped row only under the plain walk, never the reduced one.
     assert shared == alone
+
+
+# -- what E-051 added ---------------------------------------------------------
+
+def _everyWindow(length, row, rules):
+    """`rewritesOf` as it was: every rule at every window, in table order."""
+    from quivermutation import lnaMoves as lm
+    reached = []
+    for description in rules:
+        for windowStart in lm.windowStartsFor(length, description):
+            if lm.matchesAt(length, row, description, windowStart):
+                applied = lm.applyAt(length, row, description, windowStart)
+                if applied is not None:
+                    reached.append(tuple(applied[0]))
+    return reached
+
+
+@pytest.mark.parametrize("length", [6, 7, 8])
+def test_the_indexed_rule_lookup_is_the_exhaustive_one_in_the_same_order(length):
+    from quivermutation import lnaMoves as lm
+    for row in nk.allRelationLengths(length):
+        for rules in (lm.ALL_MOVES, lm.VERIFIED_MOVES, lm.ANCHORED_MOVES):
+            assert lm.rewritesOf(length, list(row), rules) == \
+                _everyWindow(length, list(row), rules), row
+
+
+def test_the_indexed_rule_lookup_agrees_on_long_rows():
+    from quivermutation import lnaMoves as lm
+    for length in (13, 16, 18):
+        for word in ("45", "3345", "4056", "2404", "33045"):
+            for offset in range(length):
+                row = batch._rowFor(length, word, offset)
+                if row is not None:
+                    assert lm.rewritesOf(length, list(row)) == \
+                        _everyWindow(length, list(row), lm.ALL_MOVES)
+
+
+def test_a_start_a_capped_walk_passed_through_is_not_walked_again():
+    walker = fm.SharedWalk(13, limit = 50)
+    first = walker.verdict(batch._rowFor(13, "45", 2), label = "45@2")
+    assert first[:2] == ('undecided', 'cap')
+    # `45` at 3 is the reflection of `45` at 2 at this length (F-053).
+    again = walker.verdict(batch._rowFor(13, "45", 3), label = "45@3")
+    assert again[:3] == ('undecided', 'shared cap', 0)
+
+
+def test_the_outside_band_of_45_pairs_each_offset_with_its_reflection():
+    # E-052, F-053: at n = 13 the band is offsets 1 to 4, and the orbits are {1, 4}
+    # and {2, 3}; each is closed, and each holds its own mirror.
+    length = 13
+    starts = {offset: batch._rowFor(length, "45", offset) for offset in (1, 2, 3, 4)}
+    for offset, partner in ((1, 4), (2, 3)):
+        walk = fm.orbitReport(length, starts[offset], free = fm.REDUCED,
+                              limit = 100000)
+        assert walk.closed
+        held = {other for other, row in starts.items() if row in walk.rows}
+        assert held == {offset, partner}
+        assert fm.mirrorRow(length, starts[offset]) in walk.rows
+
+
+def test_a_census_takes_a_verdict_another_ledger_of_its_length_holds(tmp_path):
+    import json
+    task, narrow = _args("11", "--max-word", "3", "--gaps", "", "--cores", "45")
+    narrow.orbitLimit = 20000
+    ownPath = str(tmp_path / "cores-n11-w4p2a6gnone-o200000j6000-shared.jsonl")
+    other = tmp_path / "cores-n11-w3p2a6gnone-o20000j6000-shared.jsonl"
+    row = batch._rowFor(11, "45", 1)
+    name = "".join(map(str, row))
+    other.write_text(json.dumps({'unit': '45@1', 'result': {
+        'name': name, 'verdict': 'outside', 'walk': 'shared', 'by': 'closed orbit',
+        'core': '45', 'offset': 1}}) + "\n")
+    batch._REUSE.clear()
+    reused = batch._reusedVerdict(narrow, ownPath, "45", 1)
+    assert reused['verdict'] == 'outside' and reused['by'] == 'reused'
+    # The mirror is the same question.
+    mirrorWord, mirrorOffset = batch._placementOf(batch._mirror(11, row))
+    assert batch._reusedVerdict(narrow, ownPath, mirrorWord, mirrorOffset)['verdict'] \
+        == 'outside'
+    # A plain walk's outside is not a reduced one's (E-049).
+    other.write_text(other.read_text().replace('"shared"', '"plain"'))
+    batch._REUSE.clear()
+    assert batch._reusedVerdict(narrow, ownPath, "45", 1) is None
+    batch._REUSE.clear()

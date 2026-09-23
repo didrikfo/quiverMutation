@@ -250,6 +250,12 @@ class CoresTask(jobs.Task):
                             help = "run only these core words, comma separated; "
                                    "the ledger is the same one, so this is a "
                                    "way to do part of a census first")
+        parser.add_argument("--min-word", type = int, default = 0,
+                            dest = "minWord",
+                            help = "leave out catalogue words of fewer letters "
+                                   "than this; a filter, so `--max-word 5 "
+                                   "--min-word 5` asks only what `--max-word 4` "
+                                   "did not, into the `--max-word 5` ledger")
         parser.add_argument("--core-limit", type = int, default = 0,
                             dest = "coreLimit",
                             help = "run only the first this many core words of "
@@ -257,6 +263,10 @@ class CoresTask(jobs.Task):
         parser.add_argument("--no-mirror", dest = "mirror", action = "store_false",
                             help = "ask both a row and its relation dual, rather "
                                    "than one and reading the other in the mirror")
+        parser.add_argument("--no-reuse", dest = "reuse", action = "store_false",
+                            help = "walk every placement, rather than take the "
+                                   "verdict another ledger of this length "
+                                   "already holds for the row or its mirror")
 
     def ledgerPath(self, args):
         # Every parameter that changes what a unit *means* is in the name: the
@@ -275,10 +285,20 @@ class CoresTask(jobs.Task):
 
     def run(self, unit, args):
         word, offset = unit.split("@")
-        return _verdictFor(args.length, word, int(offset),
-                           orbitLimit = args.orbitLimit,
-                           joinLimit = args.joinLimit,
-                           free = _freeFor(args))
+        if getattr(args, 'reuse', False):
+            reused = _reusedVerdict(args, self.ledgerPath(args), word, int(offset))
+            if reused is not None:
+                return reused
+        result = _verdictFor(args.length, word, int(offset),
+                             orbitLimit = args.orbitLimit,
+                             joinLimit = args.joinLimit,
+                             free = _freeFor(args))
+        walker = _SHARED_WALKS.get((args.length, args.orbitLimit))
+        if getattr(walker, 'pendingPromotions', None):
+            result['promotes'] = walker.pendingPromotions + result.get('promotes', [])
+            walker.pendingPromotions = []
+        result['maxRssMB'] = _maxRssMB()
+        return result
 
     def summarise(self, records, args, out = sys.stdout):
         import collections
@@ -302,6 +322,10 @@ class CoresTask(jobs.Task):
             args.length, len(results), len(byWord)), file = out)
         for verdict in ('inside', 'outside', 'undecided'):
             print("  {0:<10} {1}".format(verdict, tally.get(verdict, 0)), file = out)
+        reused = sum(1 for result in results if result.get('by') == 'reused')
+        if reused:
+            print("  ({0} of them taken from other ledgers of this length)".format(
+                reused), file = out)
         print("\n  offsets read left to right from the source; "
               "i inside, o outside, ? undecided", file = out)
 
@@ -382,6 +406,125 @@ def _sharedWalk(length, orbitLimit):
     if key not in _SHARED_WALKS:
         _SHARED_WALKS[key] = fm.SharedWalk(length, limit = orbitLimit)
     return _SHARED_WALKS[key]
+
+
+def _maxRssMB():
+    """This process's peak memory so far, in MB, where the platform says."""
+    try:
+        import resource
+    except ImportError:
+        return None
+    return round(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024.0, 1)
+
+
+# What the other ledgers of a length already settle, by row, per process.
+# Rebuilt when it is older than `_REUSE_SECONDS`, so a census running beside
+# another of the same length picks up what that one finished in the meantime.
+_REUSE = {}
+_REUSE_SECONDS = 600
+
+
+def _walkFamily(walk):
+    """Which walks' `outside` mean the same: the shared walk's verdicts are the
+    reduced walk's on every placement (E-050); the plain walk's are weaker."""
+    return 'plain' if walk == 'plain' else 'reduced'
+
+
+def _reusable(args, ownPath):
+    """{row name: (verdict, result, ledger)} from every other cores ledger of
+    this length whose verdict holds for this run.
+
+    * `inside` is a certificate, and a certificate is a certificate whatever
+      walk, limit or catalogue found it.
+    * `outside` is a closed forward orbit, which no limit changes, but a plain
+      walk's closed orbit is not a reduced one's (E-049), so it is taken only
+      from a ledger of the same walk family.
+    * `undecided` only from the same family at limits at least as large:
+      a walk that ran out at 60000 rows would have run out at 20000.
+
+    The mirror of every row is entered too: a row and its relation dual are one
+    question (E-049).  Where two ledgers disagree the stronger verdict wins,
+    inside over outside over undecided, which is the order in which a
+    shared walk promotes.
+    """
+    import glob
+    import os
+    import re
+    import time
+    key = (args.length, os.path.normpath(ownPath))
+    cached = _REUSE.get(key)
+    if cached is not None and time.time() - cached[0] < _REUSE_SECONDS:
+        return cached[1]
+    ours = _walkFamily(getattr(args, 'walk', 'plain'))
+    strength = {'inside': 2, 'outside': 1, 'undecided': 0}
+    table = {}
+    folder = os.path.dirname(ownPath) or "."
+    for path in sorted(glob.glob(os.path.join(
+            folder, "cores-n{0}-*.jsonl".format(args.length)))):
+        if os.path.normpath(path) == key[1]:
+            continue
+        limits = re.search(r"-o(\d+)j(\d+)", path)
+        for result in _latest(jobs.Ledger(path).records(), ('verdict', 'inside')):
+            verdict = result.get('verdict')
+            family = _walkFamily(result.get('walk', 'plain'))
+            if verdict == 'outside' and family != ours:
+                continue
+            if verdict == 'undecided' and (
+                    family != ours or limits is None
+                    or int(limits.group(1)) < args.orbitLimit
+                    or int(limits.group(2)) < args.joinLimit):
+                continue
+            if verdict not in strength or 'name' not in result:
+                continue
+            row = tuple(int(letter) for letter in result['name'])
+            for name in (result['name'],
+                         "".join(str(value) for value in _mirror(args.length, row))):
+                held = table.get(name)
+                if held is None or strength[verdict] > strength[held[0]]:
+                    table[name] = (verdict, result, os.path.basename(path))
+    _REUSE[key] = (time.time(), table)
+    return table
+
+
+def _reusedVerdict(args, ownPath, word, offset):
+    """This placement's verdict from another ledger, or `None` to walk it.
+
+    Under the shared walk every reused `inside` is also handed to the walk, so
+    that a later walk stops the moment it reaches that class -- which is what
+    a resumed census otherwise loses with its memory.
+    """
+    row = _rowFor(args.length, word, offset)
+    table = _reusable(args, ownPath)
+    free = _freeFor(args)
+    promoted = []
+    walker = None
+    if free == fm.SHARED:
+        walker = _sharedWalk(args.length, args.orbitLimit)
+        if getattr(walker, 'seededFrom', None) is not table:
+            for name, (verdict, _result, _path) in table.items():
+                if verdict == 'inside':
+                    walker.seedInside(tuple(int(letter) for letter in name))
+            walker.seededFrom = table
+            # A ledger re-read partway through can put the class of an earlier
+            # unit of this census inside; the next record says so, as a walk's
+            # promotion would.
+            promoted = walker.promotions()
+    name = "".join(str(value) for value in row)
+    held = table.get(name)
+    if held is None:
+        if promoted:
+            walker.pendingPromotions = promoted
+        return None
+    verdict, source, path = held
+    label = "{0}@{1}".format(word, offset)
+    record = _baseRecord(args.length, word, offset, row, args.orbitLimit,
+                         args.joinLimit, free)
+    record.update(verdict = verdict, by = 'reused', stopped = 'reused', orbit = 0,
+                  label = label, reusedFrom = path, reusedBy = source.get('by'),
+                  certificate = source.get('certificate'), promotes = promoted)
+    if free == fm.SHARED and verdict != 'inside':
+        walker.noteOutside(row, label)
+    return record
 
 
 def _latest(records, promotedTo):
@@ -556,6 +699,9 @@ def _selected(cores, args):
     limit = getattr(args, 'coreLimit', 0)
     if limit:
         cores = cores[:limit]
+    shortest = getattr(args, 'minWord', 0)
+    if shortest:
+        cores = [word for word in cores if len(word) >= shortest]
     return cores
 
 
@@ -622,14 +768,22 @@ def _verdictFor(length, word, offset, orbitLimit, joinLimit, free = True):
     Cheapest first, and the second step exists only because the first one's
     failure is ambiguous -- see the class docstring and E-037.
     """
-    from quivermutation import freeMoves as fm, overlap as ov
-
     row = _rowFor(length, word, offset)
     if row is None:
         raise ValueError("{0} at offset {1} is not an LNA of length {2}".format(
             word, offset, length))
+    record = _baseRecord(length, word, offset, row, orbitLimit, joinLimit, free)
+    if free == fm.SHARED:
+        return _sharedVerdict(record, length, row, orbitLimit, joinLimit,
+                              "{0}@{1}".format(word, offset))
+    return _verdictBody(length, row, orbitLimit, joinLimit, free, record)
+
+
+def _baseRecord(length, word, offset, row, orbitLimit, joinLimit, free):
+    """What a ledger row says about a placement before any walk is made."""
+    from quivermutation import overlap as ov
     clusters, freeGap = _clusterShape(row)
-    record = {
+    return {
         'length': length,
         'core': word,
         'offset': offset,
@@ -649,10 +803,11 @@ def _verdictFor(length, word, offset, orbitLimit, joinLimit, free = True):
         'walk': {fm.REDUCED: 'reduced', fm.SHARED: 'shared'}.get(free, 'plain')
                 if free is not True else 'plain',
     }
-    if free == fm.SHARED:
-        return _sharedVerdict(record, length, row, orbitLimit, joinLimit,
-                              "{0}@{1}".format(word, offset))
 
+
+def _verdictBody(length, row, orbitLimit, joinLimit, free, record):
+    """The plain and reduced walks' verdict, written into `record`."""
+    from quivermutation import overlap as ov
     if ov.isAlmostSeparate(length, row):
         # Not reachable from `_singleCores`, which only builds heavy words, but a
         # caller with its own catalogue would hit it and the answer is free.
@@ -717,6 +872,12 @@ def _sharedVerdict(record, length, row, orbitLimit, joinLimit, label):
         return record
     if verdict == 'outside':
         record.update(verdict = 'outside', by = 'closed orbit', promotes = [])
+        return record
+    if how == 'shared cap':
+        # An earlier walk in this class ran out of budget and its joins did
+        # not meet; this start is one of the rows it passed through.
+        record.update(verdict = 'undecided', by = 'shared cap', certificate = None,
+                      promotes = [])
         return record
     targets = _separatedTargets(length, row)
     record['targetsTried'] = ["".join(str(value) for value in target)

@@ -442,6 +442,18 @@ class SharedWalk(object):
     of the core census, at a thirtieth of the reduced walk's cost and a tenth of
     the plain one's (E-050).
 
+    * **a capped walk is remembered as a class too.**  Every row it passed
+      through is in its start's class, so a later start the walk already met
+      gets `undecided` at once instead of a second walk to the cap: the
+      answer could only be the same class's, and a second walk from inside
+      it would spend the same budget on the same rows.  At `n = 16` and 17 the
+      two offsets of each reflected pair of a core were walked to the cap one
+      after the other (E-051, F-053).
+
+    Rows are held as `bytes`, a quarter of the memory of a tuple of ints: the
+    caches are what a census of a long length keeps, and the machine the
+    nights run on has 6 GB for twelve of them.
+
     An `outside` given early can become `inside` when a later walk joins its
     class to an inside one.  `verdict` returns the earlier starts it promoted,
     so a caller writing verdicts as it goes can record the correction.  The
@@ -456,11 +468,12 @@ class SharedWalk(object):
         self._inside = set()
         self._closedPlain = set()
         self._closedReduced = set()
+        self._capped = set()
         self._outsideStarts = {}
 
     def classKey(self, relLengths):
         reduced = stripLengthTwo(relLengths)
-        return min(reduced, mirrorRow(self.length, reduced))
+        return bytes(min(reduced, mirrorRow(self.length, reduced)))
 
     def _find(self, key):
         parent = self._parent
@@ -477,6 +490,9 @@ class SharedWalk(object):
             if first in self._inside:
                 self._inside.discard(first)
                 self._inside.add(second)
+            if first in self._capped:
+                self._capped.discard(first)
+                self._capped.add(second)
 
     def isInside(self, relLengths):
         """Whether this row's class is known to hold an almost separate row."""
@@ -485,12 +501,17 @@ class SharedWalk(object):
     def _markInside(self, relLengths):
         self._inside.add(self._find(self.classKey(relLengths)))
 
+    def isCapped(self, relLengths):
+        """Whether an earlier walk that ran out of budget passed through here."""
+        key = self.classKey(relLengths)
+        return key in self._parent and self._find(key) in self._capped
+
     def _walk(self, start, step, closed):
         seen = {start}
         frontier = [start]
         while frontier and len(seen) < self.limit:
             current = frontier.pop()
-            if current in closed:
+            if bytes(current) in closed:
                 continue
             for name in step(current):
                 if name in seen:
@@ -507,7 +528,8 @@ class SharedWalk(object):
 
         `how` is `'theorem'`, `'shared'` (the class was already known inside),
         `'plain'` or `'reduced'` (the phase that found a certificate),
-        `'closed'` or `'cap'`.  `label` names this start in the promotions a
+        `'closed'`, `'cap'` or `'shared cap'` (an earlier capped walk already
+        passed through this start).  `label` names this start in the promotions a
         later call returns; it defaults to the row.
         """
         length = self.length
@@ -518,6 +540,9 @@ class SharedWalk(object):
             return 'inside', 'theorem', 1, start, self._promotions()
         if self.isInside(start):
             return 'inside', 'shared', 0, None, []
+        if self.isCapped(start):
+            self._outsideStarts[label] = start
+            return 'undecided', 'shared cap', 0, None, []
         walked = 0
         phases = (
             (start, lambda row: movesFrom(length, row, free = True), self._closedPlain, 'plain'),
@@ -533,17 +558,34 @@ class SharedWalk(object):
                 self._markInside(start)
                 return 'inside', name, walked, found, self._promotions()
             if stopped == 'closed':
-                closed |= seen
+                closed.update(bytes(row) for row in seen)
             else:
                 capped = True
+        if capped:
+            self._capped.add(self._find(self.classKey(start)))
         self._outsideStarts[label] = start
         return ('undecided' if capped else 'outside'), \
             ('cap' if capped else 'closed'), walked, None, []
 
     def markInside(self, relLengths):
-        """Record a certificate found some other way (a join), and promote."""
+        """Record a certificate found some other way (a join, or a verdict
+        another ledger holds), and promote."""
         self._markInside(relLengths)
         return self._promotions()
+
+    def seedInside(self, relLengths):
+        """`markInside` without looking for promotions, for seeding many at
+        once; call `promotions` after."""
+        self._markInside(relLengths)
+
+    def promotions(self):
+        """The earlier starts now known to be inside, each returned once."""
+        return self._promotions()
+
+    def noteOutside(self, relLengths, label):
+        """Remember a start settled without a walk, so a later certificate for
+        its class promotes it like one this walk made."""
+        self._outsideStarts[label] = tuple(relLengths)
 
     def _promotions(self):
         promoted = [label for label, row in self._outsideStarts.items()
