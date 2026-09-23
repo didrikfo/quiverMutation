@@ -60,11 +60,37 @@ def _linesReached(length, relLengths, depth, guard):
 # ---------------------------------------------------------------------------
 
 
-@pytest.mark.parametrize("relLengths", [(3, 0, 3, 0), (0, 3, 3, 0), (2, 0, 0, 2)])
-def test_every_quiver_the_guarded_search_reaches_keeps_the_coxeter_polynomial(relLengths):
-    base, seen = _keysReached(6, relLengths, 5, guard = True)
-    moved = [(key, path) for key, path in seen if key is not None and key != base]
-    assert moved == []
+def test_the_guard_refuses_the_one_step_that_leaves_the_class():
+    """The step of F-038's surviving case, asked of the guard directly.
+
+    The guard drops a child before the search visits it, so asking a guarded
+    search whether it ever visits a moved key checks the guard against itself,
+    and at `n <= 7` to depth 5 there is nothing to drop anyway (F-039).  This is
+    the node the slow test below walks to with the guard off: the relation dual
+    of `33030` after `[4, 1, 3, 1, 3]`, still in the class, one mutation at 3
+    from leaving it.  With the guard the search refuses that mutation; without
+    it, it takes it.
+    """
+    algebra = nk.LinearNakayamaAlgebra(7, [3, 3, 0, 3, 0])
+    dual = search.memberAndItsDual(7, algebra.relationString())[1]
+    base = search._coxeterKeyOrNone(dual)
+    walked = dual
+    for vertex in [4, 1, 3, 1, 3]:
+        walked = lm._quiet(qm.reducePathAlgebra,
+                           lm._quiet(qm.quiverMutationAtVertex, walked, vertex))
+    assert search._coxeterKeyOrNone(walked) == base
+
+    def moved(guard):
+        seen = []
+        search.mutationSearchDepthFirst(
+            lm._copy(walked), 1, [], 'soundness', printOutput = False,
+            visitor = lambda pathAlg, path: seen.append(
+                (search._coxeterKeyOrNone(pathAlg), list(path))),
+            coxeterGuard = guard, baseKey = base)
+        return [path for key, path in seen if key is not None and key != base]
+
+    assert moved(guard = False) == [[3]]
+    assert moved(guard = True) == []
 
 
 def test_f038s_smallest_case_was_a_mis_measurement_and_now_holds():
@@ -100,13 +126,6 @@ def test_without_the_guard_a_clean_quiver_leaves_the_class_at_n_7():
     moved = [path for key, path in seen if key is not None and key != base]
     assert [4, 1, 3, 1, 3, 3] in moved
 
-
-@pytest.mark.slow
-@pytest.mark.parametrize("length, depth", [(6, 5), (7, 5)])
-def test_the_guarded_search_never_leaves_the_class_anywhere(length, depth):
-    for relLengths in nk.allRelationLengths(length):
-        base, seen = _keysReached(length, relLengths, depth, guard = True)
-        assert not [p for key, p in seen if key is not None and key != base], relLengths
 
 
 # ---------------------------------------------------------------------------

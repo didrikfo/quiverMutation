@@ -131,8 +131,15 @@ def test_the_theorem_answers_where_the_search_gives_up():
     finding its hereditary representative by mutation is out of reach at any
     depth the search can afford.  The theorem names it immediately.
     """
-    found = quiet(qm.hereditaryFormsReachedFrom, line_algebra(7, "03030"), 8)
-    assert qm.formatHereditaryForms(found) == ""
+    # Deduplicated, which reaches exactly the hereditary forms the plain walk
+    # does (E-043, `test_fingerprint`) in a sixth of the time at this depth.
+    from quivermutation import fingerprint, search
+
+    found = []
+    search.mutationSearchDepthFirst(line_algebra(7, "03030"), 8, [], 'theorem',
+                                    printOutput = False, collectedHereditary = found,
+                                    visited = fingerprint.Visited())
+    assert found == []
     # The paper's table puts A_{7,(2,4)}^{(3,3)} in the class of P_(1,0,2)^(1,1).
     assert qm.hereditaryFormFromTheorem(7, relation_string("03030")) == qf.formatQuipu(
         qf.canonicalQuipuParameters((1, 0, 2), (1, 1))
