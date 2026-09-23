@@ -53,27 +53,40 @@ wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python b
 ## Tonight, if you have no particular question
 
 ```bash
-wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 9 --run 'batch.py cores 13 --max-word 4 --jobs 1' --run 'batch.py cores 14 --max-word 4 --jobs 1' --run 'batch.py cores 15 --max-word 4 --jobs 1' --run 'batch.py cores 16 --max-word 4 --jobs 1' --run 'batch.py cores 17 --max-word 4 --jobs 1' --run 'batch.py cores 18 --max-word 4 --jobs 1' --run 'batch.py cores 14 --max-word 5 --gaps , --jobs 1' --run 'batch.py cores 16 --max-word 5 --gaps , --jobs 1' --run 'batch.py cores 17 --max-word 2 --pair-word 2 --gaps 5,6 --jobs 1' --run 'batch.py cores 18 --max-word 2 --pair-word 2 --gaps 5,6 --jobs 1' --run 'batch.py sample 15 --count 20000 --orbit-limit 100000 --jobs 2' --run 'batch.py sample 17 --count 20000 --jobs 2'"
+wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 9 --run 'batch.py cores 15 --max-word 4 --orbit-limit 500000 --jobs 1' --run 'batch.py cores 16 --max-word 4 --orbit-limit 500000 --jobs 1' --run 'batch.py cores 17 --max-word 4 --orbit-limit 500000 --jobs 1' --run 'batch.py cores 18 --max-word 4 --orbit-limit 500000 --jobs 1' --run 'batch.py cores 17 --max-word 2 --pair-word 2 --gaps 5,6 --orbit-limit 500000 --jobs 1' --run 'batch.py cores 18 --max-word 2 --pair-word 2 --gaps 5,6 --orbit-limit 500000 --jobs 1' --run 'batch.py cores 15 --max-word 5 --min-word 5 --gaps , --orbit-limit 500000 --jobs 1' --run 'batch.py cores 14 --max-word 6 --min-word 6 --gaps , --orbit-limit 500000 --jobs 1' --run 'batch.py cores 17 --max-word 3 --max-arrows 8 --gaps , --orbit-limit 500000 --jobs 1' --run 'batch.py cores 16 --max-word 2 --pair-word 3 --gaps 5,6 --orbit-limit 500000 --jobs 1' --run 'batch.py sample 17 --count 20000 --orbit-limit 500000 --jobs 1' --run 'batch.py sample 15 --count 20000 --walk shared --orbit-limit 500000 --jobs 1'"
 ```
 
-Written 2026-09-22, after E-049 and E-050, and the first night of the **shared
-walk** (see Menu 1). Every census here is a shared one, which is now the
-default: one worker per census, ten of them side by side, twelve jobs' worth of
-cores in all. It asks H-020 again at every length from 13 to 18 with the free
-move walked both ways, which is what the law has to survive before it is read
-as a property of the moves (F-052); widens the cores to five vertices at 14 and
-16; asks the two-cluster question at the gaps where the clusters are actually
-apart (E-047); and keeps the two plain samples of the previous line going.
+Written 2026-09-23, after E-051 and E-052. **The walk is thirty to eighty times
+faster than on any earlier night** (E-051: the rule lookup was nine tenths of
+every walk), so the cap goes from 20000 to 500000 rows -- enough to close every
+orbit of `45` up to `n = 18` -- and a census that last night did 410 placements
+in nine hours now does its first 1500 in twelve minutes. Twelve jobs, one
+worker each:
 
-**None of the census ledgers on disk are reused.** A shared census writes
-`...-shared.jsonl`, and every earlier census was plain. That is deliberate: the
-shared walk places things the plain one called outside, so the two must not be
-mixed, and a shared census of a length costs a fraction of what finishing the
-plain one would. The plain ledgers stay readable with `--walk plain --summary`.
+* **H-020 finished under the reduced walk**, 15 to 18. Last night's
+  `-o20000...-shared` ledgers are not resumed (the limit is in the name) but
+  **reused**: every decided verdict in them is taken for free, and only their
+  undecided and unasked placements are walked.
+* **Two clusters apart** (gaps 5,6) at 17 and 18, finishing last night's, and
+  the first `--pair-word 3` run whose pairs are all genuinely apart (16). The
+  question is whether any half is rescued under the reduced walk (E-051 says
+  none so far).
+* **New shapes nothing has looked at**: five-letter cores at 15, six-letter
+  cores at 14 (`--min-word` asks only the new width -- the narrower words are
+  in other ledgers already), and relations of seven and eight arrows at 17.
+* **H-019**: `sample 17` at the new cap, which should close last night's 22.9
+  percent capped share as `n = 15`'s closed (E-051); and the first sample under
+  the reduced walk, at 15, since every number in that series is the plain
+  walk's.
 
-The previous line -- cores 13 and 15 finished plain, pairs at gaps 5,6, samples
-at 15 and 17 -- was superseded before it was run; E-046 to E-048 are the nights
-before it.
+Memory is the thing to watch, not cores. WSL has about 6.8 GB of this laptop's
+13.7, and a census at 500000 peaked near 280 MB in the trial; every ledger row
+now carries `maxRssMB`. If a job is killed for memory, the ledger has
+everything it finished -- rerun it alone, or give WSL more with a
+`%USERPROFILE%\.wslconfig` holding `[wsl2]` and `memory=10GB`.
+
+The line before this one (E-051's second night) ran ten shared censuses at the
+20000 cap and spent most of the night on placements that hit it.
 
 **Give every job more work than the night can finish.** A job that runs out of
 units exits and leaves its cores idle until morning; a job that runs out of
@@ -100,15 +113,17 @@ and `tail` — how many offsets at the source end and at the sink end are inside
 | flag | what it changes | values worth running |
 |---|---|---|
 | `length` | the line | `11 12 13 14 15 16 17 18` |
-| `--max-word` | how many vertices one core spans | `2` `3` `4` `5` |
+| `--max-word` | how many vertices one core spans | `2` `3` `4` `5` `6` |
+| `--min-word` | leave out words shorter than this (a filter) | `5` with `--max-word 5`: only the new width |
 | `--max-arrows` | the longest relation in a core | `6` (default), `8`, `10` |
 | `--pair-word` | each half of a two-cluster core | `2` `3` |
 | `--gaps` | zeros between the two halves | `5,6` for separated clusters, `1,2,3` (default), empty for none |
 | `--cores` | run only these words | `45,504` — `45,555,556,3344` |
 | `--walk` | how the free move is walked | `shared` (default for `cores`), `reduced`, `plain` — see below |
 | `--no-mirror` | ask both halves of each mirror pair | off by default; the mirror halves are read off the other |
+| `--no-reuse` | walk every placement even if another ledger of the length has it | off by default -- see below |
 | `--core-limit` | only the first N words of the catalogue | `40` `60` `120` `400` |
-| `--orbit-limit` | rows before a placement is undecided | `20000` (default), `60000`, `200000` |
+| `--orbit-limit` | rows before a placement is undecided | `500000` from `n = 15` (E-051); `20000` is the default and too small there |
 | `--join-limit` | rows per side for the two-ended join | `6000` (default), `40000` |
 
 **Three walks, and the census wants the shared one.** Every move, the free move
@@ -132,11 +147,26 @@ census took 147 s of wall clock against 170 s on one (E-050). So give each
 census one worker and use the cores for **more censuses**: lengths, widths and
 gap sets side by side, one `--run` each.
 
-**A resumed shared census starts with an empty memory.** The ledger is still
-the ledger -- nothing finished is redone -- but what the walks had learned is
-not on disk, so the first units after a restart are dearer than they would
-have been. A census that fits in one night is the cheap way to run it; a
-budget-cut one is still right, only slower on the second night.
+**A census reuses every other census of its length** (E-051). Before walking a
+placement it looks for the row, or its mirror, in every other `cores-n<n>-*`
+ledger: an `inside` from any of them is taken (a certificate is a certificate),
+an `outside` only from a shared or reduced ledger (the plain walk's is weaker),
+an `undecided` only from one at limits at least as large. So raising
+`--orbit-limit`, which starts a new ledger, re-walks only what the old one left
+undecided or unasked, and a wider catalogue re-walks nothing the narrower one
+did. Reused rows say `"by": "reused"` and name the ledger they came from.
+`--no-reuse` walks everything, which is only for timing a census.
+
+**A resumed shared census starts with less memory.** The ledger is still the
+ledger, and every `inside` in the other ledgers of the length is handed to the
+walk before it starts; what is lost is the closed orbits' rows, which are not on
+disk. A census that fits in one night is still the cheap way to run it.
+
+**Do not run two catalogues of one length side by side.** A `--max-word 5`
+catalogue starts with the whole `--max-word 4` one, so the two walk the same
+placements at the same time and neither can reuse the other: on E-051's night
+the two `n = 16` jobs did the same 410 placements verdict for verdict. Run the
+narrow one, or give the wide one `--min-word` so it asks only what is new.
 
 **Aliases stay in a shared catalogue.** Under `--walk shared` a word with a `2`
 in it costs next to nothing once its class is settled, so the catalogue keeps
@@ -174,8 +204,22 @@ the placements, which is the number to size by.
 
 ### What a census costs, on one core
 
-**Under the shared walk**, measured on the cloud machine of E-050 (about 1.7
-times faster than this laptop), one worker each:
+**Since E-051** (the indexed rule lookup), on this laptop, one worker each:
+
+| command | placements | wall clock |
+|---|---|---|
+| `cores 13 --max-word 4` | 1457 | 64 s (32 s of CPU), 139 MB |
+| `cores 14 --max-word 4` | 1850 | 2.5 min (117 s of CPU), 154 MB |
+| `cores 16 --max-word 4 --orbit-limit 500000` | 2637 | 1476 done in 12 min, 1018 of them reused, none undecided; 235 MB |
+| `cores 18 --max-word 4 --orbit-limit 500000` | 3424 | `45@2` alone closes at 355328 rows in 510 s; 280 MB |
+
+A plain walk is now about 5600 rows a second at `n = 17` and a reduced one about
+2500. The cap is still what sets the price of a length, but it is now a price
+in minutes: a placement that walks 500000 rows and fails costs three or four of
+them, where one at 20000 cost ten to fifteen before.
+
+**Before E-051, under the shared walk**, measured on the cloud machine of E-050
+(about 1.7 times faster than this laptop), one worker each:
 
 | command | placements | wall clock |
 |---|---|---|
@@ -220,7 +264,8 @@ of 50 to 60, and `n = 18` more than that, under the plain walk. The orbit cache
 F-051 asked for before `n = 18` is part of the shared walk now.
 
 **Always `--plan` first at a new length.** The number that matters is
-`left`, and the cost per unit is what the table above is for.
+`left`, and the cost per unit is what the table above is for. `--plan` does not
+know what reuse will take for free; a five-minute foreground run does.
 
 ### Nights worth running
 
@@ -238,11 +283,12 @@ wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python o
 **H-020 again, with the free move walked both ways.** The law was measured by
 the plain walk, and at `n = 11` and 12 the reduced walk changes slides it rests
 on (`4056` is `oii` at 12; F-052). Before building on H-020, ask it again at
-the lengths where it is claimed. This is the first half of tonight's line; on
-its own, one core per length:
+the lengths where it is claimed. *Run 2026-09-23 (E-051): 13 and 14 complete
+and the law holds; 15 to 18 stalled on the 20000 cap. Tonight's line finishes
+them at 500000, reusing what is done.* On its own, one core per length:
 
 ```bash
-wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 9 --run 'batch.py cores 11 --max-word 4 --jobs 1' --run 'batch.py cores 12 --max-word 4 --jobs 1' --run 'batch.py cores 13 --max-word 4 --jobs 1' --run 'batch.py cores 14 --max-word 4 --jobs 1' --run 'batch.py cores 15 --max-word 4 --jobs 1' --run 'batch.py cores 16 --max-word 4 --jobs 1' --run 'batch.py cores 17 --max-word 4 --jobs 1' --run 'batch.py cores 18 --max-word 4 --jobs 1'"
+wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 9 --run 'batch.py cores 11 --max-word 4 --jobs 1' --run 'batch.py cores 12 --max-word 4 --jobs 1' --run 'batch.py cores 13 --max-word 4 --jobs 1' --run 'batch.py cores 14 --max-word 4 --jobs 1' --run 'batch.py cores 15 --max-word 4 --orbit-limit 500000 --jobs 1' --run 'batch.py cores 16 --max-word 4 --orbit-limit 500000 --jobs 1' --run 'batch.py cores 17 --max-word 4 --orbit-limit 500000 --jobs 1' --run 'batch.py cores 18 --max-word 4 --orbit-limit 500000 --jobs 1'"
 ```
 
 The morning's comparison is the one E-046 made -- each single-cluster core's
@@ -254,16 +300,18 @@ first attempt (E-047) ran `--gaps 1,2,3,4` at 15 and 17 and `--pair-word 3
 touch: a gap of 1 or 2 is never a free arrow, and the `--pair-word 3` cut held
 nothing but gap-1 pairs. What it found -- an outside pair always has a half
 that is outside alone, but a half can be *rescued* by its neighbour -- wants
-asking again at the gaps where the clusters really are apart:
+asking again at the gaps where the clusters really are apart. *Run 2026-09-22
+plain (17, complete) and 2026-09-23 shared (17 and 18, partial), E-051: every
+rescue on record is a `35` or `36` half, which the reduced walk places alone,
+and under the shared walk nothing is rescued so far.*
 
 ```bash
-wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 9 --run 'batch.py cores 17 --max-word 2 --pair-word 2 --gaps 5,6 --jobs 1' --run 'batch.py cores 18 --max-word 2 --pair-word 2 --gaps 5,6 --jobs 1'"
+wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 9 --run 'batch.py cores 17 --max-word 2 --pair-word 2 --gaps 5,6 --orbit-limit 500000 --jobs 1' --run 'batch.py cores 18 --max-word 2 --pair-word 2 --gaps 5,6 --orbit-limit 500000 --jobs 1'"
 ```
 
-`--pair-word 3 --gaps 5,6` is 4632 placements at `n = 16`, all of them
-separated; at the 75 s a placement the last `--pair-word 3` night averaged, that
-is several nights. `--plan` it, and cut it with `--core-limit` knowing the cut
-is of words.
+`--pair-word 3 --gaps 5,6` is 4487 placements at `n = 16` and 8502 at 17, all
+of them separated. At the old 75 s a placement it was several nights; since
+E-051 it should be one. It is in tonight's line at 16.
 
 **The six undecideds, sharpened.** *Run 2026-09-21 (E-046): all six are
 outside, closed orbits of 21709 rows, just past the default cap; heads and tails
@@ -272,11 +320,13 @@ holding one is consistent with the other lengths only if it is outside, and
 the cap is spent where F-051 says it will be -- on the biggest outside orbit,
 next to the inside end.
 
-**Wider cores, one length.** Everything so far is words of at most four
-vertices. Five is the first width nothing has looked at.
+**Wider cores, one length.** Everything before 2026-09-23 was words of at most
+four vertices. *Run 2026-09-23 (E-051): `n = 14` at `--max-word 5` is complete,
+3330 placements. The `n = 16` run did nothing but repeat the `--max-word 4`
+census beside it.* Ask only the new width with `--min-word`:
 
 ```bash
-wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 9 --run 'batch.py cores 14 --max-word 5 --gaps , --jobs 1' --run 'batch.py cores 16 --max-word 5 --gaps , --core-limit 400 --jobs 1'"
+wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 9 --run 'batch.py cores 15 --max-word 5 --min-word 5 --gaps , --orbit-limit 500000 --jobs 1' --run 'batch.py cores 16 --max-word 5 --min-word 5 --gaps , --orbit-limit 500000 --jobs 1' --run 'batch.py cores 14 --max-word 6 --min-word 6 --gaps , --orbit-limit 500000 --jobs 1'"
 ```
 
 (`--gaps ,` leaves the pairs out, so the night is single cores only.)
@@ -317,7 +367,8 @@ moves.
 | `--count` | how many draws | `4000` `20000` `50000` |
 | `--seed` | an independent replicate | `0` `1` `2` |
 | `--depth` | mutation search out of every leftover | `0` (cheap), `4`, `5` |
-| `--orbit-limit` | rows before a draw is a leftover | `20000` (default), `100000` |
+| `--orbit-limit` | rows before a draw is a leftover | `20000` (default), `100000`, `500000` |
+| `--walk` | as for `cores` | `plain` (default, the series so far), `shared` |
 
 `--seed`, `--depth` and `--orbit-limit` are all in the ledger's name. A second
 seed is a genuinely independent sample and the honest way to get an error bar.
@@ -336,7 +387,9 @@ search and leaves the orbit walk, which is still nearly all of the cost: a
 depth-0 draw is **14 s** at `n = 13` and **152 s** at `n = 17` (E-048), almost
 all of it spent closing leftover orbits. One worker is about 2300 draws a night
 at 13 and about 210 at 17. Run depth 0 at a large count for the *rate*, and
-depth 4 at a small count for the *structure*.
+depth 4 at a small count for the *structure*. *All of these are the timings
+before E-051, whose rule lookup makes the orbit walk thirty to eighty times
+faster; the search at depth 4 runs the mutation engine and is not affected.*
 
 Neither is worth guessing at: start a new length with a short foreground run and
 read the per-unit rate off the progress lines.
@@ -357,12 +410,12 @@ wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python o
 
 **How much of the leftover rate is the cap.** Same draws, a much larger walk;
 the two ledgers are separate and the difference between them is the slack.
-This is now **the** sampling question (H-019): the closed-orbit rate is flat
-from 15 to 17 (48.8%, 47.2%) while the capped share goes from 9% to 22%. `n =
-13` has no capped leftovers at all, so there is nothing to sharpen there.
+*Run at `n = 15` and 100000, 1444 draws (E-051): every leftover closed, 57.4%
++- 1.3, so the capped share there was all outside.* `n = 17` is what is left,
+at 500000 (in tonight's line).
 
 ```bash
-wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 9 --run 'batch.py sample 15 --count 20000 --orbit-limit 100000 --jobs 7' --run 'batch.py sample 17 --count 20000 --orbit-limit 100000 --jobs 7'"
+wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 9 --run 'batch.py sample 17 --count 20000 --orbit-limit 500000 --jobs 2' --run 'batch.py sample 19 --count 20000 --orbit-limit 500000 --jobs 2'"
 ```
 
 **A second seed, for an error bar.**
@@ -424,8 +477,19 @@ command and it continues; the ledger holds everything already done.
 **The flags pick the ledger.** `--max-word`, `--pair-word`, `--max-arrows`,
 `--gaps`, `--orbit-limit`, `--join-limit` and, for `sample`, `--seed` and
 `--depth` are all in the filename, because each of them changes what an answer
-means. `--cores`, `--core-limit`, `--count` and `--jobs` are not, because they
-only change how much of the same question gets asked.
+means. `--cores`, `--core-limit`, `--min-word`, `--no-reuse`, `--count` and
+`--jobs` are not, because they only change how much of the same question gets
+asked, or how. Tonight's censuses run at `--orbit-limit 500000`, so their
+`--summary` needs it too.
+
+**A wider catalogue holds the narrower one.** Catalogues are sorted by word
+length, so `--max-word 5` begins with all of `--max-word 4`. Two of them at one
+length on one night do the same work twice (E-051); use `--min-word`.
+
+**Memory, not cores, is the limit at `--orbit-limit 500000`.** WSL has about
+6.8 GB. Each ledger row carries `maxRssMB`, the process's peak so far: read the
+last row of each ledger in the morning, and run fewer jobs, or raise WSL's
+share in `.wslconfig`, if they add up to more than about five.
 
 **Ledger rows from before 2026-09-20 mean something slightly different.** The
 orbit walk now stops at the first certificate instead of enumerating to its cap,

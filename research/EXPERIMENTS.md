@@ -6,6 +6,200 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-052 — The outside band of a core is its reflection pairs
+*2026-09-23* · **under the reduced walk the outside offsets of `45` fall into closed orbits `{o, n - 8 - o}`, one per pair, at every length from 12 to 17; the same pairing holds for seven more cores and fails for `3346`** → F-053, H-021, H-020, F-051
+
+**What prompted it.** Last night's shared census at `n = 16` called `45` at
+offsets 2, 4 and 6 undecided and 3, 5 and 7 outside, and the outside ones after
+the first closed in a few rows each -- as though some offsets shared an orbit
+and others did not. F-051 had `45` at 1 and 5 in one plain orbit at `n = 14`
+and read it as "the interior is one orbit".
+
+**The run.** For each offset of a core, the reduced walk alone
+(`freeMoves.orbitReport(free = REDUCED)`) to closure or a certificate, and which
+other offsets' rows the orbit holds. With the faster rule lookup of E-051 this
+is seconds at 13 and minutes at 17:
+
+| n | `45` orbits of the outside band (rows) | inside |
+|---|---|---|
+| 12 | {1,3} 740 · {2} 1766 | 0, 4, 5 |
+| 13 | {1,4} 1127 · {2,3} 4217 | 0, 5, 6 |
+| 14 | {1,5} 1636 · {2,4} 11820 · {3} 2179 | 0, 6, 7 |
+| 15 | {1,6} 2290 · {2,5} 18157 · {3,4} 18416 | 0, 7, 8 |
+| 16 | {1,7} 3114 · {2,6} 77735 · {3,5} 16174 · {4} 26919 | 0, 8, 9 |
+| 17 | {1,8} 4135 · {2,7} 122673 · {3,6} 57828 · {4,5} 62128 | 0, 9, 10 |
+
+Every orbit closed, so `45` is `i o^(n-9) i i` at every length to 17 -- H-020's
+head 1, tail 2 -- under the reduced walk, where the census had it undecided at
+16 and 17. (At `n = 18` the census trial of E-051 closed `45@2`, `@3` and `@4`
+at 355328, 44100 and 157281 rows.) Each orbit holds exactly two offsets, `o`
+and `n - 8 - o`, and **its own mirror**: the row of `45@o` and the row of
+`504@(n - 7 - o)`. The inside offsets pair the same way (`0` with `n - 8`), and
+the one offset the reflection cannot reach, `n - 7`, is the extra inside at the
+sink. That is why `45`'s tail is its head plus one.
+
+**Other cores, at `n = 13` and 14:**
+
+| core | pairs sum to | orbits at 14 |
+|---|---|---|
+| `46`, `56` | `n - 9` | {1,4} 11820 · {2,3} 7758 |
+| `505` | `n - 8` | {1,5} 11820 · {2,4} 790 · {3} 2471 |
+| `555` | `n - 8` | {1,5} 1636 · {2,4} 11820 · {3} 2179 |
+| `556` | `n - 10` | {0,4} 1636 · {1,3} 11820 · {2} 2179 |
+| `3344` | `n - 6` | {2,6} 1636 · {3,5} 11820 · {4} 2179 |
+| `3345` | `n - 9` | {0,5} 213 · {1,4} 3988 · {2,3} 3586 |
+| `666` | `n - 9` | {1,3} 2116 · {2} 962 *(13 only)* |
+| `4056` | -- | {0,1} 7758 · {2} 11820 |
+| `3346` | **none** | five orbits, one per offset |
+
+So the pairing is not special to `45`. The same few orbits recur across cores
+of one length -- 1636, 11820 and 2179 rows at `n = 14` hold `45`, `555`, `556`,
+`3344` and part of `505` and `46` -- which is F-051's "many cores share it" seen
+one reflected pair at a time. `3346` is the exception: every offset its own
+orbit, none holding another offset. `4056` pairs 0 with 1 and leaves 2 alone.
+
+Reproduce: `freeMoves.orbitReport(n, batch._rowFor(n, core, o), free =
+freeMoves.REDUCED, limit = 1500000)` for each offset, and test which other
+offsets' rows lie in the returned set. `tests/test_reduced_walk.py` pins `45`
+at 13.
+
+---
+
+## E-051 — Two nights, one of them mostly wasted, and a walk thirty to eighty times faster
+*2026-09-23* · **the shared census stalled from `n = 15` on walks capped at 20000 rows; the rule lookup was 90 percent of a walk and is now 59x faster; the census reuses other ledgers' verdicts and never walks a capped class twice** → H-020, H-019, H-018, F-053
+
+Two `overnight.py` lines from `OVERNIGHT.md`, both run to their nine hours.
+
+**The night of 2026-09-22** ran the line E-050 called superseded (plain walk):
+`cores 13` and `cores 15 --max-word 4` finished (1512 and 2343 placements; 0
+and 29 undecided), `cores 17 --max-word 2 --pair-word 2 --gaps 5,6` finished
+(762 placements, 18.8 core-hours on three workers), and the two samples went on.
+
+**The night of 2026-09-23** ran E-050's "tonight" line: ten shared censuses and
+two samples, one worker each.
+
+| census (shared) | done / placements | inside | outside | undecided | where the 9 h went |
+|---|---|---|---|---|---|
+| `13 --max-word 4` | 1457 / 1457 | 955 | 502 | 0 | 0.55 h, done |
+| `14 --max-word 4` | 1850 / 1850 | 1135 | 715 | 0 | 2.0 h, done |
+| `14 --max-word 5 --gaps ,` | 3330 / 3330 | 2048 | 1282 | 0 | 1.8 h, done |
+| `15 --max-word 4` | 1682 / 2244 | 1071 | 583 | 28 | 4.1 h on the 28 undecided |
+| `16 --max-word 4` | 410 / 2637 | 338 | 36 | 36 | 7.4 h on the 36 undecided |
+| `16 --max-word 5 --gaps ,` | 410 / 4634 | *the same 410* | | | *all of it duplicated* |
+| `17 --max-word 4` | 371 / 3031 | 318 | 23 | 30 | 6.8 h undecided |
+| `18 --max-word 4` | 172 / 3424 | 131 | 3 | 38 | 8.8 h undecided |
+| `17 --max-word 2 --pair-word 2 --gaps 5,6` | 286 / 762 | 242 | 19 | 25 | 6.0 h undecided |
+| `18 --max-word 2 --pair-word 2 --gaps 5,6` | 186 / 963 | 148 | 4 | 34 | 7.8 h undecided |
+
+**What went wrong, three ways.**
+
+* **The cap, again.** From `n = 15` up, 75 to 97 percent of each census went on
+  placements that hit the 20000-row cap -- 520 to 860 s each -- and got no
+  answer. The shared walk walks plain *then* reduced, each to the cap, so an
+  undecided placement costs two capped walks, the second at the reduced walk's
+  higher price per row. It is the reduced phase that caps: `45@2` at `n = 16`
+  closes its plain orbit in 133 rows and its reduced one at 77735 (E-052). The
+  plain census had these as `outside` at 20000; the shared one could not.
+* **The same capped class, twice.** `45@2` and `45@6` at `n = 16` are one class
+  (E-052), and each was walked to the cap in turn: a capped walk left nothing
+  behind for a later start to find.
+* **One census inside another.** A `--max-word 5` catalogue begins with the
+  whole `--max-word 4` one, sorted by length, so the two `n = 16` jobs did the
+  same 410 placements side by side, verdict for verdict, and two of twelve
+  cores did nothing new all night. At `n = 14` the `--max-word 5` run redid
+  most of what the `--max-word 4` run did beside it.
+
+**The fix that mattered: the rule lookup.** A profile of a reduced walk at `n =
+17` put 90 percent of the time in `lnaMoves.rewritesOf`, which tried each of the
+1844 rules at every window: about 5400 `matchesAt` calls per row, each building
+two `set`s. A rule's window holds exactly its left-hand side, so its first
+relation sits on one of the row's own relations. `lnaMoves.matchingWindows`
+indexes the rules by that first relation's length, tries only the windows the
+row's relations anchor, and checks a match by comparing the run of relations
+from there (starts and ends both increase, so the relations meeting a window
+are a run of the list). Same pairs, same order, so every walk visits its rows
+in the order it always did.
+
+| | before | after |
+|---|---|---|
+| `rewritesOf`, 4500 random rows at `n = 4..18` | 19.4 s | 0.33 s (**59x**), identical lists |
+| plain walk, `45@3` at `n = 17` | 67 rows/s | **5600 rows/s** |
+| reduced walk, same start | 88 rows/s | **2500 rows/s** |
+| shared census `13 --max-word 4`, one core | 1987 s | **32 s**, 0 of 1457 verdicts differ |
+| shared census `14 --max-word 4`, one core | 7221 s | **117 s**, 0 of 1850 verdicts differ |
+
+**Three changes to the census, with it.**
+
+* **A capped walk's class is remembered** (`SharedWalk.isCapped`): a later start
+  an earlier capped walk passed through is `undecided` by `shared cap` at no
+  cost. Its rows are the earlier start's class, so the answer can only be that
+  class's.
+* **Verdicts are reused across the ledgers of one length** (`--no-reuse` turns
+  it off). A census looks in every other `cores-n<n>-*` ledger for the row or its
+  mirror: `inside` from any of them (a certificate is a certificate), `outside`
+  only from the same walk family (shared and reduced agree, plain is weaker),
+  `undecided` only from the same family at limits at least as large. Under the
+  shared walk every reused `inside` also seeds the walk, so a later walk stops
+  at its class -- most of what a resumed census used to lose with its memory.
+  Rows it takes say `"by": "reused"` and name the ledger; the other ledgers are
+  re-read every ten minutes.
+* **`--min-word`**, a filter: `--max-word 5 --min-word 5` asks the five-letter
+  words only, into the same ledger as the whole `--max-word 5` census.
+
+Each row now carries `maxRssMB`, since the nights run on WSL's share of the
+laptop's memory (about 6.8 GB of 13.7).
+
+**Sized by a trial** of twelve minutes per census, one core each, at
+`--orbit-limit 500000`, reusing last night's ledgers: `16 --max-word 4` reached
+1476 of 2637 placements (458 walked, 1018 reused) with **no** undecided; the
+`n = 17` pairs at gaps 5,6 walked 150 with none undecided; `n = 18` reached
+`45@2`, whose reduced orbit **closes at 355328 rows** in 510 s. Peak memory
+235, 227 and 280 MB. Every inside answer on record for a single-cluster
+placement came within 2300 rows (10700 for a pair), so the cap buys outside
+verdicts only, and 500000 is enough for every `45` orbit to `n = 18`.
+
+**What the nights say, read with the rest.**
+
+* **H-020 under the reduced walk.** At 13 and 14 both shared censuses are
+  complete, and no single-cluster slide holds an inside in its interior. Over
+  every pair of lengths from 13 to 18, **1192 comparisons** of complete slides,
+  1186 hold; the 6 that fail are all at `n = 13`, for words of six or seven
+  letters whose slide there is one or two offsets long (`350066` `ii` → `iio`,
+  `6600066` `i` → `oo`). `35`, `36` and `404` are inside at every offset at every
+  length from 13 to 18 -- the reduced walk removes their plain outside bands, as
+  E-049 found at 11 and 12. `4056` is `ooii`, `oooii`, `ooooii` at 13 to 15:
+  F-052's `oii` at 12 was below the length where the law starts.
+* **Five-letter cores.** `14 --max-word 5 --gaps ,` (last night) and `13
+  --max-word 5 --gaps , --orbit-limit 200000` (a check of the reuse today: 2680
+  placements in under two minutes, 1087 of them reused) are both complete, and
+  neither has a slide with an inside in its interior.
+* **Two clusters with a free arrow** (H-018, E-047). Plain walk, `n = 17`, gaps
+  5 and 6, complete: when both halves are inside alone the pair is inside **330
+  of 330** times. The plain walk also rescued 62 pairs with an outside half --
+  and **every rescued half is a `35` or a `36`** (36 and 26), which the reduced
+  walk places at every offset. Under the shared walk at 17 and 18 so far, 217
+  pairs with both halves inside are all inside and **no half is rescued**: each
+  pair not inside has a half that is outside or undecided alone. E-047's
+  rescues look like an artifact of the one-way free move.
+* **The leftover rate** (H-019). `sample 15 --orbit-limit 100000`, 1444 draws:
+  **57.4% +- 1.3**, every leftover orbit **closed** (the largest at 60852 rows,
+  128 of the 942 closed walks past 20000). E-045's 48.8% closed plus 9.2%
+  capped is 58.0%, so at `n = 15` the capped draws were all outside. `sample
+  17` at 20000, now 1131 draws: 49.6% closed, 22.9% capped, 72.5% in all.
+
+Reproduce:
+
+```bash
+python batch.py cores 16 --max-word 4 --summary
+python batch.py cores 17 --max-word 2 --pair-word 2 --gaps 5,6 --walk plain --summary
+python batch.py sample 15 --count 20000 --orbit-limit 100000 --summary
+```
+
+The half-by-half table and the cross-length comparison join the ledgers on row
+names; neither is printed by `--summary`.
+
+---
+
 ## E-050 — A census that shares what each walk settles
 *2026-09-22* · **the reduced walk's verdict on every placement at `n = 11` and 12, at a thirtieth of its cost and a ninth of the plain census's; sharing does not survive being split over workers** → F-052, H-020, F-051
 
