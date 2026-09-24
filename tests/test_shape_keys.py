@@ -113,3 +113,62 @@ def test_features_of_a_quipu_count_its_defect():
 def test_describe_names_arrows_and_relations():
     text = sk.describe(_square())
     assert '4->3' in text and 'comm' in text and 'zero' in text
+
+
+@pytest.mark.parametrize("seed", range(5))
+def test_relabelling_leaves_every_key_unchanged(seed):
+    algebra = _square()
+    moved = _permuted(algebra, seed)
+    index = sk.ShapeIndex()
+    for level in sk.LEVELS:
+        assert index.keyOf(algebra, level) == index.keyOf(moved, level)
+
+
+def test_a_WL_collision_still_gets_two_keys():
+    """Two triangles and a hexagon: WL cannot separate them, VF2 must."""
+    triangles = procedure.toPathAlgebra(_quiver([
+        (1, 2, 0), (2, 3, 0), (1, 3, 0), (4, 5, 0), (5, 6, 0), (4, 6, 0)]), [])
+    hexagon = procedure.toPathAlgebra(_quiver([
+        (1, 2, 0), (2, 3, 0), (3, 4, 0), (4, 5, 0), (5, 6, 0), (1, 6, 0)]), [])
+    assert sk.bucketOf(triangles, 0) == sk.bucketOf(hexagon, 0)
+    index = sk.ShapeIndex()
+    assert index.keyOf(triangles, 0) != index.keyOf(hexagon, 0)
+
+
+def test_zero_and_commutativity_differ_as_keys_at_L2_and_L3():
+    arrows = [(1, 2, 0), (2, 4, 0), (1, 3, 0), (3, 4, 0)]
+    comm = procedure.toPathAlgebra(_quiver(arrows), [
+        {((1, 2, 0), (2, 4, 0)): 1, ((1, 3, 0), (3, 4, 0)): -1}])
+    zero = procedure.toPathAlgebra(_quiver(arrows), [
+        {((1, 2, 0), (2, 4, 0)): 1}, {((1, 3, 0), (3, 4, 0)): 1}])
+    index = sk.ShapeIndex()
+    assert index.keyOf(comm, 1) == index.keyOf(zero, 1)
+    assert index.keyOf(comm, 2) != index.keyOf(zero, 2)
+    assert index.keyOf(comm, 3) != index.keyOf(zero, 3)
+
+
+def _kronecker(relations):
+    return procedure.toPathAlgebra(_quiver([(1, 2, 0), (1, 2, 1), (2, 3, 0)]), relations)
+
+
+def test_parallel_naming_and_sign_gauge_agree_at_L3():
+    first = _kronecker([{((1, 2, 0), (2, 3, 0)): 1}])
+    second = _kronecker([{((1, 2, 1), (2, 3, 0)): 1}])
+    plus = _kronecker([{((1, 2, 0), (2, 3, 0)): 1, ((1, 2, 1), (2, 3, 0)): 1}])
+    minus = _kronecker([{((1, 2, 0), (2, 3, 0)): 1, ((1, 2, 1), (2, 3, 0)): -1}])
+    index = sk.ShapeIndex()
+    assert index.keyOf(first, 3) == index.keyOf(second, 3)
+    assert index.keyOf(plus, 3) == index.keyOf(minus, 3)
+    assert index.keyOf(first, 3) != index.keyOf(plus, 3)
+
+
+def test_two_different_lnas_are_two_keys_at_L3_and_one_at_L0():
+    first = nk.LinearNakayamaAlgebra(6, "3000")
+    second = nk.LinearNakayamaAlgebra(6, "0300")
+    index = sk.ShapeIndex()
+    assert index.keyOf(first, 0) == index.keyOf(second, 0)
+    assert index.keyOf(first, 3) != index.keyOf(second, 3)
+
+
+def test_a_key_carries_its_level():
+    assert sk.ShapeIndex().keyOf(_square(), 2).startswith('L2:')

@@ -221,6 +221,78 @@ def features(pathAlg):
     }
 
 
+#: The most isomorphisms of two L2 graphs `ShapeIndex` will try when asking
+#: whether one of them carries one algebra onto the other.  A shape with a
+#: larger automorphism group than this is not expected at these lengths; if it
+#: happens the comparison says "different", which costs a meeting and never
+#: invents one, and `ShapeIndex.capHits` counts it so it is not silent.
+ISOMORPHISM_CAP = 5000
+
+_NODE_MATCH = isomorphism.categorical_node_match('label', None)
+_EDGE_MATCH = isomorphism.categorical_edge_match('label', None)
+
+
+def _matcher(first, second):
+    return isomorphism.GraphMatcher(first, second, node_match = _NODE_MATCH,
+                                    edge_match = _EDGE_MATCH)
+
+
+class ShapeIndex:
+    """Exact keys at every level, one representative per shape per bucket.
+
+    `keyOf` hashes the quiver into its bucket and compares it with the bucket's
+    representatives: by graph isomorphism at L0 to L2, and at L3 by relabelling
+    the algebra through each isomorphism of the L2 graphs and comparing
+    `fingerprint.canonicalKey`.  An isomorphism of algebras preserves every
+    relation's kind, lengths and support, so it is always among the L2
+    isomorphisms, and trying those is complete up to the cap.
+
+    Keys are only comparable within one index: they number representatives in
+    the order they were met.
+    """
+
+    def __init__(self, isomorphismCap = ISOMORPHISM_CAP):
+        self.isomorphismCap = isomorphismCap
+        self.capHits = 0
+        self._representatives = {level: {} for level in LEVELS}
+
+    def keyOf(self, pathAlg, level, bucket = None):
+        bucket = bucketOf(pathAlg, level) if bucket is None else bucket
+        representatives = self._representatives[level].setdefault(bucket, [])
+        graph = structureGraph(pathAlg, level)
+        if level < 3:
+            for position, representative in enumerate(representatives):
+                if _matcher(graph, representative).is_isomorphic():
+                    return self._key(level, bucket, position)
+            representatives.append(graph)
+            return self._key(level, bucket, len(representatives) - 1)
+        canonical = fingerprint.canonicalKey(pathAlg)
+        for position, (representativeGraph, representativeKey) in enumerate(representatives):
+            if self._sameAlgebra(pathAlg, canonical, graph,
+                                 representativeGraph, representativeKey):
+                return self._key(level, bucket, position)
+        representatives.append((graph, canonical))
+        return self._key(level, bucket, len(representatives) - 1)
+
+    def _sameAlgebra(self, pathAlg, canonical, graph, representativeGraph, representativeKey):
+        if canonical is None or representativeKey is None:
+            return False
+        if canonical == representativeKey:
+            return True
+        for count, mapping in enumerate(_matcher(graph, representativeGraph).isomorphisms_iter()):
+            if count >= self.isomorphismCap:
+                self.capHits += 1
+                return False
+            renaming = {node[1]: image[1] for node, image in mapping.items() if node[0] == 'v'}
+            if fingerprint.canonicalKey(relabel(pathAlg, renaming)) == representativeKey:
+                return True
+        return False
+
+    @staticmethod
+    def _key(level, bucket, position):
+        return 'L{0}:{1}:{2}'.format(level, bucket, position)
+
+
 def describe(pathAlg):
     """One line a person can read: the arrows, then each relation."""
     arrows = ' '.join('{0}->{1}'.format(tail, head)
