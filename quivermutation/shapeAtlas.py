@@ -19,7 +19,10 @@ docs/superpowers/specs/2026-09-24-shape-atlas-design.md; hypothesis H-022.
 import collections
 import copy
 import functools
+import json
 import random
+
+import polars as pl
 
 from . import fingerprint
 from . import freeMoves
@@ -177,3 +180,204 @@ def startsFor(length, sample = 0, seed = 0):
         else:
             chosen.extend(sorted(chooser.sample(members, sample)))
     return chosen
+
+
+# -- the analysis -------------------------------------------------------------
+
+def resolve(records, length, index = None):
+    """A ledger as three tables, every distinct quiver keyed at every level.
+
+    One `ShapeIndex` over the whole ledger, so keys are comparable across
+    starts -- which is the point -- and each label-exact quiver is resolved once
+    however many starts reached it.
+    """
+    tags = startTags(length)
+    index = shapeKeys.ShapeIndex() if index is None else index
+    nodes = {}
+    visits = []
+    edges = []
+    for record in records:
+        start = record['unit']
+        result = record['result']
+        orbit, cls = tags[start]
+        ids = [node['id'] for node in result['nodes']]
+        for node in result['nodes']:
+            nodes.setdefault(node['id'], node)
+            visits.append({'start': start, 'orbit': orbit, 'cls': cls, 'id': node['id'],
+                           'depth': node['depth'],
+                           'path': ','.join(str(step) for step in node['path'])})
+        for parent, vertex, child in result['edges']:
+            edges.append({'start': start, 'parent': ids[parent], 'vertex': vertex,
+                          'child': ids[child]})
+    rows = []
+    for ident, node in nodes.items():
+        algebra = shapeKeys.deserialise(node['quiver'])
+        row = {'id': ident, 'quiver': json.dumps(node['quiver'])}
+        for level in shapeKeys.LEVELS:
+            row['key{0}'.format(level)] = index.keyOf(algebra, level,
+                                                      bucket = node['buckets'][min(level, 2)])
+        row.update(node['features'])
+        rows.append(row)
+    edgeSchema = {'start': pl.Utf8, 'parent': pl.Utf8, 'vertex': pl.Int64, 'child': pl.Utf8}
+    return {
+        'nodes': pl.DataFrame(rows, infer_schema_length = None),
+        'visits': pl.DataFrame(visits, infer_schema_length = None),
+        'edges': pl.DataFrame(edges, schema = edgeSchema),
+    }
+
+
+def writeTables(tables, stem):
+    for name, table in tables.items():
+        table.write_parquet('{0}.{1}.parquet'.format(stem, name))
+
+
+def returnRates(tables, level):
+    """Per shape, the share of the starts reaching it whose walk goes on from it
+    to a line **other than the start**, without passing back through the start.
+
+    The start is excluded on purpose: the dual walk records the left mutations
+    back to it, so every node would otherwise "return" trivially.
+    """
+    key = 'key{0}'.format(level)
+    nodes = tables['nodes']
+    keyOf = dict(zip(nodes['id'].to_list(), nodes[key].to_list()))
+    lines = set(nodes.filter(pl.col('isLine'))['id'].to_list())
+    roots = dict(tables['visits'].filter(pl.col('depth') == 0).select('start', 'id').iter_rows())
+    parentsByStart = collections.defaultdict(lambda: collections.defaultdict(set))
+    for start, parent, child in tables['edges'].select('start', 'parent', 'child').iter_rows():
+        parentsByStart[start][child].add(parent)
+    seen = collections.Counter()
+    returning = collections.Counter()
+    for start, ids in tables['visits'].group_by('start').agg(pl.col('id')).iter_rows():
+        root = roots[start]
+        parents = parentsByStart[start]
+        good = set()
+        frontier = [ident for ident in set(ids) if ident in lines and ident != root]
+        while frontier:
+            node = frontier.pop()
+            for parent in parents[node]:
+                if parent != root and parent not in good:
+                    good.add(parent)
+                    frontier.append(parent)
+        for shape in {keyOf[ident] for ident in ids}:
+            seen[shape] += 1
+        for shape in {keyOf[ident] for ident in good}:
+            returning[shape] += 1
+    return pl.DataFrame({key: list(seen), 'returnRate': [returning[s] / seen[s] for s in seen]},
+                        schema = {key: pl.Utf8, 'returnRate': pl.Float64})
+
+
+def shapeMeasures(tables, level):
+    """Per shape at one level: how widely, how early, how mixed, and whether it
+    leads back to a line.  Sorted by classes reached, then starts."""
+    key = 'key{0}'.format(level)
+    visits = tables['visits'].join(tables['nodes'].select('id', key), on = 'id')
+    perStart = visits.group_by(key, 'start', 'orbit', 'cls').agg(pl.col('depth').min())
+    base = perStart.group_by(key).agg(
+        pl.col('start').n_unique().alias('starts'),
+        pl.col('orbit').n_unique().alias('orbits'),
+        pl.col('cls').n_unique().alias('classes'),
+        pl.col('cls').str.starts_with('orbit:').mean().alias('leftoverShare'),
+        pl.col('depth').min().alias('firstDepth'),
+        pl.col('depth').median().alias('medianDepth'),
+    )
+    shares = perStart.group_by(key, 'cls').len().with_columns(
+        (pl.col('len') / pl.col('len').sum().over(key)).alias('p'))
+    mixing = shares.group_by(key).agg(
+        (-(pl.col('p') * pl.col('p').log(2))).sum().abs().alias('mixing'))
+    # A bridge: some class reaches the shape from two or more of its orbits, so
+    # the shape sits where the classification already joined them.
+    bridges = perStart.group_by(key, 'cls').agg(
+        pl.col('orbit').n_unique().alias('orbitsInClass')).group_by(key).agg(
+        (pl.col('orbitsInClass').max() > 1).alias('bridge'))
+    isLine = tables['nodes'].group_by(key).agg(pl.col('isLine').any())
+    return (base.join(mixing, on = key).join(bridges, on = key)
+            .join(returnRates(tables, level), on = key, how = 'left')
+            .join(isLine, on = key)
+            .with_columns(pl.col('returnRate').fill_null(0.0))
+            .sort(['classes', 'starts'], descending = True))
+
+
+def transitions(tables, level = 2, maxLength = 4, top = 30, keep = 100):
+    """The commonest cycles line -> S1 -> ... -> line through the shape graph.
+
+    Every line is one token, `LINE`, whatever its relations; every other node is
+    its shape at `level`.  A step is counted once per distinct label-exact pair
+    of quivers.  A cycle's weight is its weakest step, and only the `keep` most
+    connected shapes are searched through, which is what bounds the search.
+    These are rule *templates* in F-027's sense: open, walk, close.
+    """
+    key = 'key{0}'.format(level)
+    nodes = tables['nodes']
+    token = {ident: ('LINE' if line else shape)
+             for ident, shape, line in nodes.select('id', key, 'isLine').iter_rows()}
+    counts = collections.Counter(
+        (token[parent], token[child])
+        for parent, child in tables['edges'].select('parent', 'child').unique().iter_rows())
+    out = collections.defaultdict(dict)
+    weight = collections.Counter()
+    for (first, second), count in counts.items():
+        if first == second:
+            continue
+        out[first][second] = count
+        weight[first] += count
+        weight[second] += count
+    kept = {shape for shape, _count in weight.most_common(keep)} | {'LINE'}
+    cycles = []
+
+    def extend(path, bottleneck):
+        for following, count in out[path[-1]].items():
+            if following not in kept:
+                continue
+            narrowest = min(bottleneck, count)
+            if following == 'LINE':
+                if len(path) >= 2:
+                    cycles.append((narrowest, path[1:]))
+            elif following not in path and len(path) < maxLength:
+                extend(path + [following], narrowest)
+
+    extend(['LINE'], float('inf'))
+    cycles.sort(key = lambda cycle: (-cycle[0], len(cycle[1]), cycle[1]))
+    return cycles[:top]
+
+
+def describeKey(tables, level, key):
+    """One representative of a shape, readably."""
+    quiver = tables['nodes'].filter(pl.col('key{0}'.format(level)) == key)['quiver'][0]
+    return shapeKeys.describe(shapeKeys.deserialise(json.loads(quiver)))
+
+
+def _short(key):
+    level, bucket, position = key.split(':')
+    return '{0}:{1}:{2}'.format(level, bucket[:8], position)
+
+
+def report(tables, level, top, out):
+    """What a ledger shows, as text: counts, hubs, bridges, leftover hubs, cycles."""
+    nodes = tables['nodes']
+    visits = tables['visits']
+    print("{0} starts, {1} classes, {2} distinct quivers with their labels".format(
+        visits['start'].n_unique(), visits['cls'].n_unique(), nodes.height), file = out)
+    print("shapes: " + ", ".join("L{0} {1}".format(l, nodes['key{0}'.format(l)].n_unique())
+                                 for l in shapeKeys.LEVELS), file = out)
+    measures = shapeMeasures(tables, level)
+    key = 'key{0}'.format(level)
+    columns = ['starts', 'orbits', 'classes', 'firstDepth', 'returnRate', 'leftoverShare']
+
+    def table(title, frame):
+        print("\n{0} (L{1})".format(title, level), file = out)
+        for row in frame.head(top).iter_rows(named = True):
+            print("  {0:<24} {1}".format(_short(row[key]), "  ".join(
+                "{0}={1:.2f}".format(c, row[c]) if isinstance(row[c], float)
+                else "{0}={1}".format(c, row[c]) for c in columns)), file = out)
+            print("      " + describeKey(tables, level, row[key]), file = out)
+
+    nonLines = measures.filter(~pl.col('isLine'))
+    table("hubs", nonLines)
+    table("bridges", nonLines.filter(pl.col('bridge')))
+    table("hubs among leftovers", nonLines.filter(pl.col('leftoverShare') > 0)
+          .sort('leftoverShare', 'starts', descending = True))
+    print("\ncycles through a line (L{0})".format(level), file = out)
+    for count, shapes in transitions(tables, level, top = top):
+        print("  {0:>6}  line -> {1} -> line".format(
+            count, " -> ".join(_short(shape) for shape in shapes)), file = out)

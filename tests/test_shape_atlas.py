@@ -10,6 +10,7 @@ import argparse
 import io
 import json
 
+import polars as pl
 import pytest
 
 import batch
@@ -75,3 +76,63 @@ def test_the_task_writes_a_ledger_and_resumes_from_it(tmp_path, monkeypatch):
     again = io.StringIO()
     assert jobs.runTask(task, args, out = again) == 0
     assert "nothing to do" in again.getvalue()
+
+
+@pytest.fixture(scope = "module")
+def atlas5():
+    """Every LNA of length 5, walked to depth 2, resolved."""
+    records = [{'unit': row, 'result': sa.walkStart(5, row, 2)} for row in sa.startsFor(5)]
+    return {'records': records, 'tables': sa.resolve(records, 5)}
+
+
+def test_resolve_gives_one_row_per_id_and_keys_at_every_level(atlas5):
+    nodes = atlas5['tables']['nodes']
+    assert nodes['id'].n_unique() == nodes.height
+    for level in (0, 1, 2, 3):
+        assert nodes['key{0}'.format(level)].null_count() == 0
+    visits = atlas5['tables']['visits']
+    assert set(visits['id'].to_list()) <= set(nodes['id'].to_list())
+
+
+def test_coarser_levels_never_split_what_finer_levels_join(atlas5):
+    nodes = atlas5['tables']['nodes']
+    for finer, coarser in ((3, 2), (2, 1), (1, 0)):
+        grouped = nodes.group_by('key{0}'.format(finer)).agg(
+            pl.col('key{0}'.format(coarser)).n_unique().alias('n'))
+        assert grouped['n'].max() == 1
+
+
+def test_every_start_has_exactly_one_depth_zero_visit_and_it_is_a_line(atlas5):
+    tables = atlas5['tables']
+    roots = tables['visits'].filter(pl.col('depth') == 0).join(
+        tables['nodes'].select('id', 'isLine'), on = 'id')
+    assert roots['start'].n_unique() == roots.height == 14
+    assert roots['isLine'].all()
+
+
+def test_a_line_is_reached_from_its_own_class_only(atlas5):
+    measures = sa.shapeMeasures(atlas5['tables'], 3)
+    lines = measures.filter(pl.col('isLine'))
+    assert lines.height > 0
+    assert lines['classes'].max() == 1
+
+
+def test_measures_are_in_range(atlas5):
+    measures = sa.shapeMeasures(atlas5['tables'], 2)
+    assert measures['returnRate'].min() >= 0 and measures['returnRate'].max() <= 1
+    assert measures['starts'].min() >= 1
+    assert (measures['classes'] <= measures['orbits']).all()
+
+
+def test_transitions_start_and_end_at_a_line(atlas5):
+    cycles = sa.transitions(atlas5['tables'], level = 2)
+    assert cycles
+    for count, shapes in cycles:
+        assert count >= 1 and 1 <= len(shapes) <= 3 and 'LINE' not in shapes
+
+
+def test_report_prints_the_sections(atlas5):
+    out = io.StringIO()
+    sa.report(atlas5['tables'], 2, 5, out)
+    text = out.getvalue()
+    assert 'hubs' in text and 'bridges' in text and 'line -> ' in text
