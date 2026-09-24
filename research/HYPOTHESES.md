@@ -6,6 +6,46 @@ it. Status is one of `OPEN`, `SUPPORTED`, `CONFIRMED → F-nnn`, `REFUTED → R-
 
 ---
 
+## H-022 — The walks pass through a small set of shapes, and the ones two classes share are merges
+*2026-09-24, written before the first census* · **OPEN**
+
+Three non-line families have mattered so far -- quipus with relations (F-034),
+the squares with a side of two (F-027), one parallel pair (H-016) -- and each
+was found by reading one walk by hand. The **shape atlas** (`batch.py atlas`,
+`atlas.py`; spec `docs/superpowers/specs/2026-09-24-shape-atlas-design.md`)
+records every quiver the depth-4 walks reach out of every LNA of `n = 8` and
+`9`, and out of the `n = 10` leftovers with 20 of each quipu class, keyed up to
+relabelling at four levels (L0 graph, L1 quiver, L2 relation skeleton, L3
+algebra).
+
+**The hypothesis.** A small number of shapes carries most of the walks between
+lines -- hubs -- and a shape reached from two classes is a merge the label-exact
+meeting of `search.meetingPoints` cannot see, because it compares quivers with
+their labels.
+
+**What must come out first, or the instrument is wrong** (`atlas.py --validate`):
+
+1. Among the non-line L2 shapes that lead back to a line, the commonest with a
+   square has a short side of **two**, and no square has a short side of three
+   (F-027).
+2. At `n = 9`, at least seven of the nine leftover LNAs reach `P^(6)_(1,1)`
+   with relations (H-014).
+3. On every quipu with monomial relations, equal L3 keys and equal
+   `quipuRelations.certificate` coincide exactly.
+4. Everything the label-exact search reaches at depth 2 is in the census.
+
+A failure of 1 or 2 means nothing else the atlas says is read. A failure of 3
+or 4 is a bug in the keys.
+
+**What would settle it.** Yes: a replayed candidate merge between two orbits
+that no move and no label-exact search has joined -- at `n = 10`, between two
+of H-013's leftover orbits. No: every shape shared across classes is shared
+only by classes already known to be one, at depth 4 and at depth 5, which says
+the non-line shapes are a detour at these lengths and not a shortcut. Either is
+worth having.
+
+---
+
 ## H-021 — A core's slide is a palindrome when its class is self-dual, and the head/tail difference is the reflection's shortfall
 *2026-09-23* · **OPEN** *(eight cores pair their offsets by a reflection at `n = 13` and 14, `3346` does not -- E-052, F-053)*
 

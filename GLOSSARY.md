@@ -30,7 +30,8 @@ each one, and which do not yet. Read it before you design a run.
 9. [Sampling long lengths](#sampling-long-lengths)
 10. [Searching and deduplication](#searching-and-deduplication)
 11. [Runs, ledgers and records](#runs-ledgers-and-records)
-12. [Equivalences that save work](#equivalences-that-save-work)
+12. [Shapes](#shapes)
+13. [Equivalences that save work](#equivalences-that-save-work)
 
 ---
 
@@ -563,6 +564,40 @@ marked and corrected in a new one.
 
 **Status** of a hypothesis: `OPEN`, `SUPPORTED`, `CONFIRMED → F-nnn`,
 `REFUTED → R-nnn`, `PARKED`.
+
+---
+
+## Shapes
+
+**Shape.** A quiver with relations up to relabelling its vertices, at one of
+four levels of detail (`quivermutation/shapeKeys.py`):
+
+| level | keeps |
+|---|---|
+| **L0** | the underlying undirected multigraph |
+| **L1** | the quiver, parallel arrows included |
+| **L2** | the quiver and its **relation skeleton**: each relation's kind (zero, commutativity, other) and path lengths, on the vertices it runs through |
+| **L3** | the algebra as presented, up to relabelling, parallel-arrow naming and the sign gauge |
+
+**Bucket.** The Weisfeiler–Lehman hash of a level's graph. Isomorphic shapes
+share a bucket; so, rarely, do non-isomorphic ones, which is why a bucket is
+resolved into **keys** by an exact isomorphism test (`ShapeIndex`).
+
+**Label-exact.** Equal with the labels as they stand: `search.quiverKey`,
+`fingerprint.canonicalKey`. Right inside one walk, where labels do not move
+(F-049); blind to two walks reaching one quiver under different labels.
+
+**Shape atlas.** The census of every quiver the walks out of a set of LNAs
+reach (`batch.py atlas`), read by `atlas.py`. H-022.
+
+**Hub.** A shape reached from many classes. **Bridge.** A shape reached from
+two or more orbits the classification already puts in one class.
+**Return rate.** Of the starts reaching a shape, the share whose walk goes on
+from it to a line other than the start.
+
+**Candidate merge.** An L3 shape reached from two classes. It is a merge only
+once `shapeAtlas.replay` has re-run both paths under the Coxeter guard and
+found the ends isomorphic.
 
 ---
 
