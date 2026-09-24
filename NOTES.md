@@ -561,15 +561,17 @@ the arrows and taking the Cartan matrix exactly off a monomial ideal costs about
 The slow suite is **1915 tests and about 40 minutes**, not the 20 the paragraph
 above was written for.
 
-**2026-09-23: about 25 minutes for the slow suite and 4.5 for the fast one**
+**2026-09-23: about 18 minutes for the slow suite and 4.5 for the fast one**
 (from 51 and 8.5, measured with the two sharing a machine). Rule verification
 compares the exact integer Coxeter key rather than the symbolic polynomial; the
 largest case of five fast tests moved to `slow`; a 17-minute guard test that
 could not fail was replaced by one that asks the guard about the step F-038
 found; and three fast tests whose assertions held whatever the code did were
-made to fail when it is wrong. What is left at the top is the raw
-`mutationSearch` at n = 8 (7 minutes), which is the guard's Coxeter key at every
-node and would come down with item 5 of "Performance and correctness".
+made to fail when it is wrong. The raw `mutationSearch` at n = 8 is no longer
+run: it took 7 minutes, mostly the guard's Coxeter key at every node, to pin the
+28 classes a bare search leaves, while `test_classify_end_to_end` checks the
+published n = 8 answer in half a minute. Item 5 of "Performance and
+correctness" is what would make it affordable again.
 
 ## Known gaps and limitations
 
