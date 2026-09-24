@@ -136,3 +136,39 @@ def test_report_prints_the_sections(atlas5):
     sa.report(atlas5['tables'], 2, 5, out)
     text = out.getvalue()
     assert 'hubs' in text and 'bridges' in text and 'line -> ' in text
+
+
+def test_no_shape_is_shared_by_two_classes_at_n5(atlas5):
+    """Every class at n = 5 is known and distinct; a shared L3 key would be a bug."""
+    assert sa.candidateMerges(atlas5['tables']) == []
+
+
+def _sharedNonLineKey(tables):
+    visits = tables['visits'].filter(pl.col('depth') > 0).join(
+        tables['nodes'].select('id', 'key3', 'isLine'), on = 'id').filter(~pl.col('isLine'))
+    shared = visits.group_by('key3').agg(pl.col('start').n_unique().alias('n')).filter(
+        pl.col('n') > 1).sort('key3')
+    key = shared['key3'][0]
+    rows = (visits.filter(pl.col('key3') == key).sort('depth', 'start')
+            .unique('start', keep = 'first', maintain_order = True).head(2))
+    return key, [sa._side(row) for row in rows.iter_rows(named = True)]
+
+
+def test_replay_confirms_a_real_shared_key(atlas5):
+    key, (first, second) = _sharedNonLineKey(atlas5['tables'])
+    result = sa.replay(5, {'key': key, 'first': first, 'second': second})
+    assert result['ok'], result
+
+
+def test_replay_refuses_a_false_one(atlas5):
+    key, (first, second) = _sharedNonLineKey(atlas5['tables'])
+    result = sa.replay(5, {'key': key, 'first': first, 'second': dict(second, path = [])})
+    assert not result['ok']
+
+
+def test_validation_at_n5(atlas5):
+    result = sa.validate(atlas5['tables'], 5, atlas5['records'], coverageSample = 5)
+    assert result['certificates']['ok'], result['certificates']
+    assert result['coverage']['ok'], result['coverage']
+    assert result['quipuHub'] == 'skipped'
+    assert 'shortSides' in result['squares']

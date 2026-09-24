@@ -26,9 +26,12 @@ import polars as pl
 
 from . import fingerprint
 from . import freeMoves
+from . import invariants
+from . import mutation
 from . import nakayama
 from . import pathAlgebra
 from . import quipuForms
+from . import quipuRelations
 from . import search
 from . import shapeKeys
 
@@ -381,3 +384,147 @@ def report(tables, level, top, out):
     for count, shapes in transitions(tables, level, top = top):
         print("  {0:>6}  line -> {1} -> line".format(
             count, " -> ".join(_short(shape) for shape in shapes)), file = out)
+
+
+# -- candidate merges -----------------------------------------------------------
+
+def _side(row):
+    return {'start': row['start'], 'orbit': row['orbit'], 'cls': row['cls'], 'id': row['id'],
+            'path': [int(step) for step in row['path'].split(',') if step]}
+
+
+def candidateMerges(tables):
+    """Pairs of classes whose walks reach one L3 shape, shortest paths first.
+
+    Each is only a candidate until `replay` has re-run it: the key could be
+    wrong, and a key bug would show here first.  One candidate per pair of
+    classes, the cheapest meeting kept.
+    """
+    visits = tables['visits'].join(tables['nodes'].select('id', 'key3'), on = 'id')
+    shared = (visits.group_by('key3').agg(pl.col('cls').n_unique().alias('classes'))
+              .filter(pl.col('classes') > 1).select('key3'))
+    rows = visits.join(shared, on = 'key3').sort('key3', 'depth', 'start')
+    firstPerClass = collections.defaultdict(dict)
+    for row in rows.iter_rows(named = True):
+        firstPerClass[row['key3']].setdefault(row['cls'], row)
+    best = {}
+    for key, byClass in firstPerClass.items():
+        classes = sorted(byClass)
+        for one, other in zip(classes, classes[1:]):
+            cost = byClass[one]['depth'] + byClass[other]['depth']
+            if (one, other) not in best or cost < best[(one, other)]['cost']:
+                best[(one, other)] = {'key': key, 'cost': cost,
+                                      'first': _side(byClass[one]),
+                                      'second': _side(byClass[other])}
+    return sorted(best.values(),
+                  key = lambda c: (c['cost'], c['first']['cls'], c['second']['cls']))
+
+
+def replay(length, candidate):
+    """Re-run both paths step by step and check they end at one algebra.
+
+    Every step must be admissible (for a left step, on the opposite algebra, as
+    the dual walk took it) and keep the start's Coxeter polynomial, as the
+    search's guard requires (F-038) -- a cyclic end with no polynomial is let
+    through, as the search lets it through.  Then the two ends must have the
+    same L3 key in a fresh index, and the two starts the same polynomial.
+    """
+    ends = []
+    for side in (candidate['first'], candidate['second']):
+        start = nakayama.LinearNakayamaAlgebra(length, side['start'])
+        baseKey = invariants.coxeterKey(start)
+        algebra = copy.deepcopy(start)
+        for step in side['path']:
+            checked = algebra if step > 0 else pathAlgebra.dualPathAlgebra(algebra)
+            if not mutation.mutationIsPossibleAtVertex(checked, abs(step)):
+                return {'ok': False, 'reason': 'step {0} of {1} not admissible'.format(
+                    step, side['start'])}
+            algebra = mutation.quiverMutationAtVertices(algebra, [step])
+            moved = search._coxeterKeyOrNone(algebra)
+            if moved is not None and moved != baseKey:
+                return {'ok': False, 'reason': 'step {0} of {1} moved the Coxeter polynomial'
+                        .format(step, side['start'])}
+        ends.append((algebra, baseKey))
+    (first, firstKey), (second, secondKey) = ends
+    if firstKey != secondKey:
+        return {'ok': False, 'reason': 'the two starts have different Coxeter polynomials'}
+    index = shapeKeys.ShapeIndex()
+    if index.keyOf(first, 3) != index.keyOf(second, 3):
+        return {'ok': False, 'reason': 'the replayed ends are not isomorphic'}
+    return {'ok': True, 'reason': 'replayed'}
+
+
+# -- validation -----------------------------------------------------------------
+
+#: H-014's hub for the n = 9 leftovers: the line on eight vertices with one
+#: pendant vertex at the second, carrying relations.  Named the way
+#: `shapeKeys.features` names a quipu.
+N9_HUB = 'P^(6)_(1,1)'
+
+
+def validate(tables, length, records, coverageSample = 40):
+    """The four checks of H-022.  A failure of the first two says the instrument
+    is wrong; of the last two, that the keys are."""
+    result = {}
+    nodes = tables['nodes']
+
+    # 1. F-027's squares among the shapes that lead back to a line.
+    measures = shapeMeasures(tables, 2)
+    squareOf = nodes.group_by('key2').agg(pl.col('square').first())
+    returning = (measures.filter(~pl.col('isLine') & (pl.col('returnRate') > 0))
+                 .join(squareOf, on = 'key2').sort('starts', descending = True))
+    shortSides = collections.Counter()
+    for square in returning['square'].drop_nulls().to_list():
+        for part in square.split('+'):
+            shortSides[int(part.split('x')[0])] += 1
+    withSquare = returning.filter(pl.col('square').is_not_null())
+    topSquare = withSquare['square'][0] if withSquare.height else None
+    result['squares'] = {
+        'returningShapes': returning.height,
+        'shortSides': dict(sorted(shortSides.items())),
+        'topSquare': topSquare,
+        'ok': bool(shortSides) and set(shortSides) == {2}
+              and topSquare is not None and topSquare.startswith('2x'),
+    }
+
+    # 2. H-014's quipu hub for the leftovers, at n = 9 only.
+    if length == 9:
+        hubIds = nodes.filter((pl.col('quipu') == N9_HUB) & (pl.col('relations') > 0))['id']
+        leftoverStarts = (tables['visits'].filter(pl.col('cls').str.starts_with('orbit:')
+                                                  & pl.col('id').is_in(hubIds.to_list()))
+                          ['start'].n_unique())
+        result['quipuHub'] = {'name': N9_HUB, 'leftoverStarts': leftoverStarts,
+                              'ok': leftoverStarts >= 7}
+    else:
+        result['quipuHub'] = 'skipped'
+
+    # 3. On quipus with monomial relations the L3 key and the certificate of
+    #    `quipuRelations` are two exact routes to one answer.
+    keyToCertificates = collections.defaultdict(set)
+    certificateToKeys = collections.defaultdict(set)
+    for key, quiver in nodes.filter(pl.col('isQuipu')).select('key3', 'quiver').iter_rows():
+        certificate = quipuRelations.certificate(shapeKeys.deserialise(json.loads(quiver)))
+        if certificate is None:
+            continue
+        keyToCertificates[key].add(certificate)
+        certificateToKeys[certificate].add(key)
+    violations = ([key for key, found in keyToCertificates.items() if len(found) > 1]
+                  + [str(c) for c, found in certificateToKeys.items() if len(found) > 1])
+    result['certificates'] = {'checked': len(keyToCertificates), 'violations': violations,
+                              'ok': not violations}
+
+    # 4. The census reaches everything the label-exact search does, so every
+    #    meeting that search can find is a shared id here, hence a shared key.
+    ordered = sorted(records, key = lambda record: record['unit'])
+    step = max(1, len(ordered) // coverageSample)
+    missing = 0
+    for record in ordered[::step]:
+        got = {search.quiverKey(shapeKeys.deserialise(node['quiver']))
+               for node in record['result']['nodes']}
+        start = nakayama.LinearNakayamaAlgebra(length, record['unit'])
+        depth = min(2, record['result']['depth'])
+        expected = set(search.quiversReachedFrom(start, depth, alsoDual = True)) - {None}
+        missing += len(expected - got)
+    result['coverage'] = {'startsChecked': len(ordered[::step]), 'missing': missing,
+                          'ok': missing == 0}
+    return result
