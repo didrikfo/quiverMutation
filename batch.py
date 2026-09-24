@@ -1080,6 +1080,8 @@ ELSEWHERE = [
      "search for mutation paths between the orbits the moves leave over"),
     ("overlaps", "python overlaps.py 10 --free --doubles --no-rules",
      "which relation-overlap configurations a length leaves unplaced"),
+    ("atlas", "python atlas.py 9 --depth 4 --validate --page logs/atlas-n9.html",
+     "read a `batch.py atlas` ledger: hubs, bridges, cycles, candidate merges"),
     ("discover", "python discover.py --max-arrows 7 --max-width 8",
      "search for new rewrite rules"),
 ]

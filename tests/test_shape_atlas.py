@@ -13,7 +13,9 @@ import json
 import polars as pl
 import pytest
 
+import atlas
 import batch
+from quivermutation import atlasPage
 from quivermutation import jobs
 from quivermutation import nakayama as nk
 from quivermutation import search
@@ -172,3 +174,27 @@ def test_validation_at_n5(atlas5):
     assert result['coverage']['ok'], result['coverage']
     assert result['quipuHub'] == 'skipped'
     assert 'shortSides' in result['squares']
+
+
+def test_a_drawing_has_a_node_per_vertex_and_a_path_per_arrow():
+    data = sk.serialise(sk.deserialise(json.loads(json.dumps(
+        sk.serialise(nk.LinearNakayamaAlgebra(5, "300"))))))
+    svg = atlasPage.drawQuiver(data)
+    assert svg.startswith('<svg') and svg.count('<circle') == 5 and svg.count('<path') >= 4
+
+
+def test_the_page_carries_every_section(atlas5):
+    page = atlasPage.render('Shape atlas n = 5', atlasPage.sectionsFrom(atlas5['tables'], 2, 3))
+    assert page.startswith('<!doctype html>') and '<title>Shape atlas n = 5</title>' in page
+    assert page.count('<svg') >= 3 and 'prefers-color-scheme: dark' in page
+
+
+def test_the_command_line_reads_a_ledger(tmp_path, monkeypatch, capsys):
+    monkeypatch.chdir(tmp_path)
+    args = argparse.Namespace(length = 5, depth = 2, sample = 0, seed = 0)
+    jobs.runTask(batch.TASKS['atlas'], args, out = io.StringIO())
+    assert atlas.main(['5', '--depth', '2', '--validate', '--page', 'page.html', '--top', '3']) == 0
+    printed = capsys.readouterr().out
+    assert 'hubs' in printed and 'candidate merges: 0' in printed and 'validation' in printed
+    assert (tmp_path / 'page.html').exists()
+    assert (tmp_path / 'logs' / 'atlas-n5-d2-s0-r0.nodes.parquet').exists()
