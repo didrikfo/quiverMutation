@@ -32,8 +32,12 @@ def test_a_finished_run_leaves_a_progress_record(tmp_path, monkeypatch):
     assert recorded["condition"] == ""
 
 
-def test_a_budget_stops_the_run_with_everything_on_disk(tmp_path, monkeypatch):
-    """n = 8 still needs a search, so a short budget really does interrupt one."""
+def test_a_budget_stops_the_run_with_everything_on_disk_and_a_resume_finishes_it(
+        tmp_path, monkeypatch):
+    """Stop n = 8 on a budget, resume, and get the published classification.
+
+    n = 8 still needs a search, so a short budget really does interrupt one.
+    """
     monkeypatch.chdir(tmp_path)
     table, report = quiet(qm.classifyLength, 8, 6, 6, None, False, False, None, 0.0)
 
@@ -44,6 +48,16 @@ def test_a_budget_stops_the_run_with_everything_on_disk(tmp_path, monkeypatch):
         str(tmp_path / "A_8_mutation_classes.csv"), 8)
     assert len(written.classNames()) > 0
     assert len(written.unassignedRelationStrings()) == report["unplacedRows"]
+
+    table, report = quiet(qm.classifyLength, 8, 6, 6, None, False, True)
+
+    assert not report["stoppedEarly"]
+    assert not table.unassignedRelationStrings()
+    assert report["candidate"] == {}
+    # arXiv:2305.06642's n = 8 table: 11 classes, of these sizes.
+    sizes = sorted((len(table.membersOfClass(name)) for name in table.classNames()),
+                   reverse=True)
+    assert sizes == [133, 65, 64, 64, 40, 26, 13, 10, 9, 4, 1]
 
 
 def test_an_expired_budget_that_interrupted_nothing_is_not_reported_as_a_stop(
@@ -62,19 +76,21 @@ def test_an_expired_budget_that_interrupted_nothing_is_not_reported_as_a_stop(
     assert not report["stoppedEarly"]
 
 
-def test_resuming_a_budgeted_run_finishes_it(tmp_path, monkeypatch):
-    """Stop n = 8 on a budget, resume, and get the published classification."""
-    monkeypatch.chdir(tmp_path)
-    quiet(qm.classifyLength, 8, 6, 6, None, False, False, None, 0.0)
-    table, report = quiet(qm.classifyLength, 8, 6, 6, None, False, True)
+def _splitClass(table):
+    """Make a merge candidate: move one member of a class into a class of its own.
 
-    assert not report["stoppedEarly"]
-    assert not table.unassignedRelationStrings()
-    assert report["candidate"] == {}
-    # arXiv:2305.06642's n = 8 table: 11 classes, of these sizes.
-    sizes = sorted((len(table.membersOfClass(name)) for name in table.classNames()),
-                   reverse=True)
-    assert sizes == [133, 65, 64, 64, 40, 26, 13, 10, 9, 4, 1]
+    A finished n = 6 table has none -- every class has a polynomial of its own --
+    so without this the resolve step has nothing to do and skips nothing.  The
+    forms are cleared, since a proved form would settle the pair without a search.
+    """
+    className = min((name for name in sorted(table.classNames())
+                     if len(table.membersOfClass(name)) > 1),
+                    key = lambda name: len(table.membersOfClass(name)))
+    moved = table.rowFor(table.membersOfClass(className)[-1])
+    table.assign(moved[0], "split", *moved[2:])
+    for name in (className, "split"):
+        table.setHereditaryFormForClass(name, "")
+    return className
 
 
 def test_a_resolved_class_is_not_searched_again_at_the_same_depth(tmp_path, monkeypatch):
@@ -82,11 +98,6 @@ def test_a_resolved_class_is_not_searched_again_at_the_same_depth(tmp_path, monk
     monkeypatch.chdir(tmp_path)
     quiet(qm.classifyLength, 6, 6, 6, None, False)
     fileName = "A_6_mutation_classes.csv"
-    table = mutationClassTable.MutationClassTable.fromCSV(fileName, 6)
-
-    className = sorted(table.classNames())[0]
-    members = len(table.membersOfClass(className))
-    progress = {"named": {}, "resolved": {className: [6, members]}}
     searched = []
     original = qm.search.mutationSearchDepthFirst
 
@@ -95,8 +106,25 @@ def test_a_resolved_class_is_not_searched_again_at_the_same_depth(tmp_path, monk
         return original(*args, **kwargs)
 
     monkeypatch.setattr(qm.search, "mutationSearchDepthFirst", watched)
-    quiet(qm.resolveMergeCandidates, table, 6, 6, False, fileName, progress, None)
-    assert progress["resolved"][className] == [6, members], "the record was disturbed"
+
+    # Recorded at this depth and this membership: neither half is searched.
+    # `fileName = None` keeps the table on disk as the classification left it.
+    table = mutationClassTable.MutationClassTable.fromCSV(fileName, 6)
+    className = _splitClass(table)
+    record = {name: [2, len(table.membersOfClass(name))]
+              for name in (className, "split")}
+    progress = {"named": {}, "resolved": dict(record)}
+    merges = quiet(qm.resolveMergeCandidates, table, 6, 2, False, None, progress, None)
+    assert searched == [] and merges == []
+    assert progress["resolved"] == record, "the record was disturbed"
+
+    # And without the record the same table is searched, and merged back --
+    # which is what makes the empty list above mean something.
+    table = mutationClassTable.MutationClassTable.fromCSV(fileName, 6)
+    _splitClass(table)
+    merges = quiet(qm.resolveMergeCandidates, table, 6, 2, False, None,
+                   {"named": {}, "resolved": {}}, None)
+    assert searched and merges
 
 
 def test_a_deeper_search_is_a_different_experiment_and_is_not_skipped(tmp_path):
@@ -144,8 +172,18 @@ def test_an_unchanged_class_is_skipped(tmp_path, monkeypatch):
     progress = {"named": {className: members}, "resolved": {}}
 
     table.setHereditaryFormForClass(className, "")
+    # The record and the form come out the same whether or not the class is
+    # redone, so what is watched is the step's last act on a class it visits.
+    visited = []
+    original = table.setHereditaryFormForClass
+
+    def watched(name, form):
+        visited.append(name)
+        return original(name, form)
+
+    monkeypatch.setattr(table, "setHereditaryFormForClass", watched)
     quiet(qm.nameRemainingClasses, table, 6, 0, False, fileName, progress, None)
-    # Untouched: the loop body never ran, so nothing rewrote the record.
+    assert className not in visited, "the unchanged class was redone"
     assert progress["named"][className] == members
     assert not table.formOfEachClass().get(className)
 

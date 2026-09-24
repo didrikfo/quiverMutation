@@ -46,8 +46,10 @@ def test_the_nine_lnas_outside_a_quipu_class_at_length_nine():
 
 # -- trees ----------------------------------------------------------------
 
+# Order 11 is in the slow suite: it needs the polynomial of every LNA of length
+# 11, which is half a minute on its own.
 @pytest.mark.parametrize("order, trees, notQuipus", [
-    (9, 47, 29), (10, 106, 70), (11, 235, 171),
+    (9, 47, 29), (10, 106, 70), pytest.param(11, 235, 171, marks = pytest.mark.slow),
 ])
 def test_how_many_trees_of_an_order_are_not_quipus(order, trees, notQuipus):
     rows = ts.treeReport(order)
@@ -55,7 +57,7 @@ def test_how_many_trees_of_an_order_are_not_quipus(order, trees, notQuipus):
     assert sum(1 for row in rows if not row['isQuipu']) == notQuipus
 
 
-@pytest.mark.parametrize("order", [9, 10, 11])
+@pytest.mark.parametrize("order", [9, 10, pytest.param(11, marks = pytest.mark.slow)])
 def test_no_tree_outside_the_quipu_shape_matches_an_unclassified_lna(order):
     """The extension of F-031 to every degree: still nothing.
 
@@ -68,7 +70,8 @@ def test_no_tree_outside_the_quipu_shape_matches_an_unclassified_lna(order):
     assert ts.leads(order) == []
 
 
-@pytest.mark.parametrize("order, cospectral", [(9, 3), (10, 0), (11, 7)])
+@pytest.mark.parametrize("order, cospectral", [
+    (9, 3), (10, 0), pytest.param(11, 7, marks = pytest.mark.slow)])
 def test_how_many_non_quipu_trees_are_cospectral_with_a_quipu(order, cospectral):
     assert len(ts.cospectralWithAQuipu(order)) == cospectral
 
@@ -289,6 +292,7 @@ def test_meeting_in_the_middle_reaches_twice_as_far():
     assert len(meetings[0][1]) + len(meetings[0][2]) == 6
 
 
+@pytest.mark.slow
 def test_every_single_two_arrow_deletion_at_length_eight_is_a_mutation():
     """H-012's question, one relation at a time, settled at n = 8 (F-041).
 

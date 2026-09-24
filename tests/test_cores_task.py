@@ -117,6 +117,7 @@ def test_a_verdict_is_never_outside_on_a_capped_orbit():
 
 
 def test_the_separated_targets_are_almost_separate_and_are_not_the_row():
+    from quivermutation import lnaMoves as lm
     from quivermutation import overlap as ov
 
     row = batch._rowFor(15, '45', 3)
@@ -125,7 +126,9 @@ def test_the_separated_targets_are_almost_separate_and_are_not_the_row():
     for target in targets:
         assert target != row
         assert ov.isAlmostSeparate(15, target)
-        assert target in set(nk.allRelationLengths(15)) or len(target) == 13
+        # An LNA, checked by the predicate rather than against the 2.6 million
+        # rows of the enumeration; `test_lna_moves` pins the two together.
+        assert lm.isAdmissible(15, list(target)), target
 
 
 def test_the_ledger_name_carries_every_parameter_that_decides_a_verdict():

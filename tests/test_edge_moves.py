@@ -82,7 +82,8 @@ def test_the_collapses_undo_the_doublings():
 # ---------------------------------------------------------------------------
 
 
-@pytest.mark.parametrize("length", [7, 8, 9, 10])
+@pytest.mark.parametrize("length", [7, 8, 9,
+                                    pytest.param(10, marks = pytest.mark.slow)])
 def test_every_edge_move_holds_against_the_mutation_engine(length):
     """No failures anywhere, which is what makes these usable without a search."""
     confirmed = 0
