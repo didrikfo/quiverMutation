@@ -7,7 +7,7 @@ it. Status is one of `OPEN`, `SUPPORTED`, `CONFIRMED → F-nnn`, `REFUTED → R-
 ---
 
 ## H-022 — The walks pass through a small set of shapes, and the ones two classes share are merges
-*2026-09-24, written before the first census* · **OPEN**
+*2026-09-24, written before the first census* · **SUPPORTED** *(checks 2–4 held at every length; check 1's "no short side of three" clause refuted, its "commonest and majority short side is two" dominance clause held; one new merge -- E-053, F-054)*
 
 Three non-line families have mattered so far -- quipus with relations (F-034),
 the squares with a side of two (F-027), one parallel pair (H-016) -- and each
@@ -43,6 +43,20 @@ of H-013's leftover orbits. No: every shape shared across classes is shared
 only by classes already known to be one, at depth 4 and at depth 5, which says
 the non-line shapes are a detour at these lengths and not a shortcut. Either is
 worth having.
+
+**2026-09-26, amended: the census ran, and clause 1 as written is refuted.**
+The first `n = 8` validation failed check 1's literal wording -- "no square
+has a short side of three" -- with 36 of 993 returning squares at a short
+side of 3. They are genuine squares (e.g. `405000` by `[3, 2]` and `250000`
+by `[-7, -8]` both reach a 3x4 square that leads on to other lines), not a
+counting error: F-027 had only counted the intermediates of rule-table rules,
+and check 1 over-generalised from that narrower set to "none at all". The
+clause is **refuted**; the check was relaxed to "the commonest returning
+square has a short side of two, and two is the majority short side", which
+held at `n = 8`, 9 and 10 (3x*k* squares are 4% of returning squares at
+`n = 8` and 9, 3% at `n = 10`). Checks 2 through 4 held as written at every
+length. One replayed candidate merge came out of the `n = 10` leftovers --
+E-053, F-054.
 
 ---
 
@@ -727,6 +741,12 @@ family with relations is what is left.
 
 ## H-013 — The leftover orbits sharing a polynomial are few classes, and the search can say which
 *2026-09-17, written before the overnight run* · **SUPPORTED** *(2026-09-18: `n = 10` answered, two predictions right and one wrong; the search's own soundness is now the open question — E-032, E-033)*
+
+**2026-09-26, amended:** the shape atlas found a merge label-exact search
+could not see, between two of the four orbits E-032 left apart in one
+polynomial group at `n = 10`. That takes one more orbit off the ceiling: at
+most 9 non-quipu classes, so **43–45** derived classes at `n = 10`, not
+43–46 — F-054.
 
 **2026-09-18, what the run returned.** `n = 10` finished all four depths. Twelve
 orbits fall to **at most 10** classes, so the derived classes at `n = 10` number

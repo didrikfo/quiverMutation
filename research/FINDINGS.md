@@ -5,6 +5,71 @@ See [`README.md`](README.md) for conventions.
 
 ---
 
+## F-054 — Two walks can meet at one algebra under different labels, and that joins two of E-032's four unlinked `n = 10` orbits
+*2026-09-26*
+
+Evidence: E-053.
+
+**The claim.** Two depth-4 walks out of `n = 10`'s leftover LNAs can reach the
+same algebra while giving its vertices different labels — a meeting the
+label-exact search (`search.meetingPoints`, which `merges.py` uses) cannot
+see, because it only compares quivers equal with their labels. The shape
+atlas finds such a meeting, at L3 (the algebra up to relabelling), between
+`orbit:03033030` (member `30330300`, path `[7]`) and `orbit:30330400`
+(member `30330400`, path `[8, 7]`). Replayed independently by rebuilding both
+ends with `mutation.quiverMutationAtVertices` from their paths
+(`atlas-merge-verify.py`, `atlas-n10-merges-verified.txt`): the two quivers are
+not label-exact equal, they share the same Coxeter polynomial, and the vertex
+map `{7: 10, 8: 9, 9: 7, 10: 8}` (identity elsewhere) carries one onto the
+other exactly.
+
+**The pair, in context.** E-032 left `n = 10`'s twelve leftover orbits in
+seven Coxeter-polynomial groups, one of which has four orbits and, by E-032's
+own words, "all four stayed apart to depth 8": `03033030` (4 members),
+`30330400` (2), `30340030` (2), `30440030` (1), over the polynomial
+`λ^10 + λ^9 − 2λ^8 − 3λ^7 + λ^6 + 4λ^5 + λ^4 − 3λ^3 − 2λ^2 + λ + 1`. The atlas
+joins the first two of those four, via the pair and vertex map above, leaving
+three orbits in that group instead of four.
+
+**Why label-exact search could not see it.** `search.meetingPoints`, and every
+other move-and-meet search this project has run, tests two quivers for
+equality with their labels as they stand. Two walks reaching one algebra with
+its vertices numbered differently are, to that test, two different quivers —
+even though they present the same path algebra. The atlas's L3 key strips the
+labelling before comparing, which is the one thing E-032's depth-8 search
+never did.
+
+**Consequence for H-013's bound.** E-032 had `n = 10`'s 12 leftover orbits
+falling to at most 10 non-quipu classes, so 43–46 derived classes overall.
+This merge takes one orbit off that ceiling: at most 9 non-quipu classes, so
+**43–45**.
+
+**Soundness caveat, unchanged from H-015.** A guarded mutation path (one that
+holds the Coxeter polynomial fixed at every step) is taken as derived
+equivalence under H-015, which is **SUPPORTED**, not proven. This merge rests
+on exactly the same footing as every merge E-032 reported.
+
+**The other two `n = 10` candidate merges the atlas found are not new.** Both
+reproduce merges already known, now from depth-4 walks instead of depth 7:
+the `C(2,4,5)` pair (E-032: `05040330 -> 33460000` at depth 7; here
+`05040330` by `[4, 3, 7, 2]` meets `60504030` by `[-10, -7, -2]`), and F-037's
+`34504030 ~ 50505000` (found there at depth 7; here in 3 mutations from one
+side and 4 from the other).
+
+Reproduce: `python batch.py atlas 10 --depth 4 --sample 20 --jobs 6`, then
+`python atlas.py 10 --depth 4 --sample 20`. The candidate-merge line names the
+two orbits and the paths that reach the meeting shape from each; the verify script (`atlas-merge-verify.py`) takes each candidate merge's two
+sides — a starting LNA and a mutation path apiece — rebuilds each end quiver
+with `mutation.quiverMutationAtVertices`, describes both with `shapeKeys`, and
+checks whether they are label-exact equal (`fingerprint.canonicalKey`). If not,
+it builds each side's L2 structure graph, runs a networkx isomorphism search
+between the two graphs, and for each candidate vertex map relabels one side
+and re-checks `canonicalKey` equality against the other, keeping the first
+map that matches; it also checks separately whether the two starting LNAs
+share a Coxeter polynomial.
+
+---
+
 ## F-053 — A core's offsets pair up by a reflection, and each pair is one self-dual orbit
 *2026-09-23*
 
