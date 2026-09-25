@@ -10,18 +10,34 @@ See [`README.md`](README.md) for conventions.
 
 Evidence: E-053.
 
+*2026-09-26, corrected before merge:* the first version said E-032 missed this
+because `search.meetingPoints`, "which `merges.py` uses", compares quivers with
+their labels. `merges.py` does not use `meetingPoints`, and its labels never
+mattered; the mechanism below replaces that paragraph. The first version also
+called the merge check independent when it reuses the key's own code; the
+check is now described as what it is, and a test reproduces it.
+
 **The claim.** Two depth-4 walks out of `n = 10`'s leftover LNAs can reach the
-same algebra while giving its vertices different labels — a meeting the
-label-exact search (`search.meetingPoints`, which `merges.py` uses) cannot
-see, because it only compares quivers equal with their labels. The shape
-atlas finds such a meeting, at L3 (the algebra up to relabelling), between
-`orbit:03033030` (member `30330300`, path `[7]`) and `orbit:30330400`
-(member `30330400`, path `[8, 7]`). Replayed independently by rebuilding both
-ends with `mutation.quiverMutationAtVertices` from their paths
-(`atlas-merge-verify.py`, `atlas-n10-merges-verified.txt`): the two quivers are
-not label-exact equal, they share the same Coxeter polynomial, and the vertex
-map `{7: 10, 8: 9, 9: 7, 10: 8}` (identity elsewhere) carries one onto the
-other exactly.
+same algebra — a non-line quiver — under different vertex labels, and meeting
+them there joins two orbits E-032 left apart. The shape atlas finds such a
+meeting, at L3 (the algebra up to relabelling), between `orbit:03033030`
+(member `30330300`, right mutation `[7]`) and `orbit:30330400` (member
+`30330400`, right mutations `[8, 7]`). Replaying both paths
+(`shapeAtlas.replay`: every step admissible and Coxeter-guarded) gives two ends
+that are not equal with their labels, over the same Coxeter polynomial, and
+the vertex map `{7: 10, 8: 9, 9: 7, 10: 8}` (identity elsewhere) carries the
+first onto the second exactly under `fingerprint.canonicalKey`. That check
+rebuilds the ends with `mutation.quiverMutationAtVertices` but compares them
+with `shapeKeys.relabel` and `fingerprint.canonicalKey`, the same code the L3
+key is made of: it is independent of the census ledger, not of the key.
+
+**A certificate that needs neither the atlas nor its key.** From `30330300`,
+the mixed path `[7, -9, -10]` — one right mutation, then two left — reaches, in
+three steps, a line that `lnaMoves.asRelLengths` (the route `merges.py` reads a
+reached line by) reads as `[3,0,3,3,0,4,0,0]`, i.e. `30330400`. Every step is
+admissible and keeps the Coxeter polynomial, as `replay` checks. So the merge
+is a plain guarded mutation path from one LNA to the other, of the kind every
+merge E-032 reported rests on.
 
 **The pair, in context.** E-032 left `n = 10`'s twelve leftover orbits in
 seven Coxeter-polynomial groups, one of which has four orbits and, by E-032's
@@ -31,13 +47,19 @@ own words, "all four stayed apart to depth 8": `03033030` (4 members),
 joins the first two of those four, via the pair and vertex map above, leaving
 three orbits in that group instead of four.
 
-**Why label-exact search could not see it.** `search.meetingPoints`, and every
-other move-and-meet search this project has run, tests two quivers for
-equality with their labels as they stand. Two walks reaching one algebra with
-its vertices numbered differently are, to that test, two different quivers —
-even though they present the same path algebra. The atlas's L3 key strips the
-labelling before comparing, which is the one thing E-032's depth-8 search
-never did.
+**Why E-032's search did not find it.** `merges.py` does not meet walks at
+all. From each member, and from its relation dual (which is the opposite
+algebra renumbered, so its walk is the member's left mutations), it walks to
+depth `d` and collects the **lines** it reaches, renumbered by
+`lnaMoves.asRelLengths`; labels never mattered there. But each walk goes one
+way only: all right mutations, or all left ones. This merge needs a mixed path
+(`[7, -9, -10]` above), which neither walk takes, and E-032 searched those
+one-direction walks to depth 8 without meeting it. The atlas found it by
+**meeting two walks in the middle** — right `[7]` from one start, right
+`[8, 7]` from the other — at a quiver that is not a line. Relabelling is needed
+only because that meeting point is not a line: a line can be renumbered to
+`1 -> ... -> n` and read as a row, a non-line meeting point has no such normal
+form, and the L3 key is what supplies one.
 
 **Consequence for H-013's bound.** E-032 had `n = 10`'s 12 leftover orbits
 falling to at most 10 non-quipu classes, so 43–46 derived classes overall.
@@ -58,15 +80,14 @@ side and 4 from the other).
 
 Reproduce: `python batch.py atlas 10 --depth 4 --sample 20 --jobs 6`, then
 `python atlas.py 10 --depth 4 --sample 20`. The candidate-merge line names the
-two orbits and the paths that reach the meeting shape from each; the verify script (`atlas-merge-verify.py`) takes each candidate merge's two
-sides — a starting LNA and a mutation path apiece — rebuilds each end quiver
-with `mutation.quiverMutationAtVertices`, describes both with `shapeKeys`, and
-checks whether they are label-exact equal (`fingerprint.canonicalKey`). If not,
-it builds each side's L2 structure graph, runs a networkx isomorphism search
-between the two graphs, and for each candidate vertex map relabels one side
-and re-checks `canonicalKey` equality against the other, keeping the first
-map that matches; it also checks separately whether the two starting LNAs
-share a Coxeter polynomial.
+two orbits and the paths that reach the meeting shape from each. The merge
+itself is reproduced in seconds, without the census, by three tests in
+`tests/test_shape_atlas.py`: `test_the_n10_merge_replays` (`replay` on the two
+paths), `test_the_n10_merge_is_an_explicit_relabelling` (the vertex map above,
+through the key's own code), and
+`test_the_n10_merge_is_also_a_mixed_path_between_lines` (the atlas-independent
+certificate, `[7, -9, -10]` from `30330300` to `30330400`, every step
+admissible and guarded).
 
 ---
 

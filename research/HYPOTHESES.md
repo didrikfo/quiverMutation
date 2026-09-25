@@ -7,7 +7,7 @@ it. Status is one of `OPEN`, `SUPPORTED`, `CONFIRMED → F-nnn`, `REFUTED → R-
 ---
 
 ## H-022 — The walks pass through a small set of shapes, and the ones two classes share are merges
-*2026-09-24, written before the first census* · **SUPPORTED** *(checks 2–4 held at every length; check 1's "no short side of three" clause refuted, its "commonest and majority short side is two" dominance clause held; one new merge -- E-053, F-054)*
+*2026-09-24, written before the first census* · **SUPPORTED** *(checks 2–4 held at every length; check 1's "no short side of three" clause refuted, its "commonest and majority short side is two" dominance clause held; one new merge -- E-053, F-054. The hub half, "a small number of shapes carries most of the walks", was not measured: no share of walks through the top shapes was computed, and the densest hubs at `n = 8` and 9 are single-class, reached from one class only, which if anything cuts against the hub idea)*
 
 Three non-line families have mattered so far -- quipus with relations (F-034),
 the squares with a side of two (F-027), one parallel pair (H-016) -- and each
@@ -56,7 +56,10 @@ square has a short side of two, and two is the majority short side", which
 held at `n = 8`, 9 and 10 (3x*k* squares are 4% of returning squares at
 `n = 8` and 9, 3% at `n = 10`). Checks 2 through 4 held as written at every
 length. One replayed candidate merge came out of the `n = 10` leftovers --
-E-053, F-054.
+E-053, F-054. The statement's reason for why such merges were unseen ("the
+label-exact meeting of `search.meetingPoints`") is not what hid this one:
+E-032's `merges.py` does not meet walks, and walks one direction only; F-054
+has the mechanism.
 
 ---
 
@@ -742,11 +745,18 @@ family with relations is what is left.
 ## H-013 — The leftover orbits sharing a polynomial are few classes, and the search can say which
 *2026-09-17, written before the overnight run* · **SUPPORTED** *(2026-09-18: `n = 10` answered, two predictions right and one wrong; the search's own soundness is now the open question — E-032, E-033)*
 
-**2026-09-26, amended:** the shape atlas found a merge label-exact search
-could not see, between two of the four orbits E-032 left apart in one
-polynomial group at `n = 10`. That takes one more orbit off the ceiling: at
-most 9 non-quipu classes, so **43–45** derived classes at `n = 10`, not
-43–46 — F-054.
+**2026-09-26, amended:** the shape atlas found a merge between two of the four
+orbits E-032 left apart in one polynomial group at `n = 10` (`30330300 ~
+30330400`). E-032's `merges.py` walks one direction at a time from each
+member — right mutations, or left ones via the relation dual — and collects
+the lines reached; this merge needs a mixed path, `[7, -9, -10]` from
+`30330300`, three guarded steps, which it could not take at any of its depths
+(to 8). The atlas found it by meeting two right walks in the middle, at a
+quiver that is not a line and so had to be compared up to relabelling. That
+takes one more orbit off the ceiling: at most 9 non-quipu classes, so
+**43–45** derived classes at `n = 10`, not 43–46 — F-054. *(Corrected before
+merge, same day: the first wording blamed label-exact comparison in
+`search.meetingPoints`, which `merges.py` does not use.)*
 
 **2026-09-18, what the run returned.** `n = 10` finished all four depths. Twelve
 orbits fall to **at most 10** classes, so the derived classes at `n = 10` number

@@ -7,11 +7,20 @@ nothing, which are recorded precisely so they are not repeated. See
 ---
 
 ## E-053 — The first shape atlas: n = 8 and 9 whole, n = 10 leftovers, depth 4
-*2026-09-26* · tests H-022
+*2026-09-26* · **all four instrument checks held once check 1's clause was corrected; two `n = 10` walks met at one non-line algebra under different labels, joining two orbits E-032's one-direction search left apart** → F-054, H-013, H-022
+
+*2026-09-26, corrected before merge:* the first version said E-032's search
+could not see this merge "at any depth" because it compares quivers with their
+labels. `merges.py` compares lines, whose labels never mattered; what it lacks
+is mixed-direction paths, and E-032 searched to depth 8, not every depth. The
+candidate-merge passage and "what to run next" below are rewritten to say so.
+The top-five hub lists were quoted from a report whose ties came out in
+arbitrary order; they are recomputed with ties broken by key.
 
 **Outcome.** All four instrument checks held, once check 1's clause was
-corrected; the atlas found one merge among `n = 10`'s leftover orbits that no
-label-exact search could see, at `n = 10` and depth 4 → F-054, H-013.
+corrected; meeting walks in the middle up to relabelling found one merge
+among `n = 10`'s leftover orbits that E-032's one-direction search to depth 8
+had not, at `n = 10` and depth 4 → F-054, H-013.
 
 **The commands**, one census and one analysis per length (`n = 8`, `9` whole;
 `n = 10` sampled, 20 rows per quipu class and every leftover):
@@ -76,35 +85,54 @@ which held at all three lengths (3×k squares are 4% of returning squares at
 `n = 8` and `9`, 3% at `n = 10`) — commit `a3227b3`. The run continued under
 the relaxed check.
 
-**Top five L2 hubs per length** (`describe` abbreviated; classes / starts /
+**The conservative cases did not fire.** L2 and L3 count the same number of
+shapes at every length (29298 / 153148 / 196583), and no node id is a `raw:`
+hash (the fallback when `fingerprint.canonicalKey` refuses a quiver), so no
+canonical key was refused (counted from `logs/atlas-n*.nodes.parquet`). L3 can
+only split an L2 shape, and an isomorphism-cap hit always leaves two L3 keys
+over one L2 shape (the quiver hit the cap against a representative whose L2
+graph is isomorphic to its own); since nothing was split, there were no cap
+hits and no conservative misses at these lengths — and L3 never refined L2
+at `n ≤ 10`, depth 4: here the relation skeleton already determined the
+algebra. (A pair that L3
+does split is constructed in `tests/test_shape_keys.py`,
+`test_L3_splits_what_the_L2_skeleton_joins`, so the equality is a fact about
+these walks, not about the keys.) `atlas.py` now prints both counts.
+
+**Top five L2 hubs per length**, ordered by classes, then starts, then key
+(recomputed from the parquet tables with ties broken by key; `describe`
+abbreviated to the arrows and the first two relations; classes / starts /
 return rate):
 
-*n = 8* — all six of `n = 8`'s densest hubs are single-class, single-orbit:
+*n = 8* — the top five, and every hub tied with the fifth (12 in all at 21
+starts or more), are single-class, single-orbit:
 
-* `1->3 2->1 2->5 3->4 4->6 5->3 6->8 8->7` (zero 1-3-4-6; comm 2-1-3=2-5-3; …) — 1 class / 24 starts / 0.50
-* `1->2 2->4 3->7 4->5 5->6 6->3 6->8 8->7` (zero 2-4-5; zero 4-5-6-8; …) — 1 / 24 / 0.50
+* `1->2 2->4 3->7 4->5 5->6 6->3 6->8 8->7` (zero 2-4-5; zero 4-5-6-8; …) — 1 class / 24 starts / 0.50
+* `1->3 2->1 2->5 3->4 4->6 5->3 6->8 8->7` (zero 1-3-4-6; comm 2-1-3=2-5-3; …) — 1 / 24 / 0.50
 * `1->2 2->6 3->1 3->4 4->6 5->7 6->5 7->8` (zero 2-6-5; comm 3-1-2-6=3-4-6; …) — 1 / 23 / 0.61
-* `1->3 2->1 3->4 4->5 4->8 5->6 7->6 8->7` (zero 2-1-3; comm 4-5-6=4-8-7-6; …) — 1 / 23 / 0.61
-* `1->3 2->1 3->4 4->5 5->6 6->8 7->8` (zero 2-1-3; zero 3-4-5; zero 5-6-8) — 1 / 21 / 0.38
+* `1->3 2->1 3->4 4->5 4->8 5->6 7->6 8->7` (zero 2-1-3; zero 3-4-5; …) — 1 / 23 / 0.61
+* `1->5 2->1 2->4 3->2 5->6 6->7 7->8` (zero 1-5-6; zero 2-1-5; …) — 1 / 21 / 0.38, first by key of eight hubs tied at 21 starts
 
 *n = 9* — six hubs tie at 31 starts, all single-class, single-orbit, return
-rate 0.29; the first five as listed:
+rate 0.29; the first five by key:
 
-* `1->2 2->5 3->6 5->3 6->7 7->4 7->8 8->9` (zero 2-5-3; zero 3-6-7; …)
-* `1->5 2->3 3->1 3->4 5->6 6->7 7->9 9->8` (zero 1-5-6; zero 2-3-4; …)
-* `1->3 2->1 3->5 4->3 5->6 6->7 7->9 9->8` (zero 2-1-3; zero 3-5-6; …)
-* `1->4 2->3 3->1 4->5 5->6 6->7 7->8 9->7` (zero 3-1-4; zero 4-5-6; …)
 * `1->3 2->1 3->4 4->5 5->6 6->8 8->7 9->8` (zero 2-1-3; zero 3-4-5; …)
+* `1->3 2->1 3->5 4->3 5->6 6->7 7->9 9->8` (zero 2-1-3; zero 3-5-6; …)
+* `1->5 2->3 3->1 3->4 5->6 6->7 7->9 9->8` (zero 1-5-6; zero 2-3-4; …)
+* `1->5 2->1 2->4 3->2 5->6 6->7 7->8 8->9` (zero 2-1-5; zero 3-2-4; …)
+* `1->4 2->3 3->1 4->5 5->6 6->7 7->8 9->7` (zero 3-1-4; zero 4-5-6; …)
 
-*n = 10* — the top five all have `leftoverShare = 1.00`: they are reached
-only from the sampled leftovers, two orbits and two classes apiece, `firstDepth
-3`, `returnRate 0.00`, 5 starts each:
+*n = 10* — six hubs tie at two classes and 5 starts; the top five by key all
+have `leftoverShare = 1.00`: they are reached only from the sampled leftovers,
+two orbits and two classes apiece — every one of them `orbit:03345000` and
+`orbit:33460000`, the `C(2,4,5)` pair E-032 already merged — `firstDepth 3`,
+`returnRate 0.00`:
 
-* `1->2 1->6 2->3 3->4 4->5 5->7 5->10 6->5 7->8 9->8 10->9` (comm 1-2-3-4-5=1-6-5; comm 5-7-8=5-10-9-8; …)
-* `1->2 2->8 3->1 3->4 4->5 5->6 6->8 7->10 8->7 8->9 9->10` (comm 3-1-2-8=3-4-5-6-8; comm 8-7-10=8-9-10; …)
-* `1->2 1->5 2->3 3->4 4->6 4->10 5->4 6->7 7->8 9->8 10->9` (comm 1-2-3-4=1-5-4; comm 4-6-7-8=4-10-9-8; …)
-* `1->2 1->4 2->3 3->5 3->10 4->3 5->6 6->7 7->8 9->8 10->9` (comm 1-2-3=1-4-3; comm 3-5-6-7-8=3-10-9-8; …)
-* `1->2 2->7 3->1 3->4 4->5 5->7 6->10 7->6 7->8 8->9 9->10` (comm 3-1-2-7=3-4-5-7; comm 7-6-10=7-8-9-10; …)
+* `1->2 1->5 2->3 3->4 4->6 4->10 5->4 6->7 7->8 9->8 10->9` (comm 1-2-3-4=1-5-4; zero 2-3-4-6-7; …)
+* `1->2 2->6 3->1 3->4 4->6 5->10 6->5 6->7 7->8 8->9 9->10` (zero 2-6-5; zero 2-6-7; …)
+* `1->2 1->4 2->3 3->5 3->10 4->3 5->6 6->7 7->8 9->8 10->9` (comm 1-2-3=1-4-3; zero 2-3-5-6-7; …)
+* `1->2 2->8 3->1 3->4 4->5 5->6 6->8 7->10 8->7 8->9 9->10` (zero 2-8-7; zero 2-8-9; …)
+* `1->2 2->7 3->1 3->4 4->5 5->7 6->10 7->6 7->8 8->9 9->10` (zero 2-7-6; zero 2-7-8; …)
 
 **What the leftover hubs show.** `n = 8` has no leftover-hub entries at all
 (no leftovers to have them). The report's top 30 leftover hubs at `n = 9`
@@ -126,15 +154,26 @@ length: `n = 9` (1430 starts) has the highest peak, `n = 10` (835 sampled
 starts) the lowest.
 
 **Candidate merges per length, with paths.** `n = 8`: 0. `n = 9`: 0. `n = 10`:
-3, all replayed and confirmed (`atlas-n10-merges-verified.txt`, independently
+3, all replayed and confirmed by `replay`, and each also re-checked by
 rebuilding both ends with `mutation.quiverMutationAtVertices` and comparing
-label-exactly and up to relabelling):
+them label-exactly and through an explicit vertex map
+(`atlas-n10-merges-verified.txt`, from a script under `logs/` that is not
+committed; it uses the key's own `relabel` and `canonicalKey`, so it is
+independent of the ledger, not of the key):
 
 * `orbit:03033030` (member `30330300`, path `[7]`) ~ `orbit:30330400` (member
   `30330400`, path `[8, 7]`) — not label-exact equal; same Coxeter polynomial;
-  vertex map `{7: 10, 8: 9, 9: 7, 10: 8}`. This is the merge E-032's
-  label-exact search could not see at any depth, because it only meets
-  quivers equal with their labels: it joins `03033030`'s orbit (4 members) to
+  vertex map `{7: 10, 8: 9, 9: 7, 10: 8}`. The meeting point is not a line:
+  two right walks meet in the middle, and relabelling is needed only because
+  a non-line quiver cannot be renumbered to a row as a line can. E-032's
+  `merges.py` never meets walks; it walks one direction from each member
+  (right mutations, or left ones via the relation dual) and collects the lines
+  reached, to depth 8. This merge needs a mixed path, which it could not take:
+  from `30330300`, `[7, -9, -10]` reaches, in three guarded steps, a line that
+  `lnaMoves.asRelLengths` reads as `30330400` — a second certificate of the
+  merge, independent of the atlas and its key
+  (`tests/test_shape_atlas.py::test_the_n10_merge_is_also_a_mixed_path_between_lines`,
+  with the replay and the vertex map in the two tests beside it). It joins `03033030`'s orbit (4 members) to
   `30330400`'s (2 members), two of the four orbits E-032 reported as "all four
   stayed apart to depth 8" in the polynomial group
   `λ^10 + λ^9 − 2λ^8 − 3λ^7 + λ^6 + 4λ^5 + λ^4 − 3λ^3 − 2λ^2 + λ + 1`
@@ -161,16 +200,20 @@ at every length under the streaming fix.
 
 **What to run next.** Depth 5 at `n = 10`, now that depth 4 already found one
 new merge among the leftovers; `n = 11` with sampling, the same way `n = 10`
-was sampled here; and swap the L3 key into `merges.py`'s own search, since it
-was meeting at one algebra under different labels — not a label-exact
-meeting — that found the merge, and `merges.py` as written would not have
-seen it either.
+was sampled here; and give `merges.py` the kind of path that found this merge.
+Either let it take mixed-direction paths (the three-step `[7, -9, -10]` is
+within any depth it already runs), or let it meet walks in the middle up to
+relabelling — the atlas's L3 key is what makes a meeting point that is not a
+line usable at all, since only a line can be renumbered to a row.
 
 Reproduction: the six commands above; `logs/atlas-n8.txt`, `atlas-n9.txt`,
 `atlas-n10.txt` for the reports; `atlas-n8.time`, `atlas-n9.time`,
 `atlas-n10.time` for wall clock and peak RSS; `atlas-n8-before.time` /
-`atlas-n8-after.time` for the OOM fix comparison; `atlas-n10-merges-verified.txt`
-(script `atlas-merge-verify.py`) for the independent merge check.
+`atlas-n8-after.time` for the OOM fix comparison; the three
+`test_the_n10_merge_*` tests in `tests/test_shape_atlas.py` for the merge
+(seconds, no census needed); the hub lists above from
+`logs/atlas-n{8,9}-d4-s0-r0.*.parquet` and `logs/atlas-n10-d4-s20-r0.*.parquet`
+through `shapeAtlas.shapeMeasures(tables, 2)`, non-lines, first five rows.
 
 ---
 
