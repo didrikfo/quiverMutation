@@ -58,9 +58,9 @@ for the 650 units before the interruption.
 
 | n | check 1 (squares) | check 2 (quipu hub) | check 3 (certificates) | check 4 (coverage) |
 |---|---|---|---|---|
-| 8 | 1746 returning shapes, of which 993 squares, short sides {2: 957, 3: 36}, top `2x2`, majority 2 — **ok** | skipped (no quipu classes at this length) | 12668 checked, 0 violations — ok | 43 starts checked, 0 missing — ok |
+| 8 | 1746 returning shapes, of which 993 squares, short sides {2: 957, 3: 36}, top `2x2`, majority 2 — **ok** | skipped (check 2 is defined at n = 9 only) | 12668 checked, 0 violations — ok | 43 starts checked, 0 missing — ok |
 | 9 | 6452 returning shapes, of which 4053 squares, short sides {2: 3888, 3: 165}, top `2x2`, majority 2 — ok | `P^(6)_(1,1)`, 9 leftover starts — ok | 54538 checked, 0 violations — ok | 41 starts checked, 0 missing — ok |
-| 10 | 6778 returning shapes, of which 4950 squares, short sides {2: 4800, 3: 150}, top `2x3`, majority 2 — ok | skipped (sampled, not exhaustive) | 67043 checked, 0 violations — ok | 42 starts checked, 0 missing — ok |
+| 10 | 6778 returning shapes, of which 4950 squares, short sides {2: 4800, 3: 150}, top `2x3`, majority 2 — ok | skipped (check 2 is defined at n = 9 only) | 67043 checked, 0 violations — ok | 42 starts checked, 0 missing — ok |
 
 Check 1's original wording (H-022's clause 1, "no square has a short side of
 three") **failed at `n = 8`**: 36 of the 993 returning squares have a short
@@ -107,13 +107,15 @@ only from the sampled leftovers, two orbits and two classes apiece, `firstDepth
 * `1->2 2->7 3->1 3->4 4->5 5->7 6->10 7->6 7->8 8->9 9->10` (comm 3-1-2-7=3-4-5-7; comm 7-6-10=7-8-9-10; …)
 
 **What the leftover hubs show.** `n = 8` has no leftover-hub entries at all
-(no leftovers to have them). `n = 9` has 25 leftover-hub shapes, every one at
-`leftoverShare = 1.00` and none reaching further than 6 of the 9 leftover
-starts — far short of the 24–31 starts the main hubs reach, so the leftovers
-huddle together but do not bridge out to the quipu-covered classes. `n = 10`'s
-sampled leftovers show the same pattern at a larger scale: its leftover hubs
-top out at 17 of the sampled leftover starts, again all `leftoverShare =
-1.00` — the leftovers keep meeting each other, never a line already covered.
+(no leftovers to have them). The report's top 30 leftover hubs at `n = 9`
+(the report's own `--top 30` cutoff, not a count of how many exist) are every
+one at `leftoverShare = 1.00` and none reaching further than 6 of the 9
+leftover starts — far short of the 24–31 starts the main hubs reach, so the
+leftovers huddle together but do not bridge out to the quipu-covered classes.
+`n = 10`'s sampled leftovers show the same pattern at a larger scale: its
+leftover hubs top out at 17 of the sampled leftover starts, again all
+`leftoverShare = 1.00` — the leftovers keep meeting each other, never a line
+already covered.
 
 **The commonest cycles through a line** (`line -> shape -> line`, top counts):
 `n = 8` peaks at 20 (`L2:ed499de5:0`), 19, 19, 16, 16; `n = 9` peaks at 26
