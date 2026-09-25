@@ -14,10 +14,10 @@ Spec: docs/superpowers/specs/2026-09-24-shape-atlas-design.md.
 """
 
 import argparse
+import os
 import sys
 
 from quivermutation import atlasPage
-from quivermutation import jobs
 from quivermutation import shapeAtlas
 
 
@@ -37,12 +37,13 @@ def main(argv = None):
     args = parser.parse_args(argv)
 
     path = shapeAtlas.ledgerPath(args.length, args.depth, args.sample, args.seed)
-    records = jobs.Ledger(path).records()
-    if not records:
+    if not os.path.exists(path) or os.path.getsize(path) == 0:
         print("no ledger at {0}; run `python batch.py atlas {1} --depth {2}` first".format(
             path, args.length, args.depth))
         return 1
-    tables = shapeAtlas.resolve(records, args.length)
+    # Streamed, and handed to `validate` as a path: the n = 9 ledger parsed whole
+    # does not fit beside the analysis (task 8a).
+    tables = shapeAtlas.resolve(shapeAtlas.iterLedger(path), args.length)
     shapeAtlas.writeTables(tables, path[:-len('.jsonl')])
     shapeAtlas.report(tables, args.level, args.top, sys.stdout)
 
@@ -57,7 +58,7 @@ def main(argv = None):
 
     if args.validate:
         print("\nvalidation (H-022)")
-        for name, outcome in shapeAtlas.validate(tables, args.length, records).items():
+        for name, outcome in shapeAtlas.validate(tables, args.length, path).items():
             print("  {0}: {1}".format(name, outcome))
     if args.page:
         title = "Shape atlas n = {0}, depth {1}".format(args.length, args.depth)

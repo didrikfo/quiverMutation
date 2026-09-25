@@ -187,45 +187,105 @@ def startsFor(length, sample = 0, seed = 0):
 
 # -- the analysis -------------------------------------------------------------
 
+def iterLedger(path):
+    """A ledger's records one line at a time, skipping a line that will not
+    parse as `jobs.Ledger.records` does.  The n = 9 ledger is 332 MB and parsed
+    whole it no longer fits beside the analysis (task 8a)."""
+    try:
+        handle = open(path)
+    except FileNotFoundError:
+        return
+    with handle:
+        for line in handle:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                yield json.loads(line)
+            except ValueError:
+                continue
+
+
 def resolve(records, length, index = None):
     """A ledger as three tables, every distinct quiver keyed at every level.
 
     One `ShapeIndex` over the whole ledger, so keys are comparable across
     starts -- which is the point -- and each label-exact quiver is resolved once
     however many starts reached it.
+
+    `records` may be a list or a stream (`iterLedger`): each record is read
+    once, and of each distinct quiver only what the tables need is kept -- its
+    JSON as a string, its buckets and its features -- so memory grows with the
+    distinct quivers and the visits, never with the ledger's text.
     """
     tags = startTags(length)
     index = shapeKeys.ShapeIndex() if index is None else index
-    nodes = {}
-    visits = []
-    edges = []
+    # One column list per table column rather than a dict per row; an id met
+    # again is replaced by the string first stored for it, so every visit and
+    # edge of it points at one object.
+    known = {}
+    nodeColumns = {'id': [], 'quiver': []}
+    buckets = []
+    featureColumns = None
+    visitColumns = {name: [] for name in ('start', 'orbit', 'cls', 'id', 'depth', 'path')}
+    edgeColumns = {name: [] for name in ('start', 'parent', 'vertex', 'child')}
     for record in records:
         start = record['unit']
         result = record['result']
         orbit, cls = tags[start]
-        ids = [node['id'] for node in result['nodes']]
+        ids = []
         for node in result['nodes']:
-            nodes.setdefault(node['id'], node)
-            visits.append({'start': start, 'orbit': orbit, 'cls': cls, 'id': node['id'],
-                           'depth': node['depth'],
-                           'path': ','.join(str(step) for step in node['path'])})
+            seen = len(known)
+            ident = known.setdefault(node['id'], node['id'])
+            ids.append(ident)
+            if len(known) > seen:
+                nodeColumns['id'].append(ident)
+                nodeColumns['quiver'].append(json.dumps(node['quiver']))
+                buckets.append(tuple(node['buckets']))
+                if featureColumns is None:
+                    featureColumns = {name: [] for name in node['features']}
+                for name, column in featureColumns.items():
+                    column.append(node['features'][name])
+            visitColumns['start'].append(start)
+            visitColumns['orbit'].append(orbit)
+            visitColumns['cls'].append(cls)
+            visitColumns['id'].append(ident)
+            visitColumns['depth'].append(node['depth'])
+            visitColumns['path'].append(','.join(str(step) for step in node['path']))
         for parent, vertex, child in result['edges']:
-            edges.append({'start': start, 'parent': ids[parent], 'vertex': vertex,
-                          'child': ids[child]})
-    rows = []
-    for ident, node in nodes.items():
-        algebra = shapeKeys.deserialise(node['quiver'])
-        row = {'id': ident, 'quiver': json.dumps(node['quiver'])}
-        for level in shapeKeys.LEVELS:
-            row['key{0}'.format(level)] = index.keyOf(algebra, level,
-                                                      bucket = node['buckets'][min(level, 2)])
-        row.update(node['features'])
-        rows.append(row)
+            edgeColumns['start'].append(start)
+            edgeColumns['parent'].append(ids[parent])
+            edgeColumns['vertex'].append(vertex)
+            edgeColumns['child'].append(ids[child])
+    del known
+
+    # The visits and edges are finished: make them frames, and let the lists go
+    # before the index starts to grow.
+    visitSchema = {'start': pl.Utf8, 'orbit': pl.Utf8, 'cls': pl.Utf8, 'id': pl.Utf8,
+                   'depth': pl.Int64, 'path': pl.Utf8}
     edgeSchema = {'start': pl.Utf8, 'parent': pl.Utf8, 'vertex': pl.Int64, 'child': pl.Utf8}
+    visits = pl.DataFrame(visitColumns, schema = visitSchema)
+    del visitColumns
+    edges = pl.DataFrame(edgeColumns, schema = edgeSchema)
+    del edgeColumns
+
+    keyColumns = {'key{0}'.format(level): [] for level in shapeKeys.LEVELS}
+    for text, nodeBuckets in zip(nodeColumns['quiver'], buckets):
+        algebra = shapeKeys.deserialise(json.loads(text))
+        for level in shapeKeys.LEVELS:
+            keyColumns['key{0}'.format(level)].append(
+                index.keyOf(algebra, level, bucket = nodeBuckets[min(level, 2)]))
+    del buckets
+    columns = [pl.Series(name, values, dtype = pl.Utf8)
+               for name, values in list(nodeColumns.items()) + list(keyColumns.items())]
+    # A feature column is typed from all its values, as the row-wise frame it
+    # replaces was (`infer_schema_length = None`): some are None for most rows.
+    columns += [pl.Series(name, values, strict = False)
+                for name, values in (featureColumns or {}).items()]
     return {
-        'nodes': pl.DataFrame(rows, infer_schema_length = None),
-        'visits': pl.DataFrame(visits, infer_schema_length = None),
-        'edges': pl.DataFrame(edges, schema = edgeSchema),
+        'nodes': pl.DataFrame(columns),
+        'visits': visits,
+        'edges': edges,
     }
 
 
@@ -480,7 +540,10 @@ def _squaresVerdict(shortSides, topSquare):
 
 def validate(tables, length, records, coverageSample = 40):
     """The four checks of H-022.  A failure of the first two says the instrument
-    is wrong; of the last two, that the keys are."""
+    is wrong; of the last two, that the keys are.
+
+    `records` is only read by check 4, for a sample of starts: a list of
+    records, or the ledger's path, which is then re-read for just the sample."""
     result = {}
     nodes = tables['nodes']
 
@@ -537,16 +600,35 @@ def validate(tables, length, records, coverageSample = 40):
 
     # 4. The census reaches everything the label-exact search does, so every
     #    meeting that search can find is a shared id here, hence a shared key.
-    ordered = sorted(records, key = lambda record: record['unit'])
-    step = max(1, len(ordered) // coverageSample)
+    sampled = _coverageSample(records, coverageSample)
     missing = 0
-    for record in ordered[::step]:
+    for record in sampled:
         got = {search.quiverKey(shapeKeys.deserialise(node['quiver']))
                for node in record['result']['nodes']}
         start = nakayama.LinearNakayamaAlgebra(length, record['unit'])
         depth = min(2, record['result']['depth'])
         expected = set(search.quiversReachedFrom(start, depth, alsoDual = True)) - {None}
         missing += len(expected - got)
-    result['coverage'] = {'startsChecked': len(ordered[::step]), 'missing': missing,
+    result['coverage'] = {'startsChecked': len(sampled), 'missing': missing,
                           'ok': missing == 0}
     return result
+
+
+def _coverageSample(records, coverageSample):
+    """Every `step`-th record in order of start, as check 4 samples them.
+
+    `records` is a list, or a ledger path: then the ledger is read twice, once
+    for the start names and once for just the sampled records, so the whole
+    ledger is never held at once.
+    """
+    if not isinstance(records, str):
+        ordered = sorted(records, key = lambda record: record['unit'])
+        return ordered[::max(1, len(ordered) // coverageSample)]
+    units = sorted(record['unit'] for record in iterLedger(records))
+    wanted = collections.Counter(units[::max(1, len(units) // coverageSample)])
+    found = []
+    for record in iterLedger(records):
+        if wanted[record['unit']] > 0:
+            wanted[record['unit']] -= 1
+            found.append(record)
+    return sorted(found, key = lambda record: record['unit'])

@@ -29,6 +29,7 @@ missed match costs a meeting; there are no false ones.  Spec:
 docs/superpowers/specs/2026-09-24-shape-atlas-design.md.
 """
 
+import functools
 import hashlib
 import json
 from fractions import Fraction
@@ -237,6 +238,28 @@ def _matcher(first, second):
                                     edge_match = _EDGE_MATCH)
 
 
+#: How many representatives' structure graphs `ShapeIndex` keeps built.  Most
+#: buckets hold one shape and are never compared again, so a small cache of the
+#: recently compared ones serves nearly every comparison.
+GRAPH_CACHE = 4096
+
+
+def compactForm(pathAlg):
+    """The algebra as one compact JSON string: what `ShapeIndex` keeps of a
+    representative.  A built `nx.Graph` is several KB; at n = 9 there are about
+    130 000 representatives per level, which is how the n = 9 analysis ran out
+    of memory at 6.1 GB (task 8a)."""
+    return json.dumps(serialise(pathAlg), separators = (',', ':'))
+
+
+@functools.lru_cache(maxsize = GRAPH_CACHE)
+def _representativeGraph(text, level):
+    # `serialise` keeps vertex names, arrow keys and every relation's support,
+    # so the graph built back from it is the representative's own graph, node
+    # for node -- which L3 needs, since it relabels through the node names.
+    return structureGraph(deserialise(json.loads(text)), level)
+
+
 class ShapeIndex:
     """Exact keys at every level, one representative per shape per bucket.
 
@@ -246,6 +269,11 @@ class ShapeIndex:
     `fingerprint.canonicalKey`.  An isomorphism of algebras preserves every
     relation's kind, lengths and support, so it is always among the L2
     isomorphisms, and trying those is complete up to the cap.
+
+    A representative is kept as its `compactForm` string (and at L3 its
+    canonical key), and its graph is built again only when a later quiver
+    lands in the same bucket.  Vertex names must therefore survive JSON, as
+    the integers every census uses do.
 
     Keys are only comparable within one index: they number representatives in
     the order they were met.
@@ -259,26 +287,28 @@ class ShapeIndex:
     def keyOf(self, pathAlg, level, bucket = None):
         bucket = bucketOf(pathAlg, level) if bucket is None else bucket
         representatives = self._representatives[level].setdefault(bucket, [])
-        graph = structureGraph(pathAlg, level)
+        # The quiver's own graph is only needed when there is something to
+        # compare it with; a first-met bucket, the common case, never builds it.
+        graph = structureGraph(pathAlg, level) if representatives else None
         if level < 3:
             for position, representative in enumerate(representatives):
-                if _matcher(graph, representative).is_isomorphic():
+                if _matcher(graph, _representativeGraph(representative, level)).is_isomorphic():
                     return self._key(level, bucket, position)
-            representatives.append(graph)
+            representatives.append(compactForm(pathAlg))
             return self._key(level, bucket, len(representatives) - 1)
         canonical = fingerprint.canonicalKey(pathAlg)
-        for position, (representativeGraph, representativeKey) in enumerate(representatives):
-            if self._sameAlgebra(pathAlg, canonical, graph,
-                                 representativeGraph, representativeKey):
+        for position, (representative, representativeKey) in enumerate(representatives):
+            if self._sameAlgebra(pathAlg, canonical, graph, representative, representativeKey):
                 return self._key(level, bucket, position)
-        representatives.append((graph, canonical))
+        representatives.append((compactForm(pathAlg), canonical))
         return self._key(level, bucket, len(representatives) - 1)
 
-    def _sameAlgebra(self, pathAlg, canonical, graph, representativeGraph, representativeKey):
+    def _sameAlgebra(self, pathAlg, canonical, graph, representative, representativeKey):
         if canonical is None or representativeKey is None:
             return False
         if canonical == representativeKey:
             return True
+        representativeGraph = _representativeGraph(representative, 3)
         for count, mapping in enumerate(_matcher(graph, representativeGraph).isomorphisms_iter()):
             if count >= self.isomorphismCap:
                 self.capHits += 1

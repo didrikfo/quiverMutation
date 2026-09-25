@@ -222,3 +222,30 @@ def test_the_command_line_reads_a_ledger(tmp_path, monkeypatch, capsys):
     assert 'hubs' in printed and 'candidate merges: 0' in printed and 'validation' in printed
     assert (tmp_path / 'page.html').exists()
     assert (tmp_path / 'logs' / 'atlas-n5-d2-s0-r0.nodes.parquet').exists()
+
+
+def test_resolve_reads_a_stream_as_it_reads_a_list(atlas5, tmp_path):
+    """Task 8a: `atlas.py` streams the ledger; the tables must not change."""
+    ledger = tmp_path / 'ledger.jsonl'
+    with open(ledger, 'w') as handle:
+        for record in atlas5['records']:
+            handle.write(json.dumps(record) + '\n')
+        handle.write('{"unit": "cut off mid-append\n')
+    streamed = sa.resolve(sa.iterLedger(str(ledger)), 5)
+    for name, table in atlas5['tables'].items():
+        assert streamed[name].equals(table), name
+        assert streamed[name].schema == table.schema, name
+
+
+def test_validation_reads_the_coverage_sample_from_a_ledger_path(atlas5, tmp_path):
+    ledger = tmp_path / 'ledger.jsonl'
+    with open(ledger, 'w') as handle:
+        for record in reversed(atlas5['records']):
+            handle.write(json.dumps(record) + '\n')
+    fromPath = sa.validate(atlas5['tables'], 5, str(ledger), coverageSample = 5)
+    fromList = sa.validate(atlas5['tables'], 5, atlas5['records'], coverageSample = 5)
+    assert fromPath == fromList and fromPath['coverage']['startsChecked'] > 1
+
+
+def test_iterLedger_of_no_file_is_empty(tmp_path):
+    assert list(sa.iterLedger(str(tmp_path / 'absent.jsonl'))) == []

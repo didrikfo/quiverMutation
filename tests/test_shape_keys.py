@@ -172,3 +172,15 @@ def test_two_different_lnas_are_two_keys_at_L3_and_one_at_L0():
 
 def test_a_key_carries_its_level():
     assert sk.ShapeIndex().keyOf(_square(), 2).startswith('L2:')
+
+
+def test_the_index_keeps_representatives_as_strings():
+    """Task 8a: a built graph per representative ran n = 9 out of memory."""
+    index = sk.ShapeIndex()
+    for level in sk.LEVELS:
+        index.keyOf(_square(), level)
+    for level in (0, 1, 2):
+        assert all(isinstance(r, str) for reps in index._representatives[level].values()
+                   for r in reps)
+    assert all(isinstance(text, str) for reps in index._representatives[3].values()
+               for text, _canonical in reps)
