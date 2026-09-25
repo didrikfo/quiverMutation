@@ -7,6 +7,7 @@ docs/superpowers/specs/2026-09-24-shape-atlas-design.md.
 """
 
 import argparse
+import collections
 import io
 import json
 
@@ -174,6 +175,29 @@ def test_validation_at_n5(atlas5):
     assert result['coverage']['ok'], result['coverage']
     assert result['quipuHub'] == 'skipped'
     assert 'shortSides' in result['squares']
+
+
+def test_squares_verdict_is_ok_when_short_side_two_merely_dominates():
+    # E-053 (n = 8): 957 returning squares with a short side of 2 against 36
+    # with a short side of 3 -- H-022's "never a 3" is refuted, but F-027's
+    # dominance of 2 still holds, so this must be ok.
+    ok, majority = sa._squaresVerdict(collections.Counter({2: 957, 3: 36}), '2x2')
+    assert ok and majority == 2
+
+
+def test_squares_verdict_rejects_a_near_tie():
+    ok, majority = sa._squaresVerdict(collections.Counter({2: 3, 3: 5}), '2x2')
+    assert not ok and majority == 3
+
+
+def test_squares_verdict_rejects_a_top_square_with_the_wrong_short_side():
+    ok, majority = sa._squaresVerdict(collections.Counter({2: 5}), '3x3')
+    assert not ok and majority == 2
+
+
+def test_squares_verdict_rejects_no_squares_at_all():
+    ok, majority = sa._squaresVerdict(collections.Counter(), None)
+    assert not ok and majority is None
 
 
 def test_a_drawing_has_a_node_per_vertex_and_a_path_per_arrow():

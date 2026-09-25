@@ -462,13 +462,34 @@ def replay(length, candidate):
 N9_HUB = 'P^(6)_(1,1)'
 
 
+def _squaresVerdict(shortSides, topSquare):
+    """Pure verdict for the squares check, split out of `validate` so the rule
+    can be tested without running a census.  F-027 holds when short side 2 is
+    both the top square's own short side and strictly the most common one
+    among all returning squares; H-022's stronger "only ever 2" clause was
+    refuted by E-053, so a minority of other short sides (e.g. 3xk) is fine."""
+    if not shortSides:
+        return False, None
+    majorityShortSide = shortSides.most_common(1)[0][0]
+    isStrictMajority = shortSides[2] > 0 and all(
+        shortSides[2] > count for side, count in shortSides.items() if side != 2)
+    ok = (majorityShortSide == 2 and isStrictMajority
+          and topSquare is not None and topSquare.startswith('2x'))
+    return ok, majorityShortSide
+
+
 def validate(tables, length, records, coverageSample = 40):
     """The four checks of H-022.  A failure of the first two says the instrument
     is wrong; of the last two, that the keys are."""
     result = {}
     nodes = tables['nodes']
 
-    # 1. F-027's squares among the shapes that lead back to a line.
+    # 1. F-027's dominance of short side 2 among the squares of the shapes that
+    # lead back to a line.  H-022 had also predicted no short side of 3 at
+    # all, but the n = 8 census (E-053) found 36 genuine 3xk returning
+    # squares (e.g. 405000 by [3, 2]) alongside 957 with a short side of 2, so
+    # that clause is refuted; F-027's "never a 3" was only ever measured on
+    # steps inside rule-table rules, and over-generalised from there.
     measures = shapeMeasures(tables, 2)
     squareOf = nodes.group_by('key2').agg(pl.col('square').first())
     returning = (measures.filter(~pl.col('isLine') & (pl.col('returnRate') > 0))
@@ -479,12 +500,13 @@ def validate(tables, length, records, coverageSample = 40):
             shortSides[int(part.split('x')[0])] += 1
     withSquare = returning.filter(pl.col('square').is_not_null())
     topSquare = withSquare['square'][0] if withSquare.height else None
+    ok, majorityShortSide = _squaresVerdict(shortSides, topSquare)
     result['squares'] = {
         'returningShapes': returning.height,
         'shortSides': dict(sorted(shortSides.items())),
         'topSquare': topSquare,
-        'ok': bool(shortSides) and set(shortSides) == {2}
-              and topSquare is not None and topSquare.startswith('2x'),
+        'majorityShortSide': majorityShortSide,
+        'ok': ok,
     }
 
     # 2. H-014's quipu hub for the leftovers, at n = 9 only.
