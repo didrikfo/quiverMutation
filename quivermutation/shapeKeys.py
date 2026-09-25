@@ -282,6 +282,10 @@ class ShapeIndex:
     def __init__(self, isomorphismCap = ISOMORPHISM_CAP):
         self.isomorphismCap = isomorphismCap
         self.capHits = 0
+        # Quivers keyed at L3 whose `fingerprint.canonicalKey` was refused
+        # (None): each is its own shape at L3 whatever it is, the other
+        # conservative case beside `capHits`, and counted for the same reason.
+        self.uncanonical = 0
         self._representatives = {level: {} for level in LEVELS}
 
     def keyOf(self, pathAlg, level, bucket = None):
@@ -297,6 +301,8 @@ class ShapeIndex:
             representatives.append(compactForm(pathAlg))
             return self._key(level, bucket, len(representatives) - 1)
         canonical = fingerprint.canonicalKey(pathAlg)
+        if canonical is None:
+            self.uncanonical += 1
         for position, (representative, representativeKey) in enumerate(representatives):
             if self._sameAlgebra(pathAlg, canonical, graph, representative, representativeKey):
                 return self._key(level, bucket, position)

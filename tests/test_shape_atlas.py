@@ -17,8 +17,13 @@ import pytest
 import atlas
 import batch
 from quivermutation import atlasPage
+from quivermutation import fingerprint
+from quivermutation import invariants
 from quivermutation import jobs
+from quivermutation import lnaMoves as lm
+from quivermutation import mutation
 from quivermutation import nakayama as nk
+from quivermutation import pathAlgebra
 from quivermutation import search
 from quivermutation import shapeAtlas as sa
 from quivermutation import shapeKeys as sk
@@ -127,6 +132,13 @@ def test_measures_are_in_range(atlas5):
     assert (measures['classes'] <= measures['orbits']).all()
 
 
+def test_measures_break_ties_by_key(atlas5):
+    """A quoted "top five" must be reproducible: ties in classes and starts
+    come out in key order, not in the group-by's."""
+    rows = sa.shapeMeasures(atlas5['tables'], 2).select('classes', 'starts', 'key2').rows()
+    assert rows == sorted(rows, key = lambda row: (-row[0], -row[1], row[2]))
+
+
 def test_transitions_start_and_end_at_a_line(atlas5):
     cycles = sa.transitions(atlas5['tables'], level = 2)
     assert cycles
@@ -167,6 +179,47 @@ def test_replay_refuses_a_false_one(atlas5):
     key, (first, second) = _sharedNonLineKey(atlas5['tables'])
     result = sa.replay(5, {'key': key, 'first': first, 'second': dict(second, path = [])})
     assert not result['ok']
+
+
+def _mergeSide(start, path):
+    return {'start': start, 'path': path, 'orbit': None, 'cls': None, 'id': None}
+
+
+def test_the_n10_merge_replays():
+    """F-054: `30330300` by [7] and `30330400` by [8, 7] meet at one algebra."""
+    result = sa.replay(10, {'key': None, 'first': _mergeSide('30330300', [7]),
+                            'second': _mergeSide('30330400', [8, 7])})
+    assert result['ok'], result
+
+
+def test_the_n10_merge_is_an_explicit_relabelling():
+    """The two ends are not equal with their labels, and the vertex map F-054
+    quotes carries one onto the other exactly.  This reuses the key code
+    (`relabel`, `canonicalKey`); only the next test is independent of it."""
+    first = mutation.quiverMutationAtVertices(nk.LinearNakayamaAlgebra(10, '30330300'), [7])
+    second = mutation.quiverMutationAtVertices(nk.LinearNakayamaAlgebra(10, '30330400'), [8, 7])
+    sigma = {vertex: vertex for vertex in first.quiver.nodes}
+    sigma.update({7: 10, 8: 9, 9: 7, 10: 8})
+    assert fingerprint.canonicalKey(first) != fingerprint.canonicalKey(second)
+    assert fingerprint.canonicalKey(sk.relabel(first, sigma)) == fingerprint.canonicalKey(second)
+
+
+def test_the_n10_merge_is_also_a_mixed_path_between_lines():
+    """F-054's certificate that needs neither the atlas nor its key: one right
+    and two left mutations take `30330300` to the line of `30330400`, each step
+    admissible and keeping the Coxeter polynomial, as `replay` checks.  The row
+    is read as `merges.py` reads a reached line.  merges.py walks one direction
+    at a time, so it could not take this path."""
+    start = nk.LinearNakayamaAlgebra(10, '30330300')
+    baseKey = invariants.coxeterKey(start)
+    algebra = start
+    for step in [7, -9, -10]:
+        checked = algebra if step > 0 else pathAlgebra.dualPathAlgebra(algebra)
+        assert mutation.mutationIsPossibleAtVertex(checked, abs(step))
+        algebra = mutation.quiverMutationAtVertices(algebra, [step])
+        assert search._coxeterKeyOrNone(algebra) == baseKey
+    assert lm.asRelLengths(lm._copy(algebra), 10) == [3, 0, 3, 3, 0, 4, 0, 0]
+    assert invariants.coxeterKey(nk.LinearNakayamaAlgebra(10, '30330400')) == baseKey
 
 
 def test_validation_at_n5(atlas5):
@@ -220,6 +273,7 @@ def test_the_command_line_reads_a_ledger(tmp_path, monkeypatch, capsys):
     assert atlas.main(['5', '--depth', '2', '--validate', '--page', 'page.html', '--top', '3']) == 0
     printed = capsys.readouterr().out
     assert 'hubs' in printed and 'candidate merges: 0' in printed and 'validation' in printed
+    assert 'conservative keys: 0 isomorphism-cap hits, 0 quivers with no canonical key' in printed
     assert (tmp_path / 'page.html').exists()
     assert (tmp_path / 'logs' / 'atlas-n5-d2-s0-r0.nodes.parquet').exists()
 

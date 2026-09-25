@@ -19,6 +19,7 @@ import sys
 
 from quivermutation import atlasPage
 from quivermutation import shapeAtlas
+from quivermutation import shapeKeys
 
 
 def main(argv = None):
@@ -43,9 +44,15 @@ def main(argv = None):
         return 1
     # Streamed, and handed to `validate` as a path: the n = 9 ledger parsed whole
     # does not fit beside the analysis (task 8a).
-    tables = shapeAtlas.resolve(shapeAtlas.iterLedger(path), args.length)
+    index = shapeKeys.ShapeIndex()
+    tables = shapeAtlas.resolve(shapeAtlas.iterLedger(path), args.length, index = index)
     shapeAtlas.writeTables(tables, path[:-len('.jsonl')])
     shapeAtlas.report(tables, args.level, args.top, sys.stdout)
+    # The two places a key says "different" without knowing: an L3 comparison
+    # past the isomorphism cap, and a quiver with no canonical key.  Both cost
+    # meetings, never invent them; zero of each means the L3 count is exact.
+    print("\nconservative keys: {0} isomorphism-cap hits, {1} quivers with no "
+          "canonical key".format(index.capHits, index.uncanonical))
 
     candidates = shapeAtlas.candidateMerges(tables)
     print("\ncandidate merges: {0}".format(len(candidates)))

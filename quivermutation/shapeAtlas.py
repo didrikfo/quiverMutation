@@ -332,7 +332,9 @@ def returnRates(tables, level):
 
 def shapeMeasures(tables, level):
     """Per shape at one level: how widely, how early, how mixed, and whether it
-    leads back to a line.  Sorted by classes reached, then starts."""
+    leads back to a line.  Sorted by classes reached, then starts, then the key
+    itself: without the last, ties come out in whatever order the group-by left
+    them, and a "top five" quoted from a report cannot be reproduced (E-053)."""
     key = 'key{0}'.format(level)
     visits = tables['visits'].join(tables['nodes'].select('id', key), on = 'id')
     perStart = visits.group_by(key, 'start', 'orbit', 'cls').agg(pl.col('depth').min())
@@ -358,7 +360,7 @@ def shapeMeasures(tables, level):
             .join(returnRates(tables, level), on = key, how = 'left')
             .join(isLine, on = key)
             .with_columns(pl.col('returnRate').fill_null(0.0))
-            .sort(['classes', 'starts'], descending = True))
+            .sort(['classes', 'starts', key], descending = [True, True, False]))
 
 
 def transitions(tables, level = 2, maxLength = 4, top = 30, keep = 100):
@@ -439,7 +441,7 @@ def report(tables, level, top, out):
     table("hubs", nonLines)
     table("bridges", nonLines.filter(pl.col('bridge')))
     table("hubs among leftovers", nonLines.filter(pl.col('leftoverShare') > 0)
-          .sort('leftoverShare', 'starts', descending = True))
+          .sort(['leftoverShare', 'starts', key], descending = [True, True, False]))
     print("\ncycles through a line (L{0})".format(level), file = out)
     for count, shapes in transitions(tables, level, top = top):
         print("  {0:>6}  line -> {1} -> line".format(
@@ -531,9 +533,12 @@ def _squaresVerdict(shortSides, topSquare):
     if not shortSides:
         return False, None
     majorityShortSide = shortSides.most_common(1)[0][0]
-    isStrictMajority = shortSides[2] > 0 and all(
+    # A strict plurality, not a majority: 2 must beat every other short side
+    # one by one, not outnumber them all together.  It already makes 2 the
+    # commonest, so `majorityShortSide == 2` need not be asked separately.
+    isStrictPlurality = shortSides[2] > 0 and all(
         shortSides[2] > count for side, count in shortSides.items() if side != 2)
-    ok = (majorityShortSide == 2 and isStrictMajority
+    ok = (isStrictPlurality
           and topSquare is not None and topSquare.startswith('2x'))
     return ok, majorityShortSide
 

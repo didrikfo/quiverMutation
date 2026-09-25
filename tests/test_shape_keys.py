@@ -162,6 +162,30 @@ def test_parallel_naming_and_sign_gauge_agree_at_L3():
     assert index.keyOf(first, 3) != index.keyOf(plus, 3)
 
 
+def test_L3_splits_what_the_L2_skeleton_joins():
+    """Two bundles 1 => 2 => 3 and two zero relations of length two on each.
+
+    The skeletons are the same (two `zero:2` relations, each 1 -> 3 through 2),
+    so L2 is one shape.  The algebras are not: in {ac, bd} each arrow out of 1
+    kills one arrow out of 2, in {ac, ad} one arrow out of 1 kills both -- as
+    tensors, a span of two rank-one tensors against a whole a (x) W, which no
+    change of basis carries onto each other.  L3 must say two.  E-053 found L2
+    and L3 equal at every length it counted; this is what keeps the L3 column
+    from being a copy of L2 by construction.
+    """
+    def bundles(relations):
+        return procedure.toPathAlgebra(
+            _quiver([(1, 2, 0), (1, 2, 1), (2, 3, 0), (2, 3, 1)]),
+            [{path: 1} for path in relations])
+
+    ac, ad, bd = (((1, 2, 0), (2, 3, 0)), ((1, 2, 0), (2, 3, 1)), ((1, 2, 1), (2, 3, 1)))
+    split, shared = bundles([ac, bd]), bundles([ac, ad])
+    index = sk.ShapeIndex()
+    assert index.keyOf(split, 2) == index.keyOf(shared, 2)
+    assert index.keyOf(split, 3) != index.keyOf(shared, 3)
+    assert index.capHits == 0 and index.uncanonical == 0
+
+
 def test_two_different_lnas_are_two_keys_at_L3_and_one_at_L0():
     first = nk.LinearNakayamaAlgebra(6, "3000")
     second = nk.LinearNakayamaAlgebra(6, "0300")
