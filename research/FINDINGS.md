@@ -5,6 +5,92 @@ See [`README.md`](README.md) for conventions.
 
 ---
 
+## F-054 — Two walks can meet at one algebra under different labels, and that joins two of E-032's four unlinked `n = 10` orbits
+*2026-09-26*
+
+Evidence: E-053.
+
+*2026-09-26, corrected before merge:* the first version said E-032 missed this
+because `search.meetingPoints`, "which `merges.py` uses", compares quivers with
+their labels. `merges.py` does not use `meetingPoints`, and its labels never
+mattered; the mechanism below replaces that paragraph. The first version also
+called the merge check independent when it reuses the key's own code; the
+check is now described as what it is, and a test reproduces it.
+
+**The claim.** Two depth-4 walks out of `n = 10`'s leftover LNAs can reach the
+same algebra — a non-line quiver — under different vertex labels, and meeting
+them there joins two orbits E-032 left apart. The shape atlas finds such a
+meeting, at L3 (the algebra up to relabelling), between `orbit:03033030`
+(member `30330300`, right mutation `[7]`) and `orbit:30330400` (member
+`30330400`, right mutations `[8, 7]`). Replaying both paths
+(`shapeAtlas.replay`: every step admissible and Coxeter-guarded) gives two ends
+that are not equal with their labels, over the same Coxeter polynomial, and
+the vertex map `{7: 10, 8: 9, 9: 7, 10: 8}` (identity elsewhere) carries the
+first onto the second exactly under `fingerprint.canonicalKey`. That check
+rebuilds the ends with `mutation.quiverMutationAtVertices` but compares them
+with `shapeKeys.relabel` and `fingerprint.canonicalKey`, the same code the L3
+key is made of: it is independent of the census ledger, not of the key.
+
+**A certificate that needs neither the atlas nor its key.** From `30330300`,
+the mixed path `[7, -9, -10]` — one right mutation, then two left — reaches, in
+three steps, a line that `lnaMoves.asRelLengths` (the route `merges.py` reads a
+reached line by) reads as `[3,0,3,3,0,4,0,0]`, i.e. `30330400`. Every step is
+admissible and keeps the Coxeter polynomial, as `replay` checks. So the merge
+is a plain guarded mutation path from one LNA to the other, of the kind every
+merge E-032 reported rests on.
+
+**The pair, in context.** E-032 left `n = 10`'s twelve leftover orbits in
+seven Coxeter-polynomial groups, one of which has four orbits and, by E-032's
+own words, "all four stayed apart to depth 8": `03033030` (4 members),
+`30330400` (2), `30340030` (2), `30440030` (1), over the polynomial
+`λ^10 + λ^9 − 2λ^8 − 3λ^7 + λ^6 + 4λ^5 + λ^4 − 3λ^3 − 2λ^2 + λ + 1`. The atlas
+joins the first two of those four, via the pair and vertex map above, leaving
+three orbits in that group instead of four.
+
+**Why E-032's search did not find it.** `merges.py` does not meet walks at
+all. From each member, and from its relation dual (which is the opposite
+algebra renumbered, so its walk is the member's left mutations), it walks to
+depth `d` and collects the **lines** it reaches, renumbered by
+`lnaMoves.asRelLengths`; labels never mattered there. But each walk goes one
+way only: all right mutations, or all left ones. This merge needs a mixed path
+(`[7, -9, -10]` above), which neither walk takes, and E-032 searched those
+one-direction walks to depth 8 without meeting it. The atlas found it by
+**meeting two walks in the middle** — right `[7]` from one start, right
+`[8, 7]` from the other — at a quiver that is not a line. Relabelling is needed
+only because that meeting point is not a line: a line can be renumbered to
+`1 -> ... -> n` and read as a row, a non-line meeting point has no such normal
+form, and the L3 key is what supplies one.
+
+**Consequence for H-013's bound.** E-032 had `n = 10`'s 12 leftover orbits
+falling to at most 10 non-quipu classes, so 43–46 derived classes overall.
+This merge takes one orbit off that ceiling: at most 9 non-quipu classes, so
+**43–45**.
+
+**Soundness caveat, unchanged from H-015.** A guarded mutation path (one that
+holds the Coxeter polynomial fixed at every step) is taken as derived
+equivalence under H-015, which is **SUPPORTED**, not proven. This merge rests
+on exactly the same footing as every merge E-032 reported.
+
+**The other two `n = 10` candidate merges the atlas found are not new.** Both
+reproduce merges already known, now from depth-4 walks instead of depth 7:
+the `C(2,4,5)` pair (E-032: `05040330 -> 33460000` at depth 7; here
+`05040330` by `[4, 3, 7, 2]` meets `60504030` by `[-10, -7, -2]`), and F-037's
+`34504030 ~ 50505000` (found there at depth 7; here in 3 mutations from one
+side and 4 from the other).
+
+Reproduce: `python batch.py atlas 10 --depth 4 --sample 20 --jobs 6`, then
+`python atlas.py 10 --depth 4 --sample 20`. The candidate-merge line names the
+two orbits and the paths that reach the meeting shape from each. The merge
+itself is reproduced in seconds, without the census, by three tests in
+`tests/test_shape_atlas.py`: `test_the_n10_merge_replays` (`replay` on the two
+paths), `test_the_n10_merge_is_an_explicit_relabelling` (the vertex map above,
+through the key's own code), and
+`test_the_n10_merge_is_also_a_mixed_path_between_lines` (the atlas-independent
+certificate, `[7, -9, -10]` from `30330300` to `30330400`, every step
+admissible and guarded).
+
+---
+
 ## F-053 — A core's offsets pair up by a reflection, and each pair is one self-dual orbit
 *2026-09-23*
 
