@@ -66,7 +66,7 @@ check what the group claims before it becomes the record.
 ## Running it
 
 **By hand, once.** Start a Claude Code session on this repo and send the prompt
-in [Routine prompt](#routine-prompt) below. Watch the first round or two before
+in [Round prompt](#round-prompt) below. Watch the first round or two before
 putting it on a schedule.
 
 **On a schedule.** A Routine that starts a fresh session on each firing does
