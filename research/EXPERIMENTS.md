@@ -6,6 +6,99 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-055 — Every step the gate admits at n = 6, 7 is a tilting mutation by Ladkani's exact criterion
+*2026-09-29* · **61,718 admitted steps (n = 6 depth 6, n = 7 depth 4, unguarded walk): all pass Prop. 2.3(c) of arXiv:1001.4765 and Cartan(child) = r C rᵀ; the E-032 ALARM step 7 fails both** → H-015, F-038, E-032 · *workshop round 001, scholar, refereed by skeptic*
+
+**What prompted it.** H-015 asks for a second invariant along guarded paths.
+Ladkani's Prop. 2.3(c) is an iff for a step to be a tilting complex; the
+literature note recommended it in place of `isMutable`, and no entry had run it.
+
+**The run.** For each algebra reached, every gate-admitted step, test 2.3(c) (a
+rank computation, `tiltingPlus` in `workshop/scholar_h015.py`) and the Cartan
+congruence. n = 6 depth 6: 9,476 algebras, 29,822 steps; n = 7 depth 4: 8,988
+algebras, 31,896 steps; 0 failures. "Guard" in the script means Coxeter key
+equal after the rewrite; it never fired, so guard-passing = gate-passing here.
+Parents with a directed cycle or no base key are skipped, uncounted. The ALARM
+path (`RD=1`, step 7, vertex 4): gate admits, 2.3(c) False, congruence False,
+key moves. Referee negative control: at every vertex of every n = 4, 5, 6 LNA and
+its relation dual, `tiltingPlus` is False at all gate-refused vertices with an
+arrow (10/42/168) and True at all admitted ones (20/70/252).
+
+**What it does not show.** Nothing about H-015: the guard is inert at these
+sizes (F-038), so this says the gate is already sufficient at n <= 7, depth <= 6.
+Only one non-monomial negative case (the ALARM step) tests `tiltingPlus`; the
+n = 7 counts were not re-run by the referee; n = 8 depth 2 was cut unfinished.
+`tiltingPlus` is not in the library and untested. The region where the guard
+matters (n >= 9, depth >= 6) is untouched.
+
+**Reproduce.**
+```
+timeout 10m .venv/bin/python workshop/scholar_h015.py 6 --depth 6 --unguarded   # 3 min 40 s
+timeout 10m .venv/bin/python workshop/scholar_h015.py 7 --depth 4 --unguarded   # 6 min 10 s
+RD=1 timeout 10m .venv/bin/python workshop/scholar_h015_f038.py                  # seconds
+```
+
+---
+
+## E-054 — The Coxeter key separates the offsets of `3346` at every length, so its five orbits are real
+*2026-09-29* · **`3346` never pairs (key: n = 12..20, 30, 40; orbits: 13, 14, 15); `4056` pairs offsets `o ↔ n-13-o` with the last three alone (orbits to n = 15, key beyond)** → F-053, H-021, H-020, E-052 · *workshop round 001, skeptic, refereed by theorist*
+
+**The run.** Reduced-walk orbit partition against the partition of offsets by
+`coxeterTables.lnaCoxeterKey`, for `3346` (n = 13, 14, 15), `4056` (13, 14, 15),
+`45` (13, 14) and `350066`, `6600066` (13): all orbits closed (largest 17905 rows),
+orbit partition = key partition in every row. Distinct keys prove distinct
+orbits (the moves preserve the key), so the exceptions are not caps, walk or
+gauge; equal keys only bound an orbit above. Key-only partitions: `4056` pairs
+`n-13`-sum with a tail of three alone for n = 14..20, 30; `350066` has nothing
+to 16 and `{4,5}` at 17; `6600066` is `{0}` at 13, `{0,1}` at 14, then pairs
+of sum n - 13 (the submission said n - 14; corrected by the referee). Scan at
+n = 24 of 585 words over digits 0, 3..9 (<= 4 letters): 309 with one pairing
+centre, 7 with a key class of three offsets, 123 with no equal keys.
+
+**What it does not show.** That the pairing of `4056` beyond n = 15 is an
+orbit fact (key-only, a necessary condition); a mechanism for the onset length
+(13 for `4056`, 8 for `45`, 6 for `3344`), which is description, not cause; that
+the other four H-020 failures are the same (only two were reachable). The
+scan's summary output was not saved.
+
+**Reproduce.**
+```
+timeout 10m .venv/bin/python workshop/rounds/001/skeptic_cmp.py 14 3346 4056 45   # about 95 s
+.venv/bin/python workshop/rounds/001/skeptic_cox.py 3346 12 14 20 40               # seconds
+timeout 9m .venv/bin/python workshop/rounds/001/skeptic_scan.py 24                 # about 3 min
+```
+
+---
+
+## E-053 — Census of all 139 single-cluster cores of `--max-word 4` at n = 13 under the reduced walk
+*2026-09-29* · **all orbits close; "the orbit holds a mirror" is true of 129 of 139 cores, so it does not discriminate; 20 cores hold a mirror and fit no reflection** → H-021, F-053, E-052 · *workshop round 001, experimentalist, refereed by skeptic (minor revision outstanding)*
+
+**The run.** Per core, `freeMoves.orbitReport(free = REDUCED, limit = 1500000)`
+at each offset, recording offsets and mirrors held (536 orbit walks, 0 caps,
+largest 4217 rows). Best-fit reflection `o ↔ s - o` allowing an overhang `d`:
+d = 0: 62 cores, 1: 28, 2: 17, 3: 2, no fit (<= 6): 30. Of the 30, ten (`30xy`,
+`330x` words) hold no mirror and pair nothing; twenty hold a mirror and no
+reflection (`344 366 506 3033 3034 3044 3303 3346 3456 3466 3566 3606 4044 4056
+4403 4404 4405 4406 4605 6005`). Every core that pairs holds a mirror. At n = 14
+only seven cores were run (`45 506 3033 3035 3344 3346 4056`, 111 s): `45`, `3344`
+match E-052; `3346` is five singleton orbits each holding its own mirror.
+
+**Caveat found by the referee.** "Holds a mirror" was scored including a
+mirror at the orbit's own offset. Under H-021's literal wording that refutes the
+"exactly when" and contradicts its "no orbit holding a mirror" for `3346`. Under
+the stricter reading (the mirror of `c@p` lies in the orbit of `c@q`, `q != p`)
+`3346`, `4056` and `3033` would agree with "no pairing" and only cross-offset
+cases such as `344 4044 4403` survive as counterexamples; that count has not been
+run. The overhang fit is loose (d up to 6 on 4 to 7 offsets) and its code is not
+in the repository; only the raw orbits reproduce from the cited script.
+
+**Reproduce.** Script `t1.py` was left in a scratchpad (not saved); the recipe is
+`batch._singleCores(4, 6, False)`, `batch._rowFor(13, c, o)`,
+`freeMoves.orbitReport(13, row, free = freeMoves.REDUCED, limit = 1500000)`,
+`freeMoves.mirrorRow`. About 25 min on 4 processes.
+
+---
+
 ## E-052 — The outside band of a core is its reflection pairs
 *2026-09-23* · **under the reduced walk the outside offsets of `45` fall into closed orbits `{o, n - 8 - o}`, one per pair, at every length from 12 to 17; the same pairing holds for seven more cores and fails for `3346`** → F-053, H-021, H-020, F-051
 

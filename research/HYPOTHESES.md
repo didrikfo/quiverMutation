@@ -7,7 +7,7 @@ it. Status is one of `OPEN`, `SUPPORTED`, `CONFIRMED → F-nnn`, `REFUTED → R-
 ---
 
 ## H-021 — A core's slide is a palindrome when its class is self-dual, and the head/tail difference is the reflection's shortfall
-*2026-09-23* · **OPEN** *(eight cores pair their offsets by a reflection at `n = 13` and 14, `3346` does not -- E-052, F-053)*
+*2026-09-23* · **OPEN** *(eight cores pair their offsets by a reflection at `n = 13` and 14, `3346` does not -- E-052, F-053); round 001: under the literal reading the "exactly when" fails, since 129 of 139 cores hold a mirror and 20 hold one with no reflection (`3346` holds its own mirror), but a stricter reading of "mirror" is untested -- E-053, E-054)*
 
 **The conjecture.** For a single-cluster core `c` there is a centre `s(c)` with
 `s(c) = n - k(c)` such that, under the reduced walk, `c@o` and `c@(s(c) - o)`

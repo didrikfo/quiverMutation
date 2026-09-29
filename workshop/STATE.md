@@ -3,77 +3,46 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 0
+last_round: 1
 next_round_kind: ordinary
 
 ## Open threads
 
-Seeded 2026-09-29 from `research/` (HYPOTHESES, the latest FINDINGS F-051 to
-F-053, and EXPERIMENTS E-051/E-052). Ordered by how much the recent record
-bears on them. Each line: id · question · suited to · status.
+Round 001 worked T1, T3, T5 (records E-053, E-054, E-055). Each line: id · question · suited to · status.
 
-- **T1** · H-021, the "exactly when": for every single-cluster core of
-  `--max-word 4` at `n = 13` (then 14), walk each offset under the reduced walk
-  to closure, record which offsets and which mirrors each orbit holds, and
-  test both directions. Reproduction recipe at the end of E-052
-  (`freeMoves.orbitReport(..., free = freeMoves.REDUCED)`). · experimentalist ·
-  open
-- **T2** · Why do offsets pair by a reflection (F-053)? Each orbit is closed
-  under the relation dual; find the mechanism that sends `c@o` to
-  `c@(s(c) - o)`, and a formula for the centre `s(c)` in terms of the core. ·
-  theorist · open
-- **T3** · The exceptions to F-053 and H-020: is `3346` (five orbits at
-  `n = 14`, no pairing) and `4056` (0 with 1, 2 alone) real or an artefact of
-  a cap, the walk, or the gauge (F-050, F-052)? Same question for the six
-  H-020 failures of E-051, all words whose slide at 13 is one or two
-  offsets. · skeptic · open
-- **T4** · H-020 as a theorem: the rule table acts the same on every interior
-  position and only anchored and edge moves see the ends (F-051). State the
-  lemma precisely and prove it, or find the rule that breaks it. · theorist ·
-  open
-- **T5** · H-015, the Coxeter guard: the cheap test first -- every step the
-  guard admits at `n = 6` and `n = 7`, checked by a second invariant
-  (see H-015 for candidates; R-008 on why Avella-Alaminos-Geiss does not
-  apply directly). What does the literature offer that is computable here? ·
-  scholar, skeptic · open
-- **T6** · H-017, a quipu in the class carries more relations than cords:
-  look for the invariant that counts relations against cords (the Euler form
-  is the suggestion in H-017); test it on the recorded classes at small `n`. ·
-  maverick, theorist · open
-- **T7** · H-010, overlap reducible only at an end: a proof from step 7 of the
-  procedure (arXiv:2112.08129, summary in `research/literature/`). The probe
-  search is too long for a round; do not run `probe.py --steps 7`. · theorist ·
-  open
-- **T8** · Tooling for T1/T3: a command (a `batch.py` task or a small script)
-  that prints E-052's report -- for a core at a length, the orbit of each
-  offset under the reduced walk, its size, which offsets and which mirrors it
-  holds -- with a test pinning `45` at 13. · toolsmith · open
-- **T9** · H-019 and H-013 need long runs (samples at 17+, `merges.py 10
-  --depths 5 6 7 8`); not for a round. A persona may write the exact overnight
-  proposal, sized with `--plan`, for the human to run. · any · parked for
-  rounds
+- **T1** · H-021 "exactly when": under the literal reading it fails (129 of 139 cores at n = 13 hold a mirror; 20 hold one with no reflection, E-053). Open: the *strict* reading (mirror of `c@p` in the orbit of `c@q`, `q != p`) over the 139 cores; the n = 14 census (not run); commit the census script. Restate H-021 once done. · experimentalist (revision), theorist · revising
+- **T2** · Why offsets pair by a reflection (F-053): find the mechanism and a formula for the centre `s(c) = n - k(c)`. New data (E-054): `k(4056) = 13`, `k(45) = 8`, `k(3344) = 6`, `k(556) = 10`; onset length below which nothing pairs; `skeptic_scan.py` at n = 24 gives 123 of 585 words with no pair and 7 with a triple. Candidate: is `d(c)` = the H-020 head/tail difference? (untested) · theorist · open
+- **T3** · `3346` never pairs (Coxeter key, n = 12..40): settled as real by key separation (E-054). `4056` is a reflection with an onset (orbit-verified to n = 15). Open: walk one `4056` orbit at n = 16; the other four H-020 failures (census ledgers are not in the repo); the 20-core no-fit list, esp. `3033 3034 3044 3303`. · skeptic (revision) · revising
+- **T4** · H-020 as a theorem: the rule table acts the same at every interior position, only anchored and edge moves see the ends (F-051). State and prove the lemma. · theorist · open
+- **T5** · H-015: Ladkani 2.3(c) (arXiv:1001.4765) is the exact per-step criterion; it agrees with the gate on 61,718 steps at n = 6, 7 and catches the E-032 ALARM step (E-055). Not evidence for the guard (inert at n <= 7). Open: a second non-monomial negative case; the audit where the guard fires (n = 9, 10; overnight); promote `tiltingPlus` to the library as `isTilting`. · scholar (revision), toolsmith · revising
+- **T6** · H-017, a quipu carries more relations than cords: the Euler-form count; test on recorded classes at small `n`. · maverick, theorist · open
+- **T7** · H-010, overlap reducible only at an end: a proof from step 7 of arXiv:2112.08129. Do not run `probe.py --steps 7`. · theorist · open
+- **T8** · Tooling: a `batch.py` task or script printing E-052's orbit report for a core at a length, with a test pinning `45` at 13. Now also wanted: the Coxeter-key prefilter (partition offsets by key; key difference proves separation, equal key does not prove pairing) and the T1 census as a resumable task. · toolsmith · open
+- **T9** · H-019, H-013: long runs, not for a round. Overnight proposals waiting on the human: the n = 14 census of all 139 cores (about 90 min, 4 procs); the Ladkani audit at n = 9/10 depth 6 to 8. · any · parked
 
-Suggested first round (the chair may change it): experimentalist on T1,
-skeptic on T3, scholar on T5.
+Suggested next round (the chair may change it): the three revisions above fill `researchers_per_round`; the theorist on T2/T4 goes in the round after unless STEERING asks otherwise.
 
 ## Awaiting revision
 
-<!-- submission path · author · what the referee asked for -->
-(none)
+- `rounds/001/experimentalist.md` · experimentalist · run the strict-mirror reading over the 139 cores at 13 and say which reading is refuted; put the overhang-fit code where it can be re-run; reword the `3346` sentence. (review: `rounds/001/experimentalist.review.md`)
+- `rounds/001/skeptic.md` · skeptic · correct `6600066` to sum n - 13; separate orbit-verified (n <= 15) from key-only claims; walk one `4056` orbit at 16 or say it is unconfirmed; save the scan summary; drop "with a cause". (review: `rounds/001/skeptic.review.md`)
+- `rounds/001/scholar.md` · scholar · add the referee's negative control; define "guard" and state the skipped parents; a second non-monomial negative case, or say there is one. (review: `rounds/001/scholar.review.md`)
 
 ## Requests between personas
 
-<!-- "toolsmith: experimentalist needs X" -- picked up by whoever is called next -->
-(none)
+- toolsmith: the Coxeter-key prefilter and a committed census task (skeptic, experimentalist).
+- experimentalist: test the key partition against the orbit partition over the whole `--max-word 4` catalogue at 13 (skeptic; find a key class the walk splits).
+- theorist: the centre `s(c)` formula from `skeptic_scan.py` data (skeptic).
+- skeptic: check `tiltingPlus` on non-monomial parents (scholar).
 
 ## Rota
 
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | - | - |
-| theorist | - | - |
-| skeptic | - | - |
-| scholar | - | - |
+| experimentalist | 001 | - |
+| theorist | - | 001 |
+| skeptic | 001 | 001 (x2) |
+| scholar | 001 | - |
 | toolsmith | - | - |
 | maverick | - | - |

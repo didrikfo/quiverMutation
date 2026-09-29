@@ -480,6 +480,20 @@ its partner (E-047). Every rescue on record involves a `35` or a `36`, which the
 reduced walk places alone at every offset: an artifact of the plain walk
 (E-051).
 
+**Overhang.** How many offsets of a core have no reflection partner in range
+when the offsets are fitted to `o <-> s - o`; `0` is E-052's exact pairing. A
+loose fit (large overhang on a short range) is weak evidence of a reflection
+(E-053).
+
+**Onset (of a core).** The length below which no two offsets of a core share a
+Coxeter-key class, so nothing can pair; for `4056` pairs first appear at
+`n = 14`. Read off keys, not explained (E-054).
+
+**Ladkani criterion.** Prop. 2.3(c) of arXiv:1001.4765: an iff, computed as a
+rank, for `T^+_k` to be a tilting complex, so for a mutation step to be a
+derived equivalence. Agrees with the gate on every admitted step at `n <= 7`
+and fails at the E-032 ALARM step (E-055).
+
 ---
 
 ## Sampling long lengths
