@@ -6,6 +6,26 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-060 — For 13 of 13 cores whose outside block is interior, the reflection centre is the first plus the last outside offset (`d = t - h`), at n = 13; 3 of 3 at n = 14
+*2026-09-30* · **Slides computed for the 395 orbit walks of E-056 (n = 13, 139 cores; no undecided, no orbit with mixed verdicts). Cores with a reflection fit and a mixed slide whose outside block touches neither end: 13, all 13 have fitted `s` = first outside offset + last outside offset, i.e. overhang `d = hi - s = t - h` (tail minus head, H-020). Mixed slide with the block touching an end: 17 of 21 fit (fails `4045 3556 4506 4556`). All outside: 10 of 13 (fails `4046 5046 5056`). All inside (62 cores): the slide is silent about `d`, not tested. n = 14, 12 chosen cores: interior 3/3 (`45 46 504`), end-touching 4/7, as at 13** → H-021, H-020, F-053, E-052, E-056 · *workshop round 003, theorist, refereed by skeptic*
+
+**The result and its limits.** If a centre `s` pairs offsets and the reflection maps the outside block onto itself, then `s` = first outside + last outside and `d = t - h`; that step is a short argument from "the verdict is constant on an orbit" (E-052) and is close to a tautology. The content is that the fold happens in 13 of 13 interior cases. Failures occur only among end-touching blocks (4 of 21 fail), where several centres are slide-consistent and the orbits choose one differing by 1; this is one direction only. F-053 already states the case of `45` (`d = 1`, n = 12..17). Interior blocks at n = 13 have `m` = 2 to 4 outside offsets (5 only for `45` at 14); no interior-block core other than `45` has been tested with `m >= 5`. The n-independence of `s = n - k(c)` and `d` (the restated H-021') rests on 12 cores over one step, 13 -> 14 (all 12 fit again, `s` up by 1, `d` unchanged); the 14 sample is chosen, not a census. The restatement covers only cores that pair; 30 of 139 at n = 13 have no fit and are outside it. Not explained: why the outside block folds onto itself; the formula for `k(c)`.
+
+**Referee's required change not done:** the interior / end-touching split is a described snippet, not a committed column; `theorist_shortfall.py` prints the slide string but not that flag. The counts above were recomputed independently by the referee and agree.
+
+**Reproduction.** `.venv/bin/python workshop/rounds/003/theorist_shortfall.py` (seconds, from `theorist_slides_n13.jsonl`); `.venv/bin/python workshop/rounds/003/theorist_rule.py workshop/rounds/003/theorist_census_n14_sample.jsonl workshop/rounds/003/theorist_slides_n14_sample.jsonl`. The slides: `theorist_slides.py` in 4 shards (about 5 min each).
+
+---
+
+## E-059 — The 7 cores `344 366 4044 4403 4404 4405 4605` pair by a reflection at every even n from 12 to 18 and at none of n = 13, 15, 17 (strict mirror instead)
+*2026-09-30* · **For these 7 cores only: n = 12, 14, 16, 18: 7 of 7 pair (fit `d` = 0 for `344 366 4403 4605`, 1 for `4044 4404`, 2 for `4405`, the same at every even n) and hold no strict mirror; n = 13, 15, 17: 7 of 7 have no fit and hold a strict mirror. n = 8..11: mixed, few offsets, weak. All 289 orbit walks closed** → H-021, E-056, F-053 · *workshop round 003, experimentalist, refereed by theorist*
+
+**The run.** E-056 left the 7 as "mirror without reflection" at n = 13. Census (`experimentalist_census.py`, 3 s per core per n) and the round-002 fit, on the 7 cores for n = 8..18 (the n = 13 rows are E-056's). At n = 14, `344` has orbits `{0,7} {1,6} {2,5} {3,4}` (four clean pairs); at n = 13 and 15 the offsets that would fold split into singleton orbits of equal size (n = 13: 50 and 50; n = 15: 64 and 64). That equality is an observation; that the singletons "would pair" is interpretation, and no mechanism is offered. So the 7 are not a family that never pairs; the n = 13 defect is an odd-n effect **for these 7, chosen because they show it at 13**. Nothing is known for the other 132 cores at any n other than 13 (the n = 14 census is parked for the overnight); "no fit" is a statement about the fit rule (`d <= 6`), not the walks. The 8 strict-mirror-true cores of E-056 are these 7 plus `406`, which pairs; the "eight cores pair at n = 13 and 14" of E-052 is a different eight.
+
+**Reproduction.** `.venv/bin/python workshop/rounds/003/experimentalist_table.py workshop/rounds/003/experimentalist_census_7cores_n8_18.jsonl` (seconds; per-core `d` and `s`: `.venv/bin/python workshop/rounds/002/experimentalist_fit.py` on the same file); one core: `.venv/bin/python workshop/rounds/002/experimentalist_census.py 14 --cores 344`. Reproduced by the referee for `344` and `4405` at n = 14, 15, 16.
+
+---
+
 ## E-056 — H-021's mirror clause is no "exactly when" on any of three readings, at n = 13 over all 139 cores
 *2026-09-30* · **Loose: P => mirror (109/109), mirror => P fails for 20. Strict (mirror of `c@p` in an orbit not holding `p`): true for 8 cores, false for 108 of the 109 pairing cores (by construction: the mirror acts inside the orbit); strict => P fails for 7 (`344 366 4044 4403 4404 4405 4605`). strict2: P => strict2 holds, strict2 => P fails for the same 7** → H-021, F-053, E-053 · *workshop round 002, experimentalist, refereed by skeptic*
 

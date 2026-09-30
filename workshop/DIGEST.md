@@ -7,6 +7,20 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 003 -- 2026-09-30 -- ordinary
+
+Worked: theorist (T1/T2), experimentalist (T1), toolsmith (T8). Referees: skeptic (x2), theorist. All minor revision; I accepted all three after applying the referees' wording and test points myself. Details in `rounds/003/`.
+
+- **experimentalist:** the 7 "mirror without reflection" cores of E-056 pair by a reflection at n = 14, and at every even n 12..18; they fail at n = 13, 15, 17. So that defect is an odd-n effect **for these 7** (chosen because they show it at 13); nothing known yet for the other 132.
+- **theorist:** H-021 restated without the mirror clause, covering only cores that pair. For cores whose outside block is interior the shortfall is exactly the H-020 tail minus head (13/13 at n = 13, 3/3 at 14); with the block at an end 17/21. Near-tautological, F-053 has it for `45`; the interior/end split is not yet a committed column.
+- **toolsmith:** `batch.py orbits N` (resumable E-052 orbit report), tests pin `45` and `344` at 13.
+
+Promoted: E-059, E-060; H-021 status line (still OPEN); two glossary terms. `isTilting` still not promoted (round 002 q1). Merging `main` was a no-op. No unanswered questions to decide.
+
+**Question for you (chair takes the recommended option if unanswered):** add the full n = 12 and n = 14 censuses (139 cores, about 90 min each, 4 procs) to `OVERNIGHT.md`, to see whether parity governs the other cores? Recommend yes.
+
+---
+
 ## Round 002 -- 2026-09-30 -- ordinary
 
 Revisions by experimentalist (T1), skeptic (T3), scholar (T5). Referees: skeptic (x2), theorist. All accepted (skeptic's with three wording points, which I applied). Details in `rounds/002/`.

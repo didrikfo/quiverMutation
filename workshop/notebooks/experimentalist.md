@@ -1,19 +1,18 @@
 # Experimentalist notebook (rewritten each round)
 
-## What I now believe (after round 002)
-- At n = 13 all 139 single-cluster cores of `--max-word 4` close under the reduced walk (395 orbit walks, 0 caps). Census, fit and raw data are committed in `workshop/rounds/002/` (`experimentalist_census.py`, `_fit.py`, `_census_n13.jsonl`).
-- H-021's "mirror <=> reflection pairing" fails on every reading. Loose (some orbit holds a mirror of some placement): true of 129 cores, 20 hold one with no pairing. Strict (mirror of c@p in an orbit not holding p): 8 cores; 108 of the 109 pairing cores lack it, because the mirror acts inside the orbit. Strict2 (mirror plus another offset in the orbit): pairing => strict2 for all 109, but 7 cores (`344 366 4044 4403 4404 4405 4605`) hold it with no fit.
-- Under strict, `3346` and `4056` hold no mirror and agree with "no pairing": H-021's text about them is right under strict, wrong under loose.
-- Pairing itself is solid: 62 cores exact (d = 0), 47 with overhang 1..3, 30 none. Large-d fits are weak evidence.
-- E-052's `45` numbers reproduce again at 13.
+## What I now believe (after round 003)
+- The 7 survivors (`344 366 4044 4403 4404 4405 4605`) are a parity effect. Swept n = 8..18 (one core = 1 to 3 s): at n = 12, 14, 16, 18 all 7 pair by reflection (d = 0 for 4, 1 for 2, 2 for `4405`), no strict mirror; at n = 13, 15, 17 none pairs and all 7 hold strict mirror. n = 9..11 mixed (1 to 5 fail), few offsets, weak.
+- So T1's "pairing with a defect" question: at n = 14 no defect. The n = 13 defect is an odd-n one (singletons of equal size, e.g. `344` at 13: `{2}50 {4}50`; at 15 `{2}64 {6}64`).
+- The n = 13 census (139 cores) is therefore one parity class only. Its "30 no-fit" and "13 mirror-without-fit" verdicts may not carry to even n; unknown.
+- Round 002 still stands: H-021's mirror clause fails on every reading at n = 13; pairing itself 62 exact / 47 overhang / 30 none at 13.
 
 ## What I tried
-- Ran the 4-shard census in the background with `timeout 10m` per shard, about 5 min wall; the loop finished all shards in one go.
-- The fit rule: smallest d in 0..6, s = lo+hi+-d, closure of every orbit under o -> s-o inside the offset set, and one real swapped pair.
+- `experimentalist_census.py` has no `--plan`; I sized by running one core. `--cores a,b,c` works; all runs completed, 0 caps.
+- Merged data: `workshop/rounds/003/experimentalist_census_7cores_n8_18.jsonl`; table script `experimentalist_table.py`.
 
 ## What I would do next
-1. Test d(c) against `|head - tail|` of H-020 for the 109 fitting cores (unchecked, three rounds running).
-2. The n = 14 census (OVERNIGHT Menu 4), then the fit again: which of the 7 strict cores and 13 mirror-without-fit cores change class with length.
-3. Study the 7 `344`-type cores: pairing with a defect at the middle offsets (`2`,`4` swapped by mirror only).
-4. Toolsmith: turn the census into a `batch.py` task with a test pinning `45` at 13.
-- Watch: I have not checked whether "strict2" is a trivial consequence of orbits being unions of pairs; do not over-read the 132/139 agreement.
+1. Cheap: run the full 139 cores at n = 12 (fewer offsets, faster than 14) to see whether the 30 no-fit and 13 mirror-without-fit change class; and a sample of the 62 exact cores at n = 15 to see if they lose pairing at odd n.
+2. The overnight n = 14 census, then fit; compare class per core against 13.
+3. Test d(c) against `|head - tail|` of H-020 (unchecked, four rounds running).
+4. Toolsmith: `batch.py` task for the census with a `45` pin; add `--plan`.
+- Watch: n = 9..11 fits use 2 to 5 offsets, easy to satisfy or fail; do not read them as the same phenomenon. Only 7 cores were swept, so "parity" is shown for these, not for all.

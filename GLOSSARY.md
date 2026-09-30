@@ -625,3 +625,12 @@ by construction. E-056.
 (delegating to `procedure.isMutable`); *guard* is the check that the Coxeter key
 of the reduced child equals the parent's. Distinct from each other; "the guard
 never fires" means every gate-admitted child kept its key. E-055, E-057.
+
+**Shortfall (overhang) of a pairing core.** For a core that pairs at length `n`
+by a reflection `o <-> s - o`, `d = hi - s`, `hi` the last offset with a row.
+When the outside block of the slide is interior, `d` is the H-020 tail minus
+head. E-060.
+
+**Odd-n effect.** For the 7 cores `344 366 4044 4403 4404 4405 4605`, pairing by
+a reflection holds at every even n from 12 to 18 and fails at 13, 15, 17, where
+the folded offsets are equal-size singleton orbits. E-059.

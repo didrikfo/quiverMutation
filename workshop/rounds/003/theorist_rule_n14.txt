@@ -1,0 +1,12 @@
+45 ioooooii head 1 tail 2 fit s 6 hi 7 hi+h-t 6 OK
+3444 oooooii head 0 tail 2 fit s 4 hi 6 hi+h-t 4 OK
+4556 ooooi head 0 tail 1 fit s 2 hi 4 hi+h-t 3 DIFF
+504 iioooooi head 2 tail 1 fit s 8 hi 7 hi+h-t 8 OK
+3355 iioooo head 2 tail 0 fit s 7 hi 5 hi+h-t 7 OK
+4045 ooooii head 0 tail 2 fit s 2 hi 5 hi+h-t 3 DIFF
+46 iooooii head 1 tail 2 fit s 5 hi 6 hi+h-t 5 OK
+3445 ooooii head 0 tail 2 fit s 3 hi 5 hi+h-t 3 OK
+334 iiiiiiii head 8 tail 0 fit s 6 hi 7 hi+h-t 15 DIFF
+3344 iiooooo head 2 tail 0 fit s 8 hi 6 hi+h-t 8 OK
+4506 ioooo head 1 tail 0 fit s 6 hi 4 hi+h-t 5 DIFF
+3345 oooooo head 0 tail 0 fit s 5 hi 5 hi+h-t 5 OK
