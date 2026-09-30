@@ -7,6 +7,20 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 002 -- 2026-09-30 -- ordinary
+
+Revisions by experimentalist (T1), skeptic (T3), scholar (T5). Referees: skeptic (x2), theorist. All accepted (skeptic's with three wording points, which I applied). Details in `rounds/002/`.
+
+- **experimentalist:** H-021's mirror clause fails on every reading at n = 13. Strict reading: false for 108 of 109 pairing cores (by construction); 7 cores (`344 366 4044 4403 4404 4405 4605`) hold a strict mirror with no reflection. `3346` and `4056` hold no strict mirror, so H-021's text on `3346` is right under that reading.
+- **skeptic:** first counterexample to "orbit = key class": `4056` at n = 16, offsets `{1,2}` are two mirror-image orbits though the key pairs them (derived equivalent via F-026). Also corrected the n = 24 scan: 309 / 155 / 121, not "7 / 123".
+- **scholar:** on non-monomial parents (n = 5, 6, 7) Ladkani 2.3(c) rejects exactly the gate-refused vertices; still no gate-admitted rejection except E-032 step 7. Negative control reproduced.
+
+Promoted: E-056, E-057, E-058; E-054 corrected in place; H-021 status line updated (still OPEN); two glossary terms. Merging `main` was a no-op.
+
+**Questions for you (chair takes the recommended option if unanswered):** (1) Promote `isTilting` to the library as a cross-check? Recommend not yet. (2) Restate H-021 without the mirror clause next round (theorist), with the 7 survivors run at n = 14 (experimentalist)? Recommend yes.
+
+---
+
 ## Round 001 -- 2026-09-29 -- ordinary
 
 Worked: experimentalist (T1), skeptic (T3), scholar (T5). Referees: skeptic (x2), theorist. All three came back **minor revision**; all three are due for revision next round. Details in `rounds/001/`.

@@ -614,3 +614,14 @@ time. The saving in time came from the next step: the **shared walk** (E-050)
 remembers every class it settles, so the alias, the mirror and every row the
 walk passed through are answered for free, and it reaches the reduced walk's
 verdicts at a ninth of the plain census's cost.
+
+**Strict mirror (of a placement).** In the census of H-021: the mirror of `c@p`
+lies in an orbit whose held offsets do not include `p`. The *loose* reading counts
+a mirror held by the orbit of `c@p` itself; *strict2* also counts an orbit that
+holds the mirror of `c@p` and some `c@q`, `q != p`. False for every clean pairing
+by construction. E-056.
+
+**Gate / guard (in the H-015 audits).** *Gate* is `mutationIsPossibleAtVertex`
+(delegating to `procedure.isMutable`); *guard* is the check that the Coxeter key
+of the reduced child equals the parent's. Distinct from each other; "the guard
+never fires" means every gate-admitted child kept its key. E-055, E-057.

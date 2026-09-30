@@ -1,0 +1,277 @@
+33 n-sums [-166] triple 20
+34 n-sums [-147] triple 19
+35 n-sums [-129] triple 18
+36 n-sums [-112] triple 17
+37 n-sums [-96] triple 16
+38 n-sums [-81] triple 15
+39 n-sums [-67] triple 14
+44 n-sums [-147] triple 19
+55 n-sums [-129] triple 18
+66 n-sums [-112] triple 17
+77 n-sums [-96] triple 16
+88 n-sums [-81] triple 15
+99 n-sums [-67] triple 14
+304 n-sums []  18
+305 n-sums []  17
+306 n-sums []  16
+307 n-sums []  15
+308 n-sums []  14
+309 n-sums []  13
+346 n-sums [-96] triple 16
+359 n-sums []  13
+369 n-sums []  13
+403 n-sums [-147] triple 19
+404 n-sums [-129] triple 18
+405 n-sums [-112] triple 17
+406 n-sums [-96] triple 16
+407 n-sums [-81] triple 15
+408 n-sums [-67] triple 14
+409 n-sums [-54] triple 13
+444 n-sums [-129] triple 18
+445 n-sums [-112] triple 17
+446 n-sums [-96] triple 16
+447 n-sums [-81] triple 15
+448 n-sums [-67] triple 14
+449 n-sums [-54] triple 13
+455 n-sums [-112] triple 17
+456 n-sums [-96] triple 16
+457 n-sums [-81] triple 15
+458 n-sums [-67] triple 14
+459 n-sums [-54] triple 13
+466 n-sums [-96] triple 16
+467 n-sums [-81] triple 15
+468 n-sums [-67] triple 14
+469 n-sums [-54] triple 13
+477 n-sums [-81] triple 15
+478 n-sums [-67] triple 14
+479 n-sums [-54] triple 13
+488 n-sums [-67] triple 14
+489 n-sums [-54] triple 13
+499 n-sums [-54] triple 13
+506 n-sums []  16
+507 n-sums []  15
+508 n-sums []  14
+509 n-sums []  13
+568 n-sums [-67] triple 14
+607 n-sums []  15
+608 n-sums []  14
+609 n-sums []  13
+679 n-sums [-54] triple 13
+708 n-sums []  14
+709 n-sums []  13
+809 n-sums []  13
+3033 n-sums []  18
+3034 n-sums []  17
+3035 n-sums []  16
+3036 n-sums []  15
+3037 n-sums []  14
+3038 n-sums []  13
+3039 n-sums []  12
+3044 n-sums []  17
+3045 n-sums []  16
+3046 n-sums []  15
+3047 n-sums []  14
+3048 n-sums []  13
+3049 n-sums []  12
+3055 n-sums []  16
+3056 n-sums []  15
+3057 n-sums []  14
+3058 n-sums []  13
+3059 n-sums []  12
+3066 n-sums []  15
+3067 n-sums []  14
+3068 n-sums []  13
+3069 n-sums []  12
+3077 n-sums []  14
+3078 n-sums []  13
+3079 n-sums []  12
+3088 n-sums []  13
+3089 n-sums []  12
+3099 n-sums []  12
+3303 n-sums []  18
+3304 n-sums []  17
+3305 n-sums []  16
+3306 n-sums []  15
+3307 n-sums []  14
+3308 n-sums []  13
+3309 n-sums []  12
+3333 n-sums [-129] triple 18
+3334 n-sums [-112] triple 17
+3335 n-sums [-96] triple 16
+3336 n-sums [-81] triple 15
+3337 n-sums [-67] triple 14
+3338 n-sums [-54] triple 13
+3339 n-sums [-42] triple 12
+3346 n-sums []  15
+3347 n-sums []  14
+3348 n-sums []  13
+3349 n-sums []  12
+3357 n-sums []  14
+3358 n-sums []  13
+3359 n-sums []  12
+3368 n-sums []  13
+3369 n-sums []  12
+3379 n-sums []  12
+3403 n-sums [-129] triple 18
+3456 n-sums []  15
+3457 n-sums []  14
+3458 n-sums []  13
+3459 n-sums []  12
+3466 n-sums []  15
+3468 n-sums []  13
+3469 n-sums []  12
+3477 n-sums []  14
+3478 n-sums []  13
+3488 n-sums []  13
+3489 n-sums []  12
+3499 n-sums []  12
+3504 n-sums [-112] triple 17
+3566 n-sums []  15
+3567 n-sums []  14
+3568 n-sums []  13
+3569 n-sums []  12
+3588 n-sums []  13
+3589 n-sums []  12
+3599 n-sums []  12
+3605 n-sums [-96] triple 16
+3606 n-sums []  15
+3607 n-sums []  14
+3608 n-sums []  13
+3609 n-sums []  12
+3677 n-sums []  14
+3678 n-sums []  13
+3679 n-sums []  12
+3688 n-sums []  13
+3706 n-sums [-81] triple 15
+3707 n-sums []  14
+3708 n-sums []  13
+3709 n-sums []  12
+3788 n-sums []  13
+3789 n-sums []  12
+3799 n-sums []  12
+3807 n-sums [-67] triple 14
+3808 n-sums []  13
+3809 n-sums []  12
+3899 n-sums []  12
+3908 n-sums [-54] triple 13
+3909 n-sums []  12
+4034 n-sums [-112] triple 17
+4047 n-sums []  14
+4048 n-sums []  13
+4049 n-sums []  12
+4057 n-sums []  14
+4059 n-sums []  12
+4068 n-sums []  13
+4069 n-sums []  12
+4079 n-sums []  12
+4445 n-sums [-96] triple 16
+4456 n-sums [-81] triple 15
+4467 n-sums [-67] triple 14
+4478 n-sums [-54] triple 13
+4489 n-sums [-42] triple 12
+4508 n-sums []  13
+4509 n-sums []  12
+4558 n-sums []  13
+4559 n-sums []  12
+4566 n-sums [-81] triple 15
+4606 n-sums [-81] triple 15
+4668 n-sums []  13
+4699 n-sums []  12
+4708 n-sums []  13
+4709 n-sums []  12
+4779 n-sums []  12
+4799 n-sums []  12
+4809 n-sums []  12
+5044 n-sums [-112] triple 17
+5045 n-sums [-96] triple 16
+5046 n-sums [-81] triple 15
+5047 n-sums [-67] triple 14
+5048 n-sums [-54] triple 13
+5049 n-sums [-42] triple 12
+5055 n-sums [-96] triple 16
+5056 n-sums [-81] triple 15
+5057 n-sums [-67] triple 14
+5058 n-sums [-54] triple 13
+5059 n-sums [-42] triple 12
+5066 n-sums [-81] triple 15
+5067 n-sums [-67] triple 14
+5068 n-sums [-54] triple 13
+5069 n-sums [-42] triple 12
+5077 n-sums [-67] triple 14
+5078 n-sums [-54] triple 13
+5079 n-sums [-42] triple 12
+5088 n-sums [-54] triple 13
+5089 n-sums [-42] triple 12
+5099 n-sums [-42] triple 12
+5504 n-sums [-112] triple 17
+5505 n-sums [-96] triple 16
+5506 n-sums [-81] triple 15
+5507 n-sums [-67] triple 14
+5508 n-sums [-54] triple 13
+5509 n-sums [-42] triple 12
+5555 n-sums [-96] triple 16
+5556 n-sums [-81] triple 15
+5557 n-sums [-67] triple 14
+5558 n-sums [-54] triple 13
+5559 n-sums [-42] triple 12
+5566 n-sums [-81] triple 15
+5567 n-sums [-67] triple 14
+5568 n-sums [-54] triple 13
+5569 n-sums [-42] triple 12
+5577 n-sums [-67] triple 14
+5578 n-sums [-54] triple 13
+5579 n-sums [-42] triple 12
+5588 n-sums [-54] triple 13
+5589 n-sums [-42] triple 12
+5599 n-sums [-42] triple 12
+5605 n-sums [-96] triple 16
+5606 n-sums [-81] triple 15
+5607 n-sums [-67] triple 14
+5608 n-sums [-54] triple 13
+5609 n-sums [-42] triple 12
+5666 n-sums [-81] triple 15
+5667 n-sums [-67] triple 14
+5668 n-sums [-54] triple 13
+5669 n-sums [-42] triple 12
+5677 n-sums [-67] triple 14
+5678 n-sums [-54] triple 13
+5679 n-sums [-42] triple 12
+5688 n-sums [-54] triple 13
+5689 n-sums [-42] triple 12
+5699 n-sums [-42] triple 12
+5706 n-sums [-81] triple 15
+5707 n-sums [-67] triple 14
+5708 n-sums [-54] triple 13
+5709 n-sums [-42] triple 12
+5777 n-sums [-67] triple 14
+5778 n-sums [-54] triple 13
+5779 n-sums [-42] triple 12
+5788 n-sums [-54] triple 13
+5789 n-sums [-42] triple 12
+5799 n-sums [-42] triple 12
+5807 n-sums [-67] triple 14
+5808 n-sums [-54] triple 13
+5809 n-sums [-42] triple 12
+5888 n-sums [-54] triple 13
+5889 n-sums [-42] triple 12
+5899 n-sums [-42] triple 12
+5908 n-sums [-54] triple 13
+5909 n-sums [-42] triple 12
+5999 n-sums [-42] triple 12
+6056 n-sums [-81] triple 15
+6069 n-sums []  12
+6079 n-sums []  12
+6667 n-sums [-67] triple 14
+6678 n-sums [-54] triple 13
+6689 n-sums [-42] triple 12
+6788 n-sums [-54] triple 13
+6808 n-sums [-54] triple 13
+7067 n-sums [-67] triple 14
+7778 n-sums [-54] triple 13
+7789 n-sums [-42] triple 12
+7899 n-sums [-42] triple 12
+7909 n-sums [-42] triple 12
+8078 n-sums [-54] triple 13
+8889 n-sums [-42] triple 12
+9089 n-sums [-42] triple 12
+585 cores; 309 with exactly one centre; ['304', '305', '306', '307', '308', '309', '359', '369', '506', '507', '508', '509', '607', '608', '609', '708', '709', '809', '3033', '3034', '3035', '3036', '3037', '3038', '3039', '3044', '3045', '3046', '3047', '3048', '3049', '3055', '3056', '3057', '3058', '3059', '3066', '3067', '3068', '3069', '3077', '3078', '3079', '3088', '3089', '3099', '3303', '3304', '3305', '3306', '3307', '3308', '3309', '3346', '3347', '3348', '3349', '3357', '3358', '3359', '3368', '3369', '3379', '3456', '3457', '3458', '3459', '3466', '3468', '3469', '3477', '3478', '3488', '3489', '3499', '3566', '3567', '3568', '3569', '3588', '3589', '3599', '3606', '3607', '3608', '3609', '3677', '3678', '3679', '3688', '3707', '3708', '3709', '3788', '3789', '3799', '3808', '3809', '3899', '3909', '4047', '4048', '4049', '4057', '4059', '4068', '4069', '4079', '4508', '4509', '4558', '4559', '4668', '4699', '4708', '4709', '4779', '4799', '4809', '6069', '6079']

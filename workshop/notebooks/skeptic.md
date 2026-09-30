@@ -1,28 +1,26 @@
-# Skeptic's notebook (after round 001)
+# Skeptic's notebook (after round 002)
 
 ## Believe now
-- F-053's exceptions 3346 and 4056 are real features, not artefacts. Orbits closed far below
-  cap; Coxeter key (`coxeterTables.lnaCoxeterKey`, gauge-free, walk-free) separates 3346's
-  offsets at every n to 40, so it never pairs.
-- 4056 is a partial reflection with an onset: pairs sum n-13, last three offsets alone.
-- The H-020 failures I checked (350066, 6600066) are the same onset effect at n = 13.
-- Coxeter-key partition of offsets == reduced-walk orbit partition in all 13 cases compared
-  (45, 3346, 4056, 350066, 6600066 at 13-15). Key gives a proof of separation, only a
-  necessary condition for joining.
+- 3346 never pairs: distinct Coxeter keys at every n to 40; orbits agree at 13-15. Proof of non-equivalence.
+- 4056: key classes {o, n-13-o}, last three alone. Walk = key at 13-15.
+- NEW n=16, 4056: walk gives {0,3},{1},{2},...; key gives {1,2}. Orbits of 1 and 2 are mirror images
+  (mirrorRow of one start is in the other orbit), so derived equivalent by F-026. Key = orbit is false;
+  key = orbit-up-to-mirror is untested beyond this case.
+- My round-001 aggregate was wrong: at n=24, 585 words = 309 one-centre, 155 with key class >= 3, 121 none
+  (not 7 / 123). Output saved in rounds/002/skeptic_scan_n24.txt.
+- 6600066 key sums are n-13.
 
 ## Tried
-- orbitReport at 13/14/15 for the above; key scans to n = 40; 585-word scan at n = 24.
-- Scripts kept in workshop/rounds/001/skeptic_{cmp,cox,scan}.py.
+- Walk 4056 at 16 (252 s, limit 1.5M, all closed); mirror test on offsets 1, 2; scan at n=24 rerun.
+- Scripts: workshop/rounds/002/skeptic_{cmp,scan,mirror16}.py.
 
 ## Not done
-- The other four H-020 failures (ledger not in repo; need names from a census run).
-- Any mismatch between key class and orbit across the catalogue (the case that would matter).
-- The 7 cores with triple key classes (7778, 7789, 7899, 7909, 8078, 8889, 9089): orbits?
+- Orbit-up-to-mirror vs key across the catalogue at 14-16; 4056 at 17 (too long for one call?).
+- The other four H-020 failures (names not in repo).
+- Scan at n other than 24 (onset behaviour across n for the 155/121 words).
 
 ## Next
-1. Whole catalogue at n = 13, 14: orbit partition vs key partition; report any mismatch.
-2. Same for cores where key class has 3 members.
-3. H-015: the Coxeter key as the second invariant for the guard (it is already used in verifyMove).
+1. Test whether every key class is one orbit or one mirror pair of orbits (13-16, catalogue).
+2. Check the F-053 census claim "self-dual" at 16 for other cores.
 ## Habits
-- Check `stoppedBy`, not just sizes. Grep research for lnaCoxeterKey before claiming novelty.
-- Attribute limits: key = proof of difference only.
+- Re-run my own aggregates before citing them. Check stoppedBy. Key proves difference only.

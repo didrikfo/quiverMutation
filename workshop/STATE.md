@@ -3,46 +3,44 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 1
+last_round: 2
 next_round_kind: ordinary
 
 ## Open threads
 
-Round 001 worked T1, T3, T5 (records E-053, E-054, E-055). Each line: id · question · suited to · status.
+Round 002 revised T1, T3, T5 (records E-056, E-057, E-058). Each line: id · question · suited to · status.
 
-- **T1** · H-021 "exactly when": under the literal reading it fails (129 of 139 cores at n = 13 hold a mirror; 20 hold one with no reflection, E-053). Open: the *strict* reading (mirror of `c@p` in the orbit of `c@q`, `q != p`) over the 139 cores; the n = 14 census (not run); commit the census script. Restate H-021 once done. · experimentalist (revision), theorist · revising
-- **T2** · Why offsets pair by a reflection (F-053): find the mechanism and a formula for the centre `s(c) = n - k(c)`. New data (E-054): `k(4056) = 13`, `k(45) = 8`, `k(3344) = 6`, `k(556) = 10`; onset length below which nothing pairs; `skeptic_scan.py` at n = 24 gives 123 of 585 words with no pair and 7 with a triple. Candidate: is `d(c)` = the H-020 head/tail difference? (untested) · theorist · open
-- **T3** · `3346` never pairs (Coxeter key, n = 12..40): settled as real by key separation (E-054). `4056` is a reflection with an onset (orbit-verified to n = 15). Open: walk one `4056` orbit at n = 16; the other four H-020 failures (census ledgers are not in the repo); the 20-core no-fit list, esp. `3033 3034 3044 3303`. · skeptic (revision) · revising
-- **T4** · H-020 as a theorem: the rule table acts the same at every interior position, only anchored and edge moves see the ends (F-051). State and prove the lemma. · theorist · open
-- **T5** · H-015: Ladkani 2.3(c) (arXiv:1001.4765) is the exact per-step criterion; it agrees with the gate on 61,718 steps at n = 6, 7 and catches the E-032 ALARM step (E-055). Not evidence for the guard (inert at n <= 7). Open: a second non-monomial negative case; the audit where the guard fires (n = 9, 10; overnight); promote `tiltingPlus` to the library as `isTilting`. · scholar (revision), toolsmith · revising
+- **T1** · H-021 "exactly when": the mirror clause fails on all three readings at n = 13 (loose 20 counterexamples; strict false for 108 of 109 pairing cores by construction; 7 cores `344 366 4044 4403 4404 4405 4605` hold a strict mirror without a reflection; E-056). Open: restate H-021 without the mirror clause (pairing up to overhang); run the 7 at n = 14; is the `344`-type family a reflection with a defect? · theorist (restatement), experimentalist (n = 14 for the 7) · open
+- **T2** · Why offsets pair by a reflection (F-053): mechanism and formula for the centre `s(c) = n - k(c)`; is `d(c)` the H-020 head/tail difference (untested)? Data: `skeptic_scan_n24.txt` (309 one centre / 155 key class >= 3 / 121 none). · theorist · open
+- **T3** · `3346` never pairs (proved by key, E-054). `4056` at n = 16: `{1,2}` are two mirror-image orbits, key pairs them (E-058), so "orbit = key class" is false there; compare orbit-plus-mirror against key over the `--max-word 4` catalogue at 14..16. Open: other cores that split; the other four H-020 failures (ledgers not in repo). · experimentalist, skeptic · open
+- **T4** · H-020 as a theorem: the rule table acts the same at every interior position (F-051). State and prove. · theorist · open
+- **T5** · H-015: Ladkani 2.3(c) agrees with the gate everywhere tested, incl. non-monomial parents at n = 5..7 (E-055, E-057); only gate-admitted rejection is E-032 step 7. `isTilting` not promoted (STEERING q3). Open: the audit at n = 9/10 (overnight, Menu 4). · scholar, toolsmith · waiting on overnight
 - **T6** · H-017, a quipu carries more relations than cords: the Euler-form count; test on recorded classes at small `n`. · maverick, theorist · open
 - **T7** · H-010, overlap reducible only at an end: a proof from step 7 of arXiv:2112.08129. Do not run `probe.py --steps 7`. · theorist · open
-- **T8** · Tooling: a `batch.py` task or script printing E-052's orbit report for a core at a length, with a test pinning `45` at 13. Now also wanted: the Coxeter-key prefilter (partition offsets by key; key difference proves separation, equal key does not prove pairing) and the T1 census as a resumable task. · toolsmith · open
-- **T9** · H-019, H-013: long runs, not for a round. Overnight proposals waiting on the human: the n = 14 census of all 139 cores (about 90 min, 4 procs); the Ladkani audit at n = 9/10 depth 6 to 8. · any · parked
+- **T8** · Tooling: a `batch.py` task for E-052's orbit report with a test pinning `45` at 13; Coxeter-key prefilter (note: key class is not orbit, E-058; use orbit-plus-mirror); the T1 census as a resumable task. · toolsmith · open
+- **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 14 census of the 139 cores (about 90 min, 4 procs; use `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
-Suggested next round (the chair may change it): the three revisions above fill `researchers_per_round`; the theorist on T2/T4 goes in the round after unless STEERING asks otherwise.
+Suggested next round (the chair may change it): theorist on T1 restatement and T2; experimentalist on the 7 cores at n = 14 (if 10-min commands allow) or the orbit-plus-mirror vs key comparison; toolsmith on T8; maverick on T6.
 
 ## Awaiting revision
 
-- `rounds/001/experimentalist.md` · experimentalist · run the strict-mirror reading over the 139 cores at 13 and say which reading is refuted; put the overhang-fit code where it can be re-run; reword the `3346` sentence. (review: `rounds/001/experimentalist.review.md`)
-- `rounds/001/skeptic.md` · skeptic · correct `6600066` to sum n - 13; separate orbit-verified (n <= 15) from key-only claims; walk one `4056` orbit at 16 or say it is unconfirmed; save the scan summary; drop "with a cause". (review: `rounds/001/skeptic.review.md`)
-- `rounds/001/scholar.md` · scholar · add the referee's negative control; define "guard" and state the skipped parents; a second non-monomial negative case, or say there is one. (review: `rounds/001/scholar.review.md`)
+(none)
 
 ## Requests between personas
 
-- toolsmith: the Coxeter-key prefilter and a committed census task (skeptic, experimentalist).
-- experimentalist: test the key partition against the orbit partition over the whole `--max-word 4` catalogue at 13 (skeptic; find a key class the walk splits).
-- theorist: the centre `s(c)` formula from `skeptic_scan.py` data (skeptic).
-- skeptic: check `tiltingPlus` on non-monomial parents (scholar).
+- experimentalist: orbit-plus-mirror vs key classes over the catalogue at 14-16 (skeptic).
+- theorist: at n = 16 `4056` has a self-dual pair `{0,3}` and a mirror pair `{1,2}`: is the split a function of parity or of position relative to the middle? (skeptic)
+- theorist: the centre `s(c)` formula (round 001 request, still open).
+- toolsmith: committed census task; key prefilter with the E-058 caveat.
 
 ## Rota
 
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 001 | - |
-| theorist | - | 001 |
-| skeptic | 001 | 001 (x2) |
-| scholar | 001 | - |
+| experimentalist | 002 | - |
+| theorist | - | 002 |
+| skeptic | 002 | 002 (x2) |
+| scholar | 002 | - |
 | toolsmith | - | - |
 | maverick | - | - |

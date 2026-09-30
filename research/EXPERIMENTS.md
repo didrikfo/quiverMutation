@@ -6,6 +6,76 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-056 — H-021's mirror clause is no "exactly when" on any of three readings, at n = 13 over all 139 cores
+*2026-09-30* · **Loose: P => mirror (109/109), mirror => P fails for 20. Strict (mirror of `c@p` in an orbit not holding `p`): true for 8 cores, false for 108 of the 109 pairing cores (by construction: the mirror acts inside the orbit); strict => P fails for 7 (`344 366 4044 4403 4404 4405 4605`). strict2: P => strict2 holds, strict2 => P fails for the same 7** → H-021, F-053, E-053 · *workshop round 002, experimentalist, refereed by skeptic*
+
+**The run.** Round 001's census re-walked (395 orbit walks, all closed, none capped) and the fit
+rerun on it: P = "orbits pair by a reflection `o <-> s - o`, overhang `d <= 6`" (109 cores,
+`d` histogram 62/28/17/2, 30 no fit). Rows (P, loose, strict, strict2): 108 (y,y,n,y), 1 `406` (y,y,y,y),
+10 `30xy 330x` (n,n,n,n), 13 (n,y,n,n) `3033 3034 3044 3303 3346 3456 3466 3566 3606 4056 4406 506 6005`,
+7 (n,y,y,y). `3346` and `4056` hold only their own mirrors, so under the strict reading they agree with
+"no pairing" and H-021's text about `3346` is right there; round 001's claim to the contrary held only
+for the loose reading.
+
+**What it does not show.** Anything at n >= 14 (the 7 survivors are not checked there); that they are not
+"pairing with a defect" (`344` pairs `{0,6}`, `{1,5}` and swaps `2`, `4` by mirror only); two-cluster
+words. The fit's `d <= 6` is generous, so only "no fit" is strong. Referee: "108" is a tautology of
+the definition, not an empirical result.
+
+**Reproduce.**
+```
+.venv/bin/python workshop/rounds/002/experimentalist_fit.py workshop/rounds/002/experimentalist_census_n13.jsonl   # seconds
+# census: 4 shards of workshop/rounds/002/experimentalist_census.py 13 --shard k/4 --out ..., ~5 min wall
+```
+
+---
+
+## E-057 — On non-monomial parents Ladkani 2.3(c) rejects exactly the gate-refused vertices (n = 5, 6, 7)
+*2026-09-30* · **n = 5 depth 2: 8 refused / 0 gate-admitted rejections; n = 6 depth 3: 214 / 0 (714 accepted, all Cartan-congruent); n = 7 depth 2: 432 / 0 (1,008 accepted); 0 skipped parents; negative control at starts 42/42, 168/168, 660/660 refused-and-False, 70, 252, 924 admitted-and-True** → H-015, E-055 · *workshop round 002, scholar, refereed by skeptic*
+
+**The run.** Unguarded BFS over distinct algebras from the LNAs, all vertices with an arrow out, on the
+non-monomial parents (commutative squares `b1 b2 = b3 b4`; 12, 194, 240 of 98, 910, 1,188 algebras).
+"Gate" = `mutationIsPossibleAtVertex`; "guard" = Coxeter key of the reduced child equals the parent's.
+Skipped parents (directed cycle or no base key) are now counted: 0.
+
+**What it does not show.** A second gate-admitted rejection: there is none, so E-032's ALARM step 7
+remains the only one, and `tiltingPlus` adds nothing beyond the gate in this range. Nothing for the
+guard (H-015), or for n >= 10 where the gate and 2.3(c) can differ (F-038). Round 001's own runs did not
+count skipped parents (expected 0, unverified).
+
+**Reproduce.**
+```
+N=6 DEPTH=3 timeout 10m .venv/bin/python workshop/rounds/002/scholar_nonmono.py   # about 20 s
+N=7 DEPTH=2 timeout 10m .venv/bin/python workshop/rounds/002/scholar_nonmono.py   # about 46 s
+```
+(needs `workshop/rounds/001/scholar_h015.py`.)
+
+---
+
+## E-058 — At n = 16 the offsets `{1,2}` of `4056` are two mirror-image orbits, though the Coxeter key pairs them
+*2026-09-30* · **`4056`, n = 16: walked orbits `{0,3}` 19798 rows, `{1}` 20300, `{2}` 20300, `{4}` 77735, `{5}` 8134, `{6}` 1416, all closed; key classes `{0,3}{1,2}{4}{5}{6}`. Orbit(1) holds the mirror of the start of 2 and vice versa, neither holds its own mirror** → F-053, F-026, H-021, E-054 · *workshop round 002, skeptic, refereed by theorist*
+
+**The run.** The round-001 walk repeated at n = 16 (252 s; theorist reran in 237 s with identical output)
+plus a mirror test (`skeptic_mirror16.py`). Since `mirrorRow` is the relation dual (F-026) and the
+mirror keeps the derived class, offsets 1 and 2 are derived equivalent by inference from one mirror
+membership, not by a walk joining them. So "orbit = key class" (five cores at n = 13..15) is false at
+n = 16, and F-053's "each pair is one self-dual orbit" fails for `{1,2}` there. This is the first
+counterexample, from one core at one length. Also corrected: the `6600066` key sums are n - 13, and the
+n = 24 scan of 585 words splits 309 one centre / 155 key class of size >= 3 / 121 no equal keys
+(saved: `workshop/rounds/002/skeptic_scan_n24.txt`); E-054's "7 / 123" was wrong. "Onset" remains a
+description with no mechanism.
+
+**What it does not show.** Pairing for any core at n > 16 (key only); whether other cores split like this.
+
+**Reproduce.**
+```
+timeout 10m .venv/bin/python workshop/rounds/002/skeptic_cmp.py 16 4056     # 252 s
+timeout 10m .venv/bin/python workshop/rounds/002/skeptic_mirror16.py        # about 2 min
+.venv/bin/python workshop/rounds/002/skeptic_scan.py 24                     # about 3 min
+```
+
+---
+
 ## E-055 — Every step the gate admits at n = 6, 7 is a tilting mutation by Ladkani's exact criterion
 *2026-09-29* · **61,718 admitted steps (n = 6 depth 6, n = 7 depth 4, unguarded walk): all pass Prop. 2.3(c) of arXiv:1001.4765 and Cartan(child) = r C rᵀ; the E-032 ALARM step 7 fails both** → H-015, F-038, E-032 · *workshop round 001, scholar, refereed by skeptic*
 
@@ -54,6 +124,9 @@ to 16 and `{4,5}` at 17; `6600066` is `{0}` at 13, `{0,1}` at 14, then pairs
 of sum n - 13 (the submission said n - 14; corrected by the referee). Scan at
 n = 24 of 585 words over digits 0, 3..9 (<= 4 letters): 309 with one pairing
 centre, 7 with a key class of three offsets, 123 with no equal keys.
+*Corrected in round 002 (E-058): the true split at n = 24 is 309 one centre,
+155 with a key class of three or more offsets, 121 with no equal keys; the "7"
+was the number examined, not a count.*
 
 **What it does not show.** That the pairing of `4056` beyond n = 15 is an
 orbit fact (key-only, a necessary condition); a mechanism for the onset length
