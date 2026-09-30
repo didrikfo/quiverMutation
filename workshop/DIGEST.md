@@ -7,6 +7,20 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 006 -- 2026-09-30 -- ordinary
+
+Worked: toolsmith (T3/T8), theorist (T2/T4), scholar (T5). Referees: skeptic (x2), experimentalist. Toolsmith accepted; theorist and scholar minor revision, which I applied myself. Details in `rounds/006/`.
+
+- **toolsmith:** over all 139 placed cores at n = 10, 12..16, orbit-plus-mirror classes refine the key classes (never finer, never incomparable; equal in 129-132); the exceptions are the parity-merged cores. The 20300 pairs at n = 16 (`4056`, `46`, `3355`, `3445`) are one orbit and its mirror, so E-058/E-062's "unmerged middle pair" is resolved. Referee reproduced it.
+- **theorist:** `k(33x) = 2x`, `d = x - 3` come from a drift `33x@o -> 33(x-1)@(o+1)` of the double mutation (label `x + o` fixed) plus the self-dual seed `333`: 135/135 at n = 14..16, plus the referee's n = 17. Lower bound derived, upper bound computed only; the same argument is false for `44x`.
+- **scholar:** E-032 step 7 is rejected at an explicit commutativity element; mostly known, and the literature is not an independent test of the code. CHZ "monomial only" caveat is UNVERIFIED (arXiv blocked).
+
+Promoted: E-064, E-065, E-066; H-021 status line; GLOSSARY (two terms); UNVERIFIED flag on `literature/2509.12983`. No open questions were left by round 005.
+
+**Questions for you (chair takes the recommended option if unanswered):** (1) approve the round-005 agenda (recommend yes, unchanged; T3 is now mostly answered); (2) no overnight run proposed yet, toolsmith to size `--max-word 5` at n = 14 first.
+
+---
+
 ## Round 005 -- 2026-09-30 -- conference
 
 Six position statements (haiku), no new work, nothing promoted. Details in `rounds/005/`.

@@ -634,3 +634,7 @@ head. E-060.
 **Odd-n effect.** For the 7 cores `344 366 4044 4403 4404 4405 4605`, pairing by
 a reflection holds at every even n from 12 to 18 and fails at 13, 15, 17, where
 the folded offsets are equal-size singleton orbits. E-059.
+
+**Orbit-plus-mirror class.** The partition of a core's offsets in which two orbits are joined when one holds the mirror of an offset of the other. Compared with the Coxeter-key partition over the `--max-word 4` catalogue in E-064: it refines the key everywhere tested, and equals it in all but the parity-merged cores.
+
+**Drift chain.** For the family `33x`, the double mutation sends `33x@o` to `33(x-1)@(o+1)`; the label `c = x + o` is constant along the chain `S_c`, and the self-dual seed `333` identifies `c` with `n - c` (E-065).

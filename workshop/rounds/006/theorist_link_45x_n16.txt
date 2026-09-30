@@ -1,0 +1,5 @@
+16 455 hi 8 offset 0 held [0, 2, 4, 6, 8] c-set of 33y [4, 12] closed 516
+16 455 hi 8 offset 1 held [1, 3, 5, 7] c-set of 33y [] closed 446
+16 456 hi 7 offset 0 held [0, 1, 2, 3, 4, 5, 6, 7] c-set of 33y [3, 13] closed 8134
+16 457 hi 6 offset 0 held [0, 1, 2, 3, 4, 5, 6] c-set of 33y [] closed 3114
+16 458 hi 5 offset 0 held [0, 1, 2, 3, 4, 5] c-set of 33y [] closed 77735

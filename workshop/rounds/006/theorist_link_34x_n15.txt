@@ -1,0 +1,17 @@
+15 344 hi 8 offset 0 held [0, 8] c-set of 33y [] closed 52
+15 344 hi 8 offset 1 held [1, 7] c-set of 33y [] closed 43
+15 344 hi 8 offset 2 held [2] c-set of 33y [] closed 64
+15 344 hi 8 offset 3 held [3, 5] c-set of 33y [] closed 51
+15 344 hi 8 offset 4 held [4] c-set of 33y [] closed 68
+15 344 hi 8 offset 6 held [6] c-set of 33y [] closed 64
+15 345 hi 7 offset 0 held [0, 7] c-set of 33y [4, 11] closed 763
+15 345 hi 7 offset 1 held [1, 6] c-set of 33y [5, 10] closed 743
+15 345 hi 7 offset 2 held [2, 5] c-set of 33y [6, 9] closed 881
+15 345 hi 7 offset 3 held [3, 4] c-set of 33y [7, 8] closed 877
+15 346 hi 6 offset 0 held [0, 1, 2, 3, 4, 5, 6] c-set of 33y [3, 12] closed 5648
+15 347 hi 5 offset 0 held [0, 5] c-set of 33y [] closed 2290
+15 347 hi 5 offset 1 held [1, 4] c-set of 33y [] closed 18157
+15 347 hi 5 offset 2 held [2, 3] c-set of 33y [] closed 18416
+15 348 hi 4 offset 0 held [0, 4] c-set of 33y [] closed 8794
+15 348 hi 4 offset 1 held [1, 3] c-set of 33y [] closed 4002
+15 348 hi 4 offset 2 held [2] c-set of 33y [] closed 4255
