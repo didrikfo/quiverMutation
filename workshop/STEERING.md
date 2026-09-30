@@ -47,3 +47,4 @@ by a command, and checked against what is already recorded.
   negative example before promoting it to the library.
 - round 002, question 1 (`isTilting`) (applied, round 003: not promoted): hold off on promoting it to the library until the chair judges the evidence solid enough to decide (e.g. a gate-admitted rejection from the overnight audit). Answered by the human.
 - round 002, question 2 (H-021) (applied, round 003): restate H-021 without the mirror clause; theorist restates it in round 003, experimentalist runs the 7 survivors at n = 14. Answered by the human.
+- round 003, question 1 (censuses n = 12, 14): yes, added to `OVERNIGHT.md` Menu 4 -- decided by the chair of round 004; no answer from the human (applied, round 004)

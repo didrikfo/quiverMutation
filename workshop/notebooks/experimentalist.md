@@ -1,18 +1,17 @@
 # Experimentalist notebook (rewritten each round)
 
-## What I now believe (after round 003)
-- The 7 survivors (`344 366 4044 4403 4404 4405 4605`) are a parity effect. Swept n = 8..18 (one core = 1 to 3 s): at n = 12, 14, 16, 18 all 7 pair by reflection (d = 0 for 4, 1 for 2, 2 for `4405`), no strict mirror; at n = 13, 15, 17 none pairs and all 7 hold strict mirror. n = 9..11 mixed (1 to 5 fail), few offsets, weak.
-- So T1's "pairing with a defect" question: at n = 14 no defect. The n = 13 defect is an odd-n one (singletons of equal size, e.g. `344` at 13: `{2}50 {4}50`; at 15 `{2}64 {6}64`).
-- The n = 13 census (139 cores) is therefore one parity class only. Its "30 no-fit" and "13 mirror-without-fit" verdicts may not carry to even n; unknown.
-- Round 002 still stands: H-021's mirror clause fails on every reading at n = 13; pairing itself 62 exact / 47 overhang / 30 none at 13.
+## What I now believe (after round 004)
+- The 12 cores of E-060 keep `k = n - s` and signed `d` at n = 13, 14, 15 (12/12) and at 16 for 9/12. The slide rule `s = first o + last o` at 15: 8/12, failures only the known `4045 4506 4556` and all-inside `334`. No new failure of E-060.
+- At 16, `3355 3445 46` have no fit: centre still `n - k`, but the middle pair (offsets summing to s) is two separate singleton orbits of equal size 20300 (also seen for `4056` at 16, EXPERIMENTS 2026-09-30). Same signature as the 7 of E-059 at odd n, so the "defect" is an unmerged middle pair, not literally odd n. Parity is core-dependent: these 3 pair at 13..15, fail at 16; the 7 fail at odd n. Not understood; suspect s or n - hi parity or a threshold in n.
+- Round 003 results stand (7 cores: pair at even n, strict mirror at odd n, 12..18).
 
 ## What I tried
-- `experimentalist_census.py` has no `--plan`; I sized by running one core. `--cores a,b,c` works; all runs completed, 0 caps.
-- Merged data: `workshop/rounds/003/experimentalist_census_7cores_n8_18.jsonl`; table script `experimentalist_table.py`.
+- Ran 24 jobs at once on 4 cores: n = 15 finished slowly (300-570 s each), n = 16 timed out. Machine has 4 cores; run at most 4 census processes. n = 16 census is 160 s per core alone, 12 cores about 12 min at 4 procs; n = 15 is about 40 s alone.
+- Data: `workshop/rounds/004/experimentalist_census_12cores_n15.jsonl`, `_n16.jsonl`, slides n15, `experimentalist_shift.py` table.
 
 ## What I would do next
-1. Cheap: run the full 139 cores at n = 12 (fewer offsets, faster than 14) to see whether the 30 no-fit and 13 mirror-without-fit change class; and a sample of the 62 exact cores at n = 15 to see if they lose pairing at odd n.
-2. The overnight n = 14 census, then fit; compare class per core against 13.
-3. Test d(c) against `|head - tail|` of H-020 (unchecked, four rounds running).
-4. Toolsmith: `batch.py` task for the census with a `45` pin; add `--plan`.
-- Watch: n = 9..11 fits use 2 to 5 offsets, easy to satisfy or fail; do not read them as the same phenomenon. Only 7 cores were swept, so "parity" is shown for these, not for all.
+1. Cheap: the 3 failures at n = 17 and 18 (unsized; 17 maybe 10 min each). If the census script had `--budget-hours` and `--plan` these would go in OVERNIGHT.
+2. Test the unmerged-middle-pair hypothesis on the 7: is the odd-n failure the same thing (centre odd/even)? Tabulate parity of s = n - k against merged/unmerged middle for all 19 cores at n = 12..16.
+3. Full 139-core census at n = 12 or 15 still not run (open from round 003).
+4. d(c) vs |head - tail| of H-020 is answered for interior blocks (E-060), still open for all-inside cores.
+- Watch: a "no fit" here is an unmerged pair with equal size, not a different centre; do not count it as loss of structure without saying so. Census at 16 is near my 10 min limit per core if run in parallel; use xargs -P4.

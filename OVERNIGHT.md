@@ -486,6 +486,22 @@ The cost grows about twofold per depth from the `n = 7`, depth-4 figure (6
 min), so `n = 10` at depth 6 is hours. Watch the memory of these two in the
 first hour: they keep every algebra they have seen.
 
+**The n = 12 and n = 14 censuses of all 139 cores, for H-021** (round 003
+question, decided by the chair of round 004; experimentalist). Does parity
+govern the other 132 cores, and does the set of 30 cores with no reflection fit
+at 13 change at 12 and 14? About 90 minutes each on four processes. Resumable:
+each shard appends one JSON line per core to
+`logs/t1-census-n<N>-w4-shard<k>of4.jsonl` and skips finished cores; exits 2
+when the budget is spent. Feed the output to
+`workshop/rounds/002/experimentalist_fit.py`.
+
+```bash
+wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 4 --run 'workshop/rounds/002/experimentalist_census.py 12 --shard 0/4' --run 'workshop/rounds/002/experimentalist_census.py 12 --shard 1/4' --run 'workshop/rounds/002/experimentalist_census.py 12 --shard 2/4' --run 'workshop/rounds/002/experimentalist_census.py 12 --shard 3/4'"
+```
+
+(The same for `14`; the n = 14 census of Menu 4's first entry is the same run
+with the round-001 script and is enough for that one.)
+
 ---
 
 ## In the morning

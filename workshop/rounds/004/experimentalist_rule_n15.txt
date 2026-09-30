@@ -1,0 +1,12 @@
+334 iiiiiiiii head 9 tail 0 fit s 7 hi 8 hi+h-t 17 DIFF
+3344 iioooooo head 2 tail 0 fit s 9 hi 7 hi+h-t 9 OK
+3345 ooooooo head 0 tail 0 fit s 6 hi 6 hi+h-t 6 OK
+3355 iiooooo head 2 tail 0 fit s 8 hi 6 hi+h-t 8 OK
+3444 ooooooii head 0 tail 2 fit s 5 hi 7 hi+h-t 5 OK
+3445 oooooii head 0 tail 2 fit s 4 hi 6 hi+h-t 4 OK
+4045 oooooii head 0 tail 2 fit s 3 hi 6 hi+h-t 4 DIFF
+45 iooooooii head 1 tail 2 fit s 7 hi 8 hi+h-t 7 OK
+4506 iooooo head 1 tail 0 fit s 7 hi 5 hi+h-t 6 DIFF
+4556 oooooi head 0 tail 1 fit s 3 hi 5 hi+h-t 4 DIFF
+46 ioooooii head 1 tail 2 fit s 6 hi 7 hi+h-t 6 OK
+504 iiooooooi head 2 tail 1 fit s 9 hi 8 hi+h-t 9 OK

@@ -7,6 +7,20 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 004 -- 2026-09-30 -- ordinary
+
+Worked: theorist (T2), experimentalist (T1), maverick (T6, first time). Referees: skeptic (x2), scholar. All minor revision; I accepted all three after applying the referees' wording and one check myself. Details in `rounds/004/`.
+
+- **theorist:** the interior/end-touch split is now a committed column and explains none of the 7 failures (the slide never picks a centre, and the orbits take the smaller or larger consistent one at random). For `33x`, `k = 2x` and `d = x - 3` at n = 13..17 for x = 3..6; I added `337` (holds). A description, not a mechanism.
+- **experimentalist:** the 12 cores of E-060 keep `k` and `d` at n = 15, 16, and pair at 13, 14, 15; at 16 three lose the fit through an unmerged equal-size middle pair (as `4056` in E-058). So parity is not the whole story.
+- **maverick:** H-017 survives to depth 6 at n = 9, but neither the Coxeter polynomial nor the Euler form predicts (cords, relations). The Euler-form signature does separate "outside every quipu class" for n = 8..11 (small, new to the record).
+
+Promoted: E-061, E-062, E-063; status lines of H-021 and H-017. Step 0.5: decided round 003's question (yes) and added the n = 12 and n = 14 censuses to `OVERNIGHT.md`. Round 004 should have been a conference by the config; round 005 will be.
+
+**Questions for you (chair takes the recommended option if unanswered):** (1) H-017 overnight: approve the n = 9 depth-7 run, not the n = 10 run until the search has a positive control? Recommend yes to n = 9 only. (2) Keep round 005 a conference? Recommend yes.
+
+---
+
 ## Round 003 -- 2026-09-30 -- ordinary
 
 Worked: theorist (T1/T2), experimentalist (T1), toolsmith (T8). Referees: skeptic (x2), theorist. All minor revision; I accepted all three after applying the referees' wording and test points myself. Details in `rounds/003/`.
