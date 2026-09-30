@@ -29,7 +29,7 @@ by a command, and checked against what is already recorded.
 ## Special requests for the next round
 
 <!-- e.g. "conference", "only skeptic and theorist", "everyone on H-021" -->
-(none)
+- round 003: theorist restates H-021 without the mirror clause (T1/T2); experimentalist runs the 7 survivors (`344 366 4044 4403 4404 4405 4605`) at n = 14.
 
 ## Answers to the chair
 
@@ -45,3 +45,5 @@ by a command, and checked against what is already recorded.
   human runs them; results come back as E-entries.
 - round 001, question 3 (`tiltingPlus`) (applied, round 002): wait for a second non-monomial
   negative example before promoting it to the library.
+- round 002, question 1 (`isTilting`): hold off on promoting it to the library until the chair judges the evidence solid enough to decide (e.g. a gate-admitted rejection from the overnight audit). Answered by the human.
+- round 002, question 2 (H-021): restate H-021 without the mirror clause; theorist restates it in round 003, experimentalist runs the 7 survivors at n = 14. Answered by the human.
