@@ -1,13 +1,20 @@
 """H-017 walk: (cords, relations) of quipu-with-relations algebras PROVED in the class
 of each LNA outside a quipu class, by mutation walk to depth D.
-usage: python workshop/rounds/004/maverick_reached.py N DEPTH [CLASSNAME ...]   (default: every LNA outside a quipu class)"""
-import sys, collections, networkx as nx
+usage: python workshop/rounds/004/maverick_reached.py N DEPTH [CLASSNAME ...] [--budget-hours H]   (default: every LNA outside a quipu class)
+With --budget-hours, stops between LNAs once H hours are spent and exits 2 (partial tallies printed)."""
+import sys, time, collections, networkx as nx
+_t0 = time.time(); _budget = None
+if "--budget-hours" in sys.argv:
+    _i = sys.argv.index("--budget-hours"); _budget = float(sys.argv[_i + 1]) * 3600; del sys.argv[_i:_i + 2]
 from quivermutation import quipuRelations as qr, coxeterTables as ct, nakayama as nk, quipuForms as qf
 n, depth = int(sys.argv[1]), int(sys.argv[2])
 status = ct.lnaStatus(n)
 outside = sorted(r for r, v in status.items() if v != ct.QUIPU and (len(sys.argv) < 4 or ct.className(r) in sys.argv[3:]))
 allpairs = collections.Counter(); worst = []
+_partial = False
 for rl in outside:
+    if _budget is not None and time.time() - _t0 > _budget:
+        _partial = True; break
     alg = nk.LinearNakayamaAlgebra(n, list(rl))
     reached = qr.reachedQuipuAlgebras(alg, depth)
     pairs = collections.Counter()
@@ -23,3 +30,5 @@ for rl in outside:
 print("ALL pairs", sorted(allpairs.items()))
 print("below/on diagonal:", len(worst))
 for w in worst[:10]: print(w)
+if _partial:
+    print("BUDGET SPENT: partial"); sys.exit(2)

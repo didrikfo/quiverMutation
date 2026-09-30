@@ -502,6 +502,19 @@ wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python o
 (The same for `14`; the n = 14 census of Menu 4's first entry is the same run
 with the round-001 script and is enough for that one.)
 
+**H-017 depth 7 at `n = 9`** (round 004 question, decided by the chair of round
+005; maverick). `workshop/rounds/004/maverick_reached.py 9 7` on the two
+`n = 9` LNAs outside a quipu class, `3033030` and `4444400`: which
+(cords, relations) pairs of quipu-with-relations algebras are proved in each
+class by mutation walk to depth 7 (depth 6 found none on or below the
+diagonal). Not resumable; with `--budget-hours` it stops between LNAs and exits
+2, printing the partial tallies. Not for `n = 10`: that waits for a positive
+control of the search (toolsmith).
+
+```bash
+wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 6 --run 'workshop/rounds/004/maverick_reached.py 9 7 3033030 4444400'"
+```
+
 ---
 
 ## In the morning

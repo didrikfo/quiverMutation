@@ -7,6 +7,19 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 005 -- 2026-09-30 -- conference
+
+Six position statements (haiku), no new work, nothing promoted. Details in `rounds/005/`.
+
+- **Convergence:** experimentalist, skeptic and toolsmith all want the same test: orbit-plus-mirror vs key classes over the `--max-word 4` catalogue at n = 14..16 (T3/T8). Theorist wants a mechanism for `k(33x) = 2x`; maverick a positive control for the H-017 search; scholar to decide E-032 step 7 from the literature (Aihara-Iyama, CHZ).
+- **Weakest claims named:** parity (19 of 139 cores tested), `k = 2x` (description, not mechanism), H-015 support (n <= 7), "Coxeter polynomial cannot see (cords, relations)" (n = 9 only). No disagreement between personas.
+- **Agenda proposed** (ranked, in `STATE.md` as proposed, round 005): 1 orbit-vs-key at 14..16; 2 `k = 2x` from the rule table (T4); 3 H-017 positive control; 4 H-015 step 7 by reading; 5 parity across the other 127 cores waits on the overnight censuses.
+- **Decided for you (round 004 questions):** approved the n = 9 depth-7 H-017 run only (in `OVERNIGHT.md` Menu 4; I added `--budget-hours` to `maverick_reached.py`, tested, `test_overnight_doc` passes); round 005 kept a conference. Overturn in `STEERING.md`.
+
+**Please approve or change the proposed agenda in `STEERING.md`; until then rounds 006+ work from it.**
+
+---
+
 ## Round 004 -- 2026-09-30 -- ordinary
 
 Worked: theorist (T2), experimentalist (T1), maverick (T6, first time). Referees: skeptic (x2), scholar. All minor revision; I accepted all three after applying the referees' wording and one check myself. Details in `rounds/004/`.
