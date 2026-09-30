@@ -14,7 +14,7 @@ Ladkani's Prop. 2.3(c) is an iff for a step to be a tilting complex; the
 literature note recommended it in place of `isMutable`, and no entry had run it.
 
 **The run.** For each algebra reached, every gate-admitted step, test 2.3(c) (a
-rank computation, `tiltingPlus` in `workshop/scholar_h015.py`) and the Cartan
+rank computation, `tiltingPlus` in `workshop/rounds/001/scholar_h015.py`) and the Cartan
 congruence. n = 6 depth 6: 9,476 algebras, 29,822 steps; n = 7 depth 4: 8,988
 algebras, 31,896 steps; 0 failures. "Guard" in the script means Coxeter key
 equal after the rewrite; it never fired, so guard-passing = gate-passing here.
@@ -33,9 +33,9 @@ matters (n >= 9, depth >= 6) is untouched.
 
 **Reproduce.**
 ```
-timeout 10m .venv/bin/python workshop/scholar_h015.py 6 --depth 6 --unguarded   # 3 min 40 s
-timeout 10m .venv/bin/python workshop/scholar_h015.py 7 --depth 4 --unguarded   # 6 min 10 s
-RD=1 timeout 10m .venv/bin/python workshop/scholar_h015_f038.py                  # seconds
+timeout 10m .venv/bin/python workshop/rounds/001/scholar_h015.py 6 --depth 6 --unguarded   # 3 min 40 s
+timeout 10m .venv/bin/python workshop/rounds/001/scholar_h015.py 7 --depth 4 --unguarded   # 6 min 10 s
+RD=1 timeout 10m .venv/bin/python workshop/rounds/001/scholar_h015_f038.py                  # seconds
 ```
 
 ---

@@ -33,5 +33,15 @@ by a command, and checked against what is already recorded.
 
 ## Answers to the chair
 
-<!-- answer questions from the latest proceedings here; the chair reads them -->
-(none)
+<!-- answer questions from the latest proceedings here; the chair reads them.
+     Unanswered questions are decided by the next chair and recorded here. -->
+- round 001, question 1 (H-021): settle the **strict** reading of "mirror"
+  first (the mirror of a placement at a different offset from those the orbit
+  holds). Restate H-021 only if its failure persists under that reading.
+  The rebuilt census script, `workshop/rounds/001/experimentalist_census.py`,
+  records both readings.
+- round 001, question 2 (overnight): yes. Both are in `OVERNIGHT.md`, Menu 4:
+  the `n = 14` census (4 shards) and the Ladkani audit at `n = 9, 10`. The
+  human runs them; results come back as E-entries.
+- round 001, question 3 (`tiltingPlus`): wait for a second non-monomial
+  negative example before promoting it to the library.

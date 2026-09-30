@@ -28,7 +28,22 @@ and whatever the round's submissions and reviews are. For `research/*.md`, use
 4. Read `workshop/config.yaml` and `workshop/STATE.md`. This round's number is
    `last_round + 1`, written with three digits (`001`). Make
    `workshop/rounds/NNN/`.
-5. The round is a **conference** if `STEERING.md` asks for one, or if
+5. **Settle the open questions of the last round.** Read the *Questions for
+   the steering committee* at the end of the previous round's
+   `proceedings.md`, and *Answers to the chair* in `STEERING.md`.
+   * A question the human has answered: follow the answer this round, and
+     say in the proceedings that you did.
+   * A question with **no answer**: decide it yourself -- take the option the
+     proceedings recommended, or, if they recommended none, the more
+     conservative one (the one that spends less and promotes less). Write the
+     decision under *Answers to the chair* in `STEERING.md` as
+     `- round MMM, question k: <decision> -- decided by the chair of round NNN;
+     no answer from the human` and list it in the proceedings under
+     **Decisions taken for the steering committee**, then proceed. The human
+     can overturn it there at any time, and a later round follows the
+     overturning.
+   Never stop and wait for an answer: the rounds run unattended.
+6. The round is a **conference** if `STEERING.md` asks for one, or if
    `STATE.md` says `next_round_kind: conference`. Otherwise it is **ordinary**.
    A conference skips to [Conference rounds](#conference-rounds).
 
@@ -105,6 +120,10 @@ Wait until all of them have finished before going on.
 >   run the whole test suite.
 > - Do not edit `research/`, `STATE.md`, `DIGEST.md`, `STEERING.md` or anyone
 >   else's files. Do not commit or push; the chair does.
+> - Every script you write goes in `workshop/rounds/NNN/`, named
+>   `<id>_<what>.py`, never in a scratchpad or at the top of `workshop/`. A
+>   reproduction command must name a file that will be in the repository, run
+>   from the repository root.
 >
 > Write **one submission** to `workshop/rounds/NNN/<id>.md` in the shape of
 > `workshop/templates/submission.md`, at most <max_submission_lines> lines
@@ -193,7 +212,10 @@ Then write, in this order:
    verdict, your decision and the reason, what was promoted and under which
    identifier. Then **Questions for the steering committee**: anything you
    need the human to decide (a direction, a disagreement you could not
-   settle, a long run worth doing overnight). Keep it to what matters.
+   settle, a long run worth doing overnight). Keep it to what matters. For
+   each, say which option you recommend: if the human has not answered by the
+   next round, that round's chair takes it (step 0). Also list the
+   **Decisions taken for the steering committee** from step 0, if any.
 2. `workshop/STATE.md` -- rewrite it: `last_round: NNN`; `next_round_kind`
    (`conference` if the next round number is a multiple of
    `conference_every`, else `ordinary`); open threads updated; *Awaiting
@@ -204,13 +226,21 @@ Then write, in this order:
    what was claimed and by whom, what survived, what was promoted (with
    identifiers), and the questions for the human, if any, in bold.
 4. Clear the *Special requests for the next round* in `STEERING.md` if they
-   were for this round (replace them with `(none)`); leave the rest of
-   `STEERING.md` alone.
+   were for this round (replace them with `(none)`). Under *Answers to the
+   chair*, mark each answer this round acted on with `(applied, round NNN)`;
+   leave the rest of `STEERING.md` alone.
+5. **Overnight runs.** When a run proposed for `OVERNIGHT.md` has been
+   approved (by the human, or by a chair's decision under step 0), add it to
+   *Menu 4 -- proposals from the workshop* in `OVERNIGHT.md`, in the shape of
+   the entries there, with the round that proposed it. The script it runs must
+   be committed and must accept `--budget-hours` (`overnight.py` adds it) and
+   exit 2 when the budget is spent. Then run
+   `.venv/bin/python -m pytest -q tests/test_overnight_doc.py`.
 
 ## 5. Commit and push
 
 ```
-git add -A workshop research GLOSSARY.md NOTES.md quivermutation tests *.py
+git add -A workshop research GLOSSARY.md NOTES.md OVERNIGHT.md quivermutation tests *.py
 git status --short        # check nothing unexpected (no logs, no outputs)
 git commit -m "Workshop round NNN: <one line>"
 git push -u origin HEAD:workshop

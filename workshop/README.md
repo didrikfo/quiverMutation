@@ -72,7 +72,7 @@ putting it on a schedule.
 **On a schedule.** A Routine that starts a fresh session on each firing does
 *not* get the repository attached, and could not push (found on the first
 attempt, 2026-09-29). So the schedule is two-stage: a Routine fires a short
-turn into a **dispatcher** session every 12 hours, and the dispatcher starts
+turn into a **dispatcher** session every 2 hours, and the dispatcher starts
 the round with `create_session`, giving it the repository as its source and
 `workshop` as its outcome branch, which is what lets it push:
 
@@ -116,7 +116,10 @@ and it outranks everything else it reads. Useful things to put there:
 
 You can also answer the chair directly: its proceedings end with **questions
 for the steering committee**, and whatever you write under them in
-`STEERING.md` is read as your answer.
+`STEERING.md` is read as your answer. The chair says which option it recommends; if you
+have not answered by the next round, that round's chair decides, records the
+decision under *Answers to the chair* marked as its own, and carries on. You
+can overturn it there whenever you like.
 
 ## Keeping the cost down
 

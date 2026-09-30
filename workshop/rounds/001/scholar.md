@@ -64,9 +64,9 @@ Unfinished: n=8 depth 2 (858 algebras at depth 1 took 51 s; killed when the chai
 ## Reproduction
 
 ```
-timeout 10m .venv/bin/python workshop/scholar_h015.py 6 --depth 6 --unguarded   # 3 min 40 s
-timeout 10m .venv/bin/python workshop/scholar_h015.py 7 --depth 4 --unguarded   # 6 min 10 s
-RD=1 timeout 10m .venv/bin/python workshop/scholar_h015_f038.py                  # seconds; the ALARM path
+timeout 10m .venv/bin/python workshop/rounds/001/scholar_h015.py 6 --depth 6 --unguarded   # 3 min 40 s
+timeout 10m .venv/bin/python workshop/rounds/001/scholar_h015.py 7 --depth 4 --unguarded   # 6 min 10 s
+RD=1 timeout 10m .venv/bin/python workshop/rounds/001/scholar_h015_f038.py                  # seconds; the ALARM path
 ```
 Output is a cross-tabulation `(guard, tilt, cong)`; anything but `('guard','tilt','cong')` is listed
 under "suspicious". Without `RD=1` the f038 script uses the plain opposite and the path does not apply.
@@ -82,7 +82,7 @@ Nothing here contradicts RETRACTIONS; no rediscovery found, but the n=6,7 null i
 
 ## Code changed
 
-New, mine, not in `quivermutation/`: `workshop/scholar_h015.py` (audit) and `workshop/scholar_h015_f038.py`
+New, mine, not in `quivermutation/`: `workshop/rounds/001/scholar_h015.py` (audit) and `workshop/rounds/001/scholar_h015_f038.py`
 (ALARM path). No library code touched, no tests run or needed. Caveat: `tiltingPlus` in the script is
 the 2.3(c) rank test; it is not yet in the library or under a test.
 

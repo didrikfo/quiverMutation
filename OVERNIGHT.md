@@ -450,6 +450,44 @@ wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python o
 
 ---
 
+## Menu 4 — proposals from the workshop
+
+Runs the research workshop (`workshop/`) asked for because they do not fit in
+a round. Each names the round that proposed it; record the outcome as an
+`E-nnn` as usual, and tell the workshop by a line in `workshop/STEERING.md`.
+
+**The T1 census at `n = 14`, for H-021** (round 001, experimentalist; E-053).
+Every single-cluster core of `--max-word 4`, every offset walked to closure
+under the reduced walk, with which offsets and which **mirrors** each orbit
+holds -- enough to test H-021 under both the loose and the strict reading of
+"mirror". At 13 it took 25 min on four processes; 14 is about three times that
+per orbit. Resumable: each shard appends one JSON line per core to
+`logs/t1-census-n14-w4-shard<k>of4.jsonl` and skips cores already there.
+
+```bash
+wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 4 --run 'workshop/rounds/001/experimentalist_census.py 14 --shard 0/4' --run 'workshop/rounds/001/experimentalist_census.py 14 --shard 1/4' --run 'workshop/rounds/001/experimentalist_census.py 14 --shard 2/4' --run 'workshop/rounds/001/experimentalist_census.py 14 --shard 3/4'"
+```
+
+**The Ladkani audit where the guard fires, for H-015** (round 001, scholar;
+E-055). Every step the Coxeter guard admits, checked against Ladkani's exact
+tilting criterion and the Cartan congruence; the decisive outcome is a step
+with the guard passing and `tilt` false. At `n = 6, 7` the guard never refuses
+anything, so those runs could not tell; 9 and 10 are where it does. **Not
+resumable** -- it holds its search in memory and prints the tallies at the end
+(or when the budget runs out, with the counts marked partial). Size it first:
+`--plan` stops after depth 1 and prints the frontier.
+
+```bash
+wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python workshop/rounds/001/scholar_h015.py 9 --depth 6 --plan"
+wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python overnight.py --hours 9 --run 'workshop/rounds/001/scholar_h015.py 9 --depth 8' --run 'workshop/rounds/001/scholar_h015.py 10 --depth 6'"
+```
+
+The cost grows about twofold per depth from the `n = 7`, depth-4 figure (6
+min), so `n = 10` at depth 6 is hours. Watch the memory of these two in the
+first hour: they keep every algebra they have seen.
+
+---
+
 ## In the morning
 
 Every task answers to `--summary`, which reads the ledger and does no work. The

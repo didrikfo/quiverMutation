@@ -12,8 +12,8 @@
 - Literature dead ends for this: AAG (R-008), Hochschild (HH=k for LNAs), periodicity (rules out only).
 
 ## Did
-- `workshop/scholar_h015.py` (audit over BFS of distinct algebras, cross-tab guard x tilt x cong) and
-  `workshop/scholar_h015_f038.py` (ALARM path; needs `RD=1`, start = `relationDual()` of `03033030`).
+- `workshop/rounds/001/scholar_h015.py` (audit over BFS of distinct algebras, cross-tab guard x tilt x cong) and
+  `workshop/rounds/001/scholar_h015_f038.py` (ALARM path; needs `RD=1`, start = `relationDual()` of `03033030`).
 - n=8 depth 2 was cut by wrap-up: depth 1 alone is 51 s, so depth 3 is too long for a round.
 
 ## Next

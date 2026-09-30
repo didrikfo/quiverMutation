@@ -1,6 +1,6 @@
 import sys; sys.path.insert(0,'.'); sys.argv=['x']
 import importlib.util
-src=open('workshop/scholar_h015.py').read().replace("\nmain()\n","\n")
+src=open('workshop/rounds/001/scholar_h015.py').read().replace("\nmain()\n","\n")
 exec(compile(src,'h015','exec'))
 lna=nk.LinearNakayamaAlgebra.fromClassName("03033030")
 import os; alg=lna.relationDual() if os.environ.get("RD") else pathAlgebra.dualPathAlgebra(lna)

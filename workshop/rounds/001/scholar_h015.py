@@ -74,6 +74,9 @@ def main():
     a.add_argument('n', type=int); a.add_argument('--depth', type=int, default=3)
     a.add_argument('--limit', type=int, default=0); a.add_argument('--plan', action='store_true')
     a.add_argument('--unguarded', action='store_true'); a.add_argument('--show', type=int, default=5)
+    # overnight.py passes --budget-hours to every job; stop there, print what was
+    # tallied, and exit 2 ("out of budget") so it is not restarted.
+    a.add_argument('--budget-hours', type=float, default=0, dest='budgetHours')
     a = a.parse_args()
     starts = []
     for lna in nk.LinearNakayamaAlgebra.allOfLength(a.n):
@@ -87,9 +90,12 @@ def main():
         frontier.append(alg); return True
     for s in starts: add(s)
     tab = Counter(); bad = []; t0 = time.time(); expanded = 0
+    outOfBudget = False
     for d in range(a.depth):
         cur, frontier[:] = frontier[:], []
         for alg in cur:
+            if a.budgetHours and time.time() - t0 > a.budgetHours * 3600:
+                outOfBudget = True; break
             expanded += 1
             baseKey = search._coxeterKeyOrNone(alg)
             if baseKey is None: continue
@@ -114,7 +120,10 @@ def main():
                 if guard or a.unguarded: add(child)   # walk only where the guard walks
         print('depth', d + 1, 'expanded so far', expanded, 'distinct next', len(frontier), '%.0fs' % (time.time() - t0), flush=True)
         if a.plan and d >= 0: break
+        if outOfBudget:
+            print('stopped on the budget during depth', d + 1, '-- counts are partial', flush=True); break
     for k, v in sorted(tab.items(), key=str): print(k, v)
     print('suspicious', len(bad))
     for b in bad[:a.show]: print(b)
+    if outOfBudget: sys.exit(2)
 main()
