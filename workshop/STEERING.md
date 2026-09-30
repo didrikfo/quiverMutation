@@ -52,3 +52,5 @@ by a command, and checked against what is already recorded.
 - round 004, question 2: keep round 005 a conference -- decided by the chair of round 005; no answer from the human (applied, round 005)
 - round 006, question 1 (agenda): approve the round-005 agenda unchanged -- decided by the chair of round 007; no answer from the human (applied, round 007)
 - round 006, question 2 (overnight): no overnight run proposed yet; toolsmith sizes `--max-word 5` at n = 14 first -- decided by the chair of round 007; no answer from the human (applied, round 007)
+- round 007, question 1 (H-017 depth 5-6 overnight): not yet; maverick first sizes one candidate and builds the L = 5 control at n = 6/7 -- decided by the chair of round 008; no answer from the human (applied, round 008)
+- round 007, question 2 (`34x` at n = 18, 19): no; the mirror-join check on the n = 15..17 singleton pairs comes first -- decided by the chair of round 008; no answer from the human (applied, round 008)

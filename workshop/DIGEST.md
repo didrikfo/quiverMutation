@@ -7,6 +7,17 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 008 -- 2026-09-30 -- conference
+
+Six position statements (haiku), no new work, nothing promoted. Details in `rounds/008/`. Their factual sub-claims are unchecked.
+
+- **Converging:** experimentalist, theorist and toolsmith all want the mirror-join / parity-class check of the equal-size singleton pairs (`344`, `348`, `349`, `4046`; the 9-10 key-coarser cores of E-064 vs the 7 of E-059). Skeptic's weakest claim: the centre formula was fitted at n = 13 and "confirmed" on pre-selected cores, so it needs a fresh random sample.
+- **Proposed agenda (ranked):** (1) mirror join + parity classes; (2) fresh-sample centre test; (3) why the `33x` drift closes and `44x` does not; (4) H-017 L = 5 control, sizing before any overnight; (5) H-015 one-map identity with a small commutative instance. Maverick's Coxeter-spectrum question is parked.
+
+**Please approve or change the proposed agenda in `STEERING.md`; until you do, ordinary rounds work from it.** No new questions. Decided for you (round 007 questions): no overnight depth 5-6 rerun of H-017 yet; no `34x` at n = 18, 19 until the mirror join is done.
+
+---
+
 ## Round 007 -- 2026-09-30 -- ordinary
 
 Worked: experimentalist (T2), skeptic (T2/T6), maverick (T6). Referees: skeptic, theorist, experimentalist. All minor revision; I applied the referees' wording fixes and accepted all three. Details in `rounds/007/`.

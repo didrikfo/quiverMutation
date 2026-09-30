@@ -3,7 +3,7 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 7
+last_round: 8
 next_round_kind: ordinary
 
 ## Open threads
@@ -21,6 +21,16 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 008 (conference) -- proposed agenda (proposed, round 008; supersedes the ranking above; ordinary rounds work from it until the human changes it in STEERING.md)
+
+Details: `rounds/008/proceedings.md`. Threads T1-T9 above and the updates below stay current.
+1. **Mirror join and parity classes** (T1/T2/T3): experimentalist + toolsmith; skeptic referees. Mirror join of `344`, `348`, `349` at 15..17 and `4046` at 14..16; are the 9-10 key-coarser cores of E-064 the 7 cores of E-059?
+2. **Fresh-sample centre test** (T1/T2): skeptic designs, experimentalist runs; random seeded cores at 14, 15, predict 16; informative fits only, against the E-067 null.
+3. **Mechanism beyond `33x`** (T2/T4): theorist; closure condition of a drift family (`33x` closes, `44x` does not, `45x` no drift).
+4. **H-017 control** (T6): maverick, L = 5 control at n = 6/7, size one n = 9 candidate at depth 5; no overnight yet. Coxeter-spectrum idea parked.
+5. **H-015 one-map identity** (T5): scholar + theorist; small commutative instance at n = 5..7.
+Round 009 is ordinary; 012 is the next conference.
 
 ## Round 007 updates (supersede everything below and above where they differ)
 
@@ -62,6 +72,7 @@ Requests added: toolsmith to theorist: why the key-coarser cores are the parity 
 | persona | worked | refereed |
 |---|---|---|
 | experimentalist | 007 | 007 (maverick) |
+<!-- 008 was a conference: all six wrote position statements -->
 <!-- 005 was a conference: all six wrote position statements; nobody refereed -->
 | theorist | 006 | 007 (skeptic) |
 | skeptic | 007 | 007 (experimentalist) |
