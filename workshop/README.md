@@ -66,31 +66,42 @@ check what the group claims before it becomes the record.
 ## Running it
 
 **By hand, once.** Start a Claude Code session on this repo and send the prompt
-in [Routine prompt](#routine-prompt) below. Watch the first round or two before
+in [Round prompt](#round-prompt) below. Watch the first round or two before
 putting it on a schedule.
 
-**On a schedule.** Make a Routine that starts a fresh session on each firing,
-with the prompt below. Every 6 or 12 hours is a reasonable start: a round is
-one session, so the schedule is the token budget. Pause it by disabling the
-Routine, or more cheaply by setting `status: paused` in `STEERING.md` (the round
-then reads one file and stops).
-
-### Routine prompt
+**On a schedule.** A Routine that starts a fresh session on each firing does
+*not* get the repository attached, and could not push (found on the first
+attempt, 2026-09-29). So the schedule is two-stage: a Routine fires a short
+turn into a **dispatcher** session every 12 hours, and the dispatcher starts
+the round with `create_session`, giving it the repository as its source and
+`workshop` as its outcome branch, which is what lets it push:
 
 ```
-Run one round of the research workshop in this repository.
-
-git fetch origin workshop && git checkout -B workshop origin/workshop \
-  || { git fetch origin claude/multi-agent-researcher-harness-ukkied \
-       && git checkout -B workshop origin/claude/multi-agent-researcher-harness-ukkied; }
-
-Then read workshop/ROUND.md and follow it exactly. Push to the workshop branch
-at the end. Do not open a pull request.
+create_session(
+  source_url      = "https://github.com/didrikfo/quiverMutation",
+  source_revision = "workshop",
+  outcome_branch  = "workshop",
+  model           = "claude-sonnet-5-5",
+  title           = "Workshop round NNN",
+  prompt          = <the round prompt below>)
 ```
 
-(The second line bootstraps the `workshop` branch the first time, from the
-branch this harness was written on. Once `workshop` exists, or once the
-harness is merged into `main`, only the first half matters.)
+The dispatcher also checks that the previous round pushed, and does not start
+a round while one is still running. A round is one session, so the schedule is
+the token budget. Pause it by disabling the Routine, or more cheaply by
+setting `status: paused` in `STEERING.md` (the round then reads one file and
+stops).
+
+### Round prompt
+
+```
+Run one round of the research workshop in this repository. Make sure you are
+on the workshop branch (git checkout -B workshop origin/workshop). Then read
+workshop/ROUND.md and follow it exactly, as the chair. At the end push to the
+workshop branch (git push -u origin HEAD:workshop). If a push is refused, end
+your turn with the exact error. Do not open a pull request. End with the
+DIGEST.md entry you wrote.
+```
 
 ## Steering
 
