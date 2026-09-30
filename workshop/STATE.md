@@ -3,7 +3,7 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 6
+last_round: 7
 next_round_kind: ordinary
 
 ## Open threads
@@ -21,6 +21,16 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 007 updates (supersede everything below and above where they differ)
+
+Round 007 (ordinary: experimentalist, skeptic, maverick) recorded E-067..E-069. Next round (008) is a **conference**.
+
+- **T2 (E-068):** `34x` pairs `o <-> hi - o` (`k = x + 3`, not `2x`) at n = 14..17 for x = 4, 5, 7, 8, 9; `346` is one orbit; `45x` has no reflection (parity splits for `455`, `458`, `459`); `4046` is a reflection `k = 11` (size-paired), the parity translation is `5046/5056` at odd n. E-060's `4046@13` = `{0,2},{1,3}` did not reproduce (`{0,2},{1},{3}`). Open: mirror-join check of the equal-size singleton pairs; `44x`; x >= 10; n >= 18.
+- **T1/T2 null (E-067):** 39 of 109 n = 13 fits are one-orbit (vacuous); informative fits mostly chance-level; the interior-core centre formula and the 12 E-060 cores at n = 15, 16 survive. Open: a neighbour-aware null (none committed); a random (not pre-selected) sample of cores at 14-15; null for `k(33x) = 2x`.
+- **T6 (E-069):** the H-017 search finds a class iff a member is within its depth (round trips 273/273 at n = 7, 91 of 132 LNAs; 0 at depth L-1). The depth-4 negative for the 16 below-diagonal candidates is therefore weak. Open: L = 5 control at n = 6/7 (and check that recorded paths are shortest); depth 5-6 on the 16 candidates at n = 9 (size first; overnight only if unavoidable).
+
+Requests added: theorist to experimentalist/toolsmith: mirror-join on `344`, `348`, `349` at n = 15..17 and `4046` at 14..16; maverick: L = 5 control; skeptic: null for `k(33x)`.
 
 ## Round 006 updates (supersede the thread text above where they differ)
 
@@ -51,10 +61,10 @@ Requests added: toolsmith to theorist: why the key-coarser cores are the parity 
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 004 | 006 (theorist) |
+| experimentalist | 007 | 007 (maverick) |
 <!-- 005 was a conference: all six wrote position statements; nobody refereed -->
-| theorist | 006 | 003 |
-| skeptic | 002 | 006 (x2) |
+| theorist | 006 | 007 (skeptic) |
+| skeptic | 007 | 007 (experimentalist) |
 | scholar | 006 | 004 |
 | toolsmith | 006 | - |
-| maverick | 004 | - |
+| maverick | 007 | - |

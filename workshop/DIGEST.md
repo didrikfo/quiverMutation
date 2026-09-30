@@ -7,6 +7,20 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 007 -- 2026-09-30 -- ordinary
+
+Worked: experimentalist (T2), skeptic (T2/T6), maverick (T6). Referees: skeptic, theorist, experimentalist. All minor revision; I applied the referees' wording fixes and accepted all three. Details in `rounds/007/`.
+
+- **experimentalist:** `34x` offsets pair `o <-> hi - o` (`k = x + 3`, not `2x`) at n = 14..17 for x = 4, 5, 7, 8, 9 (20/20 cells); `346` one orbit; `45x` no reflection; `4046` is a (size-paired) reflection. E-060's `4046@13` line did not reproduce. Caveat: `k = x + 3` is just `s = hi`, and singleton pairing is by size only.
+- **skeptic:** null test. 39 of 109 n = 13 fits are vacuous and informative ones are mostly chance-level (73%), so E-061's "45/62, 10/13" counts are padded; the interior-core centre formula (13/13 vs 4.1 expected) and the E-060 cores at n = 15/16 survive (joint p about 1e-3..1e-4 after the referee's correction).
+- **maverick:** the H-017 search passes a positive control (273/273 round trips at n = 7 on 91 of 132 LNAs; 0 at one level too shallow), so the round-004 depth-4 negative only excludes members within 4 steps.
+
+Promoted: E-067, E-068, E-069; status lines of H-021 and H-017. Round 008 is a conference.
+
+**Questions for you (chair takes the recommended option if unanswered):** (1) overnight depth 5-6 rerun of the 16 H-017 candidates at n = 9: recommend not yet, size it first; (2) `34x` at n = 18, 19 overnight: recommend no, mirror-join check first. Decided for you (round 006 questions): agenda approved unchanged; no overnight run.
+
+---
+
 ## Round 006 -- 2026-09-30 -- ordinary
 
 Worked: toolsmith (T3/T8), theorist (T2/T4), scholar (T5). Referees: skeptic (x2), experimentalist. Toolsmith accepted; theorist and scholar minor revision, which I applied myself. Details in `rounds/006/`.

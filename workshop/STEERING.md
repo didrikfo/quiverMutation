@@ -50,3 +50,5 @@ by a command, and checked against what is already recorded.
 - round 003, question 1 (censuses n = 12, 14): yes, added to `OVERNIGHT.md` Menu 4 -- decided by the chair of round 004; no answer from the human (applied, round 004)
 - round 004, question 1 (H-017 overnight): approve the n = 9 depth-7 run only, not n = 10 until a positive control exists -- decided by the chair of round 005; no answer from the human (applied, round 005)
 - round 004, question 2: keep round 005 a conference -- decided by the chair of round 005; no answer from the human (applied, round 005)
+- round 006, question 1 (agenda): approve the round-005 agenda unchanged -- decided by the chair of round 007; no answer from the human (applied, round 007)
+- round 006, question 2 (overnight): no overnight run proposed yet; toolsmith sizes `--max-word 5` at n = 14 first -- decided by the chair of round 007; no answer from the human (applied, round 007)

@@ -6,6 +6,33 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-069 — The H-017 mutation search returns the source LNA in 273 of 273 round trips at n = 7 (91 of 132 LNAs) and 84 of 84 at n = 6 from depth L, and in 0 of 84 (n = 6) and 0 of 132 (n = 7) at depth L - 1; so a depth-4 negative means "no member within 4 steps" and no more
+*2026-09-30* · **Positive control for the round-004 search (`search.linesReachedFrom` via `families.verify`, Coxeter guard on): quipu-with-relations members found by a depth-4 walk (the 3 longest-path members per LNA, path length L = 4 at n = 7, 3 at n = 6) are rebuilt as path algebras and searched at depth L: the source LNA is returned every time. At depth L - 1 it is returned never. Consequence: round 004's depth-4 "reached nothing" for 16 below-diagonal candidates at n = 9 excludes only class members within 4 steps; the forward walks needed depth 6 for `3033030` and `4444400`** → H-017, E-063 · *workshop round 007, maverick, refereed by experimentalist*
+
+**Limits.** The round trip tests inverse-move handling, not independent discovery. The negative control relies on L being a shortest path (not checked). n = 7 covers 91 of 132 LNAs (10-minute cap; the tail is untested); no L >= 5 case; at n <= 8 every LNA lies in a quipu class, so a class with no hereditary member (n = 9) is not controlled. Referee's extra run: `SHORT=1 maverick_control.py 7 4 4 1`, 0/132.
+
+**Reproduction.** `timeout 10m .venv/bin/python workshop/rounds/007/maverick_control.py 6 3 3 2` (84/84, 28 s); `... 7 4 4 3` (cap; output `maverick_control_n7.txt`); `SHORT=1 timeout 10m .venv/bin/python workshop/rounds/007/maverick_control.py 6 4 4 2` (0/84).
+
+---
+
+## E-068 — For `34x` at n = 14..17 (x = 4, 5, 7, 8, 9) the offset orbits pair as `o <-> hi - o`, i.e. `k = x + 3` and not `2x`; `346` is one orbit; `45x` has no reflection; `4046` is a size-paired reflection (`k = 11`), the parity translation belongs to `5046`/`5056` at odd n
+*2026-09-30* · **20 of 20 cells (x = 4, 5, 7, 8, 9; n = 14..17) close their orbits with pair sum `s = hi = n - x - 3`; `k = x + 3` is this restated (n-independence adds nothing beyond 0 and hi sharing an orbit). The middle singletons are paired by equal orbit size only, not shown to be mirror images. `346` is one orbit at all n (the `333@0` orbit of E-065 not rechecked). `456`, `457` one orbit; `455`, `458`, `459` split by offset parity at some n only. `4046` at n = 12..16: `s = n - 11`, one lone large orbit at `hi`, size-paired; `5046` splits by parity at n = 13, 15. The E-060 statement that `4046` gives `{0,2},{1,3}` at n = 13 did not reproduce: `{0,2},{1},{3}`** → H-021, H-020, E-060, E-061, E-065 · *workshop round 007, experimentalist, refereed by skeptic*
+
+**Limits.** x >= 10 and n >= 18 not run; `44x` not run; low-power cells `349@14`, `348@14`, `349@15` (one or two pairs); the mirror-join check of E-064 was not run on the singleton pairs.
+
+**Reproduction.** `timeout 10m .venv/bin/python workshop/rounds/007/experimentalist_kd.py 14 34 3-9` (55 s; n = 16 about 8 min, n = 17 per x), `.venv/bin/python workshop/rounds/007/experimentalist_table.py`, `timeout 10m .venv/bin/python workshop/rounds/007/experimentalist_core4046.py 13 4046`.
+
+---
+
+## E-067 — Null test for the `|R| <= 4` reflection fits at n = 13: 39 of 109 fits are vacuous (one orbit) and of the 70 informative ones a shuffled partition fits with mean probability 0.73; the interior-core centre formula `s = first + last outside offset` (13/13) survives, the n = 15, 16 fits of the 12 E-060 cores survive
+*2026-09-30* · **Null: keep each core's offsets and orbit block sizes, reassign offsets to blocks uniformly, run `fit()` (`d <= 6`). n = 13: 7 of 70 informative fits have P(null reaches `d <= d_obs`) < 0.05 (32 of 70 < 0.20). n = 15: 10 of 12, n = 16: 9 of 9 E-060 cores < 0.05. Interior cores: chance expects 4.1 of 13 centre hits, observed 13; naive product of the P values 1e-7, effective about 1e-3 to 1e-4 after collapsing the correlated families. E-061's "allI 45/62, allO 10/13" are padded by the 39 one-orbit cores (informative: 9/26 and 7/10; the allO 7/10 is a statement against null A, about 2.3 expected)** → H-021, E-060, E-061 · *workshop round 007, skeptic, refereed by theorist*
+
+**Limits.** The uniform-label null ignores that neighbouring offsets tend to share orbits; no neighbour-aware or contiguous null is committed. The interior class and the 12 n = 15/16 cores were chosen after fitting at 13. Nothing about `k(c)` itself was tested.
+
+**Reproduction.** `.venv/bin/python workshop/rounds/007/skeptic_null.py 300` (output `skeptic_null_out.txt`, seconds), `.venv/bin/python workshop/rounds/007/skeptic_null2.py 1000` (centre formula, n = 13; output `skeptic_null2_n13.txt`).
+
+---
+
 ## E-064 — Over the 139 placed cores of the `--max-word 4` catalogue at n = 10, 12..16, orbit-plus-mirror classes refine the Coxeter-key classes in every core; the 20300 pairs of `4056`, `46`, `3355`, `3445` at n = 16 are one orbit and its mirror
 *2026-09-30* · **For each n in 10, 12, 13, 14, 15, 16, all orbits of the 139 placed cores (484 words, 345 without a placement) close (limit 1500000). The partition of offsets by orbit-plus-mirror (orbits joined when one holds the mirror of an offset of the other) refines the key partition in every core: key finer than orbit+mirror in 0 cores, incomparable in 0, equal in 132 (n = 10), 130 (n = 12, 14, 16), 129 (n = 13, 15). The exceptions are key-coarser cores (7 at n = 10, 9 at even n >= 12, 10 at odd n), where the orbits are the two parity classes `{0,2,..}{1,3,..}`, each holding its own mirror, and the key is one class. At n = 16 the eight orbits of size 20300 (`4056` offsets 1, 2; `46` 3, 4; `3355` 4, 5; `3445` 2, 3) are two orbits X and its mirror X*: X holds `4056`@1, `46`@3, `3355`@5, `3445`@2; 28 pairs have equal or disjoint row sets (12 share all rows, 16 none). So E-062's unmerged middle pair and E-058's `{1,2}` of `4056` are one phenomenon, and "key pairs them, orbits do not" is resolved by the mirror join, not by an error of the key** → H-021, E-052, E-058, E-062, F-053 · *workshop round 006, toolsmith, refereed by skeptic*
 

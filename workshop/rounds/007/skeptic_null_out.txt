@@ -1,0 +1,180 @@
+== n13 cores 139 T 300
+core kind d s P(null fit) P(null d<=d_obs) partition
+33 one-orbit 0 8 1.0 1.0 ok
+333 informative 0 7 0.5333333333333333 0.006666666666666667 ok
+403 one-orbit 0 7 1.0 1.0 ok
+3033 all-singleton None None None None ok
+3303 all-singleton None None None None ok
+3333 one-orbit 0 6 1.0 1.0 ok
+3403 one-orbit 0 6 1.0 1.0 ok
+4033 informative 1 7 0.5533333333333333 0.04 ok
+4403 informative None None None None ok
+5003 one-orbit 0 6 1.0 1.0 ok
+34 one-orbit 0 7 1.0 1.0 ok
+44 one-orbit 0 7 1.0 1.0 ok
+334 informative 1 5 0.5866666666666667 0.023333333333333334 ok
+344 informative None None None None ok
+404 one-orbit 0 6 1.0 1.0 ok
+444 one-orbit 0 6 1.0 1.0 ok
+504 informative 1 7 0.57 0.023333333333333334 ok
+3034 all-singleton None None None None ok
+3044 all-singleton None None None None ok
+3304 all-singleton None None None None ok
+3334 one-orbit 0 5 1.0 1.0 ok
+3344 informative 2 7 0.56 0.08666666666666667 ok
+3404 informative 2 7 0.5433333333333333 0.11333333333333333 ok
+3444 informative 2 3 0.52 0.10333333333333333 ok
+3504 one-orbit 0 5 1.0 1.0 ok
+4034 one-orbit 0 5 1.0 1.0 ok
+4044 informative None None None None ok
+4404 informative None None None None ok
+4444 informative 0 5 0.7233333333333334 0.07 ok
+4504 informative 0 5 0.7366666666666667 0.07333333333333333 ok
+5004 informative 1 4 1.0 0.30666666666666664 ok
+5044 one-orbit 0 5 1.0 1.0 ok
+5504 one-orbit 0 5 1.0 1.0 ok
+6004 informative 1 6 0.5533333333333333 0.06 ok
+35 one-orbit 0 6 1.0 1.0 ok
+45 informative 1 5 0.57 0.023333333333333334 ok
+55 one-orbit 0 6 1.0 1.0 ok
+335 informative 2 3 0.5033333333333333 0.06333333333333334 ok
+345 informative 0 5 0.7433333333333333 0.08666666666666667 ok
+355 informative 0 5 0.7433333333333333 0.08333333333333333 ok
+405 informative 1 4 1.0 0.33666666666666667 ok
+445 one-orbit 0 5 1.0 1.0 ok
+455 one-orbit 0 5 1.0 1.0 ok
+505 informative 0 5 0.7866666666666666 0.08 ok
+555 informative 0 5 0.7166666666666667 0.05 ok
+605 informative 1 6 0.56 0.04 ok
+3035 all-singleton None None None None ok
+3045 all-singleton None None None None ok
+3055 all-singleton None None None None ok
+3305 all-singleton None None None None ok
+3335 informative 0 4 1.0 0.18 ok
+3345 informative 0 4 0.8366666666666667 0.06 ok
+3355 informative 2 6 0.46 0.25666666666666665 ok
+3405 informative 2 6 0.38333333333333336 0.16333333333333333 ok
+3445 informative 2 2 0.4666666666666667 0.21 ok
+3455 informative 0 4 0.7733333333333333 0.06333333333333334 ok
+3505 informative 0 4 0.7866666666666666 0.06333333333333334 ok
+3555 informative 2 2 0.4 0.20666666666666667 ok
+3605 one-orbit 0 4 1.0 1.0 ok
+4035 informative 1 5 0.8166666666666667 0.2 ok
+4045 informative 3 1 0.4066666666666667 0.4066666666666667 ok
+4055 informative 1 5 0.7833333333333333 0.26666666666666666 ok
+4405 all-singleton None None None None ok
+4445 one-orbit 0 4 1.0 1.0 ok
+4455 informative 1 3 0.78 0.22666666666666666 ok
+4505 informative 1 3 0.7833333333333333 0.18 ok
+4555 informative 1 5 0.83 0.17 ok
+4605 informative None None None None ok
+5005 one-orbit 0 4 1.0 1.0 ok
+5045 one-orbit 0 4 1.0 1.0 ok
+5055 one-orbit 0 4 1.0 1.0 ok
+5505 one-orbit 0 4 1.0 1.0 ok
+5555 one-orbit 0 4 1.0 1.0 ok
+5605 informative 0 4 1.0 0.23333333333333334 ok
+6005 all-singleton None None None None ok
+6055 informative 1 5 0.8166666666666667 0.22666666666666666 ok
+6605 informative 0 4 0.7633333333333333 0.05333333333333334 ok
+36 informative 1 4 1.0 0.2866666666666667 ok
+46 informative 1 4 0.55 0.05333333333333334 ok
+56 informative 1 4 0.52 0.043333333333333335 ok
+66 one-orbit 0 5 1.0 1.0 ok
+336 informative 3 1 0.37666666666666665 0.37666666666666665 ok
+346 one-orbit 0 4 1.0 1.0 ok
+356 informative 1 5 0.8233333333333334 0.24666666666666667 ok
+366 informative None None None None ok
+406 informative 0 4 1.0 0.18 ok
+446 one-orbit 0 4 1.0 1.0 ok
+456 one-orbit 0 4 1.0 1.0 ok
+466 informative 0 4 1.0 0.19333333333333333 ok
+506 all-singleton None None None None ok
+556 informative 1 3 0.8033333333333333 0.22333333333333333 ok
+566 informative 0 4 0.7766666666666666 0.07666666666666666 ok
+606 informative 0 4 0.78 0.07666666666666666 ok
+666 informative 0 4 0.82 0.07 ok
+3036 all-singleton None None None None ok
+3046 all-singleton None None None None ok
+3056 all-singleton None None None None ok
+3066 all-singleton None None None None ok
+3306 all-singleton None None None None ok
+3336 one-orbit 0 3 1.0 1.0 ok
+3346 all-singleton None None None None ok
+3356 informative 0 3 1.0 0.35333333333333333 ok
+3366 informative 2 5 0.6533333333333333 0.6533333333333333 ok
+3406 informative 2 5 0.7066666666666667 0.7066666666666667 ok
+3446 informative 2 1 0.6533333333333333 0.6533333333333333 ok
+3456 all-singleton None None None None ok
+3466 all-singleton None None None None ok
+3506 informative 0 3 1.0 0.30333333333333334 ok
+3556 informative 2 1 0.5966666666666667 0.5966666666666667 ok
+3566 all-singleton None None None None ok
+3606 all-singleton None None None None ok
+3666 informative 2 1 0.6566666666666666 0.6566666666666666 ok
+4036 informative 1 4 0.64 0.30333333333333334 ok
+4046 informative 1 2 0.7033333333333334 0.39666666666666667 ok
+4056 all-singleton None None None None ok
+4066 informative 1 4 0.64 0.30666666666666664 ok
+4406 all-singleton None None None None ok
+4446 informative 0 3 1.0 0.36 ok
+4456 one-orbit 0 3 1.0 1.0 ok
+4466 informative 2 1 0.68 0.68 ok
+4506 informative 2 5 0.67 0.67 ok
+4556 informative 2 1 0.6166666666666667 0.6166666666666667 ok
+4566 one-orbit 0 3 1.0 1.0 ok
+4606 one-orbit 0 3 1.0 1.0 ok
+4666 informative 2 5 0.68 0.68 ok
+5006 informative 1 2 1.0 0.6666666666666666 ok
+5046 informative 1 2 1.0 0.6433333333333333 ok
+5056 informative 1 2 1.0 0.7133333333333334 ok
+5066 informative 1 2 1.0 0.61 ok
+5506 one-orbit 0 3 1.0 1.0 ok
+5556 one-orbit 0 3 1.0 1.0 ok
+5566 one-orbit 0 3 1.0 1.0 ok
+5606 one-orbit 0 3 1.0 1.0 ok
+5666 one-orbit 0 3 1.0 1.0 ok
+6006 informative 0 3 1.0 0.3233333333333333 ok
+6056 one-orbit 0 3 1.0 1.0 ok
+6066 informative 1 4 0.6433333333333333 0.2966666666666667 ok
+6606 informative 1 2 0.6966666666666667 0.3466666666666667 ok
+6666 informative 0 3 1.0 0.36666666666666664 ok
+fits: 109 Counter({'informative': 70, 'one-orbit': 39})
+one-orbit n=39 p(d<=dobs) < 0.05: 0 mean P(null fit) 1.000 expected chance fits 39.0
+one-orbit n=39 p(d<=dobs) < 0.20: 0 mean P(null fit) 1.000 expected chance fits 39.0
+informative n=70 p(d<=dobs) < 0.05: 7 mean P(null fit) 0.733 expected chance fits 51.3
+informative n=70 p(d<=dobs) < 0.20: 32 mean P(null fit) 0.733 expected chance fits 51.3
+== n15 cores 12 T 300
+core kind d s P(null fit) P(null d<=d_obs) partition
+334 informative 1 7 0.29 0.0033333333333333335 ok
+3344 informative 2 9 0.5133333333333333 0.016666666666666666 ok
+3345 informative 0 6 0.5466666666666666 0.016666666666666666 ok
+3355 informative 2 8 0.4 0.03 ok
+3444 informative 2 5 0.42 0.0033333333333333335 ok
+3445 informative 2 4 0.4 0.02 ok
+4045 informative 3 3 0.35 0.016666666666666666 ok
+45 informative 1 7 0.31333333333333335 0.0033333333333333335 ok
+4506 informative 2 7 0.5666666666666667 0.07666666666666666 ok
+4556 informative 2 3 0.53 0.09 ok
+46 informative 1 6 0.45666666666666667 0.01 ok
+504 informative 1 9 0.25333333333333335 0.0 ok
+fits: 12 Counter({'informative': 12})
+informative n=12 p(d<=dobs) < 0.05: 10 mean P(null fit) 0.420 expected chance fits 5.0
+informative n=12 p(d<=dobs) < 0.20: 12 mean P(null fit) 0.420 expected chance fits 5.0
+== n16 cores 12 T 300
+core kind d s P(null fit) P(null d<=d_obs) partition
+334 informative 1 8 0.03666666666666667 0.0033333333333333335 ok
+3344 informative 2 10 0.17666666666666667 0.0033333333333333335 ok
+3345 informative 0 7 0.49666666666666665 0.006666666666666667 ok
+3355 informative None None None None ok
+3444 informative 2 6 0.16666666666666666 0.006666666666666667 ok
+3445 informative None None None None ok
+4045 informative 3 4 0.26666666666666666 0.0033333333333333335 ok
+45 informative 1 8 0.04666666666666667 0.0 ok
+4506 informative 2 8 0.3433333333333333 0.023333333333333334 ok
+4556 informative 2 4 0.4066666666666667 0.02666666666666667 ok
+46 informative None None None None ok
+504 informative 1 10 0.04666666666666667 0.0 ok
+fits: 9 Counter({'informative': 9})
+informative n=9 p(d<=dobs) < 0.05: 9 mean P(null fit) 0.221 expected chance fits 2.0
+informative n=9 p(d<=dobs) < 0.20: 9 mean P(null fit) 0.221 expected chance fits 2.0

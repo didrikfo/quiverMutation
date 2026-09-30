@@ -1,0 +1,5 @@
+15 4046 offset 0 held [0, 4] size 81 closed 0s
+15 4046 offset 1 held [1] size 149 closed 0s
+15 4046 offset 2 held [2] size 85 closed 0s
+15 4046 offset 3 held [3] size 149 closed 0s
+15 4046 offset 5 held [5] size 8794 closed 16s

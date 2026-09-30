@@ -1,0 +1,7 @@
+14 453 no placement
+14 454 no placement
+14 455 hi 6 classes [[0, 2, 4, 6], [1, 3, 5]] sizes [320, 272] | sums [] | k None | d 0 | big-classes 2 | closed 1s
+14 456 hi 5 classes [[0, 1, 2, 3, 4, 5]] sizes [3767] | sums [] | k None | d 0 | big-classes 1 | closed 5s
+14 457 hi 4 classes [[0, 1, 2, 3, 4]] sizes [1636] | sums [] | k None | d 0 | big-classes 1 | closed 3s
+14 458 hi 3 classes [[0, 1, 2, 3]] sizes [11820] | sums [] | k None | d 0 | big-classes 1 | closed 16s
+14 459 hi 2 classes [[0, 2], [1]] sizes [4534, 2179] | sums [2] | k 12 | d 1 | big-classes 0 | closed 8s

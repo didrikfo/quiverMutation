@@ -1,17 +1,18 @@
 # Experimentalist notebook (rewritten each round)
 
-## What I now believe (after round 004)
-- The 12 cores of E-060 keep `k = n - s` and signed `d` at n = 13, 14, 15 (12/12) and at 16 for 9/12. The slide rule `s = first o + last o` at 15: 8/12, failures only the known `4045 4506 4556` and all-inside `334`. No new failure of E-060.
-- At 16, `3355 3445 46` have no fit: centre still `n - k`, but the middle pair (offsets summing to s) is two separate singleton orbits of equal size 20300 (also seen for `4056` at 16, EXPERIMENTS 2026-09-30). Same signature as the 7 of E-059 at odd n, so the "defect" is an unmerged middle pair, not literally odd n. Parity is core-dependent: these 3 pair at 13..15, fail at 16; the 7 fail at odd n. Not understood; suspect s or n - hi parity or a threshold in n.
-- Round 003 results stand (7 cores: pair at even n, strict mirror at odd n, 12..18).
+## What I now believe (after round 007)
+- `k(34x) = x + 3` (the footprint), `d = 0` (s = hi), for x = 4, 5, 7, 8, 9 at n = 14..17, 20/20 cells, all closed; `346` never fits (one orbit, n = 14..17). Not `2x`. Raw singletons in the middle are equal-size mirror pairs or the centre (`d_eff = 0` everywhere).
+- `45x`: no reflection; 456, 457 always one orbit; 455, 458, 459 split by offset parity at some n (455 even n, 458 odd n, 459 even n) and merge at others.
+- `4046` is a reflection (k = 11, d = 1, n = 12..16, middle pairs unmerged but equal size). The period-2 translation is `5046`/`5056` at odd n (13, 15); one orbit at even n (12, 14, 16). E-060's claim that `4046` also gives {0,2},{1,3} at 13 did not reproduce (I get {0,2},{1},{3}).
+- Earlier (004) results stand: 12 cores of E-060 keep k, d; "unmerged middle pair" is mirror pair (E-064).
 
 ## What I tried
-- Ran 24 jobs at once on 4 cores: n = 15 finished slowly (300-570 s each), n = 16 timed out. Machine has 4 cores; run at most 4 census processes. n = 16 census is 160 s per core alone, 12 cores about 12 min at 4 procs; n = 15 is about 40 s alone.
-- Data: `workshop/rounds/004/experimentalist_census_12cores_n15.jsonl`, `_n16.jsonl`, slides n15, `experimentalist_shift.py` table.
+- `workshop/rounds/007/experimentalist_kd.py`, `_table.py`, `_core4046.py`. Timing: 34x n = 16 about 8 min total (347 200 s, 348 170 s), n = 17 347 alone 370 s, 348/349 about 150 s each; 4 procs in parallel fit in 10 min except 34x n17 (rerun per x).
+- Orbit-only walks; mirror equality inferred from equal orbit size, not joined.
 
 ## What I would do next
-1. Cheap: the 3 failures at n = 17 and 18 (unsized; 17 maybe 10 min each). If the census script had `--budget-hours` and `--plan` these would go in OVERNIGHT.
-2. Test the unmerged-middle-pair hypothesis on the 7: is the odd-n failure the same thing (centre odd/even)? Tabulate parity of s = n - k against merged/unmerged middle for all 19 cores at n = 12..16.
-3. Full 139-core census at n = 12 or 15 still not run (open from round 003).
-4. d(c) vs |head - tail| of H-020 is answered for interior blocks (E-060), still open for all-inside cores.
-- Watch: a "no fit" here is an unmerged pair with equal size, not a different centre; do not count it as loss of structure without saying so. Census at 16 is near my 10 min limit per core if run in parallel; use xargs -P4.
+1. Mirror-join check (toolsmith_orbitclass.py) of the equal-size singleton pairs in 344/348/349 at 15..17: turns "equal size" into "same orbit".
+2. 34x at n = 18 for x = 7..9 (OVERNIGHT, ~40 min each); 44x not run.
+3. Check `4046@13` offset 3 vs `5046@13` {1,3} (equal size 2116): same orbit?
+4. Still open from 004: 3 failures at n = 17, 18; 139-core census n = 12 / 14 (overnight).
+- Watch: pair sums from classes that also contain 3 members are not fits (the table script prints k for 458/459 wrongly; ignore). Sizes at n = 17 reach 120k; cap is 300k.

@@ -1,0 +1,7 @@
+15 343 no placement
+15 344 hi 8 classes [[0, 8], [1, 7], [2], [3, 5], [4], [6]] sizes [52, 43, 64, 51, 68, 64] | sums [8] | k 7 | d 3 | big-classes 0 | closed 1s
+15 345 hi 7 classes [[0, 7], [1, 6], [2, 5], [3, 4]] sizes [763, 743, 881, 877] | sums [7] | k 8 | d 0 | big-classes 0 | closed 6s
+15 346 hi 6 classes [[0, 1, 2, 3, 4, 5, 6]] sizes [5648] | sums [] | k None | d 0 | big-classes 1 | closed 10s
+15 347 hi 5 classes [[0, 5], [1, 4], [2, 3]] sizes [2290, 18157, 18416] | sums [5] | k 10 | d 0 | big-classes 0 | closed 56s
+15 348 hi 4 classes [[0, 4], [1, 3], [2]] sizes [8794, 4002, 4255] | sums [4] | k 11 | d 1 | big-classes 0 | closed 28s
+15 349 hi 3 classes [[0, 3], [1, 2]] sizes [18416, 8693] | sums [3] | k 12 | d 0 | big-classes 0 | closed 40s
