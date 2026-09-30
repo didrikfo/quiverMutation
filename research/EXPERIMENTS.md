@@ -6,6 +6,33 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-072 — The H-017 search passes an L = 5 control (42 of 42 at n = 6, 8 of 8 near-trivial LNAs at n = 7, 0 of 50 at depth L - 1); at n = 9 the four K = 1 below-diagonal candidates reach nothing at depth 5, and depth 6 costs about 5.7 times depth 5
+*2026-09-30* · **`maverick_control5.py` rebuilds the longest-relation-set member of each LNA reached by a depth-5 walk (path length L = 5) as a path algebra and searches from it with the Coxeter guard on: n = 6, every LNA (42): source returned 42/42 at depth 5, 0/42 at depth 4; n = 7, the first 8 LNAs by sort order: 8/8 and 0/8. That fills E-069's missing L >= 5 case for n = 6. At n = 9 (`maverick_verify.py 9 D 1 -1`, the 4 measured K = 1 candidates): nothing reached at depth 4 (9-17 s each), nothing at depth 5 (49-98 s each, 321 s in all), nothing at depth 6 for candidate 1 (280 s). Depth 6 for the four is about 30 min, for all 16 candidates about 2 h (one candidate per 10-minute shard); depth 7 about 27 min per candidate** → H-017, E-069, E-063 · *workshop round 009, maverick, refereed by toolsmith*
+
+**Limits.** The depth-5 negative excludes only members within 5 steps; the forward walks of E-063 needed depth 6 for `3033030` and `4444400`. The "recorded paths are shortest" check (50/50) runs the same exhaustive DFS and is a consistency check only. The n = 7 sample is 8 of 132 LNAs, all near-trivial; the n = 9 depth 5 and 6 outputs were not saved; the other 12 of the 16 candidates were not sized; the growth factor 5.7 rests on one depth 5-to-6 pair. A class with no hereditary member is still uncontrolled.
+
+**Reproduction.** `timeout 10m .venv/bin/python workshop/rounds/009/maverick_control5.py 6 5 5 1` (42/42, about 3 min); `... 7 5 5 1 8` (8/8, 111 s); `timeout 10m .venv/bin/python workshop/rounds/004/maverick_verify.py 9 5 1 -1` (321 s); outputs `maverick_control5_n6.txt`, `maverick_control5_n7.txt`.
+
+---
+
+## E-071 — The drift families `aax` close into chain pairs with `k = 2x + 3 - a` for a = 3, 5, 6 (and 7 at n = 15) but `44x` joins the big orbit, matching a computed criterion: the seed `aaa` collapses to `34` only for a = 4
+*2026-09-30* · **For `aax` the double mutation drifts `aax@o -> aa(x-1)@(o+1)` and the chain ends at the seed `aaa`; the family closes into pairs `{c, n-c}` unless the seed's span-2 collapse reaches the sliding word `44`. The collapse of `aaa` is `(a-1)a`: `23`, `45`, `56` do not reach a slider and the families are rigid, `34` does (7-step path `34@5 <- 403@6 ... 44@5` at n = 14) and `444@o` is in the orbit of `333@0` at every offset. n = 14 (`55x` x = 5..8, `66x` x = 6..8, predictions printed before the run): all rigid, `s = 6, 4, 2, 0` for `55x`, `5, 3, 1` for `66x`, all orbits closed; `33x` rechecked; `44x` one orbit of size 3767. Referee's extra runs: `55x` n = 12, 13; `66x` n = 13; `44x` n = 12 (merged, 1410); `77x` n = 15 (rigid, pairs `[0,5],[1,4],[2,3]`). The broader criterion "the orbit holds a span <= 3 word at every offset" fails (10 of 24 cells agree)** → H-021, E-065 · *workshop round 009, theorist, refereed by experimentalist*
+
+**Limits.** A computed criterion with one positive datum (a = 4): not proved. Why `34` alone reaches the slider (`3333 <-> 3403` has no analogue for `23`, `45`, `56`) is unexplained. The drift for x > a is evidenced by the pair structure only, not displayed. a = 2, 8, 9 and n >= 16 not run; `34x`, `45x` are outside the criterion (no drift for `45x`).
+
+**Reproduction.** `.venv/bin/python workshop/rounds/009/theorist_nbrs.py 44 4-6`; `.venv/bin/python workshop/rounds/009/theorist_path34.py`; `timeout 10m .venv/bin/python workshop/rounds/009/theorist_closure.py 14 55 5-8` (about 4 min; outputs `theorist_closure_*_n14.txt`); `timeout 10m .venv/bin/python workshop/rounds/009/theorist_translator.py 14 33 4-8` (the failed broader criterion).
+
+---
+
+## E-070 — The equal-size singleton pairs of `344`, `348`, `349` at n = 15..17 and `4046` at n = 14..16 are each one orbit and its mirror, and orbit-plus-mirror equals the key in all 12 cells; the key-coarser cores of E-064 at n = 12, 13 are disjoint from the 7 cores of E-059
+*2026-09-30* · **All 12 orbit walks closed (limit 400000). Every unmerged pair of equal size is joined by the mirror (e.g. `348@16` `{2,3}` of size 20300, `349@17` `{1,4}`, `4046@16` `{1,4}{2,3}`), so the E-068 size-paired singletons are one orbit plus its mirror. The key-coarser cores are 9 at n = 12 (`35 455 3334 3336 5003 5055 5504 5505 5506`) and 10 at n = 13 (`36 405 466 3335 5004 5006 5046 5056 5066 5605`); neither meets the 7 of E-059 (`344 366 4044 4403 4404 4405 4605`). The key-coarser cores are parity-class orbits that each hold their own mirror; the 7 pair at n = 12 and mirror-join at n = 13, but the joins also occur at even n (`348@16`, `349@16`, `4046@14`, `4046@16`), so "pair at even n, mirror-join at odd n" is not supported** → H-021, E-064, E-068 · *workshop round 009, experimentalist, refereed by skeptic*
+
+**Limits.** Only `n = 17` lies outside E-064's range; the n = 14..16 joins duplicate E-064 rows. The key-coarser lists were printed for n = 12, 13 only. Whether size 20300 of `348`, `349` at n = 16 is the orbit of `4056` (E-064) was not tested. Nothing for n >= 18 or x >= 10.
+
+**Reproduction.** `timeout 10m .venv/bin/python workshop/rounds/009/experimentalist_mirrorjoin.py 17 344 348 349 --limit 400000` (about 7 min; n = 16 about 6 min; `4046` at 16 about 3 min; output `experimentalist_mirrorjoin_out.txt`); `.venv/bin/python workshop/rounds/006/toolsmith_orbitclass.py 12 --jobs 4`, same at 13.
+
+---
+
 ## E-069 — The H-017 mutation search returns the source LNA in 273 of 273 round trips at n = 7 (91 of 132 LNAs) and 84 of 84 at n = 6 from depth L, and in 0 of 84 (n = 6) and 0 of 132 (n = 7) at depth L - 1; so a depth-4 negative means "no member within 4 steps" and no more
 *2026-09-30* · **Positive control for the round-004 search (`search.linesReachedFrom` via `families.verify`, Coxeter guard on): quipu-with-relations members found by a depth-4 walk (the 3 longest-path members per LNA, path length L = 4 at n = 7, 3 at n = 6) are rebuilt as path algebras and searched at depth L: the source LNA is returned every time. At depth L - 1 it is returned never. Consequence: round 004's depth-4 "reached nothing" for 16 below-diagonal candidates at n = 9 excludes only class members within 4 steps; the forward walks needed depth 6 for `3033030` and `4444400`** → H-017, E-063 · *workshop round 007, maverick, refereed by experimentalist*
 

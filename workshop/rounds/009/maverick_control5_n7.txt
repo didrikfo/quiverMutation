@@ -1,0 +1,9 @@
+00000 L 5 rels 3 hit True neg True 24.4s
+00002 L 5 rels 4 hit True neg True 15.5s
+00020 L 5 rels 4 hit True neg True 13.5s
+00022 L 5 rels 4 hit True neg True 8.3s
+00030 L 5 rels 4 hit True neg True 20.0s
+00200 L 5 rels 4 hit True neg True 13.3s
+00202 L 5 rels 4 hit True neg True 9.0s
+00220 L 5 rels 4 hit True neg True 7.1s
+{'short_ok': 8, 'hit': 8, 'neg_ok': 8} total 111s

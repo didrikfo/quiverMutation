@@ -7,6 +7,20 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 009 -- 2026-09-30 -- ordinary
+
+Worked: experimentalist (T1/T3), theorist (T2/T4), maverick (T6). Referees: skeptic, experimentalist, toolsmith. All minor revision; I applied the fixes and accepted all three. Details in `rounds/009/`.
+
+- **experimentalist:** the equal-size singleton pairs of `344 348 349` (n = 15..17) and `4046` (n = 14..16) are one orbit plus its mirror, orbit+mirror = key in 12/12 cells; the key-coarser cores at n = 12, 13 are not the 7 of E-059. Referee: mostly already in E-064 (only n = 17 new); the "pair at even n, mirror-join at odd n" summary contradicted the table and was withdrawn.
+- **theorist:** `aax` drift families close with `k = 2x + 3 - a` for a = 3, 5, 6 (7 by the referee) and `44x` does not, because the seed `444` collapses to `34`, which reaches the slider `44`. Predicted before running for `55x`, `66x`; referee's extra runs agree. Computed criterion, not proved (one positive datum).
+- **maverick:** L = 5 control passes (42/42 at n = 6; 8/8 near-trivial LNAs at n = 7); four n = 9 candidates reach nothing at depth 5. Referee corrected the sizing: depth 6 for 16 candidates about 2 h, one candidate per 10-minute shard.
+
+Promoted: E-070, E-071, E-072; status lines of H-021, H-017.
+
+**Questions for you (chair takes the recommended option if unanswered):** (1) H-017 depth 6 for all 16 n = 9 candidates: recommend toolsmith adds a candidate-index argument first, no overnight run (only depth 7 is overnight, already in Menu 4); (2) write the `aax` criterion into H-021's text: recommend not until a skeptic's null. No questions were outstanding from round 008.
+
+---
+
 ## Round 008 -- 2026-09-30 -- conference
 
 Six position statements (haiku), no new work, nothing promoted. Details in `rounds/008/`. Their factual sub-claims are unchecked.

@@ -3,7 +3,7 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 8
+last_round: 9
 next_round_kind: ordinary
 
 ## Open threads
@@ -21,6 +21,15 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 009 updates (supersede everything below where they differ)
+
+Round 009 (ordinary: experimentalist, theorist, maverick) recorded E-070..E-072. Next round (010) is ordinary; 012 is the next conference. The round-008 agenda stands (items 1, 3, 4 worked).
+
+- **T1/T3 (E-070):** the equal-size singleton pairs of `344 348 349` at 15..17 and `4046` at 14..16 are one orbit plus its mirror (orbit+mirror = key, 12/12). Key-coarser cores at 12, 13 are disjoint from the 7 of E-059. "Pair at even n, mirror-join at odd n" is NOT supported (mirror-joins occur at even n). Open: print key-coarser lists at 14..16 (does the even list repeat?); is size 20300 of `348/349` at 16 the `4056` orbit; why the 7 of E-059 are what they are.
+- **T2/T4 (E-071):** `aax` drift closes (`k = 2x + 3 - a`) for a = 3, 5, 6 (n = 14) and 7 (n = 15), not `44x`; computed criterion: the seed `aaa` collapses to `34` only for a = 4. Open: why `34` alone reaches the slider (proof gap; `3333 <-> 3403`); a neighbour-aware null for "a = 4 special" (skeptic); a = 2, 8, 9; n >= 16; `44x` at n >= 17.
+- **T6 (E-072):** L = 5 control passes (n = 6 full, n = 7 first 8 LNAs); four n = 9 candidates reach nothing at depth 5. Depth 6 for 16 candidates about 2 h, one candidate per shard; depth 7 about 27 min each. Open: candidate-index argument in `maverick_verify.py` (toolsmith); n = 7 control for the other 124 LNAs; the other 12 candidates unsized.
+- Requests added: toolsmith: candidate-index argument + `--budget-hours` for `maverick_verify.py`; skeptic: null for "a = 4 special" in E-071; experimentalist: key-coarser lists at n = 14..16.
 
 ## Round 008 (conference) -- proposed agenda (proposed, round 008; supersedes the ranking above; ordinary rounds work from it until the human changes it in STEERING.md)
 
@@ -71,11 +80,11 @@ Requests added: toolsmith to theorist: why the key-coarser cores are the parity 
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 007 | 007 (maverick) |
+| experimentalist | 009 | 009 (theorist) |
 <!-- 008 was a conference: all six wrote position statements -->
 <!-- 005 was a conference: all six wrote position statements; nobody refereed -->
-| theorist | 006 | 007 (skeptic) |
-| skeptic | 007 | 007 (experimentalist) |
+| theorist | 009 | 007 (skeptic) |
+| skeptic | 007 | 009 (experimentalist) |
 | scholar | 006 | 004 |
-| toolsmith | 006 | - |
-| maverick | 007 | - |
+| toolsmith | 006 | 009 (maverick) |
+| maverick | 009 | - |

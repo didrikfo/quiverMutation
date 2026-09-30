@@ -1,0 +1,14 @@
+n 14 seed 444
+ seed@0 products ['34', '45'] full translators among them ['34'] orbit 3767 closed
+ seed@1 products ['34'] full translators among them ['34'] orbit 3767 closed
+ seed@2 products ['34'] full translators among them ['34'] orbit 3767 closed
+ seed@3 products ['34'] full translators among them ['34'] orbit 3767 closed
+ seed@4 products ['34'] full translators among them ['34'] orbit 3767 closed
+ seed@5 products ['34'] full translators among them ['34'] orbit 3767 closed
+ seed@6 products ['34'] full translators among them ['34'] orbit 3767 closed
+ seed@7 products ['34'] full translators among them ['34'] orbit 3767 closed
+PREDICT merged
+444 OUTCOME merged [([0, 1, 2, 3, 4, 5, 6, 7], 3767, 'closed')]
+445 OUTCOME merged [([0, 1, 2, 3, 4, 5, 6], 3767, 'closed')]
+446 OUTCOME merged [([0, 1, 2, 3, 4, 5], 3767, 'closed')]
+447 OUTCOME merged [([0, 1, 2, 3, 4], 3767, 'closed')]

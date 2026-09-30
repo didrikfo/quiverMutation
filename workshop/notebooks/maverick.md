@@ -1,23 +1,24 @@
 # Maverick's notebook
 
-## What I now believe (after round 007)
-- H-017 (relations > cords among quipus proved in a class outside the quipu theorem) survives depth 4-6 at n = 9 with the ten pairs of the record; per-LNA minimum of rels - cords is depth dependent (4444400: 2 at depth 5, 1 at depth 6); class minimum is what matters.
-- The Coxeter polynomial cannot see (cords, relations): c_{n-1} = 1 for every tree algebra with monomial relations; c_{n-2} is not a function of them. Smith form of C+C^T and F-047 profile keep identical survivors, incl. below-diagonal ones.
-- Euler signature: pos(C+C^T) <= n-2 iff outside every quipu class for LNAs n = 8..11; forced to fail at n = 13. One relation lowers pos by at most 1, so relations >= 1 or 2, not > cords. (Modest; near F-045/F-048.)
-- Round 007 (tested on small cases): the verify-style mutation search (families.verify / linesReachedFrom) DOES return positives: round trip from certified quipu-with-relations members back to their source LNA, 273/273 at n = 7 (L = 4), 84/84 and 126/126 at n = 6; 0/84 at depth L-1. It has resolution exactly its depth. So round 004's depth-4 "reached nothing" on 16 below-diagonal candidates means only "nothing within 4 steps"; forward walks needed depth 6 for 3033030/4444400.
+## What I now believe (after round 009)
+- H-017 (relations > cords among quipus proved in a class outside the quipu theorem) survives depth 4-6 at n = 9 with the ten recorded pairs; per-LNA minimum depends on depth (4444400: 2 at 5, 1 at 6); the class minimum is what matters.
+- The Coxeter polynomial cannot see (cords, relations) (c_{n-1} = 1 for monomial trees). Euler signature pos(C+C^T) <= n-2 iff outside every quipu class, n = 8..11; one relation lowers pos by at most 1, so relations >= 1 or 2, not > cords.
+- The mutation search (families.verify / linesReachedFrom) has resolution exactly its depth: round trips 273/273 at n = 7 (L = 4), 84/84 at n = 6 (L=3); round 009: L = 5 passes 42/42 at n = 6, 8/8 at n = 7, 0/50 at L-1; recorded paths are shortest (reachedQuipuAlgebras is an exhaustive DFS keeping the min).
+- Depth-5 search from the four K = 1 below-diagonal candidates at n = 9 reached nothing (new, round 009); depth 6 for candidate 1 also nothing. So candidate negatives now exclude members within 5 (one: 6) steps; forward walks needed 6.
+- Cost per depth level at n = 9 is about 5.5-5.7x: depth 4 ~14 s, 5 ~80 s, 6 ~5-7 min, 7 ~27 min per candidate.
 
 ## What I tried
-- census of candidates by (cords,rels) at n=9; proved-member walks; Euler/profile filters; search from 16 below-diagonal survivors at depth 4 (round 004); signature by status n=8..11; quipu pos count to n=15; round-trip control (`rounds/007/maverick_control.py`), n=6,7.
+- census by (cords,rels); proved-member walks; Euler/profile filters; search from below-diagonal survivors at depth 4 (r004), 5 and 6 (r009); signature n=8..11; control rounds 007 (L=3,4), 009 (L=5, shortest check; `rounds/009/maverick_control5.py`, has --plan).
 
 ## Watch for
 - Cords: count cords with m > 0 in `quipuParameters`.
-- "Each relation is a rank-2 perturbation" holds only for gldim <= 2.
-- A negative at depth d excludes only distance <= d. State the depth against the depth the forward walk needed.
-- The n = 7 control run hit the 10 min cap; `maverick_control.py` has no budget flag and prints its summary last.
+- A negative at depth d excludes only distance <= d; say it next to the depth the forward walk needed (6).
+- `ct.lnaStatus(6)` has 42 LNAs, not 84 (E-069's 84 counts members).
+- n = 7 full control (132 LNAs, ~14 s each) exceeds 10 min; shard it.
+- `maverick_verify.py` has no candidate index: K = 1 gives 4 cells, K larger gives the 16.
 
 ## Next
-- Rerun the 16 below-diagonal candidates at depth 5-6 (size with K = 1; OVERNIGHT proposal if > 10 min).
-- Control at n = 9 with a path-5/6 member of 4444400: confirm the flip at L.
-- Meet-in-the-middle search from candidate and class side.
-- H-017 at n = 10 (262 LNAs, depth 4) and depth 7 at n = 9: overnight. Signature criterion at n = 12, 13.
-- Unasked: is the tubular class's corank-2 Euler form a Z-lattice invariant naming its quipu-with-relations members (normal form for H-014)?
+- Depth 6 on all 16 candidates: ~1.5 h, shards of 2 per command (needs a candidate-index arg). Depth 7: ~7 h, overnight, already in Menu 4 for the LNA side.
+- Meet-in-the-middle from candidate and class side to beat the 5.7x growth.
+- H-017 at n = 10 (262 LNAs) only once depth 6 at n = 9 is clean. Signature criterion at n = 12, 13.
+- Unasked: is the tubular class's corank-2 Euler form a Z-lattice invariant naming its quipu-with-relations members? Coxeter-spectrum idea parked.

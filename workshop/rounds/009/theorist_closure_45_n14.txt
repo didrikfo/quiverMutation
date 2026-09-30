@@ -1,0 +1,13 @@
+n 14 seed 455
+ seed@0 products ['35'] full translators among them [] orbit 320 closed
+ seed@1 products ['35'] full translators among them [] orbit 272 closed
+ seed@2 products ['35'] full translators among them [] orbit 320 closed
+ seed@3 products ['35'] full translators among them [] orbit 272 closed
+ seed@4 products ['35'] full translators among them [] orbit 320 closed
+ seed@5 products ['35'] full translators among them [] orbit 272 closed
+ seed@6 products ['35'] full translators among them [] orbit 320 closed
+PREDICT rigid
+455 OUTCOME rigid [([0, 2, 4, 6], 320, 'closed'), ([1, 3, 5], 272, 'closed')]
+456 OUTCOME merged [([0, 1, 2, 3, 4, 5], 3767, 'closed')]
+457 OUTCOME merged [([0, 1, 2, 3, 4], 1636, 'closed')]
+458 OUTCOME merged [([0, 1, 2, 3], 11820, 'closed')]
