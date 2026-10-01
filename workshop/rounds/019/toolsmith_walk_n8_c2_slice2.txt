@@ -1,0 +1,13 @@
+RESUME from /tmp/tw_n8c2.ckpt depth 8 pos 7746 expanded 17482 slices 1
+depth 8 expanded 24316 next 38907 nonmono parents 18362 675s
+n 8 class 2 key (1, 1, -1, -4, -5, -4, -1, 1, 1) starts 18 distinct algebras 63221 closed False
+('guard', 'tilt') 104629
+('noguard', 'NOTtilt') 2
+REJECTIONS (gate-admitted, tiltingPlus False): 2
+(7, [[[2, 5, 3]], [[3, 1, 4], [3, 8, 4]], [[5, 3, 1], [5, 6, 1]], [[5, 3, 8], [5, 6, 8]], [[5, 6, 1]], [[6, 1, 4, 7], [6, 8, 4, 7]]], 4, False, (6, 1, 1, 4, 3, 1, 7, 4))
+(7, [[[3, 1, 5, 2], [3, 8, 5, 2]], [[4, 3, 1], [4, 6, 1]], [[4, 3, 8]], [[4, 3, 8], [4, 6, 8]], [[6, 1, 5], [6, 8, 5]], [[7, 4, 6]]], 5, False, (17, 8, 5, 6, 8, 8, 2, 5))
+GATE+TILT BUT KEY MOVES: 0
+
+real	3m28.052s
+user	3m25.127s
+sys	0m3.213s

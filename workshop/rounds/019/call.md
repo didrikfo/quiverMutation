@@ -7,4 +7,6 @@ kind: ordinary
 ## Revisions due
 (none)
 ## Referees
-(filled in at step 3)
+- skeptic: rounds/019/theorist.md
+- theorist: rounds/019/experimentalist.md
+- scholar: rounds/019/toolsmith.md

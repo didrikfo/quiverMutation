@@ -1,0 +1,8 @@
+RESUME from /tmp/tw_pre.ckpt depth 8 pos 11163 expanded 20899 slices 2
+CHECKPOINT /tmp/tw_pre.ckpt depth 8 pos 11163 of 14580 expanded 20899
+n 8 class 2 key (1, 1, -1, -4, -5, -4, -1, 1, 1) starts 18 distinct algebras 54333 closed False
+('guard', 'tilt') 89189
+('noguard', 'NOTtilt') 1
+REJECTIONS (gate-admitted, tiltingPlus False): 1
+(7, [[[2, 5, 3]], [[3, 1, 4], [3, 8, 4]], [[5, 3, 1], [5, 6, 1]], [[5, 3, 8], [5, 6, 8]], [[5, 6, 1]], [[6, 1, 4, 7], [6, 8, 4, 7]]], 4, False, (6, 1, 1, 4, 3, 1, 7, 4))
+GATE+TILT BUT KEY MOVES: 0

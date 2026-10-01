@@ -20,6 +20,7 @@ ap_.add_argument('--class', type=int, dest='cls', default=-1); ap_.add_argument(
 ap_.add_argument('--stop-on-reject', action='store_true', dest='sor')
 ap_.add_argument('--budget-sec', type=float, default=0, dest='budget'); ap_.add_argument('--show', type=int, default=5)
 ap_.add_argument('--ckpt', default='')
+ap_.add_argument('--max-exp', type=int, default=0, dest='maxexp', help='stop (like a spent budget) when this many expansions are done in total; deterministic')
 a = ap_.parse_args()
 
 classes = {}
@@ -64,7 +65,7 @@ while not S['done'] and S['d'] < a.depth:
     if not S['cur'] and S['pos'] == 0 and d > 0 and not S['nxt']: S['done'] = True; break
     cur = S['cur']
     while S['pos'] < len(cur):
-        if a.budget and time.time() - t0 > a.budget: budget_hit = True; break
+        if (a.budget and time.time() - t0 > a.budget) or (a.maxexp and S['expanded'] >= a.maxexp): budget_hit = True; break
         alg, path = cur[S['pos']]
         S['expanded'] += 1; S['pos'] += 1
         if list(nx.simple_cycles(alg.quiver)): tab['parent-cyclic'] += 1; continue
@@ -93,7 +94,7 @@ if budget_hit:
     else: print('budget spent, no --ckpt: counts partial', flush=True)
 closed = S['done'] and not budget_hit and not S['stop']
 if a.ckpt and not budget_hit: save()
-if not budget_hit or not a.ckpt:
+if True:
     print('n', a.n, 'class', a.cls, 'key', base, 'starts', len(starts), 'distinct algebras', len(seen), 'closed', closed)
     for k, v in sorted(tab.items(), key=str): print(k, v)
     print('REJECTIONS (gate-admitted, tiltingPlus False):', len(rej))
