@@ -4,3 +4,4 @@ depth 3 expanded 290 next 444 nonmono parents 86 6s
 depth 4 expanded 734 next 1030 nonmono parents 314 14s
 depth 5 expanded 1764 next 2344 nonmono parents 896 37s
 depth 6 expanded 4108 next 5628 nonmono parents 2422 93s
+depth 7 expanded 9736 next 14580 nonmono parents 6620 241s

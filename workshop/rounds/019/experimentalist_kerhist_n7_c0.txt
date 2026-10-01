@@ -1,0 +1,16 @@
+class 0 algebras 28921 480s
+('NOT', 'NOcong(False)', 'noguard') 143
+('diff-in-row-k-offdiag', True, 'equals -dim ker g_i', True) 143
+('tilt', 'cong', 'guard') 53502
+HIST (tilting?, total dim ker over i) -> steps
+  (False, 1) 143
+  (True, 0) 53502
+HIST per-i (tilting?, dim ker g_i) -> count
+  (False, 0) 715
+  (False, 1) 143
+  (True, 0) 321012
+steps tilting/non-tilting 53502 143 | distinct parents overall 13564 | distinct parents with a non-tilting step 143
+non-tilting steps with total dim ker 0: 0 []
+tilting steps with dim ker > 0: 0 []
+steps per rejecting parent histogram (n non-tilting vertices of that parent -> parents): [(1, 143)]
+DISAGREEMENTS (tilt xor cong): 0
