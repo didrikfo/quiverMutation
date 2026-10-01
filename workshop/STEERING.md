@@ -70,3 +70,5 @@ by a command, and checked against what is already recorded.
 - round 015, question 2 (overnight) (applied, round 016): no overnight; toolsmith sizes the n = 8 `MONO=1` plan first -- decided by the chair of round 016; no answer from the human
 - round 016, question 1 (overnight): none; the depth-8 n = 8 class 2 walk needs a checkpoint first -- decided by the chair of round 017; no answer from the human (applied, round 017)
 - round 016, question 2 (agenda): approve the round-016 agenda unchanged -- decided by the chair of round 017; no answer from the human (applied, round 017)
+- round 017, question 1 (overnight): none; the depth-8 n = 8 class 2 walk needs a checkpoint in `scholar_walk.py` first -- decided by the chair of round 018; no answer from the human (applied, round 018)
+- round 017, question 2 (agenda): approve the round-016 agenda unchanged -- decided by the chair of round 018; no answer from the human (applied, round 018)
