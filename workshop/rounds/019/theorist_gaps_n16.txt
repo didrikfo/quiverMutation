@@ -1,0 +1,19 @@
+n 16 |S| 8134
+2224 placements 9 o* 8 L 8 g 0
+2245 placements 8 o* 6 L 6 g 1
+2246 placements 7 o* 5 L 5 g 1
+2247 placements 6 o* 4 L 4 g 1
+2248 placements 5 o* 3 L 3 g 1
+2249 placements 4 o* 2 L 2 g 1
+2334 placements 9 o* 8 L 8 g 0
+3344 placements 9 o* 1 L 1 g 7
+3444 placements 9 o* 7 L 7 g 1
+3445 placements 8 o* 6 L 6 g 1
+3446 placements 7 o* 5 L 5 g 1
+3447 placements 6 o* 4 L 4 g 1
+3448 placements 5 o* 3 L 3 g 1
+3449 placements 4 o* 2 L 2 g 1
+4556 placements 7 o* 6 L 6 g 0
+4667 placements 6 o* 5 L 5 g 0
+4778 placements 5 o* 4 L 4 g 0
+4889 placements 4 o* 3 L 3 g 0

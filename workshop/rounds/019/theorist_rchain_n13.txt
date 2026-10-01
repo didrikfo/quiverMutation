@@ -1,0 +1,11 @@
+n 13 |S| 2386
+2224 placement 5 of 0..5 R-chain to 333@0: NO; R-closure size 1, R-terminals ['4@8'] (in S: [True])
+2245 placement 3 of 0..4 R-chain to 333@0: NO; R-closure size 1, R-terminals ['45@5'] (in S: [True])
+2246 placement 2 of 0..3 R-chain to 333@0: NO; R-closure size 1, R-terminals ['46@4'] (in S: [True])
+2334 placement 5 of 0..5 R-chain to 333@0: NO; R-closure size 1, R-terminals ['334@6'] (in S: [True])
+3344 placement 1 of 0..5 R-chain to 333@0: NO; R-closure size 1, R-terminals ['3344@1'] (in S: [True])
+3444 placement 4 of 0..5 R-chain to 333@0: NO; R-closure size 2, R-terminals ['45@5'] (in S: [True])
+3445 placement 3 of 0..4 R-chain to 333@0: NO; R-closure size 2, R-terminals ['46@4'] (in S: [True])
+3446 placement 2 of 0..3 R-chain to 333@0: NO; R-closure size 2, R-terminals ['47@3'] (in S: [True])
+4556 placement 3 of 0..3 R-chain to 333@0: NO; R-closure size 2, R-terminals ['357@3'] (in S: [True])
+split words with in-S placement reducing by R to 333@0: 0 of 9

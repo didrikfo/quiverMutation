@@ -1,0 +1,12 @@
+class 0 algebras 6240 46s
+class 1 algebras 5460 82s
+('tilt', 'cong', 'guard') 30300
+HIST (tilting?, total dim ker over i) -> steps
+  (True, 0) 30300
+HIST per-i (tilting?, dim ker g_i) -> count
+  (True, 0) 121200
+steps tilting/non-tilting 30300 0 | distinct parents overall 11700 | distinct parents with a non-tilting step 0
+non-tilting steps with total dim ker 0: 0 []
+tilting steps with dim ker > 0: 0 []
+steps per rejecting parent histogram (n non-tilting vertices of that parent -> parents): []
+DISAGREEMENTS (tilt xor cong): 0
