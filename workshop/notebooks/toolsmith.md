@@ -1,22 +1,21 @@
 # Toolsmith notebook
 
 ## Round 003
-- Put `orbitCensus` and `OrbitsTask` in `batch.py` (needs `_rowFor`); ledger keyed by core word, so
-  `--jobs`, `--plan`, `--summary`, `--budget-hours` work. `45` at 13 pinned in tests/test_orbits_task.py.
+- `orbitCensus`/`OrbitsTask` in `batch.py` (ledger keyed by core word; `--jobs`, `--plan`, `--summary`, `--budget-hours`). `45` at 13 pinned in tests/test_orbits_task.py.
 - Left out on purpose: a key prefilter that skips walks (E-058: key class is not orbit).
-- Ledger is not safe under two concurrent processes on the same file; use `--jobs`.
+- Ledger is not safe under two concurrent processes on one file; use `--jobs`.
 
 ## Round 006 (T3/T8)
-- Wrote `workshop/rounds/006/toolsmith_orbitclass.py N`: runs/resumes `batch.py orbits N --jobs 4`, then
-  compares orbit, orbit+mirror (union-find: join orbit with the orbits of offsets whose mirror it holds)
-  and Coxeter-key partitions. `--same-orbit` intersects row sets of the n = 16 20300 orbits.
-- What I now believe: over the 139 placed cores of `--max-word 4` (484 words) at n = 10, 12..16,
-  orbit+mirror refines key in every core (0 finer, 0 incomparable); equal in 130 (even n >= 12) / 129 (odd)
-  cores; the 9 / 10 exceptions are parity classes merged by the key. The 20300 pairs of 4056, 46, 3355,
-  3445 at 16 are one orbit X and its mirror X* (row sets equal or disjoint). Submission: rounds/006/toolsmith.md.
-- Cost: n = 12 48 s, 13 115 s, 14 598 s, 15 about 11 min (2 slices), 16 about 32 min (4 slices, resume works).
-  A shared machine slows the later slices: do not run two jobs at once when sizing.
-- Not checked: n = 11 (skipped), n = 17, 18, `--max-word 5`; that the 9/10 key-coarser cores are the E-059 cores.
+- `workshop/rounds/006/toolsmith_orbitclass.py N` compares orbit, orbit+mirror and Coxeter-key partitions. Over the 139 placed cores
+  (`--max-word 4`) orbit+mirror refines key everywhere; the 9/10 key-coarser cores are parity classes (E-064, E-070).
+- Cost: n = 12 48 s, 13 115 s, 14 598 s, 15 ~11 min, 16 ~32 min (4 slices). A shared machine slows slices; do not run two jobs at once when sizing.
 - Trap: the shell blocks `sleep N` chains; poll with `timeout .. bash -c 'until grep -q rc= file; ...'`.
-- Next: a proved "different key => different orbit+mirror class" prefilter (true in every case seen);
-  the n = 12 positive control for H-017 requested by maverick (still undone); n = 17 sized via --plan in pieces.
+
+## Round 010 (T6)
+- The H-017 candidate script is `workshop/rounds/004/maverick_verify.py` (round 009 had no copy). Now
+  `workshop/rounds/010/toolsmith_verify.py` with `--list`, `--cand I,J`, `--budget-hours H` (exit 2, checked between candidates only).
+- Believe: candidate indices depend on K (K=1: 4, K=4: 16, K=100: 160 survivors at n = 9, maxdiag -1); name K with the index.
+- n = 9 depth 5, K = 1: reached [] x4 (261 s); depth 6 cand 2: reached [] in 434 s (ratio 5.5 to depth 5). One candidate per 10-minute shard fits, margin 1.4x.
+- Run from the repository root: the script needs `families.py` on the path (it adds cwd).
+- Not done: depth 6 for the other 15 K = 4 candidates (12 untimed at depth 5); an in-candidate budget hook; any test (script is under workshop/, untested).
+- Next: if the chair has slots, run the 16 shards and log which exceed the cap; then propose depth 7 to OVERNIGHT.md. Also still open from 006: n = 12 positive control for H-017, `--max-word 5` at n = 14 sizing.
