@@ -7,6 +7,17 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 012 -- 2026-10-01 -- conference
+
+Six position statements (`rounds/012/`); no new work, nothing promoted. Next round (013) is ordinary; 016 is the next conference.
+
+- Weakest claim named by four personas: E-077's lists A/B are a fit with no mechanism and no real test at n >= 17 (and miss `5046 5056` at odd n). Others: the "walk-reachable only" rule for `isTilting` is policy, not a result (scholar); the H-017 negatives cannot be read without a node count and control (toolsmith, maverick). Maverick's Euler-form claim is unchecked (E-063 covers n = 8..11 only).
+- **Proposed agenda (ranked):** 1. why A/B are parity classes: move sequences in P/Q, then `5046 5056` (theorist, experimentalist); 2. H-017 node count + n = 7 depth-6 control (toolsmith); 3. walk-reachable gate-admitted non-tilting mutation (toolsmith, scholar); 4. letter 4 versus the `34` collapse (theorist, skeptic).
+
+**For you: approve or change this agenda in `STEERING.md`; until then rounds follow it.** Question: n = 17 key-coarser lists overnight (2+ h) -- recommend not yet. Decided for you (round 011): hand-built rejection does not count towards `isTilting`; no new H-017 overnight.
+
+---
+
 ## Round 011 -- 2026-10-01 -- ordinary
 
 Worked: experimentalist (T6), theorist (T1/T3), scholar (T5). Referees: toolsmith, skeptic, theorist. Three minor revisions; I applied the fixes and accepted all three. Details in `rounds/011/`.

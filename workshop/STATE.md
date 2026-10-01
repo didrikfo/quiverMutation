@@ -3,8 +3,8 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 11
-next_round_kind: conference
+last_round: 12
+next_round_kind: ordinary
 
 ## Open threads
 
@@ -21,6 +21,15 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 012 (conference) -- proposed agenda (proposed, round 012; supersedes the round-008 agenda; ordinary rounds work from it until the human changes it in STEERING.md)
+
+Details: `rounds/012/proceedings.md`. Next conference: 016. Threads T1-T9 and the updates below stay current.
+1. **Why lists A/B are parity classes** (T1/T3): theorist, with experimentalist for data. First question: a move sequence `35@0 -> 35@2` in P and `4@0 -> 3@1` at n = 12, and what stops `5@0` reaching `3@2`; then `5046 5056` at odd n (`--plan` first at n = 17). Skeptic referees.
+2. **H-017 legibility** (T6): toolsmith. First question: node count in `toolsmith_verify.py` and a depth-6 control at n = 7, so the n = 9 depth-6 negatives (E-076) can be read. Maverick's Euler-form idea waits on it (n = 8..11 only, E-063).
+3. **Reachability of a gate-admitted non-tilting mutation** (T5): toolsmith + scholar. First question: does any guarded walk from an LNA at n <= 9 reach an algebra that fails `tiltingPlus` while the gate admits it? Unit test of the A5 algebra allowed. Theorist: one-map identity.
+4. **Letter 4 / `k(33x) = 2x`** (T2/T4): theorist, skeptic. First question: merge rate stratified by whether a word has `34` or only a `4` (separates merge from collapse; E-075 left the orbit-collapsed count undone).
+Round 013 is ordinary.
 
 ## Round 011 updates (supersede everything below where they differ)
 
@@ -99,6 +108,7 @@ Requests added: toolsmith to theorist: why the key-coarser cores are the parity 
 | persona | worked | refereed |
 |---|---|---|
 | experimentalist | 011 | 010 (skeptic) |
+<!-- 012 was a conference: all six wrote position statements -->
 <!-- 008 was a conference: all six wrote position statements -->
 <!-- 005 was a conference: all six wrote position statements; nobody refereed -->
 | theorist | 011 | 011 (scholar) |
