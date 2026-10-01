@@ -1,21 +1,20 @@
-# Theorist notebook (rewritten round 009)
+# Theorist notebook (rewritten round 011)
 
 ## What I believe now
-- Drift family `aax` (a=3..6), chain c = x+o conserved (E-065 for a=3; 44x/55x/66x same local neighbour pattern at n=20). Rigid (chain pair {c, n-c}, k = 2x+3-a)
-  for a = 3, 5, 6 (55x, 66x predicted before running, n = 14, all orbits closed); a = 4 merges: `444 -> 34` (double mutation collapse) and `34` reaches the
-  slider `44` and the big orbit O* (3767 at n=14). Criterion = "interior collapse product of the seed is 34" (computed, not derived).
-- End link is uniform for a=3,5,6: O* holds exactly `aaa@0` and `aax@hi`; every other orbit is a pure chain pair.
-- Weakest step: the path 34 -> 403 -> 34@+2 -> 3333 -> 3403 -> 44 (free/reduced moves). Why only 34? unexplained.
-- "Orbit holds some word at all offsets" does NOT predict merging (10/24): orbits of 334@1 hold 36, 66 everywhere and stay rigid. Do not retry.
-- Older: k(33x)=2x explained in round 006 (double mutation, not rule table); general k = 2x + w0 - x0; 34x k = x+3 (only 345 explained); 45x no drift;
-  H-021' stands; "s in cons" is tautological.
+- Lists A/B (E-074) are not a parity-of-n accident: the key of `35` (even n) / `36` (odd n) contains, among single-relation rows, exactly two mirror pairs for n >= 14
+  (`3@2`,`5@0` even; `3@3`,`6@0` odd). Their reduced orbits P, Q are small (n = 18: 774, 678), disjoint, self-mirror; `35`@even in P, @odd in Q (n = 12..20, all checked).
+- Census rule "word alternates between two single-relation orbits with one key, each self-mirror" reproduces A at n = 12, 14, 16, 18 and B minus `5046 5056` at 13, 15, 17
+  (about 1 min per n). `406` alternates but its two orbits are mirror images, so it is not key-coarser. Other parity words (`3336`, `405`, `5004`) sit in other two-orbit key classes.
+- Letter 4: `4@0` holds `3@1` at every n = 12..16 (orbit of 3767 at n = 14); `k@0` (k >= 5) holds a `3@j` only if k = n mod 2. Smallest cut-off k = 5 (even n) / 6 (odd n) = the Q seeds.
+  Explains over-representation of 4, not `444` itself. Observed, not proved.
+- Null: no GF(2) functional of rows, no integer statistic mod 2/4, and no SNF of Coxeter-matrix polynomials separates P from Q. Do not retry these.
+- Older (round 009): drift family `aax` (E-065/E-071): rigid for a = 3, 5, 6, 7; a = 4 merges via `444 -> 34 -> 44`; k(33x) = 2x explained; "orbit holds a word at all offsets" does not predict merging.
 
 ## What I tried
-- Round 009: theorist_{nbrs,translate,closure,translator,path34}.py in rounds/009. Closure test n=14 only (55x took ~4 min).
-- Not tried: n=15,16 for 55x/66x, 77x, x >= 9, proving the 34 link, 34x by the same collapse lens (344 -> 24, 355 -> 25, 366 -> 26 all non-34).
+- Round 011: theorist_{invariant,stats,snf,single,keyclass,triples,predict,census2,word,mirror406,k0,extra}.py in rounds/011. Fast route: walk single-relation orbits only.
+- Not done: `5046 5056` at n = 17 (orbit about 10^5+, run was cut), any proof of `35@o -> 35@o+2`, n > 20.
 
 ## Next
-- Hand-derive why `34` slides to `44` (double mutation on 3333/3403), and why 23/45/56 do not: that would make the criterion a lemma.
-- 55x at n=15, 16 (plan first); 77x at n=15.
-- Use the collapse lens for 34x/35x/36x: is `344 -> 24` the reason 344 is tiny (47-118 rows)?
-- Blind spots: four values of a with one exception is thin; the criterion is fitted to a=4 by construction until the 34 step is explained.
+- BFS path in P from `35@0` to `35@2` at n = 12 (178 rows): list the moves; same for `4@0 -> 3@1`, and show `5@0` has no such move (parity obstruction in the move set?).
+- Use the single-relation orbit method on the 7 of E-059 (`344 366 4044 ...`) and on `--max-word 5`: cheap census instead of hours-long orbitclass.
+- Blind spots: the criterion was fitted to lists A/B; `5046 5056` break it; keys of single relations are probably the Happel-Seidel tree classes (not checked, would explain 2 vs 3 orbits).

@@ -1,0 +1,5 @@
+n=12: 4@0 holds 3@[1, 7] (size 1410); 5@0 holds 3@[] (size 148); 6@0 holds 3@[3, 5] (size 492); 7@0 holds 3@[] (size 158); 8@0 holds 3@[3, 5] (size 492); 9@0 holds 3@[] (size 106)
+n=13: 4@0 holds 3@[1, 8] (size 2386); 5@0 holds 3@[2, 7] (size 447); 6@0 holds 3@[] (size 224); 7@0 holds 3@[4, 5] (size 501); 8@0 holds 3@[] (size 216); 9@0 holds 3@[3, 6] (size 449)
+n=14: 4@0 holds 3@[1, 9] (size 3767); 5@0 holds 3@[] (size 272); 6@0 holds 3@[3, 7] (size 886); 7@0 holds 3@[] (size 312); 8@0 holds 3@[5] (size 491); 9@0 holds 3@[] (size 282)
+n=15: 4@0 holds 3@[1, 10] (size 5648); 5@0 holds 3@[2, 9] (size 763); 6@0 holds 3@[] (size 390); 7@0 holds 3@[4, 7] (size 881); 8@0 holds 3@[] (size 412); 9@0 holds 3@[5, 6] (size 877)
+n=16: 4@0 holds 3@[1, 11] (size 8134); 5@0 holds 3@[] (size 446); 6@0 holds 3@[3, 9] (size 1416); 7@0 holds 3@[] (size 524); 8@0 holds 3@[5, 7] (size 1640); 9@0 holds 3@[] (size 524)

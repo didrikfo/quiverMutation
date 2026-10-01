@@ -1,0 +1,21 @@
+n=13 orbit P of 3@3: size 449 closed True holds own mirror True; 36 at offsets [0, 2, 4] (0s)
+n=13 orbit Q of 6@0: size 224 closed True holds own mirror True; 36 at offsets [1, 3, 5] (1s)
+disjoint: True
+n=15 orbit P of 3@3: size 743 closed True holds own mirror True; 36 at offsets [0, 2, 4, 6] (1s)
+n=15 orbit Q of 6@0: size 390 closed True holds own mirror True; 36 at offsets [1, 3, 5, 7] (2s)
+disjoint: True
+n=16 orbit P of 3@2: size 516 closed True holds own mirror True; 35 at offsets [0, 2, 4, 6, 8] (1s)
+n=16 orbit Q of 5@0: size 446 closed True holds own mirror True; 35 at offsets [1, 3, 5, 7, 9] (2s)
+disjoint: True
+n=17 orbit P of 3@3: size 1123 closed True holds own mirror True; 36 at offsets [0, 2, 4, 6, 8] (2s)
+n=17 orbit Q of 6@0: size 614 closed True holds own mirror True; 36 at offsets [1, 3, 5, 7, 9] (3s)
+disjoint: True
+n=18 orbit P of 3@2: size 774 closed True holds own mirror True; 35 at offsets [0, 2, 4, 6, 8, 10] (2s)
+n=18 orbit Q of 5@0: size 678 closed True holds own mirror True; 35 at offsets [1, 3, 5, 7, 9, 11] (4s)
+disjoint: True
+n=19 orbit P of 3@3: size 1597 closed True holds own mirror True; 36 at offsets [0, 2, 4, 6, 8, 10] (3s)
+n=19 orbit Q of 6@0: size 904 closed True holds own mirror True; 36 at offsets [1, 3, 5, 7, 9, 11] (6s)
+disjoint: True
+n=20 orbit P of 3@2: size 1102 closed True holds own mirror True; 35 at offsets [0, 2, 4, 6, 8, 10, 12] (3s)
+n=20 orbit Q of 5@0: size 976 closed True holds own mirror True; 35 at offsets [1, 3, 5, 7, 9, 11, 13] (7s)
+disjoint: True
