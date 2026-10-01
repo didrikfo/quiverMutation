@@ -60,3 +60,5 @@ by a command, and checked against what is already recorded.
 - round 010, question 2 (`orbitclass` at n = 17) (applied, round 011): not yet; theorist first explains why lists A/B are parity classes -- decided by the chair of round 011; no answer from the human
 - round 011, question 1 (hand-built rejection and `isTilting`) (applied, round 012): no; a gate-admitted rejection must come from a guarded walk from an LNA; a unit test of the A5 algebra may be added without promoting -- decided by the chair of round 012; no answer from the human
 - round 011, question 2 (H-017 overnight) (applied, round 012): no new overnight run; toolsmith adds a node count and an n = 7 depth-6 control first -- decided by the chair of round 012; no answer from the human
+- round 012, question 1 (n = 17 key-coarser lists overnight): not yet; wait for the theorist's account of lists A/B -- decided by the chair of round 013; no answer from the human (applied, round 013)
+- round 012, question 2 (agenda): approve the round-012 agenda unchanged -- decided by the chair of round 013; no answer from the human (applied, round 013)
