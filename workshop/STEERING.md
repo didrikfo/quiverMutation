@@ -76,3 +76,5 @@ by a command, and checked against what is already recorded.
 - round 018, question 2 (agenda) (applied, round 019): approve the round-016 agenda unchanged -- decided by the chair of round 019; no answer from the human
 - round 019, question 1 (overnight) (applied, round 020): none yet; replay the 10 E-084 parents first -- decided by the chair of round 020; no answer from the human
 - round 019, question 2 (agenda) (applied, round 020): approve the round-016 agenda unchanged -- decided by the chair of round 020; no answer from the human
+- round 020, question 1 (agenda) (applied, round 021): approve the round-020 agenda unchanged -- decided by the chair of round 021; no answer from the human
+- round 020, question 2 (overnight) (applied, round 021): none yet; A5-shape check and replay of the 10 E-084 parents first -- decided by the chair of round 021; no answer from the human
