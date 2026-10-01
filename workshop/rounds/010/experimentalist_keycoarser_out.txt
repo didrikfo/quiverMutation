@@ -1,0 +1,34 @@
+n = 14: 139 cores placed and closed, 345 no placement, 0 capped []
+  orbit+mirror == key: 130;  key coarser: 9;  key finer: 0;  incomparable: 0
+  key coarser  35         orbits {0,2,4,6}{1,3,5,7} | orbit+mirror {0,2,4,6}{1,3,5,7} | key {0,1,2,3,4,5,6,7}
+  key coarser  455        orbits {0,2,4,6}{1,3,5} | orbit+mirror {0,2,4,6}{1,3,5} | key {0,1,2,3,4,5,6}
+  key coarser  3334       orbits {0,2,4,6}{1,3,5} | orbit+mirror {0,2,4,6}{1,3,5} | key {0,1,2,3,4,5,6}
+  key coarser  3336       orbits {0,2,4}{1,3} | orbit+mirror {0,2,4}{1,3} | key {0,1,2,3,4}
+  key coarser  5003       orbits {0,2,4,6}{1,3,5,7} | orbit+mirror {0,2,4,6}{1,3,5,7} | key {0,1,2,3,4,5,6,7}
+  key coarser  5055       orbits {0,2,4}{1,3,5} | orbit+mirror {0,2,4}{1,3,5} | key {0,1,2,3,4,5}
+  key coarser  5504       orbits {0,2,4,6}{1,3,5} | orbit+mirror {0,2,4,6}{1,3,5} | key {0,1,2,3,4,5,6}
+  key coarser  5505       orbits {0,2,4}{1,3,5} | orbit+mirror {0,2,4}{1,3,5} | key {0,1,2,3,4,5}
+  key coarser  5506       orbits {0,2,4}{1,3} | orbit+mirror {0,2,4}{1,3} | key {0,1,2,3,4}
+n = 15: 139 cores placed and closed, 345 no placement, 0 capped []
+  orbit+mirror == key: 129;  key coarser: 10;  key finer: 0;  incomparable: 0
+  key coarser  36         orbits {0,2,4,6}{1,3,5,7} | orbit+mirror {0,2,4,6}{1,3,5,7} | key {0,1,2,3,4,5,6,7}
+  key coarser  405        orbits {0,2,4,6}{1,3,5,7} | orbit+mirror {0,2,4,6}{1,3,5,7} | key {0,1,2,3,4,5,6,7}
+  key coarser  466        orbits {0,2,4,6}{1,3,5} | orbit+mirror {0,2,4,6}{1,3,5} | key {0,1,2,3,4,5,6}
+  key coarser  3335       orbits {0,2,4,6}{1,3,5} | orbit+mirror {0,2,4,6}{1,3,5} | key {0,1,2,3,4,5,6}
+  key coarser  5004       orbits {0,2,4,6}{1,3,5,7} | orbit+mirror {0,2,4,6}{1,3,5,7} | key {0,1,2,3,4,5,6,7}
+  key coarser  5006       orbits {0,2,4}{1,3,5} | orbit+mirror {0,2,4}{1,3,5} | key {0,1,2,3,4,5}
+  key coarser  5046       orbits {0,2,4}{1,3,5} | orbit+mirror {0,2,4}{1,3,5} | key {0,1,2,3,4,5}
+  key coarser  5056       orbits {0,2,4}{1,3,5} | orbit+mirror {0,2,4}{1,3,5} | key {0,1,2,3,4,5}
+  key coarser  5066       orbits {0,2,4}{1,3,5} | orbit+mirror {0,2,4}{1,3,5} | key {0,1,2,3,4,5}
+  key coarser  5605       orbits {0,2,4,6}{1,3,5} | orbit+mirror {0,2,4,6}{1,3,5} | key {0,1,2,3,4,5,6}
+n = 16: 139 cores placed and closed, 345 no placement, 0 capped []
+  orbit+mirror == key: 130;  key coarser: 9;  key finer: 0;  incomparable: 0
+  key coarser  35         orbits {0,2,4,6,8}{1,3,5,7,9} | orbit+mirror {0,2,4,6,8}{1,3,5,7,9} | key {0,1,2,3,4,5,6,7,8,9}
+  key coarser  455        orbits {0,2,4,6,8}{1,3,5,7} | orbit+mirror {0,2,4,6,8}{1,3,5,7} | key {0,1,2,3,4,5,6,7,8}
+  key coarser  3334       orbits {0,2,4,6,8}{1,3,5,7} | orbit+mirror {0,2,4,6,8}{1,3,5,7} | key {0,1,2,3,4,5,6,7,8}
+  key coarser  3336       orbits {0,2,4,6}{1,3,5} | orbit+mirror {0,2,4,6}{1,3,5} | key {0,1,2,3,4,5,6}
+  key coarser  5003       orbits {0,2,4,6,8}{1,3,5,7,9} | orbit+mirror {0,2,4,6,8}{1,3,5,7,9} | key {0,1,2,3,4,5,6,7,8,9}
+  key coarser  5055       orbits {0,2,4,6}{1,3,5,7} | orbit+mirror {0,2,4,6}{1,3,5,7} | key {0,1,2,3,4,5,6,7}
+  key coarser  5504       orbits {0,2,4,6,8}{1,3,5,7} | orbit+mirror {0,2,4,6,8}{1,3,5,7} | key {0,1,2,3,4,5,6,7,8}
+  key coarser  5505       orbits {0,2,4,6}{1,3,5,7} | orbit+mirror {0,2,4,6}{1,3,5,7} | key {0,1,2,3,4,5,6,7}
+  key coarser  5506       orbits {0,2,4,6}{1,3,5} | orbit+mirror {0,2,4,6}{1,3,5} | key {0,1,2,3,4,5,6}

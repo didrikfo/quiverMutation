@@ -1,0 +1,21 @@
+4056 1 20300 True
+4056 2 20300 True
+348 2 20300 True
+348 3 20300 True
+349 1 20300 True
+349 3 20300 True
+('4056', 1) vs ('4056', 2): shared 0; a-start in b False; a-mirror in b True
+('4056', 1) vs ('348', 2): shared 20300; a-start in b True; a-mirror in b False
+('4056', 1) vs ('348', 3): shared 0; a-start in b False; a-mirror in b True
+('4056', 1) vs ('349', 1): shared 0; a-start in b False; a-mirror in b True
+('4056', 1) vs ('349', 3): shared 20300; a-start in b True; a-mirror in b False
+('4056', 2) vs ('348', 2): shared 0; a-start in b False; a-mirror in b True
+('4056', 2) vs ('348', 3): shared 20300; a-start in b True; a-mirror in b False
+('4056', 2) vs ('349', 1): shared 20300; a-start in b True; a-mirror in b False
+('4056', 2) vs ('349', 3): shared 0; a-start in b False; a-mirror in b True
+('348', 2) vs ('348', 3): shared 0; a-start in b False; a-mirror in b True
+('348', 2) vs ('349', 1): shared 0; a-start in b False; a-mirror in b True
+('348', 2) vs ('349', 3): shared 20300; a-start in b True; a-mirror in b False
+('348', 3) vs ('349', 1): shared 20300; a-start in b True; a-mirror in b False
+('348', 3) vs ('349', 3): shared 0; a-start in b False; a-mirror in b True
+('349', 1) vs ('349', 3): shared 0; a-start in b False; a-mirror in b True
