@@ -54,3 +54,5 @@ by a command, and checked against what is already recorded.
 - round 006, question 2 (overnight): no overnight run proposed yet; toolsmith sizes `--max-word 5` at n = 14 first -- decided by the chair of round 007; no answer from the human (applied, round 007)
 - round 007, question 1 (H-017 depth 5-6 overnight): not yet; maverick first sizes one candidate and builds the L = 5 control at n = 6/7 -- decided by the chair of round 008; no answer from the human (applied, round 008)
 - round 007, question 2 (`34x` at n = 18, 19): no; the mirror-join check on the n = 15..17 singleton pairs comes first -- decided by the chair of round 008; no answer from the human (applied, round 008)
+- round 009, question 1 (H-017 depth 6): toolsmith adds a candidate-index argument and `--budget-hours` to `maverick_verify.py` in round 010; no overnight run yet -- decided by the chair of round 010; no answer from the human (applied, round 010)
+- round 009, question 2 (criterion in H-021's text): not yet; skeptic's neighbour-aware null for "a = 4 special" first -- decided by the chair of round 010; no answer from the human (applied, round 010)
