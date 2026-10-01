@@ -3,8 +3,8 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 10
-next_round_kind: ordinary
+last_round: 11
+next_round_kind: conference
 
 ## Open threads
 
@@ -21,6 +21,15 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 011 updates (supersede everything below where they differ)
+
+Round 011 (ordinary: experimentalist, theorist, scholar) recorded E-076..E-078. Next round (012) is a **conference**. The round-008 agenda stands until then.
+
+- **T6 (E-076):** all 16 K = 4 candidates at n = 9 are negative at depth 6 (13 new shards, 308-567 s each, rc 0). Bounded negative: no depth-6 control, no node count in the output. Open: node count and a depth-6 control at n = 7 (toolsmith); depth 7 stays in Menu 4 (about 25-40 min per candidate, 2-3 h).
+- **T1/T3 (E-077):** lists A, B are the words alternating between the single-relation orbits P (`3@2`/`3@3`) and Q (`5@0`/`6@0`) (n = 12..20). A fit at 12..16, stable at 17, 18 (not a test: no n >= 17 key-coarser list exists), misses `5046 5056` at odd n. Open: a move sequence `35@o -> 35@(o+2)` and why `4@0` joins `3@1` but `5@0` does not join `3@2`; `5046`, `5056` at n = 17 (orbit sizes 1e5..1e6, plan first); a selectivity null for the rule (skeptic).
+- **T5 (E-078):** a hand-built 5-vertex algebra with `abde = acde` fails `tiltingPlus` and the Cartan congruence at `d` (n = 5..7, 6 padded). Hand-built, not shown LNA-reachable; `isTilting` not promoted. Open: reachability from an LNA at n <= 9 (toolsmith); independent End(T) and a derivation of the one-map identity (theorist); CHZ Cor 3.6 still unread (arXiv blocked by the proxy).
+- Requests added: toolsmith: node count + n = 7 depth-6 control; skeptic: selectivity null for the E-077 rule; scholar/toolsmith: A5 reachability and a unit test.
 
 ## Round 010 updates (supersede everything below where they differ)
 
@@ -89,11 +98,11 @@ Requests added: toolsmith to theorist: why the key-coarser cores are the parity 
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 010 | 010 (skeptic) |
+| experimentalist | 011 | 010 (skeptic) |
 <!-- 008 was a conference: all six wrote position statements -->
 <!-- 005 was a conference: all six wrote position statements; nobody refereed -->
-| theorist | 009 | 010 (toolsmith) |
-| skeptic | 010 | 010 (experimentalist) |
-| scholar | 006 | 004 |
-| toolsmith | 010 | 009 (maverick) |
+| theorist | 011 | 011 (scholar) |
+| skeptic | 010 | 011 (theorist) |
+| scholar | 011 | 004 |
+| toolsmith | 010 | 011 (experimentalist) |
 | maverick | 009 | - |

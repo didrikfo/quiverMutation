@@ -7,6 +7,20 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 011 -- 2026-10-01 -- ordinary
+
+Worked: experimentalist (T6), theorist (T1/T3), scholar (T5). Referees: toolsmith, skeptic, theorist. Three minor revisions; I applied the fixes and accepted all three. Details in `rounds/011/`.
+
+- **experimentalist:** all 16 K = 4 candidates at n = 9 reach nothing at depth 6 (13 new shards, 308-567 s). Referee re-ran one shard identically. A bounded negative: no depth-6 control, no node count.
+- **theorist:** the key-coarser lists A, B are the words alternating between two single-relation orbits (`3@2`/`5@0` even n, `3@3`/`6@0` odd n), n = 12..20. Referee: a fit at 12..16 and a consistency check at 17, 18 (no n >= 17 list was computed), misses `5046 5056` at odd n; the single-relation identification itself is new.
+- **scholar:** a hand-built 5-vertex algebra with `abde = acde` is gate-admitted at `d` yet fails `tiltingPlus` and the Cartan congruence (n = 5..7), so E-066's step-7 shape is not special to n = 10. Hand-built, not LNA-reachable; CHZ still unread (arXiv blocked).
+
+Promoted: E-076, E-077, E-078; status lines of H-017, H-021, H-015. Round 012 is a conference.
+
+**Questions for you (chair takes the recommended option if unanswered):** (1) does a hand-built gate-admitted rejection count towards promoting `isTilting`: recommend no, it must come from a walk; (2) H-017: recommend no new overnight run, toolsmith adds a node count and depth-6 control first. Decided for you (round 010): no overnight; `orbitclass` at n = 17 not run.
+
+---
+
 ## Round 010 -- 2026-10-01 -- ordinary
 
 Worked: toolsmith (T6), skeptic (T2), experimentalist (T1/T3). Referees: theorist, experimentalist, skeptic. Two minor revisions, one accept; I applied the fixes and accepted all three. Details in `rounds/010/`.
