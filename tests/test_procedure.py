@@ -329,3 +329,27 @@ def test_step_seven_finds_the_relation_the_old_implementation_missed():
         others = [r for r in relations
                   if ap.projectToPathSets([r]) != [[[2, 5, 6, 7]]]]
         assert not ap.isInIdeal(quiver, others, theOne), name
+
+
+def test_reduce_against_pivots_is_a_normal_form():
+    """Congruent combinations have the same residue (research E-085).
+
+    The old reduction stopped at the first leading term that is not a pivot, so
+    `a` and `b` below, congruent through the commutative square, kept different
+    residues and step 7 of the mutation solved its kernel on them.
+    """
+    # abstract: a pivot column in the tail of a combination whose head is not a pivot
+    pivots = {2: {2: 1, 3: -1}}
+    assert ap.reduceAgainstPivots({0: 1, 2: 1}, pivots) == {0: 1, 3: 1}
+    # a real ideal: 1 -> 2 -> 4 = 1 -> 3 -> 4 followed by 4 -> 5
+    quiver = path_algebra([(1, 2), (1, 3), (2, 4), (3, 4), (4, 5)]).quiver
+    lift = lambda path: ap.liftPath(quiver, path)
+    square = ap.combination([(lift([1, 2, 4]), 1), (lift([1, 3, 4]), -1)])
+    pivotRows = ap.idealBasis(quiver, [square], 1, 5)
+    a = ap.combination([(lift([1, 2, 4, 5]), 1)])
+    b = ap.combination([(lift([1, 3, 4, 5]), 1)])
+    assert ap.isInIdeal(quiver, [square], ap.add(a, ap.negate(b)))
+    assert ap.reduceAgainstPivots(a, pivotRows) == ap.reduceAgainstPivots(b, pivotRows)
+    residue = ap.reduceAgainstPivots(a, pivotRows)
+    assert not set(residue) & set(pivotRows)
+    assert ap.reduceAgainstPivots(residue, pivotRows) == residue

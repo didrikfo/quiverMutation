@@ -291,18 +291,27 @@ def idealBasis(quiver, relations, sourceVertex, targetVertex):
 
 
 def reduceAgainstPivots(comb, pivots):
-    """`comb` reduced modulo a row-reduced set of pivots, as residual coefficients."""
+    """`comb` reduced modulo a row-reduced set of pivots, as residual coefficients.
+
+    A normal form: no term of the result is a pivot column, so two combinations
+    congruent modulo the ideal have the same residue.  (Round 017; before it only
+    the leading term was reduced, and a residue could keep a pivot column in its
+    tail -- research E-085.)  Each pivot row has its pivot as its smallest key, so
+    eliminating the smallest remaining pivot term never reintroduces a smaller one.
+    """
     row = {k: Fraction(v) for k, v in comb.items()}
+    residue = {}
     while row:
         head = min(row)
-        if head not in pivots:
-            break
-        factor = row[head]
-        pivotRow = pivots[head]
-        row = {k: row.get(k, Fraction(0)) - factor * pivotRow.get(k, Fraction(0))
-               for k in set(row) | set(pivotRow)}
-        row = {k: v for k, v in row.items() if v != 0}
-    return row
+        if head in pivots:
+            factor = row[head]
+            pivotRow = pivots[head]
+            row = {k: row.get(k, Fraction(0)) - factor * pivotRow.get(k, Fraction(0))
+                   for k in set(row) | set(pivotRow)}
+            row = {k: v for k, v in row.items() if v != 0}
+        else:
+            residue[head] = row.pop(head)
+    return residue
 
 
 def isInIdeal(quiver, relations, comb):

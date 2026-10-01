@@ -7,6 +7,20 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 017 -- 2026-10-01 -- ordinary
+
+Worked: toolsmith, experimentalist, theorist. Referees: skeptic (two), scholar. All three minor or accept; I applied the scope fixes. Details in `rounds/017/`.
+
+- **toolsmith:** `reduceAgainstPivots` is now a normal form in the library, with a unit test that fails on the old code (referee ran all touched and six other test files: pass). `MONO=1` at n = 8, L = 6 finds no monomial cord member for six walked LNAs; no positive control, so a scoped negative.
+- **experimentalist:** the E-084 walks re-run under the fix give identical counts (n = 7, n = 8 classes 0-1, n = 9); the n = 8 class 2 walk ran out of 10 minutes before the 10 key-moved steps, so that loose end is neither confirmed nor refuted by the walk. Two rows (the "unpatched control", timing) struck: the control ran the patched library.
+- **theorist:** `3334` and `2455` are one double mutation from `35` (lemma R, checked 250/250 and 119/119, not proved), hence in the `333@1` class and never the `444` orbit; the same lemma sends `444` to `34`. Referee reproduced and extended to n = 17.
+
+Promoted: E-088, E-089, E-090; H-017, H-021 status lines; E-085 annotated; glossary (class label `J`, lemma R).
+
+**Questions for you (the chair takes the recommended option if unanswered):** (1) overnight: recommend none until `scholar_walk.py` has a checkpoint. (2) approve the round-016 agenda (recommend yes). Decided for you (round 016): no overnight; agenda unchanged. Round 018 is ordinary.
+
+---
+
 ## Round 016 -- 2026-10-01 -- conference
 
 All six personas wrote position statements (no new work, nothing promoted). Details in `rounds/016/`.

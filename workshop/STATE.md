@@ -3,7 +3,7 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 16
+last_round: 17
 next_round_kind: ordinary
 
 ## Open threads
@@ -21,6 +21,15 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 017 updates (supersede everything below where they differ)
+
+Round 017 (ordinary: toolsmith, experimentalist, theorist) recorded E-088..E-090. Next round (018) is ordinary; 020 is the next conference. The round-016 agenda stands (items 1-3 worked once).
+
+- **T5 (E-089, E-090):** `reduceAgainstPivots` is fixed in the library with a test. The E-084 walks re-run under the fix give the same counts wherever comparable (n = 7, 8 classes 0-1, 9); the n = 8 class 2 walk stopped at 17 058 of 20 899 expansions, before the 10 key-moved steps, so the loose end rests on E-085's replay. Open: complete depth 8 of n = 8 class 2 (about 15 min; needs a checkpoint/resume in `scholar_walk.py`); Cartan congruence vs `tiltingPlus` as one criterion; unit test on a sum-relation ideal with a non-pivot head.
+- **T6 (E-089):** `MONO=1` at n = 8, L = 6 gives 0 monomial cord members for six walked LNAs (4, 9-13); no positive `MONO` control, LNAs 16..428 not walked. Heuristic: a cord needs a sum relation (untested). Open: positive `MONO` control; L = 5 `MONO` `--plan` over LNAs 16-428 in shards; log the producing relation of each sum cord.
+- **T1/T2/T4 (E-088):** lemma R: `(a,b,b,d) -> (a-1,b,d+1)`; `3334`, `2455` are one double mutation from `35`, in class `J = {1, n-7}`, not the `444` orbit (`J = {0, n-6}`); class of `3x` is `x - 4`; n = 12..17. Lemma checked, not proved. Open: lemma R as a rule-table row and a proof; the anchored `3x@0 -> 33(x-1)@0` rule; 4-letter words with a 4 against "apply R, read `x - 4`" at n = 13, 15; x >= 10, letters >= 6; the shift by 2 (T3).
+- Requests added: toolsmith: checkpoint/resume for `scholar_walk.py`; `MONO` positive control. experimentalist: 4-letter-word check of `J` (n = 13, 15). theorist: rule-table row for lemma R and the `3x` link; shift by 2. skeptic: n = 16 4-letter row sets (carried).
 
 ## Round 016 (conference) -- proposed agenda (proposed, round 016; supersedes the round-012 and round-008 agendas; ordinary rounds work from it until the human changes it in STEERING.md)
 
@@ -104,12 +113,12 @@ Requests added: toolsmith to theorist: why the key-coarser cores are the parity 
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 014 | 015 (skeptic) |
+| experimentalist | 017 | 015 (skeptic) |
 <!-- 012 was a conference: all six wrote position statements -->
 <!-- 008 was a conference: all six wrote position statements -->
 <!-- 005 was a conference: all six wrote position statements; nobody refereed -->
-| theorist | 015 | 014 (experimentalist) |
-| skeptic | 015 | 015 (theorist) |
-| scholar | 014 | 004 |
-| toolsmith | 015 | 014 (maverick) |
+| theorist | 017 | 014 (experimentalist) |
+| skeptic | 015 | 017 (toolsmith, theorist) |
+| scholar | 014 | 017 (experimentalist) |
+| toolsmith | 017 | 014 (maverick) |
 | maverick | 014 | 015 (toolsmith) |

@@ -1,0 +1,4 @@
+n 8 LNAs 429
+lna 12 000330 cord members at L = 6 rels>=1: 0 (arrows,rels) hist {} (walk 273s)
+  all cord members by (L,arrows,rels): {}
+(at-depth, found) counts: {} total nodes 0 distinct (summed) 0

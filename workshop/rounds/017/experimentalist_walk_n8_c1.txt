@@ -1,0 +1,17 @@
+depth 1 expanded 8 next 36 nonmono parents 0 0s
+depth 2 expanded 44 next 94 nonmono parents 6 1s
+depth 3 expanded 138 next 218 nonmono parents 40 4s
+depth 4 expanded 356 next 508 nonmono parents 152 10s
+depth 5 expanded 864 next 1237 nonmono parents 466 24s
+depth 6 expanded 2101 next 3205 nonmono parents 1339 72s
+depth 7 expanded 5306 next 8463 nonmono parents 3790 200s
+n 8 class 1 key (1, 1, -1, -4, -6, -4, -1, 1, 1) starts 8 distinct algebras 13769 closed False
+('guard', 'tilt') 22542
+('noguard', 'NOTtilt') 14
+REJECTIONS (gate-admitted, tiltingPlus False): 14
+(6, [[[2, 4, 5, 6, 8]], [[4, 5, 6, 1]], [[4, 5, 6, 1, 3], [4, 5, 6, 8, 3]], [[6, 1, 3, 7], [6, 8, 3, 7]]], 3, False, (2, 1, 1, 3, 1, 7, 3))
+(6, [[[2, 4, 5, 6, 8]], [[4, 5, 6, 3]], [[4, 5, 6, 3, 1], [4, 5, 6, 8, 1]], [[6, 3, 1, 7], [6, 8, 1, 7]]], 1, False, (2, 1, 1, 3, 3, 7, 1))
+(6, [[[2, 4, 1], [2, 4, 3, 1]], [[5, 8, 2, 4], [5, 8, 6, 7, 4]], [[6, 7, 4, 3, 1]], [[7, 4, 1]], [[8, 2, 4, 3], [8, 6, 7, 4, 3]]], 4, False, (3, 6, 7, 7, 3, 8, 4))
+(6, [[[2, 6, 1], [2, 6, 3, 1]], [[4, 2, 6, 3], [4, 7, 6, 3]], [[4, 2, 6, 3, 1]], [[5, 4, 2, 6], [5, 4, 7, 6]], [[7, 6, 1]], [[8, 2, 6]]], 6, False, (3, 7, 7, 3, 8, 6, 6))
+(6, [[[2, 6, 1]], [[4, 2, 6, 3], [4, 7, 6, 3]], [[4, 2, 6, 3, 1]], [[5, 4, 2, 6], [5, 4, 7, 6]], [[7, 6, 1], [7, 6, 3, 1]], [[8, 2, 6]]], 6, False, (3, 7, 7, 8, 6, 3, 6))
+GATE+TILT BUT KEY MOVES: 0

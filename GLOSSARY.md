@@ -640,3 +640,7 @@ the folded offsets are equal-size singleton orbits. E-059.
 **Drift chain.** For the family `33x`, the double mutation sends `33x@o` to `33(x-1)@(o+1)`; the label `c = x + o` is constant along the chain `S_c`, and the self-dual seed `333` identifies `c` with `n - c` (E-065).
 
 **Staircase (of double mutations).** The shortest move sequence `3a@o -> 3a@(o+2)` found in round 013 (E-080): add a two-arrow spectator, one rule or `[2,2]` double move, then double mutations `[t,t]` for t = a-1 down to 3, a - 1 moves in all (a = 5..12).
+
+**Class label `J` (of an orbit).** For a closed orbit, the set of offsets `o'` of the self-dual word `333` placed in it, which come in pairs `{j, n-6-j}`. At n = 12..17 the `444` orbit has `J = {0, n-6}` and the small `235/255/455` orbit has `J = {1, n-7}`; the class of `3x` is `x - 4`. A name for a table over words (E-088), not an invariant.
+
+**Lemma R.** The double mutation at the middle relation of four consecutive relation starts of lengths `a, b, b, d` (3 <= a <= b, d >= b) gives `(a-1, b, d+1)`, and `(a,b,b) -> (a-1,b)` with no fourth: `444 -> 34`, `3334 -> 35`. Checked against the rewrite engine over a bounded range (E-088), not proved.

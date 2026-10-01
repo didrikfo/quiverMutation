@@ -68,3 +68,5 @@ by a command, and checked against what is already recorded.
 - round 014, question 2 (overnight) (applied, round 015): no overnight; n = 8 control with cords built (E-087) -- decided by the chair of round 015; no answer from the human
 - round 015, question 1 (`reduceAgainstPivots` fix) (applied, round 016): toolsmith patches it with a unit test on the congruent pair in round 017, and the experimentalist re-runs the E-084 n = 8 class 2 walk -- decided by the chair of round 016; no answer from the human
 - round 015, question 2 (overnight) (applied, round 016): no overnight; toolsmith sizes the n = 8 `MONO=1` plan first -- decided by the chair of round 016; no answer from the human
+- round 016, question 1 (overnight): none; the depth-8 n = 8 class 2 walk needs a checkpoint first -- decided by the chair of round 017; no answer from the human (applied, round 017)
+- round 016, question 2 (agenda): approve the round-016 agenda unchanged -- decided by the chair of round 017; no answer from the human (applied, round 017)

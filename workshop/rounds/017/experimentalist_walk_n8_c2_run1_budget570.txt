@@ -1,0 +1,14 @@
+depth 1 expanded 18 next 78 nonmono parents 0 0s
+depth 2 expanded 96 next 194 nonmono parents 12 2s
+depth 3 expanded 290 next 444 nonmono parents 86 8s
+depth 4 expanded 734 next 1030 nonmono parents 314 20s
+depth 5 expanded 1764 next 2344 nonmono parents 896 57s
+depth 6 expanded 4108 next 5628 nonmono parents 2422 132s
+depth 7 expanded 9736 next 14580 nonmono parents 6620 333s
+depth 8 expanded 16121 next 16466 nonmono parents 11664 570s
+n 8 class 2 key (1, 1, -1, -4, -5, -4, -1, 1, 1) starts 18 distinct algebras 40780 closed False
+('guard', 'tilt') 67173
+('noguard', 'NOTtilt') 1
+REJECTIONS (gate-admitted, tiltingPlus False): 1
+(7, [[[2, 5, 3]], [[3, 1, 4], [3, 8, 4]], [[5, 3, 1], [5, 6, 1]], [[5, 3, 8], [5, 6, 8]], [[5, 6, 1]], [[6, 1, 4, 7], [6, 8, 4, 7]]], 4, False, (6, 1, 1, 4, 3, 1, 7, 4))
+GATE+TILT BUT KEY MOVES: 0
