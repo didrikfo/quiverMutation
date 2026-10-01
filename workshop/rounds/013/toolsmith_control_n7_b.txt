@@ -1,0 +1,19 @@
+lna 4 00030 members with L = 6 : 137 (walk 40s)
+  lna 4 00030 L 6 search 6 rels 0 found True nodes 16034 distinct 2341 44s
+  lna 4 00030 L 6 search 6 rels 0 found True nodes 12443 distinct 1997 34s
+lna 5 00200 members with L = 6 : 214 (walk 29s)
+  lna 5 00200 L 6 search 6 rels 0 found True nodes 14467 distinct 1667 33s
+  lna 5 00200 L 6 search 6 rels 0 found True nodes 11164 distinct 1326 25s
+lna 6 00202 members with L = 6 : 133 (walk 17s)
+  lna 6 00202 L 6 search 6 rels 0 found True nodes 15092 distinct 1756 36s
+  lna 6 00202 L 6 search 6 rels 0 found True nodes 13388 distinct 1543 30s
+lna 7 00220 members with L = 6 : 98 (walk 12s)
+  lna 7 00220 L 6 search 6 rels 0 found True nodes 16879 distinct 2065 40s
+  lna 7 00220 L 6 search 6 rels 1 found True nodes 9474 distinct 1015 26s
+lna 8 00222 members with L = 6 : 60 (walk 5s)
+  lna 8 00222 L 6 search 6 rels 1 found True nodes 13292 distinct 1698 33s
+  lna 8 00222 L 6 search 6 rels 1 found True nodes 13336 distinct 1824 32s
+lna 9 00230 members with L = 6 : 59 (walk 18s)
+  lna 9 00230 L 6 search 6 rels 0 found True nodes 16894 distinct 3013 47s
+  lna 9 00230 L 6 search 6 rels 0 found True nodes 15347 distinct 2560 42s
+found counts: {True: 12} total nodes 167810 distinct (summed) 22805

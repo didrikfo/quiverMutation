@@ -1,0 +1,9 @@
+lna 0 00000 members with L = 6 : 169 (walk 52s)
+  lna 0 00000 L 6 search 5 rels 2 found False nodes 1049 distinct 222 3s
+lna 1 00002 members with L = 6 : 253 (walk 34s)
+  lna 1 00002 L 6 search 5 rels 0 found False nodes 4559 distinct 917 10s
+lna 2 00020 members with L = 6 : 221 (walk 29s)
+  lna 2 00020 L 6 search 5 rels 0 found False nodes 3560 distinct 696 8s
+lna 3 00022 members with L = 6 : 132 (walk 15s)
+  lna 3 00022 L 6 search 5 rels 0 found False nodes 3783 distinct 737 9s
+found counts: {False: 4} total nodes 12951 distinct (summed) 2572
