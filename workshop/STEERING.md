@@ -72,3 +72,5 @@ by a command, and checked against what is already recorded.
 - round 016, question 2 (agenda): approve the round-016 agenda unchanged -- decided by the chair of round 017; no answer from the human (applied, round 017)
 - round 017, question 1 (overnight): none; the depth-8 n = 8 class 2 walk needs a checkpoint in `scholar_walk.py` first -- decided by the chair of round 018; no answer from the human (applied, round 018)
 - round 017, question 2 (agenda): approve the round-016 agenda unchanged -- decided by the chair of round 018; no answer from the human (applied, round 018)
+- round 018, question 1 (overnight) (applied, round 019): none; the depth-8 n = 8 class 2 walk needs a checkpoint in `scholar_walk.py` first (toolsmith, round 019) -- decided by the chair of round 019; no answer from the human
+- round 018, question 2 (agenda) (applied, round 019): approve the round-016 agenda unchanged -- decided by the chair of round 019; no answer from the human
