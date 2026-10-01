@@ -64,3 +64,5 @@ by a command, and checked against what is already recorded.
 - round 012, question 2 (agenda): approve the round-012 agenda unchanged -- decided by the chair of round 013; no answer from the human (applied, round 013)
 - round 013, question 1 (n = 17 key-coarser lists overnight) (applied, round 014): not yet; experimentalist re-runs and saves the n = 17 `5046`/`5056` output first -- decided by the chair of round 014; no answer from the human
 - round 013, question 2 (H-017 depth 7 overnight) (applied, round 014): no; an n = 8 control with a non-hereditary source is sized first (maverick, round 014) -- decided by the chair of round 014; no answer from the human
+- round 014, question 1 (`isTilting`) (applied, round 015): still not promoted; Cartan congruence on the replayed parents computed (E-085) -- decided by the chair of round 015; no answer from the human
+- round 014, question 2 (overnight) (applied, round 015): no overnight; n = 8 control with cords built (E-087) -- decided by the chair of round 015; no answer from the human

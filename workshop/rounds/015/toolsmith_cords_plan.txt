@@ -1,0 +1,3 @@
+n 8 LNAs 429
+lna 0 000000 members L = 6 rels>=1: 0 (rels,arrows) hist {} (walk 195s)
+found counts: {} total nodes 0 distinct (summed) 0

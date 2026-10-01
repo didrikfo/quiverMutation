@@ -1,0 +1,26 @@
+lna 0 000000 members 2168 (191s)
+   L 0 arrows 7 rels 0 : 1
+   L 1 arrows 7 rels 0 : 2
+   L 1 arrows 7 rels 1 : 12
+   L 2 arrows 7 rels 0 : 4
+   L 2 arrows 7 rels 1 : 30
+   L 2 arrows 7 rels 2 : 20
+   L 3 arrows 7 rels 0 : 8
+   L 3 arrows 7 rels 1 : 68
+   L 3 arrows 7 rels 2 : 78
+   L 3 arrows 7 rels 3 : 8
+   L 4 arrows 7 rels 0 : 13
+   L 4 arrows 7 rels 1 : 134
+   L 4 arrows 7 rels 2 : 192
+   L 4 arrows 7 rels 3 : 50
+   L 5 arrows 7 rels 0 : 20
+   L 5 arrows 7 rels 1 : 214
+   L 5 arrows 7 rels 2 : 341
+   L 5 arrows 7 rels 3 : 116
+   L 5 arrows 7 rels 4 : 6
+   L 6 arrows 7 rels 0 : 16
+   L 6 arrows 7 rels 1 : 214
+   L 6 arrows 7 rels 2 : 383
+   L 6 arrows 7 rels 3 : 224
+   L 6 arrows 7 rels 4 : 14
+  arrows>=n members: 0

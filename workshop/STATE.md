@@ -3,8 +3,8 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 14
-next_round_kind: ordinary
+last_round: 15
+next_round_kind: conference
 
 ## Open threads
 
@@ -21,6 +21,15 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 015 updates (supersede everything below where they differ)
+
+Round 015 (ordinary: toolsmith, theorist, skeptic) recorded E-085..E-087. Next round (016) is a **conference**. The round-012 agenda stands until then.
+
+- **T5 (E-085):** the n = 8 class 2 loose end of E-084 is a defect of the mutation rewrite: `arrowPaths.reduceAgainstPivots` is not a normal form, so step 7 of `procedure.mutateAtVertex` can drop a relation (child one dimension too big). `tiltingPlus` is right there; the Cartan congruence fails on all 11 replayed rejecting parents. Library untouched; fixed only by monkeypatch (`rounds/015/theorist_fix.py`). Open: apply the fix with a unit test (toolsmith); re-run the E-084 n = 8 class 2 walk and see whether E-084's counts change (experimentalist); is the rank step of `tiltingPlus` affected; how often the defect fires.
+- **T6 (E-087):** n = 8 controls with cords (8-9 arrows, sum relations) are found at depth 6 and not 5, at 5.7e4-6.2e4 nodes. `reachedQuipuAlgebras` keeps only monomial quipu trees, hence E-082's "no cords". No monomial cord member at n = 6, 7. Open: `MONO=1` at n = 8; a monomial control; more members (only 2 run).
+- **T1/T2 (E-086):** at n = 12..15 all merged words of the earlier scans have all placements in the `444` orbit's row set or none; E-075's "20 of 25" is 11 of 25. Open: row sets at n = 17 (sizes only); n = 16 4-letter scan; why `3334`, `2455` sit in the small `235/255/455` orbit.
+- Requests added: toolsmith: apply the `reduceAgainstPivots` fix with a test; `MONO=1` at n = 8. experimentalist: re-run E-084 n = 8 class 2 walk under the fix. theorist: `3334`, `2455` in the small orbit.
 
 ## Round 014 updates (supersede everything below where they differ)
 
@@ -125,12 +134,12 @@ Requests added: toolsmith to theorist: why the key-coarser cores are the parity 
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 014 | 013 (skeptic) |
+| experimentalist | 014 | 015 (skeptic) |
 <!-- 012 was a conference: all six wrote position statements -->
 <!-- 008 was a conference: all six wrote position statements -->
 <!-- 005 was a conference: all six wrote position statements; nobody refereed -->
-| theorist | 013 | 014 (experimentalist) |
-| skeptic | 013 | 014 (scholar) |
+| theorist | 015 | 014 (experimentalist) |
+| skeptic | 015 | 015 (theorist) |
 | scholar | 014 | 004 |
-| toolsmith | 013 | 014 (maverick) |
-| maverick | 014 | - |
+| toolsmith | 015 | 014 (maverick) |
+| maverick | 014 | 015 (toolsmith) |

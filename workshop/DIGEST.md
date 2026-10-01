@@ -7,6 +7,20 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 015 -- 2026-10-01 -- ordinary
+
+Worked: toolsmith (T6), theorist (T5), skeptic (T1/T2). Referees: maverick, skeptic, experimentalist. Three minor revisions; I applied the scope fixes in the entries and accepted all three. Details in `rounds/015/`.
+
+- **theorist:** the n = 8 class 2 loose end of E-084 is a bug in the mutation rewrite, not in `tiltingPlus`: `reduceAgainstPivots` is not a normal form, so step 7 can drop a relation. The Cartan congruence fails on all 11 replayed rejecting parents, agreeing with `tiltingPlus`. Referee reproduced a congruent pair with different residues and the patched runs; the library is untouched, and E-084's counts were made with the buggy rewrite and are not re-run.
+- **toolsmith:** n = 8 controls with cords (8-9 arrows) are found at depth 6 and not 5, at the n = 9 negatives' size (5.7e4-6.2e4 nodes). Caveat: every cord member has a sum relation, the n = 9 candidates are monomial, and none was found at n = 6, 7; 2 members only.
+- **skeptic:** at n = 12..15 every merged word of the earlier scans lies in the `444` orbit's row set or outside it (0 partial); E-075's "20 of 25" is really 11 of 25.
+
+Promoted: E-085, E-086, E-087; H-015, H-017 status lines; E-075, E-084 annotated.
+
+**Questions for you (the chair takes the recommended option if unanswered):** (1) the `reduceAgainstPivots` fix: recommend toolsmith patches it with a unit test after the conference, and the E-084 n = 8 class 2 walk is re-run. (2) Overnight: recommend none. Decided for you (round 014): `isTilting` still not promoted; no overnight. Round 016 is a conference.
+
+---
+
 ## Round 014 -- 2026-10-01 -- ordinary
 
 Worked: experimentalist (T1/T3), maverick (T6), scholar (T5). Referees: theorist, toolsmith, skeptic. Three minor revisions; I applied the fixes and accepted all three. Details in `rounds/014/`.
