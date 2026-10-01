@@ -1,0 +1,24 @@
+all nondegenerate words             84/291 = 0.29
+contain a 4                         55/100 = 0.55
+no 4                                29/191 = 0.15
+no 4, no 2                           3/121 = 0.02
+no 4, has a 2                       26/ 70 = 0.37
+per-letter rate over words containing the letter, excluding 4 unless letter is 4:
+  letter 2, no 4                    26/ 70 = 0.37
+  letter 3, no 4                    12/ 74 = 0.16
+  letter 5, no 4                     8/ 74 = 0.11
+  letter 6, no 4                     9/ 74 = 0.12
+  letter 7, no 4                     6/ 64 = 0.09
+  letter 8, no 4                     5/ 49 = 0.10
+  letter 9, no 4                     3/ 28 = 0.11
+  letter 4                          55/100 = 0.55
+aaa words (n, merged):
+  222 [(12, True, 1), (13, True, 1), (14, True, 1), (15, True, 1)]
+  333 [(12, False, 98), (13, False, 501), (14, False, 491), (15, False, 877)]
+  444 [(12, True, 1410), (13, True, 2386), (14, True, 3767), (15, True, 5648)]
+  555 [(12, False, 1766), (13, False, 4217), (14, False, 2179), (15, False, 18416)]
+  666 [(12, False, 1766), (13, False, 962), (14, False, 7758), (15, False, 4255)]
+  777 [(13, False, 4217), (14, False, 7758), (15, False, 8693)]
+  888 [(14, False, 11820), (15, False, 8742)]
+  999 [(15, False, 18157)]
+rate over words containing c: {'2': 0.35, '3': 0.2, '4': 0.55, '5': 0.23, '6': 0.27, '7': 0.24, '8': 0.2, '9': 0.22}
