@@ -1,0 +1,5 @@
+class 0 algebras 46584 500s
+('NOT', 'rowk=coker', True, 'colk=sum-dim', True) 1123
+('tilt', 'rowk=coker', True, 'colk=sum-dim', True) 99267
+VIOLATIONS of rowk=coker or colk=sum-dim: 0
+distinct rejecting parents: 1123  strict A5 (arrows a>b,a>c,b>v,c>v,v>e): 767  long-square (relation with 2 paths ending x,v,e): 1123  neither: 0
