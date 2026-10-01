@@ -7,4 +7,6 @@ kind: ordinary
 ## Revisions due
 (none)
 ## Referees
-(filled in at step 3)
+- skeptic's submission: theorist
+- scholar's submission: experimentalist
+- maverick's submission: skeptic

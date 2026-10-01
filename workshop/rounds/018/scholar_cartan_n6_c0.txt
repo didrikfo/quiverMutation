@@ -1,0 +1,5 @@
+class 0 algebras 32450 421s
+('NOT', 'NOcong(False)', 'noguard') 696
+('diff-in-row-k-offdiag', True, 'equals -dim ker g_i', True) 696
+('tilt', 'cong', 'guard') 65914
+DISAGREEMENTS (tilt xor cong): 0
