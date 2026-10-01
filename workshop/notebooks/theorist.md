@@ -1,20 +1,18 @@
-# Theorist notebook (rewritten round 011)
+# Theorist notebook (rewritten round 013)
 
 ## What I believe now
-- Lists A/B (E-074) are not a parity-of-n accident: the key of `35` (even n) / `36` (odd n) contains, among single-relation rows, exactly two mirror pairs for n >= 14
-  (`3@2`,`5@0` even; `3@3`,`6@0` odd). Their reduced orbits P, Q are small (n = 18: 774, 678), disjoint, self-mirror; `35`@even in P, @odd in Q (n = 12..20, all checked).
-- Census rule "word alternates between two single-relation orbits with one key, each self-mirror" reproduces A at n = 12, 14, 16, 18 and B minus `5046 5056` at 13, 15, 17
-  (about 1 min per n). `406` alternates but its two orbits are mirror images, so it is not key-coarser. Other parity words (`3336`, `405`, `5004`) sit in other two-orbit key classes.
-- Letter 4: `4@0` holds `3@1` at every n = 12..16 (orbit of 3767 at n = 14); `k@0` (k >= 5) holds a `3@j` only if k = n mod 2. Smallest cut-off k = 5 (even n) / 6 (odd n) = the Q seeds.
-  Explains over-representation of 4, not `444` itself. Observed, not proved.
-- Null: no GF(2) functional of rows, no integer statistic mod 2/4, and no SNF of Coxeter-matrix polynomials separates P from Q. Do not retry these.
-- Older (round 009): drift family `aax` (E-065/E-071): rigid for a = 3, 5, 6, 7; a = 4 merges via `444 -> 34 -> 44`; k(33x) = 2x explained; "orbit holds a word at all offsets" does not predict merging.
+- P (orbit of `3@2`/`3@3`) and Q (`5@0`/`6@0`) are each closed under offset shift by 2. Explicit: `3a`@o -> `3a`@(o+2) in a-1 double-mutation moves, a = 5..9 (`theorist_path.py`, rounds/013);
+  `35`@0 -> `35`@2 at n = 12 is 4 moves (+2 spectator; rule [2,2]; doubles [5,5],[4,4],[3,3]). Shift by 1 unreachable (orbit closed) but no invariant or proof found: "parity class" names two orbits, not an invariant.
+- `4@0 -> 3@1` is ONE move: an anchored width-4 rule in `lnaMoves.ALL_MOVES` (4 -> 3). Only width-4 rules have a lone-relation LHS; so `k@0` (k >= 5) has only 2 neighbours (`kk`, `k0..03`). Explains letter 4, not `444`.
+- `5046`, `5056` at n = 13, 15, 17 also have two parity orbits (n = 17: 122673 / 54266, one key; sizes differ so mirror cannot merge) and a staircase path at n = 13; they sit in no single-relation orbit. Growth about 4.3 per n -> n+2 (orbit walk 3.5 min at 17).
+- Earlier (round 011): census rule reproduces A and B minus `5046 5056`; `406` excluded by mirror clause; nulls: no GF(2) functional, integer statistic or SNF separates P from Q (do not retry). Rule was fitted at n = 12..16 (E-077).
+- Round 009: drift family `aax`; a = 4 special (`444 -> 34 -> 44`); `34`@0 -> `34`@2 is only 2 moves (shorter than the a >= 5 staircase).
 
 ## What I tried
-- Round 011: theorist_{invariant,stats,snf,single,keyclass,triples,predict,census2,word,mirror406,k0,extra}.py in rounds/011. Fast route: walk single-relation orbits only.
-- Not done: `5046 5056` at n = 17 (orbit about 10^5+, run was cut), any proof of `35@o -> 35@o+2`, n > 20.
+- Round 013 scripts: theorist_{path,k0moves,orbitstats,size}.py. Labelled BFS = quickest way to see mechanisms; orbit stats (nrel, max/min letter, sums) show nothing.
+- Not done: proof of "no shift by 1"; a = 10+ ; other 137 cores at n = 17; mirror membership of the n = 17 5046 orbits stated only by size argument.
 
 ## Next
-- BFS path in P from `35@0` to `35@2` at n = 12 (178 rows): list the moves; same for `4@0 -> 3@1`, and show `5@0` has no such move (parity obstruction in the move set?).
-- Use the single-relation orbit method on the 7 of E-059 (`344 366 4044 ...`) and on `--max-word 5`: cheap census instead of hours-long orbitclass.
-- Blind spots: the criterion was fitted to lists A/B; `5046 5056` break it; keys of single relations are probably the Happel-Seidel tree classes (not checked, would explain 2 vs 3 orbits).
+- Look at the multiset of mutated vertices / mutation-sequence parity along the staircase (each step mutates one vertex twice) for an invariant; try a signed count of mutations per vertex mod 2 over all moves.
+- Compare P/Q path template to the 7 of E-059 (`344 366 4044 ...`): do they get a staircase too?
+- Blind spots: "a-1 steps" is read off 5 values; shortest path in my move set is not a proof of derived equivalence step by step (moves are table-verified, not re-derived by me).
