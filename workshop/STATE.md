@@ -3,7 +3,7 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 9
+last_round: 10
 next_round_kind: ordinary
 
 ## Open threads
@@ -21,6 +21,15 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 010 updates (supersede everything below where they differ)
+
+Round 010 (ordinary: toolsmith, skeptic, experimentalist) recorded E-073..E-075. Next round (011) is ordinary; 012 is the next conference. The round-008 agenda stands.
+
+- **T1/T3 (E-074):** key-coarser lists are the same 9 words at n = 12, 14, 16 (A: `35 455 3334 3336 5003 5055 5504 5505 5506`) and the same 10 at n = 13, 15 (B: `36 405 466 3335 5004 5006 5046 5056 5066 5605`); `348`/`349` at 16 (size 20300) are the `4056` orbit and its mirror. Open: why these words are the parity classes (theorist); n = 17, 18 and `--max-word 5` (overnight-sized); the 7 of E-059 against the lists.
+- **T2 (E-075):** among `aaa` only `444` merges at n = 12..15, but any word with a 4 merges at 0.55 (no 4, no 2: 0.02), so "a = 4 special" is a letter-4 effect and does not single out the `34` route. Not in H-021's text. Open: merged words collapsed by orbit (how many are the `444` orbit?); why `344 345 347` are rigid and `346`, `446` merge; `aaa` at n = 16, 17 and `aaaa`.
+- **T6 (E-073):** `toolsmith_verify.py` has `--list`, `--cand`, `--budget-hours`; depth 6 for K = 1 candidate 2 reaches nothing in 434 s. K = 4 indices 0, 4 (E-072 candidate 1), 8 are done; 12 untimed. Shard command: `timeout 10m .venv/bin/python workshop/rounds/010/toolsmith_verify.py 9 6 4 -1 --cand I`.
+- Requests added: theorist: why lists A/B are the parity classes and why 4 is special as a letter; experimentalist: depth-6 shards for K = 4 indices; skeptic: the collapsed-by-orbit count in E-075 (revisit if the theorist's account makes it matter).
 
 ## Round 009 updates (supersede everything below where they differ)
 
@@ -80,11 +89,11 @@ Requests added: toolsmith to theorist: why the key-coarser cores are the parity 
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 009 | 009 (theorist) |
+| experimentalist | 010 | 010 (skeptic) |
 <!-- 008 was a conference: all six wrote position statements -->
 <!-- 005 was a conference: all six wrote position statements; nobody refereed -->
-| theorist | 009 | 007 (skeptic) |
-| skeptic | 007 | 009 (experimentalist) |
+| theorist | 009 | 010 (toolsmith) |
+| skeptic | 010 | 010 (experimentalist) |
 | scholar | 006 | 004 |
-| toolsmith | 006 | 009 (maverick) |
+| toolsmith | 010 | 009 (maverick) |
 | maverick | 009 | - |

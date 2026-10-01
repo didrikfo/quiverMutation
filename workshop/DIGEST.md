@@ -7,6 +7,20 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 010 -- 2026-10-01 -- ordinary
+
+Worked: toolsmith (T6), skeptic (T2), experimentalist (T1/T3). Referees: theorist, experimentalist, skeptic. Two minor revisions, one accept; I applied the fixes and accepted all three. Details in `rounds/010/`.
+
+- **toolsmith:** `toolsmith_verify.py` now takes `--list`, `--cand` and `--budget-hours`; E-072's depth-5 negative reproduces and a second n = 9 candidate reaches nothing at depth 6 (434 s, fits one shard). Referee: a reproduction plus tooling; wording fixes only.
+- **skeptic:** the neighbour-aware null for "a = 4 special": only `444` merges among `aaa` at n = 12..15, but any word with a 4 merges far more often (55/100 against 3/121 with neither 4 nor 2), so the claim is a letter-4 effect and does not single out the collapse to `34`. Referee reproduced it; the orbit-collapsed count was not done.
+- **experimentalist:** the key-coarser cores are the same 9 words at n = 12, 14, 16 and the same 10 at n = 13, 15; `348`/`349` size-20300 pairs at 16 are the `4056` orbit and its mirror. Referee re-ran it byte-identically.
+
+Promoted: E-073, E-074, E-075; status lines of H-021, H-017.
+
+**Questions for you (chair takes the recommended option if unanswered):** (1) remaining H-017 depth-6 candidates: recommend chair-slot shards in round 011, no overnight; (2) `orbitclass` at n = 17 (2+ h): recommend not until the theorist explains why those words are parity classes. Decided for you (round 009): shard tooling added, no overnight; `aax` criterion kept out of H-021.
+
+---
+
 ## Round 009 -- 2026-09-30 -- ordinary
 
 Worked: experimentalist (T1/T3), theorist (T2/T4), maverick (T6). Referees: skeptic, experimentalist, toolsmith. All minor revision; I applied the fixes and accepted all three. Details in `rounds/009/`.
