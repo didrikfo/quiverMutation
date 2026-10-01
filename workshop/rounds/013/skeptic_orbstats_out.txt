@@ -1,0 +1,59 @@
+n=12
+  has34   words  5 merged  2 | orbits hosting  4, orbits hosting a merged word  1
+  4,no34  words 10 merged  6 | orbits hosting  5, orbits hosting a merged word  2
+  no4     words 19 merged  4 | orbits hosting 11, orbits hosting a merged word  3
+   merged orbit 4 7 words: 234 244 346 444 445 446 456
+   merged orbit 2 3 words: 236 266 466
+   merged orbit 5 1 words: 233
+   merged orbit 11 1 words: 255
+n=13
+  has34   words  6 merged  2 | orbits hosting  4, orbits hosting a merged word  1
+  4,no34  words 15 merged 10 | orbits hosting  7, orbits hosting a merged word  4
+  no4     words 34 merged  6 | orbits hosting 17, orbits hosting a merged word  4
+   merged orbit 4 9 words: 234 244 346 444 445 446 447 456 467
+   merged orbit 1 3 words: 235 255 455
+   merged orbit 3 3 words: 237 277 477
+   merged orbit 5 1 words: 233
+   merged orbit 16 1 words: 266
+   merged orbit 18 1 words: 457
+n=14
+  has34   words  7 merged  2 | orbits hosting  6, orbits hosting a merged word  1
+  4,no34  words 21 merged 14 | orbits hosting  9, orbits hosting a merged word  5
+  no4     words 55 merged  8 | orbits hosting 22, orbits hosting a merged word  6
+   merged orbit 5 11 words: 234 244 346 444 445 446 447 448 456 467 478
+   merged orbit 2 3 words: 236 266 466
+   merged orbit 4 3 words: 238 288 488
+   merged orbit 19 3 words: 458 468 568
+   merged orbit 6 1 words: 233
+   merged orbit 14 1 words: 255
+   merged orbit 17 1 words: 277
+   merged orbit 18 1 words: 457
+n=15
+  has34   words  8 merged  2 | orbits hosting  6, orbits hosting a merged word  1
+  4,no34  words 28 merged 17 | orbits hosting 12, orbits hosting a merged word  6
+  no4     words 83 merged 11 | orbits hosting 32, orbits hosting a merged word  8
+   merged orbit 5 13 words: 234 244 346 444 445 446 447 448 449 456 467 478 489
+   merged orbit 1 3 words: 235 255 455
+   merged orbit 3 3 words: 237 277 477
+   merged orbit 4 3 words: 239 299 499
+   merged orbit 27 3 words: 459 479 679
+   merged orbit 6 1 words: 233
+   merged orbit 20 1 words: 266
+   merged orbit 24 1 words: 288
+   merged orbit 25 1 words: 457
+   merged orbit 28 1 words: 568
+pooled
+  has34   words  26 merged   8 | orbits  20 with merged   4
+  4,no34  words  74 merged  47 | orbits  33 with merged  17
+  no4     words 191 merged  29 | orbits  82 with merged  21
+extra
+  no4,has2  words  70 merged  26 | orbits  50 with merged  18
+  no4,no2   words 121 merged   3 | orbits  55 with merged   3
+  merged 4-words (12, '4,no34') total 6 in 444 orbit 5
+  merged 4-words (12, 'has34') total 2 in 444 orbit 2
+  merged 4-words (13, '4,no34') total 10 in 444 orbit 7
+  merged 4-words (13, 'has34') total 2 in 444 orbit 2
+  merged 4-words (14, '4,no34') total 14 in 444 orbit 9
+  merged 4-words (14, 'has34') total 2 in 444 orbit 2
+  merged 4-words (15, '4,no34') total 17 in 444 orbit 11
+  merged 4-words (15, 'has34') total 2 in 444 orbit 2

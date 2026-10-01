@@ -1,27 +1,28 @@
-# Skeptic's notebook (after round 010)
+# Skeptic's notebook (after round 013)
 
 ## Believe now
-- Round 010 null (T2): scan of all nondecreasing 3-letter words at n=12..15 (skeptic_scan.py). Only 444 merges among aaa (a=3..9) at all four n; 333,555..999 rigid.
-  BUT merged rate by letter content: with a 4 55/100, no 4 29/191, no 4 and no 2 3/121. So "a=4 special" = "letter 4 special"; 34-collapse mechanism not singled out
-  (words with 4 and no 34 merge; 344 345 347 348 349 rigid, 346 merges). 222 is a size-1 orbit (degenerate; a=2 untested).
-- Pooled p-values would be false precision: cells share orbits (3767 holds 20 of 25 merged words at n=14).
-- Earlier (r007): n=13: 39/109 fits one-orbit (vacuous); informative null P=0.73 at 13, power at 15/16 on pre-chosen cores.
-  Centre formula s = first+last outside: 13/13 interior survives; allI/allO counts in E-061 padded by one-orbit free passes.
-- 3346 never pairs (E-054). 4056 at 16: orbit+mirror refines key (E-064). 6600066 key sums n-13.
+- r013 (T2/T4): E-075 rescanned with orbit ids (workshop/rounds/013/skeptic_orbscan*.py, skeptic_orbstats_out.txt). One big merged orbit per n holds 444 (7/9/11/13 words at n=12..15, all contain a 4,
+  incl. 234 and 346). So "34 stratum" and "4-no-34 stratum" merge into the SAME orbit: letter-4 vs collapse-to-34 cannot be separated by this data. 55/100 vs 3/121 is
+  one orbit's size, not an effect size. Other merged orbits are small, 2-driven ({2aa,4aa} trios) or hold the three no-4-no-2 merges (568, 679) with 4-word mates (458 468, 459 479).
+  Single-word merged orbit with a 4, no 2: 457 (n=13..15).
+- r010 null: only 444 merges among aaa (a=3..9) at n=12..15 (333 rigid; probe says n=16 agrees for 333,444,555). 222 is a size-1 orbit (a=2 untestable).
+- Pooled p-values are false precision: cells share orbits. Count by orbit.
+- r007: n=13 39/109 fits one-orbit (vacuous); centre formula s = first+last outside: 13/13 interior; E-061 allI/allO padded by one-orbit passes. 3346 never pairs (E-054). 4056 at 16: orbit+mirror refines key (E-064).
 
 ## Tried
-- r010: probe/scan/stats scripts (workshop/rounds/010/skeptic_*.py). Merged = word held at ALL offsets from one interior offset; orbits cached by row set.
-- Bug caught: caching orbits by id(rep) reuses ids after GC; use a counter.
-- r007: null A (random partition) and B (random outside set), 300-1000 trials.
+- r013: orbscan (orbit id at every offset, closed orbits asserted), orbstats (strata by "34"/"4"/none, by n and pooled). ~5 min for n=12..15 in parallel.
+- r010: probe/scan/stats scripts. Bug caught: caching orbits by id(rep) reuses ids after GC; use a counter.
+- r007: null A (random partition) and B (random outside set).
 
 ## Not done
-- n=16,17 aaa; 4-letter words; words with 0 letters; per-offset (not one-offset) merged test; a=2.
-- Null for k(33x)=2x; n-independence of k at random cores; fresh cores at 14-15 (request to experimentalist).
-- Weakness: merged-test is easier for words with few offsets (large letters); not controlled except by MINOFF >= 4.
+- 4-letter words (true --max-word 4 slice) and words with zeros under the orbit scan; n=16,17; a=2.
+- Per-offset (not one-offset) merged test; offset-count control (large letters have few offsets, easier all-offsets test).
+- Why {2aa, 4aa} orbits; why 457 alone; why 344 345 347 rigid while 346, 234 merge.
+- Null for k(33x)=2x; contiguous-outside-block null for centre formula.
 
 ## Next
-1. Control for offset count: stratify merged rate by number of offsets (and compare 4 vs same-offset-count non-4 words).
-2. Ask theorist why 4 as a letter (rule table) and why 34x rigid; check E-068.
-3. Contiguous-outside-block null for the centre formula; null for k(33x).
+1. Orbit scan of 4-letter words at n=12..14 (size first with a plan); does the big orbit stay one per n.
+2. Ask theorist whether 4aa ~ 2aa is a rule-table identity.
+3. Offset-count control.
 ## Habits
-- Re-run my aggregates before citing. Check stoppedBy. Separate vacuous passes (one orbit, size 1) from informative ones. Beware of dependent cells before quoting a p-value.
+- Re-run aggregates before citing. Check stoppedBy. Separate vacuous (one orbit, size 1) from informative passes. Unit of evidence = orbit, not word. Check that strata do not share the merged orbit.
