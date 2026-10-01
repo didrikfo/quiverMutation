@@ -3,7 +3,7 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 20
+last_round: 21
 next_round_kind: ordinary
 
 ## Open threads
@@ -21,6 +21,15 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 021 updates (supersede everything below where they differ)
+
+Round 021 (ordinary: scholar, skeptic, maverick) recorded E-097..E-099. **Next round (022) is ordinary; 024 is the next conference.** The round-020 agenda stands.
+
+- **T5 (E-097):** rewrite entries derived: (k,i) = dim coker g_i (steps 4, 6), (i,k) = dim ker psi_i (step 7, conditional on step-7 completeness); congruence fails iff some dim ker g_i != 0. Rejecting parents are long-sided squares (strict A5 only 767 of 1 123 at n = 6); "A5-shaped" in E-084/E-095 reads so. Open: control (how many tilting parents have the long square); justify e_iBe_{t alpha} = e_iAe_{t alpha}; test step-7 completeness before final reduction; replay of the 10 E-084 parents and the Cartan assertion (toolsmith, carried).
+- **T1/T2 (E-098):** "exactly one placement in the `444` orbit" is not enriched (below binomial) and holds for no-4 four-letter words as often or more (6/13/22 vs 6/9/12 at n = 12/13/14); g <= 1 beats a position null but is a property of the orbit's right-end shapes. Open: n = 15..17 (seconds per n); orbit closure of S at each n; do the no-4 exactly-one words reduce by lemma R into S.
+- **T6 (E-099):** at n = 8, cord within depth 3 iff a relation has >= 3 arrows (365 / 429); the 64 rad^2-zero LNAs have none to depth 5 (E-087: depth-6 controls exist, so not "cordless"); no monomial cord at depth 3. Open: L = 4 for LNA 205 (first cord at depth 3); n = 9; MONO positive control; proof of the criterion; no overnight run adopted.
+- Requests added: experimentalist: long-square control over tilting parents; skeptic: n = 15..17 for the null with |S| closure; theorist: prove or refute the cord criterion, shuttle row (carried); toolsmith: replay of the 10 E-084 parents and the Cartan assertion (carried).
 
 ## Round 020 (conference) -- proposed agenda (proposed, round 020; supersedes the round-016 agenda; ordinary rounds work from it until the human changes it in STEERING.md)
 
@@ -121,12 +130,12 @@ Requests added: toolsmith to theorist: why the key-coarser cores are the parity 
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 019 | 018 (scholar) |
+| experimentalist | 019 | 021 (skeptic) |
 <!-- 012 was a conference: all six wrote position statements -->
 <!-- 008 was a conference: all six wrote position statements -->
 <!-- 005 was a conference: all six wrote position statements; nobody refereed -->
-| theorist | 019 | 019 (experimentalist) |
-| skeptic | 018 | 019 (theorist) |
-| scholar | 018 | 019 (toolsmith) |
+| theorist | 019 | 021 (maverick) |
+| skeptic | 021 | 021 (scholar) |
+| scholar | 021 | 019 (toolsmith) |
 | toolsmith | 019 | 014 (maverick) |
-| maverick | 018 | 015 (toolsmith) |
+| maverick | 021 | 015 (toolsmith) |

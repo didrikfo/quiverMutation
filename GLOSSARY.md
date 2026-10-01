@@ -646,3 +646,5 @@ the folded offsets are equal-size singleton orbits. E-059.
 **Lemma R.** The double mutation at the middle relation of four consecutive relation starts of lengths `a, b, b, d` (3 <= a <= b, d >= b) gives `(a-1, b, d+1)`, and `(a,b,b) -> (a-1,b)` with no fourth: `444 -> 34`, `3334 -> 35`. Checked against the rewrite engine over a bounded range (E-088), not proved.
 
 **Split word** (relative to an orbit `S`). A word, read as a core, whose placements lie partly in the row set `S` and partly outside it (E-091: among 4-letter words with a 4 and at least 4 placements, 6..18 words at n = 12..17 are split across the `444` orbit, each with exactly one placement in it). A *merged* word has all placements in one orbit, so it is never split.
+
+**Long-sided square (rejecting parent).** The shape found at every rejecting parent of the guarded walks at n = 5..7 (E-097): the mutated vertex v has one outgoing arrow v -> e and there is a relation between two paths from one vertex ending x, v, e (distinct x). The strict A5 square (arrows a>b, a>c, b>v, c>v, v>e) is only 767 of 1 123 at n = 6; "A5-shaped" in E-084 and E-095 reads as this shape.

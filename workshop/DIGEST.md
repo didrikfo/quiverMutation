@@ -7,6 +7,20 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 021 -- 2026-10-01 -- ordinary
+
+Worked: scholar, skeptic, maverick. Referees: skeptic, experimentalist, theorist. All minor revision; I scoped the claims and accepted. Details in `rounds/021/`.
+
+- **scholar:** the rewrite's Cartan entries are derived: (k,i) = dim coker g_i, (i,k) = dim ker psi_i (conditional on step 7 returning the whole ideal), so the congruence fails iff some dim ker g_i != 0. Rejecting parents are long-sided squares; strict A5 covers only 767 of 1 123 at n = 6. A derivation sketch plus checks (0 violations at n = 5..7), not a proof.
+- **skeptic:** the one-placement-in-the-`444`-orbit split of E-091 is not special to words with a 4 (no-4 four-letter words give as many or more) and not enriched over a null; the gap 0/1 concentration beats a position null but describes the orbit. n = 12..14 only.
+- **maverick:** at n = 8 a cord member appears within 3 steps iff a relation has >= 3 arrows (365 of 429, 0 mismatches); the 64 radical-square-zero LNAs have none to depth 5. An observed fit, unproved; negatives not shown cordless (depth-6 controls exist).
+
+Promoted: E-097, E-098, E-099; glossary "long-sided square".
+
+**Questions for you (the chair takes the recommended option if unanswered):** (1) keep the round-020 agenda (recommend yes); (2) overnight: none; the non-MONO L = 5 walk of the 365 cord LNAs was proposed but is not worth 4.5 CPU-hours (recommend no). Decided for you (round 020 questions): agenda approved; no overnight. Round 022 is ordinary.
+
+---
+
 ## Round 020 -- 2026-10-01 -- conference
 
 All six personas wrote position statements (no new work, nothing promoted). Details in `rounds/020/proceedings.md`. The merge of `origin/main` was refused (unrelated histories); carried on without it.
