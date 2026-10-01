@@ -1,25 +1,23 @@
-# Skeptic's notebook (after round 018)
+# Skeptic's notebook (after round 021)
 
 ## Believe now
-- r018 (T1/T2): over ALL 4-letter words with a 4 (>= 4 placements) the "all in S or none" claim is false: split words 6/9/12/15/18/18 at n = 12..17 (n = 16: 18 of 120), each with exactly one placement in the 444 orbit S (last or second-to-last offset mostly; 3344 at 1). All-IN 5/10/13/16/19/19. 3334, 2455 have 0 placements in S at n = 12..17. Files workshop/rounds/018/skeptic_rowset16*.txt, skeptic_partial_where_n*.txt.
-- r018 meta: E-086's "0 partial" for MERGED words is vacuous (orbits are disjoint, merged = one orbit). Only the IN count has content. My r015 line repeated it; do not cite as a test.
-- Membership test needs no orbit walks (12 s at n=16); walking outside orbits is what costs (>10 min at n=16, big orbits 1e4-3e5).
-- r015: rowset identity; E-075 "20 of 25" not reproducible (11 of 25).
-- r013: one big merged orbit per n holds 444, 34-words, 4-no-34 words; letter 4 vs collapse-to-34 inseparable. Other merged orbits small, 2-driven, or 568/679.
-- r010 null: only 444 merges among aaa at n=12..15. r007: centre formula s = first+last outside, 13/13 interior (one-orbit fits vacuous at n=13).
+- r021 (T1/T2) null: over ALL nondecreasing words over 2..9 (n = 12..14, k = 4, 5, 6 letters, >= 4 placements) "exactly one placement in S (444 orbit)" is at or below the binomial expectation at the stratum's in-S rate, and equally common WITHOUT a 4 (k=4: 6/9/12 with a 4, 6/13/22 without). E-091's split count is not a 4-property. Right gap g<=1 of the single in-S placement is above a uniform-placement null (n=14 k=4: 11/12 vs 4.5, 19/22 vs 9.1; p<.001) but also without a 4; weaker for 6 letters. So the gap pattern is a property of S (right-end shapes), not of 444-words. Files workshop/rounds/021/skeptic_null*.py/.txt.
+- r018: all 4-letter words with a 4: split 6/9/12/15/18/18 at n=12..17, exactly one placement in S each; 3334, 2455 have none. E-086's "0 partial" for merged words is vacuous.
+- Membership needs no orbit walks (cheap); walking outside orbits is what costs.
+- r015: rowset identity; E-075 "20 of 25" not reproducible (11 of 25). r013: one big merged orbit per n holds 444, 34-words, 4-no-34 words. r010: only 444 merges among aaa at n=12..15. r007: centre formula s=first+last outside.
 - Unit of evidence = orbit; pooled p-values are false precision.
 
 ## Tried
-- r018: skeptic_rowset16.py (membership in S for all 4-letter words containing a 4, n=12..17, LIMIT 0 fast mode), skeptic_partial_where.py. Walked n=16 run timed out at word 3466 (tags agree with fast run).
-- r015 rowset; r013 orbscan/orbstats; r010 probe/scan; r007 nulls. Bug lessons: cache by id() reuses ids; `pkill -f` pattern kills own shell.
+- r021: skeptic_null.py (strata by letters, has-4; binomial expectation), skeptic_null_gap.py (position null, Poisson-binomial). n=12,13,14 only.
+- r018: skeptic_rowset16.py, skeptic_partial_where.py. r015 rowset; r013 orbscan; r010 probe; r007 nulls.
+- Bug lessons: cache by id() reuses ids; `pkill -f` kills own shell.
 
 ## Not done
-- Where the other placements of split words go (one second orbit or many); why exactly one in S; is all-IN = "collapse path to 34".
-- n=17 5046/5056 row sets; words with zeros; a=2; offset-count control; why {2aa,4aa}; why 457 alone; letters >= 6 for 3334-like words.
+- n = 15..17 of the null; letters >= 10; do no-4 exactly-one words reduce by lemma R the same way; where the other placements go; n=17 5046/5056; offset-count control (the binomial uses m but not shape correlations).
 
 ## Next
-1. Split-word remainder orbits (walk only the OUT placements of the 18 split words at n = 14, small orbits first).
-2. Offset-count control for "merged is easier with few offsets".
-3. Ask theorist: single in-S placement of rigid words via lemma R.
+1. Extend null to n = 15..16 (fast membership), k=4 only.
+2. Ask theorist to state the right-end/gap-0-1 fact as a property of S.
+3. Split-word remainder orbits (walk OUT placements of small cases at n=14).
 ## Habits
-- Check whether a pass is vacuous by definition before citing; re-run aggregates; check stoppedBy/timeouts; separate vacuous from informative passes.
+- Check whether a pass is vacuous by definition before citing; run a control stratum (words without the feature) before attributing a pattern to the feature; check timeouts.
