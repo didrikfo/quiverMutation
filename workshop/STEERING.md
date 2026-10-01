@@ -56,3 +56,5 @@ by a command, and checked against what is already recorded.
 - round 007, question 2 (`34x` at n = 18, 19): no; the mirror-join check on the n = 15..17 singleton pairs comes first -- decided by the chair of round 008; no answer from the human (applied, round 008)
 - round 009, question 1 (H-017 depth 6): toolsmith adds a candidate-index argument and `--budget-hours` to `maverick_verify.py` in round 010; no overnight run yet -- decided by the chair of round 010; no answer from the human (applied, round 010)
 - round 009, question 2 (criterion in H-021's text): not yet; skeptic's neighbour-aware null for "a = 4 special" first -- decided by the chair of round 010; no answer from the human (applied, round 010)
+- round 010, question 1 (H-017 depth 6 shards): no overnight; experimentalist runs the untried n = 9 candidate shards (`--cand I`, one per command) in round 011 -- decided by the chair of round 011; no answer from the human
+- round 010, question 2 (`orbitclass` at n = 17): not yet; theorist first explains why lists A/B are parity classes -- decided by the chair of round 011; no answer from the human
