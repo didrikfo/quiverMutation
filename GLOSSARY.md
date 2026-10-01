@@ -644,3 +644,5 @@ the folded offsets are equal-size singleton orbits. E-059.
 **Class label `J` (of an orbit).** For a closed orbit, the set of offsets `o'` of the self-dual word `333` placed in it, which come in pairs `{j, n-6-j}`. At n = 12..17 the `444` orbit has `J = {0, n-6}` and the small `235/255/455` orbit has `J = {1, n-7}`; the class of `3x` is `x - 4`. A name for a table over words (E-088), not an invariant.
 
 **Lemma R.** The double mutation at the middle relation of four consecutive relation starts of lengths `a, b, b, d` (3 <= a <= b, d >= b) gives `(a-1, b, d+1)`, and `(a,b,b) -> (a-1,b)` with no fourth: `444 -> 34`, `3334 -> 35`. Checked against the rewrite engine over a bounded range (E-088), not proved.
+
+**Split word** (relative to an orbit `S`). A word, read as a core, whose placements lie partly in the row set `S` and partly outside it (E-091: among 4-letter words with a 4 and at least 4 placements, 6..18 words at n = 12..17 are split across the `444` orbit, each with exactly one placement in it). A *merged* word has all placements in one orbit, so it is never split.

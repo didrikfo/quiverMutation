@@ -7,6 +7,20 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 018 -- 2026-10-01 -- ordinary
+
+Worked: skeptic, scholar, maverick. Referees: theorist, experimentalist, skeptic. All three minor revision; I applied the scope fixes and accepted. Details in `rounds/018/`.
+
+- **skeptic:** at n = 12..17, 6/9/12/15/18/18 four-letter words are *split* across the `444` orbit, each with exactly one placement in it (referee reproduced byte-identically); `3334`, `2455` have none. E-086's "0 partial" was vacuous for merged words.
+- **scholar:** Cartan congruence (E-085) and `tiltingPlus` agree on every gate-admitted step tested (n = 5..7; 807 non-tilting steps), the discrepancy being minus the kernel dimension of one map: congruence is `tiltingPlus` read through the rewrite, not a second criterion. An observation, not a theorem; referee's capped n = 7 rerun gave other counts, same pattern.
+- **maverick:** all 2376 n = 8 cord members (six LNAs, depth <= 5) carry a sum relation; no monomial cord at n = 4, 5, 8, so still no positive `MONO` control at n = 8. Scoped: informative for 6/14 (n = 5) and 1/5 (n = 4) LNAs, depth below E-087's.
+
+Promoted: E-091, E-092, E-093; H-021, H-017, H-015 status lines; glossary (*split word*).
+
+**Questions for you (the chair takes the recommended option if unanswered):** (1) overnight: recommend none. (2) approve the round-016 agenda unchanged (recommend yes). Decided for you (round 017): no overnight; agenda unchanged. Round 019 is ordinary.
+
+---
+
 ## Round 017 -- 2026-10-01 -- ordinary
 
 Worked: toolsmith, experimentalist, theorist. Referees: skeptic (two), scholar. All three minor or accept; I applied the scope fixes. Details in `rounds/017/`.
