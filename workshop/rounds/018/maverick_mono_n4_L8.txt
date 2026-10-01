@@ -1,0 +1,5 @@
+lna 0 00 cord members at L = 8 rels>=0: 0 (arrows,rels) hist {} (walk 2s)
+lna 1 02 cord members at L = 8 rels>=0: 0 (arrows,rels) hist {} (walk 1s)
+lna 2 20 cord members at L = 8 rels>=0: 0 (arrows,rels) hist {} (walk 1s)
+lna 3 22 cord members at L = 8 rels>=0: 0 (arrows,rels) hist {} (walk 0s)
+lna 4 30 cord members at L = 8 rels>=0: 0 (arrows,rels) hist {} (walk 2s)

@@ -1,0 +1,14 @@
+lna 4 000030 members(L<=5): 448 {('cycles', 1): 448, ('has sum rel', True): 448, ('all cycle arrows in a sum-relation support', True): 448} monomial-only: 0 (59s)
+   sum-relation shapes (members containing one): {'sum2+2': 310, 'sum2+3': 22, 'sum2+4': 4, 'sum3+2': 73, 'sum4+2': 30, 'sum5+2': 8, 'sum6+2': 1}
+lna 9 000230 members(L<=5): 114 {('cycles', 1): 114, ('has sum rel', True): 114, ('all cycle arrows in a sum-relation support', True): 114} monomial-only: 0 (30s)
+   sum-relation shapes (members containing one): {'sum2+2': 110, 'sum3+2': 4}
+lna 10 000300 members(L<=5): 444 {('cycles', 1): 432, ('has sum rel', True): 444, ('all cycle arrows in a sum-relation support', True): 444, ('cycles', 2): 12} monomial-only: 0 (58s)
+   sum-relation shapes (members containing one): {'sum2+2': 300, 'sum2+3': 43, 'sum2+4': 2, 'sum3+2': 72, 'sum4+2': 24, 'sum5+2': 5}
+lna 11 000302 members(L<=5): 226 {('cycles', 1): 225, ('has sum rel', True): 226, ('all cycle arrows in a sum-relation support', True): 226, ('cycles', 2): 1} monomial-only: 0 (29s)
+   sum-relation shapes (members containing one): {'sum2+2': 145, 'sum2+3': 15, 'sum3+2': 44, 'sum4+2': 18, 'sum5+2': 4}
+lna 12 000330 members(L<=5): 464 {('cycles', 1): 464, ('has sum rel', True): 464, ('all cycle arrows in a sum-relation support', True): 464} monomial-only: 0 (51s)
+   sum-relation shapes (members containing one): {'sum2+2': 382, 'sum2+3': 14, 'sum2+4': 2, 'sum3+2': 44, 'sum4+2': 18, 'sum5+2': 4}
+lna 13 000400 members(L<=5): 680 {('cycles', 1): 615, ('has sum rel', True): 680, ('all cycle arrows in a sum-relation support', True): 680, ('cycles', 2): 65} monomial-only: 0 (44s)
+   sum-relation shapes (members containing one): {'sum2+2': 395, 'sum2+3': 96, 'sum2+4': 2, 'sum3+2': 121, 'sum3+3': 38, 'sum4+2': 24, 'sum4+3': 17, 'sum5+2': 4, 'sum5+3': 4}
+TOTAL {('cycles', 1): 2298, ('has sum rel', True): 2376, ('all cycle arrows in a sum-relation support', True): 2376, ('cycles', 2): 78}
+shapes {'sum2+2': 1642, 'sum2+3': 190, 'sum2+4': 10, 'sum3+2': 358, 'sum3+3': 38, 'sum4+2': 114, 'sum4+3': 17, 'sum5+2': 25, 'sum5+3': 4, 'sum6+2': 1}
