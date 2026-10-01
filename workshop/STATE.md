@@ -3,8 +3,8 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 19
-next_round_kind: conference
+last_round: 20
+next_round_kind: ordinary
 
 ## Open threads
 
@@ -21,6 +21,14 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 020 (conference) -- proposed agenda (proposed, round 020; supersedes the round-016 agenda; ordinary rounds work from it until the human changes it in STEERING.md)
+
+Details: `rounds/020/proceedings.md`. Round 021 is ordinary; the next conference is 024. T1-T9 and the round updates below stay current.
+1. **A5-shape check and kernel/cokernel identity** (T5): experimentalist checks all rejecting parents are A5-shaped; toolsmith replays the 10 E-084 parents and adds the Cartan assertion; scholar/theorist derive "(k,i) = dim coker" from step 7.
+2. **Split words, gap, shuttle** (T1/T2): theorist, shuttle as a rule-table row and why the gap is word-only; experimentalist, R-terminal and right gap for `3334 2455 3335` and 4-letter words at n = 12..17; skeptic, selectivity null.
+3. **Cords** (T6): toolsmith, non-MONO `--plan` over the 429 n = 8 LNAs; theorist, cord = commutativity cycle.
+4. **`k(33x) = 2x`** (T2/T4): theorist, a mechanism.
 
 ## Round 019 updates (supersede everything below where they differ)
 
@@ -83,24 +91,6 @@ Round 013 (ordinary: theorist, toolsmith, skeptic) recorded E-079..E-081. Next r
 - **T2/T4 (E-079):** E-075's letter-4 contrast is one orbit per n (the `444` orbit, with `234`, `346` inside it); "letter 4" vs "collapse to `34`" cannot be separated by this data. Small 2-driven orbits (`{4aa, 2aa}`). E-075's "20 of 25" at n = 14 disagrees with the scan's 11 of 25 (unreconciled). Open: is `4aa = 2aa` an identity of the rule table (theorist); 4-letter words under the same orbit scan (experimentalist).
 - **T6 (E-081):** n = 9 depth-6 negatives are 5e4-6e4-node walks (4 of 16 measured); n = 7 depth-6 control finds 16 of 16, 0 of 4 at depth 5. Control members are cheap (0-2 relations); no n = 9 member is known. Depth 7 is about 2.6e5-3.4e5 nodes (25-30 min per candidate). Open: a control with a non-hereditary source at n = 8 (toolsmith), first control run's output not saved.
 - Requests added: experimentalist: re-run and save the n = 17 `5046`/`5056` output; 4-letter orbit scan at n = 12..15. Theorist: `4aa` vs `2aa`; invariant for the shift by 1. Toolsmith: n = 8 control with a non-hereditary source.
-
-## Round 011 updates (supersede everything below where they differ)
-
-Round 011 (ordinary: experimentalist, theorist, scholar) recorded E-076..E-078. Next round (012) is a **conference**. The round-008 agenda stands until then.
-
-- **T6 (E-076):** all 16 K = 4 candidates at n = 9 are negative at depth 6 (13 new shards, 308-567 s each, rc 0). Bounded negative: no depth-6 control, no node count in the output. Open: node count and a depth-6 control at n = 7 (toolsmith); depth 7 stays in Menu 4 (about 25-40 min per candidate, 2-3 h).
-- **T1/T3 (E-077):** lists A, B are the words alternating between the single-relation orbits P (`3@2`/`3@3`) and Q (`5@0`/`6@0`) (n = 12..20). A fit at 12..16, stable at 17, 18 (not a test: no n >= 17 key-coarser list exists), misses `5046 5056` at odd n. Open: a move sequence `35@o -> 35@(o+2)` and why `4@0` joins `3@1` but `5@0` does not join `3@2`; `5046`, `5056` at n = 17 (orbit sizes 1e5..1e6, plan first); a selectivity null for the rule (skeptic).
-- **T5 (E-078):** a hand-built 5-vertex algebra with `abde = acde` fails `tiltingPlus` and the Cartan congruence at `d` (n = 5..7, 6 padded). Hand-built, not shown LNA-reachable; `isTilting` not promoted. Open: reachability from an LNA at n <= 9 (toolsmith); independent End(T) and a derivation of the one-map identity (theorist); CHZ Cor 3.6 still unread (arXiv blocked by the proxy).
-- Requests added: toolsmith: node count + n = 7 depth-6 control; skeptic: selectivity null for the E-077 rule; scholar/toolsmith: A5 reachability and a unit test.
-
-## Round 010 updates (supersede everything below where they differ)
-
-Round 010 (ordinary: toolsmith, skeptic, experimentalist) recorded E-073..E-075. Next round (011) is ordinary; 012 is the next conference. The round-008 agenda stands.
-
-- **T1/T3 (E-074):** key-coarser lists are the same 9 words at n = 12, 14, 16 (A: `35 455 3334 3336 5003 5055 5504 5505 5506`) and the same 10 at n = 13, 15 (B: `36 405 466 3335 5004 5006 5046 5056 5066 5605`); `348`/`349` at 16 (size 20300) are the `4056` orbit and its mirror. Open: why these words are the parity classes (theorist); n = 17, 18 and `--max-word 5` (overnight-sized); the 7 of E-059 against the lists.
-- **T2 (E-075):** among `aaa` only `444` merges at n = 12..15, but any word with a 4 merges at 0.55 (no 4, no 2: 0.02), so "a = 4 special" is a letter-4 effect and does not single out the `34` route. Not in H-021's text. Open: merged words collapsed by orbit (how many are the `444` orbit?); why `344 345 347` are rigid and `346`, `446` merge; `aaa` at n = 16, 17 and `aaaa`.
-- **T6 (E-073):** `toolsmith_verify.py` has `--list`, `--cand`, `--budget-hours`; depth 6 for K = 1 candidate 2 reaches nothing in 434 s. K = 4 indices 0, 4 (E-072 candidate 1), 8 are done; 12 untimed. Shard command: `timeout 10m .venv/bin/python workshop/rounds/010/toolsmith_verify.py 9 6 4 -1 --cand I`.
-- Requests added: theorist: why lists A/B are the parity classes and why 4 is special as a letter; experimentalist: depth-6 shards for K = 4 indices; skeptic: the collapsed-by-orbit count in E-075 (revisit if the theorist's account makes it matter).
 
 ## Round 006 updates (supersede the thread text above where they differ)
 

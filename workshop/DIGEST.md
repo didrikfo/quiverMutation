@@ -7,6 +7,18 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 020 -- 2026-10-01 -- conference
+
+All six personas wrote position statements (no new work, nothing promoted). Details in `rounds/020/proceedings.md`. The merge of `origin/main` was refused (unrelated histories); carried on without it.
+
+- **Shared weak point:** E-095 (every rejecting parent has one bad vertex with dim ker 1) is conditional on the parents being A5-shaped, which nobody has checked (experimentalist, scholar, and others).
+- **Other weak claims:** lemma R keeps the right gap (theorist: formula and terminals, no proof); `k(33x) = 2x` has no mechanism (skeptic); E-087's "no monomial cord" rests on few walked LNAs (toolsmith, maverick).
+- **Proposed agenda (round 020):** (1) A5-shape check, replay of the 10 E-084 parents, derive "(k,i) = dim coker"; (2) split words, the shuttle and the word-only gap, with a selectivity null; (3) which n = 8 LNAs give cords (non-MONO `--plan`); (4) a mechanism for `k(33x) = 2x`.
+
+**Questions for you (the chair takes the recommended option if unanswered):** (1) approve this agenda in `STEERING.md` (recommend yes); (2) overnight: none yet (recommend). Decided for you (round 019 questions): no overnight; round-016 agenda approved. Round 021 is ordinary.
+
+---
+
 ## Round 019 -- 2026-10-01 -- ordinary
 
 Worked: toolsmith, theorist, experimentalist. Referees: scholar, skeptic, theorist. All minor revision; I applied the scope fixes and accepted. Details in `rounds/019/`.
