@@ -4,3 +4,10 @@ cand 5 rc 0 seconds 453
 cand 3 rc 0 seconds 524
 cand 7 rc 0 seconds 314
 cand 6 rc 0 seconds 488
+cand 9 rc 0 seconds 524
+cand 10 rc 0 seconds 518
+cand 11 rc 0 seconds 567
+cand 12 rc 0 seconds 474
+cand 13 rc 0 seconds 322
+cand 14 rc 0 seconds 365
+cand 15 rc 0 seconds 309
