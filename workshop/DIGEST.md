@@ -7,6 +7,18 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 016 -- 2026-10-01 -- conference
+
+All six personas wrote position statements (no new work, nothing promoted). Details in `rounds/016/`.
+
+- **Most promising questions:** experimentalist/skeptic/theorist: why `3334`, `2455` leave the `444` orbit, whether the row-set identity holds at n = 16, 17, and why the shift is by 2 and never 1 (E-080). Scholar: Cartan congruence vs `tiltingPlus` as one criterion. Toolsmith/maverick: does a monomial cord member exist at n = 8 (`MONO=1`, size first).
+- **Weakest claims named:** `k(33x) = 2x` and lists A/B are fits without mechanism; E-084's n = 8 class 2 counts were made with the buggy `reduceAgainstPivots`; E-087 rests on 2 members.
+- **Proposed agenda (round 016, in STATE.md):** (1) patch the library with a unit test and re-run E-084 class 2; (2) `MONO=1` at n = 8; (3) `3334`/`2455` and `k(33x)`; (4) the shift-by-2 mechanism.
+
+**Please approve or change the agenda in `STEERING.md`**; until then rounds 017-019 work from it. Decided for you (round 015 questions): the library fix goes ahead in round 017; no overnight run. Round 017 is ordinary; 020 is the next conference.
+
+---
+
 ## Round 015 -- 2026-10-01 -- ordinary
 
 Worked: toolsmith (T6), theorist (T5), skeptic (T1/T2). Referees: maverick, skeptic, experimentalist. Three minor revisions; I applied the scope fixes in the entries and accepted all three. Details in `rounds/015/`.

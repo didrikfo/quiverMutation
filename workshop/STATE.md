@@ -3,8 +3,8 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 15
-next_round_kind: conference
+last_round: 16
+next_round_kind: ordinary
 
 ## Open threads
 
@@ -21,6 +21,14 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 016 (conference) -- proposed agenda (proposed, round 016; supersedes the round-012 and round-008 agendas; ordinary rounds work from it until the human changes it in STEERING.md)
+
+Details: `rounds/016/proceedings.md`. Next conference: 020. Threads T1-T9 and the round updates below stay current. Round 017 is ordinary.
+1. **Library fix and re-run** (T5; STEERING decision for q 015.1): toolsmith patches `reduceAgainstPivots` with a unit test on the congruent pair (`rounds/015/theorist_fix.py`); experimentalist re-runs the E-084 n = 8 class 2 walk under the fix and says which E-084 counts change. Scholar/theorist: Cartan congruence vs `tiltingPlus` as one criterion.
+2. **Cords at n = 8** (T6): toolsmith sizes `MONO=1` at n = 8 (`--plan` first); is there any monomial cord member, and why do none appear at n = 6, 7? Maverick consumes the answer.
+3. **`3334`, `2455` in the small orbit / `k(33x) = 2x`** (T1/T2/T4): theorist, with the skeptic's n = 16, 17 row-set test of the `444` orbit as the data.
+4. **Parity shift** (T3): theorist, why the rule table gives shift by 2 and never by 1 (E-080).
 
 ## Round 015 updates (supersede everything below where they differ)
 
@@ -49,15 +57,6 @@ Round 013 (ordinary: theorist, toolsmith, skeptic) recorded E-079..E-081. Next r
 - **T6 (E-081):** n = 9 depth-6 negatives are 5e4-6e4-node walks (4 of 16 measured); n = 7 depth-6 control finds 16 of 16, 0 of 4 at depth 5. Control members are cheap (0-2 relations); no n = 9 member is known. Depth 7 is about 2.6e5-3.4e5 nodes (25-30 min per candidate). Open: a control with a non-hereditary source at n = 8 (toolsmith), first control run's output not saved.
 - Requests added: experimentalist: re-run and save the n = 17 `5046`/`5056` output; 4-letter orbit scan at n = 12..15. Theorist: `4aa` vs `2aa`; invariant for the shift by 1. Toolsmith: n = 8 control with a non-hereditary source.
 
-## Round 012 (conference) -- proposed agenda (proposed, round 012; supersedes the round-008 agenda; ordinary rounds work from it until the human changes it in STEERING.md)
-
-Details: `rounds/012/proceedings.md`. Next conference: 016. Threads T1-T9 and the updates below stay current.
-1. **Why lists A/B are parity classes** (T1/T3): theorist, with experimentalist for data. First question: a move sequence `35@0 -> 35@2` in P and `4@0 -> 3@1` at n = 12, and what stops `5@0` reaching `3@2`; then `5046 5056` at odd n (`--plan` first at n = 17). Skeptic referees.
-2. **H-017 legibility** (T6): toolsmith. First question: node count in `toolsmith_verify.py` and a depth-6 control at n = 7, so the n = 9 depth-6 negatives (E-076) can be read. Maverick's Euler-form idea waits on it (n = 8..11 only, E-063).
-3. **Reachability of a gate-admitted non-tilting mutation** (T5): toolsmith + scholar. First question: does any guarded walk from an LNA at n <= 9 reach an algebra that fails `tiltingPlus` while the gate admits it? Unit test of the A5 algebra allowed. Theorist: one-map identity.
-4. **Letter 4 / `k(33x) = 2x`** (T2/T4): theorist, skeptic. First question: merge rate stratified by whether a word has `34` or only a `4` (separates merge from collapse; E-075 left the orbit-collapsed count undone).
-Round 013 is ordinary.
-
 ## Round 011 updates (supersede everything below where they differ)
 
 Round 011 (ordinary: experimentalist, theorist, scholar) recorded E-076..E-078. Next round (012) is a **conference**. The round-008 agenda stands until then.
@@ -75,35 +74,6 @@ Round 010 (ordinary: toolsmith, skeptic, experimentalist) recorded E-073..E-075.
 - **T2 (E-075):** among `aaa` only `444` merges at n = 12..15, but any word with a 4 merges at 0.55 (no 4, no 2: 0.02), so "a = 4 special" is a letter-4 effect and does not single out the `34` route. Not in H-021's text. Open: merged words collapsed by orbit (how many are the `444` orbit?); why `344 345 347` are rigid and `346`, `446` merge; `aaa` at n = 16, 17 and `aaaa`.
 - **T6 (E-073):** `toolsmith_verify.py` has `--list`, `--cand`, `--budget-hours`; depth 6 for K = 1 candidate 2 reaches nothing in 434 s. K = 4 indices 0, 4 (E-072 candidate 1), 8 are done; 12 untimed. Shard command: `timeout 10m .venv/bin/python workshop/rounds/010/toolsmith_verify.py 9 6 4 -1 --cand I`.
 - Requests added: theorist: why lists A/B are the parity classes and why 4 is special as a letter; experimentalist: depth-6 shards for K = 4 indices; skeptic: the collapsed-by-orbit count in E-075 (revisit if the theorist's account makes it matter).
-
-## Round 009 updates (supersede everything below where they differ)
-
-Round 009 (ordinary: experimentalist, theorist, maverick) recorded E-070..E-072. Next round (010) is ordinary; 012 is the next conference. The round-008 agenda stands (items 1, 3, 4 worked).
-
-- **T1/T3 (E-070):** the equal-size singleton pairs of `344 348 349` at 15..17 and `4046` at 14..16 are one orbit plus its mirror (orbit+mirror = key, 12/12). Key-coarser cores at 12, 13 are disjoint from the 7 of E-059. "Pair at even n, mirror-join at odd n" is NOT supported (mirror-joins occur at even n). Open: print key-coarser lists at 14..16 (does the even list repeat?); is size 20300 of `348/349` at 16 the `4056` orbit; why the 7 of E-059 are what they are.
-- **T2/T4 (E-071):** `aax` drift closes (`k = 2x + 3 - a`) for a = 3, 5, 6 (n = 14) and 7 (n = 15), not `44x`; computed criterion: the seed `aaa` collapses to `34` only for a = 4. Open: why `34` alone reaches the slider (proof gap; `3333 <-> 3403`); a neighbour-aware null for "a = 4 special" (skeptic); a = 2, 8, 9; n >= 16; `44x` at n >= 17.
-- **T6 (E-072):** L = 5 control passes (n = 6 full, n = 7 first 8 LNAs); four n = 9 candidates reach nothing at depth 5. Depth 6 for 16 candidates about 2 h, one candidate per shard; depth 7 about 27 min each. Open: candidate-index argument in `maverick_verify.py` (toolsmith); n = 7 control for the other 124 LNAs; the other 12 candidates unsized.
-- Requests added: toolsmith: candidate-index argument + `--budget-hours` for `maverick_verify.py`; skeptic: null for "a = 4 special" in E-071; experimentalist: key-coarser lists at n = 14..16.
-
-## Round 008 (conference) -- proposed agenda (proposed, round 008; supersedes the ranking above; ordinary rounds work from it until the human changes it in STEERING.md)
-
-Details: `rounds/008/proceedings.md`. Threads T1-T9 above and the updates below stay current.
-1. **Mirror join and parity classes** (T1/T2/T3): experimentalist + toolsmith; skeptic referees. Mirror join of `344`, `348`, `349` at 15..17 and `4046` at 14..16; are the 9-10 key-coarser cores of E-064 the 7 cores of E-059?
-2. **Fresh-sample centre test** (T1/T2): skeptic designs, experimentalist runs; random seeded cores at 14, 15, predict 16; informative fits only, against the E-067 null.
-3. **Mechanism beyond `33x`** (T2/T4): theorist; closure condition of a drift family (`33x` closes, `44x` does not, `45x` no drift).
-4. **H-017 control** (T6): maverick, L = 5 control at n = 6/7, size one n = 9 candidate at depth 5; no overnight yet. Coxeter-spectrum idea parked.
-5. **H-015 one-map identity** (T5): scholar + theorist; small commutative instance at n = 5..7.
-Round 009 is ordinary; 012 is the next conference.
-
-## Round 007 updates (supersede everything below and above where they differ)
-
-Round 007 (ordinary: experimentalist, skeptic, maverick) recorded E-067..E-069. Next round (008) is a **conference**.
-
-- **T2 (E-068):** `34x` pairs `o <-> hi - o` (`k = x + 3`, not `2x`) at n = 14..17 for x = 4, 5, 7, 8, 9; `346` is one orbit; `45x` has no reflection (parity splits for `455`, `458`, `459`); `4046` is a reflection `k = 11` (size-paired), the parity translation is `5046/5056` at odd n. E-060's `4046@13` = `{0,2},{1,3}` did not reproduce (`{0,2},{1},{3}`). Open: mirror-join check of the equal-size singleton pairs; `44x`; x >= 10; n >= 18.
-- **T1/T2 null (E-067):** 39 of 109 n = 13 fits are one-orbit (vacuous); informative fits mostly chance-level; the interior-core centre formula and the 12 E-060 cores at n = 15, 16 survive. Open: a neighbour-aware null (none committed); a random (not pre-selected) sample of cores at 14-15; null for `k(33x) = 2x`.
-- **T6 (E-069):** the H-017 search finds a class iff a member is within its depth (round trips 273/273 at n = 7, 91 of 132 LNAs; 0 at depth L-1). The depth-4 negative for the 16 below-diagonal candidates is therefore weak. Open: L = 5 control at n = 6/7 (and check that recorded paths are shortest); depth 5-6 on the 16 candidates at n = 9 (size first; overnight only if unavoidable).
-
-Requests added: theorist to experimentalist/toolsmith: mirror-join on `344`, `348`, `349` at n = 15..17 and `4046` at 14..16; maverick: L = 5 control; skeptic: null for `k(33x)`.
 
 ## Round 006 updates (supersede the thread text above where they differ)
 
