@@ -34,7 +34,8 @@ def kercoker(alg, k, rels):
                 for kk, v in ap.reduceAgainstPivots(ap.combination([q + (b,)]), ap.idealBasis(quiver, rels, i, b[1])).items(): row[(b, kk)] = v
             rows.append(row)
         r = rank(rows) if rows else 0
-        res[i] = (dimV - r, tot - r, tot - dimV)   # ker, coker, sum - dim
+        col = sum(dimAB(quiver, rels, b[1], i) for b in outs) - dimAB(quiver, rels, k, i)
+        res[i] = (dimV - r, tot - r, col)   # ker, coker, sum_beta dim e_{t beta}Ae_i - dim e_k A e_i
     return res
 def hasA5(quiver, v):
     outs = ap.arrowsOutOf(quiver, v)
@@ -45,6 +46,15 @@ def hasA5(quiver, v):
             if b < c:
                 srcb = {t for (t, h, _) in ap.arrowsInto(quiver, b)}; srcc = {t for (t, h, _) in ap.arrowsInto(quiver, c)}
                 if srcb & srcc: return True
+    return False
+def hasLongSquare(alg, v):
+    """generalised shape: v has one outgoing arrow v->e and a relation of >= 2 paths from one start, all ending ... x, v, e with distinct x"""
+    outs = ap.arrowsOutOf(alg.quiver, v)
+    if len(outs) != 1: return False
+    e = outs[0][1]
+    for rel in alg.rels:
+        if len(rel) >= 2 and all(len(q) >= 3 and q[-1] == e and q[-2] == v for q in rel) and len({q[0] for q in rel}) == 1 and len({q[-3] for q in rel}) == len(rel):
+            return True
     return False
 def check(alg, v, base=None, tag=None):
     rels = procedure.relationsFrom(alg)
@@ -64,8 +74,8 @@ def check(alg, v, base=None, tag=None):
     if not t:
         pk = fingerprint.canonicalKey(alg) or str(alg.rels)
         if pk not in rejparents:
-            rejparents[pk] = hasA5(alg.quiver, v)
-            if not rejparents[pk]: shapeless.append((tag, alg.rels, v))
+            rejparents[pk] = (hasA5(alg.quiver, v), hasLongSquare(alg, v))
+            if not (rejparents[pk][0] or rejparents[pk][1]): shapeless.append((tag, alg.rels, v))
     return ch, guard
 if a.e078:
     for n in (5, 6, 7):
@@ -109,4 +119,4 @@ else:
     print('class', a.cls, 'algebras', len(seen), '%.0fs' % (time.time() - t0))
 for k, v in sorted(tab.items(), key=str): print(k, v)
 print('VIOLATIONS of rowk=coker or colk=sum-dim:', len(bad)); [print(o) for o in bad[:6]]
-print('distinct rejecting parents:', len(rejparents), ' A5-shaped at v:', sum(rejparents.values()), ' not:', len(shapeless)); [print(o) for o in shapeless[:6]]
+print('distinct rejecting parents:', len(rejparents), ' strict A5 (arrows a>b,a>c,b>v,c>v,v>e):', sum(x[0] for x in rejparents.values()), ' long-square (relation with 2 paths ending x,v,e):', sum(x[1] for x in rejparents.values()), ' neither:', len(shapeless)); [print(o) for o in shapeless[:6]]

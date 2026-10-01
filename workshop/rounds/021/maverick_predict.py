@@ -14,6 +14,7 @@ def members(alg):
         def v(a, p):
             if len(p) > L: return
             b = pathAlgebra.dualPathAlgebra(a) if dual else a
+            if os.environ.get('MONO') and any(len(r) != 1 for r in b.rels): return  # MONO=1: monomial relations only
             ar = sorted(b.quiver.edges())
             if len(ar) < n or len(set(ar)) != len(ar): return
             s = (tuple(ar), tuple(sorted(tuple(tuple(q) for q in r) for r in b.rels)))
@@ -22,6 +23,7 @@ def members(alg):
     for dual, st in enumerate([alg, pathAlgebra.dualPathAlgebra(alg)]):
         se.mutationSearchDepthFirst(copy.deepcopy(st), L, [], 'lines', printOutput=False, visitor=mk(dual))
     return best
-for k in range(lo, min(hi, len(lst) - 1) + 1):
+ks = [int(x) for x in os.environ['IDX'].split(',')] if os.environ.get('IDX') else range(lo, min(hi, len(lst) - 1) + 1)  # IDX=i,j,.. overrides LO HI
+for k in ks:
     t = time.time(); b = members(nk.LinearNakayamaAlgebra(n, list(lst[k])))
     print(k, "".join(map(str, lst[k])), len(b), min(b.values()) if b else -1, "%.1f" % (time.time() - t), flush=True)

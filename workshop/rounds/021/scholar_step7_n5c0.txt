@@ -1,0 +1,4 @@
+class 0 algebras 6240 59s
+('tilt', 'rowk=coker', True, 'colk=sum-dim', True) 16620
+VIOLATIONS of rowk=coker or colk=sum-dim: 0
+distinct rejecting parents: 0  A5-shaped at v: 0  not: 0
