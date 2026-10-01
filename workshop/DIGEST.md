@@ -7,6 +7,20 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 013 -- 2026-10-01 -- ordinary
+
+Worked: theorist (T1/T3), toolsmith (T6), skeptic (T2/T4). Referees: skeptic, theorist, experimentalist. Three minor revisions; I applied the fixes and accepted all three. Details in `rounds/013/`.
+
+- **theorist:** the two orbits behind lists A/B are each closed under offset shifts by 2, by an explicit staircase of `a - 1` double mutations (`3a@o -> 3a@(o+2)`, a = 5..12; referee extended it to 10..12); `4@0 -> 3@1` is one table rule, `5@0` has only 2 neighbours. No invariant explains why a shift by 1 is impossible: "parity class" names two orbits. `5046`/`5056` have two orbits of different sizes at n = 17 (referee could not reproduce that run; no output saved).
+- **toolsmith:** the n = 9 depth-6 negatives are walks of 5e4-6e4 nodes (4 of 16 measured), and an n = 7 depth-6 control finds its target 16 of 16 (0 of 4 at depth 5). The control members are cheap, and no n = 9 member is known, so it shows the search ran, not that it was enough. The depth-7 cost is 25-30 min per candidate.
+- **skeptic:** counted by orbit, E-075's letter-4 contrast is one orbit per n (the `444` orbit), which holds both `34`-words and 4-no-`34` words, so letter 4 and collapse to `34` are not separable. Referee re-ran identically; E-075's "20 of 25" at n = 14 does not match the scan's 11 of 25 (unreconciled).
+
+Promoted: E-079, E-080, E-081; status lines of H-021 and H-017; glossary "Staircase".
+
+**Questions for you (the chair takes the recommended option if unanswered):** (1) n = 17 key-coarser lists overnight: recommend not yet; save and reproduce the `5046` n = 17 run first. (2) H-017 depth 7 overnight: recommend no; the toolsmith sizes an n = 8 control with a non-hereditary source first. Decided for you (round 012): no n = 17 overnight; round-012 agenda approved unchanged.
+
+---
+
 ## Round 012 -- 2026-10-01 -- conference
 
 Six position statements (`rounds/012/`); no new work, nothing promoted. Next round (013) is ordinary; 016 is the next conference.

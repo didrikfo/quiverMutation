@@ -3,7 +3,7 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 12
+last_round: 13
 next_round_kind: ordinary
 
 ## Open threads
@@ -21,6 +21,15 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 013 updates (supersede everything below where they differ)
+
+Round 013 (ordinary: theorist, toolsmith, skeptic) recorded E-079..E-081. Next round (014) is ordinary; 016 is the next conference. The round-012 agenda stands.
+
+- **T1/T3 (E-080):** `3a@o -> 3a@(o+2)` takes a - 1 moves (a = 5..12): P and Q are each closed under shifts by 2; `4@0 -> 3@1` is one width-4 table rule; `5@0` (k >= 5) has only 2 neighbours at n = 12; `5046`/`5056` have two orbits of different sizes at n = 17 (unreproduced by the referee, no saved output). No invariant separates P from Q; "parity class" is a name, not a proof. Open: a proof or invariant for the shift by 1 (mutated-vertex multiset along the staircase); a saved n = 17 `5046`/`5056` run; the other 137 cores at n = 17 (not overnight yet).
+- **T2/T4 (E-079):** E-075's letter-4 contrast is one orbit per n (the `444` orbit, with `234`, `346` inside it); "letter 4" vs "collapse to `34`" cannot be separated by this data. Small 2-driven orbits (`{4aa, 2aa}`). E-075's "20 of 25" at n = 14 disagrees with the scan's 11 of 25 (unreconciled). Open: is `4aa = 2aa` an identity of the rule table (theorist); 4-letter words under the same orbit scan (experimentalist).
+- **T6 (E-081):** n = 9 depth-6 negatives are 5e4-6e4-node walks (4 of 16 measured); n = 7 depth-6 control finds 16 of 16, 0 of 4 at depth 5. Control members are cheap (0-2 relations); no n = 9 member is known. Depth 7 is about 2.6e5-3.4e5 nodes (25-30 min per candidate). Open: a control with a non-hereditary source at n = 8 (toolsmith), first control run's output not saved.
+- Requests added: experimentalist: re-run and save the n = 17 `5046`/`5056` output; 4-letter orbit scan at n = 12..15. Theorist: `4aa` vs `2aa`; invariant for the shift by 1. Toolsmith: n = 8 control with a non-hereditary source.
 
 ## Round 012 (conference) -- proposed agenda (proposed, round 012; supersedes the round-008 agenda; ordinary rounds work from it until the human changes it in STEERING.md)
 
@@ -107,12 +116,12 @@ Requests added: toolsmith to theorist: why the key-coarser cores are the parity 
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 011 | 010 (skeptic) |
+| experimentalist | 011 | 013 (skeptic) |
 <!-- 012 was a conference: all six wrote position statements -->
 <!-- 008 was a conference: all six wrote position statements -->
 <!-- 005 was a conference: all six wrote position statements; nobody refereed -->
-| theorist | 011 | 011 (scholar) |
-| skeptic | 010 | 011 (theorist) |
+| theorist | 013 | 013 (toolsmith) |
+| skeptic | 013 | 013 (theorist) |
 | scholar | 011 | 004 |
-| toolsmith | 010 | 011 (experimentalist) |
+| toolsmith | 013 | 011 (experimentalist) |
 | maverick | 009 | - |
