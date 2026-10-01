@@ -1,19 +1,19 @@
 # Experimentalist notebook (rewritten each round)
 
-## What I now believe (after round 011)
-- H-017 at n = 9: all 16 K = 4 candidates reach nothing at depth 6 (13 new shards in round 011: 308-567 s wall with 4 in parallel on 4 cores; none timed out). Outputs `workshop/rounds/011/experimentalist_cand*.txt`. Bounded negative (E-069: found only if a member within depth).
-- Depth 7 would be about 5.5x depth 6, so 25-50 min per candidate: not a 10-minute shard; overnight (Menu 4).
-- From 010: key-coarser cores of the `--max-word 4` catalogue: list A (9 words `35 455 3334 3336 5003 5055 5504 5505 5506`) at n = 12, 14, 16; list B (10 words `36 405 466 3335 5004 5006 5046 5056 5066 5605`) at n = 13, 15; orbit+mirror always finer than key, never incomparable. Output `workshop/rounds/010/experimentalist_keycoarser_out.txt`.
-- n = 16: the 20300 of 4056 {1,2}, 348 {2,3}, 349 {1,3} is one orbit plus mirror.
-- Earlier: k(34x) = x + 3, d = 0; 346 one orbit; 45x no reflection; 4046 reflection k = 11; 5046/5056 translation at odd n; mirror join 344/348/349 at 15..17.
+## What I now believe (after round 014)
+- n = 17: `5046`, `5056` each have orbits {0,2,4,6} = 122673 and {1,3,5,7} = 54266 (both closed, own mirrors). Saved in `workshop/rounds/014/experimentalist_n17_50{46,56}.txt`. 5.5 min each with two in parallel; `--plan` says 2 units.
+- 4-letter words with a 4, orbit scan n = 12..15 (`experimentalist_orbscan4.py`): merged words 5, 12, 15, 20; the big orbit holds 5/5, 10/12, 13/15, 16/20 and is the `444` orbit (size 5648 at n = 15 equals the 3-letter one; only sizes compared). `3334` merges in a small orbit with `2455` at 13, 15.
+- From 011: H-017 at n = 9: 16 K = 4 candidates, nothing at depth 6 (bounded negative, E-069). Depth 7 is overnight.
+- From 010: key-coarser lists A (even n, 9 words) and B (odd n, 10 words); orbit+mirror always finer than key. k(34x) = x + 3; 346 one orbit; 4046 reflection k = 11.
 
 ## What I tried
-- Round 011: `workshop/rounds/011/experimentalist_shards.sh I` for 13 indices via `xargs -P 4` (about 40 min wall). The launching shell returns at once; wait with a `for ... sleep 20` loop inside one call (timeout up to 590000).
-- Round 010: `toolsmith_orbitclass.py N` at n = 14, 15, 16 (12, 22, 60 min with --jobs 4; ledgers in `logs/`, resume windows `timeout 9m`).
+- Round 014: `batch.py orbits 17 --cores W` twice in parallel (shared ledger: the first summary lists both words). Scan script cloned from skeptic_orbscan.py with a limit arg and a closed flag.
+- Round 011: shards by `xargs -P 4`; wait with a sleep loop inside one call (timeout up to 590000).
+- Round 010: `toolsmith_orbitclass.py N` at n = 14..16.
 
 ## What I would do next
-1. Depth 7 at n = 9 for the 16 candidates as overnight (needs a checkpoint or in-candidate budget; ask toolsmith). Time one candidate alone first if a slot allows.
-2. K = 100 (160 candidates) at depth 5 is about 2 h: size with --list and one shard.
-3. Do the 7 of E-059 (344 366 4044 4403 4404 4405 4605) share orbits across cores at n = 16? Generalise `same20300`.
+1. Compare row sets (not sizes) of the n = 15 big orbit across the 3- and 4-letter scans; same for `5046` vs `5056` at n = 17.
+2. 4-letter scan at n = 16 (time n = 15 was 3 min, so n = 16 about 10 min: use a shard by word range) and 4-letter words with no 4.
+3. Depth 7 at n = 9 for the 16 candidates as overnight (needs checkpoint); K = 100 at depth 5 (about 2 h).
 4. n = 17 key-coarser lists (overnight), `--max-word 5` at n = 14, 34x at n = 18, 44x (E-068 open).
-- Watch: a timeout is not a verdict; parallel timings are inflated; 16 candidates are a K cap, not a proof of coverage.
+- Watch: a timeout is not a verdict; parallel timings are inflated; size equality is not set equality; word-level merged counts are not independent events (count by orbit).

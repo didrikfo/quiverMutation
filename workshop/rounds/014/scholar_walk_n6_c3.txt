@@ -1,0 +1,18 @@
+depth 1 expanded 32 next 96 nonmono parents 0 0s
+depth 2 expanded 128 next 208 nonmono parents 0 1s
+depth 3 expanded 336 next 408 nonmono parents 0 3s
+depth 4 expanded 744 next 756 nonmono parents 0 6s
+depth 5 expanded 1500 next 1340 nonmono parents 0 13s
+depth 6 expanded 2840 next 2288 nonmono parents 0 24s
+depth 7 expanded 5128 next 3796 nonmono parents 0 43s
+depth 8 expanded 8924 next 6052 nonmono parents 0 74s
+depth 9 expanded 14976 next 9176 nonmono parents 0 127s
+depth 10 expanded 24152 next 13112 nonmono parents 0 188s
+depth 11 expanded 37264 next 17388 nonmono parents 0 248s
+depth 12 expanded 54652 next 21020 nonmono parents 0 319s
+depth 13 expanded 75672 next 22328 nonmono parents 0 406s
+depth 14 expanded 98000 next 19584 nonmono parents 0 497s
+depth 15 expanded 107869 next 7285 nonmono parents 0 540s
+n 6 class 3 key (1, 1, 1, 1, 1, 1, 1) starts 32 distinct algebras 124869 closed False
+('guard', 'tilt') 334348
+REJECTIONS (gate-admitted, tiltingPlus False): 0

@@ -1,0 +1,20 @@
+n 8 LNAs 429
+lna 0 000000 members L = 5 rels>=1: 677 rels hist {1: 214, 2: 341, 3: 116, 4: 6} (walk 109s)
+  lna 0 000000 L 5 search 4 rels 1 arrows 7 found False nodes 1200 distinct 320 9s
+  lna 0 000000 L 5 search 4 rels 1 arrows 7 found False nodes 982 distinct 265 8s
+lna 1 000002 members L = 5 rels>=1: 394 rels hist {1: 89, 2: 173, 3: 115, 4: 17} (walk 74s)
+  lna 1 000002 L 5 search 4 rels 1 arrows 7 found False nodes 1186 distinct 334 4s
+  lna 1 000002 L 5 search 4 rels 1 arrows 7 found False nodes 989 distinct 276 3s
+lna 2 000020 members L = 5 rels>=1: 261 rels hist {1: 39, 2: 113, 3: 89, 4: 20} (walk 42s)
+  lna 2 000020 L 5 search 4 rels 1 arrows 7 found False nodes 1373 distinct 377 4s
+  lna 2 000020 L 5 search 4 rels 1 arrows 7 found False nodes 1246 distinct 331 3s
+lna 3 000022 members L = 5 rels>=1: 156 rels hist {1: 16, 2: 50, 3: 65, 4: 24, 5: 1} (walk 12s)
+  lna 3 000022 L 5 search 4 rels 1 arrows 7 found False nodes 1746 distinct 516 4s
+  lna 3 000022 L 5 search 4 rels 1 arrows 7 found False nodes 1695 distinct 471 4s
+lna 4 000030 members L = 5 rels>=1: 192 rels hist {1: 41, 2: 75, 3: 55, 4: 19, 5: 2} (walk 28s)
+  lna 4 000030 L 5 search 4 rels 1 arrows 7 found False nodes 1134 distinct 339 3s
+  lna 4 000030 L 5 search 4 rels 1 arrows 7 found False nodes 1018 distinct 296 3s
+lna 5 000200 members L = 5 rels>=1: 215 rels hist {1: 28, 2: 86, 3: 84, 4: 17} (walk 21s)
+  lna 5 000200 L 5 search 4 rels 1 arrows 7 found False nodes 1955 distinct 546 5s
+  lna 5 000200 L 5 search 4 rels 1 arrows 7 found False nodes 1952 distinct 558 5s
+found counts: {False: 12} total nodes 16476 distinct (summed) 4629

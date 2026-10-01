@@ -1,26 +1,25 @@
-# Scholar's notebook (after round 011)
+# Scholar's notebook (after round 014)
 
 ## Believe
-- Ladkani 1001.4765 Prop 2.3(c) = Aihara-Iyama 1009.3370 Thm 2.32(b) = `tiltingPlus`: one linear map
-  (p |-> (p beta)_beta over arrows beta out of k). Authors' statement, no derivation; not independent of the code.
-- NEW r011: gate-admitted, non-tilting mutations exist at n = 5: vertices a,b,c,d,e, square a>b>d, a>c>d,
-  d>e, relation abde = acde (length 4). gate True, tiltingPlus False, Cartan congruence False at d.
-  Padded versions at n = 6, 7 the same (6/6). True square (abd = acd) is fine; monomial control gate-refused.
-  So E-066's "n = 10 first size" is false as a lower bound for the shape. Not shown reachable from an LNA.
-- E-032 step 7 is the same shape (commutativity relation through a vertex with one outgoing arrow).
-- CHZ Cor 3.6 path-wise vs Prop 3.5 (socle): reasoned that Cor 3.6 needs "monomial"; STILL UNVERIFIED,
-  arxiv.org returns CONNECT 403 through the proxy (r006 and r011). Do not retry; no other route found.
+- Ladkani 1001.4765 2.3(c) = Aihara-Iyama 1009.3370 2.32(b) = `tiltingPlus`: one map (p |-> (p beta)_beta). Authors'
+  statement, not independent of the code.
+- r011: A5 (square a>b>d, a>c>d, d>e, relation abde = acde) is gate-admitted and fails tiltingPlus at d (n = 5..7).
+- r014 (T5): guarded BFS from LNAs reaches gate-admitted, tiltingPlus-False parents at n = 6 (distance 8) and in 10/10
+  smallest classes at n = 7, 8, 9 (distance 5..7). Every rejection is guard-refused (key moves); about 1.29e6
+  guard-admitted steps, 0 fail tiltingPlus. n = 5 closes (11.7k algebras) with none. E-055/E-057 missed it by depth only.
+- Reached parents are A5-shaped but not E-078 up to padding (extra prefix relation).
+- Open oddity: n = 8 class 2, 10 steps gate True, tiltingPlus True, key moves, parallel arrows (not studied).
+- CHZ Cor 3.6 "monomial?" still UNVERIFIED; arxiv.org blocked (403) in r006, r011. Do not retry.
 - Terms: gate = `mutationIsPossibleAtVertex`; guard = Coxeter key same. Say which.
-- Earlier: LNA-started walks n=5..7: gate <=> 2.3(c) (E-055, E-057).
 
 ## Did
-- R001/R002/R006: scholar_h015*.py, nonmono control, scholar_step7.py, scholar_sides.py.
-- R011: rounds/011/scholar_square.py (18 hand-built algebras, seconds). Arxiv fetch failed (403).
+- R001/R002/R006: scholar_h015*.py, nonmono, step7, sides. R011: scholar_square.py.
+- R014: rounds/014/scholar_walk.py (per key class BFS, --plan, --stop-on-reject), scholar_sweep.sh, scholar_replay.py,
+  scholar_a5key.py; tests/test_gate_without_tilting.py.
 
 ## Next
-- Ask toolsmith: reachability of A5-type algebras from LNAs by gate-admitted steps at n <= 9.
-- Chair decision on `isTilting` promotion (hand-built counts?); a unit test with A5 is cheap.
-- Someone with the PDF: Cor 3.6 hypothesis; then fix the flag in the literature note.
-- Independent check: End of the two-term complex for A5 at d, compare Cartan with repo child.
-- Lessons: a "first size" claim in a Limits paragraph is cheap to test by direct construction;
-  hand-built algebras reach cases LNA-rooted walks cannot.
+- Chair: isTilting decision (redundant under guard); theorist: the 10 parallel-arrow mismatches and the one-map identity.
+- Cheap check: Cartan congruence for those 10; and rejections' guard status at the remaining 15 n = 9 classes.
+- Someone with the CHZ PDF: Cor 3.6 hypothesis.
+- Lessons: "none found at depth d" is only a bound; split a walk by invariant class (Coxeter key) to size and
+  reach deeper; classes with 2 starts are cheapest for first-reach tests. Check the depth of earlier negatives first.

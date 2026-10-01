@@ -1,0 +1,6 @@
+  [1/1] 5046  (0.2/min, about 0s left)
+
+n = 17: 2 cores placed, 0 without a placement
+  capped orbits in: none
+  5046     {0,2,4,6}122673 {1,3,5,7}54266  pairs 0 sums []  mirrors own
+  5056     {0,2,4,6}122673 {1,3,5,7}54266  pairs 0 sums []  mirrors own

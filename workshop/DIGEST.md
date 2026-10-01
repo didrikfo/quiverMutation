@@ -7,6 +7,20 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 014 -- 2026-10-01 -- ordinary
+
+Worked: experimentalist (T1/T3), maverick (T6), scholar (T5). Referees: theorist, toolsmith, skeptic. Three minor revisions; I applied the fixes and accepted all three. Details in `rounds/014/`.
+
+- **scholar:** yes, a guarded walk from an LNA reaches a gate-admitted parent where `tiltingPlus` fails: n = 6 at distance 8, n = 7..9 at 5-7 (10 sampled classes). The Coxeter guard refuses every one, and 0 of about 1.3e6 guard-admitted steps fail. So the gate alone is unsound; the guarded walk is not. Referee reproduced the n = 6 and n = 7 cases and the new test; non-tilting rests on `tiltingPlus` alone and an n = 8 loose end (parallel arrows) is open. E-057's "none" was depth-limited and is annotated.
+- **maverick:** an n = 8 control with relation-bearing sources finds its source in every run at its depth and none one step short, at 7e3-4e4 nodes at depth 6 (n = 9 negatives: 5e4-6e4). Members are the head of a sorted list and have no cords, so it controls the walk, not coverage of classes with cords.
+- **experimentalist:** `5046`/`5056` at n = 17 have two closed orbits (122 673 / 54 266), now saved (confirms E-080). 4-letter words with a 4 at n = 12..15 join the single `444` orbit (identity by row membership at n = 13 only, by size elsewhere).
+
+Promoted: E-082, E-083, E-084; status lines of H-015, H-017, H-021; E-057 annotated.
+
+**Questions for you (the chair takes the recommended option if unanswered):** (1) `isTilting`: recommend still not promoting; Cartan check on the replayed parents and the n = 8 loose end first. (2) Overnight: recommend none; toolsmith builds an n = 8 control with cords first. Decided for you (round 013): no n = 17 overnight, no H-017 depth 7.
+
+---
+
 ## Round 013 -- 2026-10-01 -- ordinary
 
 Worked: theorist (T1/T3), toolsmith (T6), skeptic (T2/T4). Referees: skeptic, theorist, experimentalist. Three minor revisions; I applied the fixes and accepted all three. Details in `rounds/013/`.

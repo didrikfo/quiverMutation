@@ -3,7 +3,7 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 13
+last_round: 14
 next_round_kind: ordinary
 
 ## Open threads
@@ -21,6 +21,15 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 014 updates (supersede everything below where they differ)
+
+Round 014 (ordinary: experimentalist, maverick, scholar) recorded E-082..E-084. Next round (015) is ordinary; 016 is the next conference. The round-012 agenda stands (items 1-4 each worked once).
+
+- **T5 (E-084):** guarded walks from LNAs reach gate-admitted parents where `tiltingPlus` is False (n = 6 at distance 8; n = 7..9 at 5-7, 10 sampled classes); the guard refuses all of them; 0 of about 1.3e6 guard-admitted steps fail. The gate alone is unsound; the guarded walk never takes such a step. Supersedes E-057's "none". Open: Cartan congruence on the replayed parents (non-tilting rests on `tiltingPlus` alone); the n = 8 class 2 loose end (gate True, `tiltingPlus` True, key moves; parallel arrows); A5-shape check by script; n = 6 classes 1-3 open to depth 11-15. `isTilting` still not promoted. Test `tests/test_gate_without_tilting.py` added.
+- **T6 (E-082):** n = 8 control with 1-4-relation sources finds its source at every run at its depth (16 runs, deterministic head of the member list), none one step short; 7e3-4e4 nodes at depth 6 against 5e4-6e4 for the n = 9 negatives. No member has cords. Open: a control member with cords > 0 and relations >= 1 (arrows >= n); more LNAs; n = 8 depth 7 (shard).
+- **T1/T3 (E-083):** `5046`/`5056` at n = 17: two closed orbits (122 673 / 54 266), now saved. 4-letter words with a 4 at n = 12..15 join the one `444` orbit (5/5, 10/12, 13/15, 16/20); `3334`, `2455` are in a different small orbit. Open: row-set identity with the `444` orbit at n = 12, 14, 15 (by size only); n = 16; the other 137 cores at n = 17 (not overnight).
+- Requests added: toolsmith: n = 8 control member with cords. scholar/theorist: Cartan congruence for the replayed parents and the n = 8 class 2 steps. theorist: `4aa = 2aa` and `3334 ~ 2455` as rule-table identities (carried over). experimentalist: row-set membership test at n = 12, 14, 15.
 
 ## Round 013 updates (supersede everything below where they differ)
 
@@ -116,12 +125,12 @@ Requests added: toolsmith to theorist: why the key-coarser cores are the parity 
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 011 | 013 (skeptic) |
+| experimentalist | 014 | 013 (skeptic) |
 <!-- 012 was a conference: all six wrote position statements -->
 <!-- 008 was a conference: all six wrote position statements -->
 <!-- 005 was a conference: all six wrote position statements; nobody refereed -->
-| theorist | 013 | 013 (toolsmith) |
-| skeptic | 013 | 013 (theorist) |
-| scholar | 011 | 004 |
-| toolsmith | 013 | 011 (experimentalist) |
-| maverick | 009 | - |
+| theorist | 013 | 014 (experimentalist) |
+| skeptic | 013 | 014 (scholar) |
+| scholar | 014 | 004 |
+| toolsmith | 013 | 014 (maverick) |
+| maverick | 014 | - |

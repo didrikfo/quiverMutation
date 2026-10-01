@@ -1,0 +1,4 @@
+n 8 LNAs 429
+lna 0 000000 members L = 6 rels>=1: 835 rels hist {1: 214, 2: 383, 3: 224, 4: 14} (walk 160s)
+  lna 0 000000 L 6 search 6 rels 4 arrows 7 found True nodes 6857 distinct 648 22s
+found counts: {True: 1} total nodes 6857 distinct (summed) 648

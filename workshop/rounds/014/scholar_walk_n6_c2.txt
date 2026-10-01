@@ -1,0 +1,15 @@
+depth 1 expanded 26 next 76 nonmono parents 0 0s
+depth 2 expanded 102 next 180 nonmono parents 28 1s
+depth 3 expanded 282 next 382 nonmono parents 76 3s
+depth 4 expanded 664 next 786 nonmono parents 220 8s
+depth 5 expanded 1450 next 1618 nonmono parents 476 17s
+depth 6 expanded 3068 next 3150 nonmono parents 1018 35s
+depth 7 expanded 6218 next 5924 nonmono parents 2022 72s
+depth 8 expanded 12142 next 10476 nonmono parents 3798 138s
+depth 9 expanded 22618 next 17394 nonmono parents 6850 220s
+depth 10 expanded 40012 next 26434 nonmono parents 11756 312s
+depth 11 expanded 66446 next 34690 nonmono parents 19062 451s
+depth 12 expanded 82878 next 17591 nonmono parents 23253 540s
+n 6 class 2 key (1, 1, 0, 0, 0, 1, 1) starts 26 distinct algebras 118727 closed False
+('guard', 'tilt') 274485
+REJECTIONS (gate-admitted, tiltingPlus False): 0
