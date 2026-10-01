@@ -6,6 +6,33 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-096 — For the 18 split four-letter words of E-091 the one placement in the `444` orbit has a fixed right gap g (0 or 1) at n = 12..17 for 17 words, `3344` is the exception; lemma R alone reaches `333@0` from none of 45 word-n cases
+*2026-10-01* · **`workshop/rounds/019/theorist_gaps.py n` (n = 12..16; referee also n = 17): g = 0 for `2224 2334 4556 4667 4778 4889`, g = 1 for `224x` (x >= 5) and `344x` (x >= 4), g independent of n; `3344` does not fit (right gap 7 at n = 16, 8 at n = 17; in-orbit placement at left gap 1). `theorist_rchain.py n` (n = 12, 13, 14, 16; 6+9+12+18 = 45 cases): lemma R, with every step filtered against `doubleMutation.rewritesOf`, stops at boundary shapes `4`, `4y`, `334`, `3 b (d+1)` (`357 368 379 38(10)`) that are themselves in the orbit, never at `333@0`; the BFS paths printed at n = 12, 14 (`theorist_split.py`) go through the `34@k <-> 403@(k-1)` shuttle (7..13 steps). R is valid only when the shortened interval does not swallow a relation on its left (the `3344` case; E-088's R test covered isolated runs).** · *workshop round 019, theorist, refereed by skeptic*
+
+**Limits.** A relabelling of E-091's "last or second-to-last for 17 of 18": the 18 words are E-091's list, so the evidence is not independent of it; the new content is the n-independence of g, the R-terminals and "R alone does not reach `333@0`". `3344` is 17 of 18 plus an exception, not a rule at every n (its left-gap reading is a relabelling, not derived). Why only one placement per word (short shapes are in the orbit only at the boundary) is read from tables for n = 12..16, not proved. R-chains: n = 15 not run; the shuttle claim rests on n = 12, 14 BFS output. `3334`, `2455` not checked.
+
+**Reproduction.** `for n in 12 13 14 15 16; do timeout 10m .venv/bin/python workshop/rounds/019/theorist_gaps.py $n; done` (about 15 s each); `for n in 12 13 14 16; do timeout 10m .venv/bin/python workshop/rounds/019/theorist_rchain.py $n; done`; `theorist_split.py 12`, `theorist_shapes.py`, `theorist_jlabel.py 12` likewise.
+
+---
+
+## E-095 — On the guarded walks at n = 5..7 and the E-078 family, dim ker is 1 at exactly one vertex of each of 1 050 rejecting parents (907 at n = 6, 143 at n = 7, all distinct), never above 1 per vertex, and no non-tilting step has dim ker 0
+*2026-10-01* · **`workshop/rounds/019/experimentalist_kerhist.py`: `--e078` (75 tilting / 6 non-tilting; totals 3/2/1 occur only here), `5 --all` (30 300 steps, 0 non-tilting), `6 --class 0 --budget-sec 480` (83 591 tilting + 907 non-tilting), `7 --class 0 --budget-sec 480` (53 502 + 143); 0 disagreements between `tiltingPlus` and the Cartan congruence; per-vertex dim ker <= 1 throughout.** · *workshop round 019, experimentalist, refereed by theorist*
+
+**Limits.** Fills the gap named in E-093's Limits (histogram of dim ker, distinct parents). "Tilting <=> dim ker 0" is E-093's identity read on more steps, not new content. "Per-vertex dim ker <= 1" is about the walks' parents (all A5-shaped, E-084; no shape check made), not the gate; "one bad vertex per parent" and "dim ker per vertex" are different quantities. n = 6, 7 counts depend on the 480 s cap (n = 6 907 here vs 696 in E-093, attributed to load, unchecked); n = 6 classes 1-3, n = 7 classes 1+ not run.
+
+**Reproduction.** `.venv/bin/python workshop/rounds/019/experimentalist_kerhist.py --e078` (3 s); `... 5 --all` (82 s); `timeout 10m ... 6 --class 0 --budget-sec 480`; `timeout 10m ... 7 --class 0 --budget-sec 480`.
+
+---
+
+## E-094 — With checkpoint/resume the n = 8 class 2 depth-8 guarded walk completes under the fixed library: 24 316 expansions, 63 221 distinct algebras, 2 rejections, 0 key-moved steps; the 10 key-moved steps of E-084 are equal in count to the steps that now keep the key
+*2026-10-01* · **`workshop/rounds/019/toolsmith_walk.py 8 --class 2 --depth 8 --budget-sec 480 --ckpt FILE` (two slices, 493 s + 208 s; checkpoint 38 MB kept outside the repository); over E-084's first 20 899 expansions: guard-tilt 89 189 now vs 89 179 + 10 key-moved before, noguard-NOTtilt and the rejection line identical, distinct 54 333 vs 54 326; the second rejection (path (17, 8, 5, 6, 8, 8, 2, 5), vertex 5, gate True, `tiltingPlus` False, guard-refused) not inspected. Resume equals uninterrupted `scholar_walk.py` byte-for-byte at n = 7 classes 0, 1 (depth 6) and, by the referee, class 2 (depth 5).** · *workshop round 019, toolsmith, refereed by scholar*
+
+**Limits.** Closes E-090's loose end only for the n = 8 class 2 guarded walk, full depth 8 (the frontier is not closed; depth 9 not run), under the E-089 fix; it says nothing for other classes. The 10 key-moved steps are matched to the new steps by count (89 179 + 10 = 89 189), not by replaying the 10 E-084 parents; the +7 distinct algebras is unexplained. n = 8 resume equivalence rests on count agreement with E-084 (depth 1-7 lines identical), not on an n = 8 slice-vs-uninterrupted run. Referee did not re-run the depth-8 walk (about 11 min).
+
+**Reproduction.** See E-090 for the uninterrupted walker; `timeout 10m .venv/bin/python workshop/rounds/019/toolsmith_walk.py 8 --class 2 --depth 8 --budget-sec 480 --ckpt /tmp/tw_n8c2.ckpt` (run twice); resume check: `workshop/rounds/019/toolsmith_walk_resume_check.txt`, recipe in `workshop/rounds/019/toolsmith.md`.
+
+---
+
 ## E-093 — On every gate-admitted step tested (guarded BFS from the LNAs, n = 5..7) the Cartan congruence `R C R^T = Cartan(child)` fails exactly where `tiltingPlus` fails, and then the discrepancy is row k, off the diagonal, equal to minus the kernel dimension of the map `p -> (p beta)_beta`; no step disagrees
 *2026-10-01* · **`workshop/rounds/018/scholar_cartan_vs_tilt.py` and `scholar_e078_diff.py`: 18 E-078-family algebras (75 tilting+congruent steps, 6 non-tilting and non-congruent), n = 5 both key classes closed (11 700 algebras, 30 300 steps, 0 non-tilting), n = 6 class 0 (65 914 / 696, stopped at 420 s), n = 7 class 0 (39 901 / 111, stopped at 420 s); 0 steps with tilting and congruence disagreeing; in all 807 non-tilting steps X - Y is row k off-diagonal and equals minus dim ker g_i (E-078 at n = 5, vertex d: a single entry -1 at (d, a)). All non-tilting steps are guard-refused.** · *workshop round 018, scholar, refereed by experimentalist*
 

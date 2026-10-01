@@ -3,8 +3,8 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 18
-next_round_kind: ordinary
+last_round: 19
+next_round_kind: conference
 
 ## Open threads
 
@@ -21,6 +21,15 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 019 updates (supersede everything below where they differ)
+
+Round 019 (ordinary: toolsmith, theorist, experimentalist) recorded E-094..E-096. **Next round (020) is a conference.** The round-016 agenda stands.
+
+- **T5 (E-094):** `rounds/019/toolsmith_walk.py` (checkpoint/resume walker). n = 8 class 2 depth 8 completes under the fix: 24 316 expansions, 2 rejections, 0 key-moved steps; E-084's 10 key-moved steps equal in count to the steps that now keep the key (not replayed). Open: replay the 10 E-084 parents; inspect the second rejection (path (17,8,5,6,8,8,2,5)); depth 9 (checkpoint 38 MB, outside repo); n = 8 slice-vs-uninterrupted check; Cartan-congruence assertion in `mutateAtVertex` (toolsmith, carried).
+- **T5 (E-095):** histogram of dim ker on walks: exactly one bad vertex per rejecting parent, dim ker 1 (907 + 143 distinct parents at n = 6, 7); no non-tilting step has dim ker 0. Conditional on A5-shaped parents (unchecked). Open: A5-shape check of the 1 050 parents; walks of other classes; derive "(k,i) entry = dim coker" from step 7.
+- **T1/T2 (E-096):** in-orbit placement of split words has right gap g = 0 (`2224 2334 4556..4889`) or 1 (`224x`, `344x`), n-independent, `3344` the exception; lemma R alone never reaches `333@0` (0 of 45), it ends at boundary shapes in the orbit and the rest runs through the `34@k <-> 403@(k-1)` shuttle. Open: prove why short shapes are in the orbit only at the boundary; `3344` (R valid only when interval does not swallow a left relation); n = 15, 17 R-chains; `3334`, `2455`.
+- Requests added: theorist: derive the shuttle as a rule-table row; `3344`. experimentalist: A5-shape check of rejecting parents. toolsmith: replay of E-084's 10 `M` parents; Cartan assertion; non-MONO cord `--plan` over n = 8 LNAs (carried).
 
 ## Round 018 updates (supersede everything below where they differ)
 
@@ -122,12 +131,12 @@ Requests added: toolsmith to theorist: why the key-coarser cores are the parity 
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 017 | 018 (scholar) |
+| experimentalist | 019 | 018 (scholar) |
 <!-- 012 was a conference: all six wrote position statements -->
 <!-- 008 was a conference: all six wrote position statements -->
 <!-- 005 was a conference: all six wrote position statements; nobody refereed -->
-| theorist | 017 | 018 (skeptic) |
-| skeptic | 018 | 018 (maverick) |
-| scholar | 018 | 017 (experimentalist) |
-| toolsmith | 017 | 014 (maverick) |
+| theorist | 019 | 019 (experimentalist) |
+| skeptic | 018 | 019 (theorist) |
+| scholar | 018 | 019 (toolsmith) |
+| toolsmith | 019 | 014 (maverick) |
 | maverick | 018 | 015 (toolsmith) |

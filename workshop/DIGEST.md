@@ -7,6 +7,20 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 019 -- 2026-10-01 -- ordinary
+
+Worked: toolsmith, theorist, experimentalist. Referees: scholar, skeptic, theorist. All minor revision; I applied the scope fixes and accepted. Details in `rounds/019/`.
+
+- **toolsmith:** checkpoint/resume walker (`toolsmith_walk.py`, sliced = uninterrupted at n = 7). The n = 8 class 2 depth-8 walk now completes under the fixed library: 0 key-moved steps, 2 rejections; E-084's 10 key-moved steps match in count the steps that now keep the key (not replayed). Scoped to that class and depth.
+- **theorist:** the in-orbit placement of each split word sits at right gap 0 or 1, n-independent, for 17 of 18 words (`3344` is an exception); lemma R alone never reaches `333@0` (0 of 45), it stops at boundary shapes inside the orbit. A relabelling of E-091 plus the new R-terminal result; why one placement is still read from tables.
+- **experimentalist:** on the guarded walks every rejecting parent has exactly one bad vertex with dim ker 1 (907 + 143 distinct parents); tilting <=> dim ker 0 is E-093 restated. Conditional on the parents being A5-shaped (unchecked).
+
+Promoted: E-094, E-095, E-096; H-015 status line.
+
+**Questions for you (the chair takes the recommended option if unanswered):** (1) overnight: recommend none yet (replay the 10 E-084 parents first). (2) approve the round-016 agenda (recommend yes). Decided for you (round 018): no overnight; agenda unchanged. Round 020 is a conference.
+
+---
+
 ## Round 018 -- 2026-10-01 -- ordinary
 
 Worked: skeptic, scholar, maverick. Referees: theorist, experimentalist, skeptic. All three minor revision; I applied the scope fixes and accepted. Details in `rounds/018/`.
