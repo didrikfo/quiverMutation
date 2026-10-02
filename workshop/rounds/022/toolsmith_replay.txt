@@ -1,0 +1,11 @@
+v 3 path (6, 1, 1, 2, 2, 4, 5, 6) parentRelsMatchFile True gate True tiltingPlus True cartanAssertion PASS keyKept True ms 11
+v 3 path (6, 1, 1, 2, 4, 5, 6, 2) parentRelsMatchFile True gate True tiltingPlus True cartanAssertion PASS keyKept True ms 15
+v 6 path (6, 1, 4, 5, 1, 2, 5, 7) parentRelsMatchFile True gate True tiltingPlus True cartanAssertion PASS keyKept True ms 24
+v 2 path (6, 1, 4, 5, 1, 3, 5, 2) parentRelsMatchFile True gate True tiltingPlus True cartanAssertion PASS keyKept True ms 20
+v 3 path (8, 1, 1, 2, 2, 4, 5, 6) parentRelsMatchFile True gate True tiltingPlus True cartanAssertion PASS keyKept True ms 16
+v 3 path (8, 1, 1, 2, 4, 5, 6, 2) parentRelsMatchFile True gate True tiltingPlus True cartanAssertion PASS keyKept True ms 20
+v 2 path (8, 1, 4, 5, 1, 3, 5, 2) parentRelsMatchFile True gate True tiltingPlus True cartanAssertion PASS keyKept True ms 22
+v 2 path (10, 1, 4, 5, 1, 3, 5, 2) parentRelsMatchFile True gate True tiltingPlus True cartanAssertion PASS keyKept True ms 15
+v 2 path (10, 1, 4, 5, 3, 1, 5, 2) parentRelsMatchFile True gate True tiltingPlus True cartanAssertion PASS keyKept True ms 15
+v 2 path (10, 1, 4, 5, 3, 1, 6, 3) parentRelsMatchFile True gate True tiltingPlus True cartanAssertion PASS keyKept True ms 11
+keyKept in 10 of 10

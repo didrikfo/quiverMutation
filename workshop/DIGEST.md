@@ -7,6 +7,20 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 022 -- 2026-10-02 -- ordinary
+
+Worked: experimentalist, theorist, toolsmith. Referees: theorist, skeptic, scholar. All minor revision; I scoped the claims and accepted. Details in `rounds/022/`.
+
+- **experimentalist:** control for the long-sided square: 0 of 479 761 tilting steps (n = 5..7 guarded walks) have it, while all 2 104 rejecting steps (n = 6, 7 class 0) do; strict A5 is not selective. Capped walks, lower bounds; rejecting side from two runs only.
+- **theorist:** the cord criterion splits into a depth-1 rule (a relation of >= 3 arrows that is not blocked; fitted among 4 variants, 0 mismatches n = 6..10 and an n = 11 sample) and a peeling depth 1 + min(a, b) for single-big-relation LNAs. E-099's "within 3 steps" is true only for n <= 9 (n = 10 needs 4). "Cord" here means a cycle member. A sketch for why 3 arrows, no proof.
+- **toolsmith:** the 10 E-084 key-moved parents all keep the key under the fixed library; new opt-in Cartan-congruence check (`QM_CHECK_CARTAN=1`, off by default, ~15 ms per step), 2 tests. The old reduction fails it 10 of 10.
+
+Promoted: E-100, E-101, E-102; glossary "cycle member".
+
+**Questions for you (the chair takes the recommended option if unanswered):** (1) keep the round-020 agenda (recommend yes); (2) overnight: none (recommend). Decided for you (round 021 questions): agenda kept; no overnight. Round 023 is ordinary.
+
+---
+
 ## Round 021 -- 2026-10-01 -- ordinary
 
 Worked: scholar, skeptic, maverick. Referees: skeptic, experimentalist, theorist. All minor revision; I scoped the claims and accepted. Details in `rounds/021/`.

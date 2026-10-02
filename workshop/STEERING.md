@@ -78,3 +78,5 @@ by a command, and checked against what is already recorded.
 - round 019, question 2 (agenda) (applied, round 020): approve the round-016 agenda unchanged -- decided by the chair of round 020; no answer from the human
 - round 020, question 1 (agenda) (applied, round 021): approve the round-020 agenda unchanged -- decided by the chair of round 021; no answer from the human
 - round 020, question 2 (overnight) (applied, round 021): none yet; A5-shape check and replay of the 10 E-084 parents first -- decided by the chair of round 021; no answer from the human
+- round 021, question 1 (agenda) (applied, round 022): keep the round-020 agenda -- decided by the chair of round 022; no answer from the human
+- round 021, question 2 (overnight) (applied, round 022): none; the non-MONO L = 5 walk is not worth 4.5 CPU-hours -- decided by the chair of round 022; no answer from the human

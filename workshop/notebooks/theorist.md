@@ -1,24 +1,25 @@
-# Theorist notebook (rewritten round 019)
+# Theorist notebook (rewritten round 022)
 
 ## What I believe now
-- Round 019 (T1/T2): the one in-S placement of a split four-letter word is fixed by the right gap g = n - end of last relation, g depends on the word
-  only (n = 12..16): g = 0 for 2224, 2334, 4556/4667/4778/4889; g = 1 for 224x (x>=5), 344x (x>=4); 3344 is the left-gap-1 exception.
-- R (applied to the end, each step checked against `doubleMutation.rewritesOf`) never reaches 333@0: it stops at a boundary shape
-  (4, 4y, 334, 3 b b+2); the rest is the `34 <-> 403` shuttle (4@0 -> 3@1 slid along). 0 of 45 reduce by R alone.
-- R is valid only when the shortened interval (a-1) does not swallow a left neighbour (3344 case). E-088's test was on isolated runs.
-- Short shapes are in S only at the boundary: `4` at L0/g0, `4y` at L0/g1, `334 335 357` at g0, `44` everywhere (n = 12..16).
-- Round 017: orbits labelled by J = offsets of 333@o' held (pairs {j, n-6-j}); `444`, `34` j = 0; `35 55 455 2455 3334` j = 1; `3x` j = x-4.
-  k(33x) = 2x from the class table, E-065 upper bound not proved. Lemma R tested only by exhaustion.
-- Nulls from 013 stand: no invariant separates classes; "class" = closed orbit under this move set.
-- 015: reduceAgainstPivots defect (n = 8 class 2); fix in rounds/015/theorist_fix.py, toolsmith owns the library.
+- Round 022 (T6, E-099): "cord member" in the repo = reached algebra with arrows >= n, no parallel arrows (quiver has a cycle); NOT the glossary's quipu cord.
+  All such cycles carry a sum relation (E-092). Suggested name: cycle member.
+- Mechanism: mutate at x0 of a zero relation x0->...->xm (m >= 3): new arrows x1->x0' and x0'->x_m with x1->x0'->x_m = path x1..x_m. For m = 2 that
+  path is one arrow and is absorbed (tree stays a tree); for m >= 3 it has length >= 2, so the arrow count rises to n. "3 arrows" = parallel path of length >= 2.
+- Depth 1 rule D1 (0 mismatches n = 6..10, 4862 LNAs at n = 10): cycle at depth 1 iff some relation of >= 3 arrows has NOT (a relation ending at x1 AND a
+  relation starting at x_{m-1}). Blocked LNAs peel: depth = 1 + min(a, b), a, b = lengths of the 2-relation chains on each side (195/195, one big relation).
+- E-099's "within 3 steps" is true only for n <= 9: max depth is 1 + floor((n-4)/2), seen 4 at n = 10 (`22230222`), 5 at n = 12 (`2222302222`).
+  The "iff relation >= 3 arrows" part held everywhere I looked (n <= 10 to depth 4, n = 9 negatives 128/128 to depth 4).
+- {0,2}-LNAs: every algebra reached stays a tree with 2-arrow monomial relations (825 at n = 5, 1481 at n = 6): a census, no lemma.
+  The derived class has cyclic algebras without sum relations that the tool never reaches: it is about reach, not about the class.
+- Older (019): g of a split four-letter word depends only on the word (n = 12..16); R never reaches 333@0; `34 <-> 403` shuttle; tables, not proofs.
 
 ## What I tried
-- 019: `theorist_{gaps,rchain,shapes,split,jlabel}.py`. Fastest: membership-only gap table, then R-closure terminals. My first R closure was wrong
-  (accepted a non-neighbour); filtering against rewritesOf caught it.
-- 017: label every placement by (orbit size, J); hand-apply the double mutation to intervals to read the lemma.
+- 022: `theorist_{cordcrit,blocked,peel,closure}.py`. Fastest was bisecting the 18 depth->=2 LNAs at n = 8 by their digits; first guesses at the blocking
+  rule (start at x0-1 / interior crossing) each failed on one LNA (230302, 23302) until the mirror-symmetric form worked.
+- Library: procedure.py (uncommitted) lacks `import os`; scripts work around it.
 
 ## Next
-- Derive "4y in S only at L0 / g1" (the shuttle), then g of any word from its R-terminal; predict g for 5-letter words, test at n = 13, 15.
-- Test words outside S (3334, 2455, 3335) for their terminal and g.
-- Why is the shadow orbit (no 333) a parity class? Same question as P/Q.
-- Blind spots: tables not proofs; letters <= 8 for shapes; I never ran n = 17; no inequivalence proof anywhere.
+- Derive the blocking rule from the kernel K of P_{x1} -> P_{x0} when a relation ends at x1; prove peeling (each step shortens a 2-chain by one).
+- A formula for two or more relations of >= 3 arrows (31 mismatches of the plain peeling formula).
+- Prove or find a leak in the closure of the {0,2} class (tree + 2-arrow monomial relations) under the tool's mutation; n = 7 census, depth 6.
+- Blind spots: all statements are exhaustive tables to n = 10 (n = 11, 12 only one LNA each); the derivation of the quiver of End(T') is a sketch.

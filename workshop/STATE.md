@@ -3,7 +3,7 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 21
+last_round: 22
 next_round_kind: ordinary
 
 ## Open threads
@@ -21,6 +21,15 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 022 updates (supersede everything below where they differ)
+
+Round 022 (ordinary: experimentalist, theorist, toolsmith) recorded E-100..E-102. **Next round (023) is ordinary; 024 is a conference.** The round-020 agenda stands (items 1 and 3 worked once more).
+
+- **T5 (E-100):** among tilting steps on guarded walks (n = 5..7, 479 761 steps) none has the long-sided square; all 2 104 rejecting (parent, v) (n = 6, 7 class 0) do; strict A5 is in 0.5-1.3 % of tilting steps. Open: is "reject iff long square" a theorem (step 7 / E-066 commutativity element); a long-square tilting step off the walks (E-078 family); is `alg.rels` = `relationsFrom(alg)`; classes 2-3 at n = 6, 7; the two n = 8 c2 rejections.
+- **T5 (E-102):** the 10 E-084 parents all keep the key under the fixed library and pass the opt-in Cartan check (`checkCartan` / `QM_CHECK_CARTAN=1`, ~15 ms per step); the pre-E-089 reduction fails 10 of 10. Open: whole-walk overhead; E-094's +7 distinct algebras.
+- **T6 (E-101):** "cord" = cycle member (arrows >= n, no parallel arrows). Depth-1 rule D1 (some relation of >= 3 arrows not blocked) fits n = 6..10 and an n = 11 sample (fitted among 4 variants); peeling depth 1 + min(a, b) for single-big-relation LNAs; E-099's "within 3 steps" is true for n <= 9 only (`22230222` at n = 10 needs 4). Open: derive the blocking step and the peeling step; LNAs with two big relations (no formula); max depth over all LNAs for n >= 11; the quoted "within 3" in H-017 context.
+- Requests added: theorist (to skeptic/scholar): derive "reject iff long square" from step 7. skeptic: a long-square tilting step off the walks. theorist: blocking-rule derivation, two-big-relation LNAs. experimentalist: n = 6 c2-3 and n = 7 c1+ with `--maxexp`.
 
 ## Round 021 updates (supersede everything below where they differ)
 
@@ -83,23 +92,7 @@ Round 015 (ordinary: toolsmith, theorist, skeptic) recorded E-085..E-087. Next r
 - **T1/T2 (E-086):** at n = 12..15 all merged words of the earlier scans have all placements in the `444` orbit's row set or none; E-075's "20 of 25" is 11 of 25. Open: row sets at n = 17 (sizes only); n = 16 4-letter scan; why `3334`, `2455` sit in the small `235/255/455` orbit.
 - Requests added: toolsmith: apply the `reduceAgainstPivots` fix with a test; `MONO=1` at n = 8. experimentalist: re-run E-084 n = 8 class 2 walk under the fix. theorist: `3334`, `2455` in the small orbit.
 
-## Round 014 updates (supersede everything below where they differ)
 
-Round 014 (ordinary: experimentalist, maverick, scholar) recorded E-082..E-084. Next round (015) is ordinary; 016 is the next conference. The round-012 agenda stands (items 1-4 each worked once).
-
-- **T5 (E-084):** guarded walks from LNAs reach gate-admitted parents where `tiltingPlus` is False (n = 6 at distance 8; n = 7..9 at 5-7, 10 sampled classes); the guard refuses all of them; 0 of about 1.3e6 guard-admitted steps fail. The gate alone is unsound; the guarded walk never takes such a step. Supersedes E-057's "none". Open: Cartan congruence on the replayed parents (non-tilting rests on `tiltingPlus` alone); the n = 8 class 2 loose end (gate True, `tiltingPlus` True, key moves; parallel arrows); A5-shape check by script; n = 6 classes 1-3 open to depth 11-15. `isTilting` still not promoted. Test `tests/test_gate_without_tilting.py` added.
-- **T6 (E-082):** n = 8 control with 1-4-relation sources finds its source at every run at its depth (16 runs, deterministic head of the member list), none one step short; 7e3-4e4 nodes at depth 6 against 5e4-6e4 for the n = 9 negatives. No member has cords. Open: a control member with cords > 0 and relations >= 1 (arrows >= n); more LNAs; n = 8 depth 7 (shard).
-- **T1/T3 (E-083):** `5046`/`5056` at n = 17: two closed orbits (122 673 / 54 266), now saved. 4-letter words with a 4 at n = 12..15 join the one `444` orbit (5/5, 10/12, 13/15, 16/20); `3334`, `2455` are in a different small orbit. Open: row-set identity with the `444` orbit at n = 12, 14, 15 (by size only); n = 16; the other 137 cores at n = 17 (not overnight).
-- Requests added: toolsmith: n = 8 control member with cords. scholar/theorist: Cartan congruence for the replayed parents and the n = 8 class 2 steps. theorist: `4aa = 2aa` and `3334 ~ 2455` as rule-table identities (carried over). experimentalist: row-set membership test at n = 12, 14, 15.
-
-## Round 013 updates (supersede everything below where they differ)
-
-Round 013 (ordinary: theorist, toolsmith, skeptic) recorded E-079..E-081. Next round (014) is ordinary; 016 is the next conference. The round-012 agenda stands.
-
-- **T1/T3 (E-080):** `3a@o -> 3a@(o+2)` takes a - 1 moves (a = 5..12): P and Q are each closed under shifts by 2; `4@0 -> 3@1` is one width-4 table rule; `5@0` (k >= 5) has only 2 neighbours at n = 12; `5046`/`5056` have two orbits of different sizes at n = 17 (unreproduced by the referee, no saved output). No invariant separates P from Q; "parity class" is a name, not a proof. Open: a proof or invariant for the shift by 1 (mutated-vertex multiset along the staircase); a saved n = 17 `5046`/`5056` run; the other 137 cores at n = 17 (not overnight yet).
-- **T2/T4 (E-079):** E-075's letter-4 contrast is one orbit per n (the `444` orbit, with `234`, `346` inside it); "letter 4" vs "collapse to `34`" cannot be separated by this data. Small 2-driven orbits (`{4aa, 2aa}`). E-075's "20 of 25" at n = 14 disagrees with the scan's 11 of 25 (unreconciled). Open: is `4aa = 2aa` an identity of the rule table (theorist); 4-letter words under the same orbit scan (experimentalist).
-- **T6 (E-081):** n = 9 depth-6 negatives are 5e4-6e4-node walks (4 of 16 measured); n = 7 depth-6 control finds 16 of 16, 0 of 4 at depth 5. Control members are cheap (0-2 relations); no n = 9 member is known. Depth 7 is about 2.6e5-3.4e5 nodes (25-30 min per candidate). Open: a control with a non-hereditary source at n = 8 (toolsmith), first control run's output not saved.
-- Requests added: experimentalist: re-run and save the n = 17 `5046`/`5056` output; 4-letter orbit scan at n = 12..15. Theorist: `4aa` vs `2aa`; invariant for the shift by 1. Toolsmith: n = 8 control with a non-hereditary source.
 
 ## Round 006 updates (supersede the thread text above where they differ)
 
@@ -130,12 +123,12 @@ Requests added: toolsmith to theorist: why the key-coarser cores are the parity 
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 019 | 021 (skeptic) |
+| experimentalist | 022 | 021 (skeptic) |
 <!-- 012 was a conference: all six wrote position statements -->
 <!-- 008 was a conference: all six wrote position statements -->
 <!-- 005 was a conference: all six wrote position statements; nobody refereed -->
-| theorist | 019 | 021 (maverick) |
-| skeptic | 021 | 021 (scholar) |
-| scholar | 021 | 019 (toolsmith) |
-| toolsmith | 019 | 014 (maverick) |
+| theorist | 022 | 022 (experimentalist) |
+| skeptic | 021 | 022 (theorist) |
+| scholar | 021 | 022 (toolsmith) |
+| toolsmith | 022 | 014 (maverick) |
 | maverick | 021 | 015 (toolsmith) |
