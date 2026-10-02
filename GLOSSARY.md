@@ -650,3 +650,5 @@ the folded offsets are equal-size singleton orbits. E-059.
 **Long-sided square (rejecting parent).** The shape found at every rejecting parent of the guarded walks at n = 5..7 (E-097): the mutated vertex v has one outgoing arrow v -> e and there is a relation between two paths from one vertex ending x, v, e (distinct x). The strict A5 square (arrows a>b, a>c, b>v, c>v, v>e) is only 767 of 1 123 at n = 6; "A5-shaped" in E-084 and E-095 reads as this shape.
 
 **Cycle member** (informally "cord member" in E-087, E-092, E-099 and the scripts; not a quipu cord). A reached algebra with at least n arrows and no parallel arrows, so its quiver has an undirected cycle; every one found carries a sum (commutativity) relation. See E-101.
+
+**D' reject** (E-105). A gate-admitted rejecting step at a vertex v with two outgoing arrows where the kernel element commutes into one arrow and is killed into the other by a monomial (zero) relation ending through v; reached by guarded class-0 walks at n = 8, not at n <= 7. A description of 61 cases, not a theorem.

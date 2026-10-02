@@ -90,7 +90,7 @@ for key,(alg,v,kd,cl) in rej.items():
     into=tuple(intoArrow(alg,v,b) for b in outs)
     # relation (any, incl. monomial single-path) ending v,e for each arrow
     zero=tuple(any(len(q)>=3 and q[-1]==b[1] and q[-2]==v for rel in alg.rels if len(rel)==1 for q in rel) for b in outs)
-    C[(kd,tuple(sorted(ka.values())),tuple(sorted(into)),tuple(sorted(zero)))]+=1
+    C[(kd,tuple(ka[b] for b in outs),into,zero)]+=1
     _,mono=kerdim(alg,v,rels)
     C[('mono',mono)]+=1
 for k,x in sorted(C.items(),key=str): print(k,x)

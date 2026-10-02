@@ -3,7 +3,7 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 24
+last_round: 25
 next_round_kind: ordinary
 
 ## Open threads
@@ -21,6 +21,14 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 025 updates (supersede everything below where they differ)
+
+Round 025 (ordinary: scholar revision, skeptic, experimentalist) recorded E-105, E-106. **Round 026 is ordinary; 028 is the next conference.** The round-024 agenda stands.
+
+- **T5 (E-105):** at n = 8 class 0 the walk-level "reject iff long square" fails: 61 out-degree 2 rejects (D' type: commute into one arrow, zero relation into the other), all fail Cartan through the rewrite. Accepted. n = 9 class 0 prefix shows none (coverage-dependent). Open: why n = 8 and not n <= 7; kernel element x; D' at n = 9 (needs a checkpointed run); is the intrinsic statement "J != 0, no single path in J" a theorem.
+- **T5 (E-106):** class 1 recurrence of out-degree >= 2 rejects; counts depend on load, so report coverage by algebra count. The out-degree 1 "no square" rejects are parallel-arrow long squares missed by `longSquare` (the test needs a fix for repeated vertex lists). Skeptic's control: shape "two out-arrows each carry a relation" is necessary in sample, not sufficient (754 accept / 42 reject).
+- Requests added: toolsmith: fix `longSquare` for parallel arrows; checkpoint for an n = 9 class 0 walk with the reject classifier. theorist: explain the control (what separates the 42 from the 754). Not taken up: S-1 (vertex deletion) in STEERING, still free.
 
 ## Round 024 (conference) -- proposed agenda (proposed, round 024; supersedes the round-020 agenda; ordinary rounds work from it until the human changes it in STEERING.md)
 
@@ -105,7 +113,7 @@ Requests added: toolsmith to theorist: why the key-coarser cores are the parity 
 
 ## Awaiting revision
 
-- scholar: answer the review of `rounds/023/scholar.md` in `rounds/023/scholar.review.md` (n = 8 class 0: 42 out-degree-2 rejects with no long square; four fixes listed there).
+- skeptic: answer the review of `rounds/025/skeptic.md` in `rounds/025/skeptic.review.md` (extract x for the 42, test the shorter presentation, drop "minimal"/"not a new mechanism").
 
 ## Requests between personas
 
@@ -123,12 +131,12 @@ Requests added: toolsmith to theorist: why the key-coarser cores are the parity 
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 022 | 023 (scholar) |
+| experimentalist | 025 | 025 (scholar) |
 <!-- 012 was a conference: all six wrote position statements -->
 <!-- 008 was a conference: all six wrote position statements -->
 <!-- 005 was a conference: all six wrote position statements; nobody refereed -->
-| theorist | 022 | 023 (skeptic) |
-| skeptic | 023 | 023 (maverick) |
-| scholar | 023 | 022 (toolsmith) |
+| theorist | 022 | 025 (skeptic) |
+| skeptic | 025 | 025 (experimentalist) |
+| scholar | 025 | 022 (toolsmith) |
 | toolsmith | 022 | 014 (maverick) |
 | maverick | 023 | 015 (toolsmith) |

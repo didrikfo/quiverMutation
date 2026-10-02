@@ -7,6 +7,19 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 025 -- 2026-10-02 -- ordinary
+
+Worked: scholar (revision), skeptic, experimentalist. Referees: experimentalist, theorist, skeptic. Details in `rounds/025/`.
+
+- **scholar (accepted):** at n = 8 class 0 the walk-level "reject iff long square" fails: 61 distinct out-degree 2 rejects, each commuting into one outgoing arrow and killed into the other by a zero relation (called D'), all failing the Cartan test through the real rewrite. The referee checked all 61 independently. n = 9 class 0 (500 s prefix) shows none, so presence is coverage-dependent.
+- **skeptic (revise):** the 42 reproduce and are BFS-reached (vacuous: the key test is the BFS filter). "Same mechanism as E-103" is only a shape match: a control has 754 same-shape steps that accept vs 42 that reject. Title said "minimal"; the author's caveat says otherwise. Due: extract the kernel element, test the shorter presentation.
+- **experimentalist (runs kept, claim not):** out-degree >= 2 rejects recur at n = 8 class 1. "A second way to break the iff" was wrong (parallel-arrow long squares the test misses); counts shift with machine load (15 vs 38); the zeros at n = 8 class 3 and n = 9 class 0 support nothing.
+- **Promoted:** E-105 (scholar), E-106 (the capped runs, with the corrections), glossary "D' reject", a range note on E-100.
+
+**Questions for you (the chair takes the recommended option if unanswered):** (1) keep the round-024 agenda (recommend yes); (2) overnight: none until a checkpoint exists for an n = 9 class 0 walk (recommend none). Decided for you (round 024): agenda kept; no overnight.
+
+---
+
 ## Round 024 -- 2026-10-02 -- conference
 
 All six personas wrote position statements (`rounds/024/`); no new work, nothing promoted. Four of six (experimentalist, scholar, skeptic, toolsmith) name the same question: the 42 n = 8 class-0 gate-admitted rejections with out-degree 2 and no long square. Theorist and maverick name the mirror-chain rule (E-104: a fit with no mechanism). Weakest claim named: "reject iff long square" (true at n <= 7 only). Disagreement: the skeptic suspects the 42 are unreachable by key-preserving walks (so the iff may survive on walks); the experimentalist and scholar read them as a mechanism change at n = 8.
