@@ -94,7 +94,7 @@ def desc(comp):
     ng = sum(e.count('g') for e in comp)
     return (len(comp), len(V), ng)  # edges, nonground vertices, ground endpoints
 
-tab = Counter(); shapes22 = Counter(); shapesAll = Counter(); bad = 0; examples = []
+badex = []; dimc = Counter(); tab = Counter(); shapes22 = Counter(); shapesAll = Counter(); bad = 0; examples = []
 for alg, v in rows_:
     Q = alg.quiver; rels = procedure.relationsFrom(alg); outs = ap.arrowsOutOf(Q, v)
     kerJ = 0; per = []
@@ -102,6 +102,7 @@ for alg, v in rows_:
         if i == v: continue
         P = ap.allPathsBetween(Q, i, v)
         if not P: continue
+        dimc[len(P) - len(ap.idealBasis(Q, rels, i, v))] += 1
         d = jdim(Q, rels, i, v, outs, P); d1 = jdim(Q, rels, i, v, [outs[0]], P); d2 = jdim(Q, rels, i, v, [outs[1]], P)
         per.append((i, d, d1, d2, P))
         kerJ += d
@@ -112,7 +113,10 @@ for alg, v in rows_:
         else: continue
         E, ok = graph(Q, rels, i, v, outs, P)
         tab[(cat, ok)] += 1
-        if not ok: bad += 1; continue
+        if not ok:
+            bad += 1
+            if len(badex) < 3: badex.append((cat, i, v, alg.rels, alg.quiver.number_of_edges()))
+            continue
         comps = components([tuple(e) for e in E])
         # circuit graph restricted: components with a circuit = E >= V (+ground) ; report components that are not trees-with-at-most-one-ground
         sig = tuple(sorted(desc(c) for c in comps if desc(c)[0] > 1 or desc(c)[2] > 0 and desc(c)[0] > 1))
@@ -128,3 +132,6 @@ for k, c in shapes22.most_common(): print('  ', k, c)
 print('ALL categories x component shapes:')
 for k, c in sorted(shapesAll.items(), key=str): print('  ', k, c)
 for e in examples[:2]: print('EXAMPLE i=%d v=%d rels=%s' % (e[0], e[1], e[2]))
+
+print('dim e_iAe_v over all (row,i) with a path i->v (outdeg-2 admitted v):', dict(sorted(dimc.items())))
+for b in badex: print('NOT-OK example', b)

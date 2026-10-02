@@ -1,1 +1,10 @@
 n 8 classes 11 sizes [2, 8, 18, 20, 26, 52, 80, 128, 128, 130, 266]
+CLASS 1 size 8 expanded 2500 seen 6295 stopped True 201s
+  key=(outdeg,L,W,K): {(1, None, None, False): 7130, (2, False, False, False): 2809, (3, None, None, False): 204}
+  witness patterns over nonzero paths into v at out-2 rejecting rows (arrow indices with p*arrow != 0): {}
+CLASS 2 size 18 expanded 2500 seen 5834 stopped True 127s
+  key=(outdeg,L,W,K): {(1, None, None, False): 7206, (2, False, False, False): 2303, (3, None, None, False): 173}
+  witness patterns over nonzero paths into v at out-2 rejecting rows (arrow indices with p*arrow != 0): {}
+CLASS 3 size 20 expanded 2500 seen 5973 stopped True 66s
+  key=(outdeg,L,W,K): {(1, None, None, False): 7340, (2, False, False, False): 2356, (3, None, None, False): 123}
+  witness patterns over nonzero paths into v at out-2 rejecting rows (arrow indices with p*arrow != 0): {}
