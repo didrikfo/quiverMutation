@@ -1,27 +1,24 @@
-# Scholar's notebook (after round 021)
+# Scholar's notebook (after round 023)
 
 ## Believe
-- Ladkani 2.3(c) = AI 2.32(b) = `tiltingPlus`: one map g_i : p |-> (p beta)_beta. Authors' statement, not derived here.
-- r021 (proof, rounds/021/scholar.md): with k the mutated vertex, child's e_i B e_{k*} = coker g_i from steps 4, 6 alone;
-  e_{k*} B e_i = sum_alpha dim e_{t alpha}Ae_i - dim e_kAe_i = dim ker psi_i from step 7 (needs: step 7 generates the whole ideal out of k*,
-  the least sure step). Euler form X[k,i] = coker - ker, so Cartan congruence fails iff some dim ker g_i != 0 iff tiltingPlus False.
-  Checked 0 violations on E-078 family, n=5 closed, n=6 (99k steps) and n=7 class 0 (56k), cap 500 s.
-- Rejecting parents (distinct): n=6 class 0 1123 (cap-dependent), n=7 156. NOT all strict-A5: 767/1123 at n=6 are; all 1123 have the
-  long-square shape (relation of >= 2 paths a~>x,v,e, v with exactly one out arrow). n=7 only the strict test was run (156/156).
-- r018: Cartan congruence = tiltingPlus on all gate-admitted steps tested; all failures are guard-refused (E-084, E-093, E-095).
-- r014: guarded BFS from LNAs reaches gate-admitted tiltingPlus-False parents; 0 of ~1.3e6 guard-admitted steps fail. n=8 class 2
-  "10 key-moved steps" were a rewrite defect (E-085, fixed E-089); depth-8 walk not re-run (E-090).
+- Ladkani 2.3(c) = AI 2.32(b) = `tiltingPlus`: one map g_i : p |-> (p alpha)_alpha. Authors' statement, not derived here.
+- r021 (rounds/021/scholar.md): (k,i) rewrite entry = dim coker g_i from steps 4, 6; (i,k) = dim ker psi_i from step 7 (needs step-7
+  completeness, the least sure link). Cartan congruence fails iff some dim ker g_i != 0 iff tiltingPlus False.
+- r023 (rounds/023/scholar.md): reject (gate admits, tiltingPlus False) <=> J != 0 with J = {c not in I : c alpha in I for all alpha out of v} and no
+  single path in J (the gate's code refuses a single-path kernel). Long square => reject needs only a minimal relation c alpha, c >= 2 paths.
+  Reject => long square needs out-degree 1 (NOT forced: hand case D, out-degree 2, rejects) and reading relations up to change of generators (case G).
+  "Short" square is fine because c is itself in I. Walks n = 5..7 class 0 (300 s): J != 0 <=> out-degree 1 and long square, step by step.
+- Rejecting parents (distinct): n=6 class 0 1123, n=7 156; not all strict A5. Counts cap-dependent.
+- r014/r018: guard-admitted steps never fail (0 of ~1.3e6); all Cartan/tilting failures are guard-refused.
 - CHZ Cor 3.6 "monomial?" UNVERIFIED; arxiv.org blocked (403). Do not retry.
 - Terms: gate = `mutationIsPossibleAtVertex`; guard = Coxeter key same. Say which.
 
 ## Did
-- R001..R014 scholar_h015*, square, walk, replay, a5key. R018 scholar_cartan_vs_tilt.py, scholar_e078_diff.py.
-- R021: rounds/021/scholar_step7_entries.py (row/column entries vs coker / ker psi; strict and long-square shape tests).
+- R001..R021 scholar_h015*, square, walk, replay, a5key, cartan_vs_tilt, e078_diff, step7_entries.
+- R023: rounds/023/scholar_longsquare.py (--hand cases A-G; walks n=5..7 table).
 
 ## Next
-- Theorist referee of (b): is step 7's output the full ideal or only up to "forced by nearer"? Look for [k*,v] entry above dim ker psi_v.
-- Run n=7 with the long-square test; n=6 classes 1-3, n=7 classes 1-2 still unrun (class sizes 7 min each).
-- Does a long-square parent with the relation at the SHORT level ever fail? (E-078: length-3 square is fine) -- would break the mechanism.
-- Diagonal and i,j != k Cartan entries still underived (only the data show no difference).
-- Lesson: when a derivation says "read off data", the missing step is usually the one where the code is the object; derive from the
-  code's docstring (procedure.py module docstring has step 7 as a kernel) rather than the paper.
+- Is a D-like algebra (J != 0, out-degree >= 2) reachable from an LNA by guarded steps? n = 8, 9 search (overnight proposal if > 10 min).
+- Referee of step-7 completeness; run D through the real rewrite and see the Cartan test fail.
+- Classes 1-3 at n = 6, 7 unrun. Diagonal and i,j != k Cartan entries underived.
+- Lesson: derive from the code's own definition of the gate (isMutable docstring: single path vs combination) -- it explained the ">= 2 paths" at once.

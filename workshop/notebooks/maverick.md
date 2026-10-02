@@ -1,24 +1,24 @@
 # Maverick's notebook
 
-## What I now believe (after round 021)
+## What I now believe (after round 023)
 - H-017 (relations > cords among quipus proved in a class outside the quipu theorem) survives depth 4-6 at n = 9 with the ten recorded pairs; the class minimum is what matters.
 - The Coxeter polynomial cannot see (cords, relations); Euler signature pos(C+C^T) <= n-2 iff outside every quipu class, n = 8..11.
 - The mutation search has resolution exactly its depth (n = 7 L = 4 273/273; n = 8 L = 5 12/12, L = 6 4/4, none one short).
-- Cords in mutation orbits of LNAs are commutativity cycles (r018): n = 8, depth <= 5, 2376 members, all with a sum relation. No monomial cord at n = 4..8.
-- r021: an n = 8 LNA has cord members within 3 steps iff some relation has >= 3 arrows (365/429, 0 mismatches; the 64 rad^2-zero LNAs have none at L = 3 or 5). MONO at L = 3: 0 of 429. Unproved; heuristic is that a >= 3-arrow monomial turns into a commutativity square.
-- Sizing: non-MONO L = 5 over the other 365 LNAs is about 4.5 CPU-hours (30-60 s each), less valuable now that C says who has cords.
+- "Cord member" = cycle member (arrows >= n), carries a sum relation; not the GLOSSARY cord (E-101).
+- E-099/E-101: cycle member within depth d; D1 (depth 1 iff some relation of >= 3 arrows is not blocked) holds on all LNAs n = 6..10. Old peeling formula fails on LNAs with a big relation as blocker (1/6/24 at n = 8/9/10, all true depth 2).
+- r023: fix = "mirror chain": links are relations of any length, left chain e(R1) = s+1, e(R_{k+1}) = s(R_k)+1; right chain s(R1) = e-1, s(R_{k+1}) = e(R_k)-1; depth = 1 + min over big relations of min(left, right). 0 mismatches n = 8..10 (all LNAs); 8 of 8 out-of-sample depth-3 predictions at n = 10, 11 (`22303022` + 7). Still a fit; no proof; all n = 8, 9 two-big failures are depth 2, so only the depth-3 shape `303` discriminates.
 
 ## What I tried
-- census by (cords,rels); proved-member walks; Euler/profile filters; controls r007-r014; r018 producer/monocord/filtercheck; r021 `maverick_predict.py` (cord count per LNA, IDX= and MONO= env), `maverick_criteria.py`.
+- Census by (cords, rels); proved-member walks; Euler/profile filters; r018 cord producer; r021 `maverick_predict.py`; r023 `maverick_twobig.py`, `maverick_variants.py`, `maverick_chain.py`, `maverick_predict2.py` (reuse `rounds/022/theorist_cordcrit.py` with NAMES= for single LNAs; 7-30 s each at n = 10, 11 to L = 3).
 
 ## Watch for
 - Cords: arrows >= n in the raw visitor; `reachedQuipuAlgebras` keeps monomial quipu trees only.
-- A negative at depth d excludes only distance <= d. The 64 negatives are at L = 5.
+- A negative at depth d excludes only distance <= d. Fit-on-data is not a test: only the depth-3 predictions were out of sample.
+- Depth data for LNAs absent from `theorist_blocked_depths.txt` is depth 1 only by D1, not by a fresh run.
 - Parallel jobs slow each other; `sleep` > 120 s in one command is blocked, poll.
-- Zero-cord LNAs walk at ~14 s for L = 5, cord LNAs 30-60 s.
 
 ## Next
-- Prove criterion C (theorist), test at n = 9 (L = 3, cheap), n = 6, 7 for sanity.
-- A monomial cord, if any, is not near LNAs: try MONO at L = 5 on the 365 in shards (overnight) or look at derived-discrete Lambda(1,3,m).
+- n = 12 two-big LNAs at predicted depth >= 4 (and non-`303` depth-3 shapes with a big link): one miss refutes the any-length link rule. n = 12 needs a cheap enumeration of sequences (lnaStatus(12) may be slow).
+- Prove D1/peeling (theorist); a monomial cord, if any, is not near LNAs.
 - Depth 7 at n = 9 overnight remains for H-017; n = 10 only after n = 9 depth 6 is clean.
 - Unasked: is the tubular class's corank-2 Euler form a Z-lattice invariant naming its quipu-with-relations members?

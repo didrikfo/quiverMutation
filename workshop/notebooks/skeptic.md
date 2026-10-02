@@ -1,23 +1,23 @@
-# Skeptic's notebook (after round 021)
+# Skeptic's notebook (after round 023)
 
 ## Believe now
-- r021 (T1/T2) null: over ALL nondecreasing words over 2..9 (n = 12..14, k = 4, 5, 6 letters, >= 4 placements) "exactly one placement in S (444 orbit)" is at or below the binomial expectation at the stratum's in-S rate, and equally common WITHOUT a 4 (k=4: 6/9/12 with a 4, 6/13/22 without). E-091's split count is not a 4-property. Right gap g<=1 of the single in-S placement is above a uniform-placement null (n=14 k=4: 11/12 vs 4.5, 19/22 vs 9.1; p<.001) but also without a 4; weaker for 6 letters. So the gap pattern is a property of S (right-end shapes), not of 444-words. Files workshop/rounds/021/skeptic_null*.py/.txt.
-- r018: all 4-letter words with a 4: split 6/9/12/15/18/18 at n=12..17, exactly one placement in S each; 3334, 2455 have none. E-086's "0 partial" for merged words is vacuous.
-- Membership needs no orbit walks (cheap); walking outside orbits is what costs.
-- r015: rowset identity; E-075 "20 of 25" not reproducible (11 of 25). r013: one big merged orbit per n holds 444, 34-words, 4-no-34 words. r010: only 444 merges among aaa at n=12..15. r007: centre formula s=first+last outside.
-- Unit of evidence = orbit; pooled p-values are false precision.
+- r023 (T5): off the guarded walks "long square => reject" holds if the square is genuine (truncation x = sum c p[:-1] nonzero mod I; it is the kernel element of the one map). A long relation in `alg.rels` can be redundant (killed by e.g. abd=acd): then hasLongSquare is True at a tilting step (362 of ~65k gate-admitted tilting steps in hand-built parents). So E-100's test needs a minimal presentation off the walks.
+- r023: "reject => hasLongSquare" is false literally: 2-out vertex with a long relation on each out-arrow (kernel killed by both), shared longer suffix abdef=acdef at v=e, sum relation reduced by a monomial. 12/4463 n=6, 11/2388 n=7 gate-admitted rejections. Two examples have Coxeter polynomials in no LNA/dual class at n=6 => unreachable by the key-preserving walk. Control: n=6 padded E-078 IS reached (class 0).
+- Right statement (conjecture for theorist): step-7 map fails iff there is x != 0 in e_aAe_v with x*beta in I for all out-arrows beta.
+- r021 null: "exactly one placement in S" for 444-words is no 4-property (also words without 4); gap pattern is a property of S. r018: split counts 6/9/12/15/18/18 (n=12..17), 0 partial vacuous. r015: E-075 "20 of 25" not reproducible (11 of 25). r013, r010, r007 as before. Unit of evidence = orbit.
 
 ## Tried
-- r021: skeptic_null.py (strata by letters, has-4; binomial expectation), skeptic_null_gap.py (position null, Poisson-binomial). n=12,13,14 only.
-- r018: skeptic_rowset16.py, skeptic_partial_where.py. r015 rowset; r013 orbscan; r010 probe; r007 nulls.
-- Bug lessons: cache by id() reuses ids; `pkill -f` kills own shell.
+- r023: skeptic_offwalk.py (random acyclic quivers n=5..7, 0-3 relations, modes A seeded square / C none; 5 runs ~23k parents), skeptic_reach.py (guarded BFS membership by canonicalKey, n=6 class 0, 400 s).
+- r021 skeptic_null*.py; r018 rowset16, partial_where; r015 rowset; r013 orbscan; r010 probe; r007 nulls.
+- Bug lessons: cache by id() reuses ids; `pkill -f`/`pgrep -f` match own shell (killed it; use pid + kill -0); python output to file is buffered (use -u).
 
 ## Not done
-- n = 15..17 of the null; letters >= 10; do no-4 exactly-one words reduce by lemma R the same way; where the other placements go; n=17 5046/5056; offset-count control (the binomial uses m but not shape correlations).
+- Exhaustive enumeration (not random) of small quivers; n=8; length-2 sum relations and parallel arrows not generated; reachability of kind c and of n=7 examples; whether kinds a-c have non-tilting child confirmed independent of tiltingPlus (End(T) not computed).
+- From r021: n=15..17 null; where the other placements go.
 
 ## Next
-1. Extend null to n = 15..16 (fast membership), k=4 only.
-2. Ask theorist to state the right-end/gap-0-1 fact as a property of S.
-3. Split-word remainder orbits (walk OUT placements of small cases at n=14).
+1. Exhaustive n=6 enumeration of kinds a-c; add parallel arrows / 2-arrow sums.
+2. Ask experimentalist to rerun E-100 with genuine-truncation test and count 2-out vertices on walks.
+3. Referee any theorist proof of the x*beta in I statement at the multi-out case.
 ## Habits
-- Check whether a pass is vacuous by definition before citing; run a control stratum (words without the feature) before attributing a pattern to the feature; check timeouts.
+- Check whether a pass is vacuous by definition; run a control stratum; check timeouts; check a test's presentation dependence (alg.rels vs relationsFrom, redundant relations).

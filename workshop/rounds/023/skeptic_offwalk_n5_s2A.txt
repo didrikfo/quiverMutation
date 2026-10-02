@@ -1,0 +1,11 @@
+n 5 samples 3000 seed 2 mode A 9s
+parents 3000
+('gate', 'rej', 'Lrels', 'shaped', 'genuine') 2091
+('gate', 'tilt', '-', '-', '-') 8816
+('gate', 'tilt', 'Lrels', 'shaped', '-') 127
+('refused', 'rej', '-', '-', '-') 184
+('refused', 'rej', 'Lrels', 'shaped', '-') 34
+('refused', 'rej', 'Lrels', 'shaped', 'genuine') 748
+examples A 0
+examples B 0
+B by (outs, perarrow): Counter()

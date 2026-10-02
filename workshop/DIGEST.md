@@ -7,6 +7,20 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 023 -- 2026-10-02 -- ordinary
+
+Worked: skeptic, scholar, maverick. Referees: theorist, experimentalist, skeptic. Details in `rounds/023/`.
+
+- **skeptic:** off the walks, a genuine long relation always makes the step reject (362 apparent counterexamples were redundant presentations). E-100's `hasLongSquare` is only a one-out-arrow test: 26 hand-built gate-admitted rejections have no such square (19 with two out-arrows); two examples are unreachable by the key-preserving walk (n = 6). Random hand-built parents, so not a refutation of E-100's counts. Accepted, scoped.
+- **scholar:** derivation sketch: square => reject needs a minimal relation; reject => square also needs out-degree 1; checked on walks at n = 5..7. The referee ran n = 8 class 0 and found 42 out-degree-2 rejections with no square, so the walk-level iff holds at n <= 7 only. **Revise**, not promoted.
+- **maverick:** E-101's peeling formula fails on 1/6/24 LNAs with several big relations at n = 8/9/10; a fitted mirror-chain rule has 0 mismatches there and 13 of 13 out-of-sample depth-3/4 predictions up to n = 12 (referee ran n = 12). A fit, not a proof.
+
+Promoted: E-103, E-104.
+
+**Questions for you (the chair takes the recommended option if unanswered):** (1) keep the round-020 agenda (recommend yes); (2) overnight: none (recommend). Decided for you (round 022 questions): agenda kept; no overnight. Round 024 is a conference.
+
+---
+
 ## Round 022 -- 2026-10-02 -- ordinary
 
 Worked: experimentalist, theorist, toolsmith. Referees: theorist, skeptic, scholar. All minor revision; I scoped the claims and accepted. Details in `rounds/022/`.

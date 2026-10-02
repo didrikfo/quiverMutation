@@ -1,0 +1,8 @@
+2154 022303022 pred 1 found 0 depth -1 
+7016 222303022 pred 1 found 0 depth -1 
+7223 223023022 pred 1 found 0 depth -1 
+7241 223030220 pred 1 found 0 depth -1 
+7242 223030222 pred 1 found 0 depth -1 
+7265 223040022 pred 1 found 0 depth -1 
+7478 224003022 pred 1 found 0 depth -1 
+n 11 L 2 LNAs 7 mismatches 7

@@ -1,0 +1,12 @@
+n 6 samples 6000 seed 5 mode C 5s
+parents 6000
+('gate', 'rej', '-', '-', '-') 1
+('gate', 'rej', 'Lrels', 'shaped', 'genuine') 7
+('gate', 'tilt', '-', '-', '-') 20079
+('gate', 'tilt', 'Lrels', 'shaped', '-') 2
+('refused', 'rej', '-', '-', '-') 730
+('refused', 'rej', 'Lrels', 'shaped', 'genuine') 1
+examples A 0
+examples B 1
+   ([(1, 2), (1, 3), (1, 4), (2, 4), (3, 4), (3, 6), (4, 5), (4, 6), (5, 6)], [[[1, 2, 4, 5, 6], [1, 3, 4, 5, 6]]], 5, ('gate', 'rej', '-', '-', '-'), 'outs', 1, 'perarrow', (False,))
+B by (outs, perarrow): Counter({(1, (False,)): 1})

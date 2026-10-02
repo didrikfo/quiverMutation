@@ -1,0 +1,4 @@
+n 6 class 0 algebras 46858 300s
+('J!=0', 'tiltingPlus', False, 'outdeg', 1, 'longsq', True, 'mono', False) 1139
+('J=0', 'tiltingPlus', True, 'outdeg', 1, 'longsq', False, 'mono', False) 66597
+('J=0', 'tiltingPlus', True, 'outdeg', 2, 'longsq', False, 'mono', False) 33309
