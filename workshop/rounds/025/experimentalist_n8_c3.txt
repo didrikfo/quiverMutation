@@ -1,0 +1,4 @@
+n 8 class 3 algebras 18269 500s
+('J!=0', 'tiltingPlus', False, 'outdeg', 1, 'longsq', True, 'mono', False) 6
+('J=0', 'tiltingPlus', True, 'outdeg', 1, 'longsq', False, 'mono', False) 22573
+('J=0', 'tiltingPlus', True, 'outdeg', 2, 'longsq', False, 'mono', False) 8613

@@ -1,21 +1,19 @@
 # Experimentalist notebook (rewritten each round)
 
-## What I now believe (after round 022)
-- T5 control (022): at n = 5..7 guarded walks (n = 6, 7 class 0, n = 6 class 1, n = 5 classes 0, 1) the long-sided square of E-097 occurs at 0 of 479 761
-  tilting steps and at 100 % of rejecting (parent,v) (1 842 at n = 6, 262 at n = 7). Strict A5 is not selective: 0.5-1.3 % of tilting steps have it
-  (807 / 150 592 at n = 6). So long square <=> rejection on the walks (conjecture, loose test, capped runs). Files: `workshop/rounds/022/experimentalist_shapectl*.{py,txt}`.
-- T5 (019): dim ker is 0 on every tilting step and >= 1 on every non-tilting step; totals 1 on all 1 050 walk steps; 2 and 3 only in E-078. (`rounds/019/experimentalist_kerhist.py`.)
-- From 017: E-084 walk with fixed `reduceAgainstPivots` gives identical tables (n = 7, 8 c0-1, 9); n = 8 c2 loose end rests on E-085's replay. `MAXEXP=N` in `rounds/017/experimentalist_walk.py` caps deterministically.
-- From 014: n = 17 `5046`/`5056` orbits {0,2,4,6} = 122673, {1,3,5,7} = 54266 (closed). From 011: H-017 at n = 9 depth 6 negative (E-069).
+## What I now believe (after round 025)
+- 025 (capped 500 s walks, `rounds/023/scholar_longsquare.py`, 4 parallel runs, files `rounds/025/experimentalist_n*_c*.txt`): J != 0 with out-degree 2 and no long square: n = 8 c0 48 (10 478 algebras), n = 8 c1 15 (16 976), n = 8 c3 0 (18 269, only 6 J != 0 rows), n = 9 c0 0 (8 231 algebras, 85 J != 0 rows all out-1 + long square). Counts are cap lower bounds; zeros are weak.
+- New oddity: n = 8 c1 has 2 J != 0 rows with out-degree 1 and NO long square (not inspected; maybe presentation artefact).
+- J != 0 <=> tiltingPlus False held on every row of all runs. Only the long-square shape breaks (n = 8).
+- T5 (022): n = 5..7 long square at 100 % of rejects, 0 of 479 761 tilting steps. Holds at n <= 7 only.
+- T5 (019): dim ker 0 on tilting steps, >= 1 on non-tilting. From 017: walk tables robust to the reduceAgainstPivots fix; `MAXEXP=N` caps deterministically. From 014: n = 17 orbits closed.
 
 ## What I tried
-- 022: stripped the kernel computation from the 019/021 scripts, tallied shape tests on every step; four parallel 480 s runs on 4 cores.
-  Wall-clock caps make counts differ between runs (rejecting 1 842 here vs 1 123 in E-097): quote rates, not counts. Prefer `--maxexp`.
-- 019: copied scholar's script, added kerdims and a parent tally. 017: monkeypatch wrapper. 014: `batch.py orbits 17`. 011: shards by `xargs -P 4`.
+- 025: four parallel `--budget-sec 500` runs; parallel runs cover fewer algebras than solo (referee 42 in 200 s solo vs 48 here in 500 s parallel). Prefer solo or deterministic caps.
+- 022: shape tests on every step; wall-clock caps make counts differ between runs: quote rates.
 
 ## What I would do next
-1. Look for a long-square tilting step off the walks (E-078 `long`, 3-path relations, non-guard steps): that decides whether the shape is a criterion or a walk artifact.
-2. n = 6 classes 2-3, n = 7 classes 1+ with `--maxexp`; shape of the 2 n = 8 c2 rejecting parents.
-3. Overnight: n = 8 c2 depth 8 to completion (`--budget-sec 1500`), then depth 9; H-017 depth 7 at n = 9.
-4. Row-set comparison of n = 15 big orbit; 4-letter scan n = 16 by shards; n = 17 key-coarser lists.
-- Watch: a timeout/budget is not a verdict; parallel timings are inflated; equal sizes are not equal sets; hand-built family (E-078) is not the walk's distribution; a loose shape test passing everywhere is weak evidence.
+1. Print one example per tally key and classify the n = 8 c1 out-1 no-longsq rejects and the out-2 rejects (D vs G).
+2. Solo longer runs: n = 9 c0, c1 with 3000 s overnight; n = 8 c2; deterministic cap (`MAXEXP`) for reproducible counts.
+3. Long-square tilting step off the walks; n = 6 c2-3, n = 7 c1+.
+4. Row-set comparison n = 15; 4-letter scan n = 16; n = 17 key-coarser lists.
+- Watch: a cap is not a verdict (n = 9 zero is weak); parallel timings inflated; equal sizes are not equal sets.
