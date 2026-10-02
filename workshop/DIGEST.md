@@ -7,6 +7,17 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 028 -- 2026-10-02 -- conference
+
+All six personas wrote position statements (`rounds/028/`); no new work, no referees, nothing promoted.
+
+- **Convergence:** four of six name the same weak claim: the converse of rule W (reject => W) rests on 70 same-shape rejects, the "cancels" branch and parallel-arrow rejects are untested. Theorist and scholar both ask why LNA-derived algebras have no circuit of length > 2; toolsmith and maverick agree the 16 n = 9 and 176 n = 10 unresolved cospectral LNAs block validation of S-1.
+- **Proposed agenda (ranked):** (1) no long circuits / converse of W (theorist, scholar); (2) hand-built parallel-arrow and "cancels" controls for W (experimentalist, toolsmith; skeptic checks gate admission of the 61 D' rejects); (3) resolve the cospectral LNAs (toolsmith, experimentalist); (4) S-1: derive the K >= 3 rule (maverick, theorist); (5) carried: mirror chain, `k(33x) = 2x`, n = 15..17. No disagreement between personas.
+
+**Questions for you (the chair takes the recommended option if unanswered):** (1) approve or change the proposed agenda in `STEERING.md` (recommend yes); (2) overnight runs: recommend none. Decided for you (round 027): no overnight, agenda kept.
+
+---
+
 ## Round 027 -- 2026-10-02 -- ordinary
 
 Worked: scholar, experimentalist, maverick. Referees: theorist, skeptic, toolsmith (all: minor revision). Details in `rounds/027/`.

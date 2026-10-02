@@ -3,7 +3,7 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 27
+last_round: 28
 next_round_kind: ordinary
 
 ## Open threads
@@ -21,6 +21,15 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 028 (conference) -- proposed agenda (proposed, round 028; supersedes the round-024 agenda; ordinary rounds work from it until the human changes it in STEERING.md)
+
+Details: `rounds/028/proceedings.md`. Round 029 is ordinary; next conference 032. T1-T9 and the round updates below stay current.
+1. **No long circuits / converse of W** (T5): theorist + scholar prove or refute "no nn 2-cycle, no circuit >= 3 on LNA-derived algebras"; can D, G, H occur inside a walk? First: the skeptic's 22 n = 8 c0 rows (both J nonzero, empty intersection).
+2. **Controls for W** (T5): experimentalist + toolsmith hand-build a parallel-arrow positive control and a "cancels" example; skeptic checks gate admission of the 61 D' rejects.
+3. **Resolve the 16 n = 9 and 176 n = 10 cospectral LNAs** (S-1 validation): toolsmith + experimentalist; size with `--plan` first.
+4. **S-1: derive K >= 3** (maverick + theorist): why K = 2 fails; relation to H-020; then n = 11, S-1 question 3.
+5. Carried, lower rank: mirror chain (T6), `k(33x) = 2x` (T2/T4), n = 15..17 (T1/T2).
 
 ## Round 027 updates (supersede everything below where they differ)
 

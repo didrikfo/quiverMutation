@@ -126,3 +126,5 @@ A short negative result ("dead end, because ...") is a welcome outcome.
 - round 025, question 2 (overnight) (applied, round 026): none yet; toolsmith adds a checkpoint for the n = 9 class 0 walk first -- decided by the chair of round 026; no answer from the human
 - round 026, question 1 (overnight) (applied, round 027): none; test W on a short n = 9 prefix and classes 2-3 first -- decided by the chair of round 027; no answer from the human
 - round 026, question 2 (agenda) (applied, round 027): keep the round-024 agenda -- decided by the chair of round 027; no answer from the human
+- round 027, question 1 (overnight) (applied, round 028): none; nothing needs more than 10 minutes per command -- decided by the chair of round 028; no answer from the human
+- round 027, question 2 (agenda) (applied, round 028): kept the round-024 agenda, superseded by the round-028 proposed agenda -- decided by the chair of round 028; no answer from the human
