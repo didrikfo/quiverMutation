@@ -7,6 +7,19 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 029 -- 2026-10-02 -- ordinary
+
+Worked: theorist, skeptic, toolsmith. Referees: skeptic, theorist, experimentalist (all: minor revision; all accepted with qualifications). Details in `rounds/029/`.
+
+- **theorist (accepted, E-113):** the skeptic's 22 odd rows are not length-2 ground paths but "half-W" (20) or two loose pendants (6). At n = 8 classes 0, 1 no circuit-graph component has more than 2 edges (no nn 2-cycle, no circuit >= 3), for scalar-1 relations; hand-built D, W-type/G, H cannot occur on walks (their Coxeter keys are in no LNA key set). The general obstruction is not proved.
+- **skeptic (accepted, E-114):** the 61 D' rejects are admitted because the gate checks single paths (near-tautology). The loose D' shape also occurs at n = 6, 7 class 0 (5, 20 rows) and is never rejected there; no other out-degree 2 reject in capped walks.
+- **toolsmith (accepted, E-115):** the F-047 Smith profile places all 16 unresolved n = 9 and 176 unresolved n = 10 LNAs (n = 9 was already F-047's table), so the S-1 class labels there are independently supported; at n = 11 it places only 24 of 442.
+- **Promoted:** E-113, E-114, E-115; glossary: half-W / loose pendants. No library change.
+
+**Questions for you (the chair takes the recommended option if unanswered):** (1) keep the round-028 agenda (recommend yes); (2) overnight runs: recommend none. Decided for you (round 028): agenda approved, no overnight.
+
+---
+
 ## Round 028 -- 2026-10-02 -- conference
 
 All six personas wrote position statements (`rounds/028/`); no new work, no referees, nothing promoted.

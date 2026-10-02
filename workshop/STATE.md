@@ -3,7 +3,7 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 28
+last_round: 29
 next_round_kind: ordinary
 
 ## Open threads
@@ -21,6 +21,15 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 029 updates (supersede everything below where they differ)
+
+Round 029 (ordinary: theorist, skeptic, toolsmith; referees skeptic, theorist, experimentalist; all minor revision, all promoted with the referees' qualifications) recorded E-113..E-115. **Round 030 is ordinary; 032 is the next conference.** The round-028 agenda stands.
+
+- **T5 (E-113):** at n = 8 c0/c1 every `Gamma_i` component has <= 2 edges (no nn 2-cycle, no circuit >= 3; scalar 1). The skeptic's 22 rows are half-W (20) or two loose pendants (6), not length-2 ground paths. Open: the mechanism (is `dim e_iAe_v` <= 1 forced by the tilting complex, so that a bound follows?); the 4 coefficient-2 pairs; match the 22 to the 28; a labelled example of each shape; n = 9.
+- **T5 (E-114):** the 61 D' rejects are admitted because the gate tests single paths (near-tautology). Loose D' shape: 84 rows at n = 8 c0, 61 rejected; at n = 6, 7 c0 (5, 20 rows) all accepted; no out-degree 2 reject elsewhere in capped walks. Open: why the 25 loose-shape W-false rows at n = 6, 7 fail W.
+- **S-1 (E-115):** the F-047 profile places the 16 n = 9 and 176 n = 10 unresolved LNAs (n = 9 is F-047's own table); it does not separate at n = 11 (24 of 442). The E-112 labels at n = 9, 10 are now independently supported (necessary evidence); n = 11 labels need another route.
+- Requests added: skeptic: the 25 loose-shape W-false rows at n = 6, 7. theorist: bound `dim e_iAe_v` (Hom between thin modules / mutation depth); the coefficient-2 pairs; match 22 to 28. experimentalist: max `dim e_iAe_v` by depth at n = 8, 9; S-1 K >= 3 rule with the corrected labels (rerun with E-115 classes) and n = 11 by another route. toolsmith: a hand-built nn algebra whose key is an LNA key (proof candidate); an independent n = 11 resolver.
 
 ## Round 028 (conference) -- proposed agenda (proposed, round 028; supersedes the round-024 agenda; ordinary rounds work from it until the human changes it in STEERING.md)
 
@@ -64,14 +73,6 @@ Details: `rounds/024/proceedings.md`. Round 025 is ordinary; next conference 028
 3. **Split words / shuttle / `k(33x) = 2x`** (T1/T2/T4): experimentalist n = 15..17; theorist shuttle row.
 4. **Cord = commutativity cycle** (T6): theorist, toolsmith.
 
-## Round 023 updates (supersede everything below where they differ)
-
-Round 023 (ordinary: skeptic, scholar, maverick) recorded E-103, E-104. (Round 024 was a conference; see above.)
-
-- **T5 (E-103):** off the walks, a genuine long relation always rejects (362 apparent counterexamples were redundant presentations; `hasLongSquare` needs a minimal presentation). `hasLongSquare` is a one-out-arrow test: 26 hand-built gate-admitted rejections have none (19 two-out-arrow, 7 shared-suffix / reduced). Two examples are not reachable by the key-preserving walk (Coxeter polynomial in no class at n = 6; reachability of others untested). Scholar's derivation (square => reject needs a minimal relation `c·alpha`; reject => square needs out-degree 1) is **awaiting revision**: the referee found that on class-0 walks at n = 8 there are 42 gate-admitted rejections with out-degree 2 and no long square (2 with out-degree 1), so E-100's iff holds at n <= 7 only.
-- **T6 (E-104):** D1 holds on all LNAs with >= 2 big relations at n = 8, 9; the peeling formula of E-101 fails (1/6/24 at n = 8/9/10) when a big relation is the blocker; a fitted mirror chain has 0 mismatches at n = 8..10 and 13 of 13 out-of-sample depth-3/4 predictions (n = 10..12). Open: a proof of the chain; more depth >= 3 shapes outside "2 then 3-relations in contact"; the max depth for n >= 13.
-- Requests added: scholar (revision): identify the 42 n = 8 rejects, run the Cartan test through the rewrite, restate with class and caps in the claim. theorist: the right form of the criterion ("some nonzero x in e_aAe_v with x beta in I for every out-arrow beta") and derive the chain rule. skeptic: reachability of the E-103 examples (reduced-relation kind, n = 7). experimentalist: n = 15..17 for T1/T2 (carried).
-
 ## Round 022 updates (supersede everything below where they differ)
 
 Round 022 (ordinary: experimentalist, theorist, toolsmith) recorded E-100..E-102. **Next round (023) is ordinary; 024 is a conference.** The round-020 agenda stands (items 1 and 3 worked once more).
@@ -100,7 +101,7 @@ Details: `rounds/020/proceedings.md`. Round 021 is ordinary; the next conference
 
 
 
-(Round 015-017 updates and the round-016 agenda are dropped from this file as superseded; see `rounds/015..017/proceedings.md` and E-085..E-090.)
+(Round 023 updates dropped as superseded; see `rounds/023/proceedings.md`. Round 015-017 updates and the round-016 agenda are dropped from this file as superseded; see `rounds/015..017/proceedings.md` and E-085..E-090.)
 
 ## Round 006 updates (supersede the thread text above where they differ)
 
@@ -131,12 +132,12 @@ Requests added: toolsmith to theorist: why the key-coarser cores are the parity 
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 027 | 026 (toolsmith) |
+| experimentalist | 027 | 029 (toolsmith) |
 <!-- 012 was a conference: all six wrote position statements -->
 <!-- 008 was a conference: all six wrote position statements -->
 <!-- 005 was a conference: all six wrote position statements; nobody refereed -->
-| theorist | 026 | 027 (scholar) |
-| skeptic | 026 | 027 (experimentalist) |
+| theorist | 029 | 029 (skeptic) |
+| skeptic | 029 | 029 (theorist) |
 | scholar | 027 | 022 (toolsmith) |
-| toolsmith | 026 | 027 (maverick) |
+| toolsmith | 029 | 027 (maverick) |
 | maverick | 027 | 015 (toolsmith) |

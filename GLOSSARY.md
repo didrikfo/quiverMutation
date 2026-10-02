@@ -653,6 +653,8 @@ the folded offsets are equal-size singleton orbits. E-059.
 
 **D' reject** (E-105). A gate-admitted rejecting step at a vertex v with two outgoing arrows where the kernel element commutes into one arrow and is killed into the other by a monomial (zero) relation ending through v; reached by guarded class-0 walks at n = 8, not at n <= 7. A description of 61 cases, not a theorem.
 
+**Half-W / loose pendants** (E-113). The two shapes of `Gamma_i` for the out-degree 2 pairs with `J_b1`, `J_b2` both nonzero and `J = 0`: half-W is two edges with `p1 b1 = p2 b1 != 0` where `b2` kills only one of the two paths; loose pendants are two edges joined only through ground. Neither has a circuit.
+
 **Circuit graph `Gamma_i`** (E-110). For a source vertex i and a mutation vertex v: vertices are the nonzero classes of `e_i A e_{t b}` (one copy per out-arrow b of v), one edge per class of `e_i A e_v` joining its products with the out-arrows, a zero product being an edge to a "ground" vertex. For monomial and two-term relations, `ker g_i != 0` iff it has a circuit (balanced, if scalars differ from 1); rule W is its length-2 ground-path case.
 
 **Free-end strip** (E-112). Deleting a vertex of the run of K free vertices at one end of an LNA (left of every relation or right of every relation); for K >= 3 the class of the image at length n - 1 depends only on the class of the source at n = 8, 9, 10.

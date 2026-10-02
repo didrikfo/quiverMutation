@@ -6,6 +6,40 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-115 — The F-047 Smith profile places all 16 unresolved n = 9 and all 176 unresolved n = 10 LNAs in one of the two quipu classes of their key (16/16 into P^(1,4)_(1,0,1); 104 / 32 / 24 / 16 at n = 10), in 3 s and 11 s; it does not carry to n = 11 (24 of 442 placed)
+*2026-10-02* · **`timeout 10m .venv/bin/python workshop/rounds/029/toolsmith_snfresolve.py 9` (also `10`; referee ran `11`, 44 s)** · *workshop round 029, toolsmith, refereed by experimentalist*
+
+The unresolved LNAs of E-112 (Coxeter key shared by two quipu classes, orbit search not conclusive) are classified by the profile of F-047 (SNF over Z of g(Phi) per irreducible factor of the Coxeter polynomial, here with SNF of C + C^T added; whether the addition changes any placement was not tested). n = 9: all 16 have the profile of P^(1,4)_(1,0,1), not of P^(1,2)_(1,1,2); n = 10: the 176 split 104 P^(2,3)_(1,1,1), 32 P^(1,5)_(1,0,1), 24 P^(3,3)_(1,0,1), 16 P^(1,4)_(1,0,2). Each resolved class shows one profile. Referee reproduced all counts exactly.
+
+**Limits.** Placement is by exclusion of the other quipu class in the key, so it is necessary evidence for membership. The n = 9 result is F-047's own orbit table (the two orbits of 8); only the n = 10 per-class counts are new, and as a table. At n = 11 the profile places 24 of 442 unresolved LNAs and matches both classes of the key in 418 (3 of 4 keys), so the method does not carry on and the E-112 label gap at n = 11 stays. The soundness basis is F-047's all-LNA check, not the per-class resolved-member counts, which the submission did not give.
+
+**Reproduction.** the commands above.
+
+---
+
+## E-114 — The 61 out-degree 2 rejects of n = 8 class 0 are admitted because the single-path gate cannot see a two-term kernel element (near-tautology); in capped walks (53 162 algebras) no other class at n = 6..8 has an out-degree 2 reject, and the loose D' shape (84 rows at n = 8 class 0) is accepted in 23, and at n = 6, 7 class 0 (5 and 20 rows) in all
+*2026-10-02* · **`timeout 10m .venv/bin/python workshop/rounds/029/skeptic_dprime.py 6 0 0 3000` (also the n = 7 and n = 8 invocations in the submission; outputs `skeptic_dprime_n*.txt`)** · *workshop round 029, skeptic, refereed by theorist*
+
+n = 8 class 0 reproduces E-111 (61 out-degree 2 rejects, 4 out-degree 1). Loose D' shape (a relation commuting into one out-arrow plus a zero relation into the other, the skeptic's definition, not E-105's): 84 rows at n = 8 class 0, 61 rejecting and 23 accepted; rule W with K separates with 0 mismatches. The shape also occurs at n = 6 class 0 (5 rows) and n = 7 class 0 (20 rows), all accepted: the absence of rejects at n <= 7 is not an absence of the shape. Out-degree 1 (long square) rejects occur at n = 6 c0 (15), n = 7 c0 (26), n = 8 c0 (4).
+
+**Limits.** All counts but the 61 depend on the caps (1 500-5 145 algebras per class); "class 0 only" is a statement about the sample. The referee found two table cells miscounted (n = 7 classes 1..5: 13 995; n = 8 classes 4..10: 12 000; total 53 162 stands) and the per-class totals for classes 4..10 are in the output files only. Mostly known: E-105, E-106, E-107, E-111. Open: why the 25 loose-shape, W-false rows at n = 6, 7 fail W (does the monomial relation miss p1, p2, or p1 = p2?).
+
+**Reproduction.** the commands above (n = 6 takes 29 s; n = 8 class 0 170-460 s).
+
+---
+
+## E-113 — At n = 8 classes 0 and 1 the circuit graph Gamma_i of every out-degree 2 (row, i) has components of at most 2 edges: no nn 2-cycle, no circuit of length >= 3 (scalar-1 pairs); the 22 rows with both J_b nonzero and J = 0 are "half-W" (20) or two loose pendants (6), not length-2 ground paths
+*2026-10-02* · **`timeout 10m .venv/bin/python workshop/rounds/029/theorist_circuit.py 8 150 0` (also `8 150 1`; `theorist_keys.py`; run from the repository root)** · *workshop round 029, theorist, refereed by skeptic*
+
+Capped walks (150 s; c0 8 030 algebras, 3 716 out-degree 2 rows; c1 13 621 algebras, 6 283 rows). Of 28 (row, i) pairs with J_b1, J_b2 != 0 and J = 0 at c0 (row-level cousin of the skeptic's 22; the two sets were not matched), 26 are analysable: 20 half-W (two paths with p1 b1 = p2 b1 != 0, b2 kills only p2) and 6 two loose pendants (b2 kills p1, b1 kills p2, no shared product). Every J != 0 pair is the length-2 ground path of E-110 (46 at c0, 10 at c1). Component sizes: no component with >= 3 edges (ground counted as one vertex, which can only enlarge components). A circuit with k edges needs dim e_iAe_v >= k (proved, easy); observed dim e_iAe_v at admitted out-degree 2 vertices: c0 {0: 1020, 1: 5492, 2: 261, 3: 3}, c1 {0: 1448, 1: 7480, 2: 62}. The Coxeter keys of the hand-built D, W-type/G (one shared key), H are in no LNA or dual LNA key set of the same length, so these three keys cannot occur on a walk; this is no obstruction for other nn or long-circuit algebras.
+
+**Limits.** The theorem (no long circuits on LNA-derived algebras) is not proved. Scalar 1 only: 4 coefficient-2 pairs at c0 are outside the lemma and are the only place a counterexample could sit in these data. n = 8 c0 and c1 only, out-degree 2, no parallel arrows, no n = 9. c1 re-run by the referee (counts moved with load, shapes and headline numbers identical); c0 was checked from the committed output only. Counts depend on the wall-clock cap. Missing: a printed labelled example of each shape.
+
+**Reproduction.** the commands above (about 3 min each; the script needs the repository root as working directory).
+
+
+---
+
 ## E-112 — Deleting a vertex of an LNA at n = 9 keeps same-class pairs together about twice as often as chance (0.43 vs 0.19 at i = j = middle), for no choice of position; stripping a free end of >= 3 vertices gives an image class that depends only on the source class at n = 8, 9, 10 (3, 5, 10 resolved classes)
 *2026-10-02* · **`.venv/bin/python workshop/rounds/027/maverick_classes.py 9`; `.venv/bin/python workshop/rounds/027/maverick_null.py 9`; `.venv/bin/python workshop/rounds/027/maverick_endstrip.py 10`** · *workshop round 027, maverick, refereed by toolsmith*
 
