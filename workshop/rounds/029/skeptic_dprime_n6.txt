@@ -1,0 +1,1 @@
+n 6 classes 4 sizes [2, 24, 26, 32]

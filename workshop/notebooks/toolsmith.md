@@ -9,19 +9,20 @@
 - Trap: the shell blocks `sleep N` chains; poll with `timeout .. bash -c 'until grep -q ...'`; foreground over 120 s goes to background. `rm -f $VAR/*` is blocked: use a fresh directory.
 
 ## Round 010-017
-- `rounds/013/toolsmith_verify.py`, `toolsmith_control.py`; `rounds/015/toolsmith_cords.py` (cord members only from LNAs with a 3 early; n = 8 control 2 members at depth 6, E-087).
+- `rounds/013/toolsmith_verify.py`, `toolsmith_control.py`; `rounds/015/toolsmith_cords.py` (n = 8 control 2 members at depth 6, E-087).
 - Patched `arrowPaths.reduceAgainstPivots` (E-085/E-089), test in tests/test_procedure.py.
 
 ## Round 019/022 (T5)
-- `rounds/019/toolsmith_walk.py`: scholar_walk with `--ckpt`, `--max-exp`; resume == uninterrupted. Checkpoints big: /tmp.
-- `rounds/022/toolsmith_replay.py`: 10 E-084 parents keep key under the fixed library; `QM_CHECK_CARTAN=1` / `checkCartan` opt-in (15 ms/step).
+- `rounds/019/toolsmith_walk.py` (checkpointed scholar_walk); `rounds/022/toolsmith_replay.py`; `QM_CHECK_CARTAN=1` opt-in (15 ms/step).
 
 ## Round 026 (T5)
-- `longSquare` lived only in workshop scripts. Fixed version `rounds/026/toolsmith_longsquare.py` (arrow model via `relationsFrom`, distinct penultimate ARROWS); `tests/test_longsquare.py` (3 tests, parallel case fails with the old). n = 8 c1 420 s: 4 of 16 out-degree 1 J != 0 steps were parallel-arrow squares the old test missed.
-- `rounds/026/toolsmith_rejwalk.py n --class I --ckpt F --budget-hours H` (also --budget-sec, --max-exp, --ckpt-every, SIGTERM saves): table + reject classifier. Exit 0 closed, 2 stopped. Resume check n = 7 c0 3 slices == uninterrupted.
-- n = 9 c0: 14 exp/s, ~1 KB/algebra checkpoint, level growth ratio ~2.5 (8, 22, 56, 132, 328, 851); may not close. Overnight cmd proposed (7 h slices, /tmp/n9c0.pkl), not run.
-- Belief: n = 7 old-vs-new check over LNAs is vacuous (0 positives); only walk tables test agreement.
+- `rounds/026/toolsmith_longsquare.py` + tests/test_longsquare.py (parallel arrows fixed); `toolsmith_rejwalk.py n --class I --ckpt F --budget-hours H`. n = 9 c0: 14 exp/s, level ratio ~2.5, may not close; overnight cmd proposed, not run.
+
+## Round 029 (S-1 validation)
+- Cheapest independent invariant is already in the record: F-047 profile (SNF of g(Phi) per factor + SNF of C+C^T). `rounds/029/toolsmith_snfresolve.py N [--plan]` places all 16 unresolved n = 9 LNAs (P^(1,4)_(1,0,1)) and all 176 at n = 10 (104/32/24/16) in 4 s / 12 s. Sound on resolved classes.
+- Lesson: before sizing a mutation search, grep FINDINGS for an existing derived invariant; the n = 9 case was a rediscovery of F-047's orbit table. Placement is by exclusion of the other quipu class, not a proof of membership.
+- Belief: the maverick '?' gap is a gap in `classes()` (orbit join), not in the classification.
 
 ## Next
-- Run the overnight slice if approved; classify sq-parallel-only with a minimality check.
-- Whole-walk overhead of QM_CHECK_CARTAN=1 still unmeasured; L = 5 MONO `--plan` over LNAs 16-428.
+- Opt-in profile column in `coxeterTables` + test; n = 11 cospectral LNAs.
+- Overnight n = 9 c0 reject walk if approved; L = 5 MONO `--plan`; whole-walk QM_CHECK_CARTAN overhead.
