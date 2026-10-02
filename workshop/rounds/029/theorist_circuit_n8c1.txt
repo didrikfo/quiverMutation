@@ -1,0 +1,7 @@
+walk: algebras 13621 outdeg-2 rows 6283 150s
+per-(row,i) categories (cat, class-basis ok): {('one-sided', True): 2781, ('J!=0', True): 10} not ok: 0
+22-type rows (i level): component shapes (edges, nonground vertices, ground endpoints):
+ALL categories x component shapes:
+   ('J!=0', ((2, 1, 2),)) 10
+   ('one-sided', ()) 2781
+dim e_iAe_v over all (row,i) with a path i->v (outdeg-2 admitted v): {0: 1448, 1: 7480, 2: 62}
