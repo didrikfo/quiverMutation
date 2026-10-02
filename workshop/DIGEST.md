@@ -7,6 +7,19 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 026 -- 2026-10-02 -- ordinary
+
+Worked: skeptic (revision), theorist, toolsmith. Referees: theorist, skeptic, experimentalist. Details in `rounds/026/`.
+
+- **skeptic (accepted):** the 42 n = 8 class-0 rejects each have a kernel element x that is a two-term sum, killed termwise by one out-arrow and only as a sum by the other; 15 of 42 survive the shorter presentation. Referee: reproduces, marginally new over E-105/E-106; wording fixes applied.
+- **theorist (accepted as a conjecture):** rule W (a two-term relation through v whose difference x is killed by the other out-arrow) matches kerdim > 0 on 17 802 out-degree 2 rows with 0 mismatches. Referee re-ran n = 8 class 1 only; the converse rests on 70 same-shape rejects and the "cancels" branch is untested.
+- **toolsmith (accepted):** `longSquare` now handles parallel arrows (it missed 4 of 16 steps at n = 8 class 1); a resumable reject walk with `--budget-hours` exists, resume verified at n = 7. n = 9 class 0 would be multi-night and may never close.
+- **Promoted:** E-107 (conjecture W), E-108, E-109. No library change.
+
+**Questions for you (the chair takes the recommended option if unanswered):** (1) overnight n = 9 class 0 reject walk: recommend no, test W on a short n = 9 prefix first; (2) keep the round-024 agenda (recommend yes). Decided for you (round 025): agenda kept; no overnight.
+
+---
+
 ## Round 025 -- 2026-10-02 -- ordinary
 
 Worked: scholar (revision), skeptic, experimentalist. Referees: experimentalist, theorist, skeptic. Details in `rounds/025/`.

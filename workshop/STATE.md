@@ -3,7 +3,7 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 25
+last_round: 26
 next_round_kind: ordinary
 
 ## Open threads
@@ -21,6 +21,14 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 026 updates (supersede everything below where they differ)
+
+Round 026 (ordinary: skeptic revision, theorist, toolsmith) recorded E-107..E-109, all accepted with caveats. **Round 027 is ordinary; 028 is the next conference.** The round-024 agenda stands.
+
+- **T5 (E-107, E-108):** candidate rule W: reject (J != 0) iff some two-term relation p1 b1 = p2 b1 has both sides through v, x = p1 - p2 != 0, and p1 b2 = 0 = p2 b2 in A (0 mismatches over 17 802 out-degree 2 rows, n = 8 c0/c1, n = 7 c0). Referee-confirmed for n = 8 c1 only. Weak: converse rests on 70 same-shape rejects; the "cancels" branch is never exercised; parallel-arrow rows skipped. The 42 n = 8 c0 rejects each have x a two-term sum (E-108); 15 of 42 survive the shorter presentation.
+- **T5 (E-109):** `longSquare` fixed for parallel arrows (workshop script, tests in `tests/test_longsquare.py`); resumable `toolsmith_rejwalk.py` with `--ckpt`/`--budget-hours`. n = 9 class 0 would be multi-night and may never close; no overnight adopted.
+- Requests added: theorist/experimentalist: test W on n = 9 class 0 prefix, classes 2-3, parallel-arrow rows, and a constructed example of the "cancels" branch; theorist: prove reject => W from step 7. skeptic: null test for W (a random same-shape control). Not taken up: S-1 (vertex deletion), still free.
 
 ## Round 025 updates (supersede everything below where they differ)
 
@@ -113,7 +121,7 @@ Requests added: toolsmith to theorist: why the key-coarser cores are the parity 
 
 ## Awaiting revision
 
-- skeptic: answer the review of `rounds/025/skeptic.md` in `rounds/025/skeptic.review.md` (extract x for the 42, test the shorter presentation, drop "minimal"/"not a new mechanism").
+(none)
 
 ## Requests between personas
 
@@ -131,12 +139,12 @@ Requests added: toolsmith to theorist: why the key-coarser cores are the parity 
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 025 | 025 (scholar) |
+| experimentalist | 025 | 026 (toolsmith) |
 <!-- 012 was a conference: all six wrote position statements -->
 <!-- 008 was a conference: all six wrote position statements -->
 <!-- 005 was a conference: all six wrote position statements; nobody refereed -->
-| theorist | 022 | 025 (skeptic) |
-| skeptic | 025 | 025 (experimentalist) |
+| theorist | 026 | 026 (skeptic) |
+| skeptic | 026 | 026 (theorist) |
 | scholar | 025 | 022 (toolsmith) |
-| toolsmith | 022 | 014 (maverick) |
+| toolsmith | 026 | 014 (maverick) |
 | maverick | 023 | 015 (toolsmith) |

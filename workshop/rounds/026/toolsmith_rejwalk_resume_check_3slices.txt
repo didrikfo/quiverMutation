@@ -1,0 +1,9 @@
+n 7 class 0 algebras 6810 expanded 3000 slices 1 closed False
+('J!=0', 'tiltingPlus', False, 'outdeg', 1, 'longsq', True, 'old', True, 'mono', False) 26
+('J=0', 'tiltingPlus', True, 'outdeg', 1, 'longsq', False, 'old', False, 'mono', False) 8332
+('J=0', 'tiltingPlus', True, 'outdeg', 2, 'longsq', False, 'old', False, 'mono', False) 2885
+DISTINCT (parent, v) with J != 0: 26
+  dim J 1 class sq 26
+  e.g. v 5 dimJ 1 sq arrows [(2, 5, 0), (3, 7, 0), (4, 5, 0), (5, 1, 0), (6, 3, 0), (7, 2, 0), (7, 4, 0)] rels [[[3, 7, 2, 5], [3, 7, 4, 5]], [[6, 3, 7]], [[7, 2, 5, 1], [7, 4, 5, 1]]]
+  e.g. v 7 dimJ 1 sq arrows [(2, 7, 0), (3, 5, 0), (4, 7, 0), (5, 2, 0), (5, 4, 0), (6, 3, 0), (7, 1, 0)] rels [[[3, 5, 2, 7], [3, 5, 4, 7]], [[5, 2, 7, 1], [5, 4, 7, 1]], [[6, 3, 5]]]
+  e.g. v 2 dimJ 1 sq arrows [(2, 1, 0), (3, 7, 0), (4, 2, 0), (5, 2, 0), (6, 3, 0), (7, 4, 0), (7, 5, 0)] rels [[[3, 7, 4, 2], [3, 7, 5, 2]], [[6, 3, 7]], [[7, 4, 2, 1], [7, 5, 2, 1]]]

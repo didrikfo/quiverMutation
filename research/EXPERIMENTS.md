@@ -6,6 +6,39 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-109 — `longSquare` fixed for parallel arrows (reads `relationsFrom`, distinct second-to-last arrows); at n = 8 class 1 the old test missed 4 of 16 out-degree 1 J != 0 steps; resumable reject walk `toolsmith_rejwalk.py` with `--ckpt` and `--budget-hours` (resume verified at n = 7; n = 9 class 0 sized, not run)
+*2026-10-02* · **`.venv/bin/python -m pytest -q tests/test_longsquare.py -m "not slow"`; `timeout 10m .venv/bin/python workshop/rounds/026/toolsmith_rejwalk.py 8 --class 1 --budget-sec 420 --show 0`; `... 9 --plan`** · *workshop round 026, toolsmith, refereed by experimentalist*
+
+`longSquare` lived only in workshop scripts (rounds 022/023), never in `quivermutation/`; it compared predecessor vertices of the vertex-list `alg.rels`, so two paths through a doubled arrow looked identical. The fixed test reads the arrow relations (`procedure.relationsFrom`) and asks for distinct second-to-last arrows (`workshop/rounds/026/toolsmith_longsquare.py`, `tests/test_longsquare.py`, 3 pass; the parallel-arrow case fails under the old test). On an n = 8 class 1 walk (420 s, 10 106 expansions) all 16 distinct out-degree 1 steps with J != 0 have a long square under the new test; the old test missed 4 (parallel-arrow). The referee's own 420 s run reproduced 4 new-True/old-False and 12 both-True (the out-degree >= 2 count differs, 29 vs 38: load and cap). `toolsmith_rejwalk.py` is the round 023/025 walk plus classifier with `--ckpt`, `--budget-hours` (exit 2 when spent), `--max-exp`; three slices of 1000/2000/3000 expansions at n = 7 class 0 give the same table as one uninterrupted 3000-expansion run (referee re-ran: identical), and `--budget-sec 5` exits 2. Sizing at n = 9 class 0 (2 start algebras): about 14 expansions/s, about 1 KB per algebra, new algebras per level 8, 22, 56, 132, 328, 851 (ratio near 2.5), so a 7-hour slice is about 350 000 expansions and 0.5 GB and the walk may never close.
+
+**Limits.** The old-versus-new comparison over n = 6, 7 (and the referee's two-step sweeps, 4 452 and 22 344 tests) has zero positives and proves nothing; the only real positives are the 4 steps of the n = 8 class 1 walk. Those 4 are relations in the presentation, not shown to be irredundant (E-103's caveat). A 3-term relation whose terms share a penultimate arrow returns False: a definition choice. Not claimed: "reject iff long square" (E-105 stands). SIGTERM checkpointing is untested by the referee. The overnight command is proposed, not adopted (see the round 026 proceedings).
+
+**Reproduction.** the commands above from the repository root; the resume check is in `workshop/rounds/026/toolsmith.md`.
+
+---
+
+## E-108 — In all 42 n = 8 class-0 out-degree 2 rejections the kernel element is a two-term sum x = p + q that one out-arrow kills term by term and the other only as a sum; the reject survives the shorter presentation (15 of the 42 have a reducible relation)
+*2026-10-02* · **`timeout 10m .venv/bin/python workshop/rounds/026/skeptic_x.py 8 200 0` (output `workshop/rounds/026/skeptic_x_out.txt`)** · *workshop round 026, skeptic (revision of round 025), refereed by theorist*
+
+Single 200 s run (7 848 algebras, 3 623 out-degree 2 gate-admitted rows): 42 rejects, 46 kernel elements (4 rows have two source vertices); each x has two terms, one out-arrow annihilates each term, the other annihilates only the sum. Control with the shape "each out-arrow is last arrow of some relation path": J = 0 without shape 2 814, J = 0 with shape 767, J != 0 with shape 42, J != 0 without shape 0: necessary in sample, far from sufficient. For 15 of 42 a relation reduces by another (`4513 = 4573` beside `451 = 0`); the reject and the shape persist on the shorter presentation. This agrees with E-105's D' description and with E-107's conjecture; "irredundant" is claimed for `alg.rels` only.
+
+**Limits.** One run: the counts shift between runs (E-106), 42 did not. The x-form was not tested on the 767 accepting rows, so it is a description of the rejects, not a criterion; "a kernel element", not "the" kernel (kerdim is not stated per row). Reducing "46 of 42" in the output is 46 elements over 42 rows. Not shown: why n = 8 and not n <= 7. Marginally new beyond E-105/E-106 (they give the cases; this gives x and the presentation test).
+
+**Reproduction.** the command above (about 3.5 min).
+
+---
+
+## E-107 — Conjecture W: on out-degree 2 mutable rows of three walks (17 802 rows) a step rejects iff some two-term relation p1·b1 = p2·b1 has both sides through v, x = p1 - p2 != 0, and p1·b2 = 0 = p2·b2 in A (0 mismatches; empirical)
+*2026-10-02* · **`timeout 10m .venv/bin/python workshop/rounds/026/theorist_collect.py 8 300 1 /tmp/c1.json`, then `.venv/bin/python workshop/rounds/026/theorist_witness.py /tmp/c1.json` (also `8 300 0`, `7 200 0`; `theorist_analyze.py`, `theorist_look.py`)** · *workshop round 026, theorist, refereed by skeptic*
+
+Rows with no parallel arrows. W and kerdim > 0: 55 (n = 8 class 0, of 5 864 rows, 4 924 algebras), 15 (class 1, 6 746 rows, 5 607 algebras), 0 (n = 7 class 0, 5 192 rows); W only 0, kerdim > 0 only 0 everywhere. In every one of the 70 rejects R has two terms and each term of x times b2 is zero separately (none cancels). W => reject follows from E-097 (x lies in the kernel). What separates the 42 from the same-shape accepts in the E-106 control: in a reject, one arrow carries a commutativity relation with BOTH sides through v and the other arrow kills both sides; in accepting same-shape rows either only one side goes through v or the other arrow does not kill both sides. The shape "one arrow carries {M, S2}, the other {S2}" holds for all 55 class-0 rejects and for 114 accepting rows, so shape alone does not separate; W does. The referee re-ran n = 8 class 1 (15 rejects, 0 mismatches, same witness shape).
+
+**Limits.** The converse (reject => W) is evidence only: 70 rejects of one shape, not independent, and the "cancels" branch of W (x·b2 = 0 only as a sum) is never exercised, so W as stated is untested there. Class 0 and n = 7 not re-run by the referee. Counts are rows on a wall-clock prefix (E-106's loads). Parallel-arrow rows (1 413 across walks, all accepts) are skipped, not covered; no n = 9, no classes 2-3, no out-degree >= 3. Not a proof; the step "J is generated by relation-derived elements" is the unproved link.
+
+**Reproduction.** the commands above (walks about 5 min each, witness check under 2 min).
+
+---
+
 ## E-106 — Capped walks at n = 8 classes 0, 1, 3 and n = 9 class 0: out-degree >= 2 rejects with no `longSquare` recur at n = 8 class 1 (15 in a 500 s loaded run, 38 solo); n = 8 class 3 and n = 9 class 0 show none in short prefixes, which supports no claim
 *2026-10-02* · **`timeout 10m .venv/bin/python workshop/rounds/023/scholar_longsquare.py 8 --class 1 --budget-sec 500` (also `8 --class 0`, `8 --class 3`, `9 --class 0`; outputs `workshop/rounds/025/experimentalist_n8_c0.txt`, `_n8_c1.txt`, `_n8_c3.txt`, `_n9_c0.txt`); `skeptic_odd.py 8 1 500`; `skeptic_n8.py 8 200 0`** · *workshop round 025, experimentalist and skeptic, refereed by skeptic and theorist*
 

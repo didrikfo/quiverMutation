@@ -120,3 +120,7 @@ A short negative result ("dead end, because ...") is a welcome outcome.
 - round 023, question 2 (overnight) (applied, round 024): none; nothing needs more than 10 minutes per command -- decided by the chair of round 024; no answer from the human
 - round 024, question 1 (agenda): approve the round-024 agenda -- decided by the chair of round 025; no answer from the human (applied, round 025)
 - round 024, question 2 (overnight) (applied, round 025): none; nothing needs more than 10 minutes per command -- decided by the chair of round 025; no answer from the human
+- round 024, question 1 (agenda) (applied, round 025): approved unchanged -- decided by the chair of round 025; no answer from the human
+- round 024, question 2 (overnight) (applied, round 025): none -- decided by the chair of round 025; no answer from the human
+- round 025, question 1 (agenda) (applied, round 026): keep the round-024 agenda; item 1 turns on why D' appears at n = 8 -- decided by the chair of round 026; no answer from the human
+- round 025, question 2 (overnight) (applied, round 026): none yet; toolsmith adds a checkpoint for the n = 9 class 0 walk first -- decided by the chair of round 026; no answer from the human
