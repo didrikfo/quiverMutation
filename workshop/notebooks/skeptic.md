@@ -1,23 +1,22 @@
-# Skeptic's notebook (after round 023)
+# Skeptic's notebook (after round 025)
 
 ## Believe now
-- r023 (T5): off the guarded walks "long square => reject" holds if the square is genuine (truncation x = sum c p[:-1] nonzero mod I; it is the kernel element of the one map). A long relation in `alg.rels` can be redundant (killed by e.g. abd=acd): then hasLongSquare is True at a tilting step (362 of ~65k gate-admitted tilting steps in hand-built parents). So E-100's test needs a minimal presentation off the walks.
-- r023: "reject => hasLongSquare" is false literally: 2-out vertex with a long relation on each out-arrow (kernel killed by both), shared longer suffix abdef=acdef at v=e, sum relation reduced by a monomial. 12/4463 n=6, 11/2388 n=7 gate-admitted rejections. Two examples have Coxeter polynomials in no LNA/dual class at n=6 => unreachable by the key-preserving walk. Control: n=6 padded E-078 IS reached (class 0).
-- Right statement (conjecture for theorist): step-7 map fails iff there is x != 0 in e_aAe_v with x*beta in I for all out-arrows beta.
-- r021 null: "exactly one placement in S" for 444-words is no 4-property (also words without 4); gap pattern is a property of S. r018: split counts 6/9/12/15/18/18 (n=12..17), 0 partial vacuous. r015: E-075 "20 of 25" not reproducible (11 of 25). r013, r010, r007 as before. Unit of evidence = orbit.
+- r025: the 42 n=8 class-0 out-degree-2 no-long-square rejections (referee r023) reproduce (200 s: 42 with 7877 and 8004 algebras; cap-dependent). Parents are walk members, so Coxeter key == class base (42/42, trivial by BFS). alg.rels irredundant in all 42. Every parent: 2 out-arrows at v, a relation through v into each = E-103 two-out kind, not a new mechanism. New only that the walk reaches it at n=8 (none n<=7). Sample 1 has `4513=4573` beside `451=0` (monomial in disguise): presentation not minimal in the split sense. I did not extract the kernel element x.
+- r023 (T5): off walks "genuine long relation => reject" holds; redundant long relations fooled hasLongSquare (362 steps). "reject => long square" false: 2-out vertex, long relation on each out-arrow (12/4463 n=6, 11/2388 n=7). Two n=6 examples have Coxeter polynomial in no LNA/dual class: unreachable by the key-preserving walk. Conjecture for theorist: fails iff x!=0 in e_aAe_v with x*beta in I for all out-arrows beta.
+- r021 null: "exactly one placement in S" not a 4-property. r018: split counts 6/9/12/15/18/18 (n=12..17). r015: E-075 "20 of 25" not reproducible (11 of 25). Unit of evidence = orbit.
 
 ## Tried
-- r023: skeptic_offwalk.py (random acyclic quivers n=5..7, 0-3 relations, modes A seeded square / C none; 5 runs ~23k parents), skeptic_reach.py (guarded BFS membership by canonicalKey, n=6 class 0, 400 s).
-- r021 skeptic_null*.py; r018 rowset16, partial_where; r015 rowset; r013 orbscan; r010 probe; r007 nulls.
-- Bug lessons: cache by id() reuses ids; `pkill -f`/`pgrep -f` match own shell (killed it; use pid + kill -0); python output to file is buffered (use -u).
+- r025: skeptic_n8.py (n=8 class 0 walk, collect hits, class/shape/redundancy; 5 min each, two runs).
+- r023: skeptic_offwalk.py, skeptic_reach.py (n=6 class 0, 400 s). r021 nulls; r018 rowset16; r015 rowset; r013 orbscan; r010 probe; r007 nulls.
+- Bug lessons: cache by id() reuses ids; pkill/pgrep -f match own shell; python output to file is buffered (use -u); exec-ing another script clobbers my _argv (save under a new name); `| tail` hides progress.
 
 ## Not done
-- Exhaustive enumeration (not random) of small quivers; n=8; length-2 sum relations and parallel arrows not generated; reachability of kind c and of n=7 examples; whether kinds a-c have non-tilting child confirmed independent of tiltingPlus (End(T) not computed).
-- From r021: n=15..17 null; where the other placements go.
+- Kernel element x for the 42; classes 1, 2 at n=8; n=7 class 1/2; exhaustive small-quiver enumeration; parallel arrows / 2-arrow sums off walks; whether off-class (r023 n=6) examples have any walk-reachable analogue.
+- From r021: n=15..17 null; where other placements go.
 
 ## Next
-1. Exhaustive n=6 enumeration of kinds a-c; add parallel arrows / 2-arrow sums.
-2. Ask experimentalist to rerun E-100 with genuine-truncation test and count 2-out vertices on walks.
-3. Referee any theorist proof of the x*beta in I statement at the multi-out case.
+1. Extract x for the 42, check whether it is a path-difference of fixed length.
+2. Referee theorist proof of the x*beta in I statement.
+3. Minimal-presentation test (zero relation vs commutativity) before any shape test.
 ## Habits
-- Check whether a pass is vacuous by definition; run a control stratum; check timeouts; check a test's presentation dependence (alg.rels vs relationsFrom, redundant relations).
+- Check vacuity by definition (class membership of walk parents is trivial); run a control; check timeouts/caps; check presentation dependence.
