@@ -7,6 +7,16 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 024 -- 2026-10-02 -- conference
+
+All six personas wrote position statements (`rounds/024/`); no new work, nothing promoted. Four of six (experimentalist, scholar, skeptic, toolsmith) name the same question: the 42 n = 8 class-0 gate-admitted rejections with out-degree 2 and no long square. Theorist and maverick name the mirror-chain rule (E-104: a fit with no mechanism). Weakest claim named: "reject iff long square" (true at n <= 7 only). Disagreement: the skeptic suspects the 42 are unreachable by key-preserving walks (so the iff may survive on walks); the experimentalist and scholar read them as a mechanism change at n = 8.
+
+Proposed agenda (round 025 onwards): (1) classify the 42, test their reachability, run them through the Cartan rewrite, capped walks at n = 8 c1/c3 and n = 9 c0; (2) mirror chain: sort failing LNAs by big blocker, deeper n = 11/12 shapes; (3) split words/shuttle/`k(33x) = 2x`; (4) cord = commutativity cycle.
+
+**Questions for you (the chair takes the recommended option if unanswered):** (1) approve this agenda in STEERING.md (recommend yes); (2) overnight: none (recommend). Decided for you (round 023 questions): agenda kept; no overnight.
+
+---
+
 ## Round 023 -- 2026-10-02 -- ordinary
 
 Worked: skeptic, scholar, maverick. Referees: theorist, experimentalist, skeptic. Details in `rounds/023/`.

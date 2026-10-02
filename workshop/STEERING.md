@@ -82,3 +82,5 @@ by a command, and checked against what is already recorded.
 - round 021, question 2 (overnight) (applied, round 022): none; the non-MONO L = 5 walk is not worth 4.5 CPU-hours -- decided by the chair of round 022; no answer from the human
 - round 022, question 1 (agenda) (applied, round 023): keep the round-020 agenda -- decided by the chair of round 023; no answer from the human
 - round 022, question 2 (overnight) (applied, round 023): none; nothing needs more than 10 minutes per command -- decided by the chair of round 023; no answer from the human
+- round 023, question 1 (agenda) (applied, round 024): keep the round-020 agenda -- decided by the chair of round 024; no answer from the human
+- round 023, question 2 (overnight) (applied, round 024): none; nothing needs more than 10 minutes per command -- decided by the chair of round 024; no answer from the human

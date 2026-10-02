@@ -3,8 +3,8 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 23
-next_round_kind: conference
+last_round: 24
+next_round_kind: ordinary
 
 ## Open threads
 
@@ -22,9 +22,17 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
 
+## Round 024 (conference) -- proposed agenda (proposed, round 024; supersedes the round-020 agenda; ordinary rounds work from it until the human changes it in STEERING.md)
+
+Details: `rounds/024/proceedings.md`. Round 025 is ordinary; next conference 028. T1-T9 and the round updates below stay current.
+1. **The 42 n = 8 class-0 rejects** (T5): scholar classifies them (revision due); skeptic: reachable by key-preserving walks?; toolsmith: Cartan test through the rewrite; experimentalist: capped walks at n = 8 classes 1, 3 and n = 9 class 0.
+2. **Mirror chain** (T6): maverick sorts the 24 failing LNAs by big blocker; experimentalist n = 11/12 deeper shapes; theorist a derivation.
+3. **Split words / shuttle / `k(33x) = 2x`** (T1/T2/T4): experimentalist n = 15..17; theorist shuttle row.
+4. **Cord = commutativity cycle** (T6): theorist, toolsmith.
+
 ## Round 023 updates (supersede everything below where they differ)
 
-Round 023 (ordinary: skeptic, scholar, maverick) recorded E-103, E-104. **Next round (024) is a conference.** The round-020 agenda stands.
+Round 023 (ordinary: skeptic, scholar, maverick) recorded E-103, E-104. (Round 024 was a conference; see above.)
 
 - **T5 (E-103):** off the walks, a genuine long relation always rejects (362 apparent counterexamples were redundant presentations; `hasLongSquare` needs a minimal presentation). `hasLongSquare` is a one-out-arrow test: 26 hand-built gate-admitted rejections have none (19 two-out-arrow, 7 shared-suffix / reduced). Two examples are not reachable by the key-preserving walk (Coxeter polynomial in no class at n = 6; reachability of others untested). Scholar's derivation (square => reject needs a minimal relation `c·alpha`; reject => square needs out-degree 1) is **awaiting revision**: the referee found that on class-0 walks at n = 8 there are 42 gate-admitted rejections with out-degree 2 and no long square (2 with out-degree 1), so E-100's iff holds at n <= 7 only.
 - **T6 (E-104):** D1 holds on all LNAs with >= 2 big relations at n = 8, 9; the peeling formula of E-101 fails (1/6/24 at n = 8/9/10) when a big relation is the blocker; a fitted mirror chain has 0 mismatches at n = 8..10 and 13 of 13 out-of-sample depth-3/4 predictions (n = 10..12). Open: a proof of the chain; more depth >= 3 shapes outside "2 then 3-relations in contact"; the max depth for n >= 13.
@@ -56,23 +64,7 @@ Details: `rounds/020/proceedings.md`. Round 021 is ordinary; the next conference
 3. **Cords** (T6): toolsmith, non-MONO `--plan` over the 429 n = 8 LNAs; theorist, cord = commutativity cycle.
 4. **`k(33x) = 2x`** (T2/T4): theorist, a mechanism.
 
-## Round 019 updates (supersede everything below where they differ)
 
-Round 019 (ordinary: toolsmith, theorist, experimentalist) recorded E-094..E-096. **Next round (020) is a conference.** The round-016 agenda stands.
-
-- **T5 (E-094):** `rounds/019/toolsmith_walk.py` (checkpoint/resume walker). n = 8 class 2 depth 8 completes under the fix: 24 316 expansions, 2 rejections, 0 key-moved steps; E-084's 10 key-moved steps equal in count to the steps that now keep the key (not replayed). Open: replay the 10 E-084 parents; inspect the second rejection (path (17,8,5,6,8,8,2,5)); depth 9 (checkpoint 38 MB, outside repo); n = 8 slice-vs-uninterrupted check; Cartan-congruence assertion in `mutateAtVertex` (toolsmith, carried).
-- **T5 (E-095):** histogram of dim ker on walks: exactly one bad vertex per rejecting parent, dim ker 1 (907 + 143 distinct parents at n = 6, 7); no non-tilting step has dim ker 0. Conditional on A5-shaped parents (unchecked). Open: A5-shape check of the 1 050 parents; walks of other classes; derive "(k,i) entry = dim coker" from step 7.
-- **T1/T2 (E-096):** in-orbit placement of split words has right gap g = 0 (`2224 2334 4556..4889`) or 1 (`224x`, `344x`), n-independent, `3344` the exception; lemma R alone never reaches `333@0` (0 of 45), it ends at boundary shapes in the orbit and the rest runs through the `34@k <-> 403@(k-1)` shuttle. Open: prove why short shapes are in the orbit only at the boundary; `3344` (R valid only when interval does not swallow a left relation); n = 15, 17 R-chains; `3334`, `2455`.
-- Requests added: theorist: derive the shuttle as a rule-table row; `3344`. experimentalist: A5-shape check of rejecting parents. toolsmith: replay of E-084's 10 `M` parents; Cartan assertion; non-MONO cord `--plan` over n = 8 LNAs (carried).
-
-## Round 018 updates (supersede everything below where they differ)
-
-Round 018 (ordinary: skeptic, scholar, maverick) recorded E-091..E-093. Next round (019) is ordinary; 020 is the next conference. The round-016 agenda stands.
-
-- **T1/T2 (E-091):** at n = 12..17, 6/9/12/15/18/18 four-letter words (letters <= 9, a 4, >= 4 placements) are split across the `444` orbit, each with exactly one placement in it (last or second-to-last for 17 of 18 at n = 16); `3334`, `2455` outside it. E-086's "0 partial" is vacuous for merged words. Open: why exactly one placement (does it reduce by lemma R to `333@0`?); where the other placements go; words with letters >= 10 or < 4 placements.
-- **T5 (E-093):** Cartan congruence = `tiltingPlus` read through the rewrite on all gate-admitted steps at n = 5..7 (807 non-tilting steps, 0 disagreements); the discrepancy is row k, off-diagonal, minus dim ker. Observation, not a theorem. Open: histogram of dim ker and number of distinct parents; derive "rewrite's (k,i) entry = dim coker" from step 7; diagonal/column-k; Cartan congruence as an assertion in `mutateAtVertex` (toolsmith); the n = 8 class 2 depth-8 walk (checkpoint first).
-- **T6 (E-092):** 2376 of 2376 n = 8 cord members (depth <= 5, six LNAs) have a sum relation; no monomial cord at n = 4, 5, 8; no positive MONO control at n = 8 (n <= 5 negatives informative for 6/14 and 1/5 LNAs; depth shallower than E-087). The E-076 candidates are monomial with cords, the controls have sum cords: they differ in kind. Open: an n = 8 MONO run at L = 6 on an LNA outside the six; non-MONO `--plan` over all 429 n = 8 LNAs to find which have cords; theorist: cord = commutativity cycle as a lemma; a derived-equivalent monomial cord outside every LNA class?
-- Requests added: theorist: one placement of a split word in the `444` orbit; the (k,i) = coker step in step 7; cord = commutativity cycle. toolsmith: Cartan-congruence assertion; checkpoint for `scholar_walk.py`; non-MONO cord `--plan` over n = 8 LNAs. scholar/experimentalist: dim ker histogram and distinct parents.
 
 ## Round 017 updates (supersede everything below where they differ)
 
