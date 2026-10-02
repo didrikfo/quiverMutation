@@ -79,6 +79,9 @@ How to choose:
   if you do, say so in both assignments.
 * A request on the board between personas (*Requests between personas*) is a
   good assignment for the persona it names.
+* *Suggested questions* in `STEERING.md` are optional. Take one up when a
+  persona is free or its archetype fits, never in place of a revision or
+  the agreed agenda; say in the call which one, if any.
 
 ## 2. Work
 
@@ -267,7 +270,9 @@ No new research. The point is to step back and agree what is worth doing.
    > You are **<Name>**; your persona is in `workshop/personas/<id>.md`. This
    > is a conference round of the workshop: no new work. Read your notebook
    > `workshop/notebooks/<id>.md`, `workshop/STATE.md`, and the last
-   > <conference_every> entries of `workshop/DIGEST.md`. Write
+   > <conference_every> entries of `workshop/DIGEST.md`, and the *Suggested
+   > questions* in `workshop/STEERING.md` (optional; propose one only if you
+   > think it is worth it). Write
    > `workshop/rounds/NNN/<id>.md`, at most 30 lines: **what you think is the
    > single most promising question** for the next few rounds and why; **the
    > weakest claim** the workshop currently relies on; **what you need** from

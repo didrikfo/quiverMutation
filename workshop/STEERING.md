@@ -26,6 +26,40 @@ by a command, and checked against what is already recorded.
   instead.
 - Refactoring code that no experiment needs.
 
+## Suggested questions (optional, not a priority)
+
+Questions the human finds interesting but does **not** want to displace the
+agenda. Personas and chairs may take one up when it fits (a free slot, a
+conference proposal, a persona whose archetype suits it); none is required.
+A short negative result ("dead end, because ...") is a welcome outcome.
+
+- **S-1 · Does vertex deletion transport classes across lengths?** *(added
+  2026-10-02)* Let `δ_i` be the deletion of vertex `i` from an LNA of length
+  `n` (Corollary `removevertex` of arXiv:2310.08346; summary in
+  `research/literature/2310.08346-non-piecewise-hereditary-nakayama.md`;
+  implemented as `piecewiseHereditary.removeVertex`, used in F-012). It is
+  known to preserve piecewise heredity and nothing else in general: not the
+  derived class, the Coxeter polynomial or the quipu. The question is whether
+  it preserves anything *under conditions*, or changes it *predictably*:
+  1. **Compatibility.** For two LNAs `Λ ~ Λ'` in the same class at length
+     `n`, for which deleted vertices `i, i'` (for example ones in a free
+     stretch far from every core) are `δ_i(Λ)` and `δ_i'(Λ')` in the same
+     class at `n - 1`? Is there a rule for choosing them?
+  2. **Predictable change.** Where the class is not preserved, does an
+     invariant (Coxeter key, orbit, inside/outside verdict, head/tail of
+     H-020) change by a rule?
+  3. **The motivating scenario.** Is there an LNA at length `n` with a long,
+     complicated core that is equivalent to a simple LNA (almost separate,
+     or named by the quipu theorem) only because the length gives the core
+     room to move (H-018, H-020), such that deleting vertices outside the
+     core yields a length `n - k` LNA with the same core that has **no** room
+     to move back? If so, a pattern found at a long length could be carried
+     down by deletion to classes still uncovered at shorter lengths (the
+     leftovers of H-019); if not, say why the room argument fails.
+  A first sitting could test (1) on lengths where the classes are fully
+  known (`n = 9`, F-011, and `n = 10`), counting how often same-class pairs
+  map to same-class pairs under each choice of deleted vertex.
+
 ## Special requests for the next round
 
 <!-- e.g. "conference", "only skeptic and theorist", "everyone on H-021" -->
