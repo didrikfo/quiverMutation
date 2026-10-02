@@ -1,0 +1,5 @@
+n 7 class 0 algebras 9197 150s
+('outdeg', 1, 'J!=0', 'W2', 'n') 93
+('outdeg', 1, 'J=0', 'noW2', '') 26196
+('outdeg', 2, 'J=0', 'noW2', '') 8873
+('outdeg', 3, 'J=0', 'noW2', '') 778

@@ -3,7 +3,7 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 26
+last_round: 27
 next_round_kind: ordinary
 
 ## Open threads
@@ -21,6 +21,15 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 027 updates (supersede everything below where they differ)
+
+Round 027 (ordinary: scholar, experimentalist, maverick) recorded E-110..E-112, all accepted with caveats. **Round 028 is a conference** (multiple of 4). The round-024 agenda stands.
+
+- **T5 (E-110):** "reject => W" is not derivable from step 7 (J is defined by the parent alone). For monomial + two-term relations (scalar 1) J != 0 iff the circuit graph Gamma_i has a circuit; W is its length-2 ground-path case. Hand-built D (cancels / nn), G (out-degree 1, no long square), H (3-term) are gate-admitted rejects W misses. On walks J != 0 is always a length-2 ground path. Open: why no nn or longer circuit on LNA-derived algebras; balanced circuits for scalars != 1; >= 3-term relations.
+- **T5 (E-111):** W has 0 mismatches on 32 132 fresh out-degree 2 rows (n = 8 c0, 2, 3; n = 9 c0 prefix; 1 135 parallel) but only 61 positives (n = 8 c0). Out-degree >= 3: 0 rejects. Open: parallel-arrow positive control; classes 4..10 at n = 8; n = 9 c0 beyond the prefix (no overnight adopted).
+- **S-1 (E-112):** no positional rule for deleting a vertex (same-class pairs kept 0.43 vs 0.19 chance at n = 9); deleting a free end vertex with K >= 3 free vertices there gives an image class depending only on the source class at n = 8, 9, 10 (3, 5, 10 resolved classes). Open: derive it (F-028/H-020?); '?' ends at n = 10; independent validation of the class labels; n = 11; the 16 unresolved n = 9 LNAs; question 3 of S-1 (core with room to move).
+- Requests added: theorist: why no nn/longer circuit on LNA-derived algebras; the balanced-circuit lemma; why K >= 3. toolsmith/experimentalist: resolve the 16 n = 9 and 176 n = 10 cospectral LNAs; hand-built parallel and "cancels" controls for W. experimentalist: n = 11 for the K >= 3 rule.
 
 ## Round 026 updates (supersede everything below where they differ)
 
@@ -82,33 +91,7 @@ Details: `rounds/020/proceedings.md`. Round 021 is ordinary; the next conference
 
 
 
-## Round 017 updates (supersede everything below where they differ)
-
-Round 017 (ordinary: toolsmith, experimentalist, theorist) recorded E-088..E-090. Next round (018) is ordinary; 020 is the next conference. The round-016 agenda stands (items 1-3 worked once).
-
-- **T5 (E-089, E-090):** `reduceAgainstPivots` is fixed in the library with a test. The E-084 walks re-run under the fix give the same counts wherever comparable (n = 7, 8 classes 0-1, 9); the n = 8 class 2 walk stopped at 17 058 of 20 899 expansions, before the 10 key-moved steps, so the loose end rests on E-085's replay. Open: complete depth 8 of n = 8 class 2 (about 15 min; needs a checkpoint/resume in `scholar_walk.py`); Cartan congruence vs `tiltingPlus` as one criterion; unit test on a sum-relation ideal with a non-pivot head.
-- **T6 (E-089):** `MONO=1` at n = 8, L = 6 gives 0 monomial cord members for six walked LNAs (4, 9-13); no positive `MONO` control, LNAs 16..428 not walked. Heuristic: a cord needs a sum relation (untested). Open: positive `MONO` control; L = 5 `MONO` `--plan` over LNAs 16-428 in shards; log the producing relation of each sum cord.
-- **T1/T2/T4 (E-088):** lemma R: `(a,b,b,d) -> (a-1,b,d+1)`; `3334`, `2455` are one double mutation from `35`, in class `J = {1, n-7}`, not the `444` orbit (`J = {0, n-6}`); class of `3x` is `x - 4`; n = 12..17. Lemma checked, not proved. Open: lemma R as a rule-table row and a proof; the anchored `3x@0 -> 33(x-1)@0` rule; 4-letter words with a 4 against "apply R, read `x - 4`" at n = 13, 15; x >= 10, letters >= 6; the shift by 2 (T3).
-- Requests added: toolsmith: checkpoint/resume for `scholar_walk.py`; `MONO` positive control. experimentalist: 4-letter-word check of `J` (n = 13, 15). theorist: rule-table row for lemma R and the `3x` link; shift by 2. skeptic: n = 16 4-letter row sets (carried).
-
-## Round 016 (conference) -- proposed agenda (proposed, round 016; supersedes the round-012 and round-008 agendas; ordinary rounds work from it until the human changes it in STEERING.md)
-
-Details: `rounds/016/proceedings.md`. Next conference: 020. Threads T1-T9 and the round updates below stay current. Round 017 is ordinary.
-1. **Library fix and re-run** (T5; STEERING decision for q 015.1): toolsmith patches `reduceAgainstPivots` with a unit test on the congruent pair (`rounds/015/theorist_fix.py`); experimentalist re-runs the E-084 n = 8 class 2 walk under the fix and says which E-084 counts change. Scholar/theorist: Cartan congruence vs `tiltingPlus` as one criterion.
-2. **Cords at n = 8** (T6): toolsmith sizes `MONO=1` at n = 8 (`--plan` first); is there any monomial cord member, and why do none appear at n = 6, 7? Maverick consumes the answer.
-3. **`3334`, `2455` in the small orbit / `k(33x) = 2x`** (T1/T2/T4): theorist, with the skeptic's n = 16, 17 row-set test of the `444` orbit as the data.
-4. **Parity shift** (T3): theorist, why the rule table gives shift by 2 and never by 1 (E-080).
-
-## Round 015 updates (supersede everything below where they differ)
-
-Round 015 (ordinary: toolsmith, theorist, skeptic) recorded E-085..E-087. Next round (016) is a **conference**. The round-012 agenda stands until then.
-
-- **T5 (E-085):** the n = 8 class 2 loose end of E-084 is a defect of the mutation rewrite: `arrowPaths.reduceAgainstPivots` is not a normal form, so step 7 of `procedure.mutateAtVertex` can drop a relation (child one dimension too big). `tiltingPlus` is right there; the Cartan congruence fails on all 11 replayed rejecting parents. Library untouched; fixed only by monkeypatch (`rounds/015/theorist_fix.py`). Open: apply the fix with a unit test (toolsmith); re-run the E-084 n = 8 class 2 walk and see whether E-084's counts change (experimentalist); is the rank step of `tiltingPlus` affected; how often the defect fires.
-- **T6 (E-087):** n = 8 controls with cords (8-9 arrows, sum relations) are found at depth 6 and not 5, at 5.7e4-6.2e4 nodes. `reachedQuipuAlgebras` keeps only monomial quipu trees, hence E-082's "no cords". No monomial cord member at n = 6, 7. Open: `MONO=1` at n = 8; a monomial control; more members (only 2 run).
-- **T1/T2 (E-086):** at n = 12..15 all merged words of the earlier scans have all placements in the `444` orbit's row set or none; E-075's "20 of 25" is 11 of 25. Open: row sets at n = 17 (sizes only); n = 16 4-letter scan; why `3334`, `2455` sit in the small `235/255/455` orbit.
-- Requests added: toolsmith: apply the `reduceAgainstPivots` fix with a test; `MONO=1` at n = 8. experimentalist: re-run E-084 n = 8 class 2 walk under the fix. theorist: `3334`, `2455` in the small orbit.
-
-
+(Round 015-017 updates and the round-016 agenda are dropped from this file as superseded; see `rounds/015..017/proceedings.md` and E-085..E-090.)
 
 ## Round 006 updates (supersede the thread text above where they differ)
 
@@ -139,12 +122,12 @@ Requests added: toolsmith to theorist: why the key-coarser cores are the parity 
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 025 | 026 (toolsmith) |
+| experimentalist | 027 | 026 (toolsmith) |
 <!-- 012 was a conference: all six wrote position statements -->
 <!-- 008 was a conference: all six wrote position statements -->
 <!-- 005 was a conference: all six wrote position statements; nobody refereed -->
-| theorist | 026 | 026 (skeptic) |
-| skeptic | 026 | 026 (theorist) |
-| scholar | 025 | 022 (toolsmith) |
-| toolsmith | 026 | 014 (maverick) |
-| maverick | 023 | 015 (toolsmith) |
+| theorist | 026 | 027 (scholar) |
+| skeptic | 026 | 027 (experimentalist) |
+| scholar | 027 | 022 (toolsmith) |
+| toolsmith | 026 | 027 (maverick) |
+| maverick | 027 | 015 (toolsmith) |

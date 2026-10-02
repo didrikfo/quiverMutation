@@ -1,22 +1,23 @@
-# Scholar's notebook (after round 025)
+# Scholar's notebook (after round 027)
 
 ## Believe
-- Ladkani 2.3(c) = AI 2.32(b) = `tiltingPlus`: one map g_i : p |-> (p alpha)_alpha. Authors' statement, not derived here.
-- r021: (k,i) rewrite entry = dim coker g_i; (i,k) = dim ker psi_i (needs step-7 completeness, least sure link). Cartan congruence fails iff some dim ker g_i != 0 iff tiltingPlus False.
-- r023: reject (gate admits, tiltingPlus False) <=> J != 0 and no single path in J. Long square with minimal relation => reject. Converse needs out-degree 1 and generators fixed.
-- r025: the "J != 0 <=> out-degree 1 and long square" iff holds on class-0 walks n = 5..7 (300 s caps) and FAILS at n = 8: 55/59 J != 0 steps have out-degree 2;
-  61 distinct rejects all commute into one arrow only ("D-part 1/2", killed into the other by zero relations), all fail the Cartan test through the real rewrite.
-  Only one read by hand. Counts cap-dependent (referee 42, me 55).
-- Rejecting parents (distinct): n=6 class 0 1123, n=7 156.
-- r014/r018: guard-admitted steps never fail; Cartan/tilting failures are guard-refused (verify: rejects here are gate-admitted yet the guard... not re-checked at n=8).
+- Ladkani 2.3(c) = AI 2.32(b) = `tiltingPlus`: one map g_i : p |-> (p b)_b. Authors' statement, not derived here.
+- E-097: Cartan fails iff some J_i = ker g_i != 0. J is intrinsic to the parent A; step 7 never exhibits an element of J, it only supports the Cartan link.
+  r027: on 4 hand cases the real rewrite (checkCartan=True) fails exactly when J != 0, including the non-W kernels.
+- r027 lemma (proved for monomial + two-term relations): gate-admitted, J_i != 0 iff graph Gamma_i (vertices = nonzero classes of e_iAe_{t b}; one edge per class of e_iAe_v joining [pb1],[pb2], zero = pendant to ground) has a circuit (cycle or ground-ground path); J = flows.
+  W (E-107) = length-2 ground path. Length-2 2-cycle ("nn", p1b1=p2b1 and p1b2=p2b2 nonzero) is the "cancels" branch: gate-admitted, J != 0, Cartan fails, W false (= E-103's 19 two-out hand-built). Length >= 3 circuits exist (case H). Out-degree 1: J != 0 => p1 b = p2 b with p1 != p2 (derived, not necessarily a generator; case G).
+- On walks (n=7 c0, n=8 c0, c1; 155 J != 0 rows) J is always a length-2 ground path (nz/zn at out-deg 2, n at out-deg 1): 0 nn, 0 longer. Why: OPEN.
+- Sum-type relations (p + q) are real; `alg.rels` loses signs, use `relationsFrom`. A test comparing normal forms must scale-normalise (my first version missed 55 rows because of this).
+- Rejecting parents (distinct): n=6 class 0 1123, n=7 156. Out-deg 2 rejects only from n=8.
 - CHZ Cor 3.6 "monomial?" UNVERIFIED; arxiv.org blocked (403). Do not retry.
-- Terms: gate = `mutationIsPossibleAtVertex`; guard = Coxeter key same. Say which.
+- Terms: gate = `mutationIsPossibleAtVertex`; guard = Coxeter key same.
 
 ## Did
-- R001..R023 (see rounds/*/scholar_*.py). R025: scholar_n8rejects.py (classify + Cartan test of out-degree >= 2 rejects), n = 8 row via r023 script.
+- R001..R025 (rounds/*/scholar_*.py). R027: scholar_pairtest.py (equal-signature pair test, --hand cases D/G/H, walks n=7,8).
+- Do not run two walks plus other persona jobs and `pkill -f` in the same shell (killed my shell once); background with nohup, poll with sleep < 120 s.
 
 ## Next
-- n = 9 class 0 walk with the classifier (overnight proposal; needs checkpointing).
-- Hand-verify a second D' example (esp. a dim J = 2 one); extend classifier to test c.beta in I via zero relations explicitly.
-- Classes 1-3 at n = 6..8 unrun. Diagonal and i,j != k Cartan entries underived.
-- Lesson: a regularity checked to n = 7 is not a theorem; always run one size further before writing "iff". Referee found it in 200 s.
+- Prove/refute: LNA-derived algebras have no nn 2-cycle or length >= 3 circuit (relation shape: one relation per start vertex?). Try to build H or D inside an LNA walk by hand.
+- n = 9 class 0 pairtest (overnight, needs checkpointing); tally >= 3-term relations among J != 0 rows.
+- Classes 1-3 at n = 6..8 for out-degree 1 unrun. Diagonal and i,j != k Cartan entries underived.
+- Lesson: a test that "agrees with the data" can be wrong in the other direction; check the sign/coefficient model first (arrowRels vs rels).

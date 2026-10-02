@@ -6,6 +6,39 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-112 — Deleting a vertex of an LNA at n = 9 keeps same-class pairs together about twice as often as chance (0.43 vs 0.19 at i = j = middle), for no choice of position; stripping a free end of >= 3 vertices gives an image class that depends only on the source class at n = 8, 9, 10 (3, 5, 10 resolved classes)
+*2026-10-02* · **`.venv/bin/python workshop/rounds/027/maverick_classes.py 9`; `.venv/bin/python workshop/rounds/027/maverick_null.py 9`; `.venv/bin/python workshop/rounds/027/maverick_endstrip.py 10`** · *workshop round 027, maverick, refereed by toolsmith*
+
+Answers STEERING S-1 questions 1 and 2 on a first sitting. Classes are the Coxeter key, with cospectral keys split by the orbit of free, edge, double moves and the mirror; 16 LNAs at n = 9 and 176 at n = 10 stay unresolved and are dropped. Over 295 298 ordered same-class pairs at n = 9, `delta_i(L)`, `delta_j(L')` share a class with rate 0.37-0.49 for every (i, j) (0.429 at i = j = middle, 0.489 at 1, 1) against 0.17-0.19 over all pairs (n = 10: 0.375-0.467 vs 0.14); the rate is 1.0 for two rigid classes and 0.36 for the 300-member class. A per-LNA "least covered vertex nearest the middle" lands 78% in the modal image class (fixed vertex 69%), and some deletion agrees for 99.8% of every class, which is vacuous. The rule that works: delete a vertex of a free end (left of every relation, or right of every relation) of K free vertices. K >= 3: image class a function of the source class in 3 of 3, 5 of 5, 10 of 10 resolved classes at n = 8, 9, 10; K >= 2 fails for 1 class at n = 9 and 2 at n = 10; K >= 1 fails for 8 of 15 at n = 9. Referee re-ran the class counts, the K0 table and the null: all identical.
+
+**Limits.** All resolved classes having a free end of length >= 3, not all classes; 4 of 262 K >= 3 ends at n = 10 have an image label coarser than a class ('?'), which can only hide a split, and they are not excluded from the 10 of 10. The labelling is validated only by the unresolved counts, no independent route (F-045, mutation search). Small sample (3, 5, 10 classes); n >= 11 not run; no derivation (possibly a consequence of the free move F-028/H-020: not checked). Gap deletions (42 of 42, 184 of 184 one image class) not tested against chance. Question 2 (predictable invariant change) and the motivating scenario (question 3) untouched. The referee found nothing in `research/` stating the K >= 3 rule; F-028 (removing an end relation is one mutation) is the nearest.
+
+**Reproduction.** the commands above (under a minute each; n = 10 about 30 s); other scripts `maverick_*.py` in `workshop/rounds/027/`.
+
+---
+
+## E-111 — Rule W (E-107) has 0 mismatches on 32 132 fresh out-degree 2 rows (n = 8 classes 0, 2, 3; n = 9 class 0 prefix; 1 135 rows with parallel out-arrows), but only the 61 rows of n = 8 class 0 are positives: the converse is tested on one family
+*2026-10-02* · **`timeout 10m .venv/bin/python workshop/rounds/027/experimentalist_w.py 8 2 540` (also `8 3 540`, `9 0 540`, `8 0 540`; fifth argument = max expansions for an exact rerun)** · *workshop round 027, experimentalist, refereed by skeptic*
+
+Four capped guarded walks of 540 s (run in parallel, so counts are load-dependent lower bounds): out-degree 2 rows 6 211, 9 989, 10 818, 5 114; W equals (J != 0) on every row. W-and-J != 0 occurs only in n = 8 class 0 (61 rows); classes 2, 3 and n = 9 class 0 have no out-degree 2 reject (agreement of negatives, no positive control). Out-degree >= 3: 3 494 rows, 0 rejects. No row with parallel out-arrows at v is a reject. Out-degree 1 J != 0 rows (4, 0, 6, 110) are the long-square family of E-103. Referee: a deterministic 600-expansion n = 8 class 0 rerun gave 0 mismatches (575 / 2 / 21 split).
+
+**Limits.** The 540 s counts cannot be reproduced exactly (load); a parallel-arrow positive control and the "cancels" branch were not built, so "parallel rows included" exercises a code path, not a positive; the figures "300 parallel at out-degree >= 3" and "1 435 parallel rows" are not in the table and are not checkable. Not claimed: that W is a theorem (see E-110: it is false on hand-built algebras). n = 9 class 0 beyond the prefix: not run, no overnight adopted.
+
+**Reproduction.** the commands above (9 min each); the 600-expansion check takes 23 s.
+
+---
+
+## E-110 — "Reject => W" is not derivable from step 7 and is false for hand-built algebras (cases D, G, H); for relations that are monomials and differences p - q, J != 0 iff the graph Gamma_i has a circuit, and W is its length-2 ground-path case; on walks J != 0 is always a length-2 ground path
+*2026-10-02* · **`timeout 10m .venv/bin/python workshop/rounds/027/scholar_pairtest.py --hand`; `... scholar_pairtest.py 8 200 0` (also `8 200 1`, `7 150 0`)** · *workshop round 027, scholar, refereed by theorist*
+
+`J_i = ker(g_i)` is defined by the parent algebra alone; step 7 only supplies the Cartan link (E-097), so no step of `mutateAtVertex` proves or refutes "reject => W". Lemma (proved for relations that are monomials and differences p - q, scalar 1): for gate-admitted v, J_i != 0 iff Gamma_i has a circuit, where Gamma_i has a vertex per nonzero class of e_iAe_{tb} for each out-arrow b and an edge per class of e_iAe_v joining its two products (a zero product is an edge to a ground vertex); a minimal element of J is an alternating sum along a circuit. Out-degree 1: J != 0 gives p1 b = p2 b with p1 != p2 (proved). W = the length-2 ground path; the other length-2 circuit (two classes with equal nonzero products on both arrows, "nn") is the "cancels" branch. Hand-built, gate-admitted, failing Cartan through `mutateAtVertex(..., checkCartan=True)` (referee reproduced, 4 s): D (nn; E-103's 19 two-out rejects), G (out-degree 1, `hasLongSquare` False, J != 0), H (3-term kernel element, no two-term witness). On three capped walks (n = 7 c0, n = 8 c0, c1) J != 0 coincides with "two scalar-normalised path combinations have equal signature" in every row; all 155 J != 0 rows are length-2 ground paths (nz/zn at out-degree 2, n at out-degree 1), never nn, never longer.
+
+**Limits.** The lemma is stated for scalar 1; with scalars lam != 1 a circuit gives a kernel element only if its gains multiply to 1 (referee), so the "iff", the +-1 coefficients and the dimension formula E - V + (components without ground) need "balanced". Relations of three or more terms, out-degree >= 3 and parallel arrows are not covered. D is E-103's example, not new; D, G, H are hand-built and not shown reachable by key-preserving walks (D is not LNA-reachable). Rows are (algebra, v), not distinct parents; counts differ run to run. Why nn and longer circuits do not occur on LNA-derived algebras is open. A tester of W must use `relationsFrom` signs and scalar-normalise (a first version found 55 false mismatches from sum-type relations). Referee did not re-run the walks (saved outputs read).
+
+**Reproduction.** the commands above (`--hand` 4 s; walks about 4 min).
+
+---
+
 ## E-109 — `longSquare` fixed for parallel arrows (reads `relationsFrom`, distinct second-to-last arrows); at n = 8 class 1 the old test missed 4 of 16 out-degree 1 J != 0 steps; resumable reject walk `toolsmith_rejwalk.py` with `--ckpt` and `--budget-hours` (resume verified at n = 7; n = 9 class 0 sized, not run)
 *2026-10-02* · **`.venv/bin/python -m pytest -q tests/test_longsquare.py -m "not slow"`; `timeout 10m .venv/bin/python workshop/rounds/026/toolsmith_rejwalk.py 8 --class 1 --budget-sec 420 --show 0`; `... 9 --plan`** · *workshop round 026, toolsmith, refereed by experimentalist*
 

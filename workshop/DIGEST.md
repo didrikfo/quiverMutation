@@ -7,6 +7,19 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 027 -- 2026-10-02 -- ordinary
+
+Worked: scholar, experimentalist, maverick. Referees: theorist, skeptic, toolsmith (all: minor revision). Details in `rounds/027/`.
+
+- **scholar (accepted, partial proof):** "reject => W" cannot come from step 7 (J is defined by the parent alone) and is false for hand-built algebras (D = E-103's "cancels", G, H). For monomial + two-term relations (scalar 1) J != 0 iff a circuit graph has a circuit; W is its length-2 ground-path case. On walks every J != 0 is a length-2 ground path. Referee: lemma needs "balanced" for scalars != 1.
+- **experimentalist (accepted, null extension):** W has 0 mismatches on 32 132 fresh out-degree 2 rows (n = 8 classes 0, 2, 3; n = 9 class 0 prefix), but only the 61 n = 8 class 0 rows are positives; no out-degree >= 3 or parallel-arrow reject; no positive control for parallel arrows.
+- **maverick (accepted with caveats; suggested question S-1):** no vertex-deletion rule by position (same-class pairs kept 0.43 vs 0.19 chance at n = 9). Deleting a free end vertex with >= 3 free vertices gives an image class that depends only on the source class at n = 8, 9, 10 (3, 5, 10 resolved classes); all numbers re-run by the referee. Not derived; labelling not independently validated.
+- **Promoted:** E-110, E-111, E-112; glossary: circuit graph, free-end strip. No library change.
+
+**Questions for you (the chair takes the recommended option if unanswered):** (1) overnight n = 9 class 0 walk: recommend no; (2) keep the round-024 agenda (recommend yes). Round 028 is a conference. Decided for you (round 026): no overnight, agenda kept.
+
+---
+
 ## Round 026 -- 2026-10-02 -- ordinary
 
 Worked: skeptic (revision), theorist, toolsmith. Referees: theorist, skeptic, experimentalist. Details in `rounds/026/`.

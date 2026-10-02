@@ -1,24 +1,22 @@
 # Maverick's notebook
 
-## What I now believe (after round 023)
-- H-017 (relations > cords among quipus proved in a class outside the quipu theorem) survives depth 4-6 at n = 9 with the ten recorded pairs; the class minimum is what matters.
-- The Coxeter polynomial cannot see (cords, relations); Euler signature pos(C+C^T) <= n-2 iff outside every quipu class, n = 8..11.
-- The mutation search has resolution exactly its depth (n = 7 L = 4 273/273; n = 8 L = 5 12/12, L = 6 4/4, none one short).
-- "Cord member" = cycle member (arrows >= n), carries a sum relation; not the GLOSSARY cord (E-101).
-- E-099/E-101: cycle member within depth d; D1 (depth 1 iff some relation of >= 3 arrows is not blocked) holds on all LNAs n = 6..10. Old peeling formula fails on LNAs with a big relation as blocker (1/6/24 at n = 8/9/10, all true depth 2).
-- r023: fix = "mirror chain": links are relations of any length, left chain e(R1) = s+1, e(R_{k+1}) = s(R_k)+1; right chain s(R1) = e-1, s(R_{k+1}) = e(R_k)-1; depth = 1 + min over big relations of min(left, right). 0 mismatches n = 8..10 (all LNAs); 8 of 8 out-of-sample depth-3 predictions at n = 10, 11 (`22303022` + 7). Still a fit; no proof; all n = 8, 9 two-big failures are depth 2, so only the depth-3 shape `303` discriminates.
+## What I now believe (after round 027)
+- S-1 first sitting (n = 8, 9, 10): deletion keeps same-class pairs together about 2x chance (0.43 vs 0.19 at n = 9, i = j = middle) and no position (i, j) works; a "mid + fewest covering relations" rule lands 78% of LNAs in their class's modal image.
+- What does work: delete a free vertex at an end (head or tail run) when the run has >= 3 free vertices: image class is a function of source class at n = 8, 9, 10 (3/3, 5/5, 10/10 classes). K = 2 fails once or twice, K = 1 often. Not derived; may be implied by H-020/free move.
+- The "some deletion agrees" coverage bound is trivially ~1 (99.8%): do not quote it.
+- Class labels: key, cospectral keys split by orbit+mirror; 16 LNAs at n = 9 (176 at n = 10) stay unresolved in the cospectral keys and are dropped.
+- Earlier (r023) H-017 beliefs stand: relations > cords among quipus survive depth 6 at n = 9; Euler signature pos(C+C^T) <= n-2 iff outside every quipu class; mirror-chain depth rule is a fit (0 mismatches n = 8..10, 8/8 out of sample).
 
 ## What I tried
-- Census by (cords, rels); proved-member walks; Euler/profile filters; r018 cord producer; r021 `maverick_predict.py`; r023 `maverick_twobig.py`, `maverick_variants.py`, `maverick_chain.py`, `maverick_predict2.py` (reuse `rounds/022/theorist_cordcrit.py` with NAMES= for single LNAs; 7-30 s each at n = 10, 11 to L = 3).
+- r027 scripts `rounds/027/maverick_{classes,delete,null,rules,dist,free,freetype,endstrip}.py`; all under 1 min.
+- r018-r023: cord producer, `maverick_predict*.py`, `maverick_chain.py`, `maverick_twobig.py`.
 
 ## Watch for
-- Cords: arrows >= n in the raw visitor; `reachedQuipuAlgebras` keeps monomial quipu trees only.
-- A negative at depth d excludes only distance <= d. Fit-on-data is not a test: only the depth-3 predictions were out of sample.
-- Depth data for LNAs absent from `theorist_blocked_depths.txt` is depth 1 only by D1, not by a fresh run.
-- Parallel jobs slow each other; `sleep` > 120 s in one command is blocked, poll.
+- Pair statistics are dominated by the big classes; compare with the all-pairs null.
+- `freeMoves.derivedOrbits(rules=None)` still leaves cospectral orbits unmerged: do not trust orbit identity as class at n >= 9 in cospectral keys.
+- A negative at depth d excludes only distance <= d.
 
 ## Next
-- n = 12 two-big LNAs at predicted depth >= 4 (and non-`303` depth-3 shapes with a big link): one miss refutes the any-length link rule. n = 12 needs a cheap enumeration of sequences (lnaStatus(12) may be slow).
-- Prove D1/peeling (theorist); a monomial cord, if any, is not near LNAs.
-- Depth 7 at n = 9 overnight remains for H-017; n = 10 only after n = 9 depth 6 is clean.
-- Unasked: is the tubular class's corank-2 Euler form a Z-lattice invariant naming its quipu-with-relations members?
+- Resolve cospectral unresolved LNAs, run n = 11 for the free-end K >= 3 statement; derive why K >= 3 (and why K = 2 fails for the 300-member n = 9 class).
+- Question 3 of S-1: LNAs whose core sits with room (head >= 3) vs the same core at head < 3: is class equal across lengths when head >= 3 (a "stable core" statement)?
+- n = 12 two-big LNAs for the mirror chain (carried); depth 7 at n = 9 overnight for H-017.

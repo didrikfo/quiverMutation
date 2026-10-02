@@ -1,0 +1,7 @@
+n 8 class 1 algebras 6293 200s
+('outdeg', 1, 'J!=0', 'W2', 'n') 5
+('outdeg', 1, 'J=0', 'noW2', '') 18228
+('outdeg', 2, 'J!=0', 'W2', 'nz') 10
+('outdeg', 2, 'J!=0', 'W2', 'zn') 5
+('outdeg', 2, 'J=0', 'noW2', '') 7514
+('outdeg', 3, 'J=0', 'noW2', '') 850
