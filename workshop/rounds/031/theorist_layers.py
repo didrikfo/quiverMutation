@@ -8,10 +8,13 @@ src = open('workshop/rounds/023/scholar_longsquare.py').read()
 pre = src.split("if a.hand:")[0].replace("a = p.parse_args()", "a = p.parse_args([])")
 exec(compile(pre, 'ls', 'exec'))
 from collections import Counter
-m = int(MY[1]); n = m + 4
+m = int(MY[1]); npend = int(MY[2]) if len(MY) > 2 else 0; n = m + 4
 lk = set()
-for lna in nk.LinearNakayamaAlgebra.allOfLength(n):
-    for alg in (lna, pathAlgebra.dualPathAlgebra(lna)): lk.add(search._coxeterKeyOrNone(alg))
+lkN = {}
+for N in range(n, n + npend + 1):
+    lkN[N] = set()
+    for lna in nk.LinearNakayamaAlgebra.allOfLength(N):
+        for alg in (lna, pathAlgebra.dualPathAlgebra(lna)): lkN[N].add(search._coxeterKeyOrNone(alg))
 def partitions(items):  # set partitions of items plus optional zero block: yield label list with label 0 = zero
     items = list(items)
     def rec(i, lab, used):
@@ -55,7 +58,21 @@ for l1 in partitions(range(m)):
                 else: rels += [[[V, AS[ks[j]], v, T], [V, AS[ks[j + 1]], v, T]] for j in range(len(ks) - 1)]
         A = build(arrows, rels, list(range(1, n + 1)))
         kd, mono = kerdim(A, v, procedure.relationsFrom(A))
-        key = search._coxeterKeyOrNone(A); inl = key in lk
+        key = search._coxeterKeyOrNone(A)
+        inl = key in lkN[n]
+        if kd > 0 and not mono and npend:
+            # pendant extensions (not at v): any LNA key at the longer length?
+            def ext(arr_, nodes_, depth):
+                if depth == npend: return False
+                new = max(nodes_) + 1; got = False
+                for u in nodes_:
+                    if u == v: continue
+                    for e in ((u, new), (new, u)):
+                        B = build(arr_ + [e], rels, nodes_ + [new])
+                        if search._coxeterKeyOrNone(B) in lkN[len(nodes_) + 1]: got = True
+                        got = ext(arr_ + [e], nodes_ + [new], depth + 1) or got
+                return got
+            inl = ext(arrows, list(range(1, n + 1)), 0) or inl
         tab[(sh, kd > 0, mono, inl)] += 1
         if inl and not (sh and all(s[0] == 'W' for s in sh)) and not mono: hits.append((l1, l2, sh))
 print('m =', m, 'n =', n)
