@@ -1,0 +1,6 @@
+n 6 class 0 expanded 3000
+key = (K, (p1*b2 in I, p2*b2 in I), W-clause(diff in I), (M suffix of p1, of p2), (len p1, len p2), len M)
+3 (False, (False, True), False, (False, True), (2, 1), (2,)) 
+    e.g. R= {((3, 1, 0), (1, 6, 0), (6, 2, 0)): 1, ((3, 6, 0), (6, 2, 0)): 1}  M= [((3, 6, 0), (6, 4, 0))]
+2 (False, (True, False), False, (True, False), (1, 2), (2,)) 
+    e.g. R= {((3, 6, 0), (6, 2, 0)): 1, ((3, 4, 0), (4, 6, 0), (6, 2, 0)): 1}  M= [((3, 6, 0), (6, 1, 0))]

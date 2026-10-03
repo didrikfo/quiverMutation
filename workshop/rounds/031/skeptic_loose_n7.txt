@@ -1,0 +1,6 @@
+n 7 class 0 expanded 2522
+key = (K, (p1*b2 in I, p2*b2 in I), W-clause(diff in I), (M suffix of p1, of p2), (len p1, len p2), len M)
+8 (False, (False, True), False, (False, True), (2, 1), (2,)) 
+    e.g. R= {((7, 2, 0), (2, 5, 0), (5, 1, 0)): 1, ((7, 5, 0), (5, 1, 0)): 1}  M= [((7, 5, 0), (5, 4, 0))]
+12 (False, (True, False), False, (True, False), (1, 2), (2,)) 
+    e.g. R= {((7, 5, 0), (5, 1, 0)): 1, ((7, 4, 0), (4, 5, 0), (5, 1, 0)): 1}  M= [((7, 5, 0), (5, 2, 0))]

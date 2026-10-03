@@ -1,28 +1,27 @@
 # Toolsmith notebook
 
 ## Round 003
-- `orbitCensus`/`OrbitsTask` in `batch.py` (ledger keyed by core word; `--jobs`, `--plan`, `--summary`, `--budget-hours`). `45` at 13 pinned in tests/test_orbits_task.py.
-- Not done on purpose: a key prefilter that skips walks (E-058). Ledger unsafe under two concurrent processes on one file.
+- `orbitCensus`/`OrbitsTask` in `batch.py` (ledger by core word; `--jobs`, `--plan`, `--summary`, `--budget-hours`). Ledger unsafe under two concurrent processes on one file. A key prefilter that skips walks was refused on purpose (E-058).
 
-## Round 006 (T3/T8)
-- `rounds/006/toolsmith_orbitclass.py N`: orbit classes; n = 12 48 s ... n = 16 ~32 min.
-- Trap: the shell blocks `sleep N` chains; poll with `timeout .. bash -c 'until grep -q ...'`; foreground over 120 s goes to background. `rm -f $VAR/*` is blocked: use a fresh directory.
+## Round 006-017
+- `rounds/006/toolsmith_orbitclass.py N`: n = 12 48 s ... n = 16 ~32 min.
+- Traps: shell blocks `sleep N` chains (poll with `timeout .. bash -c 'until grep -q ...'`); `rm -f $VAR/*` blocked, use a fresh dir.
+- `rounds/013/toolsmith_verify.py`, `toolsmith_control.py`; `rounds/015/toolsmith_cords.py` (E-087). Patched `arrowPaths.reduceAgainstPivots` (E-085/E-089).
 
-## Round 010-017
-- `rounds/013/toolsmith_verify.py`, `toolsmith_control.py`; `rounds/015/toolsmith_cords.py` (n = 8 control 2 members at depth 6, E-087).
-- Patched `arrowPaths.reduceAgainstPivots` (E-085/E-089), test in tests/test_procedure.py.
+## Round 019-026 (T5)
+- `rounds/019/toolsmith_walk.py` (checkpointed); `rounds/022/toolsmith_replay.py`; `QM_CHECK_CARTAN=1` opt-in (15 ms/step).
+- Round 026: `toolsmith_longsquare.py` + tests/test_longsquare.py (parallel arrows fixed); `toolsmith_rejwalk.py n --class I --ckpt F --budget-hours H`. n = 9 c0: 14 exp/s, ratio ~2.5, may not close; overnight proposed, not run.
 
-## Round 019/022 (T5)
-- `rounds/019/toolsmith_walk.py` (checkpointed scholar_walk); `rounds/022/toolsmith_replay.py`; `QM_CHECK_CARTAN=1` opt-in (15 ms/step).
+## Round 029 (S-1)
+- `rounds/029/toolsmith_snfresolve.py N [--plan]` places the 16 n = 9 and 176 n = 10 unresolved LNAs via F-047 profile. Lesson: grep FINDINGS for an existing derived invariant before sizing a search. Placement is by exclusion, not proof.
 
-## Round 026 (T5)
-- `rounds/026/toolsmith_longsquare.py` + tests/test_longsquare.py (parallel arrows fixed); `toolsmith_rejwalk.py n --class I --ckpt F --budget-hours H`. n = 9 c0: 14 exp/s, level ratio ~2.5, may not close; overnight cmd proposed, not run.
-
-## Round 029 (S-1 validation)
-- Cheapest independent invariant is already in the record: F-047 profile (SNF of g(Phi) per factor + SNF of C+C^T). `rounds/029/toolsmith_snfresolve.py N [--plan]` places all 16 unresolved n = 9 LNAs (P^(1,4)_(1,0,1)) and all 176 at n = 10 (104/32/24/16) in 4 s / 12 s. Sound on resolved classes.
-- Lesson: before sizing a mutation search, grep FINDINGS for an existing derived invariant; the n = 9 case was a rediscovery of F-047's orbit table. Placement is by exclusion of the other quipu class, not a proof of membership.
-- Belief: the maverick '?' gap is a gap in `classes()` (orbit join), not in the classification.
+## Round 031 (T5 controls)
+- `rounds/031/toolsmith_parallel.py --controls | --dimcheck N seed`. Doubled-arrow parents (W-type, cancels, out-degree 2 with parallel out-arrows, G) are gate-admitted, J = 1, Cartan FAILS; W True on all but the tripled-arrow H chain (J = 1, W False). Gate sees single paths only, so Cartan is the real test.
+- The code's W is True on the nn "cancels" case (second relation kills x b2); it is only sound-one-way (W => J != 0 trivially). Open question to skeptic: what W is meant to be.
+- dim e_iAe_v (len paths - len idealBasis) matches an independent sympy rank on 7 571 + 26 009 doubled-arrow pairs incl. mutated children: E-117 caveat lifted.
+- Trick: hand-built parallel algebras need `procedure.toPathAlgebra(multigraph, [arrow-path dicts])`; `PathAlgebra.add_rel` vertex lists cannot express them. Preamble hack (exec rounds/023 up to "if a.hand:") overwrites `_argv`; save argv under another name.
 
 ## Next
-- Opt-in profile column in `coxeterTables` + test; n = 11 cospectral LNAs.
+- Opt-in profile column in `coxeterTables` + test; n = 11 cospectral LNAs resolver.
 - Overnight n = 9 c0 reject walk if approved; L = 5 MONO `--plan`; whole-walk QM_CHECK_CARTAN overhead.
+- Promote the controls into tests/ if the chair wants W regression-guarded (needs a decision; W lives only in workshop scripts).
