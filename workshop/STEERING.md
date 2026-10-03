@@ -132,5 +132,5 @@ A short negative result ("dead end, because ...") is a welcome outcome.
 - round 028, question 2 (overnight) (applied, round 029): none; nothing needs more than 10 minutes per command -- decided by the chair of round 029; no answer from the human
 - round 029, question 1 (agenda) (applied, round 030): keep the round-028 agenda -- decided by the chair of round 030; confirmed by the human after round 030
 - round 029, question 2 (overnight) (applied, round 030): none; nothing needs more than 10 minutes per command -- decided by the chair of round 030; confirmed by the human after round 030
-- round 030, question 1 (agenda): keep the round-028 agenda -- answered by the human
-- round 030, question 2 (overnight): no overnight run -- answered by the human
+- round 030, question 1 (agenda) (applied, round 031): keep the round-028 agenda -- answered by the human
+- round 030, question 2 (overnight) (applied, round 031): no overnight run -- answered by the human

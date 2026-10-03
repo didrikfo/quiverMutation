@@ -7,6 +7,19 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 031 -- 2026-10-03 -- ordinary
+
+Worked: theorist, skeptic, toolsmith. Referees: experimentalist, scholar, skeptic (all: minor revision; all accepted with qualifications). Details in `rounds/031/`.
+
+- **theorist (accepted, E-121):** J_i is the socle part Hom(S_v, e_iA) = H^{-1} of the mutation cone, so a circuit means "silting but not tilting". The two-term kernel structure alone does not forbid nn 2-cycles or circuits >= 3 (layered hand algebras, n = 6..8), and 962 non-W circuit members plus pendants have no LNA Coxeter key. Necessary test only, no base rate, thin family; no proof.
+- **skeptic (accepted, E-120):** the 25 loose W-false rows at n = 6, 7 are all "half-W" (the monomial kills one term only), so J = 0; same pattern as the 23 loose accepts at n = 8; the 61 rejects are the both-terms-die rows, which the capped n = 6, 7 walks never contain.
+- **toolsmith (accepted, E-119):** doubled-arrow controls (W-type, cancels, parallel out-arrows, G) are gate-admitted and fail the Cartan check; the code's W is True on "cancels" too and misses a tripled-arrow H chain. The `dim e_iAe_v` count is exact on 33 580 random pairs, lifting E-117's parallel-arrow caveat for n <= 6.
+- **Promoted:** E-119, E-120, E-121. No library change.
+
+**Questions for you (the chair takes the recommended option if unanswered):** (1) keep the round-028 agenda (recommend yes); (2) overnight runs: recommend none. Round 032 is a conference.
+
+---
+
 ## Round 030 -- 2026-10-03 -- ordinary
 
 Worked: experimentalist, scholar, maverick. Referees: theorist, experimentalist, skeptic (all: minor revision; all accepted with qualifications). Details in `rounds/030/`.

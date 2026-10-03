@@ -6,6 +6,39 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-121 — The two-term kernel structure alone does not exclude nn 2-cycles or circuits >= 3: layered hand algebras at n = 6..8 realise every circuit shape with J != 0, and none of the 962 non-W circuit members (plus pendants) has an LNA Coxeter key
+*2026-10-03* · **`timeout 10m .venv/bin/python workshop/rounds/031/theorist_t3.py 2` (12 s), `.../theorist_layers.py 3 2`, `.../theorist_layers.py 4 1` (84 s)** · *workshop round 031, theorist, refereed by experimentalist*
+
+Reduction (derived, not tested numerically): for a gate-admitted v the minimal left approximation of P_v is the sum of the P_tb over out-arrows b, so J_i = {x in e_iAe_v : x * rad A = 0} = Hom(S_v, e_iA) (copies of S_v in the socle of e_iA) = H^{-1} of the mutation cone; a circuit in Gamma_i is therefore "the left mutation is silting but not tilting" (the socle / H^{-1} wording is not elsewhere in `research/`; the Aihara-Iyama 2.31/2.32 check is not done). Consequence: the shape of g_i cannot forbid nn or long circuits; whatever does must be derived equivalence to an LNA. Layered family i -> {a_k} -> v -> {t1,t2} (n = m + 4): non-W members with J != 0 and no single path in J: 1 (m = 2), 48 (m = 3), 900 (m = 4), all with 0 LNA-key hits, with 0..2 pendants; hand circuit-3 example T3 (n = 7) and D (n = 6): 0 hits in 180 and 130 pendant extensions. Control: W plus one pendant reaches an LNA key (6 of 10), W plus two pendants 30 of 130.
+
+**Limits.** The key test is necessary only (a miss is an obstruction, a hit proves nothing). No base rate for "key is an LNA key" in the family is given, so 0 hits is weakly informative: the pure-W members at m = 3, 4 (6, 36) also have 0 hits, so the control is empty for m >= 3. The family is thin (one source, one v with two sinks, scalar 1, no relations on the a_k side, pendants not attached at the a_k or i with relations). The 180 vs 130 extension counts and the m = 4 nn / W+nn split were not reproduced by the referee. No proof; no library change.
+
+**Reproduction.** the commands above.
+
+---
+
+## E-120 — The 25 loose-shape W-false rows at n = 6, 7 class 0 are all "half-W": the monomial kills one term of p1 b1 = p2 b1 and not the other, so J = 0; the 23 loose accepts at n = 8 c0 have the same pattern and the 61 rejects are the rows where both terms die
+*2026-10-03* · **`timeout 10m .venv/bin/python -u workshop/rounds/031/skeptic_loose.py 6 0 3000` (also `7 0 2522`, `8 0 5145`; 100-170 s); outputs `skeptic_loose_n{6,7,8c0}.txt`** · *workshop round 031, skeptic, refereed by scholar*
+
+Per (relation R, monomial M) pair on the E-114 walks. n = 6: 5 pairs, all Half (exactly one of p1 b2, p2 b2 in I); n = 7: 20, all Half; n = 8 c0: 84 = 23 Half + 61 Both. In every pair the W clause (p1 - p2) b2 in I, the "both die" pattern and J != 0 coincide (109 pairs, no mismatch). The 25 n = 6, 7 rows are arrow-versus-path squares (term lengths (2,1) or (1,2)); the n = 8 Half rows have lengths (2,1)/(1,2) x14, (2,2) x5, (2,3)/(3,2) x4. So answering E-114's open question: W and the gate do not differ between n = 6, 7 and n = 8; what differs is that the capped n = 6, 7 walks contain no both-terms-die row.
+
+**Limits.** Referee: of the 61 Both rows, 7 have M as a suffix of both terms (so "the second term dies by a different relation" is false for those); the "gate" agreement is taken from E-111/E-114, not computed by the script; "100% of the 25 have a single-arrow term" is read from the length key, not printed per row. Whether the absence of Both rows below n = 8 is walk reach or the algebras is undecided (capped prefix walks). No library change.
+
+**Reproduction.** the commands above.
+
+---
+
+## E-119 — Hand-built doubled-arrow parents (W-type, cancels, parallel out-arrows, G) are gate-admitted, have J = 1 and fail the Cartan check; the code's W flags all but a tripled-arrow H chain, and the `dim e_iAe_v` count agrees with an independent exact-rank count on 33 580 pairs: the E-117 parallel-arrow caveat is lifted for random acyclic quivers on 4..6 vertices
+*2026-10-03* · **`.venv/bin/python workshop/rounds/031/toolsmith_parallel.py --controls` (1.5 s); `timeout 10m .venv/bin/python workshop/rounds/031/toolsmith_parallel.py --dimcheck 1500 2` (18 s)** · *workshop round 031, toolsmith, refereed by skeptic*
+
+Eleven hand cases (P1..P6 positives with a doubled or tripled arrow, N1..N3 negatives, plain twins D0, W0): every positive is gate-admitted, J = 1 (an independent rank agrees) and `mutateAtVertex(..., checkCartan=True)` fails; negatives are congruent. W (the E-111 code) is True on P1..P4 and on the "cancels" case P3, False on P6 (tripled H chain: W tests only one pair of out-arrows). Because the code's W is "x b2 in the ideal", it is True on the nn case too and cannot separate nn from nz; E-110's "W misses D" refers to the narrower ground-path reading. Dim check: 1 132 random acyclic quivers (4..6 vertices, >= 1 doubled arrow, 1..4 monomial / two-term relations, seed 2), 7 571 (i,v) pairs, 0 dim mismatches, 0 J mismatches at 3 579 vertices (J > 0 at 125); 3 271 mutated children, 26 009 pairs, 0 dim mismatches. So E-117's dim 2 at depth 4 is not a parallel-arrow counting artefact.
+
+**Limits.** The check validates path and ideal-rank counting only (same generator and `relationsFrom` as the code under test; scalars +-1; n <= 6); the n = 8 walk algebras were not re-counted. W was not run against J on the random sample, so "W and J agree on parallel rows" is shown only for the hand-built cases. W's out-degree >= 3 behaviour is untested. No library change.
+
+**Reproduction.** the commands above.
+
+---
+
 ## E-118 — Deleting a free end of K >= 3 free vertices still sends a source class to one image class at n = 8, 9, 10 with the E-115 labels (3/3, 6/6, 12/12 classes) but not at n = 11 (20 of 21 classes; one class splits inside a single orbit); K >= 4 holds on the 10 resolved classes at n = 11
 *2026-10-03* · **`timeout 10m .venv/bin/python workshop/rounds/030/maverick_endstrip2.py 10` (also `8`, `9`, `11`; 15 s, 61 s at 11) and `workshop/rounds/030/maverick_fail11.py` (~70 s)** · *workshop round 030, maverick, refereed by skeptic*
 

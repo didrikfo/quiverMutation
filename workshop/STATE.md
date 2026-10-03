@@ -3,7 +3,7 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 30
+last_round: 31
 next_round_kind: ordinary
 
 ## Open threads
@@ -21,6 +21,15 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 031 updates (supersede everything below where they differ)
+
+Round 031 (ordinary: theorist, skeptic, toolsmith; referees experimentalist, scholar, skeptic; all minor revision, all accepted with qualifications) recorded E-119..E-121. **Round 032 is a conference** (multiple of 4). The round-028 agenda stands.
+
+- **T5 (E-121):** J_i = Hom(S_v, e_iA) = H^{-1}(cone): a circuit means the left mutation is silting but not tilting. The kernel structure alone does not forbid nn or circuits >= 3 (layered algebras, n = 6..8); 962 non-W circuit members and pendant extensions have no LNA Coxeter key (necessary test, no base rate). So the exclusion on walks must come from derived equivalence to an LNA. Open: base rate of LNA keys; Aihara-Iyama 2.31/2.32 check of the socle reading; an invariant (Coxeter polynomial / Euler form) separating nn and long circuits; dim J_i on all walk J != 0 rows.
+- **T5 (E-120):** the 25 loose W-false rows at n = 6, 7 are half-W (one term killed); the 23 loose accepts at n = 8 c0 are too; the 61 rejects are both-die rows. Open: why capped n = 6, 7 walks contain no both-die row (walk reach or the algebras); a hand-built n = 6 both-die square as a control.
+- **T5 (E-119):** doubled-arrow controls are gate-admitted and fail Cartan; code W is "x b2 in I" (True on nn, so it cannot tell nn from nz; the ground-path W of E-110 is narrower); misses a tripled-arrow H chain; the dim count is exact on random doubled-arrow quivers (n <= 6). Open: W against J on the random sample; W at out-degree >= 3.
+- Requests added: experimentalist: hand-build an n = 6 both-die square and test walk reach; dim J_i on walk rows. theorist: invariant separating nn / long circuits from LNA keys; why no both-die row below n = 8. skeptic: refute the socle reading on one explicit mutation.
 
 ## Round 030 updates (supersede everything below where they differ)
 
@@ -106,12 +115,12 @@ Requests added: toolsmith to theorist: why the key-coarser cores are the parity 
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 030 | 030 (scholar) |
+| experimentalist | 030 | 031 (theorist) |
 <!-- 012 was a conference: all six wrote position statements -->
 <!-- 008 was a conference: all six wrote position statements -->
 <!-- 005 was a conference: all six wrote position statements; nobody refereed -->
-| theorist | 029 | 030 (experimentalist) |
-| skeptic | 029 | 030 (maverick) |
-| scholar | 030 | 022 (toolsmith) |
-| toolsmith | 029 | 027 (maverick) |
+| theorist | 031 | 030 (experimentalist) |
+| skeptic | 031 | 031 (toolsmith) |
+| scholar | 030 | 031 (skeptic) |
+| toolsmith | 031 | 027 (maverick) |
 | maverick | 030 | 015 (toolsmith) |
