@@ -3,7 +3,7 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 29
+last_round: 30
 next_round_kind: ordinary
 
 ## Open threads
@@ -21,6 +21,14 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 030 updates (supersede everything below where they differ)
+
+Round 030 (ordinary: experimentalist, scholar, maverick; referees theorist, experimentalist, skeptic; all minor revision, all accepted with qualifications) recorded E-116..E-118. **Round 031 is ordinary; 032 is the next conference.** The round-028 agenda stands. Rounds 021-026 updates were dropped as superseded (see their proceedings).
+
+- **T5 (E-116, E-117):** cone estimate: child `dim e_iAe_v <= max(d, M d)`, M = out-degree at the mutated vertex (0 violations on 46 586 edges); thin Hom only at depth 1 from an LNA. Measured max dim at n = 8 c0/c1 is 1 to depth 3, 2 at depth 4, then grows (8 at depth 8): it does NOT bound E-113's circuits. Caveats: depth = BFS depth through acyclic algebras only; dim count unvalidated for parallel arrows (a doubled relation gives dim 2). Open: restrict to non-parallel pairs; the mechanism behind "components <= 2 edges" must come from the two-term kernel structure (g_i), not a dimension bound; the 4 coefficient-2 pairs; match the 22 to the 28; n = 9.
+- **S-1 (E-118):** with E-115 labels the free-end K >= 3 rule holds at n = 8, 9, 10 (3/3, 6/6, 12/12) and fails at n = 11 (20/21; one class of 1305 LNAs splits inside one orbit); K >= 4 holds on the 10 resolved n = 11 classes. Open: per-end table of the K = 3 failure; K >= 4 among the 418 unresolved sources; derive the rule (F-028/H-020); is the threshold K >= 4 at n = 12; core-with-room question 3.
+- Requests added: experimentalist: dim count at non-parallel pairs; Gamma_i shapes of the dim-3 out-2 rows; n = 9 c0 prefix. maverick/toolsmith: per-(orbit, K) image table for the n = 11 failure; resolve more n = 11 sources by another route. theorist: derive the K threshold; two-term kernel route to "no circuit >= 3".
 
 ## Round 029 updates (supersede everything below where they differ)
 
@@ -49,22 +57,6 @@ Round 027 (ordinary: scholar, experimentalist, maverick) recorded E-110..E-112, 
 - **S-1 (E-112):** no positional rule for deleting a vertex (same-class pairs kept 0.43 vs 0.19 chance at n = 9); deleting a free end vertex with K >= 3 free vertices there gives an image class depending only on the source class at n = 8, 9, 10 (3, 5, 10 resolved classes). Open: derive it (F-028/H-020?); '?' ends at n = 10; independent validation of the class labels; n = 11; the 16 unresolved n = 9 LNAs; question 3 of S-1 (core with room to move).
 - Requests added: theorist: why no nn/longer circuit on LNA-derived algebras; the balanced-circuit lemma; why K >= 3. toolsmith/experimentalist: resolve the 16 n = 9 and 176 n = 10 cospectral LNAs; hand-built parallel and "cancels" controls for W. experimentalist: n = 11 for the K >= 3 rule.
 
-## Round 026 updates (supersede everything below where they differ)
-
-Round 026 (ordinary: skeptic revision, theorist, toolsmith) recorded E-107..E-109, all accepted with caveats. **Round 027 is ordinary; 028 is the next conference.** The round-024 agenda stands.
-
-- **T5 (E-107, E-108):** candidate rule W: reject (J != 0) iff some two-term relation p1 b1 = p2 b1 has both sides through v, x = p1 - p2 != 0, and p1 b2 = 0 = p2 b2 in A (0 mismatches over 17 802 out-degree 2 rows, n = 8 c0/c1, n = 7 c0). Referee-confirmed for n = 8 c1 only. Weak: converse rests on 70 same-shape rejects; the "cancels" branch is never exercised; parallel-arrow rows skipped. The 42 n = 8 c0 rejects each have x a two-term sum (E-108); 15 of 42 survive the shorter presentation.
-- **T5 (E-109):** `longSquare` fixed for parallel arrows (workshop script, tests in `tests/test_longsquare.py`); resumable `toolsmith_rejwalk.py` with `--ckpt`/`--budget-hours`. n = 9 class 0 would be multi-night and may never close; no overnight adopted.
-- Requests added: theorist/experimentalist: test W on n = 9 class 0 prefix, classes 2-3, parallel-arrow rows, and a constructed example of the "cancels" branch; theorist: prove reject => W from step 7. skeptic: null test for W (a random same-shape control). Not taken up: S-1 (vertex deletion), still free.
-
-## Round 025 updates (supersede everything below where they differ)
-
-Round 025 (ordinary: scholar revision, skeptic, experimentalist) recorded E-105, E-106. **Round 026 is ordinary; 028 is the next conference.** The round-024 agenda stands.
-
-- **T5 (E-105):** at n = 8 class 0 the walk-level "reject iff long square" fails: 61 out-degree 2 rejects (D' type: commute into one arrow, zero relation into the other), all fail Cartan through the rewrite. Accepted. n = 9 class 0 prefix shows none (coverage-dependent). Open: why n = 8 and not n <= 7; kernel element x; D' at n = 9 (needs a checkpointed run); is the intrinsic statement "J != 0, no single path in J" a theorem.
-- **T5 (E-106):** class 1 recurrence of out-degree >= 2 rejects; counts depend on load, so report coverage by algebra count. The out-degree 1 "no square" rejects are parallel-arrow long squares missed by `longSquare` (the test needs a fix for repeated vertex lists). Skeptic's control: shape "two out-arrows each carry a relation" is necessary in sample, not sufficient (754 accept / 42 reject).
-- Requests added: toolsmith: fix `longSquare` for parallel arrows; checkpoint for an n = 9 class 0 walk with the reject classifier. theorist: explain the control (what separates the 42 from the 754). Not taken up: S-1 (vertex deletion) in STEERING, still free.
-
 ## Round 024 (conference) -- proposed agenda (proposed, round 024; supersedes the round-020 agenda; ordinary rounds work from it until the human changes it in STEERING.md)
 
 Details: `rounds/024/proceedings.md`. Round 025 is ordinary; next conference 028. T1-T9 and the round updates below stay current.
@@ -72,24 +64,6 @@ Details: `rounds/024/proceedings.md`. Round 025 is ordinary; next conference 028
 2. **Mirror chain** (T6): maverick sorts the 24 failing LNAs by big blocker; experimentalist n = 11/12 deeper shapes; theorist a derivation.
 3. **Split words / shuttle / `k(33x) = 2x`** (T1/T2/T4): experimentalist n = 15..17; theorist shuttle row.
 4. **Cord = commutativity cycle** (T6): theorist, toolsmith.
-
-## Round 022 updates (supersede everything below where they differ)
-
-Round 022 (ordinary: experimentalist, theorist, toolsmith) recorded E-100..E-102. **Next round (023) is ordinary; 024 is a conference.** The round-020 agenda stands (items 1 and 3 worked once more).
-
-- **T5 (E-100):** among tilting steps on guarded walks (n = 5..7, 479 761 steps) none has the long-sided square; all 2 104 rejecting (parent, v) (n = 6, 7 class 0) do; strict A5 is in 0.5-1.3 % of tilting steps. Open: is "reject iff long square" a theorem (step 7 / E-066 commutativity element); a long-square tilting step off the walks (E-078 family); is `alg.rels` = `relationsFrom(alg)`; classes 2-3 at n = 6, 7; the two n = 8 c2 rejections.
-- **T5 (E-102):** the 10 E-084 parents all keep the key under the fixed library and pass the opt-in Cartan check (`checkCartan` / `QM_CHECK_CARTAN=1`, ~15 ms per step); the pre-E-089 reduction fails 10 of 10. Open: whole-walk overhead; E-094's +7 distinct algebras.
-- **T6 (E-101):** "cord" = cycle member (arrows >= n, no parallel arrows). Depth-1 rule D1 (some relation of >= 3 arrows not blocked) fits n = 6..10 and an n = 11 sample (fitted among 4 variants); peeling depth 1 + min(a, b) for single-big-relation LNAs; E-099's "within 3 steps" is true for n <= 9 only (`22230222` at n = 10 needs 4). Open: derive the blocking step and the peeling step; LNAs with two big relations (no formula); max depth over all LNAs for n >= 11; the quoted "within 3" in H-017 context.
-- Requests added: theorist (to skeptic/scholar): derive "reject iff long square" from step 7. skeptic: a long-square tilting step off the walks. theorist: blocking-rule derivation, two-big-relation LNAs. experimentalist: n = 6 c2-3 and n = 7 c1+ with `--maxexp`.
-
-## Round 021 updates (supersede everything below where they differ)
-
-Round 021 (ordinary: scholar, skeptic, maverick) recorded E-097..E-099. **Next round (022) is ordinary; 024 is the next conference.** The round-020 agenda stands.
-
-- **T5 (E-097):** rewrite entries derived: (k,i) = dim coker g_i (steps 4, 6), (i,k) = dim ker psi_i (step 7, conditional on step-7 completeness); congruence fails iff some dim ker g_i != 0. Rejecting parents are long-sided squares (strict A5 only 767 of 1 123 at n = 6); "A5-shaped" in E-084/E-095 reads so. Open: control (how many tilting parents have the long square); justify e_iBe_{t alpha} = e_iAe_{t alpha}; test step-7 completeness before final reduction; replay of the 10 E-084 parents and the Cartan assertion (toolsmith, carried).
-- **T1/T2 (E-098):** "exactly one placement in the `444` orbit" is not enriched (below binomial) and holds for no-4 four-letter words as often or more (6/13/22 vs 6/9/12 at n = 12/13/14); g <= 1 beats a position null but is a property of the orbit's right-end shapes. Open: n = 15..17 (seconds per n); orbit closure of S at each n; do the no-4 exactly-one words reduce by lemma R into S.
-- **T6 (E-099):** at n = 8, cord within depth 3 iff a relation has >= 3 arrows (365 / 429); the 64 rad^2-zero LNAs have none to depth 5 (E-087: depth-6 controls exist, so not "cordless"); no monomial cord at depth 3. Open: L = 4 for LNA 205 (first cord at depth 3); n = 9; MONO positive control; proof of the criterion; no overnight run adopted.
-- Requests added: experimentalist: long-square control over tilting parents; skeptic: n = 15..17 for the null with |S| closure; theorist: prove or refute the cord criterion, shuttle row (carried); toolsmith: replay of the 10 E-084 parents and the Cartan assertion (carried).
 
 ## Round 020 (conference) -- proposed agenda (proposed, round 020; supersedes the round-016 agenda; ordinary rounds work from it until the human changes it in STEERING.md)
 
@@ -132,12 +106,12 @@ Requests added: toolsmith to theorist: why the key-coarser cores are the parity 
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 027 | 029 (toolsmith) |
+| experimentalist | 030 | 030 (scholar) |
 <!-- 012 was a conference: all six wrote position statements -->
 <!-- 008 was a conference: all six wrote position statements -->
 <!-- 005 was a conference: all six wrote position statements; nobody refereed -->
-| theorist | 029 | 029 (skeptic) |
-| skeptic | 029 | 029 (theorist) |
-| scholar | 027 | 022 (toolsmith) |
+| theorist | 029 | 030 (experimentalist) |
+| skeptic | 029 | 030 (maverick) |
+| scholar | 030 | 022 (toolsmith) |
 | toolsmith | 029 | 027 (maverick) |
-| maverick | 027 | 015 (toolsmith) |
+| maverick | 030 | 015 (toolsmith) |

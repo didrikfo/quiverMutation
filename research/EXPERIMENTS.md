@@ -6,6 +6,39 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-118 — Deleting a free end of K >= 3 free vertices still sends a source class to one image class at n = 8, 9, 10 with the E-115 labels (3/3, 6/6, 12/12 classes) but not at n = 11 (20 of 21 classes; one class splits inside a single orbit); K >= 4 holds on the 10 resolved classes at n = 11
+*2026-10-03* · **`timeout 10m .venv/bin/python workshop/rounds/030/maverick_endstrip2.py 10` (also `8`, `9`, `11`; 15 s, 61 s at 11) and `workshop/rounds/030/maverick_fail11.py` (~70 s)** · *workshop round 030, maverick, refereed by skeptic*
+
+Rerun of E-112's free-end rule with the corrected class labels of E-115 (no '?' images left). Classes with an end of free length >= K0 whose ends all map to one image class (transported / classes): K0 = 3: n = 8 3/3, n = 9 6/6, n = 10 12/12, n = 11 20/21; K0 = 4: 2/2, 3/3, 6/6, 10/10; K0 = 2 fails in 0 / 1 / 2 / 9 classes at n = 8 / 9 / 10 / 11. The n = 11 failure: key (1,1,0,-1,-2,-3,-3,-2,-1,0,1,1), 1305 LNAs, images of keys (..,-2,-2,-2,..) on 34 ends and (..,-2,-3,-2,..) on 60; orbit 15107 splits 34 + 48, orbit 15035 sends 12 to the second image. The split lies inside one free/edge/double orbit and the two images have different Coxeter keys, so it is neither a source-label nor an image-label artefact. Referee reproduced every number.
+
+**Limits.** "K >= 4 holds at every n" is over resolved source classes only: 418 of the 442 n = 11 LNAs are unresolved by the profile (E-115) and dropped as sources, and how many of them have a K >= 4 end was not counted. That the K = 3 ends (66 of 82 failing-class ends; K = 4: 16) carry the failure is read from the K0 runs, not tabulated per end. No derivation; no library change.
+
+**Reproduction.** the commands above.
+
+---
+
+## E-117 — In the n = 8 class 0 and class 1 capped walks max dim e_iAe_v is 1 at BFS depth <= 3, first reaches 2 at depth 4, and keeps growing (class 0: 4 at depth 6, 6 at depth 7, 8 at depth 8): the dimension is not bounded by 1 or 2
+*2026-10-03* · **`timeout 10m .venv/bin/python workshop/rounds/030/experimentalist_dimdepth.py 8 480 0` (and `... 8 480 1`); outputs `experimentalist_dimdepth_n8c0.txt`, `_n8c1.txt`** · *workshop round 030, experimentalist, refereed by theorist*
+
+Walk capped at 480 s per class; whole levels only below the last: class 0 depths <= 8, class 1 depths <= 6. Max over all ordered pairs of dim e_iAe_v (= number of paths minus ideal basis): all 1 at depths 0-3 (146 and 356 algebras); dimension 2 first at depth 4 (6 of 80 at c0, 12 of 508 at c1); at c0 max 4 occurs at depth 6 (2 algebras), max 3 first as a maximum at depth 7 (20), 8 at depth 8; at c1 max 3 at depth 6 (14). On E-113's out-degree 2 rows the max is 1 up to depth 4, 2 from depth 5. The referee reproduced the whole levels (c0 depths 0-7, c1 depths 0-5) at 150 s caps.
+
+**Limits.** "Depth" is BFS depth through **acyclic-quiver algebras only** (cyclic ones are neither measured nor expanded), so "first at depth 4" is for that restricted graph. dim is computed from vertex-sequence paths and is unvalidated for parallel arrows: the first dim-2 example at c0 has a doubled relation `[5,4,6],[5,4,6]`, so dimension 2 (and maybe the large values) can come from parallel arrows, not circuits. No Hom between modules was computed, so nothing is established about a thin-module bound. The depth-7 and 8 rows of the c0 table are partial-level adjacent; the script's "last depth" print is off by one.
+
+**Reproduction.** the commands above (counts of the last, partial level vary with load).
+
+---
+
+## E-116 — Cone estimate for the mutation step: dim e_iAe_v of the child is at most max(d, M d) off the diagonal, M = out-degree at the mutated vertex v (parallel arrows counted); 0 violations on 46 586 mutation edges at n = 8 classes 0 and 1, attained on about 1 800; d never grows at an out-degree-1 vertex
+*2026-10-03* · **`timeout 10m .venv/bin/python workshop/rounds/030/experimentalist_refscholar_stepwise.py` (400 s walks, capped; see the file for arguments); derivation in `workshop/rounds/030/scholar.md`** · *workshop round 030, scholar, refereed by experimentalist*
+
+Derivation: apply Hom(T_j, -) and Hom(-, T_j) to the mutation triangle T_v -> B -> C, with B the minimal left add(A/P_v)-approximation (Aihara-Iyama, `research/literature/1009.3370-silting-mutation.md`) and Hom(T, T[1]) = 0; this gives dim Hom(T_j,C) <= M max_k dim Hom(T_j,T_k) and the dual. Hence from an LNA one mutation gives thin Hom (d <= 1), and at depth t d is at most the product of M(v_s) over the steps taken (not 2^t; observed M reaches 5 and 6). Referee test: 0 violations on 18 589 (c0) and 27 997 (c1) edges; M = out-degree, whereas the in-degree reading is violated on 1 268 and 1 173 edges. Consequence for E-113: a circuit of k edges needs dim >= k, so k >= 3 needs d >= 3, i.e. at least two mutations with M >= 2 or one with M >= 3. It does **not** bound the circuit components of E-113 (E-117: d reaches 4 and more). The thin-Hom statement for iterated tilted A_n is Assem-Happel as restated in `research/literature/2608.08222-iterated-tilted-type-a.md`.
+
+**Limits.** The bound is on off-diagonal pairs; the diagonal is not bounded. The depth-form bound was not tested separately (only the per-edge form). The cone estimate is standard; its novelty here is the check against the code's dim count, which has the parallel-arrow caveat of E-117.
+
+**Reproduction.** the command above.
+
+---
+
 ## E-115 — The F-047 Smith profile places all 16 unresolved n = 9 and all 176 unresolved n = 10 LNAs in one of the two quipu classes of their key (16/16 into P^(1,4)_(1,0,1); 104 / 32 / 24 / 16 at n = 10), in 3 s and 11 s; it does not carry to n = 11 (24 of 442 placed)
 *2026-10-02* · **`timeout 10m .venv/bin/python workshop/rounds/029/toolsmith_snfresolve.py 9` (also `10`; referee ran `11`, 44 s)** · *workshop round 029, toolsmith, refereed by experimentalist*
 

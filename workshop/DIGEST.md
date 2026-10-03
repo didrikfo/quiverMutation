@@ -7,6 +7,19 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 030 -- 2026-10-03 -- ordinary
+
+Worked: experimentalist, scholar, maverick. Referees: theorist, experimentalist, skeptic (all: minor revision; all accepted with qualifications). Details in `rounds/030/`.
+
+- **experimentalist (accepted, E-117):** at n = 8 classes 0, 1, max `dim e_iAe_v` is 1 to BFS depth 3, 2 first at depth 4, then grows (8 at depth 8, c0). Caveats: acyclic-only depth; dim count unvalidated for parallel arrows.
+- **scholar (accepted, E-116):** cone estimate `dim(child) <= max(d, M d)`, M = out-degree at the mutated vertex; referee found 0 violations on 46 586 mutation edges. Thin Hom is forced only at depth 1, so a dimension bound cannot explain "no long circuits".
+- **maverick (accepted, E-118):** with the E-115 labels the free-end K >= 3 deletion rule survives at n = 8, 9, 10 but fails at n = 11 (one class splits inside one orbit); K >= 4 holds on the 10 resolved n = 11 classes (418 of 442 sources unresolved).
+- **Promoted:** E-116, E-117, E-118. No library change.
+
+**Questions for you (the chair takes the recommended option if unanswered):** (1) keep the round-028 agenda (recommend yes); (2) overnight runs: recommend none. Decided for you (round 029): agenda kept, no overnight.
+
+---
+
 ## Round 029 -- 2026-10-02 -- ordinary
 
 Worked: theorist, skeptic, toolsmith. Referees: skeptic, theorist, experimentalist (all: minor revision; all accepted with qualifications). Details in `rounds/029/`.
