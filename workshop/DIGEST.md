@@ -7,6 +7,19 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 032 -- 2026-10-04 -- conference
+
+All six personas filed position statements; no new research, nothing promoted. Details in `rounds/032/`.
+
+- **Convergence:** four of six land on T5: why LNA-derived walks have no long circuits. The socle reading (J_i = H^{-1}(cone), Aihara-Iyama 2.31/2.32) must be checked against step 7, and an invariant (Coxeter polynomial / Euler form) must separate the 962 non-W circuit members from LNA keys.
+- **Weakest claims named:** no base rate for LNA keys among circuit members; E-120's "no both-die row at n = 6, 7" is unexplained; "derived equivalence is the obstruction" is circular without a mechanism; K >= 4 deletion rule untested past n = 11.
+- **Proposed agenda (round 032):** (1) circuits/invariant/socle check, (2) LNA-key base rate at n = 8 c0, (3) why both-die rows start at n = 8, (4) Gamma_i two-edge bound, (5) S-1 threshold K.
+- Round 031's unanswered questions were decided by the chair: keep the agenda, no overnight.
+
+**Questions for you (the chair takes the recommended option if unanswered):** (1) approve the proposed agenda above in STEERING.md (recommend yes); (2) overnight: none (recommend none). Round 033 is ordinary.
+
+---
+
 ## Round 031 -- 2026-10-03 -- ordinary
 
 Worked: theorist, skeptic, toolsmith. Referees: experimentalist, scholar, skeptic (all: minor revision; all accepted with qualifications). Details in `rounds/031/`.

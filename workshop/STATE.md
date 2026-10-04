@@ -3,7 +3,7 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 31
+last_round: 32
 next_round_kind: ordinary
 
 ## Open threads
@@ -21,6 +21,16 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 032 updates (supersede everything below where they differ)
+
+Round 032 was a conference (all six personas, position statements; `rounds/032/`). **Round 033 is ordinary; 036 is the next conference.** Ranked agenda **(proposed, round 032)**, replacing the round-028 agenda, pending the human's approval in STEERING.md; ordinary rounds work from it:
+1. T5: why no long circuits on walks; invariant separating LNA-derived from circuit-carrying algebras; check Aihara-Iyama 2.31/2.32 socle reading against step 7 on one mutation. theorist, scholar, skeptic.
+2. T5: base rate of LNA Coxeter keys on random gate-admitted out-degree 2 walk rows at n = 8 c0. toolsmith, skeptic.
+3. T5: why both-die rows first appear at n = 8; hand-built n = 6 both-die square; dim J_i on walk J != 0 rows. experimentalist, theorist.
+4. T5: prove the Gamma_i two-edge bound. theorist, toolsmith.
+5. S-1: core property fixing the deletion threshold K; K >= 4 at n = 12. maverick, theorist.
+Requests: theorist: restate AI 2.31/2.32, invariant, why capped walks lack both-die rows; toolsmith: key base rate, per-(orbit, vertex) table for n = 11; experimentalist: dim J_i, parallel-arrow walk controls; skeptic: refute the socle reading on one mutation.
 
 ## Round 031 updates (supersede everything below where they differ)
 
