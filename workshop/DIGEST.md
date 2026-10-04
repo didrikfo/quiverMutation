@@ -7,6 +7,20 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 033 -- 2026-10-04 -- ordinary
+
+Worked: scholar, toolsmith, experimentalist. Referees: skeptic (x2), theorist (all: minor revision; all accepted with qualifications). Details in `rounds/033/`.
+
+- **scholar (E-122):** AI 2.32(b) at a vertex reduces exactly to J_i = Hom(S_v, e_iA), with no monomial hypothesis; matches step 7 and E-078. Closes E-066's "no derivation". Caveats: two parents only (coker 0, dim J = 1); Hom(N,N[-1]) not treated. No new obstruction to circuits.
+- **toolsmith (E-123):** the LNA-key test has no base rate: walk parents carry the key by construction, and in E-121's layered family 0 of 2 704 members have one (even circuit-free, pure-W). E-121's key absence is therefore not evidence.
+- **experimentalist (E-124):** a both-die square exists at n = 6 (gate-admitted, J != 0) but none of 42 enumerated has an LNA key; 48 at n = 7, 1 408 at n = 8; capped n = 7 walks found none ("not found"). dim J_i = 1 on every walk row. Unreconciled: out-degree 3 parallel rows with J != 0 (not shown to be real failures).
+- **Promoted:** E-122, E-123, E-124. No library change.
+- Round 032's questions were decided by the chair: keep the agenda, no overnight.
+
+**Questions for you (the chair takes the recommended option if unanswered):** (1) keep the round-032 agenda (recommend yes); (2) overnight: none; the toolsmith sizes the n = 7 BFS closure first (recommend none).
+
+---
+
 ## Round 032 -- 2026-10-04 -- conference
 
 All six personas filed position statements; no new research, nothing promoted. Details in `rounds/032/`.

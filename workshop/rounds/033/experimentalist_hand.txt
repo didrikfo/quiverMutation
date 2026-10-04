@@ -1,0 +1,11 @@
+n=6 LNA key classes 4
+M1 monos 2-4-6, 3-4-6 | gate True | Wcode True | J_i {1: 1} | tiltingPlus False | key in n=6 LNA keys False | key (1, 1, -2, -4, -2, 1, 1)
+    rels [[[1, 2, 4, 5], [1, 3, 4, 5]], [[2, 4, 6]], [[3, 4, 6]]]
+M2 monos 1-2-4-6, 1-3-4-6 | gate True | Wcode True | J_i {1: 1} | tiltingPlus False | key in n=6 LNA keys False | key (1, 1, -2, -4, -2, 1, 1)
+    rels [[[1, 2, 4, 5], [1, 3, 4, 5]], [[1, 2, 4, 6]], [[1, 3, 4, 6]]]
+M3 mono 1-2-4-6, 3-4-6 | gate True | Wcode True | J_i {1: 1} | tiltingPlus False | key in n=6 LNA keys False | key (1, 1, -2, -4, -2, 1, 1)
+    rels [[[1, 2, 4, 5], [1, 3, 4, 5]], [[1, 2, 4, 6]], [[3, 4, 6]]]
+M4 comm 1-2-4-6=1-3-4-6 +mono | gate True | Wcode True | J_i {1: 1} | tiltingPlus False | key in n=6 LNA keys False | key (1, 2, -1, -4, -1, 2, 1)
+    rels [[[1, 2, 4, 5], [1, 3, 4, 5]], [[1, 2, 4, 6], [1, 3, 4, 6]]]
+M5 half: mono 3-4-6 only | gate True | Wcode False | J_i {} | tiltingPlus True | key in n=6 LNA keys True | key (1, 1, -1, -2, -1, 1, 1)
+    rels [[[1, 2, 4, 5], [1, 3, 4, 5]], [[3, 4, 6]]]

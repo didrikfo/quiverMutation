@@ -1,0 +1,6 @@
+n 6 class 0 classsize 2 expanded 8813 seen 16963 stopped True 100s
+J != 0 rows 234
+key = (out-degree, sorted dim J_i over i with J_i != 0): rows
+(1, (1,)) 234
+dim (P_iv/I) at the i with J_i != 0 -> count: {2: 234}
+EX (1, (1,)) v 6 {3: 1} [[[3, 1, 6, 2], [3, 4, 6, 2]], [[5, 3, 1, 6], [5, 3, 4, 6]]]

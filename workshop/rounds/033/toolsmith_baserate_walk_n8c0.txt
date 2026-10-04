@@ -1,0 +1,10 @@
+n 8 class 0 expanded 3000
+8621 (1, 'parent in LNA keys', True, 'parent in class', True, 'child legal', True, 'child in LNA keys', True, 'child in class', True)
+42 (2, 'parent in LNA keys', True, 'parent in class', True, 'child legal', True, 'child in LNA keys', True, 'child in class', False)
+3543 (2, 'parent in LNA keys', True, 'parent in class', True, 'child legal', True, 'child in LNA keys', True, 'child in class', True)
+559 (3, 'parent in LNA keys', True, 'parent in class', True, 'child legal', True, 'child in LNA keys', True, 'child in class', True)
+5 (4, 'parent in LNA keys', True, 'parent in class', True, 'child legal', True, 'child in LNA keys', True, 'child in class', True)
+
+real	3m10.037s
+user	3m7.656s
+sys	0m0.931s

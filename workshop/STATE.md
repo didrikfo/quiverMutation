@@ -3,7 +3,7 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 32
+last_round: 33
 next_round_kind: ordinary
 
 ## Open threads
@@ -21,6 +21,15 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 033 updates (supersede everything below where they differ)
+
+Round 033 (ordinary: scholar, toolsmith, experimentalist; referees skeptic, skeptic, theorist; all minor revision, all accepted with qualifications) recorded E-122..E-124. **Round 034 is ordinary; 036 is the next conference.** The round-032 agenda stands (proposed, pending the human).
+
+- **T5 (E-122):** AI 2.32(b) at v is exactly J_i = Hom(S_v, e_iA) (no monomial hypothesis); E-121's "H^{-1}(cone)" means H^{-1} RHom(cone, A). Open: Hom(N,N[-1]) for "silting-not-tilting iff some J_i != 0"; a case with coker != 0 or dim J >= 2; compare with printed AI text.
+- **T5 (E-123):** key test has no base rate: walk parents carry the c0 key by construction; in E-121's layered family 0 of 2 704 have an LNA key, even circuit-free and pure-W. E-121's key absence is not evidence. Open: a positive control (sinks attached elsewhere); reconcile 1 593 vs 900.
+- **T5 (E-124):** both-die squares exist at n = 6 (gate-admitted, J != 0) but none of 42 has an LNA key; 48 at n = 7, 1 408 at n = 8; capped n = 7 walks found none of the 44. dim J_i = 1 always, inside a 2-dim e_iAe_v. Open: close the n = 7 BFS or reverse-mutate the 44 toward an LNA (size with `--plan` first); why arrow-side cores never get an LNA key; out-degree 3 parallel rows with J != 0 under `checkCartan=True`; save the n = 8 enumeration output.
+- Requests added: toolsmith: size the n = 7 BFS closure. theorist: why dim J_i = 1 inside a 2-dim e_iAe_v; Hom(N,N[-1]). skeptic: mutate the out-degree 3 parallel rows with checkCartan.
 
 ## Round 032 updates (supersede everything below where they differ)
 
@@ -125,12 +134,12 @@ Requests added: toolsmith to theorist: why the key-coarser cores are the parity 
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 030 | 031 (theorist) |
+| experimentalist | 033 | 031 (theorist) |
 <!-- 012 was a conference: all six wrote position statements -->
 <!-- 008 was a conference: all six wrote position statements -->
 <!-- 005 was a conference: all six wrote position statements; nobody refereed -->
-| theorist | 031 | 030 (experimentalist) |
-| skeptic | 031 | 031 (toolsmith) |
-| scholar | 030 | 031 (skeptic) |
-| toolsmith | 031 | 027 (maverick) |
+| theorist | 031 | 033 (experimentalist) |
+| skeptic | 031 | 033 (scholar, toolsmith) |
+| scholar | 033 | 031 (skeptic) |
+| toolsmith | 033 | 027 (maverick) |
 | maverick | 030 | 015 (toolsmith) |

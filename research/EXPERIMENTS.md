@@ -6,6 +6,33 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-124 — Both-die squares exist at n = 6 as gate-admitted J != 0 algebras, but none of the 42 enumerated has an LNA Coxeter key; 48 do at n = 7 and 1 408 at n = 8; capped n = 7 walks found none of the 44 candidates; dim J_i = 1 on every walk row
+*2026-10-04* · **`.venv/bin/python workshop/rounds/033/experimentalist_bothdie.py` (enumeration, outputs `experimentalist_hand.txt`, `experimentalist_enum_n6n7.txt`, `experimentalist_reach_n7.txt`), `.../experimentalist_dimji.py` (outputs `experimentalist_dimji_n*.txt`)** · *workshop round 033, experimentalist, refereed by theorist*
+
+"Both-die": v with out-arrows b1, b2, paths p1, p2 into v with p1 b1 = p2 b1 and p1 b2, p2 b2 both killed by monomials. Hand-built at n = 6 it is gate-admitted with J = Hom(S_v, e_iA) != 0 (dim J_1 = 1; tiltingPlus False, code W True), so both-die is not impossible below n = 8 as an algebra. In the enumeration (4 core shapes, all monomial kill choices, one-arrow pendants, scalar 1) 0 of 42 gate-admitted J != 0 algebras at n = 6 have a key in the n = 6 LNA key set (necessary test only); at n = 7, 48 do (44 on the core with two length-2 sides, 4 on the (2,3) core), at n = 8, 1 408. Cores with an arrow side never get an LNA key (0 of 21 736 at n = 8); the key-level reason is not derived. Capped BFS of the two n = 7 LNA classes carrying those keys (23 092 and 13 785 expanded) contains none of the 44: "not found", not "unreachable". On walk rows with J != 0 at n = 6, 7, 8 (c0, c1, capped), dim J_i is 1 in every case, always at an i with dim e_iAe_v = 2; 1 to 3 vertices i per row have J_i != 0.
+
+**Limits (referee).** The n = 8 enumeration counts come from an unsaved run (rerun about 6 min); "243 of 243" does not match per-file counts (n = 8 c0 file alone shows 179); `enum` was not rerun by the referee, so "0 of 42" is unchecked. The 136 out-degree 2 J != 0 rows at n = 8 c0 against E-111's 61 differ by walk length (6 855 expansions against a 540 s run); on the same 600-expansion prefix the two scripts agree. The walk contains at least 4 gate-admitted out-degree 3 rows with J != 0, all with parallel out-arrows: new relative to E-111's prefix result, not a contradiction; whether the mutation really fails at them (`checkCartan=True`) was not run. The statements hold "in the enumerated families" only. No library change.
+
+**Reproduction.** the commands above (from the repository root).
+
+## E-123 — In the n = 8 c0 walk every gate-admitted parent already carries the c0 LNA key (3 585 of 3 585 out-degree 2 rows), so the key test has no base rate there; in E-121's layered family 0 of 2 704 members, including 0 of 1 003 circuit-free and 0 of 108 pure-W, have an LNA key, so E-121's key absence is not evidence
+*2026-10-04* · **`.venv/bin/python workshop/rounds/033/toolsmith_baserate.py layers 3`, `... layers 4` (17 s), `... walk 8 0 3000` (190 s; output `toolsmith_baserate_walk_n8c0.txt`)** · *workshop round 033, toolsmith, refereed by skeptic*
+
+Walk, 3 000 expanded n = 8 c0 algebras: out-degree 1 / 2 / 3 / 4 rows 8 621 / 3 585 / 559 / 5. The parent column is c0 by construction (the walk keeps key-preserving algebras); of the 3 585 out-degree 2 children 3 543 are in c0 and 42 are not (not matched to E-114's rejects). So 100% is not a base rate for E-121. Layered family (E-121's, m = 3, 4): 18/107/100 and 108/1 003/1 593 members (W / circuit-free / non-W with J != 0), LNA key hits 0 in every category (LNA key sets of size 6 and 11). The zeros are probably structural (the family never contains an LNA-keyed member; conjecture, untested: no variant with sinks attached elsewhere was run), so the test cannot separate non-W circuits from W or circuit-free members in that family: E-121's "weakly informative" sharpens to "uninformative". Do not cite as evidence about non-LNA-derived algebras.
+
+**Limits (referee).** The non-W population here (1 593 at m = 4) differs from E-121's 900/962 and is unreconciled. No m = 2 row, no positive control. Walk is the key-preserving BFS only. No library change.
+
+**Reproduction.** the commands above.
+
+## E-122 — Aihara-Iyama 2.32(b) at a vertex reduces exactly to J_i = Hom(S_v, e_iA) = Hom(N, P_i[-1]) (no monomial hypothesis); verified on E-066 step 7 and E-078; E-121's "H^{-1}(cone)" should read H^{-1} RHom(cone, A)
+*2026-10-04* · **`.venv/bin/python workshop/rounds/033/scholar_socle.py` (1.5 s)** · *workshop round 033, scholar, refereed by skeptic*
+
+The minimal right add(D)-approximation of P_v (D = sum of the other P_j, v loopless) is the projective cover of rad P_v built from the out-arrows of v; AI 2.32(b) then says the mutation is tilting iff x |-> (xb)_b is injective on e_iAe_v for every i != v, whose kernel is {x : x rad A = 0} = Hom(S_v, e_iA) = J_i. This closes E-066's "appears to be one map, no derivation" (AI 2.32(b), Ladkani 2.3(c) and `tiltingPlus` agree) and E-121's "AI 2.31/2.32 check not done". Degree: J_i = H^{-1} Hom(N, P_i), not H^{-1}(N). Script: kernel count of the socle map equals that of the `tiltingPlus` map on E-066 step 7 (i = 8, dim 2, J = 1, coker 0) and E-078 n = 5 (i = 1, dim 2, J = 1); the Cartan defect of the rewrite lies only at (row v, that i). Mostly consequences of E-066, E-078, E-095, E-121; no new obstruction to circuits (E-121's conclusion stands).
+
+**Limits (referee).** Two parents, both with coker 0 and dim J = 1: the coker treatment and degree claim are untested with coker != 0 or dim J >= 2. "Silting-not-tilting iff some J_i != 0" is half shown: Hom(N, N[-1]) is not addressed; the "J = 0 implies tilting" direction cites AI 2.32(b) and is not re-derived. The Euler identity is rank-nullity (checks the code). The repo's "left mutation" is AI's mu^- by the author's reading; the printed AI text was not compared (arXiv blocked). No library change.
+
+**Reproduction.** the command above.
+
 ## E-121 — The two-term kernel structure alone does not exclude nn 2-cycles or circuits >= 3: layered hand algebras at n = 6..8 realise every circuit shape with J != 0, and none of the 962 non-W circuit members (plus pendants) has an LNA Coxeter key
 *2026-10-03* · **`timeout 10m .venv/bin/python workshop/rounds/031/theorist_t3.py 2` (12 s), `.../theorist_layers.py 3 2`, `.../theorist_layers.py 4 1` (84 s)** · *workshop round 031, theorist, refereed by experimentalist*
 
