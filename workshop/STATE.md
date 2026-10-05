@@ -3,7 +3,7 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 33
+last_round: 34
 next_round_kind: ordinary
 
 ## Open threads
@@ -21,6 +21,15 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 034 updates (supersede everything below where they differ)
+
+Round 034 (ordinary: theorist, skeptic, maverick; referees experimentalist, scholar, skeptic; all minor revision, all accepted with qualifications) recorded E-125..E-127. **Round 035 is ordinary; 036 is the next conference.** The round-032 agenda stands (proposed, pending the human).
+
+- **T5 (E-126):** on a gate-admitted v, dim J_i <= d_i - 1 (the gate tests single paths), so J_i != 0 needs d_i >= 2; with d_i = 2, dim J_i = 1. For acyclic Q, Hom(N,N[-1]) = 0 and Hom(T,T[-1]) = sum J_i (conditional on T silting, AI 2.31). A layered algebra has d = 3, dim J = 2, so E-124's "dim J_i = 1 on walks" still needs "d_i <= 2 at J_i != 0 on walks" (empirical; E-116 allows up to 8). Open: that bound on walks; a cyclic-quiver test of L2; compare with the AI text.
+- **T5 (E-127):** the 5 out-degree 3/4 parallel rows with J != 0 at n = 8 c0 are real Cartan failures; defect support = J support; the gate is blind at out-degree >= 3 as at 2; E-111's "0 rejects at out-degree >= 3" holds for its prefix only. Open: are the 5 rows 3 orbits (mirror pairs); discrepancy values; other classes and n = 9; why the number of J_i != 0 equals the parallel multiplicity; Gamma_i with three-term relations.
+- **S-1 (E-125):** at n = 11 in the failing class, the image is a function of (K, core word); same-core words go I1 at K = 3, I2 at K = 4. "Room to move" (image free run 2 against 3) is a hypothesis; the tail table carries the claim. Open: head orientation via `mirrorRow`; K = 2 failing classes at n = 11; n = 12; derive from the H-020 rule table (why a last letter 3 gives I1).
+- Requests added: theorist: Gamma_i / parallel multiplicity for the 5 rows; the last-letter-3 rule. toolsmith: out-degree >= 3 rejects on c1 and n = 9 c0 with a checkpointed walk; size the n = 7 BFS. experimentalist: d_i histogram at gate-admitted (v, i) on long walks, any d >= 3 with J != 0 in a derived class. skeptic: a cyclic-quiver case for L2; a hand-built dim J_i >= 2 row. maverick: redo head ends with `mirrorRow`.
 
 ## Round 033 updates (supersede everything below where they differ)
 
@@ -134,12 +143,12 @@ Requests added: toolsmith to theorist: why the key-coarser cores are the parity 
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 033 | 031 (theorist) |
+| experimentalist | 033 | 034 (theorist) |
 <!-- 012 was a conference: all six wrote position statements -->
 <!-- 008 was a conference: all six wrote position statements -->
 <!-- 005 was a conference: all six wrote position statements; nobody refereed -->
-| theorist | 031 | 033 (experimentalist) |
-| skeptic | 031 | 033 (scholar, toolsmith) |
-| scholar | 033 | 031 (skeptic) |
+| theorist | 034 | 033 (experimentalist) |
+| skeptic | 034 | 034 (maverick) |
+| scholar | 033 | 034 (skeptic) |
 | toolsmith | 033 | 027 (maverick) |
-| maverick | 030 | 015 (toolsmith) |
+| maverick | 034 | 015 (toolsmith) |

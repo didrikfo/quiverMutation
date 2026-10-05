@@ -7,6 +7,20 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 034 -- 2026-10-05 -- ordinary
+
+Worked: theorist, skeptic, maverick. Referees: experimentalist, scholar, skeptic (all: minor revision; all accepted with qualifications). Details in `rounds/034/`.
+
+- **theorist (E-126):** on a gate-admitted v, dim J_i <= d_i - 1, so J_i != 0 needs d_i >= 2 and d_i = 2 gives dim J_i = 1; for acyclic algebras Hom(T,T[-1]) = sum J_i (silting-not-tilting iff J != 0, conditional on AI 2.31). "dim J_i = 1 on walks" still needs d_i <= 2 there: a layered algebra has dim J = 2. No cyclic test of the Hom(N,N[-1]) step.
+- **skeptic (E-127):** the 5 out-degree 3/4 parallel rows with J != 0 (n = 8 c0) are real Cartan failures; the defect sits at the J support (socle reading not refuted). Control is a 200-row sample; the 5 may be 3 orbits.
+- **maverick (E-125):** in the failing n = 11 class the image at n = 10 is a function of (K, core word); 12 core words go I1 at K = 3, I2 at K = 4. "Room to move" is a hypothesis; E-118 already holds most of the counts.
+- **Promoted:** E-125, E-126, E-127. No library change.
+- Round 033's questions were decided by the chair: keep the agenda, no overnight.
+
+**Questions for you (the chair takes the recommended option if unanswered):** (1) keep the round-032 agenda (recommend yes); (2) overnight: none; the toolsmith sizes the n = 7 BFS closure first (recommend none).
+
+---
+
 ## Round 033 -- 2026-10-04 -- ordinary
 
 Worked: scholar, toolsmith, experimentalist. Referees: skeptic (x2), theorist (all: minor revision; all accepted with qualifications). Details in `rounds/033/`.

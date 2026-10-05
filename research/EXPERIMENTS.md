@@ -6,6 +6,33 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-127 — Out-degree 3 and 4 rows with J != 0 on the n = 8 c0 walk are real Cartan failures (5 of 5 rows; the Cartan discrepancy sits at the J_i support); E-111's "0 rejects at out-degree >= 3" holds only for its prefix
+*2026-10-05* · **`timeout 10m .venv/bin/python -u workshop/rounds/034/skeptic_outdeg3.py 8 0 560 9000` (560 s; output `skeptic_outdeg3_n8c0.txt`)** · *workshop round 034, skeptic, refereed by scholar*
+
+On the guarded n = 8 c0 walk (about 8 500 expansions, load-dependent; rows deterministic) the gate-admitted rows with out-degree >= 3 and J != 0 are 5 (expansions 6 820, 7 424, 7 822, 7 831, 7 836; 4 at out-degree 3, 1 at out-degree 4; all with parallel out-arrows into vertex 8). All 5 fail `mutateAtVertex(..., checkCartan=True)`: the gate is blind to J != 0 at out-degree 3, 4 as at out-degree 2 (E-114). A control of the first 200 out-degree >= 3 rows with J = 0 (41 parallel, 158 simple, 1 out-degree 4) is all congruent. In each of the 5 rows the nonzero entries of R C R^T - Cartan(child) lie exactly at (v, i) with J_i != 0; the number of such i equals the parallel multiplicity in these rows (2, 2, 2, 2, 3; not tested further). The E-122 socle reading was not refuted (the agreement is a consistency check, J being computed by the same reading).
+
+**Limits (referee).** The J = 0 control is the first 200 rows in walk order (E-111 saw 3 494 rows), so "J != 0 iff Cartan fails" is shown only for the sampled rows; positives and controls come from different walk depths. The 5 rows may be 3 orbits (6 820/7 424 and 7 822/7 831 look like mirror pairs, unchecked). Discrepancy values, not only supports, are not reported. The relations are messy (repeated paths, three-term), outside the scalar-1 two-term regime of E-110. Does not reach other classes or n = 9. No library change.
+
+**Reproduction.** the command above (from the repository root).
+
+## E-126 — On a gate-admitted v, dim J_i <= d_i - 1 (d_i = dim e_iAe_v); Hom(N,N[-1]) = 0 on acyclic algebras so Hom(T,T[-1]) = sum J_i; "d_i <= 2 whenever J_i != 0 on walks" is not implied (a layered algebra has d = 3, dim J = 2)
+*2026-10-05* · **`.venv/bin/python workshop/rounds/034/theorist_dimji.py hand` (2 s), `... walk 7 0 1500` (31 s), `... walk 8 0 600` (31 s)** · *workshop round 034, theorist, refereed by experimentalist*
+
+(L1) `isMutable` rejects v iff some nonzero path into v has p b in I for all out-arrows b, so J_i contains no nonzero path image; paths span e_iAe_v, hence J_i is a proper subspace: dim J_i <= d_i - 1, J_i != 0 forces d_i >= 2, and d_i = 2 with J_i != 0 forces dim J_i = 1 (E-114's "the gate tests single paths" as a dimension bound). (L2) If no oriented path leads from an out-neighbour of v back to v (Q acyclic), chain maps N -> N[-1] reduce to f^1 in sum_b e_{t(b)} A e_v = 0 and Hom(D,N[-1]) = 0, so Hom(T,T[-1]) = Hom(N,D[-1]) = sum_i J_i; given T silting (AI 2.31, cited) "silting not tilting iff some J_i != 0" for acyclic A. Example: E-078 square (a->b, a->c, b->d, c->d, d->e, abde = acde): d_a = 2, J_a = k(abd - acd), Hom(T,T[-1]) = k. Layered m = 3 (i -> a1,a2,a3 -> v -> t1,t2, with p1 b = p2 b = p3 b for both b): gate-admitted, (d, dim J) = (3, 2), so dim J = 1 is not forced in general. Walk prefixes (gate-admitted v, all i with a path to v): n = 7 c0, 1 500 expansions: (d, J) = (0,0) 2 107, (1,0) 5 054, (2,1) 8; n = 8 c0, 600: (0,0) 828, (1,0) 2 870, (2,0) 57, (2,1) 2; no violation of J <= d - 1, no d >= 3. Missing for E-124's "dim J_i = 1": a bound d_i <= 2 at J_i != 0 on walks (E-116's cone estimate allows d up to 8).
+
+**Limits (referee).** "d_i = 2 forces dim J_i = 1" is false as worded (57 rows have (2, 0)); only d_i = 2 and J_i != 0 does. L2 is proved for acyclic quivers only, no cyclic case was run; its silting-not-tilting reading is conditional on T being silting (AI 2.31, not re-derived or compared with the text) and on N being the repo's mutation. The J != 0 walk samples are small (8, 2, 1 rows); the layered d = 3 example lives in the script only. Referee extra: `walk 8 1 400` no J != 0; `walk 9 0 300` (2,1) once, no violation. No library change.
+
+**Reproduction.** the commands above (from the repository root).
+
+## E-125 — In the one failing n = 11 class of E-118, the image class at n = 10 is a function of (K, core word) over 77 keys (0 conflicts); 12 core words go to I1 at K = 3 and to I2 at K = 4
+*2026-10-05* · **`timeout 10m .venv/bin/python workshop/rounds/034/maverick_endtable.py` (about 80 s)** · *workshop round 034, maverick, refereed by skeptic*
+
+Class key (1,1,0,-1,-2,-3,-3,-2,-1,0,1,1), 1305 LNAs, orbits 15107 (943) and 15035 (362). 82 end deletions have free run K >= 3 (66 with K = 3, 16 with K = 4; head and tail equal). Images: I1 key (1,1,0,-1,-2,-2,-2,-1,0,1,1), I2 key (1,1,0,-1,-2,-3,-2,-1,0,1,1). K = 3 ends: head 15107 -> I1 17, I2 16; 15035 -> I2 5 (tail equal); all K = 4 ends go to I2 (orbit 15107: 8, 15035: 1 per side). The image is a function of (K, core word read from the deleted end, zeros stripped): 77 keys, 0 with two images; the 12 words 3, 23, 203, 223, 2003, 2023, 2203, 2223, 20003, 20203, 22003, 22203 are in both sets (I1 at K = 3, I2 at K = 4). Hypothesis (not tested): the failure is "K = 3 is one short": the image has a free run of 2 (the K = 2 regime of E-118) against 3.
+
+**Limits (referee).** The room-to-move reading is the author's interpretation of the table, not a result. Head-end words reverse the digit string (a guess; `mirrorRow` unused), and head counts equal tail counts as mirror symmetry would give, so the tail table carries the claim. E-118 already records the failing class, the two images, the split in 15107, "K >= 4 holds" and the 66 / 16 end counts; new here are the same-core K = 3 against K = 4 comparison and the function statement. One class, n = 11 only; the K = 2 extension and n = 12 are not run. No library change.
+
+**Reproduction.** the command above (from the repository root).
+
 ## E-124 — Both-die squares exist at n = 6 as gate-admitted J != 0 algebras, but none of the 42 enumerated has an LNA Coxeter key; 48 do at n = 7 and 1 408 at n = 8; capped n = 7 walks found none of the 44 candidates; dim J_i = 1 on every walk row
 *2026-10-04* · **`.venv/bin/python workshop/rounds/033/experimentalist_bothdie.py` (enumeration, outputs `experimentalist_hand.txt`, `experimentalist_enum_n6n7.txt`, `experimentalist_reach_n7.txt`), `.../experimentalist_dimji.py` (outputs `experimentalist_dimji_n*.txt`)** · *workshop round 033, experimentalist, refereed by theorist*
 

@@ -138,3 +138,5 @@ A short negative result ("dead end, because ...") is a welcome outcome.
 - round 031, question 2 (overnight) (applied, round 032): none; nothing needs more than 10 minutes per command -- decided by the chair of round 032; no answer from the human
 - round 032, question 1 (agenda) (applied, round 033): approve the round-032 agenda -- decided by the chair of round 033; no answer from the human
 - round 032, question 2 (overnight) (applied, round 033): none; nothing needs more than 10 minutes per command -- decided by the chair of round 033; no answer from the human
+- round 033, question 1 (agenda) (applied, round 034): keep the round-032 agenda -- decided by the chair of round 034; no answer from the human
+- round 033, question 2 (overnight) (applied, round 034): none; toolsmith sizes the n = 7 BFS closure with `--plan` first -- decided by the chair of round 034; no answer from the human

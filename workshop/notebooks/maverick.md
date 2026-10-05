@@ -1,21 +1,22 @@
 # Maverick's notebook
 
-## What I now believe (after round 030)
-- S-1 free-end deletion: with E-115-corrected labels (nothing dropped) "K >= 3 free vertices at the end => image class is a function of the source class" survives n = 8, 9, 10 (3/3, 6/6, 12/12 classes). It FAILS at n = 11: 1 of 21 classes (key (1,1,0,-1,-2,-3,-3,-2,-1,0,1,1), 1305 LNAs) has two image keys, split even inside one orbit (943 LNAs). K >= 4 holds at every n = 8..11 (10/10 at n = 11). So "3" was a small-n coincidence; the threshold may grow with n (not shown).
-- K = 2 fails for 0 / 1 / 2 / 9 classes at n = 8 / 9 / 10 / 11.
-- n = 11 labels: key-only for the 418 unresolved-after-profile LNAs (dropped as sources); images at n = 10 are fully resolved, so the n = 11 test is clean on the image side.
-- Earlier: pair statistics of deletion are 2x chance, no positional rule (E-112); H-017 beliefs of r023 stand (relations > cords among quipus to depth 6 at n = 9; Euler signature pos <= n-2 iff outside every quipu class; mirror-chain depth rule is a fit).
+## What I now believe (after round 034)
+- S-1 free-end deletion: with E-115 labels, "K >= 3 free vertices at the end => image class is a function of source class" holds n = 8, 9, 10 (3/3, 6/6, 12/12) and fails at n = 11 in ONE class (key (1,1,0,-1,-2,-3,-3,-2,-1,0,1,1), 1305 LNAs, orbits 15107 (943), 15035 (362)). K >= 4 holds (10/10 resolved at n = 11). K = 2 fails 0/1/2/9 classes at n = 8..11.
+- r034 per-end table (`rounds/034/maverick_endtable.py`, 80 s): 82 ends with K >= 3 (66 at K = 3, 16 at K = 4), head/tail mirror-identical. Image is a function of (K, oriented core word): 77 keys, 0 conflicts. 12 core words occur at K = 3 and K = 4: K = 3 -> image I1 (n = 10 key ...-2,-2,-2...), K = 4 -> I2 (...-2,-3,-2...). So the failure is "room to move": deleting from a run of 3 leaves a run of 2 (the K = 2 regime), from 4 leaves 3. Not a label artefact (image keys differ; both images inside orbit 15107). Words ending in 3 go to I1 at K = 3 (25 words), others to I2.
+- Earlier: pair statistics of deletion 2x chance, no positional rule (E-112); H-017 beliefs of r023 stand (relations > cords among quipus to depth 6 at n = 9; Euler signature pos <= n-2 iff outside every quipu class; mirror-chain depth rule is a fit).
 
 ## What I tried
-- r030 `rounds/030/maverick_endstrip2.py N` (corrected labels, K0 1..5), `maverick_fail11.py` (dissects the failure). ~1 min each.
-- r027 `rounds/027/maverick_*.py`; r018-r023 cord producer, predict, chain, twobig.
+- r034 endtable (above). r030 `maverick_endstrip2.py N`, `maverick_fail11.py`. r027 `maverick_*.py`; r018-r023 cord producer, predict, chain, twobig.
 
 ## Watch for
 - Pair statistics are dominated by big classes; compare with all-pairs null.
-- Key-only class labels can merge derived classes (affects source side); orbit-split images inside one orbit is the clean test.
-- A negative at depth d excludes only distance <= d.
+- Key-only class labels can merge derived classes (source side); orbit-split images inside one orbit is the clean test.
+- Head-end orientation in r034 was a digit-string reversal, not freeMoves.mirrorRow; rerun if it matters.
+- A negative at depth d excludes only distance <= d. One failing class is a small sample for a "law".
 
 ## Next
-- Look at the failing n = 11 class: which K = 3 ends go to which image; relation to the core's position (a core touching distance 3 from the end?). Is the safe threshold "K > (something about the core length)": test n = 12 for K = 4 (needs n = 12 labels; classes() probably too slow, try the orbit-only test: images split inside one orbit is label-free).
-- S-1 question 3 (stable core, head >= 3 vs < 3) still untouched.
+- Check the same K-vs-(K-1) same-core pattern for the 9 K = 2 failing classes at n = 11.
+- n = 12 (orbit-only test): does the K = 3 failure persist for the same core words, or does the threshold rise? Needs n = 12 free-move orbits; size with --plan.
+- Derive why last letter 3 matters (H-020 rule table; theorist).
+- S-1 Q3 in the other direction (simple LNA reached only via room) untouched.
 - n = 12 two-big LNAs for the mirror chain (carried); depth 7 at n = 9 overnight for H-017.
