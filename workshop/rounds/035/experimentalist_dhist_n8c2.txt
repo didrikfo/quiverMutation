@@ -1,0 +1,6 @@
+n 8 class 2 classsize 18 expanded 10732 seen 26763 levels 8 stopped True 500s
+(d_i, dim J_i): count at gate-admitted (v,i) with path i->v
+{(0, 0): 15761, (1, 0): 46913, (2, 0): 336}
+max d_i by BFS level: {0: 1, 1: 1, 2: 1, 3: 1, 4: 2, 5: 2, 6: 2, 7: 2}
+J != 0 rows with d >= 3: 0
+J != 0 total: 0  by d: {0: 0, 1: 0, 2: 0}

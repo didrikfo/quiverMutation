@@ -3,7 +3,7 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 34
+last_round: 35
 next_round_kind: ordinary
 
 ## Open threads
@@ -21,6 +21,15 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 035 updates (supersede everything below where they differ)
+
+Round 035 (ordinary: toolsmith, experimentalist, scholar; referees skeptic, theorist, skeptic; scholar accepted, the others minor revision, promoted with qualifications) recorded E-128..E-130. **Round 036 is a conference.** The round-032 agenda stands (proposed, pending the human). Rounds 029-031 updates dropped as superseded (see their proceedings).
+
+- **T5 (E-128):** Hom(N,N[-1]) = {(y_b): y_b in J_t(b), sum b y_b = 0} for any A and loopless v, so "silting-not-tilting iff some J_i != 0" holds without acyclicity (given AI 2.31); cyclic quiver changes only the count (v -> t -> v, rad^2 = 0: sum J = 1, Hom(T,T[-1]) = 2). The repo gate sees simple paths only, so E-126's L1 is unguaranteed on cyclic quivers (not investigated).
+- **T5 (E-129):** capped walks (n = 8 c0, c1, c2; n = 9 c0): 285 rows with J_i != 0 all have d_i = 2, dim J_i = 1; the 28 rows with d_i >= 3 all have J_i = 0. Thin where d >= 3 lives (BFS level 7-8, cap edge); no distinct-algebra counts. Open: deeper walks with d >= 3; why J_i = 0 at d = 3.
+- **T5 (E-130):** n = 7 BFS closure of the both-die classes does not fit one command (class 1 ratio about 2.4, class 3 falling from 2.6 to 1.9); 0 of 44 reached in 240 s per class. No overnight approved. Open: E-124's reverse direction (mutate each target, look for an LNA child); measure memory and None-key drops.
+- Requests added: toolsmith: reverse-direction search from the 44 targets. experimentalist: d >= 3 rows deeper (checkpointed, distinct algebras); n = 7 class 3 plan. skeptic: a cyclic gate-admitted case where a non-simple path kills dim J_i bound (L1). theorist: why J_i = 0 at d_i = 3; Gamma_i / parallel multiplicity for the 5 rows (still open).
 
 ## Round 034 updates (supersede everything below where they differ)
 
@@ -49,32 +58,6 @@ Round 032 was a conference (all six personas, position statements; `rounds/032/`
 4. T5: prove the Gamma_i two-edge bound. theorist, toolsmith.
 5. S-1: core property fixing the deletion threshold K; K >= 4 at n = 12. maverick, theorist.
 Requests: theorist: restate AI 2.31/2.32, invariant, why capped walks lack both-die rows; toolsmith: key base rate, per-(orbit, vertex) table for n = 11; experimentalist: dim J_i, parallel-arrow walk controls; skeptic: refute the socle reading on one mutation.
-
-## Round 031 updates (supersede everything below where they differ)
-
-Round 031 (ordinary: theorist, skeptic, toolsmith; referees experimentalist, scholar, skeptic; all minor revision, all accepted with qualifications) recorded E-119..E-121. **Round 032 is a conference** (multiple of 4). The round-028 agenda stands.
-
-- **T5 (E-121):** J_i = Hom(S_v, e_iA) = H^{-1}(cone): a circuit means the left mutation is silting but not tilting. The kernel structure alone does not forbid nn or circuits >= 3 (layered algebras, n = 6..8); 962 non-W circuit members and pendant extensions have no LNA Coxeter key (necessary test, no base rate). So the exclusion on walks must come from derived equivalence to an LNA. Open: base rate of LNA keys; Aihara-Iyama 2.31/2.32 check of the socle reading; an invariant (Coxeter polynomial / Euler form) separating nn and long circuits; dim J_i on all walk J != 0 rows.
-- **T5 (E-120):** the 25 loose W-false rows at n = 6, 7 are half-W (one term killed); the 23 loose accepts at n = 8 c0 are too; the 61 rejects are both-die rows. Open: why capped n = 6, 7 walks contain no both-die row (walk reach or the algebras); a hand-built n = 6 both-die square as a control.
-- **T5 (E-119):** doubled-arrow controls are gate-admitted and fail Cartan; code W is "x b2 in I" (True on nn, so it cannot tell nn from nz; the ground-path W of E-110 is narrower); misses a tripled-arrow H chain; the dim count is exact on random doubled-arrow quivers (n <= 6). Open: W against J on the random sample; W at out-degree >= 3.
-- Requests added: experimentalist: hand-build an n = 6 both-die square and test walk reach; dim J_i on walk rows. theorist: invariant separating nn / long circuits from LNA keys; why no both-die row below n = 8. skeptic: refute the socle reading on one explicit mutation.
-
-## Round 030 updates (supersede everything below where they differ)
-
-Round 030 (ordinary: experimentalist, scholar, maverick; referees theorist, experimentalist, skeptic; all minor revision, all accepted with qualifications) recorded E-116..E-118. **Round 031 is ordinary; 032 is the next conference.** The round-028 agenda stands. Rounds 021-026 updates were dropped as superseded (see their proceedings).
-
-- **T5 (E-116, E-117):** cone estimate: child `dim e_iAe_v <= max(d, M d)`, M = out-degree at the mutated vertex (0 violations on 46 586 edges); thin Hom only at depth 1 from an LNA. Measured max dim at n = 8 c0/c1 is 1 to depth 3, 2 at depth 4, then grows (8 at depth 8): it does NOT bound E-113's circuits. Caveats: depth = BFS depth through acyclic algebras only; dim count unvalidated for parallel arrows (a doubled relation gives dim 2). Open: restrict to non-parallel pairs; the mechanism behind "components <= 2 edges" must come from the two-term kernel structure (g_i), not a dimension bound; the 4 coefficient-2 pairs; match the 22 to the 28; n = 9.
-- **S-1 (E-118):** with E-115 labels the free-end K >= 3 rule holds at n = 8, 9, 10 (3/3, 6/6, 12/12) and fails at n = 11 (20/21; one class of 1305 LNAs splits inside one orbit); K >= 4 holds on the 10 resolved n = 11 classes. Open: per-end table of the K = 3 failure; K >= 4 among the 418 unresolved sources; derive the rule (F-028/H-020); is the threshold K >= 4 at n = 12; core-with-room question 3.
-- Requests added: experimentalist: dim count at non-parallel pairs; Gamma_i shapes of the dim-3 out-2 rows; n = 9 c0 prefix. maverick/toolsmith: per-(orbit, K) image table for the n = 11 failure; resolve more n = 11 sources by another route. theorist: derive the K threshold; two-term kernel route to "no circuit >= 3".
-
-## Round 029 updates (supersede everything below where they differ)
-
-Round 029 (ordinary: theorist, skeptic, toolsmith; referees skeptic, theorist, experimentalist; all minor revision, all promoted with the referees' qualifications) recorded E-113..E-115. **Round 030 is ordinary; 032 is the next conference.** The round-028 agenda stands.
-
-- **T5 (E-113):** at n = 8 c0/c1 every `Gamma_i` component has <= 2 edges (no nn 2-cycle, no circuit >= 3; scalar 1). The skeptic's 22 rows are half-W (20) or two loose pendants (6), not length-2 ground paths. Open: the mechanism (is `dim e_iAe_v` <= 1 forced by the tilting complex, so that a bound follows?); the 4 coefficient-2 pairs; match the 22 to the 28; a labelled example of each shape; n = 9.
-- **T5 (E-114):** the 61 D' rejects are admitted because the gate tests single paths (near-tautology). Loose D' shape: 84 rows at n = 8 c0, 61 rejected; at n = 6, 7 c0 (5, 20 rows) all accepted; no out-degree 2 reject elsewhere in capped walks. Open: why the 25 loose-shape W-false rows at n = 6, 7 fail W.
-- **S-1 (E-115):** the F-047 profile places the 16 n = 9 and 176 n = 10 unresolved LNAs (n = 9 is F-047's own table); it does not separate at n = 11 (24 of 442). The E-112 labels at n = 9, 10 are now independently supported (necessary evidence); n = 11 labels need another route.
-- Requests added: skeptic: the 25 loose-shape W-false rows at n = 6, 7. theorist: bound `dim e_iAe_v` (Hom between thin modules / mutation depth); the coefficient-2 pairs; match 22 to 28. experimentalist: max `dim e_iAe_v` by depth at n = 8, 9; S-1 K >= 3 rule with the corrected labels (rerun with E-115 classes) and n = 11 by another route. toolsmith: a hand-built nn algebra whose key is an LNA key (proof candidate); an independent n = 11 resolver.
 
 ## Round 028 (conference) -- proposed agenda (proposed, round 028; supersedes the round-024 agenda; ordinary rounds work from it until the human changes it in STEERING.md)
 
@@ -143,12 +126,12 @@ Requests added: toolsmith to theorist: why the key-coarser cores are the parity 
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 033 | 034 (theorist) |
+| experimentalist | 035 | 035 (theorist) |
 <!-- 012 was a conference: all six wrote position statements -->
 <!-- 008 was a conference: all six wrote position statements -->
 <!-- 005 was a conference: all six wrote position statements; nobody refereed -->
-| theorist | 034 | 033 (experimentalist) |
-| skeptic | 034 | 034 (maverick) |
-| scholar | 033 | 034 (skeptic) |
-| toolsmith | 033 | 027 (maverick) |
+| theorist | 034 | 035 (experimentalist) |
+| skeptic | 034 | 035 (scholar, toolsmith) |
+| scholar | 035 | 034 (skeptic) |
+| toolsmith | 035 | 027 (maverick) |
 | maverick | 034 | 015 (toolsmith) |

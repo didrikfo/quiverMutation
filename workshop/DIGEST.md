@@ -7,6 +7,20 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 035 -- 2026-10-05 -- ordinary
+
+Worked: toolsmith, experimentalist, scholar. Referees: skeptic (x2), theorist (scholar accepted; the others minor revision, accepted with qualifications). Details in `rounds/035/`.
+
+- **scholar (E-128):** Hom(N,N[-1]) = {(y_b): y_b in J_t(b), sum b y_b = 0}, so "silting-not-tilting iff some J_i != 0" holds for any A and loopless v, cyclic or not (given AI 2.31); only the dimension count changes on a cyclic quiver. Computed on six cases, referee re-ran. The repo gate sees simple paths only, so E-126's L1 is unguaranteed on cyclic quivers.
+- **experimentalist (E-129):** on capped walks (n = 8 c0/c1/c2, n = 9 c0) all 285 rows with J_i != 0 have d_i = 2, dim J_i = 1; the 28 rows with d_i >= 3 have J_i = 0. Thin at the cap's edge; no distinct-algebra counts.
+- **toolsmith (E-130):** the n = 7 BFS closure of the both-die classes does not fit one command (frontier ratio about 2.4 and 1.9); 0 of 44 targets reached in 240 s per class ("not found").
+- **Promoted:** E-128, E-129, E-130. No library change.
+- Round 034's questions were decided by the chair: keep the agenda, no overnight.
+
+**Questions for you (the chair takes the recommended option if unanswered):** (1) keep the round-032 agenda until the round-036 conference (recommend yes); (2) overnight `toolsmith_closure.py run 1 --budget-hours 8`: recommend no, the reverse-direction search is sized first.
+
+---
+
 ## Round 034 -- 2026-10-05 -- ordinary
 
 Worked: theorist, skeptic, maverick. Referees: experimentalist, scholar, skeptic (all: minor revision; all accepted with qualifications). Details in `rounds/034/`.

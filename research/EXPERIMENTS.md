@@ -6,6 +6,27 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-130 — The n = 7 key-preserving BFS closure of the both-die classes (idx 1: 12 LNAs, 38 targets; idx 3: 58 LNAs, 6 targets) does not fit in one command: frontier ratio about 2.4 (class 1) and 2.1 falling to 1.9 (class 3); 0 of the 44 targets reached in 240 s per class
+*2026-10-05* · **`.venv/bin/python workshop/rounds/035/toolsmith_closure.py plan CLASS SECONDS` (CLASS 1 or 3, SECONDS = 240)** · *workshop round 035, toolsmith, refereed by skeptic*
+
+Same BFS as E-124's `reach` (expand acyclic algebras, mutate at every gate-admitted vertex, drop illegal-relation children, keep children with the class Coxeter key, dedupe by `canonicalKey`). Class 1: 11 938 expansions, 29 318 algebras seen, frontier ratios 2.23, 2.21, 2.24, 2.33, 2.53, 2.50, 2.42 (levels 2..8; a plateau, last 2.42). Class 3: frontier 194, 502, 1 134, 2 434, 5 176, 10 674, 20 566 (ratios falling 2.59 to 1.93); 19 477 expansions, 40 043 seen. 0 of the 44 targets reached, so "not found", not "unreachable" (repeats E-124(3) at no greater depth). The referee re-ran at 120 s per class (0 of 38, 0 of 6, identical level frontiers). Closure times (class 1 more than 8 h, with 10^6 seen near level 13) are extrapolations at constant ratio, not measured; memory not measured; the number of None-key children dropped is not counted. No overnight run is approved. Open: E-124's reverse direction (mutate each target, look for an LNA child) sized next.
+
+---
+
+## E-129 — On capped 500 s walks (n = 8 classes c0, c1, c2; n = 9 c0) no gate-admitted row with J_i != 0 has d_i = dim e_iAe_v >= 3: all 285 such rows have d_i = 2, dim J_i = 1; 28 rows with d_i >= 3 (27 at d = 3, 1 at d = 4) all have J_i = 0
+*2026-10-05* · **`.venv/bin/python workshop/rounds/035/experimentalist_dhist.py` (see `workshop/rounds/035/experimentalist.md` for arguments; outputs `experimentalist_dhist_n8c{0,1,2}.txt`, `_n9c0.txt`)** · *workshop round 035, experimentalist, refereed by theorist*
+
+Rows are (algebra, v gate-admitted, i with a path to v). (d, j) counts: n = 8 c0 (2 algebras) (2,1) 109, (3,0) 18; c1 (8 algebras) (2,1) 49, (3,0) 9, (4,0) 1; c2 (18 algebras) no J != 0 in 336 rows with d = 2; n = 9 c0 (2 algebras) (2,1) 127, no d >= 3. No (d, j) with j > d - 1 (consistent with E-126 L1). What is new is the absence of d >= 3 with J != 0; "d_i = 2 exactly at J != 0" largely follows from L1 plus the data and is not claimed separately. Caveats (referee): walks are capped, not closed (5 452 to 10 732 expansions), restricted to one key class and the legality filter; d >= 3 first appears at BFS level 7-8, the edge of the cap, so the sample is thin there (the referee's 150 s re-run did not reach it; the d <= 2 part reproduced); levels 8-9 are partial; distinct-algebra counts per class were not reported and the cap is time-based, so counts are load-dependent. E-116 reports max d up to 8 at depth 8, so the bound is not shown for deeper walks. Bears on E-124 and E-126.
+
+---
+
+## E-128 — Hom(N,N[-1]) = {(y_b): y_b in J_t(b), sum_b b y_b = 0} for any finite-dimensional A and loopless v, so "AI 2.32(b) mutation is silting-not-tilting iff some J_i != 0" holds without acyclicity (given AI 2.31); on a cyclic quiver only the dimension count changes
+*2026-10-05* · **`.venv/bin/python workshop/rounds/035/scholar_hom_nn.py` and `.venv/bin/python workshop/rounds/035/scholar_gate_cyc.py`** · *workshop round 035, scholar, refereed by skeptic*
+
+Setting as E-126. (M1) a chain map N -> N[-1] has only the component f^1: P_v -> D' = (+)P_t(b), no homotopies, conditions f^1 g = 0 and g f^1 = 0, giving the formula above. (M2) Hom(T,T[-1]) = (+)J_i + Hom(N,N[-1]); if all J_i = 0 then every y_b = 0 (v loopless), so Hom(T,T[-1]) != 0 iff some J_i != 0. This removes E-126's L2 hypothesis ("no path back to v") from the iff. (M3) On a cyclic quiver Hom(T,T[-1]) = sum dim J_i + dim Hom(N,N[-1]) with the second term possibly positive; "= sum J_i" is acyclic-only. Computed (own Hom-complex code, mod 32003; referee re-ran, all rows match): E-078 square (1, 0, 1); v -> t -> v with rad^2 = 0 (1, 1, 2; v not gate-admitted); v -> t -> x -> v rad^2 = 0 (1, 0, 1); a 4-vertex cyclic gate-admitted case (2, 2, 4); Hom(T,T[1]) = 0 in all six. Not claimed: silting (AI 2.31, cited). Caveat: the repo gate enumerates simple paths only, so E-126's L1 (dim J_i <= d_i - 1) is not guaranteed on cyclic quivers (uninvestigated). Walks and LNAs are acyclic, so this does not change any walk result.
+
+---
+
 ## E-127 — Out-degree 3 and 4 rows with J != 0 on the n = 8 c0 walk are real Cartan failures (5 of 5 rows; the Cartan discrepancy sits at the J_i support); E-111's "0 rejects at out-degree >= 3" holds only for its prefix
 *2026-10-05* · **`timeout 10m .venv/bin/python -u workshop/rounds/034/skeptic_outdeg3.py 8 0 560 9000` (560 s; output `skeptic_outdeg3_n8c0.txt`)** · *workshop round 034, skeptic, refereed by scholar*
 
