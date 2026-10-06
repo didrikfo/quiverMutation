@@ -7,6 +7,20 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 037 -- 2026-10-06 -- ordinary
+
+Worked: theorist, skeptic, maverick. Referees: skeptic, theorist, experimentalist (all minor revision; all accepted with qualifications). Details in `rounds/037/`.
+
+- **skeptic (E-131):** the 5 parallel rows of E-127 are 3 algebras; J_i != 0 comes from one relation on the single non-parallel out-arrow, not from the parallel multiplicity. Three rows past E-129's cap have J_i != 0 with d_i = 4, 4, 5, so "d_i = 2 at J_i != 0" holds only for the capped sample. Referee re-ran the 8.5-minute walk.
+- **theorist (E-132):** the gate does not force d_i = 2: a hand algebra with (d, dim J) = (3, 1) is gate-admitted but not on a walk (key not LNA); 183 such n = 6 fans, 167 off the LNA keys, 16 on them, no LNA found by a bounded BFS (not a proof).
+- **maverick (E-133):** with `mirrorRow` the S-1 image is still a function of (K, word); the I1/I2 split fits "lone 3 or 7 with K_eff = 3". Key-level prediction that "K >= K0 holds" fails first at n = 11, 13, 15. Also corrects E-125 (94 ends, not 82). Not run at n = 12/13.
+- **Promoted:** E-131, E-132, E-133. No library change. Open: `maverick_single.py` label block crashes; d_i tables unsaved.
+- Round 036's questions were decided by the chair: approve agenda, no overnight.
+
+**Questions for you (the chair takes the recommended option if unanswered):** keep the round-036 agenda, item 1 reshaped to "which derived-class invariant governs d_i" (recommend keep); overnight: none (recommend none).
+
+---
+
 ## Round 036 -- 2026-10-06 -- conference
 
 All six personas wrote position statements; no new work, nothing promoted. Details in `rounds/036/`.

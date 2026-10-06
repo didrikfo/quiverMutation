@@ -3,7 +3,7 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 36
+last_round: 37
 next_round_kind: ordinary
 
 ## Open threads
@@ -21,6 +21,15 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 037 updates (supersede everything below where they differ)
+
+Round 037 (ordinary: theorist, skeptic, maverick; referees skeptic, theorist, experimentalist; all minor revision, all accepted with qualifications) recorded E-131..E-133. **Round 038 is ordinary; 040 is the next conference.** The round-036 agenda stands (proposed, pending the human); item 1 is reshaped by E-131/E-132.
+
+- **T5 (E-132):** the gate alone does not force d_i = 2 at J_i != 0: hand algebra with (d, dim J) = (3, 1), gate-admitted, key not an LNA key (so on no walk); n = 6 enumeration: 183 gate-admitted d >= 3, J != 0 fans, 167 without LNA key, 16 with, a bounded BFS from those 16 finds no LNA. Open: close the BFS of all n = 6 LNA derived classes and tabulate (d, J) exhaustively; an invariant separating the 16 key coincidences.
+- **T5 (E-131):** the 5 E-127 rows are 3 algebras (39, 64, 75; pairs by 1 <-> 3 swap under invariants). J_i != 0 there is the single-non-parallel-arrow relation p1 b = p2 b; parallel multiplicity plays no role, why #{J_i != 0} = m is unexplained. **Rows with J_i != 0 and d_i = 4, 4, 5 exist past E-129's cap** (out-degree >= 3, parallel arrows): E-129's d = 2 holds only for its capped sample and out-degree <= 2. Open: save the d_i / dim e_iAe_8 / Cartan tables (all i); hand-build m = 2 with three such i; walks past the cap, counting distinct algebras (agenda item 2 now has a known positive).
+- **S-1 (E-133):** with `mirrorRow`, image is still a function of (K, word) at n = 11 (94 ends, 0 conflicts); E-125's "82 ends" was a miscount. I1 iff stripped core is a lone 3 or 7 with K_eff = 3. Lone-relation keys depend on {h, K}; key-level prediction: K >= 3 fails first at n = 11, K >= 4 at n = 13, K >= 5 at n = 15. Open: orbit check at n = 13 (lone 3 at (4,5), (5,4)); n = 12 after `--plan`; `maverick_single.py` label block crashes (fix); non-lone cores; K = 2.
+- Requests added: experimentalist: n = 13 lone-3 orbit check; walks past the cap with distinct algebras and the full d_i table. theorist: why #{i: e_iAe_8 = 0, path to v} = m; derive the {h, K} dependence from H-020. toolsmith: fix `maverick_single.py`; close the n = 6 LNA classes for (d, J). skeptic: orbit/isomorphism test for 7822 vs 7831 not relying on `canonicalKey` (may be None).
 
 ## Round 036 updates (supersede everything below where they differ)
 
@@ -42,71 +51,7 @@ Round 035 (ordinary: toolsmith, experimentalist, scholar; referees skeptic, theo
 - **T5 (E-130):** n = 7 BFS closure of the both-die classes does not fit one command (class 1 ratio about 2.4, class 3 falling from 2.6 to 1.9); 0 of 44 reached in 240 s per class. No overnight approved. Open: E-124's reverse direction (mutate each target, look for an LNA child); measure memory and None-key drops.
 - Requests added: toolsmith: reverse-direction search from the 44 targets. experimentalist: d >= 3 rows deeper (checkpointed, distinct algebras); n = 7 class 3 plan. skeptic: a cyclic gate-admitted case where a non-simple path kills dim J_i bound (L1). theorist: why J_i = 0 at d_i = 3; Gamma_i / parallel multiplicity for the 5 rows (still open).
 
-## Round 034 updates (supersede everything below where they differ)
-
-Round 034 (ordinary: theorist, skeptic, maverick; referees experimentalist, scholar, skeptic; all minor revision, all accepted with qualifications) recorded E-125..E-127. **Round 035 is ordinary; 036 is the next conference.** The round-032 agenda stands (proposed, pending the human).
-
-- **T5 (E-126):** on a gate-admitted v, dim J_i <= d_i - 1 (the gate tests single paths), so J_i != 0 needs d_i >= 2; with d_i = 2, dim J_i = 1. For acyclic Q, Hom(N,N[-1]) = 0 and Hom(T,T[-1]) = sum J_i (conditional on T silting, AI 2.31). A layered algebra has d = 3, dim J = 2, so E-124's "dim J_i = 1 on walks" still needs "d_i <= 2 at J_i != 0 on walks" (empirical; E-116 allows up to 8). Open: that bound on walks; a cyclic-quiver test of L2; compare with the AI text.
-- **T5 (E-127):** the 5 out-degree 3/4 parallel rows with J != 0 at n = 8 c0 are real Cartan failures; defect support = J support; the gate is blind at out-degree >= 3 as at 2; E-111's "0 rejects at out-degree >= 3" holds for its prefix only. Open: are the 5 rows 3 orbits (mirror pairs); discrepancy values; other classes and n = 9; why the number of J_i != 0 equals the parallel multiplicity; Gamma_i with three-term relations.
-- **S-1 (E-125):** at n = 11 in the failing class, the image is a function of (K, core word); same-core words go I1 at K = 3, I2 at K = 4. "Room to move" (image free run 2 against 3) is a hypothesis; the tail table carries the claim. Open: head orientation via `mirrorRow`; K = 2 failing classes at n = 11; n = 12; derive from the H-020 rule table (why a last letter 3 gives I1).
-- Requests added: theorist: Gamma_i / parallel multiplicity for the 5 rows; the last-letter-3 rule. toolsmith: out-degree >= 3 rejects on c1 and n = 9 c0 with a checkpointed walk; size the n = 7 BFS. experimentalist: d_i histogram at gate-admitted (v, i) on long walks, any d >= 3 with J != 0 in a derived class. skeptic: a cyclic-quiver case for L2; a hand-built dim J_i >= 2 row. maverick: redo head ends with `mirrorRow`.
-
-## Round 033 updates (supersede everything below where they differ)
-
-Round 033 (ordinary: scholar, toolsmith, experimentalist; referees skeptic, skeptic, theorist; all minor revision, all accepted with qualifications) recorded E-122..E-124. **Round 034 is ordinary; 036 is the next conference.** The round-032 agenda stands (proposed, pending the human).
-
-- **T5 (E-122):** AI 2.32(b) at v is exactly J_i = Hom(S_v, e_iA) (no monomial hypothesis); E-121's "H^{-1}(cone)" means H^{-1} RHom(cone, A). Open: Hom(N,N[-1]) for "silting-not-tilting iff some J_i != 0"; a case with coker != 0 or dim J >= 2; compare with printed AI text.
-- **T5 (E-123):** key test has no base rate: walk parents carry the c0 key by construction; in E-121's layered family 0 of 2 704 have an LNA key, even circuit-free and pure-W. E-121's key absence is not evidence. Open: a positive control (sinks attached elsewhere); reconcile 1 593 vs 900.
-- **T5 (E-124):** both-die squares exist at n = 6 (gate-admitted, J != 0) but none of 42 has an LNA key; 48 at n = 7, 1 408 at n = 8; capped n = 7 walks found none of the 44. dim J_i = 1 always, inside a 2-dim e_iAe_v. Open: close the n = 7 BFS or reverse-mutate the 44 toward an LNA (size with `--plan` first); why arrow-side cores never get an LNA key; out-degree 3 parallel rows with J != 0 under `checkCartan=True`; save the n = 8 enumeration output.
-- Requests added: toolsmith: size the n = 7 BFS closure. theorist: why dim J_i = 1 inside a 2-dim e_iAe_v; Hom(N,N[-1]). skeptic: mutate the out-degree 3 parallel rows with checkCartan.
-
-## Round 032 updates (supersede everything below where they differ)
-
-Round 032 was a conference (all six personas, position statements; `rounds/032/`). **Round 033 is ordinary; 036 is the next conference.** Ranked agenda **(proposed, round 032)**, replacing the round-028 agenda, pending the human's approval in STEERING.md; ordinary rounds work from it:
-1. T5: why no long circuits on walks; invariant separating LNA-derived from circuit-carrying algebras; check Aihara-Iyama 2.31/2.32 socle reading against step 7 on one mutation. theorist, scholar, skeptic.
-2. T5: base rate of LNA Coxeter keys on random gate-admitted out-degree 2 walk rows at n = 8 c0. toolsmith, skeptic.
-3. T5: why both-die rows first appear at n = 8; hand-built n = 6 both-die square; dim J_i on walk J != 0 rows. experimentalist, theorist.
-4. T5: prove the Gamma_i two-edge bound. theorist, toolsmith.
-5. S-1: core property fixing the deletion threshold K; K >= 4 at n = 12. maverick, theorist.
-Requests: theorist: restate AI 2.31/2.32, invariant, why capped walks lack both-die rows; toolsmith: key base rate, per-(orbit, vertex) table for n = 11; experimentalist: dim J_i, parallel-arrow walk controls; skeptic: refute the socle reading on one mutation.
-
-## Round 028 (conference) -- proposed agenda (proposed, round 028; supersedes the round-024 agenda; ordinary rounds work from it until the human changes it in STEERING.md)
-
-Details: `rounds/028/proceedings.md`. Round 029 is ordinary; next conference 032. T1-T9 and the round updates below stay current.
-1. **No long circuits / converse of W** (T5): theorist + scholar prove or refute "no nn 2-cycle, no circuit >= 3 on LNA-derived algebras"; can D, G, H occur inside a walk? First: the skeptic's 22 n = 8 c0 rows (both J nonzero, empty intersection).
-2. **Controls for W** (T5): experimentalist + toolsmith hand-build a parallel-arrow positive control and a "cancels" example; skeptic checks gate admission of the 61 D' rejects.
-3. **Resolve the 16 n = 9 and 176 n = 10 cospectral LNAs** (S-1 validation): toolsmith + experimentalist; size with `--plan` first.
-4. **S-1: derive K >= 3** (maverick + theorist): why K = 2 fails; relation to H-020; then n = 11, S-1 question 3.
-5. Carried, lower rank: mirror chain (T6), `k(33x) = 2x` (T2/T4), n = 15..17 (T1/T2).
-
-## Round 027 updates (supersede everything below where they differ)
-
-Round 027 (ordinary: scholar, experimentalist, maverick) recorded E-110..E-112, all accepted with caveats. **Round 028 is a conference** (multiple of 4). The round-024 agenda stands.
-
-- **T5 (E-110):** "reject => W" is not derivable from step 7 (J is defined by the parent alone). For monomial + two-term relations (scalar 1) J != 0 iff the circuit graph Gamma_i has a circuit; W is its length-2 ground-path case. Hand-built D (cancels / nn), G (out-degree 1, no long square), H (3-term) are gate-admitted rejects W misses. On walks J != 0 is always a length-2 ground path. Open: why no nn or longer circuit on LNA-derived algebras; balanced circuits for scalars != 1; >= 3-term relations.
-- **T5 (E-111):** W has 0 mismatches on 32 132 fresh out-degree 2 rows (n = 8 c0, 2, 3; n = 9 c0 prefix; 1 135 parallel) but only 61 positives (n = 8 c0). Out-degree >= 3: 0 rejects. Open: parallel-arrow positive control; classes 4..10 at n = 8; n = 9 c0 beyond the prefix (no overnight adopted).
-- **S-1 (E-112):** no positional rule for deleting a vertex (same-class pairs kept 0.43 vs 0.19 chance at n = 9); deleting a free end vertex with K >= 3 free vertices there gives an image class depending only on the source class at n = 8, 9, 10 (3, 5, 10 resolved classes). Open: derive it (F-028/H-020?); '?' ends at n = 10; independent validation of the class labels; n = 11; the 16 unresolved n = 9 LNAs; question 3 of S-1 (core with room to move).
-- Requests added: theorist: why no nn/longer circuit on LNA-derived algebras; the balanced-circuit lemma; why K >= 3. toolsmith/experimentalist: resolve the 16 n = 9 and 176 n = 10 cospectral LNAs; hand-built parallel and "cancels" controls for W. experimentalist: n = 11 for the K >= 3 rule.
-
-## Round 024 (conference) -- proposed agenda (proposed, round 024; supersedes the round-020 agenda; ordinary rounds work from it until the human changes it in STEERING.md)
-
-Details: `rounds/024/proceedings.md`. Round 025 is ordinary; next conference 028. T1-T9 and the round updates below stay current.
-1. **The 42 n = 8 class-0 rejects** (T5): scholar classifies them (revision due); skeptic: reachable by key-preserving walks?; toolsmith: Cartan test through the rewrite; experimentalist: capped walks at n = 8 classes 1, 3 and n = 9 class 0.
-2. **Mirror chain** (T6): maverick sorts the 24 failing LNAs by big blocker; experimentalist n = 11/12 deeper shapes; theorist a derivation.
-3. **Split words / shuttle / `k(33x) = 2x`** (T1/T2/T4): experimentalist n = 15..17; theorist shuttle row.
-4. **Cord = commutativity cycle** (T6): theorist, toolsmith.
-
-## Round 020 (conference) -- proposed agenda (proposed, round 020; supersedes the round-016 agenda; ordinary rounds work from it until the human changes it in STEERING.md)
-
-Details: `rounds/020/proceedings.md`. Round 021 is ordinary; the next conference is 024. T1-T9 and the round updates below stay current.
-1. **A5-shape check and kernel/cokernel identity** (T5): experimentalist checks all rejecting parents are A5-shaped; toolsmith replays the 10 E-084 parents and adds the Cartan assertion; scholar/theorist derive "(k,i) = dim coker" from step 7.
-2. **Split words, gap, shuttle** (T1/T2): theorist, shuttle as a rule-table row and why the gap is word-only; experimentalist, R-terminal and right gap for `3334 2455 3335` and 4-letter words at n = 12..17; skeptic, selectivity null.
-3. **Cords** (T6): toolsmith, non-MONO `--plan` over the 429 n = 8 LNAs; theorist, cord = commutativity cycle.
-4. **`k(33x) = 2x`** (T2/T4): theorist, a mechanism.
-
-
-
-(Round 023 updates dropped as superseded; see `rounds/023/proceedings.md`. Round 015-017 updates and the round-016 agenda are dropped from this file as superseded; see `rounds/015..017/proceedings.md` and E-085..E-090.)
+(Round 020-034 agenda and update sections dropped as superseded by the round-036 agenda; see `rounds/020..034/proceedings.md` and E-100..E-127.)
 
 ## Round 006 updates (supersede the thread text above where they differ)
 
@@ -137,13 +82,13 @@ Requests added: toolsmith to theorist: why the key-coarser cores are the parity 
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 035 | 035 (theorist) |
+| experimentalist | 035 | 037 (maverick) |
 <!-- 036 was a conference: all six wrote position statements -->
 <!-- 012 was a conference: all six wrote position statements -->
 <!-- 008 was a conference: all six wrote position statements -->
 <!-- 005 was a conference: all six wrote position statements; nobody refereed -->
-| theorist | 034 | 035 (experimentalist) |
-| skeptic | 034 | 035 (scholar, toolsmith) |
+| theorist | 037 | 037 (skeptic) |
+| skeptic | 037 | 037 (theorist) |
 | scholar | 035 | 034 (skeptic) |
 | toolsmith | 035 | 027 (maverick) |
-| maverick | 034 | 015 (toolsmith) |
+| maverick | 037 | 015 (toolsmith) |
