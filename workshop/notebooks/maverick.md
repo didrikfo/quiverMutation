@@ -1,22 +1,23 @@
 # Maverick's notebook
 
-## What I now believe (after round 034)
-- S-1 free-end deletion: with E-115 labels, "K >= 3 free vertices at the end => image class is a function of source class" holds n = 8, 9, 10 (3/3, 6/6, 12/12) and fails at n = 11 in ONE class (key (1,1,0,-1,-2,-3,-3,-2,-1,0,1,1), 1305 LNAs, orbits 15107 (943), 15035 (362)). K >= 4 holds (10/10 resolved at n = 11). K = 2 fails 0/1/2/9 classes at n = 8..11.
-- r034 per-end table (`rounds/034/maverick_endtable.py`, 80 s): 82 ends with K >= 3 (66 at K = 3, 16 at K = 4), head/tail mirror-identical. Image is a function of (K, oriented core word): 77 keys, 0 conflicts. 12 core words occur at K = 3 and K = 4: K = 3 -> image I1 (n = 10 key ...-2,-2,-2...), K = 4 -> I2 (...-2,-3,-2...). So the failure is "room to move": deleting from a run of 3 leaves a run of 2 (the K = 2 regime), from 4 leaves 3. Not a label artefact (image keys differ; both images inside orbit 15107). Words ending in 3 go to I1 at K = 3 (25 words), others to I2.
-- Earlier: pair statistics of deletion 2x chance, no positional rule (E-112); H-017 beliefs of r023 stand (relations > cords among quipus to depth 6 at n = 9; Euler signature pos <= n-2 iff outside every quipu class; mirror-chain depth rule is a fit).
+## What I now believe (after round 037)
+- S-1 free-end deletion at n = 11 (failing class key (1,1,0,-1,-2,-3,-3,-2,-1,0,1,1), 1305 LNAs): the I1/I2 split is a lone relation off-centre. Drop length-2 relations (free); I1 iff stripped core = one relation `3` (or `7`) with K_eff = 3, else I2. `maverick_endtable_mirror.py`: mirrorRow redo, 94 ends, 47 keys, 0 conflicts, head/tail agree; E-125's 12 same-core words are really 8.
+- Lone 3 at (h free head, K free tail): key depends on {h,K}. n = 11 class {(4,3),(3,4)}: delete tail -> (4,2)=I1, head -> (3,3)=I2. Not "room to move". Predicted (by keys) first failures: K >= 3 at n = 11, K >= 4 at n = 13 (h,K)=(4,5), K >= 5 at n = 15. So K >= 4 holding at n = 11 is a small-n artefact. n = 12: K = 3 fails, K >= 4 predicted OK; not run.
+- Compatible choice for lone relations: delete from the shorter free side (mirror-aware).
+- Earlier: r034 per-end table (E-125); pair statistics of deletion 2x chance (E-112); H-017 beliefs of r023 stand (relations > cords among quipus to depth 6 at n = 9; Euler signature pos <= n-2 iff outside every quipu class; mirror-chain depth rule is a fit).
 
 ## What I tried
-- r034 endtable (above). r030 `maverick_endstrip2.py N`, `maverick_fail11.py`. r027 `maverick_*.py`; r018-r023 cord producer, predict, chain, twobig.
+- r037: mirrorRow redo, normal form, `maverick_single.py` (lone-relation keys n = 9..12, predicted thresholds, I1/I2 identified with E-115 labels). Rule-table derivation proper not done: VERIFIED_MOVES has no lone-3 move, which is the reason, not a proof.
+- r034 endtable, r030 endstrip2/fail11, r027, r018-r023 cord producer, predict, chain, twobig.
 
 ## Watch for
-- Pair statistics are dominated by big classes; compare with all-pairs null.
-- Key-only class labels can merge derived classes (source side); orbit-split images inside one orbit is the clean test.
-- Head-end orientation in r034 was a digit-string reversal, not freeMoves.mirrorRow; rerun if it matters.
-- A negative at depth d excludes only distance <= d. One failing class is a small sample for a "law".
+- E-125 says 82 ends, my loop counts 94 on the same class: unexplained; do not compare tables line by line.
+- Key-only classes: "differs" by key is sound, "same" is not (source side needs orbit check).
+- Pair statistics are dominated by big classes; compare with an all-pairs null.
+- A negative at depth d excludes only distance <= d. One failing class is a small sample.
 
 ## Next
-- Check the same K-vs-(K-1) same-core pattern for the 9 K = 2 failing classes at n = 11.
-- n = 12 (orbit-only test): does the K = 3 failure persist for the same core words, or does the threshold rise? Needs n = 12 free-move orbits; size with --plan.
-- Derive why last letter 3 matters (H-020 rule table; theorist).
-- S-1 Q3 in the other direction (simple LNA reached only via room) untouched.
-- n = 12 two-big LNAs for the mirror chain (carried); depth 7 at n = 9 overnight for H-017.
+- n = 13: lone 3 at (4,5)/(5,4), K >= 4 ends: orbit check of the source, images by key (predicted fail).
+- K = 2 failing classes at n = 11 (9): same lone-relation mechanism? Also pairs of relations (two-relation cores {h,K} analogue).
+- Does a lone a-relation of every length a give failures at n = a + 2K0 + 2? (a = 4, 7 keys in `maverick_single.py`.)
+- Depth 7 at n = 9 for H-017 and n = 12 two-big LNAs (carried, overnight).
