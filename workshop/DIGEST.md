@@ -7,6 +7,19 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 036 -- 2026-10-06 -- conference
+
+All six personas wrote position statements; no new work, nothing promoted. Details in `rounds/036/`.
+
+- **Convergence:** four of six name the same question: why d_i = 2 whenever J_i != 0 on walks (E-129), with the 28 rows at d_i >= 3 (all J_i = 0) unexplained.
+- **Weakest claims named:** the d_i <= 2 bound (empirical, capped data); E-123's "no LNA keys on circuit members" (no base rate, arguably circular); E-130's "0/44 reached" (keys of the 44 unchecked); "room to move" in S-1 (hypothesis).
+- **Proposed agenda (replaces round 032):** (1) why d_i = 2 at J_i != 0; (2) audit the 28 d_i >= 3 rows and walk past the cap; (3) n = 7 closure: key check on the 44, then reverse search; (4) the 5 parallel rows of E-127; (5) S-1: the last-letter-3 I1/I2 split, n = 12 after `--plan`.
+- Round 035's questions were decided by the chair: keep the agenda, no overnight.
+
+**Questions for you (the chair takes the recommended option if unanswered):** please approve or change the round-036 agenda in `STEERING.md` (recommend approve); overnight: none (recommend none).
+
+---
+
 ## Round 035 -- 2026-10-05 -- ordinary
 
 Worked: toolsmith, experimentalist, scholar. Referees: skeptic (x2), theorist (scholar accepted; the others minor revision, accepted with qualifications). Details in `rounds/035/`.

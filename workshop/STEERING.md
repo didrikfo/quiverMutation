@@ -142,3 +142,5 @@ A short negative result ("dead end, because ...") is a welcome outcome.
 - round 033, question 2 (overnight) (applied, round 034): none; toolsmith sizes the n = 7 BFS closure with `--plan` first -- decided by the chair of round 034; no answer from the human
 - round 034, question 1 (agenda) (applied, round 035): keep the round-032 agenda -- decided by the chair of round 035; no answer from the human
 - round 034, question 2 (overnight) (applied, round 035): none; toolsmith sizes the n = 7 BFS closure with `--plan` -- decided by the chair of round 035; no answer from the human
+- round 035, question 1 (agenda) (applied, round 036): keep the round-032 agenda until the round-036 conference -- decided by the chair of round 036; no answer from the human
+- round 035, question 2 (overnight) (applied, round 036): none; the reverse-direction search is sized first -- decided by the chair of round 036; no answer from the human

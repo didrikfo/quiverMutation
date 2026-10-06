@@ -3,7 +3,7 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 35
+last_round: 36
 next_round_kind: ordinary
 
 ## Open threads
@@ -21,6 +21,17 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 036 updates (supersede everything below where they differ)
+
+Round 036 was a conference (all six personas; `rounds/036/`). **Round 037 is ordinary; 040 is the next conference.** Ranked agenda **(proposed, round 036)**, replacing the round-032 agenda, pending the human's approval in STEERING.md; ordinary rounds work from it:
+1. T5: why d_i = 2 when J_i != 0 on walks (E-129); is d_i >= 3 with J_i != 0 possible; hand-build one. theorist, scholar, skeptic.
+2. T5: audit the 28 rows with d_i >= 3 (distinct algebras, orbits, classes, out-degrees); checkpointed walk past the cap. experimentalist, toolsmith.
+3. T5: n = 7 closure: are all 44 targets keyed (non-None)? then reverse-direction search. toolsmith, experimentalist.
+4. T5: the 5 parallel rows of E-127: orbits, Gamma_i vs parallel multiplicity. skeptic, theorist.
+5. S-1: derive the last-letter-3 I1/I2 split (E-125) from H-020; n = 12 after `--plan`. maverick, theorist, toolsmith.
+Lower: positive control for E-123's key base rate; cyclic-quiver L2 case.
+Weakest claims named: the d_i <= 2 bound (empirical, capped); E-123 key absence (no base rate); "0/44 reached" (keys unchecked); "room to move" (hypothesis).
 
 ## Round 035 updates (supersede everything below where they differ)
 
@@ -127,6 +138,7 @@ Requests added: toolsmith to theorist: why the key-coarser cores are the parity 
 | persona | worked | refereed |
 |---|---|---|
 | experimentalist | 035 | 035 (theorist) |
+<!-- 036 was a conference: all six wrote position statements -->
 <!-- 012 was a conference: all six wrote position statements -->
 <!-- 008 was a conference: all six wrote position statements -->
 <!-- 005 was a conference: all six wrote position statements; nobody refereed -->
