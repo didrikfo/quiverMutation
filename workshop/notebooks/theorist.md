@@ -1,17 +1,16 @@
-# Theorist notebook (rewritten round 034)
+# Theorist notebook (rewritten round 037)
 
 ## What I believe now
-- J_i = Hom(S_v, e_iA) = socle copies of S_v in e_iA (E-122). Gate (isMutable) = "no single nonzero path in J" (E-114). Round 034: L1 gives dim J_i <= d_i - 1 for gate-admitted v (d_i = dim e_iAe_v), so J != 0 needs d_i >= 2 and d_i = 2 gives dim J_i = 1. Layered m = 3 hand example has (d,J) = (3,2): dim J = 1 is not forced in general.
-- "d_i <= 2 whenever J_i != 0 on walks" is the unproved part (E-116 bound too weak). Walk prefixes n = 7, 8: only (2,1) and (2,0) pairs with d >= 2 appear.
-- L2: Hom(N,N[-1]) = {h: P_v -> D' with hg = 0, gh = 0} lies in paths from out-neighbours back to v, so is 0 on acyclic algebras; Hom(D,N[-1]) = 0; Hom(T,T[-1]) = sum J_i. Silting (AI 2.31) cited, not proved; AI text not compared.
-- Earlier (031): circuits/nn shapes are not excluded by the kernel structure alone; layered families have no LNA key but E-123 says that is uninformative (0 of 2 704).
+- J_i = Hom(S_v, e_iA) (E-122); gate = "no single nonzero path in J" (E-114); L1: dim J_i <= d_i - 1 (E-126). L1 is only a restatement of the gate.
+- Round 037: gate does NOT force d_i = 2: hand T1 (1->{2,3,4}->5->6, 1-2-5-6 = 1-3-5-6, v=5) is gate-admitted with (d,J) = (3,1); layered m=3 gives (3,2). T1 has non-LNA Coxeter key, so not on a walk. Any proof of d=2 must use derived-class structure, not the gate.
+- 16 gate-admitted (d>=3,J!=0) six-vertex fans have an LNA key, but 16 bounded BFSes (~230 algebras each, one class) found no LNA: key coincidence only (E-123). Not a counterexample, not evidence for the pattern either.
+- L2 (acyclic: Hom(T,T[-1]) = sum J_i) conditional on AI 2.31, not compared with the text. Cyclic L1 untested.
 
 ## What I tried
-- 034: `rounds/034/theorist_dimji.py` (hand: E-078 and layered m=3; walk: (d,J) histogram at all gate-admitted (v,i)).
-- 031: `theorist_t3.py`, `theorist_layers.py`. 029: `theorist_circuit.py`, `theorist_keys.py`. 026: W exact match on 17 802 rows.
+- 037: `rounds/037/theorist_d3.py` (hand / enum 6 / bfs). 034: `theorist_dimji.py`. 031: `theorist_t3.py`, `theorist_layers.py`. 029: `theorist_circuit.py`, `theorist_keys.py`. 026: W exact match.
 
 ## Next
-- Prove or find a counterexample to d_i <= 2 at J_i != 0 on walks: track how e_iAe_v gains its second path under one mutation (the new arrow composite), try an induction on mutation steps.
-- Cyclic quiver case for L2 (does a cycle through v exist in any derived class here? walks skip cyclic algebras).
-- Invariant (Coxeter polynomial / Euler form) separating nn / long circuits from LNA keys is still open.
-- Blind spots: a miss in a thin family is not "cannot occur"; L1 is a restatement of the gate, do not oversell it as the explanation of d = 2.
+- Close (exhaustively) the n = 6 LNA derived classes and tabulate (d,J): settles n = 6 for d>=3.
+- n = 7 enumeration with extra attached vertex (`enum 7`, size it with a dry count first).
+- Find an invariant excluding fan-with-commutation shapes from LNA classes (T3).
+- Blind spots: a BFS miss is not non-equivalence; a key match is not equivalence.
