@@ -8,4 +8,6 @@ kind: ordinary
 ## Revisions due
 (none)
 ## Referees
-(filled in at step 3)
+- skeptic referees theorist.md
+- theorist referees skeptic.md
+- experimentalist referees maverick.md

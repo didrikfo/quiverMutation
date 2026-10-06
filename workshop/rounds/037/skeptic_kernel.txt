@@ -1,0 +1,38 @@
+ROW 6820 v 4 outs [(4, 6, 0), (4, 8, 0), (4, 8, 1)]
+ i 3 paths [[1, 4], [1, 2, 4], [7, 2, 4]] ideal rank 1
+   null (path coefficients): [-1, 1, 0]  image arrows used: [(4, 6, 0)]
+   null (path coefficients): [1, 0, 1]  image arrows used: [(4, 6, 0)]
+ i 5 paths [[1, 4], [1, 2, 4], [7, 2, 4]] ideal rank 1
+   null (path coefficients): [-1, 1, 0]  image arrows used: [(4, 6, 0)]
+   null (path coefficients): [1, 0, 1]  image arrows used: [(4, 6, 0)]
+ROW 7424 v 4 outs [(4, 6, 0), (4, 8, 0), (4, 8, 1)]
+ i 1 paths [[3, 4], [3, 2, 4], [7, 2, 4]] ideal rank 1
+   null (path coefficients): [-1, 1, 0]  image arrows used: [(4, 6, 0)]
+   null (path coefficients): [1, 0, 1]  image arrows used: [(4, 6, 0)]
+ i 5 paths [[3, 4], [3, 2, 4], [7, 2, 4]] ideal rank 1
+   null (path coefficients): [-1, 1, 0]  image arrows used: [(4, 6, 0)]
+   null (path coefficients): [1, 0, 1]  image arrows used: [(4, 6, 0)]
+ROW 7822 v 7 outs [(7, 4, 0), (7, 8, 0), (7, 8, 1)]
+ i 3 paths [[1, 7], [6, 7], [6, 7], [6, 1, 7], [6, 1, 7]] ideal rank 1
+   null (path coefficients): [1, 0, 1, 0, 0]  image arrows used: [(7, 4, 0)]
+   null (path coefficients): [0, -1, 0, 0, 1]  image arrows used: [(7, 4, 0)]
+ i 5 paths [[1, 7], [6, 7], [6, 7], [6, 1, 7], [6, 1, 7]] ideal rank 1
+   null (path coefficients): [1, 0, 1, 0, 0]  image arrows used: [(7, 4, 0)]
+   null (path coefficients): [0, 1, 0, 1, 1]  image arrows used: [(7, 4, 0)]
+ROW 7831 v 7 outs [(7, 4, 0), (7, 8, 0), (7, 8, 1)]
+ i 1 paths [[3, 7], [6, 7], [6, 7], [6, 3, 7], [6, 3, 7]] ideal rank 1
+   null (path coefficients): [1, 0, 1, 0, 0]  image arrows used: [(7, 4, 0)]
+   null (path coefficients): [0, -1, 0, 0, 1]  image arrows used: [(7, 4, 0)]
+ i 5 paths [[3, 7], [6, 7], [6, 7], [6, 3, 7], [6, 3, 7]] ideal rank 1
+   null (path coefficients): [1, 0, 1, 0, 0]  image arrows used: [(7, 4, 0)]
+   null (path coefficients): [-1, 1, 0, 1, 0]  image arrows used: [(7, 4, 0)]
+ROW 7836 v 7 outs [(7, 6, 0), (7, 8, 0), (7, 8, 1), (7, 8, 2)]
+ i 1 paths [[4, 7], [4, 7], [4, 7], [4, 7], [4, 7], [4, 7]] ideal rank 1
+   null (path coefficients): [0, 1, 0, 0, 1, 0]  image arrows used: [(7, 6, 0)]
+   null (path coefficients): [0, 0, 1, 0, 0, 1]  image arrows used: [(7, 6, 0)]
+ i 3 paths [[4, 7], [4, 7], [4, 7], [4, 7], [4, 7], [4, 7]] ideal rank 1
+   null (path coefficients): [1, 0, 0, 1, 0, 0]  image arrows used: [(7, 6, 0)]
+   null (path coefficients): [0, 0, 1, 0, 0, 1]  image arrows used: [(7, 6, 0)]
+ i 5 paths [[4, 7], [4, 7], [4, 7], [4, 7], [4, 7], [4, 7]] ideal rank 1
+   null (path coefficients): [1, -1, 1, 0, 0, 0]  image arrows used: [(7, 6, 0)]
+   null (path coefficients): [-1, 1, 0, 0, 0, 1]  image arrows used: [(7, 6, 0)]

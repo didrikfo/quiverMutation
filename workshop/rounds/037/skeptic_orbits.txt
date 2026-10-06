@@ -1,0 +1,59 @@
+row 6820 v 4 J {3: 1, 5: 1} nedges 12 nrels 8 key None? False
+row 7424 v 4 J {1: 1, 5: 1} nedges 12 nrels 8 key None? False
+row 7822 v 7 J {3: 1, 5: 1} nedges 19 nrels 19 key None? False
+row 7831 v 7 J {1: 1, 5: 1} nedges 19 nrels 19 key None? False
+row 7836 v 7 J {1: 1, 3: 1, 5: 1} nedges 24 nrels 25 key None? True
+--- pairwise: identical up to relabelling (I) / opposite (O)
+6820 7424 iso - v-map {3: 1, 1: 3, 2: 2, 4: 4, 6: 6, 7: 7, 8: 8, 5: 5}
+6820 7822 - - v-map None
+6820 7831 - - v-map None
+6820 7836 - - v-map None
+7424 7822 - - v-map None
+7424 7831 - - v-map None
+7424 7836 - - v-map None
+7822 7831 - - v-map None
+7822 7836 - - v-map None
+7831 7836 - - v-map None
+--- Cartan e_iAe_v vs d_i (independent check)
+6820 v 4 {3: (0, 2), 5: (0, 2)} quiver [(1, 2, 2), (1, 4, 2), (2, 4, 1), (3, 1, 2), (3, 7, 2), (4, 6, 3), (4, 8, 3), (5, 1, 2), (5, 7, 2), (6, 8, 1), (7, 2, 1)]
+7424 v 4 {1: (0, 2), 5: (0, 2)} quiver [(1, 3, 2), (1, 7, 2), (2, 4, 1), (3, 2, 2), (3, 4, 2), (4, 6, 3), (4, 8, 3), (5, 3, 2), (5, 7, 2), (6, 8, 1), (7, 2, 1)]
+7822 v 7 {3: (0, 4), 5: (0, 4)} quiver [(1, 7, 1), (2, 5, 1), (3, 1, 3), (3, 6, 3), (4, 8, 6), (5, 1, 3), (5, 6, 3), (6, 1, 2), (6, 7, 2), (7, 4, 3), (7, 8, 3)]
+7831 v 7 {1: (0, 4), 5: (0, 4)} quiver [(1, 3, 3), (1, 6, 3), (2, 5, 1), (3, 7, 1), (4, 8, 6), (5, 3, 3), (5, 6, 3), (6, 3, 2), (6, 7, 2), (7, 4, 3), (7, 8, 3)]
+7836 v 7 {1: (0, 5), 3: (0, 5), 5: (0, 5)} quiver [(1, 4, 3), (2, 5, 1), (3, 4, 3), (4, 7, 2), (5, 4, 3), (6, 8, 8), (7, 6, 4), (7, 8, 4)]
+--- Cartan multiset invariants
+6820 dim 39 det 1 sorted rowsums [np.int64(1), np.int64(1), np.int64(3), np.int64(3), np.int64(6), np.int64(7), np.int64(9), np.int64(9)] sorted colsums [np.int64(1), np.int64(2), np.int64(5), np.int64(5), np.int64(5), np.int64(6), np.int64(7), np.int64(8)]
+7424 dim 39 det 1 sorted rowsums [np.int64(1), np.int64(1), np.int64(3), np.int64(3), np.int64(6), np.int64(7), np.int64(9), np.int64(9)] sorted colsums [np.int64(1), np.int64(2), np.int64(5), np.int64(5), np.int64(5), np.int64(6), np.int64(7), np.int64(8)]
+7822 dim 64 det 1 sorted rowsums [np.int64(1), np.int64(1), np.int64(2), np.int64(5), np.int64(8), np.int64(11), np.int64(12), np.int64(24)] sorted colsums [np.int64(1), np.int64(2), np.int64(7), np.int64(8), np.int64(10), np.int64(10), np.int64(13), np.int64(13)]
+7831 dim 64 det 1 sorted rowsums [np.int64(1), np.int64(1), np.int64(2), np.int64(5), np.int64(8), np.int64(11), np.int64(12), np.int64(24)] sorted colsums [np.int64(1), np.int64(2), np.int64(7), np.int64(8), np.int64(10), np.int64(10), np.int64(13), np.int64(13)]
+7836 dim 75 det 1 sorted rowsums [np.int64(1), np.int64(1), np.int64(1), np.int64(2), np.int64(10), np.int64(16), np.int64(18), np.int64(26)] sorted colsums [np.int64(1), np.int64(2), np.int64(9), np.int64(11), np.int64(13), np.int64(13), np.int64(13), np.int64(13)]
+--- Gamma data
+row 6820 v 4 outs [(4, 6, 0), (4, 8, 0), (4, 8, 1)] parallel mult {6: 1, 8: 2} #J_i!=0 2 dimJ 2
+   i 1 d_i 2 rank g_i 2 dimJ_i 0 terms per path [1, 2] dim e_iAe_t per out [1, 1, 1]
+   i 2 d_i 1 rank g_i 1 dimJ_i 0 terms per path [3] dim e_iAe_t per out [1, 2, 2]
+   i 3 d_i 2 rank g_i 1 dimJ_i 1 terms per path [1, 1, 1] dim e_iAe_t per out [1, 0, 0]
+   i 5 d_i 2 rank g_i 1 dimJ_i 1 terms per path [1, 1, 1] dim e_iAe_t per out [1, 0, 0]
+   i 7 d_i 1 rank g_i 1 dimJ_i 0 terms per path [2] dim e_iAe_t per out [1, 1, 1]
+row 7424 v 4 outs [(4, 6, 0), (4, 8, 0), (4, 8, 1)] parallel mult {6: 1, 8: 2} #J_i!=0 2 dimJ 2
+   i 1 d_i 2 rank g_i 1 dimJ_i 1 terms per path [1, 1, 1] dim e_iAe_t per out [1, 0, 0]
+   i 2 d_i 1 rank g_i 1 dimJ_i 0 terms per path [3] dim e_iAe_t per out [1, 2, 2]
+   i 3 d_i 2 rank g_i 2 dimJ_i 0 terms per path [1, 2] dim e_iAe_t per out [1, 1, 1]
+   i 5 d_i 2 rank g_i 1 dimJ_i 1 terms per path [1, 1, 1] dim e_iAe_t per out [1, 0, 0]
+   i 7 d_i 1 rank g_i 1 dimJ_i 0 terms per path [2] dim e_iAe_t per out [1, 1, 1]
+row 7822 v 7 outs [(7, 4, 0), (7, 8, 0), (7, 8, 1)] parallel mult {4: 1, 8: 2} #J_i!=0 2 dimJ 2
+   i 1 d_i 1 rank g_i 1 dimJ_i 0 terms per path [1] dim e_iAe_t per out [1, 5, 5]
+   i 2 d_i 0 rank g_i 0 dimJ_i 0 terms per path [0, 0, 0, 0, 0] dim e_iAe_t per out [0, 0, 0]
+   i 3 d_i 4 rank g_i 3 dimJ_i 1 terms per path [1, 1, 1, 1, 1] dim e_iAe_t per out [3, 0, 0]
+   i 5 d_i 4 rank g_i 3 dimJ_i 1 terms per path [1, 1, 1, 1, 2] dim e_iAe_t per out [3, 0, 0]
+   i 6 d_i 2 rank g_i 2 dimJ_i 0 terms per path [1, 3] dim e_iAe_t per out [2, 4, 4]
+row 7831 v 7 outs [(7, 4, 0), (7, 8, 0), (7, 8, 1)] parallel mult {4: 1, 8: 2} #J_i!=0 2 dimJ 2
+   i 1 d_i 4 rank g_i 3 dimJ_i 1 terms per path [1, 1, 1, 1, 1] dim e_iAe_t per out [3, 0, 0]
+   i 2 d_i 0 rank g_i 0 dimJ_i 0 terms per path [0, 0, 0, 0, 0] dim e_iAe_t per out [0, 0, 0]
+   i 3 d_i 1 rank g_i 1 dimJ_i 0 terms per path [1] dim e_iAe_t per out [1, 5, 5]
+   i 5 d_i 4 rank g_i 3 dimJ_i 1 terms per path [1, 1, 1, 1, 2] dim e_iAe_t per out [3, 0, 0]
+   i 6 d_i 2 rank g_i 2 dimJ_i 0 terms per path [1, 3] dim e_iAe_t per out [2, 4, 4]
+row 7836 v 7 outs [(7, 6, 0), (7, 8, 0), (7, 8, 1), (7, 8, 2)] parallel mult {6: 1, 8: 3} #J_i!=0 3 dimJ 3
+   i 1 d_i 5 rank g_i 4 dimJ_i 1 terms per path [1, 1, 1, 1, 1, 1] dim e_iAe_t per out [4, 0, 0, 0]
+   i 2 d_i 0 rank g_i 0 dimJ_i 0 terms per path [0, 0, 0, 0, 0, 0] dim e_iAe_t per out [0, 0, 0, 0]
+   i 3 d_i 5 rank g_i 4 dimJ_i 1 terms per path [1, 1, 1, 1, 1, 1] dim e_iAe_t per out [4, 0, 0, 0]
+   i 4 d_i 2 rank g_i 2 dimJ_i 0 terms per path [1, 5] dim e_iAe_t per out [2, 6, 6, 6]
+   i 5 d_i 5 rank g_i 4 dimJ_i 1 terms per path [1, 1, 1, 1, 1, 2] dim e_iAe_t per out [4, 0, 0, 0]
