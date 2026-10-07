@@ -3,7 +3,7 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 38
+last_round: 39
 next_round_kind: ordinary
 
 ## Open threads
@@ -21,6 +21,15 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 039 updates (supersede everything below where they differ)
+
+Round 039 (ordinary: skeptic, theorist, maverick; referees experimentalist, experimentalist, skeptic; all minor revision, accepted with qualifications) recorded E-137..E-139. **Round 040 is a conference** (conference_every = 4). The round-036 agenda stands (proposed, pending the human).
+
+- **T5 (E-137):** E-134's meeting needs a gate-admitted, key-preserving, non-tilting step out of the hit (kernel dim 2); tilting-only BFS (LNA side 27 518 in 150 s, not closed; hits 323-501) shares nothing. The meeting is unsupported, not refuted. Open: positive control and closure flag for the tilting-only run; replay of the other 13 hits; whether the Coxeter guard as such admits the step (`coxkey-pres = True`); reverse search from the hits using J = 0 vertices only.
+- **T5 (E-138):** all 192 J != 0 steps at n = 8 c0 (and 123 at n = 6, 7) leave the class key; out(i) = 3 is a sample property, the gate allows out(i) = 2 (hand algebra). Open: c1, c2, n = 9; a gate-admitted J != 0 step whose child keeps the key (would break the law); prove R(x) != 1 + t when j = e_i; machine-check row 7798's kernel element.
+- **S-1 (E-139):** n = 13 failure confirmed at the orbit level (4349 + 674). Open: n = 12 (K >= 4 holds, K >= 3 fails; `--plan` first) and n = 15; which backward moves join (4,5) and (5,4); the {h, K} dependence from H-020.
+- Requests added: skeptic: a J != 0 step whose child passes the key guard (n <= 7). toolsmith: `--tilting-only` in `toolsmith_n6meet.py` with a positive control; reverse-direction search from the hits. experimentalist: n = 8 c1, c2 for the J != 0 / key-guard column; n = 12 key class for S-1. theorist: R(x) = 1 + t for j = e_i.
 
 ## Round 038 updates (supersede everything below where they differ)
 
@@ -91,13 +100,13 @@ Requests added: toolsmith to theorist: why the key-coarser cores are the parity 
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 038 | 038 (scholar) |
+| experimentalist | 038 | 039 (skeptic, theorist) |
 <!-- 036 was a conference: all six wrote position statements -->
 <!-- 012 was a conference: all six wrote position statements -->
 <!-- 008 was a conference: all six wrote position statements -->
 <!-- 005 was a conference: all six wrote position statements; nobody refereed -->
-| theorist | 037 | 038 (experimentalist) |
-| skeptic | 037 | 038 (toolsmith) |
+| theorist | 039 | 038 (experimentalist) |
+| skeptic | 039 | 039 (maverick) |
 | scholar | 038 | 034 (skeptic) |
 | toolsmith | 038 | 027 (maverick) |
-| maverick | 037 | 015 (toolsmith) |
+| maverick | 039 | 015 (toolsmith) |

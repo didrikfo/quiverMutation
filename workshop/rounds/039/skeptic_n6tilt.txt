@@ -1,0 +1,19 @@
+n = 6: 4 LNA key classes, sizes [2, 24, 26, 32]
+TILTING-ONLY LNA side 27518
+hit 0 (v=2): tilting-only seen 463 shared with tilting-only LNA side 0
+hit 1 (v=2): tilting-only seen 484 shared with tilting-only LNA side 0
+hit 2 (v=2): tilting-only seen 483 shared with tilting-only LNA side 0
+hit 3 (v=2): tilting-only seen 494 shared with tilting-only LNA side 0
+hit 4 (v=2): tilting-only seen 390 shared with tilting-only LNA side 0
+hit 5 (v=2): tilting-only seen 471 shared with tilting-only LNA side 0
+hit 6 (v=2): tilting-only seen 484 shared with tilting-only LNA side 0
+hit 7 (v=2): tilting-only seen 473 shared with tilting-only LNA side 0
+hit 8 (v=2): tilting-only seen 388 shared with tilting-only LNA side 0
+hit 9 (v=2): tilting-only seen 501 shared with tilting-only LNA side 0
+hit 10 (v=2): tilting-only seen 477 shared with tilting-only LNA side 0
+hit 11 (v=2): tilting-only seen 482 shared with tilting-only LNA side 0
+hit 12 (v=2): tilting-only seen 323 shared with tilting-only LNA side 0
+hit 13 (v=2): tilting-only seen 380 shared with tilting-only LNA side 0
+hit 14 (v=2): tilting-only seen 480 shared with tilting-only LNA side 0
+hit 15 (v=2): tilting-only seen 474 shared with tilting-only LNA side 0
+TOTAL failing steps 0

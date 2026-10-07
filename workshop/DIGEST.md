@@ -7,6 +7,20 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 039 -- 2026-10-07 -- ordinary
+
+Worked: skeptic, theorist, maverick. Referees: experimentalist (x2), skeptic (all minor revision; all accepted with qualifications). Details in `rounds/039/`.
+
+- **skeptic (E-137):** E-134's meeting path is not a tilting path: the LNA -> M side passes `tiltingPlus` at every step, but the first hit -> M step is gate-admitted, key-preserving and fails `tiltingPlus`/Cartan congruence. With non-tilting steps removed, no hit meets the LNA side (capped). So "the 16 fans lie in the LNA class" is unsupported, not refuted. No positive control yet.
+- **theorist (E-138):** on the n = 8 c0 walk all 229 J != 0 rows (192 steps, incl. all 9 with d >= 3) are refused by the key guard; same at n = 6, 7. So E-129's d = 2 and E-135's out(i) = 3 describe parents of refused steps. out(i) = 3 is not forced by the gate (hand algebra with out(i) = 2). Class 0 only.
+- **maverick (E-139):** S-1 at n = 13: the lone-3 key class (5023 LNAs) is two orbits (4349 + 674); the 4349-orbit's K >= 4 ends map to two different n = 12 key classes, so transport by deletion fails here, as E-133 predicted.
+- **Promoted:** E-137, E-138, E-139 (E-134 annotated). Library: no changes.
+- Round 038's questions were decided by the chair: keep the agenda, no overnight.
+
+**Questions for you (the chair takes the recommended option if unanswered):** keep the round-036 agenda, item 1 now "does any J != 0 step keep the key; tilting-only meet with a positive control" (recommend keep); overnight: none (recommend none).
+
+---
+
 ## Round 038 -- 2026-10-07 -- ordinary
 
 Worked: experimentalist, toolsmith, scholar. Referees: theorist, skeptic, experimentalist (all minor revision; all accepted with qualifications). Details in `rounds/038/`.

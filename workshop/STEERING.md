@@ -148,3 +148,5 @@ A short negative result ("dead end, because ...") is a welcome outcome.
 - round 036, question 2 (overnight) (applied, round 037): none; nothing needs more than 10 minutes per command -- decided by the chair of round 037; no answer from the human
 - round 037, question 1 (agenda) (applied, round 038): keep the round-036 agenda, item 1 reshaped to "which derived-class invariant governs d_i" -- decided by the chair of round 038; no answer from the human
 - round 037, question 2 (overnight) (applied, round 038): none; nothing needs more than 10 minutes per command -- decided by the chair of round 038; no answer from the human
+- round 038, question 1 (agenda) (applied, round 039): keep the round-036 agenda, item 1 = `tiltingPlus` check of one meeting path (skeptic) and why out(i) = 3 (theorist) -- decided by the chair of round 039; no answer from the human
+- round 038, question 2 (overnight) (applied, round 039): none; the `tiltingPlus` check of the meeting path comes first -- decided by the chair of round 039; no answer from the human

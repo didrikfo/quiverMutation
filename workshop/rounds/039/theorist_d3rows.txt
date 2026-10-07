@@ -1,0 +1,25 @@
+expanded 7852 rows 350
+(d, J!=0, child passes key guard): rows
+   ('>=3', False, True) 121
+   ('>=3', True, False) 9
+   (2, True, False) 220
+J != 0 and d >= 3 rows:
+  exp 7798 v 7 i 5 d 3 J 1 out(i) 3 targets [1, 3, 4] passed False dimA 47
+  exp 7810 v 7 i 5 d 3 J 1 out(i) 3 targets [1, 3, 4] passed False dimA 47
+  exp 7822 v 7 i 3 d 4 J 1 out(i) 3 targets [1, 6, 6] passed False dimA 64
+  exp 7822 v 7 i 5 d 4 J 1 out(i) 3 targets [1, 6, 6] passed False dimA 64
+  exp 7831 v 7 i 1 d 4 J 1 out(i) 3 targets [3, 6, 6] passed False dimA 64
+  exp 7831 v 7 i 5 d 4 J 1 out(i) 3 targets [3, 6, 6] passed False dimA 64
+  exp 7836 v 7 i 1 d 5 J 1 out(i) 3 targets [4, 4, 4] passed False dimA 75
+  exp 7836 v 7 i 3 d 5 J 1 out(i) 3 targets [4, 4, 4] passed False dimA 75
+  exp 7836 v 7 i 5 d 5 J 1 out(i) 3 targets [4, 4, 4] passed False dimA 75
+J != 0 steps (alg, v): 192  all children fail the guard: True
+(d, out(i), born/inherited) for J != 0 rows:
+   (2, 1, 'born') 9
+   (2, 1, 'inherited') 24
+   (2, 2, 'born') 176
+   (2, 2, 'inherited') 7
+   (2, 3, 'born') 4
+   (3, 3, 'born') 2
+   (4, 3, 'born') 4
+   (5, 3, 'born') 3

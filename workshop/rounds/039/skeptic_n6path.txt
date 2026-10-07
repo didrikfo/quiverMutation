@@ -1,0 +1,69 @@
+n = 6: 4 LNA key classes, sizes [2, 24, 26, 32]
+LNA side 23526 None keys dropped 0
+hit 0: seen 845 None dropped 69 shared 16
+ shared key (((1, 5, 1), (1, 6, 1), (3, 1, 1), (4, 1, 1), (5, 2, 1), (6, 2, 1)), (((((1, 5, 0), (5, 2, 0)), 1),  LNA-depth 11 hit-depth 2
+ shared key (((1, 3, 1), (1, 5, 1), (1, 6, 1), (4, 1, 1), (5, 2, 1), (6, 2, 1)), (((((1, 5, 0), (5, 2, 0)), 1),  LNA-depth 11 hit-depth 3
+ shared key (((1, 2, 1), (3, 2, 1), (4, 1, 1), (4, 3, 1), (5, 4, 1), (6, 4, 1)), (((((4, 1, 0), (1, 2, 0)), 1),  LNA-depth 10 hit-depth 5
+ M rels: [[[1, 5, 2], [1, 6, 2]]]
+--- LNA -> M (hit 0): 11 steps from root key (((1, 2, 1), (2, 3, 1), (3, 4, 1), (4, 5, 1), (5, 6, 1)), ((
+  v=1 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=16
+  v=2 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=17
+  v=2 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=17
+  v=2 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=15
+  v=3 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=15
+  v=4 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=16
+  v=1 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=17
+  v=3 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=20
+  v=5 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=21
+  v=1 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=18
+  v=5 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=17
+  steps failing any test: 0
+--- hit 0 -> M: 2 steps from root key (((1, 2, 1), (1, 3, 1), (1, 4, 1), (2, 5, 1), (2, 6, 1), (3,
+  v=2 gate=True tiltingPlus=False cartanCong=False recompute-same=True coxkey-pres=True ker={1: 2} |A|dim=21
+  v=1 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=19
+  steps failing any test: 1
+hit 5: seen 866 None dropped 69 shared 16
+ shared key (((1, 5, 1), (1, 6, 1), (3, 1, 1), (4, 1, 1), (5, 2, 1), (6, 2, 1)), (((((1, 5, 0), (5, 2, 0)), 1),  LNA-depth 11 hit-depth 2
+ shared key (((1, 3, 1), (1, 5, 1), (1, 6, 1), (4, 1, 1), (5, 2, 1), (6, 2, 1)), (((((1, 5, 0), (5, 2, 0)), 1),  LNA-depth 11 hit-depth 3
+ shared key (((1, 2, 1), (3, 2, 1), (4, 1, 1), (4, 3, 1), (5, 4, 1), (6, 4, 1)), (((((4, 1, 0), (1, 2, 0)), 1),  LNA-depth 10 hit-depth 5
+ M rels: [[[1, 5, 2], [1, 6, 2]]]
+--- LNA -> M (hit 5): 11 steps from root key (((1, 2, 1), (2, 3, 1), (3, 4, 1), (4, 5, 1), (5, 6, 1)), ((
+  v=1 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=16
+  v=2 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=17
+  v=2 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=17
+  v=2 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=15
+  v=3 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=15
+  v=4 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=16
+  v=1 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=17
+  v=3 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=20
+  v=5 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=21
+  v=1 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=18
+  v=5 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=17
+  steps failing any test: 0
+--- hit 5 -> M: 2 steps from root key (((1, 2, 1), (1, 3, 1), (1, 4, 1), (2, 5, 1), (2, 6, 1), (3,
+  v=2 gate=True tiltingPlus=False cartanCong=False recompute-same=True coxkey-pres=True ker={1: 2} |A|dim=21
+  v=1 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=19
+  steps failing any test: 1
+hit 11: seen 865 None dropped 68 shared 16
+ shared key (((1, 5, 1), (1, 6, 1), (3, 1, 1), (4, 1, 1), (5, 2, 1), (6, 2, 1)), (((((1, 5, 0), (5, 2, 0)), 1),  LNA-depth 11 hit-depth 2
+ shared key (((1, 3, 1), (1, 5, 1), (1, 6, 1), (4, 1, 1), (5, 2, 1), (6, 2, 1)), (((((1, 5, 0), (5, 2, 0)), 1),  LNA-depth 11 hit-depth 3
+ shared key (((1, 2, 1), (3, 2, 1), (4, 1, 1), (4, 3, 1), (5, 4, 1), (6, 4, 1)), (((((4, 1, 0), (1, 2, 0)), 1),  LNA-depth 10 hit-depth 5
+ M rels: [[[1, 5, 2], [1, 6, 2]]]
+--- LNA -> M (hit 11): 11 steps from root key (((1, 2, 1), (2, 3, 1), (3, 4, 1), (4, 5, 1), (5, 6, 1)), ((
+  v=1 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=16
+  v=2 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=17
+  v=2 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=17
+  v=2 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=15
+  v=3 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=15
+  v=4 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=16
+  v=1 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=17
+  v=3 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=20
+  v=5 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=21
+  v=1 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=18
+  v=5 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=17
+  steps failing any test: 0
+--- hit 11 -> M: 2 steps from root key (((1, 2, 1), (1, 3, 1), (1, 4, 1), (2, 5, 1), (2, 6, 1), (3,
+  v=2 gate=True tiltingPlus=False cartanCong=False recompute-same=True coxkey-pres=True ker={1: 2} |A|dim=21
+  v=1 gate=True tiltingPlus=True cartanCong=True recompute-same=True coxkey-pres=True ker={} |A|dim=19
+  steps failing any test: 1
+TOTAL failing steps 3

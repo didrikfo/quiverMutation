@@ -1,23 +1,22 @@
 # Maverick's notebook
 
-## What I now believe (after round 037)
-- S-1 free-end deletion at n = 11 (failing class key (1,1,0,-1,-2,-3,-3,-2,-1,0,1,1), 1305 LNAs): the I1/I2 split is a lone relation off-centre. Drop length-2 relations (free); I1 iff stripped core = one relation `3` (or `7`) with K_eff = 3, else I2. `maverick_endtable_mirror.py`: mirrorRow redo, 94 ends, 47 keys, 0 conflicts, head/tail agree; E-125's 12 same-core words are really 8.
-- Lone 3 at (h free head, K free tail): key depends on {h,K}. n = 11 class {(4,3),(3,4)}: delete tail -> (4,2)=I1, head -> (3,3)=I2. Not "room to move". Predicted (by keys) first failures: K >= 3 at n = 11, K >= 4 at n = 13 (h,K)=(4,5), K >= 5 at n = 15. So K >= 4 holding at n = 11 is a small-n artefact. n = 12: K = 3 fails, K >= 4 predicted OK; not run.
-- Compatible choice for lone relations: delete from the shorter free side (mirror-aware).
-- Earlier: r034 per-end table (E-125); pair statistics of deletion 2x chance (E-112); H-017 beliefs of r023 stand (relations > cords among quipus to depth 6 at n = 9; Euler signature pos <= n-2 iff outside every quipu class; mirror-chain depth rule is a fit).
+## What I now believe (after round 039)
+- S-1 lone 3: the key depends on {h,K}. n = 11 class {(4,3),(3,4)} fails K >= 3 (E-118/E-133). Round 039 confirms the n = 13 prediction: key class of the lone 3 at (4,5)/(5,4) has 5023 LNAs, 2 move orbits (4349, 674), both lone 3s in the 4349-orbit, and its K >= 4 ends (174) go to two n = 12 key classes (110 / 64+2). So K >= 4 holds at n = 11 only as a small-n artefact; K >= 5 should fail at n = 15 (unrun).
+- The failing witness is the lone 3 itself (two ends, different keys): the "class" failure is partly trivial; the content is that the key class is a single orbit and that no forward move acts on a lone 3 (forward orbit = 1 row), the join of (4,5),(5,4) comes from backward moves of other rows.
+- Compatible deletion rule for lone relations: delete from the shorter free side (mirror-aware); untested for other cores.
+- Earlier: n = 11 failing class (1305 LNAs) I1/I2 split = lone 3 or 7 with K_eff = 3 (stripped core); mirrorRow redo 94 ends, 47 keys, 0 conflicts; E-125's 82 vs my 94 unexplained. H-017 beliefs of r023 stand.
 
 ## What I tried
-- r037: mirrorRow redo, normal form, `maverick_single.py` (lone-relation keys n = 9..12, predicted thresholds, I1/I2 identified with E-115 labels). Rule-table derivation proper not done: VERIFIED_MOVES has no lone-3 move, which is the reason, not a proof.
-- r034 endtable, r030 endstrip2/fail11, r027, r018-r023 cord producer, predict, chain, twobig.
+- r039: maverick_n13.py / n13class.py (4 shards, 5 min) / n13ends.py; union-find restricted to a key class costs 3 s for 5000 rows (cheap once the class is known; the key scan of 208012 rows is the cost, ~430 rows/s/proc).
+- r037: mirror redo, normal form, single-relation keys. r034, r030, r027, r018-r023 earlier.
 
 ## Watch for
-- E-125 says 82 ends, my loop counts 94 on the same class: unexplained; do not compare tables line by line.
-- Key-only classes: "differs" by key is sound, "same" is not (source side needs orbit check).
-- Pair statistics are dominated by big classes; compare with an all-pairs null.
-- A negative at depth d excludes only distance <= d. One failing class is a small sample.
+- Image comparisons are by key, not label (no E-115 labels at n = 12/13). "Differs" sound, "same" not.
+- Orbit within a key class = lower bound for the derived class.
+- A single failing class is a small sample; the lone 3 case is the simplest, not typical.
 
 ## Next
-- n = 13: lone 3 at (4,5)/(5,4), K >= 4 ends: orbit check of the source, images by key (predicted fail).
-- K = 2 failing classes at n = 11 (9): same lone-relation mechanism? Also pairs of relations (two-relation cores {h,K} analogue).
-- Does a lone a-relation of every length a give failures at n = a + 2K0 + 2? (a = 4, 7 keys in `maverick_single.py`.)
-- Depth 7 at n = 9 for H-017 and n = 12 two-big LNAs (carried, overnight).
+- n = 12 run (predicted: K = 3 fails at (3,5), K >= 4 holds), same scripts with n = 12.
+- Non-lone cores / pairs of relations: do they give failures at different n? K = 2 failures at n = 11 (9 classes).
+- Lone a-relation for a = 4, 7 (keys in toolsmith_single.py); n = 15 overnight (size first).
+- Depth 7 at n = 9 for H-017; n = 12 two-big LNAs (carried).
