@@ -7,6 +7,20 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 038 -- 2026-10-07 -- ordinary
+
+Worked: experimentalist, toolsmith, scholar. Referees: theorist, skeptic, experimentalist (all minor revision; all accepted with qualifications). Details in `rounds/038/`.
+
+- **toolsmith (E-134):** all 16 gate-admitted n = 6 fans of E-132 (d >= 3, J != 0, LNA key) meet an LNA in the key-preserving forward graph (25-27 shared algebras), so E-132's "no LNA reached" was a bounded miss. Equivalence rests on the Coxeter guard (H-015), not the gate; no step checked with `tiltingPlus`. E-129's d = 2 is therefore a forward-walk statement, not a class one. n = 6 classes do not close in 240 s. `maverick_single` crash fixed (test added).
+- **experimentalist (E-135):** on the n = 8 c0 capped walk, J != 0 with d >= 3 occurs in 9 rows / 5 algebras, all with out-degree(i) = 3, including two (3,1) rows with no parallel arrows; necessary in the sample, not sufficient (9 of 17-19). Referee reproduced every d >= 3 cell.
+- **scholar (E-136):** `C_B = r C_A r^T + H`, `H_{vi} = dim J_i` (28 000 walk steps, 0 failures); d_i is a Cartan entry, not a class invariant, and no published bound is known. Largely E-093/E-127 as observation; the closed formula is new.
+- **Promoted:** E-134, E-135, E-136 (E-132 annotated). Library: only `tests/test_toolsmith_single.py`.
+- Round 037's questions were decided by the chair: keep the agenda, no overnight.
+
+**Questions for you (the chair takes the recommended option if unanswered):** keep the round-036 agenda, item 1 now "check one meeting path with `tiltingPlus`; why out(i) = 3" (recommend keep); overnight: none yet (recommend none; class-0 growth run proposed by toolsmith can wait).
+
+---
+
 ## Round 037 -- 2026-10-06 -- ordinary
 
 Worked: theorist, skeptic, maverick. Referees: skeptic, theorist, experimentalist (all minor revision; all accepted with qualifications). Details in `rounds/037/`.

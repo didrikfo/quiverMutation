@@ -1,0 +1,14 @@
+n = 6: 4 LNA key classes, sizes [2, 24, 26, 32]
+  class 2 level 1: seen 102 frontier 76 (0s)
+  class 2 level 2: seen 282 frontier 180 (1s)
+  class 2 level 3: seen 664 frontier 382 (2s)
+  class 2 level 4: seen 1450 frontier 786 (4s)
+  class 2 level 5: seen 3068 frontier 1618 (9s)
+  class 2 level 6: seen 6218 frontier 3150 (19s)
+  class 2 level 7: seen 12142 frontier 5924 (40s)
+  class 2 level 8: seen 22618 frontier 10476 (76s)
+  class 2 level 9: seen 40012 frontier 17394 (139s)
+  class 2 level 10: seen 66018 frontier 26315 (240s)
+CLASS idx 2 LNAs 26 seen 66018 expanded 39703 gate-edges 131458 CAPPED | 16 hits in class: 0 (of 0 with this key) | (d,J) {(0, 0): 16166, (1, 0): 96912}
+TOTAL (d,J) over all gate-admitted (alg, v, i): {(0, 0): 16166, (1, 0): 96912}
+RESULT SOME CAPPED

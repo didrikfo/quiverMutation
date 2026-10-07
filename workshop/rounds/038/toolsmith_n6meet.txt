@@ -1,0 +1,21 @@
+n = 6: 4 LNA key classes, sizes [2, 24, 26, 32]
+hit keys == class-0 key: True | hit canonical keys distinct: 16
+LNA side seen 30534 closed False (d,J) {(0, 0): 4069, (1, 0): 60330, (2, 0): 779, (2, 1): 631}
+hits inside the LNA-side forward set: 0
+hit 0 (v=2): seen 835 closed False, meets LNA side in 25 algebras | (d,J) with d>=3: {(3, 0): 93, (3, 1): 6, (3, 2): 1, (4, 0): 17, (4, 1): 15, (5, 0): 14, (5, 1): 4, (5, 2): 2, (6, 2): 1}
+hit 1 (v=2): seen 851 closed False, meets LNA side in 25 algebras | (d,J) with d>=3: {(3, 0): 96, (3, 1): 6, (3, 2): 1, (4, 0): 17, (4, 1): 18, (5, 0): 14, (5, 1): 4, (5, 2): 2, (6, 2): 1}
+hit 2 (v=2): seen 864 closed False, meets LNA side in 25 algebras | (d,J) with d>=3: {(3, 0): 95, (3, 1): 7, (3, 2): 1, (4, 0): 17, (4, 1): 16, (5, 0): 16, (5, 1): 4, (5, 2): 4, (6, 2): 1}
+hit 3 (v=2): seen 861 closed False, meets LNA side in 25 algebras | (d,J) with d>=3: {(3, 0): 98, (3, 1): 6, (3, 2): 1, (4, 0): 17, (4, 1): 16, (5, 0): 14, (5, 1): 4, (5, 2): 2, (6, 2): 1}
+hit 4 (v=2): seen 845 closed False, meets LNA side in 25 algebras | (d,J) with d>=3: {(3, 0): 94, (3, 1): 6, (3, 2): 1, (4, 0): 17, (4, 1): 16, (5, 0): 14, (5, 1): 4, (5, 2): 2, (6, 2): 1}
+hit 5 (v=2): seen 864 closed False, meets LNA side in 25 algebras | (d,J) with d>=3: {(3, 0): 95, (3, 1): 7, (3, 2): 1, (4, 0): 17, (4, 1): 16, (5, 0): 16, (5, 1): 4, (5, 2): 4, (6, 2): 1}
+hit 6 (v=2): seen 863 closed False, meets LNA side in 25 algebras | (d,J) with d>=3: {(3, 0): 98, (3, 1): 6, (3, 2): 1, (4, 0): 17, (4, 1): 16, (5, 0): 14, (5, 1): 4, (5, 2): 2, (6, 2): 1}
+hit 7 (v=2): seen 845 closed False, meets LNA side in 25 algebras | (d,J) with d>=3: {(3, 0): 95, (3, 1): 6, (3, 2): 1, (4, 0): 17, (4, 1): 17, (5, 0): 14, (5, 1): 4, (5, 2): 2, (6, 2): 1}
+hit 8 (v=2): seen 865 closed False, meets LNA side in 25 algebras | (d,J) with d>=3: {(3, 0): 95, (3, 1): 7, (3, 2): 1, (4, 0): 17, (4, 1): 16, (5, 0): 16, (5, 1): 4, (5, 2): 4, (6, 2): 1}
+hit 9 (v=2): seen 869 closed False, meets LNA side in 25 algebras | (d,J) with d>=3: {(3, 0): 98, (3, 1): 6, (3, 2): 1, (4, 0): 17, (4, 1): 16, (5, 0): 14, (5, 1): 4, (5, 2): 2, (6, 2): 1}
+hit 10 (v=2): seen 865 closed False, meets LNA side in 25 algebras | (d,J) with d>=3: {(3, 0): 95, (3, 1): 7, (3, 2): 1, (4, 0): 17, (4, 1): 16, (5, 0): 16, (5, 1): 4, (5, 2): 4, (6, 2): 1}
+hit 11 (v=2): seen 866 closed False, meets LNA side in 25 algebras | (d,J) with d>=3: {(3, 0): 98, (3, 1): 6, (3, 2): 1, (4, 0): 17, (4, 1): 16, (5, 0): 14, (5, 1): 4, (5, 2): 2, (6, 2): 1}
+hit 12 (v=2): seen 849 closed False, meets LNA side in 25 algebras | (d,J) with d>=3: {(3, 0): 93, (3, 1): 8, (3, 2): 1, (4, 0): 17, (4, 1): 15, (5, 0): 16, (5, 1): 4, (5, 2): 6, (6, 2): 1}
+hit 13 (v=2): seen 874 closed False, meets LNA side in 25 algebras | (d,J) with d>=3: {(3, 0): 96, (3, 1): 7, (3, 2): 1, (4, 0): 17, (4, 1): 15, (5, 0): 16, (5, 1): 4, (5, 2): 4, (6, 2): 1}
+hit 14 (v=2): seen 874 closed False, meets LNA side in 25 algebras | (d,J) with d>=3: {(3, 0): 96, (3, 1): 7, (3, 2): 1, (4, 0): 17, (4, 1): 15, (5, 0): 16, (5, 1): 4, (5, 2): 4, (6, 2): 1}
+hit 15 (v=2): seen 849 closed False, meets LNA side in 25 algebras | (d,J) with d>=3: {(3, 0): 95, (3, 1): 6, (3, 2): 1, (4, 0): 17, (4, 1): 15, (5, 0): 14, (5, 1): 4, (5, 2): 2, (6, 2): 1}
+INTERSECTION (union over hits) 25

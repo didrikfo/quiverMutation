@@ -1,25 +1,25 @@
-# Scholar's notebook (after round 035)
+# Scholar's notebook (after round 038)
 
 ## Believe
-- AI 2.32(b) at vertex v (right modules, e_xA, arrows out of v): g = proj cover of rad P_v onto P_v; N = cone(g)[-1]; tilting iff
-  x |-> (x b)_b injective on e_iAe_v; kernel J_i = Hom(S_v, e_iA) = S_v-socle of e_iA = Hom(N, P_i[-1]) (NOT H^{-1}(N)). r033, no monomial hypothesis.
-  So Ladkani 2.3(c) = AI 2.32(b) = tiltingPlus is an identity. Checked on E-066 step 7 (J_8 dim 1) and E-078 n=5.
-- r035: Hom(N,N[-1]) = {(y_b): y_b in J_t(b), sum_b b y_b = 0} for ANY A (no acyclicity); so Hom(T,T[-1]) = sum J_i + Hom(N,N[-1]) and
-  "silting-not-tilting iff some J_i != 0" is unconditional (T silting cited, AI 2.31). Cyclic: only the dimension count changes
-  (C2 rad^2=0, v->t->v: sum J = 1, Hom(N,N[-1]) = 1, Hom(T,T[-1]) = 2). Computed by own Hom-complex code (scholar_hom_nn.py), 6 cases, Hom(T,T[1]) = 0 in all.
-- E-126 L1 (dim J_i <= d_i - 1) needs the gate to test ALL paths; repo gate uses simple paths only, so on cyclic quivers L1 is unchecked.
-- Socle reading gives no obstruction to circuits: E-121 stands (obstruction must come from derived equivalence to an LNA).
-- E-097/E-110: monomial + two-term: J != 0 iff circuit in Gamma_i; W = length-2 ground path. E-113: n = 8 c0/c1 Gamma_i components <= 2 edges.
-- Sum-type relations are real; `alg.rels` loses signs, use `relationsFrom`. CHZ Cor 3.6 "monomial?" UNVERIFIED; arxiv.org blocked.
-- Terms: gate = `mutationIsPossibleAtVertex`; guard = Coxeter key same. Repo "left mutation" = AI mu^- (2.32(b)).
+- AI 2.32(b) at vertex v (right modules, arrows out of v): g = proj cover of rad P_v onto P_v; N = cone(g)[-1]; tilting iff
+  x |-> (x b)_b injective on e_iAe_v; kernel J_i = Hom(S_v, e_iA) = Hom(N, P_i[-1]). r033, no monomial hypothesis.
+  Ladkani 2.3(c) = AI 2.32(b) = tiltingPlus is an identity.
+- r035/E-128: Hom(N,N[-1]) = {(y_b): y_b in J_t(b), sum b y_b = 0} for any A; "silting-not-tilting iff some J_i != 0" unconditional (T silting: AI 2.31 cited, local-note numbering "Theorem 2.31"; assignment said Prop: UNVERIFIED).
+- r038: d_i = (C_A)_{iv} is a Cartan ENTRY, not a derived invariant (only the Z-congruence class is). No local note bounds d_i or out-degree.
+  So E-129's "d = 2 at J != 0" is a statement about walks, not classes. AI/Ladkani impose no dimension bound; (3,1) and (3,2) are consistent.
+- r038 (3 cases, scholar_cartan_defect.py): C_B = r C_A r^T + H, H_{v,i} = dim J_i (acyclic case); derivation via Euler form of silting T + Hom(T,T[-1]). Cyclic case: H_vv may be nonzero (E-128).
+  Hence a J != 0 child passes the key guard only by coincidence of Coxeter poly of rCr^T + H with A's.
+- E-126 L1 needs the gate to test ALL paths; the repo gate tests simple paths, cyclic case unchecked.
+- E-097/E-110: monomial + two-term: J != 0 iff circuit in Gamma_i. E-121 stands. Sum-type relations real; use `relationsFrom`.
+- CHZ Cor 3.6 "monomial?" UNVERIFIED; arxiv.org blocked.
+- Terms: gate = `mutationIsPossibleAtVertex`; guard = Coxeter key same. Repo "left mutation" = AI mu^-.
 
 ## Did
-- R001..R025, R027, R030, R033, R035 (scholar_hom_nn.py, scholar_gate_cyc.py).
+- R001..R025, R027, R030, R033, R035, R038 (scholar_hom_nn.py, scholar_gate_cyc.py, scholar_cartan_defect.py).
 - Do not run two walks plus pkill in one shell; background with nohup, poll sleep < 120 s.
 
 ## Next
-- Compare M1/M2 with the printed AI text if arxiv becomes reachable (2.31 silting hypotheses: finite-dim only?).
-- Find a gate-admitted cyclic case with dim J_t = 1 (truncation inflated J in case 4); a parent with coker != 0.
-- On LNA-derived parents: is soc(e_iA) free of S_v whenever a long circuit exists? (Hom(S_v,A) vs gl.dim).
-- n = 9 class 0 pairtest (overnight); coefficient-2 pairs; >= 3-term relations among J != 0.
-- Lesson: derive the general statement first; the "no return path" hypothesis was an artefact of the proof route, not of the math.
+- Test the Cartan-defect statement on the E-131 rows (d = 4, 4, 5) and see if the child passes the key guard (are J != 0 rows really "on" a derived-equivalence walk?).
+- Printed AI text if arxiv reachable (2.31 numbering and hypotheses).
+- Gate-admitted cyclic case with dim J_t = 1; parent with coker != 0; >= 3-term relations among J != 0.
+- Lesson: ask first whether a quantity is an invariant of the class or of the (algebra, vertex) pair.

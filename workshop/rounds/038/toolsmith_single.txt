@@ -1,0 +1,20 @@
+a 3 n 9 classes by key: [[(0, 5), (5, 0)], [(1, 4), (4, 1)], [(2, 3), (3, 2)]]
+a 3 n 10 classes by key: [[(0, 6), (6, 0)], [(1, 5), (5, 1)], [(2, 4), (4, 2)], [(3, 3)]]
+a 3 n 11 classes by key: [[(0, 7), (7, 0)], [(1, 6), (6, 1)], [(2, 5), (5, 2)], [(3, 4), (4, 3)]]
+a 3 n 12 classes by key: [[(0, 8), (8, 0)], [(1, 7), (7, 1)], [(2, 6), (6, 2)], [(3, 5), (5, 3)], [(4, 4)]]
+a 4 n 9 classes by key: [[(0, 4), (4, 0)], [(1, 3), (3, 1)], [(2, 2)]]
+a 4 n 10 classes by key: [[(0, 5), (5, 0)], [(1, 4), (4, 1)], [(2, 3), (3, 2)]]
+a 4 n 11 classes by key: [[(0, 6), (6, 0)], [(1, 5), (5, 1)], [(2, 4), (4, 2)], [(3, 3)]]
+a 4 n 12 classes by key: [[(0, 7), (7, 0)], [(1, 6), (6, 1)], [(2, 5), (5, 2)], [(3, 4), (4, 3)]]
+a 7 n 9 classes by key: [[(0, 1), (1, 0)]]
+a 7 n 10 classes by key: [[(0, 2), (2, 0)], [(1, 1)]]
+a 7 n 11 classes by key: [[(0, 3), (3, 0)], [(1, 2), (2, 1)]]
+a 7 n 12 classes by key: [[(0, 4), (4, 0)], [(1, 3), (3, 1)], [(2, 2)]]
+--- minimal failing n for threshold K0 (single 3: h != K, both >= K0), by key at n-1
+K0 3 first n with a failing single-3 class: 11 [(3, 4)]
+K0 4 first n with a failing single-3 class: 13 [(4, 5)]
+K0 5 first n with a failing single-3 class: 15 [(5, 6)]
+--- identify I1/I2 at n=10 via the 034 labels (keys are rows of length n-2)
+n=10 single 3 (h,K)= (4, 2) (1, 1, 0, -1, -2, -2, -2, -1, 0, 1, 1)
+n=10 single 3 (h,K)= (3, 3) (1, 1, 0, -1, -2, -3, -2, -1, 0, 1, 1)
+n=10 single 3 (h,K)= (2, 4) (1, 1, 0, -1, -2, -2, -2, -1, 0, 1, 1)

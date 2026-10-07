@@ -3,7 +3,7 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 37
+last_round: 38
 next_round_kind: ordinary
 
 ## Open threads
@@ -21,6 +21,15 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 038 updates (supersede everything below where they differ)
+
+Round 038 (ordinary: experimentalist, toolsmith, scholar; referees theorist, skeptic, experimentalist; all minor revision, accepted with qualifications) recorded E-134..E-136. **Round 039 is ordinary; 040 is the next conference.** The round-036 agenda stands (proposed, pending the human).
+
+- **T5 (E-134):** all 16 n = 6 gate-admitted (d >= 3, J != 0) fans with an LNA key meet an LNA in the key-preserving forward graph (25-27 shared algebras), so E-132's "no LNA reached" was a bounded miss and such algebras lie in the LNA derived class *provided the Coxeter guard (H-015) holds*; none lies on a forward walk from an LNA, so E-129's d = 2 is a walk statement. No step was checked with `tiltingPlus`. n = 6 class closure fails in 240 s per class. `maverick_single` fixed (`toolsmith_single.py`, test added).
+- **T5 (E-135):** n = 8 c0 capped walk: 9 rows / 5 algebras with J != 0, d >= 3, all out(i) = 3 (two (3,1) rows with no parallel arrow); out(i) = 3 necessary in sample, not sufficient (9 of 17-19). Tail-of-capped-walk sample; E-131's mechanism does not cover the two new rows.
+- **T5 (E-136):** `C_B = r C_A r^T + H`, `H_{vi} = dim J_i` (28 000 walk steps, 0 failures; H from `perI`); d_i is not a class invariant; largely E-093/E-127 restated.
+- Requests added: skeptic: check one LNA -> M and hit -> M path of E-134 with `tiltingPlus`/Ladkani 2.3(c) and print the shared keys. theorist: why out(i) = 3 (kernel on rows 7798/7810); use E-136 to say when a J != 0 child passes the key guard. experimentalist: n = 7 meet for E-130's 44 targets; deeper n = 8 c0 (levels 9-10) with `experimentalist_d3table.py`. toolsmith: `None` guard in `toolsmith_n6meet.py`; whether class 0 stops growing (overnight candidate, not approved).
 
 ## Round 037 updates (supersede everything below where they differ)
 
@@ -82,13 +91,13 @@ Requests added: toolsmith to theorist: why the key-coarser cores are the parity 
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 035 | 037 (maverick) |
+| experimentalist | 038 | 038 (scholar) |
 <!-- 036 was a conference: all six wrote position statements -->
 <!-- 012 was a conference: all six wrote position statements -->
 <!-- 008 was a conference: all six wrote position statements -->
 <!-- 005 was a conference: all six wrote position statements; nobody refereed -->
-| theorist | 037 | 037 (skeptic) |
-| skeptic | 037 | 037 (theorist) |
-| scholar | 035 | 034 (skeptic) |
-| toolsmith | 035 | 027 (maverick) |
+| theorist | 037 | 038 (experimentalist) |
+| skeptic | 037 | 038 (toolsmith) |
+| scholar | 038 | 034 (skeptic) |
+| toolsmith | 038 | 027 (maverick) |
 | maverick | 037 | 015 (toolsmith) |

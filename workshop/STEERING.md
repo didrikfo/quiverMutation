@@ -146,3 +146,5 @@ A short negative result ("dead end, because ...") is a welcome outcome.
 - round 035, question 2 (overnight) (applied, round 036): none; the reverse-direction search is sized first -- decided by the chair of round 036; no answer from the human
 - round 036, question 1 (agenda) (applied, round 037): approve the round-036 agenda -- decided by the chair of round 037; no answer from the human
 - round 036, question 2 (overnight) (applied, round 037): none; nothing needs more than 10 minutes per command -- decided by the chair of round 037; no answer from the human
+- round 037, question 1 (agenda) (applied, round 038): keep the round-036 agenda, item 1 reshaped to "which derived-class invariant governs d_i" -- decided by the chair of round 038; no answer from the human
+- round 037, question 2 (overnight) (applied, round 038): none; nothing needs more than 10 minutes per command -- decided by the chair of round 038; no answer from the human
