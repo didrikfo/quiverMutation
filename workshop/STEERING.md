@@ -20,6 +20,13 @@ by a command, and checked against what is already recorded.
    project's main cost is rediscovery).
 3. Proofs or mechanisms for things that are already well supported by data.
 
+## Standing permissions
+
+- **arXiv fetches** *(granted 2026-10-08)*: any persona may fetch arXiv papers
+  that are relevant enough to the work (abstract pages and PDFs from
+  arxiv.org) and summarise them in `research/literature/`. No need to ask
+  first; say in the submission what was fetched and why.
+
 ## Avoid
 
 - Runs longer than `max_command_minutes`. Propose them for `OVERNIGHT.md`
@@ -153,5 +160,5 @@ A short negative result ("dead end, because ...") is a welcome outcome.
 - round 039, question 1 (agenda) (applied, round 040): keep the round-036 agenda, item 1 = does any J != 0 step keep the key; tilting-only meet with a positive control -- decided by the chair of round 040; no answer from the human
 - round 039, question 2 (overnight) (applied, round 040): none; nothing needs more than 10 minutes per command -- decided by the chair of round 040; no answer from the human
 - round 040, question 1 (agenda) (applied, round 041): approve the round-040 agenda -- decided by the chair of round 041; no answer from the human
-- round 040, question 2 (literature): scholar may fetch arXiv:1009.3370 and arXiv:2509.12983 if the network allows, else cite as unverified -- decided by the chair of round 041; no answer from the human
+- round 040, question 2 (literature): yes, fetch arXiv:1009.3370 and arXiv:2509.12983. Answered by the human, who also granted a standing permission for relevant arXiv fetches (see Standing permissions).
 - round 040, question 3 (overnight) (applied, round 041): none; nothing needs more than 10 minutes per command -- decided by the chair of round 041; no answer from the human
