@@ -43,8 +43,9 @@ and whatever the round's submissions and reviews are. For `research/*.md`, use
      can overturn it there at any time, and a later round follows the
      overturning.
    Never stop and wait for an answer: the rounds run unattended.
-6. The round is a **conference** if `STEERING.md` asks for one, or if
-   `STATE.md` says `next_round_kind: conference`. Otherwise it is **ordinary**.
+6. The round is a **conference** if `STEERING.md` asks for one, or if its
+   number is a multiple of `conference_every` (whatever `STATE.md`'s
+   `next_round_kind` says). Otherwise it is **ordinary**.
    A conference skips to [Conference rounds](#conference-rounds).
 
 ## 1. Call
@@ -81,7 +82,18 @@ How to choose:
   good assignment for the persona it names.
 * *Suggested questions* in `STEERING.md` are optional. Take one up when a
   persona is free or its archetype fits, never in place of a revision or
-  the agreed agenda; say in the call which one, if any.
+  the agreed agenda; say in the call which one, if any. **At most one slot
+  per round, and not in two consecutive rounds** (check the previous
+  `call.md`).
+* **Breadth.** If an open thread in `STATE.md` has had no assignment for 8
+  or more rounds (the rota and the previous calls show this), one slot this
+  round goes to a dormant thread: either a question on it, or a short note
+  that proposes closing it (with the reason) for the next conference's
+  ledger. Pick the thread idle longest. This slot does not displace a
+  revision.
+* **Independent checks pay.** When the agenda's main claim rests on one
+  script, an assignment to rebuild it independently (other code, by hand, or
+  another method) is a good use of a slot.
 
 ## 2. Work
 
@@ -130,7 +142,11 @@ Wait until all of them have finished before going on.
 >
 > Write **one submission** to `workshop/rounds/NNN/<id>.md` in the shape of
 > `workshop/templates/submission.md`, at most <max_submission_lines> lines
-> besides data tables. A negative or null result is a proper submission. Then
+> besides data tables. A negative or null result is a proper submission. Fill
+> in the *Scope* line honestly: a law seen on a capped sample, on one class,
+> or at one n, must say so in its title too ("... at n = 7, class 0, walks
+> capped at 150 s"). Do not commit raw outputs over 200 KB: summarise them
+> in the submission and keep the script that regenerates them. Then
 > **rewrite** your notebook `workshop/notebooks/<id>.md` (at most
 > <max_notebook_lines> lines): what you now believe, what you tried, what you
 > would do next. It is your only memory between rounds.
@@ -183,14 +199,35 @@ Brief all referees at once, in parallel as in step 2, with
 > two referees, `<author>.review-<your id>.md`). Reply with one line: your
 > verdict.
 
+## 3.5 Response
+
+For each submission whose review has a verdict of **minor revision** and a
+non-empty *Required for acceptance* list, brief its author once more, in
+parallel, `model: <models.researcher>`, with the work brief of step 2 and
+this assignment:
+
+> Answer the review `workshop/rounds/NNN/<author>.review.md` of your
+> submission `workshop/rounds/NNN/<author>.md`. Do every required item that
+> fits the limits (re-runs, wider samples, narrowed wording, a printed key).
+> For an item you cannot do this sitting, say why in one line. Edit your
+> submission in place: add a `## Response to referee` section at the top,
+> point by point, and change the claim, title and *Scope* line where the
+> answers change them. Reply with one line: which items were done.
+
+Then the chair checks the response against the review (re-run a cheap item
+yourself if in doubt). Promotion in step 4 uses the answered submission.
+Skip this step for **accept** (nothing required), **major revision** (that
+goes to *Awaiting revision* for the next round) and **reject**.
+
 ## 4. Proceedings
 
 Read every submission and review of the round. For each submission, decide:
 
 | decision | when | what happens |
 |---|---|---|
-| **accept** | referee says accept, or minor points you can check yourself | promote (below) |
-| **revise** | referee found something fixable | onto *Awaiting revision* for the next round |
+| **accept** | referee says accept; or minor revision and the response (step 3.5) did the required items | promote (below) |
+| **accept, narrowed** | minor revision, some required items not done | promote only what the done items support; the undone items go into the entry as open points and onto the board |
+| **revise** | major revision, or a required item that changes the claim could not be done | onto *Awaiting revision* for the next round |
 | **reject** | wrong, already known, or unfixable | recorded in proceedings; if it was a belief someone held, it may deserve a `RETRACTIONS.md` entry |
 | **note** | a proposal, a tool, a null result | nothing to promote beyond `EXPERIMENTS.md` if a run was made |
 
@@ -207,7 +244,15 @@ evidence stated specifically, the reproduction command. End its date line with
 status changes gets its status line updated in place, per the conventions.
 New terms go into `GLOSSARY.md`. Keep promotion faithful: if the submission
 overclaims and the referee said so, promote what survived, not what was
-claimed.
+claimed. The entry's title carries the submission's scope (n, classes, caps);
+a hypothesis status line stays one short sentence plus pointers (put the
+history in the entry body, not in the status line).
+
+**Consequences for the record.** If an accepted result contradicts, or takes
+the support away from, a finding, a hypothesis status, a retraction, or a
+claim in library code or a docstring, say so in the proceedings under
+**Consequences**, in the digest entry, and open (or update) a thread on the
+board for it. Do not leave it as a sentence inside the E-entry.
 
 Then write, in this order:
 
@@ -215,15 +260,23 @@ Then write, in this order:
    verdict, your decision and the reason, what was promoted and under which
    identifier. Then **Questions for the steering committee**: anything you
    need the human to decide (a direction, a disagreement you could not
-   settle, a long run worth doing overnight). Keep it to what matters. For
-   each, say which option you recommend: if the human has not answered by the
-   next round, that round's chair takes it (step 0). Also list the
+   settle, a long run worth doing overnight). Keep it to what matters: a
+   question goes to the human only if their answer could change what you
+   would do, or if only the human can do it (supply a paper, run something
+   overnight, change the network). Default decisions ("keep the agenda", "no
+   overnight run") are not questions: record them as decisions. For each
+   question, say which option you recommend: if the human has not answered
+   by the next round, that round's chair takes it (step 0). Also list the
    **Decisions taken for the steering committee** from step 0, if any.
 2. `workshop/STATE.md` -- rewrite it: `last_round: NNN`; `next_round_kind`
    (`conference` if the next round number is a multiple of
    `conference_every`, else `ordinary`); open threads updated; *Awaiting
    revision*; requests between personas from the submissions; the rota. Under
-   150 lines. It must make sense to someone who has read nothing else.
+   120 lines. It must make sense to someone who has read nothing else.
+   **Rewrite it, do not append**: no "Round NNN updates" sections; each
+   thread is one current entry (question, state, last round worked, owner);
+   a thread with no assignment for 8 or more rounds is marked `dormant`;
+   requests that were answered or are older than 8 rounds are removed.
 3. `workshop/DIGEST.md` -- a new entry at the top, at most
    `max_digest_entry_lines` lines: `## Round NNN -- <date> -- <kind>`, then
    what was claimed and by whom, what survived, what was promoted (with
@@ -245,6 +298,7 @@ Then write, in this order:
 ```
 git add -A workshop research GLOSSARY.md NOTES.md OVERNIGHT.md quivermutation tests *.py
 git status --short        # check nothing unexpected (no logs, no outputs)
+find workshop/rounds/NNN -size +200k   # must print nothing: summarise or drop raw data
 git commit -m "Workshop round NNN: <one line>"
 git push -u origin HEAD:workshop
 ```
@@ -274,20 +328,39 @@ No new research. The point is to step back and agree what is worth doing.
    > questions* in `workshop/STEERING.md` (optional; propose one only if you
    > think it is worth it). Write
    > `workshop/rounds/NNN/<id>.md`, at most 30 lines: **what you think is the
-   > single most promising question** for the next few rounds and why; **the
-   > weakest claim** the workshop currently relies on; **what you need** from
-   > another persona. Do not run anything and do not edit other files. Reply
-   > with your most promising question in one line.
+   > single most promising question** for the next few rounds and why; **one
+   > promising question outside the thread that got most of the last
+   > <conference_every> rounds** (a dormant thread, an open hypothesis, or a
+   > new line); **the weakest claim** the workshop currently relies on; **what
+   > you need** from another persona. Do not run anything and do not edit
+   > other files. Reply with your most promising question in one line.
 
-3. Read them all, and write `proceedings.md` as a **proposed agenda**: three
-   to five threads, ranked, each with who should work on it and the first
-   question to ask. Note where personas disagree.
-4. In `STATE.md`, set the proposed agenda as the open threads, marked
+3. **Ledger.** Before the agenda, take stock of what the workshop now knows.
+   List the E-entries added since the last conference (`grep -n "^## E-"
+   research/EXPERIMENTS.md`, newest first) and, for every hypothesis and
+   finding they bear on, decide:
+   * a hypothesis whose status should change (`SUPPORTED`, `REFUTED -> R-nnn`,
+     `CONFIRMED -> F-nnn`, or still `OPEN`): change it, with a one-sentence
+     status line and the evidence in the entry body;
+   * a result that is now solid enough to be a finding (several E-entries,
+     independent checks, stated scope): write the F-entry;
+   * a belief the workshop or the record held that fell: write the R-entry;
+   * a thread that should close (settled, or not worth more rounds): close it.
+   Write this under `## Ledger` in `proceedings.md`, one line per decision
+   with identifiers. A ledger with no change is allowed, but must say why
+   for each hypothesis touched. Then commit these `research/` edits with the
+   round.
+4. Write the rest of `proceedings.md` as a **proposed agenda**: three to five
+   threads, ranked, each with who should work on it and the first question
+   to ask. At least one item comes from outside the thread that took most of
+   the last <conference_every> rounds (the personas each named one). Note
+   where personas disagree.
+5. In `STATE.md`, set the proposed agenda as the open threads, marked
    `(proposed, round NNN)`, and `next_round_kind: ordinary`. In the digest
    entry, ask the human in bold to approve or change the agenda in
    `STEERING.md`. Until they do, ordinary rounds work from the proposed
    agenda.
-5. Commit and push as in step 5.
+6. Commit and push as in step 5.
 
 ## Special rounds
 

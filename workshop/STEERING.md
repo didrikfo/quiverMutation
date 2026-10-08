@@ -70,7 +70,24 @@ A short negative result ("dead end, because ...") is a welcome outcome.
 ## Special requests for the next round
 
 <!-- e.g. "conference", "only skeptic and theorist", "everyone on H-021" -->
-(none)
+Round 045 (from retrospective 1, `workshop/retrospectives/001-rounds-001-044.md`,
+made on the human's instruction; the human can change this):
+1. **Rewrite `STATE.md` from scratch** under the new rules in `ROUND.md` step 4
+   (no "Round NNN updates" sections; one current entry per thread; dormant
+   threads marked). Threads T1, T2, T4, T6, T7 are dormant.
+2. **Ledger pass for H-015 only** (the conference ledger step, done once now):
+   decide H-015's status in the light of E-084, E-093, E-128, E-137, E-138,
+   E-140, E-145; rewrite its status line as one sentence.
+3. **Open a thread "guard audit"** and make it agenda item 1, ahead of the
+   round-044 agenda: E-145 finds gate-admitted, key-preserving steps that fail
+   `tiltingPlus` on guarded walks at n = 7 (classes 1, 2), while
+   `search.mutationSearchDepthFirst` documents `coxeterGuard` as what keeps a
+   walk in one derived class. First questions: (a) toolsmith: what does an
+   added J = 0 (or `tiltingPlus`) check cost per step, measured on an n = 7
+   and an n = 8 walk; (b) experimentalist or skeptic: does any class merge
+   recorded in `FINDINGS.md` at n <= 8 depend on a J != 0 step (re-walk with
+   the tilting-only guard and compare the classes found).
+The other two slots follow the round-044 agenda and the breadth rule.
 
 ## Answers to the chair
 

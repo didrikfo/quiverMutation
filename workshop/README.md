@@ -33,11 +33,19 @@ by hand. The session plays the **chair** and runs four phases:
                   into research/, writes DIGEST.md, commits and pushes
 ```
 
-A submission sent back for revision comes up again at the next round: its
-author answers the review (a **rebuttal**), and the referee looks again. Every
-fourth round is a **conference** instead: no new work, each persona gives a
-short position ("what I now think is most promising, and why"), and the chair
+After review, each author answers the referee's required items **in the same
+round** (step 3.5) before anything is promoted; a submission that needs a
+major revision comes up again at the next round. Every fourth round is a
+**conference** instead: no new work, each persona gives a short position
+("what I now think is most promising, and why", plus one question outside the
+dominant thread); the chair keeps the **ledger** (turns the last rounds'
+E-entries into hypothesis status changes, findings and retractions) and
 proposes an agenda for you to approve in `STEERING.md`.
+
+Retrospectives of the process itself (not the mathematics) are in
+[`retrospectives/`](retrospectives/); the first, after round 044, explains the
+rules added then (same-round response, scope in titles, ledger, breadth slot,
+consequences for the record, fewer questions for you).
 
 The personas are in [`personas/`](personas/). Each keeps a short
 **notebook** in [`notebooks/`](notebooks/) that it rewrites every round it works;
@@ -72,7 +80,9 @@ putting it on a schedule.
 **On a schedule.** A Routine that starts a fresh session on each firing does
 *not* get the repository attached, and could not push (found on the first
 attempt, 2026-09-29). So the schedule is two-stage: a Routine fires a short
-turn into a **dispatcher** session every 2 hours, and the dispatcher starts
+turn into a **dispatcher** session every 12 hours (or, in back-to-back mode,
+the dispatcher re-arms itself with a one-shot check every 15-30 minutes and
+starts the next round as soon as the last one has pushed), and the dispatcher starts
 the round with `create_session`, giving it the repository as its source and
 `workshop` as its outcome branch, which is what lets it push:
 
@@ -81,6 +91,7 @@ create_session(
   source_url      = "https://github.com/didrikfo/quiverMutation",
   source_revision = "workshop",
   outcome_branch  = "workshop",
+  clone_depth     = 1000,   # a shallow clone breaks the merge of main
   model           = "claude-sonnet-5-5",
   title           = "Workshop round NNN",
   prompt          = <the round prompt below>)
