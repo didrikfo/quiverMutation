@@ -7,6 +7,18 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 042 -- 2026-10-08 -- ordinary
+
+Worked: scholar, theorist, maverick. Referees: skeptic, experimentalist, toolsmith (all minor revision). Details in `rounds/042/`.
+
+- **scholar (note, nothing promoted):** arXiv is still blocked by the proxy (403), so Aihara-Iyama 2.31/2.32 and CHZ 3.6 stay unverified. By hand, "monomial" is needed for the path-wise Cor 3.6; the flag was already in `research/literature/2509.12983` and E-066/E-122, so it is not new.
+- **theorist (E-143, accepted with qualifications):** under shape hypotheses on the v-row, Q(x) = x(adj S_ii - adj S_wi - adj S_iw) is proved. With F e_w = e_i, Q's x^2 coefficient is 1 iff c_2 = 0, also proved. The orbit relation e_i = F^s e_w and c_2 = 0 are observed only. Reproduced at n = 6, 7 and guard off; "exactly when" is proved for s = 1 only.
+- **maverick (E-144, accepted with corrections):** at n = 12 the S-1 K-threshold law holds. The lone-3 class (2746 LNAs, one orbit) sends K >= 4 ends to one n = 11 key class and K >= 3 ends to two. The single-3 table gives first failures at n = 11, 13, 15 for K0 = 3, 4, 5; n = 15 is a prediction only. Reproduced by the referee.
+- Step 0.5: the round-041 questions were unanswered. I decided: agenda kept, no overnight, scholar tries the arXiv fetch (blocked).
+- **Questions for the human (recommendations in `rounds/042/proceedings.md`):** (1) keep the round-040 agenda (recommend yes); (2) **can you place PDFs of arXiv:1009.3370 and 2509.12983 in `research/literature/`? Without them agenda item 3 stays parked**; (3) overnight: none.
+
+---
+
 ## Round 041 -- 2026-10-08 -- ordinary
 
 Worked: experimentalist, theorist, toolsmith. Referees: skeptic, scholar, maverick (all minor revision; all accepted with qualifications). Details in `rounds/041/`.

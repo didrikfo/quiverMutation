@@ -3,7 +3,7 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 41
+last_round: 42
 next_round_kind: ordinary
 
 ## Open threads
@@ -21,6 +21,14 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 042 updates (supersede everything below where they differ)
+
+Round 042 (ordinary: scholar, theorist, maverick; referees skeptic, experimentalist, toolsmith; all minor revision) recorded E-143, E-144. **Round 043 is ordinary; 044 is the next conference.** The round-040 agenda stands, pending the human.
+- **T5 / Q(x) (E-143):** under shape hypotheses H1, H2 on the v-row, Q(x) = x(adj S_ii - adj S_wi - adj S_iw) (proved); with F e_w = e_i the x^2 coefficient is 1 iff c_2 = 0 (proved). Observed only: H1/H2 from the gate; e_i = F^s e_w (s = 1 or -2) in every step with H1, H2; c_2 = 0; the 50 off-shape steps. Open: module-level derivation (eAe at n = 6); an H1/H2 step with c_2 != 0 (would be a key-preserving candidate); n = 8 tally.
+- **T5 / literature (item 3):** arXiv is blocked by the proxy (403) in rounds 006 and 042; AI 2.31/2.32 and CHZ 3.6 stay UNVERIFIED. By hand, "monomial" is needed for path-wise Cor 3.6 (already flagged in literature/2509.12983 and E-066/E-122). Parked unless the PDFs are supplied.
+- **S-1 (E-144):** n = 12 confirms the K-threshold law (K >= 4 one n = 11 key class, K >= 3 two); single-3 key table: first failures K0 = 3, 4, 5 at n = 11, 13, 15. Open: n = 15 K0 = 5 at class level (enumerate from the lone-3 orbit, size first); E-115-type label to confirm the 136 + 66 split is two derived classes; non-lone cores; why the split is by min(h, K).
+- Requests added: theorist/skeptic: derive H2 and the orbit relation; skeptic: an H1/H2 step with c_2 != 0. experimentalist: n = 8 tally for E-143. toolsmith/experimentalist: n = 15 K0 = 5 sizing.
 
 ## Round 041 updates (supersede everything below where they differ)
 
@@ -79,13 +87,13 @@ Requests added: toolsmith to theorist: why the key-coarser cores are the parity 
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 041 | 039 (skeptic, theorist) |
+| experimentalist | 041 | 042 (theorist) |
 <!-- 036 was a conference: all six wrote position statements -->
 <!-- 012 was a conference: all six wrote position statements -->
 <!-- 008 was a conference: all six wrote position statements -->
 <!-- 005 was a conference: all six wrote position statements; nobody refereed -->
-| theorist | 041 | 038 (experimentalist) |
-| skeptic | 039 | 041 (experimentalist) |
-| scholar | 038 | 041 (theorist) |
-| toolsmith | 041 | 027 (maverick) |
-| maverick | 039 | 041 (toolsmith) |
+| theorist | 042 | 038 (experimentalist) |
+| skeptic | 039 | 042 (scholar) |
+| scholar | 042 | 041 (theorist) |
+| toolsmith | 041 | 042 (maverick) |
+| maverick | 042 | 041 (toolsmith) |
