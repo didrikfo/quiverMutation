@@ -1,0 +1,11 @@
+pair 0 230300->030300: library 1 meeting(s) split [(3, 3)] | author 1 split [(3, 3)] | same keys True | 4s
+pair 1 230302->030302: library 1 meeting(s) split [(3, 3)] | author 1 split [(3, 3)] | same keys True | 2s
+pair 2 230302->230300: library 1 meeting(s) split [(3, 3)] | author 1 split [(3, 3)] | same keys True | 2s
+pair 3 230400->030400: library 1 meeting(s) split [(3, 3)] | author 1 split [(3, 3)] | same keys True | 4s
+pair 4 240030->040030: library 1 meeting(s) split [(3, 3)] | author 1 split [(3, 3)] | same keys True | 4s
+pair 5 250002->050002: library 1 meeting(s) split [(3, 3)] | author 1 split [(3, 3)] | same keys True | 3s
+pair 6 250002->250000: library 1 meeting(s) split [(3, 3)] | author 1 split [(3, 3)] | same keys True | 3s
+pair 7 304002->304000: library 1 meeting(s) split [(3, 3)] | author 1 split [(3, 3)] | same keys True | 4s
+pair 8 400302->400300: library 1 meeting(s) split [(3, 3)] | author 1 split [(3, 3)] | same keys True | 4s
+pair 9 030302->030300: library 1 meeting(s) split [(3, 3)] | author 1 split [(3, 3)] | same keys True | 4s
+same meeting-key set on 10 of 10 pairs
