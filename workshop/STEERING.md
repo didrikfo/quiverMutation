@@ -162,3 +162,6 @@ A short negative result ("dead end, because ...") is a welcome outcome.
 - round 040, question 1 (agenda) (applied, round 041): approve the round-040 agenda -- decided by the chair of round 041; no answer from the human
 - round 040, question 2 (literature): yes, fetch arXiv:1009.3370 and arXiv:2509.12983. Answered by the human, who also granted a standing permission for relevant arXiv fetches (see Standing permissions).
 - round 040, question 3 (overnight) (applied, round 041): none; nothing needs more than 10 minutes per command -- decided by the chair of round 041; no answer from the human
+- round 041, question 1 (agenda) (applied, round 042): keep the round-040 agenda, item 1 reshaped to why Q(x) has lowest term x^2 on LNA walks -- decided by the chair of round 042; no answer from the human
+- round 041, question 2 (overnight) (applied, round 042): no; the 3 h reverse job waits for a reverse positive control at depth >= 2 -- decided by the chair of round 042; no answer from the human
+- round 041, question 3 (literature) (applied, round 042): yes, scholar fetches arXiv:1009.3370 and arXiv:2509.12983 (also covered by the standing arXiv permission) -- decided by the chair of round 042; no answer from the human
