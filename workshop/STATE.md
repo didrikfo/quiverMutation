@@ -3,7 +3,7 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 39
+last_round: 40
 next_round_kind: ordinary
 
 ## Open threads
@@ -22,7 +22,17 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
 
-## Round 039 updates (supersede everything below where they differ)
+## Round 040 updates (supersede everything below where they differ)
+
+Round 040 was a conference (all six personas; `rounds/040/`). **Round 041 is ordinary; 044 is the next conference.** Ranked agenda **(proposed, round 040)**, replacing the round-036 agenda, pending the human's approval in STEERING.md; ordinary rounds work from it:
+1. T5: does any gate-admitted J_i != 0 step keep the LNA key (key guard off; n = 6, 7, 8, classes 0, 1, 2; positive control; confirm child key is computed on the child)? experimentalist (`--plan` first), skeptic, theorist (R(x) = 1 + t for j = e_i).
+2. T5: `--tilting-only` meet in `toolsmith_n6meet.py` with positive control and closure flag; the other 13 hits; reverse search from the hits (J = 0 vertices). toolsmith, skeptic.
+3. T5: AI Thm 2.31/2.32 and Ladkani 2.3(c) against `tiltingPlus`; the 2.31 citation is from memory until read. scholar, skeptic.
+4. S-1: n = 12 key class after `--plan`; fix `maverick_single.py` label block; null from a core-length statistic. experimentalist, maverick, toolsmith, skeptic.
+Weakest claims named: E-134 membership (unsupported); E-138 refusal pattern (guard is the BFS filter); d_i = 2 (capped, E-131 counterexamples); H-015 as the tilting test; the S-1 K-threshold law (two lengths).
+Rounds 036-038 update sections dropped as superseded (see their proceedings).
+
+## Round 039 updates (superseded by 040 where they differ)
 
 Round 039 (ordinary: skeptic, theorist, maverick; referees experimentalist, experimentalist, skeptic; all minor revision, accepted with qualifications) recorded E-137..E-139. **Round 040 is a conference** (conference_every = 4). The round-036 agenda stands (proposed, pending the human).
 
@@ -30,46 +40,6 @@ Round 039 (ordinary: skeptic, theorist, maverick; referees experimentalist, expe
 - **T5 (E-138):** all 192 J != 0 steps at n = 8 c0 (and 123 at n = 6, 7) leave the class key; out(i) = 3 is a sample property, the gate allows out(i) = 2 (hand algebra). Open: c1, c2, n = 9; a gate-admitted J != 0 step whose child keeps the key (would break the law); prove R(x) != 1 + t when j = e_i; machine-check row 7798's kernel element.
 - **S-1 (E-139):** n = 13 failure confirmed at the orbit level (4349 + 674). Open: n = 12 (K >= 4 holds, K >= 3 fails; `--plan` first) and n = 15; which backward moves join (4,5) and (5,4); the {h, K} dependence from H-020.
 - Requests added: skeptic: a J != 0 step whose child passes the key guard (n <= 7). toolsmith: `--tilting-only` in `toolsmith_n6meet.py` with a positive control; reverse-direction search from the hits. experimentalist: n = 8 c1, c2 for the J != 0 / key-guard column; n = 12 key class for S-1. theorist: R(x) = 1 + t for j = e_i.
-
-## Round 038 updates (supersede everything below where they differ)
-
-Round 038 (ordinary: experimentalist, toolsmith, scholar; referees theorist, skeptic, experimentalist; all minor revision, accepted with qualifications) recorded E-134..E-136. **Round 039 is ordinary; 040 is the next conference.** The round-036 agenda stands (proposed, pending the human).
-
-- **T5 (E-134):** all 16 n = 6 gate-admitted (d >= 3, J != 0) fans with an LNA key meet an LNA in the key-preserving forward graph (25-27 shared algebras), so E-132's "no LNA reached" was a bounded miss and such algebras lie in the LNA derived class *provided the Coxeter guard (H-015) holds*; none lies on a forward walk from an LNA, so E-129's d = 2 is a walk statement. No step was checked with `tiltingPlus`. n = 6 class closure fails in 240 s per class. `maverick_single` fixed (`toolsmith_single.py`, test added).
-- **T5 (E-135):** n = 8 c0 capped walk: 9 rows / 5 algebras with J != 0, d >= 3, all out(i) = 3 (two (3,1) rows with no parallel arrow); out(i) = 3 necessary in sample, not sufficient (9 of 17-19). Tail-of-capped-walk sample; E-131's mechanism does not cover the two new rows.
-- **T5 (E-136):** `C_B = r C_A r^T + H`, `H_{vi} = dim J_i` (28 000 walk steps, 0 failures; H from `perI`); d_i is not a class invariant; largely E-093/E-127 restated.
-- Requests added: skeptic: check one LNA -> M and hit -> M path of E-134 with `tiltingPlus`/Ladkani 2.3(c) and print the shared keys. theorist: why out(i) = 3 (kernel on rows 7798/7810); use E-136 to say when a J != 0 child passes the key guard. experimentalist: n = 7 meet for E-130's 44 targets; deeper n = 8 c0 (levels 9-10) with `experimentalist_d3table.py`. toolsmith: `None` guard in `toolsmith_n6meet.py`; whether class 0 stops growing (overnight candidate, not approved).
-
-## Round 037 updates (supersede everything below where they differ)
-
-Round 037 (ordinary: theorist, skeptic, maverick; referees skeptic, theorist, experimentalist; all minor revision, all accepted with qualifications) recorded E-131..E-133. **Round 038 is ordinary; 040 is the next conference.** The round-036 agenda stands (proposed, pending the human); item 1 is reshaped by E-131/E-132.
-
-- **T5 (E-132):** the gate alone does not force d_i = 2 at J_i != 0: hand algebra with (d, dim J) = (3, 1), gate-admitted, key not an LNA key (so on no walk); n = 6 enumeration: 183 gate-admitted d >= 3, J != 0 fans, 167 without LNA key, 16 with, a bounded BFS from those 16 finds no LNA. Open: close the BFS of all n = 6 LNA derived classes and tabulate (d, J) exhaustively; an invariant separating the 16 key coincidences.
-- **T5 (E-131):** the 5 E-127 rows are 3 algebras (39, 64, 75; pairs by 1 <-> 3 swap under invariants). J_i != 0 there is the single-non-parallel-arrow relation p1 b = p2 b; parallel multiplicity plays no role, why #{J_i != 0} = m is unexplained. **Rows with J_i != 0 and d_i = 4, 4, 5 exist past E-129's cap** (out-degree >= 3, parallel arrows): E-129's d = 2 holds only for its capped sample and out-degree <= 2. Open: save the d_i / dim e_iAe_8 / Cartan tables (all i); hand-build m = 2 with three such i; walks past the cap, counting distinct algebras (agenda item 2 now has a known positive).
-- **S-1 (E-133):** with `mirrorRow`, image is still a function of (K, word) at n = 11 (94 ends, 0 conflicts); E-125's "82 ends" was a miscount. I1 iff stripped core is a lone 3 or 7 with K_eff = 3. Lone-relation keys depend on {h, K}; key-level prediction: K >= 3 fails first at n = 11, K >= 4 at n = 13, K >= 5 at n = 15. Open: orbit check at n = 13 (lone 3 at (4,5), (5,4)); n = 12 after `--plan`; `maverick_single.py` label block crashes (fix); non-lone cores; K = 2.
-- Requests added: experimentalist: n = 13 lone-3 orbit check; walks past the cap with distinct algebras and the full d_i table. theorist: why #{i: e_iAe_8 = 0, path to v} = m; derive the {h, K} dependence from H-020. toolsmith: fix `maverick_single.py`; close the n = 6 LNA classes for (d, J). skeptic: orbit/isomorphism test for 7822 vs 7831 not relying on `canonicalKey` (may be None).
-
-## Round 036 updates (supersede everything below where they differ)
-
-Round 036 was a conference (all six personas; `rounds/036/`). **Round 037 is ordinary; 040 is the next conference.** Ranked agenda **(proposed, round 036)**, replacing the round-032 agenda, pending the human's approval in STEERING.md; ordinary rounds work from it:
-1. T5: why d_i = 2 when J_i != 0 on walks (E-129); is d_i >= 3 with J_i != 0 possible; hand-build one. theorist, scholar, skeptic.
-2. T5: audit the 28 rows with d_i >= 3 (distinct algebras, orbits, classes, out-degrees); checkpointed walk past the cap. experimentalist, toolsmith.
-3. T5: n = 7 closure: are all 44 targets keyed (non-None)? then reverse-direction search. toolsmith, experimentalist.
-4. T5: the 5 parallel rows of E-127: orbits, Gamma_i vs parallel multiplicity. skeptic, theorist.
-5. S-1: derive the last-letter-3 I1/I2 split (E-125) from H-020; n = 12 after `--plan`. maverick, theorist, toolsmith.
-Lower: positive control for E-123's key base rate; cyclic-quiver L2 case.
-Weakest claims named: the d_i <= 2 bound (empirical, capped); E-123 key absence (no base rate); "0/44 reached" (keys unchecked); "room to move" (hypothesis).
-
-## Round 035 updates (supersede everything below where they differ)
-
-Round 035 (ordinary: toolsmith, experimentalist, scholar; referees skeptic, theorist, skeptic; scholar accepted, the others minor revision, promoted with qualifications) recorded E-128..E-130. **Round 036 is a conference.** The round-032 agenda stands (proposed, pending the human). Rounds 029-031 updates dropped as superseded (see their proceedings).
-
-- **T5 (E-128):** Hom(N,N[-1]) = {(y_b): y_b in J_t(b), sum b y_b = 0} for any A and loopless v, so "silting-not-tilting iff some J_i != 0" holds without acyclicity (given AI 2.31); cyclic quiver changes only the count (v -> t -> v, rad^2 = 0: sum J = 1, Hom(T,T[-1]) = 2). The repo gate sees simple paths only, so E-126's L1 is unguaranteed on cyclic quivers (not investigated).
-- **T5 (E-129):** capped walks (n = 8 c0, c1, c2; n = 9 c0): 285 rows with J_i != 0 all have d_i = 2, dim J_i = 1; the 28 rows with d_i >= 3 all have J_i = 0. Thin where d >= 3 lives (BFS level 7-8, cap edge); no distinct-algebra counts. Open: deeper walks with d >= 3; why J_i = 0 at d = 3.
-- **T5 (E-130):** n = 7 BFS closure of the both-die classes does not fit one command (class 1 ratio about 2.4, class 3 falling from 2.6 to 1.9); 0 of 44 reached in 240 s per class. No overnight approved. Open: E-124's reverse direction (mutate each target, look for an LNA child); measure memory and None-key drops.
-- Requests added: toolsmith: reverse-direction search from the 44 targets. experimentalist: d >= 3 rows deeper (checkpointed, distinct algebras); n = 7 class 3 plan. skeptic: a cyclic gate-admitted case where a non-simple path kills dim J_i bound (L1). theorist: why J_i = 0 at d_i = 3; Gamma_i / parallel multiplicity for the 5 rows (still open).
-
-(Round 020-034 agenda and update sections dropped as superseded by the round-036 agenda; see `rounds/020..034/proceedings.md` and E-100..E-127.)
 
 ## Round 006 updates (supersede the thread text above where they differ)
 
@@ -100,13 +70,13 @@ Requests added: toolsmith to theorist: why the key-coarser cores are the parity 
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 038 | 039 (skeptic, theorist) |
+| experimentalist | 038 (040 conf.) | 039 (skeptic, theorist) |
 <!-- 036 was a conference: all six wrote position statements -->
 <!-- 012 was a conference: all six wrote position statements -->
 <!-- 008 was a conference: all six wrote position statements -->
 <!-- 005 was a conference: all six wrote position statements; nobody refereed -->
-| theorist | 039 | 038 (experimentalist) |
-| skeptic | 039 | 039 (maverick) |
-| scholar | 038 | 034 (skeptic) |
-| toolsmith | 038 | 027 (maverick) |
-| maverick | 039 | 015 (toolsmith) |
+| theorist | 039 (040 conf.) | 038 (experimentalist) |
+| skeptic | 039 (040 conf.) | 039 (maverick) |
+| scholar | 038 (040 conf.) | 034 (skeptic) |
+| toolsmith | 038 (040 conf.) | 027 (maverick) |
+| maverick | 039 (040 conf.) | 015 (toolsmith) |

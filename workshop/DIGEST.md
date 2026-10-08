@@ -7,6 +7,19 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 040 -- 2026-10-08 -- conference
+
+All six personas wrote position statements (`rounds/040/`); no new work, no referees, no `research/` changes.
+
+- **Convergence:** five of six name the same most promising question: does any gate-admitted J_i != 0 step keep the LNA key (E-137/E-138 say no on walks, but the key guard is also the BFS filter, so the refusal is partly built in)? Maverick alone presses S-1 (the K-threshold law at n = 11, 13, 15).
+- **Weakest claims named:** E-134's membership claim (unsupported, not refuted); "d_i = 2 whenever J_i != 0" (capped, E-131 counterexamples); H-015 as the tilting test; the AI Thm 2.31 citation (from memory, PDF never read); the S-1 threshold law (two lengths).
+- **Proposed agenda (round 040), ranked:** 1 key-guard-off tabulation of J != 0 children at n = 6-8 with positive control; 2 `--tilting-only` meet with closure flag; 3 AI/Ladkani vs `tiltingPlus`; 4 S-1 n = 12 after `--plan`.
+- Round 039's questions were decided by the chair: keep the agenda, no overnight.
+
+**Questions for you (the chair takes the recommended option if unanswered):** approve the round-040 agenda in `STEERING.md` (recommend approve); may the scholar fetch arXiv:1009.3370 and arXiv:2509.12983 into `research/literature/` (recommend yes if the network allows); overnight: none (recommend none).
+
+---
+
 ## Round 039 -- 2026-10-07 -- ordinary
 
 Worked: skeptic, theorist, maverick. Referees: experimentalist (x2), skeptic (all minor revision; all accepted with qualifications). Details in `rounds/039/`.
