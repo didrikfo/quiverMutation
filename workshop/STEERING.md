@@ -168,3 +168,6 @@ A short negative result ("dead end, because ...") is a welcome outcome.
 - round 042, question 1 (agenda) (applied, round 043): keep the round-040 agenda; item 1 now = H1/H2 step with c_2 != 0 and the n = 8 tally for E-143 -- decided by the chair of round 043; no answer from the human
 - round 042, question 2 (literature) (applied, round 043): no PDFs supplied; item 3 stays parked -- decided by the chair of round 043; no answer from the human
 - round 042, question 3 (overnight) (applied, round 043): none; nothing needs more than 10 minutes per command -- decided by the chair of round 043; no answer from the human
+- round 043, question 1 (agenda): keep the round-040 agenda, item 1 = why key-preserving J != 0 steps exist at n = 7 c1, c2 -- decided by the chair of round 044; no answer from the human (applied, round 044; superseded by the round-044 proposed agenda)
+- round 043, question 2 (overnight): none; the 3 h reverse job waits for a deep control -- decided by the chair of round 044; no answer from the human (applied, round 044)
+- round 043, question 3 (literature): no PDFs supplied; parked, scholar retries the arXiv fetch -- decided by the chair of round 044; no answer from the human (applied, round 044)

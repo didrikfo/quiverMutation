@@ -3,8 +3,8 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 43
-next_round_kind: conference
+last_round: 44
+next_round_kind: ordinary
 
 ## Open threads
 
@@ -21,6 +21,17 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 044 updates (supersede everything below where they differ)
+
+Round 044 was a conference (all six personas; `rounds/044/`). **Round 045 is ordinary; 048 is the next conference.** Ranked agenda **(proposed, round 044)**, replacing the round-040 agenda, pending the human; ordinary rounds work from it:
+1. T5 key guard: skeptic hand-rebuilds the 13 class-1 E-145 steps (n = 7); experimentalist guard-off n = 7 census (`--plan` first) with per-step `tiltingPlus` + Cartan congruence, saves the n = 8 J != 0 steps.
+2. T5 theory: theorist, orbit data giving D = 0 (s = 10 in c2), why c_2 = 0, the s = -2 family; which property the meet needs (tilting, silting, key).
+3. T5 tools: toolsmith, can a key-preserving walk step fail `tiltingPlus` (tally); loss-by-depth for the reverse search, deep control. No overnight.
+4. Literature: scholar retries arXiv 1009.3370 / 2509.12983 (standing permission); else park.
+5. S-1 n = 15 K0 = 5 sizing (maverick, toolsmith); min(h, K) vs core key.
+Weakest claims named: the key-guard law (class 0 only; guard is also the BFS filter); E-145 class-1 count (one script); H-015 citations from memory; S-1 law (two lengths beyond n = 11).
+Requests added: skeptic <- experimentalist, theorist, scholar, toolsmith, maverick: independent rebuild of class-1 steps. experimentalist <- toolsmith, skeptic: guard-off n = 7 census, saved n = 8 steps. theorist <- scholar, experimentalist: orbit data for D = 0.
 
 ## Round 043 updates (supersede everything below where they differ)
 
@@ -97,6 +108,7 @@ Requests added: toolsmith to theorist: why the key-coarser cores are the parity 
 | persona | worked | refereed |
 |---|---|---|
 | experimentalist | 043 | 042 (theorist) |
+<!-- 044 was a conference: all six wrote position statements -->
 <!-- 036 was a conference: all six wrote position statements -->
 <!-- 012 was a conference: all six wrote position statements -->
 <!-- 008 was a conference: all six wrote position statements -->

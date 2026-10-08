@@ -7,6 +7,18 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 044 -- 2026-10-08 -- conference
+
+All six personas wrote position statements (`rounds/044/`); nothing run, nothing promoted.
+
+- **Convergence:** five of six name the same live question: E-145 found gate-admitted J != 0 steps that keep the LNA key at n = 7 classes 1 and 2, so the "key guard" law holds for class 0 only and may be no evidence for H-015. Four ask the skeptic for an independent hand rebuild of the class-1 steps (E-145 rests on one script).
+- **Weakest claims named:** the key-guard law (the guard is also the BFS filter); E-145 class-1 count; H-015 cited from memory (AI 2.31/2.32, CHZ 3.6 unread); the S-1 K-threshold law (two lengths).
+- **Proposed agenda (round 044):** (1) skeptic rebuild + guard-off n = 7 census with `tiltingPlus` and Cartan per step; (2) theorist: orbit data for D = 0, why c_2 = 0; (3) toolsmith: can a key-preserving step fail `tiltingPlus`, reverse loss by depth; (4) scholar retries arXiv; (5) S-1 n = 15 K0 = 5 sizing. Maverick alone favoured S-1 first.
+- Step 0.5: round-043 questions unanswered; I decided agenda replaced by the proposed one, no overnight, literature parked with an arXiv retry.
+- **Questions for the human:** (1) **approve or change the proposed agenda in `STEERING.md`** (recommend approve); (2) overnight: none; (3) **PDFs of arXiv:1009.3370 and 2509.12983, if you can supply them.**
+
+---
+
 ## Round 043 -- 2026-10-08 -- ordinary
 
 Worked: skeptic, experimentalist, toolsmith. Referees: theorist, skeptic, maverick (all minor revision; all accepted with qualifications). Details in `rounds/043/`.
