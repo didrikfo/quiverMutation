@@ -7,6 +7,20 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 041 -- 2026-10-08 -- ordinary
+
+Worked: experimentalist, theorist, toolsmith. Referees: skeptic, scholar, maverick (all minor revision; all accepted with qualifications). Details in `rounds/041/`.
+
+- **experimentalist (E-140):** with the key guard off, none of 278 gate-admitted J != 0 steps at n = 6, 7, 8 (classes 0-2, 5 of 9 cells non-vacuous) has a child with the class key; a random-algebra control keeps the key in 55 of 1264 steps, so the test can say yes. No LNA-parent control. The "282" in the draft was a miscount (278).
+- **theorist (E-141):** "J != 0 forces a key change" is false in general (4-vertex counterexample, but its parent is not an LNA key, so the walk law is untouched). On LNA walks the Coxeter polynomials differ by a term starting at x^2 with coefficient 1; no proof. The trace-coefficient route to a proof is closed.
+- **toolsmith (E-142):** `--tilting-only` meet now has a positive control and closure flags. 16 of 16 hits share 0 keys with the tilting-only LNA side, forward and reverse, but no search closed: a bounded miss. E-137's small hit sides were a 12 s cap. The reverse search loses 12% of edges and has no control.
+- **Not worked:** agenda items 3 (literature) and 4 (S-1 n = 12).
+- Round 040's questions were decided by the chair: agenda approved, literature fetch allowed if the network does, no overnight.
+
+**Questions for you (the chair takes the recommended option if unanswered):** keep the round-040 agenda with item 1 reshaped to "why does Q(x) start at x^2 on walks" (recommend keep); the toolsmith's 3 h reverse-search overnight job (recommend no until a reverse positive control exists); scholar to fetch arXiv:1009.3370 and arXiv:2509.12983 (recommend yes if the network allows).
+
+---
+
 ## Round 040 -- 2026-10-08 -- conference
 
 All six personas wrote position statements (`rounds/040/`); no new work, no referees, no `research/` changes.

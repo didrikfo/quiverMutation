@@ -1,0 +1,9 @@
+n = 6: 4 LNA key classes, sizes [2, 24, 26, 32]
+mode: tilting-only=True
+LNA side: seen 6786, CAP HIT (not closed), frontier left 1170, gate-admitted 12168, J!=0 dropped 16
+CONTROL z depth 2 (LNA-side), parents at depths 1, 1; p2 in BFS(p1): False
+  BFS(p1): seen 3268, CAP HIT (not closed), frontier left 547, gate-admitted 5753, J!=0 dropped 11
+  BFS(p2): seen 3297, CAP HIT (not closed), frontier left 947, gate-admitted 5471, J!=0 dropped 104
+CONTROL RESULT: z in both = True; shared = 679
+REVCONTROL: LNA-side edges A->B tested 4014, A recovered as opposite(step(opposite(B))) in 3489, not in 525
+hits inside the LNA-side set: 0

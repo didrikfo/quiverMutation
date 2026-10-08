@@ -1,0 +1,2 @@
+n 6 cls 2 seeds 26 on expanded 9058 levels 8 stopped True gate-admitted 29402 illegal 0 vertexset-dropped 0 J!=0 steps 0 150s
+(parent key==class, child==parent, child==class, child is an LNA key at n): count

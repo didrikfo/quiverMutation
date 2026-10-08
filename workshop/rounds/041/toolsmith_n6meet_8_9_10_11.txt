@@ -1,0 +1,21 @@
+n = 6: 4 LNA key classes, sizes [2, 24, 26, 32]
+mode: tilting-only=True
+LNA side: seen 4497, CAP HIT (not closed), frontier left 1754, gate-admitted 7822, J!=0 dropped 6
+hits inside the LNA-side set: 0
+hit 8 (v=2) forward: seen 261, CAP HIT (not closed), frontier left 130, gate-admitted 371, J!=0 dropped 23
+   shared with LNA side: 0
+hit 8 (v=2) REVERSE(J=0 only): seen 906, CAP HIT (not closed), frontier left 168, gate-admitted 1208, J!=0 dropped 31
+   shared with LNA side: 0
+hit 9 (v=2) forward: seen 243, CAP HIT (not closed), frontier left 107, gate-admitted 331, J!=0 dropped 18
+   shared with LNA side: 0
+hit 9 (v=2) REVERSE(J=0 only): seen 738, CAP HIT (not closed), frontier left 473, gate-admitted 987, J!=0 dropped 20
+   shared with LNA side: 0
+hit 10 (v=2) forward: seen 249, CAP HIT (not closed), frontier left 118, gate-admitted 340, J!=0 dropped 19
+   shared with LNA side: 0
+hit 10 (v=2) REVERSE(J=0 only): seen 694, CAP HIT (not closed), frontier left 448, gate-admitted 902, J!=0 dropped 17
+   shared with LNA side: 0
+hit 11 (v=2) forward: seen 262, CAP HIT (not closed), frontier left 126, gate-admitted 359, J!=0 dropped 21
+   shared with LNA side: 0
+hit 11 (v=2) REVERSE(J=0 only): seen 677, CAP HIT (not closed), frontier left 417, gate-admitted 899, J!=0 dropped 17
+   shared with LNA side: 0
+SUMMARY tilting-only=True hits=4 forward-closed hits=0 shared fwd=0 rev=0 LNA closed=False

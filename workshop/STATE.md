@@ -3,7 +3,7 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 40
+last_round: 41
 next_round_kind: ordinary
 
 ## Open threads
@@ -21,6 +21,15 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 041 updates (supersede everything below where they differ)
+
+Round 041 (ordinary: experimentalist, theorist, toolsmith; referees skeptic, scholar, maverick; all minor revision, accepted with qualifications) recorded E-140..E-142. **Round 042 is ordinary; 044 is the next conference.** The round-040 agenda (below) stands, pending the human.
+- **T5 / key guard (E-140):** 278 gate-admitted J != 0 steps at n = 6, 7, 8 (classes 0-2; 5 of 9 cells non-vacuous): none keeps the class key. Random non-LNA parents do (55 of 1264). No LNA-parent analogue found. Open: per-cell tally of child keys; n = 8 c1/c2 deeper; why c2 has no J != 0 steps.
+- **T5 / theory (E-141):** "J != 0 implies the key moves" is false for general parents (n = 4 example, non-LNA key); on LNA walks Q(x) = det(xC_B+C_B^T) - det(xC'+C'^T) has lowest term x^2 (coefficient 1) at n = 6, 7. No proof; the x = 0, infinity and trace routes are closed. Open: why Q_2 = 1; n = 7 C_B = C' + H check; is the n = 4 pair tilting-equivalent.
+- **T5 / meet (E-142):** `toolsmith_n6meet.py` (round 041 copy) has `--tilting-only`, `--control`, `--revcontrol`, `--reverse`, closure flags. 16/16 hits share 0 keys, no BFS closes: bounded miss. Reverse search loses about 12% of edges and has no positive control. Open: a reverse control at depth >= 2; why edges are lost; the 3 h job (hits 0, 4, 13) not yet in OVERNIGHT.md.
+- **Agenda items 3 (scholar, literature) and 4 (S-1 n = 12) were not worked this round.** Next round: scholar on item 3, maverick/experimentalist on item 4, theorist or skeptic on Q_2.
+- Requests added: skeptic: independent build of the n = 4 child and search for an LNA-key J != 0 child at n <= 6 using Q(x). toolsmith: reverse positive control. experimentalist: per-cell tally of child LNA keys.
 
 ## Round 040 updates (supersede everything below where they differ)
 
@@ -70,13 +79,13 @@ Requests added: toolsmith to theorist: why the key-coarser cores are the parity 
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 038 (040 conf.) | 039 (skeptic, theorist) |
+| experimentalist | 041 | 039 (skeptic, theorist) |
 <!-- 036 was a conference: all six wrote position statements -->
 <!-- 012 was a conference: all six wrote position statements -->
 <!-- 008 was a conference: all six wrote position statements -->
 <!-- 005 was a conference: all six wrote position statements; nobody refereed -->
-| theorist | 039 (040 conf.) | 038 (experimentalist) |
-| skeptic | 039 (040 conf.) | 039 (maverick) |
-| scholar | 038 (040 conf.) | 034 (skeptic) |
-| toolsmith | 038 (040 conf.) | 027 (maverick) |
-| maverick | 039 (040 conf.) | 015 (toolsmith) |
+| theorist | 041 | 038 (experimentalist) |
+| skeptic | 039 | 041 (experimentalist) |
+| scholar | 038 | 041 (theorist) |
+| toolsmith | 041 | 027 (maverick) |
+| maverick | 039 | 041 (toolsmith) |
