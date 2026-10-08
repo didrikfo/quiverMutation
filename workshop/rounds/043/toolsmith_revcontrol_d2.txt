@@ -1,0 +1,16 @@
+n = 6: 4 LNA key classes, sizes [2, 24, 26, 32]
+LNA side (tilting-only): seen 7302 closed=False; depth hist [(0, 2), (1, 6), (2, 12), (3, 26), (4, 54), (5, 136), (6, 341), (7, 717), (8, 1449), (9, 2873), (10, 1686)]
+two-step forward paths available (sample of C at depth 2): 16
+path A->B->C: reverse depth<=2 from C reaches A: True (depth 2), reaches B(first forward step): True; depth<=1 reaches A: False; |R2|=13 |R1|=5 R2 closed=True
+path A->B->C: reverse depth<=2 from C reaches A: True (depth 2), reaches B(first forward step): True; depth<=1 reaches A: False; |R2|=12 |R1|=4 R2 closed=True
+path A->B->C: reverse depth<=2 from C reaches A: True (depth 2), reaches B(first forward step): True; depth<=1 reaches A: False; |R2|=15 |R1|=5 R2 closed=True
+path A->B->C: reverse depth<=2 from C reaches A: True (depth 2), reaches B(first forward step): True; depth<=1 reaches A: False; |R2|=12 |R1|=4 R2 closed=True
+path A->B->C: reverse depth<=2 from C reaches A: True (depth 2), reaches B(first forward step): True; depth<=1 reaches A: False; |R2|=10 |R1|=4 R2 closed=True
+path A->B->C: reverse depth<=2 from C reaches A: True (depth 2), reaches B(first forward step): True; depth<=1 reaches A: False; |R2|=13 |R1|=4 R2 closed=True
+path A->B->C: reverse depth<=2 from C reaches A: True (depth 2), reaches B(first forward step): True; depth<=1 reaches A: False; |R2|=13 |R1|=5 R2 closed=True
+path A->B->C: reverse depth<=2 from C reaches A: True (depth 2), reaches B(first forward step): True; depth<=1 reaches A: False; |R2|=13 |R1|=5 R2 closed=True
+path A->B->C: reverse depth<=2 from C reaches A: True (depth 2), reaches B(first forward step): True; depth<=1 reaches A: False; |R2|=13 |R1|=4 R2 closed=True
+path A->B->C: reverse depth<=2 from C reaches A: True (depth 2), reaches B(first forward step): True; depth<=1 reaches A: False; |R2|=10 |R1|=4 R2 closed=True
+path A->B->C: reverse depth<=2 from C reaches A: True (depth 2), reaches B(first forward step): True; depth<=1 reaches A: False; |R2|=10 |R1|=4 R2 closed=True
+path A->B->C: reverse depth<=2 from C reaches A: True (depth 2), reaches B(first forward step): True; depth<=1 reaches A: False; |R2|=13 |R1|=5 R2 closed=True
+CONTROL SUMMARY: A reached in 12 of 12 paths at depth<=2

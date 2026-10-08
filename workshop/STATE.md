@@ -3,8 +3,8 @@
 Owned by the chair. Rewritten at the end of every round; keep it under 150
 lines. This is what every persona reads first, so it must stand on its own.
 
-last_round: 42
-next_round_kind: ordinary
+last_round: 43
+next_round_kind: conference
 
 ## Open threads
 
@@ -21,6 +21,15 @@ Round 006 (ordinary: toolsmith, theorist, scholar) recorded E-064..E-066; thread
 - **T9** · H-019, H-013: long runs. Overnight waiting on the human: n = 12 and n = 14 censuses of the 139 cores (Menu 4; `workshop/rounds/002/experimentalist_census.py` and `experimentalist_fit.py`); Ladkani audit n = 9/10. · any · parked
 
 Next round (007) is ordinary; 008 is the next conference. Overnight run added in round 005: H-017 depth 7 at n = 9 (Menu 4). Still waiting on the human: n = 12/14 censuses, n = 14 census, Ladkani audit n = 9/10.
+
+## Round 043 updates (supersede everything below where they differ)
+
+Round 043 (ordinary: skeptic, experimentalist, toolsmith; referees theorist, skeptic, maverick; all minor revision, accepted with qualifications) recorded E-145..E-147. **Round 044 is a conference** (conference_every = 4). The round-040 agenda stands, pending the human.
+- **T5 / key guard (E-145):** at n = 7 classes 1 and 2 there are gate-admitted J != 0 steps that keep the class key (13 of 67, 9 of 64 distinct; walk descendants, tiltingPlus False, Cartan incongruent), so E-140's "none keeps the key" and the E-138/E-141 law hold for class 0 only; the key guard is no evidence for H-015 off J = 0 steps. Orbit relation e_i = F^s e_w fails on most H1/H2 steps in c1, c2. Open: which orbit data give D = 0 (s = 10 in c2); rebuild the class-1 steps by hand; E-140's command at 500 s; whether D = 0 children are derived-equivalent (none claimed).
+- **T5 / n = 8 (E-146):** no n = 8 J != 0 step has the E-143 shape (|out v| = 2 or |supp J| = 2, so s, c_2 undefined); Q's lowest term is x^3 for some class-1 steps; E-143's "orbit relation never absent" holds only at n = 6, 7 c0. Shallow sample (cap, depth 7-9). Open: reduction for |out v| = 2; save the steps; guard-off depth 6 (>10 min, overnight candidate); n = 9 shape.
+- **T5 / reverse meet (E-147):** reverse positive control at depth 2-4 passes (12/12); 154 of 1500 edges (10.3%) are lost in reverse, not to a filter (same-vertex opposite step lands on a different same-key algebra). Control is shallow; loss by depth not tallied. Open: loss-by-depth tally, deep control, reason for the loss; the 3 h reverse job stays out of OVERNIGHT.md.
+- Agenda item 3 (literature) parked: no PDFs. S-1 n = 15 K0 = 5 sizing not worked.
+- Requests added: theorist: orbit data giving D = 0 (B = 0 = 1 - c_s - c_{-s}); E-143 reduction for |out v| = 2. skeptic: explain the 154 lost edges (module condition). experimentalist: E-140 command at 500 s; n = 8 steps saved; toolsmith: loss by depth, deep reverse control.
 
 ## Round 042 updates (supersede everything below where they differ)
 
@@ -87,13 +96,13 @@ Requests added: toolsmith to theorist: why the key-coarser cores are the parity 
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 041 | 042 (theorist) |
+| experimentalist | 043 | 042 (theorist) |
 <!-- 036 was a conference: all six wrote position statements -->
 <!-- 012 was a conference: all six wrote position statements -->
 <!-- 008 was a conference: all six wrote position statements -->
 <!-- 005 was a conference: all six wrote position statements; nobody refereed -->
-| theorist | 042 | 038 (experimentalist) |
-| skeptic | 039 | 042 (scholar) |
+| theorist | 042 | 043 (skeptic) |
+| skeptic | 043 | 043 (experimentalist) |
 | scholar | 042 | 041 (theorist) |
-| toolsmith | 041 | 042 (maverick) |
-| maverick | 042 | 041 (toolsmith) |
+| toolsmith | 043 | 042 (maverick) |
+| maverick | 042 | 043 (toolsmith) |

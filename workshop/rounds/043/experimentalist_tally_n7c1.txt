@@ -1,0 +1,12 @@
+n 7 classes [(0, 8), (1, 12), (2, 14), (3, 58), (4, 64), (5, 108)] chosen 1 seeds 12
+n 7 cls 1 mode guarded expanded 6490 gate-admitted records 24855 depth 8 stopped(cap hit) True secs 520
+distinct (Z,w,i) on H1&H2: 10  distinct (C_A,v) over all J!=0: 10
+('P1 formula == library Q', True) 10
+('Q lowest (deg, coeff)', (2, 1)) 10
+('c_2 = (Y^T F^2)_ww', 0) 10
+('order of F', 12) 10
+('s set (|s|<=8)', ()) 8
+('s set (|s|<=8)', (1,)) 2
+('s=1: c_2', 0) 2
+H1&H2 steps 10
+J!=0 steps 10

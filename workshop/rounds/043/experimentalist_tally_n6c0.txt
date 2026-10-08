@@ -1,0 +1,14 @@
+n 6 classes [(0, 2), (1, 24), (2, 26), (3, 32)] chosen 0 seeds 2
+n 6 cls 0 mode guarded expanded 7342 gate-admitted records 27320 depth 11 stopped(cap hit) True secs 520
+distinct (Z,w,i) on H1&H2: 104  distinct (C_A,v) over all J!=0: 146
+('OFF-SHAPE (u != e_w - e_i)', (0, 1, -1, 0, 1)) 1
+('P1 formula == library Q', True) 145
+('Q lowest (deg, coeff)', (2, 1)) 146
+('c_2 = (Y^T F^2)_ww', 0) 56
+('c_2 = (Y^T F^2)_ww', 1) 89
+('order of F', 8) 145
+('s set (|s|<=8)', (-2, 6)) 89
+('s set (|s|<=8)', (-7, 1)) 56
+('s=1: c_2', 0) 56
+H1&H2 steps 145
+J!=0 steps 146

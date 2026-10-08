@@ -7,6 +7,19 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 043 -- 2026-10-08 -- ordinary
+
+Worked: skeptic, experimentalist, toolsmith. Referees: theorist, skeptic, maverick (all minor revision; all accepted with qualifications). Details in `rounds/043/`.
+
+- **skeptic (E-145):** at n = 7 classes 1 and 2 there are gate-admitted J != 0 steps that keep the class key (13 of 67 and 9 of 64 distinct). They are walk descendants, fail tiltingPlus, and are Cartan-incongruent. So E-140's "none keeps the key" and the E-138/E-141 law are class-0 statements, and the key guard is no evidence for H-015 off J = 0 steps. The referee reproduced the counts and rebuilt the class-2 steps by hand; the class-1 steps rest on one script. The orbit relation e_i = F^s e_w fails on most H1/H2 steps in c1, c2.
+- **experimentalist (E-146, null):** at n = 8 none of 27 J != 0 steps (25 distinct) has the E-143 shape (|out v| = 2 or |supp J| = 2); Q's lowest term is x^3 for some class-1 steps. Shallow, time-capped sample. Corrects E-143: "orbit relation never absent" holds only at n = 6, 7 c0.
+- **toolsmith (E-147):** the reverse search passes a positive control at depth 2-4 (12/12). 154 of 1500 edges (10.3%) are lost in reverse, never to a filter: the opposite step lands on a different same-key algebra. The control is shallow, so deep reach is not shown.
+- Step 0.5: the round-042 questions were unanswered; I decided agenda kept, literature item parked, no overnight.
+- Next round (044) is a conference.
+- **Questions for the human (recommendations in `rounds/043/proceedings.md`):** (1) keep the round-040 agenda, item 1 now "why key-preserving J != 0 steps exist at n = 7 c1, c2 and what that means for H-015" (recommend yes); (2) overnight: none, the 3 h reverse job waits for a deep control (recommend no); (3) **PDFs of arXiv:1009.3370 and 2509.12983 in `research/literature/`, or item 3 stays parked**.
+
+---
+
 ## Round 042 -- 2026-10-08 -- ordinary
 
 Worked: scholar, theorist, maverick. Referees: skeptic, experimentalist, toolsmith (all minor revision). Details in `rounds/042/`.

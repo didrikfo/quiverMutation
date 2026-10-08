@@ -1,0 +1,6 @@
+n 8 classes [(0, 2), (1, 8), (2, 18), (3, 20), (4, 26), (5, 52)] chosen 0 seeds 2
+n 8 cls 0 mode guarded expanded 2448 gate-admitted records 10291 depth 9 stopped(cap hit) True secs 520
+distinct (Z,w,i) on H1&H2: 0  distinct (C_A,v) over all J!=0: 20
+('OFF-SHAPE (H1 or |out|/|J| fails)', (2, 1, (1,), True)) 20
+('Q lowest (deg, coeff)', (2, 1)) 20
+J!=0 steps 20

@@ -1,0 +1,3 @@
+n 8 classes [(0, 2), (1, 8), (2, 18), (3, 20), (4, 26), (5, 52)] chosen 2 seeds 18
+n 8 cls 2 mode guarded expanded 4702 gate-admitted records 18486 depth 7 stopped(cap hit) True secs 520
+distinct (Z,w,i) on H1&H2: 0  distinct (C_A,v) over all J!=0: 0
