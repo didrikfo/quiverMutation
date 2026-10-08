@@ -1,17 +1,18 @@
-# Theorist notebook (rewritten round 041)
+# Theorist notebook (rewritten round 042)
 
 ## What I believe now
-- J_i = Hom(S_v, e_iA) (E-122); gate = "no single nonzero path in J" (E-114); dim J_i <= d_i - 1 (E-126); C_B = r C_A r^T + e_v J^T (E-136). Key guard passes iff R(x) = det(xC_B+C_B^T)/det(xC'+C'^T) is identically 1 (det = 1 throughout, so t = 0).
-- Round 041: "gate-admitted J != 0 => R != 1" is FALSE in general. Hand example n = 4: arrows 1->2,1->3,2->3,2->4,3->4, relation 1-2-3-4 = 1-3-4, v = 3: J_1 = 1, child (1->2, 2=>4, 4->3, relation a2.c = 0) has the same Coxeter polynomial x^4-x^3-3x^2-x+1. Random acyclic algebras n = 4..6: ~4% of J != 0 steps keep the key, always on non-LNA keys (0 of ~80 with an LNA-key parent).
-- No matrix-level proof exists: R(x) = 1 + x N_iv + N_vi - x(...) has no obstruction at x = 0, infinity, or the x^1 / x^{n-1} (trace) coefficient (that change is 0 on all 156 walk steps). Random unitriangular C' with realistic constraints admit key-preserving perturbations E_{vi}. A proof must use realisability or the walk class.
-- Walk law (E-138) refined: on n = 6, 7 class 0, Q(x) = P_B - P' has lowest degree exactly 2 with coefficient 1 (x^2(1+x+x^2+x^3) at n = 7; two shapes at n = 6). Observation only. Under the walk's own (C', v) (12 971 of them at n = 6) no single-entry change keeps the polynomial.
-- Earlier: L2 conditional on AI 2.31; 16 key-coincidence fans (E-123) meet an LNA (E-134), unsupported via non-tilting step (E-137).
+- Setting: C_B = C' + E_{vi} (J = e_i, E-136; checked on every gate-admitted record at n = 6 (74 384) and n = 7 (44 761)). When column v of C' is e_v (H1) and the v-row of C' is u = e_w - e_i (H2), then C' = [[Z,0],[u^T,1]] with Z = C_A on V\v, and Q(x) = x (adj S_ii - adj S_wi - adj S_iw), S = xZ + Z^T. Exact (P1). H1+H2 hold on 716/766 (n = 6 walk), 82/82 (n = 6 guard off), 120/120 (n = 7).
+- With F = Z Z^-T and c_k = chi(S_w, F^k S_w) (c_0 = 1, c_-k = c_k-1), Q_1 and Q_2 are the first two orbit moments of S_w. If F e_w = e_i then Q_1 = 0 for free (triangularity) and Q_2 = 1 + c_2; so Q_2 = 1 iff c_2 = 0, which holds when F e_i = -e_m (proved) and in all 296 s = 1 samples (observed). Other samples have F^-2 e_w = e_i (s = -2, 540 at n = 6): moments c_1 = 0, c_2 = 1, c_3 = 0 observed, unproved.
+- Not a matrix identity of Z: unitriangular Z with Y_wi = 1 give B_1 anywhere in -37..13. The law needs realisability (F-orbit of a simple being short, Phi S_w = S_i or Phi^2 S_i = S_w) and the one-arrow shape of the new vertex.
+- The n = 4 counterexample (E-141) has u_i = 0, u = e_2 + e_4, outside H2; Q = 0 there. R = 1 corresponds to B = 0.
+- Earlier (still standing): J_i = Hom(S_v, e_iA) (E-122); gate = no single nonzero path in J (E-114); dim J_i <= d_i - 1 (E-126); L2 conditional on AI 2.31; x = 0, infinity and trace routes give no obstruction (041).
 
 ## What I tried
-- 041: `rounds/041/theorist_{dump,analyse,diffpoly,d1,matrix,random,example,bfs4}.py`. 039: `theorist_d3walk.py`, `theorist_guard.py`, `theorist_out2.py`. 037: `theorist_d3.py`. 034: `theorist_dimji.py`. 031: `theorist_t3.py`.
+- 042: `rounds/042/theorist_{dump_off,reduce,lemma,moments,orbits,exceptions,cbcheck,n4,zrandom,explore,blocks}.py`. 041: `rounds/041/theorist_{dump,analyse,diffpoly,d1,matrix,random,example,bfs4}.py`. 039: d3walk, guard, out2. 037: d3. 034: dimji. 031: t3.
 
 ## Next
-- Explain Q_2 = 1 on walks (x^2 coefficient of Q): find the algebraic meaning (socle element count? Euler form of the two-term complex?). This is the real target; R(x)-route at x = 0, infinity, trace is closed.
-- Off-walk: why do same-key J != 0 hits have non-LNA keys? Test with n = 7 random; check if their polynomials fail the LNA shape (product of cyclotomics?).
-- Check `rounds/041/theorist_bfs4.py` result (tilting-only BFS from the n = 4 example A: does B appear?) -- was still running at submission time; if B is reached, A and B are tilting-equivalent and the example is not a "wrong" step in disguise.
-- Blind spots: random generator is not uniform and may give non-minimal presentations; the n = 4 example was hand-checked only through printed Cartan matrices; "never on an LNA key" is a sample count.
+- Prove H2 and the orbit relation from the algebra: build eAe at n = 6 for the s = 1 shapes, find the single relation i ~> v -> w, check Ext^2(S_i, S_w) and Phi S_w = S_i by AR theory (module level, not Cartan level).
+- Explain s = -2 (540 of 716 at n = 6): is it the dual of s = 1 with w, i swapped? Test with Z^T and the x^{n-2} end.
+- Search for a step with H1, H2 and c_2 != 0 (n = 8, or random realisable Z): that would be the key-preserving candidate (needs Q_2 = 0).
+- The 50 off-shape steps (u = e_a + e_b - e_i, or H1 fails) also have Q = x^2 + ...: generalise P1 with m = C_B-row.
+- Blind spots: 766 is a time-limited prefix of one walk (314 distinct (Z,w,i)); "dim J = 1 always" is a sample property; types counted from c_k for |s| <= 6 only.
