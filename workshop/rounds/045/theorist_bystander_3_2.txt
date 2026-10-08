@@ -1,0 +1,7 @@
+steps 3 margin 2
+m  g  start  bystander-arrows  nReached  minMaxOverlap  lowered(count)
+2  -1   11  base=2       9  2  0  (17s)
+2   0   12  base=2      11  2  0  (28s)
+2   1   13  base=2      11  2  0  (40s)
+2   2   14  base=2      12  2  0  (57s)
+2   3   15  base=2      12  2  0  (77s)

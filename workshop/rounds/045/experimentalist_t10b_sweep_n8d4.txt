@@ -1,0 +1,2 @@
+n 8 LNAs 429 depth 4
+done 244 of 429 LNAs in 251s (CAPPED); edges {'gate': 37296, 'J0': 37296}; LNAs with J!=0 admitted edges: []

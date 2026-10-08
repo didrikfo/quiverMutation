@@ -1,0 +1,25 @@
+pairs: 10
+=== mode guard depth 2
+pair 0 230300 -> 030300: meetings 0, shortest total None, 1s, edges {'gate': 87, 'J0': 87}
+pair 1 230302 -> 030302: meetings 0, shortest total None, 0s, edges {'gate': 57, 'J0': 57}
+pair 2 230302 -> 230300: meetings 0, shortest total None, 0s, edges {'gate': 57, 'J0': 57}
+pair 3 230400 -> 030400: meetings 0, shortest total None, 0s, edges {'gate': 89, 'J0': 89}
+pair 4 240030 -> 040030: meetings 0, shortest total None, 0s, edges {'gate': 89, 'J0': 89}
+pair 5 250002 -> 050002: meetings 0, shortest total None, 0s, edges {'gate': 89, 'J0': 89}
+pair 6 250002 -> 250000: meetings 0, shortest total None, 0s, edges {'gate': 89, 'J0': 89}
+pair 7 304002 -> 304000: meetings 0, shortest total None, 1s, edges {'gate': 89, 'J0': 89}
+pair 8 400302 -> 400300: meetings 0, shortest total None, 1s, edges {'gate': 89, 'J0': 89}
+pair 9 030302 -> 030300: meetings 0, shortest total None, 1s, edges {'gate': 87, 'J0': 87}
+TOTAL edges {'gate': 822, 'J0': 822}
+=== mode tilt depth 2
+pair 0 230300 -> 030300: meetings 0, shortest total None, 0s, edges {'gate': 87, 'J0': 87, 'tilt step key kept': 87}
+pair 1 230302 -> 030302: meetings 0, shortest total None, 0s, edges {'gate': 57, 'J0': 57, 'tilt step key kept': 57}
+pair 2 230302 -> 230300: meetings 0, shortest total None, 0s, edges {'gate': 57, 'J0': 57, 'tilt step key kept': 57}
+pair 3 230400 -> 030400: meetings 0, shortest total None, 1s, edges {'gate': 89, 'J0': 89, 'tilt step key kept': 89}
+pair 4 240030 -> 040030: meetings 0, shortest total None, 1s, edges {'gate': 89, 'J0': 89, 'tilt step key kept': 89}
+pair 5 250002 -> 050002: meetings 0, shortest total None, 0s, edges {'gate': 89, 'J0': 89, 'tilt step key kept': 89}
+pair 6 250002 -> 250000: meetings 0, shortest total None, 0s, edges {'gate': 89, 'J0': 89, 'tilt step key kept': 89}
+pair 7 304002 -> 304000: meetings 0, shortest total None, 1s, edges {'gate': 89, 'J0': 89, 'tilt step key kept': 89}
+pair 8 400302 -> 400300: meetings 0, shortest total None, 1s, edges {'gate': 89, 'J0': 89, 'tilt step key kept': 89}
+pair 9 030302 -> 030300: meetings 0, shortest total None, 0s, edges {'gate': 87, 'J0': 87, 'tilt step key kept': 87}
+TOTAL edges {'gate': 822, 'J0': 822, 'tilt step key kept': 822}

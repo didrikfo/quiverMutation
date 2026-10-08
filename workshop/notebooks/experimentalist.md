@@ -1,19 +1,18 @@
 # Experimentalist notebook (rewritten each round)
 
-## What I now believe (after round 043)
-- E-143's shape (|out v| = 1, u = e_w - e_i, C'e_v = e_v) is an n = 6, 7 phenomenon: at n = 8 c0, c1 all 27 J != 0 steps found (520 s cap, depth 7-9) have |out v| = 2 (or |supp J| = 2); c2 had none. P1/P2 vacuous there.
-- Q lowest term x^2 coeff 1: n6 146/146, n7 59/59, n8 c0 20/20; FAILS n8 c1 (x^3 in 5 of 7). Still never Q = 0 (key moves; E-140).
-- n6: F order 8, s=1 -> c_2 = 0 (56/56), s=-2 -> c_2 = 1. n7 c0: F order 5, c_2 = 0 49/49. n7 c1: order 12, 8 of 10 steps have NO s with |s|<=8: the orbit relation is not universal.
-- Earlier (041): key guard off, 0 of ~280 J != 0 steps keep the class key; random non-LNA parents do (55/1264). 038: n8 c0 J != 0 rows had out(i) = 3 (E-138, 192 steps).
+## What I now believe (after round 045)
+- T10 guard audit (b): the 10 F-041 n = 8 merges (single 2-arrow deletions left open by the known moves) need no J != 0 step: tilting-only (gate + tiltingPlus, key guard off) meets all 10 at depth 3+3, same total 6; 2396/2396 edges J = 0 and key-kept; depth 2 no meeting (control).
+- Guarded depth-4 BFS: 0 J != 0 edges in 56 692 (n6 42/42 LNAs, n7 132/132, n8 244/429 capped). J != 0 key-preserving steps (E-145) live at distance >= 5, so shallow merges cannot see them.
+- NOT covered: pipeline depth 5-6 merges, E-094 deep walks, F-036 bridges, n = 9. Merges.py stores no witness paths.
+- Earlier (043): E-143 shape (|out v| = 1) is an n = 6, 7 phenomenon; n8 has |out v| = 2. Key guard off, J != 0 steps ~280 never keep key at c0 (041) but do in n7 c1, c2 (E-145).
 
 ## What I tried
-- 043: experimentalist_tally.py (dump + reduce in one pass, --plan). Six jobs on 4 cores, 520 s each. Counts load-dependent.
-- 041: keyoff, control. 038 d3table. 035 dhist. 033 bothdie. 030 BFS. 027 W walks.
-- Lessons: output to files, `python -u`, never `pkill -f`; Bash waits >2 min need an until-loop with timeout 115, repeated.
+- 045: experimentalist_t10b.py (BFS reimplementation of the guarded step, modes guard/tilt/both, dual side too), _sweep.py. Fast: whole job < 6 min.
+- 043 tally, 041 keyoff, 038 d3table, 035 dhist, 033 bothdie, 030 BFS, 027 W walks.
+- Lessons: output to files, `python -u`, never `pkill -f`; Bash waits >2 min go background, poll with until-loop <= 115 s.
 
 ## What I would do next
-1. Print and save the 5 n8 c1 x^3 steps (relations, J, u); `off` mode untested: n8 c0/c1 guard off depth 6 as overnight (more steps than 27).
-2. n = 9 c0 shape tally (|out v|, u).
-3. Vet the 55 random control hits (relations, derived equivalence).
-4. n7 c1 steps lacking s: what is e_i in F-orbit terms?
-- Watch: caps are not verdicts; empty cells are vacuous; E-138 had 192 steps vs my 20 at n8 c0.
+1. Deep replay: E-094 n8 c2 depth 8 (or n7 c1, c2 depth 6) with per-edge tiltingPlus + key-kept tally; that is where J != 0 steps appear. Overnight proposal if > 10 min.
+2. Check my BFS against search.meetingPoints (same meeting key) -- skeptic may do.
+3. Save n8 c1 x^3 steps (relations, J, u); n = 9 c0 shape tally; vet 55 random control hits.
+- Watch: caps are not verdicts; empty cells are vacuous; a merge audit at depth <= 4 says nothing about distance >= 5.
