@@ -1,18 +1,18 @@
-# Theorist notebook (rewritten round 042)
+# Theorist notebook (rewritten round 045)
 
 ## What I believe now
-- Setting: C_B = C' + E_{vi} (J = e_i, E-136; checked on every gate-admitted record at n = 6 (74 384) and n = 7 (44 761)). When column v of C' is e_v (H1) and the v-row of C' is u = e_w - e_i (H2), then C' = [[Z,0],[u^T,1]] with Z = C_A on V\v, and Q(x) = x (adj S_ii - adj S_wi - adj S_iw), S = xZ + Z^T. Exact (P1). H1+H2 hold on 716/766 (n = 6 walk), 82/82 (n = 6 guard off), 120/120 (n = 7).
-- With F = Z Z^-T and c_k = chi(S_w, F^k S_w) (c_0 = 1, c_-k = c_k-1), Q_1 and Q_2 are the first two orbit moments of S_w. If F e_w = e_i then Q_1 = 0 for free (triangularity) and Q_2 = 1 + c_2; so Q_2 = 1 iff c_2 = 0, which holds when F e_i = -e_m (proved) and in all 296 s = 1 samples (observed). Other samples have F^-2 e_w = e_i (s = -2, 540 at n = 6): moments c_1 = 0, c_2 = 1, c_3 = 0 observed, unproved.
-- Not a matrix identity of Z: unitriangular Z with Y_wi = 1 give B_1 anywhere in -37..13. The law needs realisability (F-orbit of a simple being short, Phi S_w = S_i or Phi^2 S_i = S_w) and the one-arrow shape of the new vertex.
-- The n = 4 counterexample (E-141) has u_i = 0, u = e_2 + e_4, outside H2; Q = 0 there. R = 1 corresponds to B = 0.
-- Earlier (still standing): J_i = Hom(S_v, e_iA) (E-122); gate = no single nonzero path in J (E-114); dim J_i <= d_i - 1 (E-126); L2 conditional on AI 2.31; x = 0, infinity and trace routes give no obstruction (041).
+- T7/H-010 (045): no proof in reach. The statement quantifies over all mutation sequences, whose intermediates are non-LNA algebras; I know no invariant on those that separates LNAs of different overlap (Coxeter data cannot: the derived class contains overlap-0 LNAs, F-022). Locality is provable-looking (gate J_i = Hom(S_v,e_iA), E-122: a right mutation at v is blocked iff a relation of >= 2 arrows ends at the arrow out of v; step 7 touches only paths through v) so depth-k interior orbits are translation covariant, but that does not give all k.
+- Step 7 of 2112.08129 (E-066, commutative square) is a rejection example, not an H-010 case. Do not use it for H-010 again.
+- Lemma L (data, k <= 3, one bystander, m <= 4): an interior heavy pair is lowered only when a bystander shares >= 2 arrows with it (run of three); bystanders sharing 1 or 0 arrows are inert (`rounds/045/theorist_bystander.py`, output `theorist_bystander_3_2.txt`, partial: 10-min cap).
+- Recommended closing T7 with H-010 staying SUPPORTED (search to depth 6, F-024).
+- Earlier, still standing (042): C_B = C' + E_{vi}; with H1, H2, Q(x) = x(adj S_ii - adj S_wi - adj S_iw), S = xZ + Z^T; Q_1, Q_2 are first two orbit moments of S_w under F = Z Z^-T; Q_2 = 1 iff c_2 = 0 (proved when F e_i = -e_m, observed in all 296 s = 1 samples); s = -2 type (540 at n = 6) moments c_1 = 0, c_2 = 1, c_3 = 0 observed only. Not a matrix identity of Z: needs realisability. n = 4 counterexample (E-141) lies outside H2.
 
 ## What I tried
-- 042: `rounds/042/theorist_{dump_off,reduce,lemma,moments,orbits,exceptions,cbcheck,n4,zrandom,explore,blocks}.py`. 041: `rounds/041/theorist_{dump,analyse,diffpoly,d1,matrix,random,example,bfs4}.py`. 039: d3walk, guard, out2. 037: d3. 034: dimji. 031: t3.
+- 045: `rounds/045/theorist_bystander.py` (pair + one bystander, gap scan, k = 2 full, k = 3 to m = 3, g = 1).
+- 042: `rounds/042/theorist_{dump_off,reduce,lemma,moments,orbits,exceptions,cbcheck,n4,zrandom,explore,blocks}.py`; 041, 039, 037, 034, 031 scripts as before.
 
 ## Next
-- Prove H2 and the orbit relation from the algebra: build eAe at n = 6 for the s = 1 shapes, find the single relation i ~> v -> w, check Ext^2(S_i, S_w) and Phi S_w = S_i by AR theory (module level, not Cartan level).
-- Explain s = -2 (540 of 716 at n = 6): is it the dual of s = 1 with w, i swapped? Test with Z^T and the x^{n-2} end.
-- Search for a step with H1, H2 and c_2 != 0 (n = 8, or random realisable Z): that would be the key-preserving candidate (needs Q_2 = 0).
-- The 50 off-shape steps (u = e_a + e_b - e_i, or H1 fails) also have Q = x^2 + ...: generalise P1 with m = C_B-row.
-- Blind spots: 766 is a time-limited prefix of one walk (314 distinct (Z,w,i)); "dim J = 1 always" is a sample property; types counted from c_k for |s| <= 6 only.
+- Locality lemma L1: for every LNA n <= 9 and every admissible v, if the mutation yields an LNA then the relation lengths change only within distance 1 of v (and the exact change is the slide). Cheap, and is the half of an H-010 proof that is within reach.
+- Finish the k = 3 bystander table with margin 1; add left bystanders and two bystanders.
+- Back to the 042 programme if the chair keeps it: prove H2 and the orbit relation at module level (AR theory, eAe at n = 6), explain s = -2 as dual of s = 1, search n = 8 for H1+H2 with c_2 != 0.
+- Blind spots: Lemma L is a search result at 3 mutations with margin 2; proof sketch of locality (radius ~ k) is not written out carefully; 766-record sample in 042 is one walk's prefix.
