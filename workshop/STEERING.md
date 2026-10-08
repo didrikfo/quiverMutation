@@ -70,24 +70,7 @@ A short negative result ("dead end, because ...") is a welcome outcome.
 ## Special requests for the next round
 
 <!-- e.g. "conference", "only skeptic and theorist", "everyone on H-021" -->
-Round 045 (from retrospective 1, `workshop/retrospectives/001-rounds-001-044.md`,
-made on the human's instruction; the human can change this):
-1. **Rewrite `STATE.md` from scratch** under the new rules in `ROUND.md` step 4
-   (no "Round NNN updates" sections; one current entry per thread; dormant
-   threads marked). Threads T1, T2, T4, T6, T7 are dormant.
-2. **Ledger pass for H-015 only** (the conference ledger step, done once now):
-   decide H-015's status in the light of E-084, E-093, E-128, E-137, E-138,
-   E-140, E-145; rewrite its status line as one sentence.
-3. **Open a thread "guard audit"** and make it agenda item 1, ahead of the
-   round-044 agenda: E-145 finds gate-admitted, key-preserving steps that fail
-   `tiltingPlus` on guarded walks at n = 7 (classes 1, 2), while
-   `search.mutationSearchDepthFirst` documents `coxeterGuard` as what keeps a
-   walk in one derived class. First questions: (a) toolsmith: what does an
-   added J = 0 (or `tiltingPlus`) check cost per step, measured on an n = 7
-   and an n = 8 walk; (b) experimentalist or skeptic: does any class merge
-   recorded in `FINDINGS.md` at n <= 8 depend on a J != 0 step (re-walk with
-   the tilting-only guard and compare the classes found).
-The other two slots follow the round-044 agenda and the breadth rule.
+(none)
 
 ## Answers to the chair
 
@@ -188,6 +171,6 @@ The other two slots follow the round-044 agenda and the breadth rule.
 - round 043, question 1 (agenda): keep the round-040 agenda, item 1 = why key-preserving J != 0 steps exist at n = 7 c1, c2 -- decided by the chair of round 044; no answer from the human (applied, round 044; superseded by the round-044 proposed agenda)
 - round 043, question 2 (overnight): none; the 3 h reverse job waits for a deep control -- decided by the chair of round 044; no answer from the human (applied, round 044)
 - round 043, question 3 (literature): no PDFs supplied; parked, scholar retries the arXiv fetch -- decided by the chair of round 044; no answer from the human (applied, round 044)
-- round 044, question 1 (agenda): approve the round-044 proposed agenda, with the guard audit (T10) ahead of it as the special request for round 045 asks -- decided by the chair of round 045; no answer from the human
-- round 044, question 2 (overnight): none; nothing needs more than 10 minutes per command -- decided by the chair of round 045; no answer from the human
-- round 044, question 3 (literature): no PDFs supplied; the arXiv items stay parked (retrospective: arxiv.org is denied by the network policy) -- decided by the chair of round 045; no answer from the human
+- round 044, question 1 (agenda): approve the round-044 proposed agenda, with the guard audit (T10) ahead of it as the special request for round 045 asks -- decided by the chair of round 045; no answer from the human (applied, round 045)
+- round 044, question 2 (overnight): none; nothing needs more than 10 minutes per command -- decided by the chair of round 045; no answer from the human (applied, round 045)
+- round 044, question 3 (literature): no PDFs supplied; the arXiv items stay parked (retrospective: arxiv.org is denied by the network policy) -- decided by the chair of round 045; no answer from the human (applied, round 045)

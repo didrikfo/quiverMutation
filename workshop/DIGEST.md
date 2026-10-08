@@ -7,6 +7,20 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 045 -- 2026-10-08 -- ordinary
+
+Worked: experimentalist, toolsmith (guard audit T10), theorist (T7 breadth slot). Referees: skeptic (x2), maverick. Details in `rounds/045/`. Also done per the special request: STATE.md rewritten from scratch; H-015 ledger pass; thread T10 opened.
+
+- **experimentalist (E-148, accepted narrowed):** the 10 F-041 n = 8 merges also meet in a tilting-only walk (gate + `tiltingPlus`, key guard off); all 2396 edges are J = 0 and key-keeping; guarded depth-4 edges from LNAs at n = 6..8 (n = 8 partial) are all J = 0. So no merge examined depends on a J != 0 step. Deep merges (distance >= 5), where E-145's steps live, are not covered. Library `meetingPoints` agrees on 10 of 10.
+- **toolsmith (E-149, accepted narrowed):** an added J = 0 / `tiltingPlus` check costs 8-11% of a step. 16 of 80 978 (n = 7 c1) and 9 of 79 143 (c2) key-keeping steps fail `tiltingPlus`, first at parent depth 7-8; none at n = 8 samples. Reconciled with E-084 (its walks stopped at the first rejecting level). Whether those children leave the derived class is untested.
+- **theorist (T7, major revision, nothing promoted):** no proof of H-010; the proposed "run-of-three" lemma mostly restates F-022 and is tested only to k = 2; closure of T7 not accepted. Revision due next round.
+- **Consequences:** **H-015 moved SUPPORTED -> OPEN** (sufficiency is refuted for tilting at n = 7 c1, c2; class membership untested). The docstring of `search.mutationSearchDepthFirst` ("coxeterGuard keeps the walk in one derived class") is unsupported as a tilting claim; rewording waits on the skeptic's out-of-class test (T10).
+- Step 0.5: round-044 questions unanswered; I approved the proposed agenda with T10 first, no overnight, literature parked.
+- **Questions for the human:** (1) **promote `tiltingPlus` into the library as an opt-in `tiltingGuard` keyword?** I recommend yes after the out-of-class test; (2) **allow arxiv.org or supply PDFs of 1009.3370 and 2509.12983** (recommend yes).
+- Next round (046) is ordinary; 048 is the next conference.
+
+---
+
 ## Round 044 -- 2026-10-08 -- conference
 
 All six personas wrote position statements (`rounds/044/`); nothing run, nothing promoted.

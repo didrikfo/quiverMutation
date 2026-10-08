@@ -6,6 +6,24 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-149 — On key-guarded BFS walks at n = 7 classes 1, 2 (20 000 expansions) 16 of 80 978 and 9 of 79 143 key-keeping steps fail `tiltingPlus` (parent depth 7-8; n = 8 c0, c1 at 1 200 expansions: none), so key preservation does not imply tilting; an added J = 0 check costs 8-11% of a step
+*2026-10-08* · **`timeout 10m .venv/bin/python workshop/rounds/045/toolsmith_guardaudit.py 7 1 20000 A`; `... 7 2 20000 A`; `... 8 1 1200 A`; `... 7 1 2500 J`** · *workshop round 045, toolsmith, refereed by skeptic*
+
+Scope: n = 7 classes 1, 2 (12 and 14 seed LNAs + duals), n = 8 classes 0, 1; BFS with canonical-key dedup, key-guarded, capped at 20 000 (n = 7) or 1 200 (n = 8) expansions; samples, not the library DFS and not whole classes. Step counts, not distinct steps (E-145: 13 / 9 distinct). Timings are single runs on one loaded machine; the ratio is the claim.
+
+J = 0 coincides with `tiltingPlus` on all ~250 000 steps. The failing key-keepers appear first at parent depth 7-8 (c1 4 + 12, c2 6 + 3), none with a parent reached through an earlier failure (tallied; mode G, which does not expand failing steps, gives the same 16 on c1), which reconciles with E-084's 0 (that walk stopped at its first rejecting level, distance 5-7, before the E-085 rewrite fix). Cost: J 0.41 ms / `tiltingPlus` 0.35 ms per gate-admitted step at n = 7, 0.76 / 0.70 at n = 8, against 3.9 / 7.6 ms for mutation + reduction + key; the check refused 2 of 9 112 steps (n = 7 c1) and 0 of 4 827 (n = 8 c1), all ones the key guard also drops. Proposed placement: after the `mutationIsPossibleAtVertex` test in `search.mutationSearchDepthFirst`, behind a keyword `tiltingGuard = False`; blocked on promoting `tiltingPlus` (STEERING q3). Not shown: that the failing children leave the derived class (the docstring claims one class, not tilting); n = 8 beyond 1 200 expansions; the E-084 class-index mapping.
+
+---
+
+## E-148 — The 10 F-041 n = 8 merges (single two-arrow deletions, meeting depth 3 + 3) also meet in a tilting-only walk (gate + `tiltingPlus`, key guard off): all 2396 gate-admitted edges are J = 0 with the key kept; guarded depth-4 forward edges from LNAs are all J = 0 (n = 6, 7 full; n = 8 first 244 of 429 LNAs)
+*2026-10-08* · **`timeout 10m .venv/bin/python -u workshop/rounds/045/experimentalist_t10b.py --depth 3`; `timeout 10m .venv/bin/python -u workshop/rounds/045/experimentalist_crosscheck.py`; `timeout 10m .venv/bin/python -u workshop/rounds/045/experimentalist_t10b_sweep.py 7 4 250`** · *workshop round 045, experimentalist, refereed by skeptic*
+
+Scope: the 10 pairs left open by `lm.ALL_MOVES` (`free=False, edges=True, doubles=True`), depth 3 per side with relation duals; the sweep is forward-only from LNAs (n = 6: 42/42, n = 7: 132/132, n = 8: first 244 of 429, 250 s cap), edge counts summed over LNAs (56 692, not independent). Not covered: pipeline merges at depth 5-6, E-094-style deep walks, distance >= 5 (where E-145's J != 0 steps first appear), F-036 bridges, n = 9, non-LNA starts. On the dual side J is tested on the opposite algebra; its correspondence to a forward tilting step was not checked.
+
+All 10 pairs meet in the guarded and the tilting-only walk at total 6, one meeting each; the library `search.meetingPoints(A, B, 3, alsoDual=True)` agrees with the author's BFS on 10 of 10 (same meeting keys, split (3, 3)). The tilting-only meeting is implied by the edge identity (gate = J = 0 = key kept on all 2396 edges), not an independent result. Control: depth 2 per side gives no meeting. Reading: F-041's n = 8 table holds for the tilting-only walk; no examined merge depends on a J != 0 step. This is the expected outcome given E-084 and says nothing about deep merges. Referee: minor revision, required items done (library cross-check on all 10, rewording, dual-side limit, sweep caveats).
+
+---
+
 ## E-147 — The reverse tilting search of `toolsmith_n6meet.py` finds known forward paths of length 2, 3, 4 backward (12 of 12 each, at exactly depth k) in the n = 6 class-0 tilting-only graph; of 1500 forward edges 154 (10.3%) are lost in reverse, none to a filter: the same-vertex opposite step lands on a different algebra of the same key and arrow count
 *2026-10-08* · **`timeout 10m .venv/bin/python -u workshop/rounds/043/toolsmith_revcontrol.py --diag --secs 30 --maxedges 1500`; `timeout 10m .venv/bin/python -u workshop/rounds/043/toolsmith_revcontrol.py --control --secs 40 --depth 2 --npaths 12` (also `--depth 3`, `--depth 4`)** · *workshop round 043, toolsmith, refereed by maverick*
 
