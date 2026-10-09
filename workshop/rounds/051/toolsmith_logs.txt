@@ -1,0 +1,52 @@
+== tball c1 depth 6
+level 1 88 0s
+level 2 320 3s
+level 3 954 13s
+level 4 3086 45s
+level 5 11402 157s
+CHECKPOINT depth 6 expanded 8739 of 11402 keys 51430
+== front c1_14 (cap 720)
+level 1 size 10 0s best None
+level 2 size 56 1s best None
+level 3 size 229 3s best None
+level 4 size 982 14s best None
+level 5 size 4246 61s best None
+level 6 size 18002 286s best None
+FRONT c1_14 {'pk': '/tmp/tsm/c1.pkl', 'cls': 1, 'idx': 14, 'D': 7, 'levels': [1, 10, 56, 229, 982, 4246, 18002], 'best': None, 'seenN': 23496, 'TD': 6, 'key': 'b32eca9cd989'} frontier 18002 288s
+== shards c1_14 cap 720
+SHARD c1_14 0 2300 expanded 2300 children generated 19282 new keys 9715 no-key children 22 nodes skipped (per-node time limit) [] hits {'55fd3ae3db50': 13, 'f20ddd7feb15': 13, '4c70a83485c4': 13, '0bc
+SHARD c1_14 13800 16100 expanded 2300 children generated 19855 new keys 11587 no-key children 2 nodes skipped (per-node time limit) [] hits {'67de5848cd80': 13, '7b9a76b822bb': 13, '208466c6a1dd': 13}
+SHARD c1_14 16100 18002 expanded 1902 children generated 17493 new keys 10698 no-key children 1 nodes skipped (per-node time limit) [] hits {...} stats {'gate': 1779
+SHARD c1_14 2300 4600 expanded 2300 children generated 19636 new keys 10360 no-key children 3 nodes skipped (per-node time limit) [] hits {...} stats {'gate': 19898, 'J': 262, 'tp': 0, 'key': 0, 'ok': 19
+SHARD c1_14 4600 6900 expanded 2300 children generated 19732 new keys 11171 no-key children 5 nodes skipped (per-node time limit) [] hits {...} stats {'gate': 20088, 'J': 356, 'tp': 0, 'key': 0, 'ok': 19
+SHARD c1_14 6900 9200 expanded 2300 children generated 19640 new keys 11430 no-key children 187 nodes skipped (per-node time limit) [] hits {...} stats {'gate': 1997
+SHARD c1_14 9200 11500 expanded 2300 children generated 20079 new keys 11838 no-key children 19 nodes skipped (per-node time limit) [] hits {'a0ee6ff06b93': 13, '402d0461d621': 13, '7d8cf810c97d': 13,
+MERGE c1_14 child key b32eca9cd989 D 7 TD 6 levels<D [1, 10, 56, 229, 982, 4246, 18002] ball nodes through D-1 23496 shards 14 level-D frontier expanded 31403 new level-D keys 69153 ball nodes through D 92649 earlier best None skipped nodes [] children without canonical key 393 HITS at level D 21 keys, all total 13
+== front c1_14_cap (CAP=5040)
+level 6 size 18001 301s best None
+FRONT c1_14_cap {'pk': '/tmp/tsm/c1.pkl', 'cls': 1, 'idx': 14, 'D': 7, 'levels': [1, 10, 56, 229, 982, 4246, 18001], 'best': None, 'seenN': 23513, 'TD': 6, 'key': 'b32eca9cd989'} frontier 18001 304s
+SHARD c1_14_cap 0 2300 expanded 2300 children generated 19282 new keys 9728 no-key children 8 nodes skipped (per-node time limit) [] hits {'55fd3ae3db50': 13, 'f20ddd7feb15': 13, '4c70a83485c4': 13, '
+SHARD c1_14_cap 13800 16100 expanded 2300 children generated 19853 new keys 11590 no-key children 1 nodes skipped (per-node time limit) [] hits {'67de5848cd80': 13, '7b9a76b822bb': 13, '208466c6a1dd':
+SHARD c1_14_cap 16100 18001 expanded 1901 children generated 17487 new keys 10695 no-key children 0 nodes skipped (per-node time limit) [] hits {...} stats {'gate': 
+SHARD c1_14_cap 2300 4600 expanded 2300 children generated 19636 new keys 10362 no-key children 1 nodes skipped (per-node time limit) [] hits {...} stats {'gate': 19898, 'J': 262, 'tp': 0, 'key': 0, 'ok'
+SHARD c1_14_cap 4600 6900 expanded 2300 children generated 19732 new keys 11176 no-key children 0 nodes skipped (per-node time limit) [] hits {...} stats {'gate': 20088, 'J': 356, 'tp': 0, 'key': 0, 'ok'
+SHARD c1_14_cap 6900 9200 expanded 2300 children generated 19641 new keys 11467 no-key children 135 nodes skipped (per-node time limit) [] hits {...} stats {'gate': 
+SHARD c1_14_cap 9200 11500 expanded 2300 children generated 20076 new keys 11843 no-key children 9 nodes skipped (per-node time limit) [] hits {'a0ee6ff06b93': 13, '402d0461d621': 13, '7d8cf810c97d': 
+MERGE c1_14_cap child key b32eca9cd989 D 7 TD 6 levels<D [1, 10, 56, 229, 982, 4246, 18001] ball nodes through D-1 23513 shards 7 level-D frontier expanded 15701 new level-D keys 69151 ball nodes through D 92664 earlier best None skipped nodes [] children without canonical key 154 HITS at level D 21 keys, all total 13
+== path13
+child 14 key b32eca replay ok total 13 | child->meet: F1 F3 F1 F5 F4 R7 R1 | LNA/dual #9 ->meet: F7 R2 R1 F2 F7 R3
+== capcost
+frontier 18002 cost>720: 28 by cost [(1152, 12), (1296, 2), (2880, 2), (622080, 2), (21772800, 2), (331776000, 1), (663552000, 1), (696729600, 2), (18811699200, 2), (37623398400000, 2)]
+cap 720 nodes with cost<=cap among first 12: 0 keys 0 0.00s
+cap 5040 nodes with cost<=cap among first 12: 7 keys 7 1.94s
+cap 40320 nodes with cost<=cap among first 12: 7 keys 7 1.89s
+cap 362880 nodes with cost<=cap among first 12: 7 keys 7 1.70s
+== control c1 child 5, TD=6
+== ctrl3 (walk 13, seed 3)
+level 1 size 10 0s best None
+level 2 size 74 1s best None
+level 3 size 432 4s best (9, 3, 6)
+level 4 size 2376 30s best (9, 3, 6)
+level 5 size 12494 204s best (9, 3, 6)
+FRONT c1_5 (TD=6): levels [1, 10, 56, 229, 982, 4237, 18034] best (12, 6, 6) = total 12 at child depth 6 + target depth 6 (050: 7 + 5 = 12)
+NOTE: shard 11500:13800 was killed by its 10-minute timeout in both runs (4 cores shared with the control jobs); ctrl13 seed 1 and seed 2 fronts did not finish level 6 in 10 min.
