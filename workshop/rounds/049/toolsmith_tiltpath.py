@@ -18,12 +18,14 @@ for lna in nk.LinearNakayamaAlgebra.allOfLength(N):
     for alg in (lna, pathAlgebra.dualPathAlgebra(lna)): classes.setdefault(search._coxeterKeyOrNone(alg), []).append(alg)
 order = sorted(classes, key=lambda k: (len(classes[k]), str(k))); base = order[cls]
 stats = dict(gate=0, J=0, tp=0, key=0, ok=0)
+import os
+FONLY = os.environ.get('FONLY') == '1'   # FONLY=1: only F moves (round 049 response: F-only variant); ball cache name gets suffix _F
 
 def moves(alg):
     """children of alg under F and R, J = 0 and tiltingPlus, key kept."""
     if list(nx.simple_cycles(alg.quiver)): return []
     V = sorted(alg.quiver.nodes); out = []
-    for kind in 'FR':
+    for kind in ('F' if FONLY else 'FR'):
         a = alg if kind == 'F' else pathAlgebra.dualPathAlgebra(alg)
         rels = procedure.relationsFrom(a)
         for v in V:
@@ -82,7 +84,7 @@ def reach(start, tball, depth, capn):
 
 t0 = time.time()
 import os, hashlib
-cache = '/tmp/tsm/tball_c%d_d%d.pkl' % (cls, dT)   # cache of the target ball (scratch only; delete to recompute)
+cache = '/tmp/tsm/tball_c%d_d%d%s.pkl' % (cls, dT, '_F' if FONLY else '')   # cache of the target ball (scratch only; delete to recompute)
 if os.path.exists(cache): tball, tl, tc = pickle.load(open(cache, 'rb'))
 else:
     tball, tl, tc = ball(classes[base], dT, cap, 'target'); pickle.dump((tball, tl, tc), open(cache, 'wb'))

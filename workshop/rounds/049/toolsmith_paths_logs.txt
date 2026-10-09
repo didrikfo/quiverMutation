@@ -1,0 +1,86 @@
+== paths_c1
+paths 0 key ac7a70 parentdepth 7 replay ok total 8 | child->meet: R4 R7 R1 | LNA/dual #6 ->meet: F1 F5 F4 R7 F3 4s
+paths 1 key ac7a70 same key as 0
+paths 2 key 3d6875 parentdepth 7 replay ok total 8 | child->meet: R1 R4 R5 | LNA/dual #9 ->meet: F3 F4 F7 R1 F7 3s
+paths 3 key 3d6875 same key as 2
+paths 4 key 9d3041 parentdepth 8 replay ok total 6 | child->meet: F4 | LNA/dual #2 ->meet: F1 F4 F1 F3 F6 0s
+paths 5 key f7abe9 parentdepth 8 MISS at dC 4 17s
+paths 6 key c7b575 parentdepth 8 replay ok total 8 | child->meet: F3 F7 R1 | LNA/dual #6 ->meet: F1 F5 F4 F3 F4 3s
+paths 7 key 2ad741 parentdepth 8 replay ok total 8 | child->meet: F1 F7 R1 | LNA/dual #6 ->meet: F1 F5 F4 F3 F4 3s
+paths 8 key 31a15e parentdepth 8 replay ok total 9 | child->meet: R2 R4 R7 R1 | LNA/dual #6 ->meet: F1 F5 F4 R7 F3 25s
+paths 9 key c7b575 same key as 6
+paths 10 key 31a15e same key as 8
+paths 11 key 9e97ab parentdepth 8 replay ok total 9 | child->meet: R5 R4 R7 R1 | LNA/dual #6 ->meet: F1 F4 F5 R7 F3 19s
+DONE paths cls 1 stats {'gate': 8265, 'J': 54, 'tp': 0, 'key': 0, 'ok': 8211}
+== paths_c2
+paths 0 key 1c732e parentdepth 7 replay ok total 11 | child->meet: F1 F4 R5 R5 R6 F5 | LNA/dual #11 ->meet: F5 R2 F6 F4 F7 84s
+paths 1 key 893fc0 parentdepth 7 replay ok total 11 | child->meet: F1 F1 R2 R6 R1 R2 | LNA/dual #11 ->meet: F6 F7 R1 R2 R6 85s
+paths 2 key ceccbf parentdepth 7 replay ok total 8 | child->meet: F2 F7 F4 | LNA/dual #10 ->meet: R6 R5 R4 F5 R7 1s
+paths 3 key 42e3fb parentdepth 7 replay ok total 11 | child->meet: F3 F1 R5 R6 R6 F7 | LNA/dual #11 ->meet: F6 F7 R2 R6 F2 85s
+paths 4 key a89bb4 parentdepth 7 replay ok total 8 | child->meet: F6 F1 F1 | LNA/dual #11 ->meet: R2 R3 R4 F3 R4 1s
+paths 5 key 8ec801 parentdepth 7 replay ok total 11 | child->meet: F4 F7 R1 R3 R2 R3 | LNA/dual #10 ->meet: R6 F2 F3 F2 F4 86s
+paths 6 key 0d3498 parentdepth 8 MISS at dC 6 86s
+paths 7 key 6c07fa parentdepth 8 replay ok total 10 | child->meet: F2 R1 R1 R6 F1 | LNA/dual #11 ->meet: R1 R2 F6 F2 F7 24s
+paths 8 key 2a6a99 parentdepth 8 replay ok total 9 | child->meet: F1 F7 F4 F7 | LNA/dual #0 ->meet: F1 R6 R5 R4 F5 5s
+DONE paths cls 2 stats {'gate': 92617, 'J': 70, 'tp': 0, 'key': 0, 'ok': 92547}
+== parents_c1
+parents 0 key 972c84 parentdepth 7 replay ok total 7 | child->meet: R4 R5 | LNA/dual #6 ->meet: F1 F1 F3 F4 F5 1s
+parents 1 key 741ec8 parentdepth 7 replay ok total 7 | child->meet: R4 R5 | LNA/dual #6 ->meet: F1 F1 F3 F4 F5 1s
+parents 2 key 2e5343 parentdepth 7 replay ok total 7 | child->meet: R3 R4 | LNA/dual #9 ->meet: F3 F7 F5 F7 F4 1s
+parents 3 key 9a6ebd parentdepth 7 replay ok total 7 | child->meet: R3 R4 | LNA/dual #9 ->meet: F3 F7 F5 F7 F4 1s
+parents 4 key 7ad7dc parentdepth 8 replay ok total 8 | child->meet: R7 R4 R6 | LNA/dual #2 ->meet: F1 F1 F3 F1 F3 4s
+parents 5 key 915ece parentdepth 8 replay ok total 8 | child->meet: F4 F3 F1 | LNA/dual #3 ->meet: F7 F6 F4 R1 F7 8s
+parents 6 key 2d78ff parentdepth 8 replay ok total 8 | child->meet: R1 R4 R5 | LNA/dual #6 ->meet: F1 F1 F3 F4 F5 4s
+parents 7 key 95689f parentdepth 8 replay ok total 8 | child->meet: R3 R4 R5 | LNA/dual #6 ->meet: F1 F1 F3 F4 F5 5s
+parents 8 key e8b64d parentdepth 8 replay ok total 8 | child->meet: R2 R4 R5 | LNA/dual #6 ->meet: F1 F1 F3 F4 F5 6s
+parents 9 key efcab5 parentdepth 8 replay ok total 8 | child->meet: R1 R4 R5 | LNA/dual #6 ->meet: F1 F1 F3 F4 F5 5s
+parents 10 key a4211e parentdepth 8 replay ok total 8 | child->meet: R2 R4 R5 | LNA/dual #6 ->meet: F1 F1 F3 F4 F5 6s
+parents 11 key 338fea parentdepth 8 replay ok total 8 | child->meet: R4 R5 R4 | LNA/dual #6 ->meet: F1 F1 F3 F4 F5 5s
+parents 12 key 25d8e8 parentdepth 8 replay ok total 8 | child->meet: R4 R7 R5 | LNA/dual #6 ->meet: F1 F1 F3 F4 F5 37s
+parents 13 key f2295f parentdepth 8 replay ok total 8 | child->meet: F4 F3 F1 | LNA/dual #3 ->meet: F7 F6 F4 R1 F7 9s
+parents 14 key f60fa9 parentdepth 8 replay ok total 8 | child->meet: F4 F1 R4 | LNA/dual #3 ->meet: F7 F6 F7 R1 R3 9s
+parents 15 key 18084f parentdepth 8 replay ok total 8 | child->meet: F4 F1 R4 | LNA/dual #5 ->meet: F7 F7 R1 R3 F6 8s
+DONE parents cls 1 stats {'gate': 8816, 'J': 309, 'tp': 0, 'key': 0, 'ok': 8507}
+== parents_c2
+parents 0 key a019db parentdepth 7 replay ok total 7 | child->meet: R1 R5 | LNA/dual #10 ->meet: F2 F1 F3 F3 F6 1s
+parents 1 key 863a37 parentdepth 7 replay ok total 7 | child->meet: R2 R4 | LNA/dual #10 ->meet: F2 F1 F3 F3 F6 1s
+parents 2 key 4d09d1 parentdepth 7 replay ok total 7 | child->meet: R5 R6 | LNA/dual #10 ->meet: F2 F3 F1 F3 F1 1s
+parents 3 key e134ce parentdepth 7 replay ok total 7 | child->meet: R4 R6 | LNA/dual #11 ->meet: F6 F7 F5 F5 F2 1s
+parents 4 key 542323 parentdepth 7 replay ok total 7 | child->meet: R3 R2 | LNA/dual #11 ->meet: F6 F5 F5 F7 F7 1s
+parents 5 key afb34f parentdepth 7 replay ok total 7 | child->meet: R3 R2 | LNA/dual #11 ->meet: F6 F5 F7 F7 F5 1s
+parents 6 key 84fc1e parentdepth 8 replay ok total 8 | child->meet: R2 R5 R6 | LNA/dual #0 ->meet: F1 F1 F2 F3 F3 3s
+parents 7 key 6b020b parentdepth 8 replay ok total 7 | child->meet: F2 F2 | LNA/dual #9 ->meet: F7 F6 F7 F6 R1 1s
+parents 8 key 330ef5 parentdepth 8 replay ok total 8 | child->meet: F1 R6 R5 | LNA/dual #7 ->meet: R2 F6 R1 R4 F7 2s
+DONE parents cls 2 stats {'gate': 2129, 'J': 56, 'tp': 0, 'key': 0, 'ok': 2073}
+== s2_ctrl11
+target ball: class 2 seeds 14 levels [14, 104, 426, 1492, 5172, 18244] keys 25452 capped False 0s
+control 0 key 094f76 forward J=0 walk length 11 path [2, 1, 3, 4, 3, 5, 6, 3, 1, 7, 4] HIT total 6 (child side 1 + target side 5) child-ball levels [1, 8] uncapped 0s
+control 1 key 586983 forward J=0 walk length 11 path [2, 3, 2, 4, 3, 4, 3, 2, 6, 4, 6] HIT total 11 (child side 6 + target side 5) child-ball levels [1, 7, 21, 53, 155, 481, 1593] uncapped 22s
+control 2 key 8cb4ff forward J=0 walk length 11 path [4, 3, 2, 3, 2, 4, 1, 1, 4, 1, 5] HIT total 10 (child side 5 + target side 5) child-ball levels [1, 7, 33, 138, 562, 2178] uncapped 31s
+SUMMARY controls L 11 n 3 hits 3 dT 5 dC 6 cap 400000 stats {'gate': 11481, 'J': 9, 'tp': 0, 'key': 0, 'ok': 11472}
+== s2_Fball
+target ball: class 2 seeds 14 levels [14, 52, 134, 329, 780, 1810] keys 3119 capped False 25s
+children 9
+SUMMARY cls 2 children 9 hits 0 dT 5 dC 6 cap 400000 stats {'gate': 4881, 'J': 0, 'tp': 0, 'key': 0, 'ok': 4881}
+== s2_Fchildren
+target ball: class 2 seeds 14 levels [14, 52, 134, 329, 780, 1810] keys 3119 capped False 0s
+children 9
+child 0 key 1c732e parentdepth 7 v 5 MISS child-ball levels [1, 4, 11, 27, 64, 143, 321] uncapped 5s
+child 1 key 893fc0 parentdepth 7 v 2 MISS child-ball levels [1, 4, 11, 27, 64, 143, 321] uncapped 5s
+child 2 key ceccbf parentdepth 7 v 5 MISS child-ball levels [1, 3, 8, 19, 43, 97, 224] uncapped 3s
+child 3 key 42e3fb parentdepth 7 v 6 MISS child-ball levels [1, 4, 11, 27, 64, 143, 321] uncapped 5s
+child 4 key a89bb4 parentdepth 7 v 3 MISS child-ball levels [1, 3, 8, 19, 43, 97, 224] uncapped 3s
+child 5 key 8ec801 parentdepth 7 v 3 MISS child-ball levels [1, 4, 11, 27, 64, 143, 321] uncapped 5s
+child 6 key 0d3498 parentdepth 8 v 5 MISS child-ball levels [1, 4, 11, 27, 64, 143, 321] uncapped 5s
+child 7 key 6c07fa parentdepth 8 v 1 MISS child-ball levels [1, 4, 11, 27, 64, 143, 321] uncapped 5s
+child 8 key 2a6a99 parentdepth 8 v 5 MISS child-ball levels [1, 3, 8, 19, 43, 97, 224] uncapped 3s
+SUMMARY cls 2 children 9 hits 0 dT 5 dC 6 cap 400000 stats {'gate': 7311, 'J': 0, 'tp': 0, 'key': 0, 'ok': 7311}
+== s2_Fctrl9
+target ball: class 2 seeds 14 levels [14, 52, 134, 329, 780, 1810] keys 3119 capped False 0s
+control 0 key fa012a forward J=0 walk length 9 path [7, 5, 6, 2, 4, 7, 7, 4, 3] MISS child-ball levels [1, 4, 13, 46, 128] uncapped 1s
+control 1 key df6523 forward J=0 walk length 9 path [7, 2, 4, 5, 6, 5, 7, 3, 6] MISS child-ball levels [1, 2, 5, 11, 28] uncapped 0s
+control 2 key 6fc3cb forward J=0 walk length 9 path [1, 3, 6, 4, 2, 3, 2, 1, 1] HIT total 6 (child side 2 + target side 4) child-ball levels [1, 4, 13] uncapped 0s
+control 3 key 87c43a forward J=0 walk length 9 path [1, 3, 2, 2, 4, 3, 2, 1, 6] MISS child-ball levels [1, 4, 12, 32, 82] uncapped 1s
+control 4 key e6220f forward J=0 walk length 9 path [4, 1, 2, 1, 3, 5, 1, 1, 3] MISS child-ball levels [1, 3, 7, 15, 32] uncapped 0s
+control 5 key b42c70 forward J=0 walk length 9 path [3, 4, 6, 1, 1, 2, 5, 1, 3] MISS child-ball levels [1, 3, 8, 23, 64] uncapped 0s
+SUMMARY controls L 9 n 6 hits 1 dT 5 dC 4 cap 400000 stats {'gate': 953, 'J': 0, 'tp': 0, 'key': 0, 'ok': 953}

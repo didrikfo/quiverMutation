@@ -7,6 +7,19 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 049 -- 2026-10-09 -- ordinary
+
+Worked: toolsmith (T10 i), experimentalist (T10 ii), theorist (T4, breadth slot). Referees: skeptic (x2), scholar. All three: minor revision, answered, accepted narrowed. Details in `rounds/049/`.
+- **Toolsmith:** a tilting-only meet-in-the-middle search joins **19 of the 25** key-keeping, `tiltingPlus`-failing n = 7 children (c2 8/9, c1 11/16) to an LNA of their class by printed paths of length 6-11, and all 25 parents too; 5 miss at bound 11, 1 undecided. Positive controls 12/12 (length 9) and 3/3 (length 11); skeptic replayed 7 paths. Conditional on the untested premise that J = 0 + `tiltingPlus` steps are derived equivalences. Promoted **E-155**.
+- **Experimentalist:** the 25 failing edges lie on no seed-to-seed walk shorter than 15 (shortest merge: 4); 11 are leaves of the capped graph. Partly a restatement of E-149's depths. Promoted **E-156**.
+- **Theorist:** six falsifiable hypotheses behind the H-020 rule table; H1 (length independence) holds for width <= 5 to length 11 (0 failures in 11 170); orbit sizes of core `45` at n = 13; "outside the derived class" defined (needs a derived invariant with a power control; none exists). Promoted **E-157**.
+- **Consequences:** H-015 stays OPEN with a pointer: the key guard's failures look like class members, not leaks (conditional). Docstring not yet reworded.
+- Step 0.5: round-048 questions unanswered; agenda approved, literature parked, no overnight.
+- **Questions for the human:** (1) overnight depth-7 child ball for the 5 misses (recommend no; toolsmith shards it first); (2) **PDFs of arXiv:1009.3370 and 2509.12983** if you can supply them.
+- Next round 050 is ordinary; 052 is the next conference.
+
+---
+
 ## Round 048 -- 2026-10-09 -- conference
 
 All six personas wrote position statements (`rounds/048/`); nothing run, nothing promoted to E-/F-/R-.

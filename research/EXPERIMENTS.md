@@ -6,6 +6,27 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-157 — Floating H-020 rules of window width <= 5 hold at lengths w+5..11 (0 failures in 11 170 applications); core `45` has orbit sizes 2386, 1127, 4217, 4217, 1127, 2386, 447 by offset at n = 13
+*2026-10-09* · **`.venv/bin/python workshop/rounds/049/theorist_rulelen.py`** and **`workshop/rounds/049/theorist_orbits45.py`** (output `theorist_orbits45.txt`) · *workshop round 049, theorist, refereed by skeptic*
+
+Scope: `lnaMoves.VERIFIED_MOVES` floating rules of width <= 5 (30 of 414 rules): width <= 4 at lengths w+5..9 (516 applications), width <= 5 at lengths up to 11 (10 654), 0 failures. The 330 rules of width 6..8 beyond w+4 and widths 9..11 beyond w+2 are untested (needs lengths 12-13, overnight). Orbit sizes: reduced walk, core `45`, n = 13, 14; equal sizes pair offset o <-> n-8-o, offset 0 is the head and n-7 the tail; the interior-orbit point itself is already F-053. The statement list H1-H6 behind the rule table (length independence, spectator independence, completeness, one verdict across interior pairs, stabilisation shape, anchored rules see only the ends) is in `workshop/rounds/049/theorist.md`; only H1 was run, H2/H5/H6 not. Also there: a definition of "outside the derived class" (inside witness = tilting path back; an outside witness needs a derived invariant with a power control; none exists at n = 7).
+
+---
+
+## E-156 — At n = 7 classes 1 and 2 (key-guarded BFS, 20 000 expansions each, frontier not closed), E-149's 25 failing key-keepers lie on no seed-to-seed walk shorter than 15; 11 are leaves of the explored graph (unexpanded or pendant)
+*2026-10-09* · **see `workshop/rounds/049/experimentalist.md` (scripts `experimentalist_blocks.py`, `experimentalist_pendant.py`; about 1 400 s of wall clock, checkpoints in /tmp were not kept)** · *workshop round 049, experimentalist, refereed by scholar*
+
+Scope: n = 7, classes 1, 2; undirected shadow of the explored graph, so "walk" is not a tilting-reachable merge path; depth 8 closed, depth 9 54 percent (c1) and 85 percent (c2) unexplored. The 16 (c1) and 9 (c2) failing edges reproduce E-149; this graph has 80 922 / 79 097 key-kept edges (E-149's denominators exceed them by the 56 / 46 key-moving failures). c2: all 9 failing edges pendant (child unexpanded, so a cap artefact, not a dead end); c1: 14 of 16 in the biconnected block of the seeds, shortest seed-to-seed walk through any of them 15-18, 2 pendant. Shortest merge walk 4. The walk-length part follows from parent depth 7-8 and is not independent of E-149; the pendant/in-block split is largely a cap artefact. Not shown: that failing edges lie on no merge path in the unexplored part.
+
+---
+
+## E-155 — At n = 7 classes 1, 2, 19 of the 25 key-keeping, `tiltingPlus`-failing E-152 children are joined to an LNA of their class by a printed path of J = 0 `tiltingPlus` steps (length 6-11); their parents are too; 5 miss at 6 + 5 and 1 is undecided
+*2026-10-09* · **see `workshop/rounds/049/toolsmith.md` (`toolsmith_collect.py`, `toolsmith_tiltpath.py`, `toolsmith_paths.py`; paths in `toolsmith_paths_logs.txt`)** · *workshop round 049, toolsmith, refereed by skeptic*
+
+Scope: n = 7, key classes 1 (16 children) and 2 (9), E-149 walk rebuilt at 20 000 expansions; meet-in-the-middle with F steps and R steps (forward step on the opposite algebra, dualized back), child ball depth 6, target ball (LNAs and duals) depth 5. Result: c2 8 of 9, c1 11 of 16 hit (15 distinct keys; 15 paths printed and replayed); 5 miss at total 11 (c2 child 6; c1 children 5, 13, 14, 15); c1 child 12 undecided (depth 4, 5 unfinished). All 16 c1 and 9 c2 parents reach an LNA by their own paths (total 7-8). Positive control: random J = 0 walks of length 9 found 12/12, length 11 found 3/3 (c2). The F-only variant has no power (1/6 on its control), so round 046's miss (E-152) is consistent with its forward-only search. The skeptic replayed 7 paths (49 edges): gate, J = 0, `tiltingPlus`, key kept and Cartan congruence all hold. **Premise:** "in the class" means derived equivalent *given* that J = 0 plus `tiltingPlus` steps are derived equivalences; no independent test exists. The `tiltingPlus` and key filters never fire in the search (J = 0 is the active filter). A miss is a bound, not an out-of-class proof. n = 8 and E-145's own 13 + 9 steps not covered.
+
+---
+
 ## E-154 — The 10 F-041 n = 8 merges have shortest witness length 6 (3 + 3) inside the key-guarded gate graph with duals (depth 3 per side); all 60 witness edges pass the gate, `tiltingPlus` and the key; `merges.py --witness` stores witness paths (opt-in)
 *2026-10-09* · **`timeout 10m .venv/bin/python workshop/rounds/047/toolsmith_witness.py --all`** (about 25 s; output `workshop/rounds/047/toolsmith_witness.txt`; tests `tests/test_merges_witness.py`, `tests/test_merge_decisions.py`) · *workshop round 047, toolsmith, refereed by theorist*
 

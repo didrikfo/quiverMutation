@@ -23,8 +23,9 @@
 
 ## Round 049 (T10 i, tilting-only path back)
 - `rounds/049/toolsmith_collect.py` (046 collector + pickled algebra objects) and `toolsmith_tiltpath.py` (meet in the middle; moves F and R = forward step on the opposite algebra, all J = 0 + tiltingPlus + key kept; target ball of class LNAs depth 5, child ball depth 6; SLICE=lo:hi env; ball cached in /tmp/tsm).
-- Result: 19 of 25 E-152 children reach an LNA (6-11 steps); 5 miss at 6 + 5 = 11; c1 child 12 undecided (parallel arrows, 60 ms/node). Positive control 12/12 at length 9. The 046 failure was forward-only moves, probably (F-only variant not run).
-- Traps: `pkill`/`xargs kill` of a pattern in my own command line kills my shell (again); `timeout 10m` kills a collector that is loaded by 4 other jobs (c1 collect needs ~540 s alone); output piped through `cut|tail` appears only at the end.
+- Result: 19 of 25 E-152 children reach an LNA (6-11 steps; premise: J = 0 + tiltingPlus = derived equiv.); 5 miss at 6 + 5 = 11; c1 child 12 undecided. tp/key filters never fire (stats 0), R = forward step on opposite algebra (op-duality). Controls 12/12 at L = 9, 3/3 at L = 11.
+- Referee reply: `toolsmith_paths.py` (modes buildball/paths/parents; balls with parent pointers in /tmp/tsm): 15 hit paths printed + replayed in `toolsmith_paths_logs.txt`; all 25 parents have their own tilting path (7-8); F-only (`FONLY=1`) fails its own control (1/6), children 0/9.
+- Traps: `pkill -f` of a pattern in my own command line kills my shell (third time; the whole command is lost, check what was applied); `timeout 10m` kills a collector that is loaded by 4 other jobs (c1 collect needs ~540 s alone); output piped through `cut|tail` appears only at the end.
 
 ## Next
-- Path recovery + independent replay of hit paths (skeptic); depth-7 child ball for the 5 misses (OVERNIGHT, not written); F-only variant to attribute the 046 miss. Earlier: promote `tiltingPlus` guard only if the human agrees; reverse loss-by-depth; `merges.py 10 --depths 5 --witness` unsized; 'nokey' counter question from 033.
+- Independent derived-equivalence test of a J=0 step (skeptic); depth-7 child ball for the 5 misses (OVERNIGHT, not written). Earlier: promote `tiltingPlus` guard only if the human agrees; reverse loss-by-depth; `merges.py 10 --depths 5 --witness` unsized; 'nokey' counter question from 033.
