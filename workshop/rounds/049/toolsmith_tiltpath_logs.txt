@@ -1,0 +1,91 @@
+== s2_children
+target ball: class 2 seeds 14 levels [14, 104, 426, 1492, 5172, 18244] keys 25452 capped False 387s
+children 9
+child 0 parentdepth 7 v 5 MISS child-ball levels [1, 8, 34, 121, 436] uncapped 9s
+child 1 parentdepth 7 v 2 MISS child-ball levels [1, 8, 34, 121, 436] uncapped 9s
+child 2 parentdepth 7 v 5 HIT total 8 (child side 3 + target side 5) child-ball levels [1, 6, 26, 100] uncapped 1s
+child 3 parentdepth 7 v 6 MISS child-ball levels [1, 8, 34, 121, 436] uncapped 11s
+child 4 parentdepth 7 v 3 HIT total 8 (child side 3 + target side 5) child-ball levels [1, 6, 26, 100] uncapped 2s
+child 5 parentdepth 7 v 3 MISS child-ball levels [1, 8, 34, 121, 436] uncapped 8s
+child 6 parentdepth 8 v 5 MISS child-ball levels [1, 8, 34, 121, 436] uncapped 9s
+child 7 parentdepth 8 v 1 MISS child-ball levels [1, 8, 34, 121, 436] uncapped 9s
+child 8 parentdepth 8 v 5 HIT total 9 (child side 4 + target side 5) child-ball levels [1, 6, 26, 100, 361] uncapped 7s
+SUMMARY cls 2 children 9 hits 3 dT 5 dC 4 cap 400000 stats {'gate': 65082, 'J': 92, 'tp': 0, 'key': 0, 'ok': 64990}
+== s2_children6
+target ball: class 2 seeds 14 levels [14, 104, 426, 1492, 5172, 18244] keys 25452 capped False 0s
+children 9
+child 0 key 1c732e parentdepth 7 v 5 HIT total 11 (child side 6 + target side 5) child-ball levels [1, 8, 34, 121, 436, 1569, 5703] uncapped 84s
+child 1 key 893fc0 parentdepth 7 v 2 HIT total 11 (child side 6 + target side 5) child-ball levels [1, 8, 34, 121, 436, 1569, 5701] uncapped 86s
+child 2 key ceccbf parentdepth 7 v 5 HIT total 8 (child side 3 + target side 5) child-ball levels [1, 6, 26, 100] uncapped 1s
+child 3 key 42e3fb parentdepth 7 v 6 HIT total 11 (child side 6 + target side 5) child-ball levels [1, 8, 34, 121, 436, 1569, 5699] uncapped 86s
+child 4 key a89bb4 parentdepth 7 v 3 HIT total 8 (child side 3 + target side 5) child-ball levels [1, 6, 26, 100] uncapped 1s
+child 5 key 8ec801 parentdepth 7 v 3 HIT total 11 (child side 6 + target side 5) child-ball levels [1, 8, 34, 121, 436, 1569, 5697] uncapped 83s
+child 6 key 0d3498 parentdepth 8 v 5 MISS child-ball levels [1, 8, 34, 121, 436, 1569, 5703] uncapped 86s
+child 7 key 6c07fa parentdepth 8 v 1 HIT total 10 (child side 5 + target side 5) child-ball levels [1, 8, 34, 121, 436, 1569] uncapped 23s
+child 8 key 2a6a99 parentdepth 8 v 5 HIT total 9 (child side 4 + target side 5) child-ball levels [1, 6, 26, 100, 361] uncapped 5s
+SUMMARY cls 2 children 9 hits 8 dT 5 dC 6 cap 400000 stats {'gate': 91922, 'J': 70, 'tp': 0, 'key': 0, 'ok': 91852}
+== s2_ctrl9
+target ball: class 2 seeds 14 levels [14, 104, 426, 1492, 5172, 18244] keys 25452 capped False 413s
+control 0 forward J=0 walk length 9 path [7, 5, 6, 2, 4, 7, 7, 4, 3] HIT total 9 (child side 4 + target side 5) child-ball levels [1, 9, 52, 260, 1195] uncapped 24s
+control 1 forward J=0 walk length 9 path [7, 2, 4, 5, 6, 5, 7, 3, 6] HIT total 9 (child side 4 + target side 5) child-ball levels [1, 5, 23, 89, 343] uncapped 6s
+control 2 forward J=0 walk length 9 path [1, 3, 6, 4, 2, 3, 2, 1, 1] HIT total 6 (child side 1 + target side 5) child-ball levels [1, 9] uncapped 0s
+control 3 forward J=0 walk length 9 path [1, 3, 2, 2, 4, 3, 2, 1, 6] HIT total 9 (child side 4 + target side 5) child-ball levels [1, 8, 43, 200, 871] uncapped 15s
+control 4 forward J=0 walk length 9 path [4, 1, 2, 1, 3, 5, 1, 1, 3] HIT total 8 (child side 3 + target side 5) child-ball levels [1, 6, 25, 88] uncapped 1s
+control 5 forward J=0 walk length 9 path [3, 4, 6, 1, 1, 2, 5, 1, 3] HIT total 9 (child side 4 + target side 5) child-ball levels [1, 8, 41, 182, 740] uncapped 7s
+SUMMARY controls L 9 n 6 hits 6 dT 5 dC 4 cap 400000 stats {'gate': 64506, 'J': 94, 'tp': 0, 'key': 0, 'ok': 64412}
+== s1_0_4
+target ball: class 1 seeds 12 levels [12, 88, 320, 954, 3086, 11402] keys 15862 capped False 0s
+children 16
+child 0 key ac7a70 parentdepth 7 v 4 HIT total 8 (child side 3 + target side 5) child-ball levels [1, 6, 35, 159] uncapped 3s
+child 1 key ac7a70 parentdepth 7 v 4 HIT total 8 (child side 3 + target side 5) child-ball levels [1, 6, 35, 159] uncapped 3s
+child 2 key 3d6875 parentdepth 7 v 4 HIT total 8 (child side 3 + target side 5) child-ball levels [1, 6, 35, 153] uncapped 3s
+child 3 key 3d6875 parentdepth 7 v 4 HIT total 8 (child side 3 + target side 5) child-ball levels [1, 6, 35, 153] uncapped 3s
+SUMMARY cls 1 children 16 hits 4 dT 5 dC 6 cap 400000 stats {'gate': 1236, 'J': 4, 'tp': 0, 'key': 0, 'ok': 1232}
+== s1_4_8
+target ball: class 1 seeds 12 levels [12, 88, 320, 954, 3086, 11402] keys 15862 capped False 0s
+children 16
+child 4 key 9d3041 parentdepth 8 v 6 HIT total 6 (child side 1 + target side 5) child-ball levels [1, 7] uncapped 0s
+child 5 key f7abe9 parentdepth 8 v 7 MISS child-ball levels [1, 10, 56, 229, 982, 4237, 18034] uncapped 377s
+child 6 key c7b575 parentdepth 8 v 4 HIT total 8 (child side 3 + target side 5) child-ball levels [1, 7, 33, 148] uncapped 3s
+child 7 key 2ad741 parentdepth 8 v 4 HIT total 8 (child side 3 + target side 5) child-ball levels [1, 7, 33, 147] uncapped 4s
+SUMMARY cls 1 children 16 hits 3 dT 5 dC 6 cap 400000 stats {'gate': 47289, 'J': 569, 'tp': 0, 'key': 0, 'ok': 46720}
+== s1_8_12
+target ball: class 1 seeds 12 levels [12, 88, 320, 954, 3086, 11402] keys 15862 capped False 0s
+children 16
+child 8 key 31a15e parentdepth 8 v 4 HIT total 9 (child side 4 + target side 5) child-ball levels [1, 8, 52, 258, 1169] uncapped 27s
+child 9 key c7b575 parentdepth 8 v 4 HIT total 8 (child side 3 + target side 5) child-ball levels [1, 7, 33, 148] uncapped 3s
+child 10 key 31a15e parentdepth 8 v 4 HIT total 9 (child side 4 + target side 5) child-ball levels [1, 8, 52, 258, 1169] uncapped 28s
+child 11 key 9e97ab parentdepth 8 v 5 HIT total 9 (child side 4 + target side 5) child-ball levels [1, 6, 35, 159, 666] uncapped 22s
+SUMMARY cls 1 children 16 hits 4 dT 5 dC 6 cap 400000 stats {'gate': 7183, 'J': 56, 'tp': 0, 'key': 0, 'ok': 7127}
+== s1_13_14
+target ball: class 1 seeds 12 levels [12, 88, 320, 954, 3086, 11402] keys 15862 capped False 0s
+children 16
+child 13 key f7abe9 parentdepth 8 v 7 MISS child-ball levels [1, 10, 56, 229, 982, 4237, 18034] uncapped 454s
+SUMMARY cls 1 children 16 hits 0 dT 5 dC 6 cap 400000 stats {'gate': 46679, 'J': 560, 'tp': 0, 'key': 0, 'ok': 46119}
+== s1_14_15
+target ball: class 1 seeds 12 levels [12, 88, 320, 954, 3086, 11402] keys 15862 capped False 0s
+children 16
+child 14 key b32eca parentdepth 8 v 7 MISS child-ball levels [1, 10, 56, 229, 982, 4246, 18002] uncapped 456s
+SUMMARY cls 1 children 16 hits 0 dT 5 dC 6 cap 400000 stats {'gate': 46744, 'J': 558, 'tp': 0, 'key': 0, 'ok': 46186}
+== s1_15_16
+target ball: class 1 seeds 12 levels [12, 88, 320, 954, 3086, 11402] keys 15862 capped False 0s
+children 16
+child 15 key b32eca parentdepth 8 v 7 MISS child-ball levels [1, 10, 56, 229, 982, 4246, 18002] uncapped 453s
+SUMMARY cls 1 children 16 hits 0 dT 5 dC 6 cap 400000 stats {'gate': 46744, 'J': 558, 'tp': 0, 'key': 0, 'ok': 46186}
+== s1_ctrl9
+target ball: class 1 seeds 12 levels [12, 88, 320, 954, 3086, 11402] keys 15862 capped False 0s
+control 0 key 287df1 forward J=0 walk length 9 path [6, 7, 2, 5, 7, 5, 4, 7, 3] HIT total 8 (child side 3 + target side 5) child-ball levels [1, 6, 31, 131] uncapped 2s
+control 1 key 8d7b6e forward J=0 walk length 9 path [1, 3, 2, 5, 1, 2, 2, 1, 4] HIT total 7 (child side 2 + target side 5) child-ball levels [1, 9, 45] uncapped 0s
+control 2 key 29e295 forward J=0 walk length 9 path [7, 5, 6, 3, 4, 7, 6, 4, 6] HIT total 9 (child side 4 + target side 5) child-ball levels [1, 6, 30, 134, 608] uncapped 6s
+control 3 key da0373 forward J=0 walk length 9 path [5, 3, 6, 6, 7, 7, 5, 2, 4] HIT total 9 (child side 4 + target side 5) child-ball levels [1, 10, 54, 237, 1022] uncapped 9s
+control 4 key cf29a5 forward J=0 walk length 9 path [1, 1, 5, 1, 2, 4, 3, 3, 4] HIT total 9 (child side 4 + target side 5) child-ball levels [1, 7, 37, 184, 859] uncapped 11s
+control 5 key 5b04b5 forward J=0 walk length 9 path [3, 5, 6, 7, 6, 7, 5, 4, 4] HIT total 9 (child side 4 + target side 5) child-ball levels [1, 8, 44, 236, 1134] uncapped 11s
+SUMMARY controls L 9 n 6 hits 6 dT 5 dC 4 cap 400000 stats {'gate': 9179, 'J': 66, 'tp': 0, 'key': 0, 'ok': 9113}
+== s1_12_d3
+target ball: class 1 seeds 12 levels [12, 88, 320, 954, 3086, 11402] keys 15862 capped False 0s
+children 16
+child 12 key dc45e9 parentdepth 8 v 4 MISS child-ball levels [1, 6, 32, 153] uncapped 11s
+SUMMARY cls 1 children 16 hits 0 dT 5 dC 3 cap 400000 stats {'gate': 296, 'J': 3, 'tp': 0, 'key': 0, 'ok': 293}
+== s1_12_d4
+target ball: class 1 seeds 12 levels [12, 88, 320, 954, 3086, 11402] keys 15862 capped False 0s
+children 16

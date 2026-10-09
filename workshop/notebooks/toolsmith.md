@@ -21,5 +21,10 @@
 - `rounds/047/toolsmith_witness.py [--all]`: replays `search.meetingPoints` paths (negative steps = opposite algebra) with gate/tiltingPlus/key per edge. Result: the 10 F-041 n = 8 merges have shortest witness 3 + 3 = 6 (not <= 4 in total), all 60 edges J = 0 and key-keeping; B halves replayed forward, inverse edges untested.
 - Traps: exec of `scholar_h015.py` clobbers names `ap` (= arrowPaths); relLengths has n - 2 entries (an LNA tuple of n entries fails); F-041 "merges" are `meetingPoints`, not `merges.py` links, so `merges.py` witnesses are untested on real links (no link at n = 9 depth 3).
 
+## Round 049 (T10 i, tilting-only path back)
+- `rounds/049/toolsmith_collect.py` (046 collector + pickled algebra objects) and `toolsmith_tiltpath.py` (meet in the middle; moves F and R = forward step on the opposite algebra, all J = 0 + tiltingPlus + key kept; target ball of class LNAs depth 5, child ball depth 6; SLICE=lo:hi env; ball cached in /tmp/tsm).
+- Result: 19 of 25 E-152 children reach an LNA (6-11 steps); 5 miss at 6 + 5 = 11; c1 child 12 undecided (parallel arrows, 60 ms/node). Positive control 12/12 at length 9. The 046 failure was forward-only moves, probably (F-only variant not run).
+- Traps: `pkill`/`xargs kill` of a pattern in my own command line kills my shell (again); `timeout 10m` kills a collector that is loaded by 4 other jobs (c1 collect needs ~540 s alone); output piped through `cut|tail` appears only at the end.
+
 ## Next
-- Promote `tiltingPlus` + `tiltingGuard=False` only if the human agrees. Reverse loss-by-depth; the 3 h reverse job is not in OVERNIGHT.md. Deep merges (`merges.py 10 --depths 5 6 --witness`) not sized. 'nokey' counter question from 033 open.
+- Path recovery + independent replay of hit paths (skeptic); depth-7 child ball for the 5 misses (OVERNIGHT, not written); F-only variant to attribute the 046 miss. Earlier: promote `tiltingPlus` guard only if the human agrees; reverse loss-by-depth; `merges.py 10 --depths 5 --witness` unsized; 'nokey' counter question from 033.
