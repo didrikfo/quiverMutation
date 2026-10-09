@@ -9,6 +9,7 @@
 - Open wording issue: E-364/E-419 say "left approximation" for the out-arrow cover P_tb -> P_v, which is a right approximation (AI Def 2.30).
 
 ## Did
+- R055 response: referee minor revision answered (rerun ok; 'iff for monomial I' marked as own derivation; row 7 = wording slip right/left; Lemma L1 AI 2.50(c) = CHZ 3.5(2) at S={v} numbered; both summaries updated).
 - R001..R053 as before; R055: full citation audit (table in scholar.md, 20 rows), edited both literature summaries (provenance lines, corrections marked r055), wrote the counterexample script.
 
 ## Next

@@ -1,14 +1,27 @@
-# Aihara-Iyama 2.31/2.32 and the J-criterion are verified against the LaTeX; CHZ Cor 3.6 has no "monomial" hypothesis but needs one
+# Aihara-Iyama 2.31/2.32 and the J-criterion are verified against the LaTeX; CHZ Cor 3.6 has no "monomial" hypothesis but, by our own argument, needs one
 
 author: scholar · round: 055 · kind: rediscovery (citation audit; one new small counterexample)
 thread: T5 / human's special request (agenda item 0) · bears on: H-015, E-066, E-122, E-126, E-128, E-136
 scope: the two LaTeX sources in `research/literature/sources/`; every citation of AI Thm 2.31/2.32 and CHZ Cor 3.6 found by grep in `research/`, GLOSSARY.md, NOTES.md, `quivermutation/`, `tests/`; AI sections 1, 2 (to Thm 2.53) and 3.1-3.7 read, section 4 not; CHZ sections 1.4, 3.1-3.6, 3.12-3.21 read, sections 2 and the proof of Prop 3.18 only skimmed. Nothing re-derived beyond what is stated. No library or test changed.
 
+## Response to referee
+
+Verdict received: minor revision. Re-run: `timeout 120 .venv/bin/python workshop/rounds/055/scholar_chz_nonmonomial.py` again this round, output unchanged (supp soc P_1 = {4,5}, tail-maximal ends {5}; J_1 dim 1, others 0; Prop 3.5(2) closure False, Cor 3.6(2) True).
+
+1. Required 1 (iff for monomial I). Done. Claim 3 and the CHZ summary now say that "Cor 3.6 is an iff for monomial I (all Nakayama algebras)" is our own derivation, not printed in CHZ: for monomial I every socle element is a path, hence tail-maximal, so the path-wise and socle forms of Phi_+ agree. The paper states no monomial hypothesis and the word does not occur in it.
+2. Required 2 (row 7). Done, labelled a wording slip, not a convention error and not a mathematical error: for right modules the arrow cover P_tb -> P_v is a right approximation (E-355 says so), and AI Def 2.30 calls M -> D a left approximation, so "left" in E-364/E-419 should read "right". The J formula is unaffected. Row 7 below says this. The referee's "left/right row" is thus a wording slip, as I now state.
+3. Required 3 (lemma). Done, numbered below as Lemma L1 with hypotheses; also marked in both literature summaries.
+4. Required 4 is for the chair; I made no research/ edits beyond the two summaries.
+
+Referee's remaining remarks: Claim 2's "automatic" steps are read from the proof printed for (a) and mirrored for mu^- (stated, unchanged); E-066 parent was not rerun (stated in row 14, unchanged).
+
+**Lemma L1** (AI Thm 2.50(c) = CHZ Prop 3.5(2) at S = {v}). Let A be any finite dimensional algebra over a field, v a loopless vertex (e = e_v, so eA/eA(1-e)A = S_v), Phi_+ = supp soc P as in CHZ. Then the following are equivalent: (i) the Okuyama-Rickard complex mu^-_{e_v A}(A) is tilting [AI 2.50(c)]; (ii) Hom(S_v, P_j) = 0 for all j != v; (iii) v is not in supp soc P_j for all j != v; (iv) Phi_+(S^c) is in S^c for S = {v} [CHZ Prop 3.5(2)]. Status: our identification of two printed statements, not a sentence in either paper.
+
 ## Claim
 
 1. Aihara-Iyama Theorem 2.31 ("any mutation of a silting subcategory is again silting") and Theorem 2.32(b) (for a tilting `M` and contravariantly finite `D`, `mu^-(M;D)` is tilting iff `M` has a right `D`-approximation `g` with `Hom(g,D)` injective) are in the paper as the record cites them, as Theorems, with those numbers. Theorem 2.50(c) is the vertex-level form and states `J_i = 0` directly. The reading "silting but not tilting iff some `J_i != 0`" (E-122, E-128) is correct and needs nothing beyond 2.31 + 2.32(b); the paper does not state it as a sentence.
 2. The "J = 0" premise is whole-T, not vertex-only: 2.32's iff is about the whole mutated object `D + N`, and its proof shows `Hom(N,N[<0]) = 0` follows from `Hom(N,D[<0]) = 0`; hypotheses (M tilting, D finite, generation) are automatic for `mu^-_{P_v}(A)` in `K^b(proj A)`.
-3. CHZ Cor 3.6 is stated for `kQ/I` (admissible `I`), not for `kA_n/I`, and the word "monomial" does not occur in the paper. The caveat of E-066/E-122 is right in substance: Cor 3.6's path-wise form is the socle form of Prop 3.5 only when `I` is monomial (Example 3.4's identification fails otherwise). Counterexample below. For Nakayama algebras (monomial) Cor 3.6 is an iff.
+3. CHZ Cor 3.6 is stated for `kQ/I` (admissible `I`), not for `kA_n/I`, and the word "monomial" does not occur in the paper. The caveat of E-066/E-122 is right in substance: Cor 3.6's path-wise form is the socle form of Prop 3.5 only when `I` is monomial (Example 3.4's identification fails otherwise). Counterexample below. For monomial I, hence for Nakayama algebras, Cor 3.6 is an iff: this is our own derivation (every socle element is then a path, hence tail-maximal), not printed in CHZ.
 
 What this does not claim: that the repo's rewrite equals `End(T)` (Oppermann; still Cartan-level only), or anything about section 4 of AI.
 
@@ -45,7 +58,7 @@ Citation table (data). Status: V verified, C corrected, W wrong. "Chair" = edit 
 | 4 | "J = 0 implies tilting cites AI 2.32(b), not re-derived": EXPERIMENTS.md:357 | V | also AI Thm 2.50(c) states it at a vertex; Hom(N,N[<0]) automatic |
 | 5 | "2.31 as Prop or Thm UNVERIFIED": EXPERIMENTS.md:245 | C | Theorem 2.31, Theorem 2.32 |
 | 6 | "repo's left mutation is AI's mu^-": EXPERIMENTS.md:357 | V | AI Thm 2.50(a): the Okuyama-Rickard complex `D_v -> P_v` (P_v in degree 1) is `mu^-_{eA}(A)`, right approximation `rad`-cover |
-| 7 | "minimal left approximation of P_v is sum of P_tb": EXPERIMENTS.md:364; "minimal left add(A/P_v)-approximation": :419 | C | by AI Def 2.30 a left approximation is `M -> D` (gives `mu^+`); the `P_tb -> P_v` out-arrow cover is a **right** approximation (E-355 says so). Say "right" or state the module convention |
+| 7 | "minimal left approximation of P_v is sum of P_tb": EXPERIMENTS.md:364; "minimal left add(A/P_v)-approximation": :419 | C | by AI Def 2.30 a left approximation is `M -> D` (gives `mu^+`); the `P_tb -> P_v` out-arrow cover is a **right** approximation (E-355 says so). Say "right" or state the module convention. Referee-accepted classification: wording slip (right vs left approximation, module convention), not a mathematical error |
 | 8 | "J_i = H^{-1} of the mutation cone": EXPERIMENTS.md:364 | C | `J_i = Hom(N,P_i[-1])` with `N = cone(g)[-1]`; E-355 has it right. AI's `N` has `P_v` in degree 1 |
 | 9 | "Hom(T,T[<0]) = 0 of AI Thm 2.32": literature/1504.02617-quivers-for-silting-mutation.md:133 | C | that is Definition 2.1(b) (tilting); Thm 2.32 says it is equivalent to injectivity of `Hom(g,D)` |
 | 10 | "Theorem 2.32: an iff for 'this mutation is a derived equivalence'": literature/README.md:26 | C | iff for **tilting**; tilting implies `End(T)` derived equivalent to `A` (Prop 2.3), the converse is not claimed. Write "iff the mutated object is tilting" |
@@ -69,7 +82,7 @@ grep -n "monomial" research/literature/sources/2509.12983v2-pavon-chz-criterion.
 
 ## Prior record
 
-E-122, E-128 and E-066 already state the reductions; this round supplies the source statements, so their "cited from memory" caveats can be lifted for items 1-4, 6 above. The non-monomial caveat of Cor 3.6 is E-066's and the round-006 flag; new here: the paper has no such word, the exact place it is needed (Ex 3.4), and the 5-vertex example. New small fact, also checkable by hand: at `S = {v}`, `v` loopless, AI Thm 2.50(c) and CHZ Prop 3.5(2) are the same condition (`v` not in `supp soc P_j` for `j != v`), on any finite dimensional algebra, so the "gate vs HRS-tilt" agreement on 2052 LNAs (summary) has a three-line proof; what is left unproved is only `End(T) = repo's rewrite`.
+E-122, E-128 and E-066 already state the reductions; this round supplies the source statements, so their "cited from memory" caveats can be lifted for items 1-4, 6 above. The non-monomial caveat of Cor 3.6 is E-066's and the round-006 flag; new here: the paper has no such word, the exact place it is needed (Ex 3.4), and the 5-vertex example. New small fact (Lemma L1 above), also checkable by hand: at `S = {v}`, `v` loopless, AI Thm 2.50(c) and CHZ Prop 3.5(2) are the same condition (`v` not in `supp soc P_j` for `j != v`), on any finite dimensional algebra, so the "gate vs HRS-tilt" agreement on 2052 LNAs (summary) has a three-line proof; what is left unproved is only `End(T) = repo's rewrite`.
 
 ## Code changed
 

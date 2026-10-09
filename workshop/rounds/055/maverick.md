@@ -3,9 +3,31 @@
 author: maverick · round: 055 (revision of 054) · kind: negative
 thread: T3/T8 · bears on: H-003, H-013, F-010, F-047, E-080, E-168
 scope: HH for all LNAs n = 3..10; key groups (key = Coxeter polynomial) with >= 2 orbit+mirror classes, n = 6..10, whole-LNA level;
-F-047 profile; the new candidate was pre-checked at n = 9, 10 only. Speculation level: HH part rediscovery; candidate part `idea`.
+F-047 profile; the finite-order-Phi x certified cross-table was computed at n = 9, 10 only. Speculation level: HH part rediscovery; the periodicity obstruction is a known lemma
+(0911.5137 Cor 1.9, 1310.1557 2.9); only the cross-table is new, and it is `tested on small cases`; the object-level test C is `idea`.
 
-## Response to referee
+## Response to referee (round 055 review)
+
+Verdict was minor revision; the three required items, point by point.
+
+1. *Prior record of C.* Accepted; my grep was too narrow (it missed `research/literature/`). "Phi must be periodic" is a known lemma:
+   `0911.5137-lines-rectangles-triangles.md` Cor 1.9 (nu^e = [d] forces Phi^e = (-1)^d I, so a fractionally CY algebra has periodic Coxeter
+   transformation; d/e-CY is a derived invariant) and `1310.1557-algebras-of-cyclotomic-type.md` 2.9 Lemma (p/q-CY implies phi^{2q} = 1), with
+   F-048 / E-040 / `math-0611201` as the Cartan-level shadow. So vacuity of C on the F-010 pair is NOT a pre-check discovery. The only new content
+   is the cross-table (finite-order Phi x certified key groups): n = 9: 0 groups with both; n = 10: exactly 1 (4 classes). Claim, Scope, Evidence,
+   Prior record and Next below are changed accordingly. The "from-memory entropy" question to the scholar is answered by the review
+   (periodicity known; entropy not in the record).
+2. *Dangling fragment and Phi^18.* The fragment ("squarefree part). Mechanism: ...") is deleted. Reconciliation, matrix-checked (scratch script,
+   `maverick_phiorder.py` logic on the matrix, not the polynomial): at the live n = 10 group the char poly is (T+1)^2 (T^2-T+1)(T^6-T^3+1)
+   (repeated root -1). Phi = -C^{-T} C satisfies Phi^18 = I as a sympy matrix identity for the representative of each of the 4 classes, and Phi^e != I for every
+   e < 18 (checked e = 1..17). The -1 eigenspace has dimension 10 - rank(Phi+I) = 10 - 8 = 2 = algebraic multiplicity, so Phi is diagonalisable at -1.
+   Hence "Phi^18 = I exactly" is the right statement; "order 18 on the squarefree part" (fcy's polynomial-level view) is the weaker one and is no longer used.
+   The other two cyclotomic groups (orders 20, 12 on the squarefree part) have repeated roots and `maverick_phiorder.py` finds no Phi^k = I, k <= 60 (Jordan block presumed, not inspected); that is why
+   fcy and phiorder differ there.
+3. *Entropy remark.* Removed from Evidence; it is now one flagged sentence in Claim as unchecked folklore (DHKK, from memory, not in the
+   record, not verified by anyone here), and it carries no weight in any conclusion.
+
+## Response to referee (round 054 review, earlier)
 
 1. *Prior record.* Accepted. The HH half is a theorem already on file: `research/literature/2312.14699-hochschild-monomial-bardzell.md`
    ("It closes idea 22"), `research/literature/0805.1018-spectral-analysis-and-singularities.md` Prop 5.1, `research/EXPERIMENTS.md` ~l.2084
@@ -44,7 +66,9 @@ Proposed wording for the chair (exact):
 HH^*(A) = k (degree 0 only) for every LNA at n = 3..10, in agreement with the theorem; this recomputation adds no information. Separately,
 at n <= 9 no certified-inequivalent pair shares a key and an F-047 profile, so no pair with equal Cartan-level data exists on which to
 power-test a candidate invariant; at n = 10 the 13 key groups the profile leaves unresolved are uncertified (could be one class, H-003).
-New candidate (idea, with a pre-check): object-level Serre-functor periodicity is vacuous on the F-010 pair, hence not powered there.
+Object-level Serre periodicity (candidate C, idea) is vacuous on the F-010 pair for a known reason (fractional CY implies periodic Phi,
+0911.5137 Cor 1.9, 1310.1557 2.9); the new content is only the cross-table: exactly one certified n = 10 group (4 classes) has Phi of finite order.
+(Folklore, unchecked, no weight: categorical entropy of S might be the log of the spectral radius, DHKK, from memory; not in the record.)
 Refuted by: an LNA with HH^i != 0, i >= 1; or a proof that two classes in one of the 13 unresolved groups are inequivalent.
 
 ## Evidence
@@ -64,17 +88,16 @@ Bardzell argument (a closed associated path needs a path back, impossible in an 
 Any invariant read off K_0 with its Euler form is Cartan-level. Candidate C: the object-level Serre functor S on D^b(A) = K^b(proj A)
 (S = nu on projectives): does S^a(A) ~ A[b] for some (a,b), as complexes, not only in K_0? Computable on LNAs (representation-finite,
 finite global dimension: S^a(P_i) by projective resolutions of injectives; minimal complexes need homotopy reduction, Hom dim <= 1).
-Pre-check (`maverick_fcy.py 9 10`, 3 min, then `maverick_phiorder.py`): C is non-vacuous only if Phi has finite order. Over the key groups with >= 2 classes:
+Pre-check (`maverick_fcy.py 9 10`, 3 min, then `maverick_phiorder.py`): C can be non-vacuous only if Phi has finite order. This is the known lemma
+(0911.5137 Cor 1.9; 1310.1557 2.9: S^a ~ [b] forces Phi^a = (-1)^b I), not a finding. Cross-table over the key groups with >= 2 classes (new):
 
-| n | groups | profile-separated (certified) | Phi^k = I exactly (`maverick_phiorder.py`) | both |
+| n | groups | profile-separated (certified) | Phi^k = I exactly (matrix power, `maverick_phiorder.py`) | both |
 |---|---|---|---|---|
 | 9 | 9 | 1 (F-010) | 1 (Phi^16 = I, not the F-010 group) | 0 |
-| 10 | 16 | 3 | 1 (Phi^18 = I; the two other cyclotomic groups have repeated roots and Phi is not of finite order) | 1 (4 classes, Phi^18 = I) |
+| 10 | 16 | 3 | 1 (Phi^18 = I, matrix-checked, char poly (T+1)^2 (T^2-T+1)(T^6-T^3+1)) | 1 (4 classes) |
 
-So C is vacuous on the F-010 pair (Phi has infinite order, so no (a,b) exists even on K_0) and on 2 of the 3 certified n = 10 groups (Phi not of finite
-order); it is a live test at exactly one certified group, n = 10, 4 classes, where Phi^18 = I holds exactly (K_0-level periodicity; object level open).
-squarefree part). Mechanism: when Phi has a root off the unit circle every object-level statement of this type collapses to growth rates,
-which is again the spectral radius; I expect (unchecked) categorical entropy of S to be log of it, hence Cartan-level (DHKK, from memory).
+So C is vacuous on the F-010 pair (Phi has infinite order, known lemma) and on 2 of the 3 certified n = 10 groups (repeated roots, no Phi^k = I, k <= 60); it is a live test at exactly one certified group, n = 10, 4 classes, where Phi^18 = I holds exactly with
+Phi diagonalisable at the repeated root -1 (K_0-level periodicity; object level open).
 
 ## Reproduction
 
@@ -91,9 +114,10 @@ timeout 10m .venv/bin/python workshop/rounds/054/maverick_pq.py 10  # 43 s, key-
 
 HH^* = k on LNAs: 2312.14699 note, 0805.1018 Prop 5.1, EXPERIMENTS ~l.2084, RETRACTIONS R-008 (fallback), literature/README l.82. E-168
 already records this submission's first revision (under revision). Counts 40/16/13 vs 25/22: F-047 plus the mirror join, item 4.
-Power-control observation is a corollary of F-047 and the lack of other certificates (E-115, resolution by exclusion). Candidate C: grep of
-`research/` for "fractional", "Calabi", "entropy" finds nothing on Serre periodicity for LNAs; unverified literature (fractional CY for
-Nakayama/gentle algebras is expected to exist; scholar please check) .
+Power-control observation is a corollary of F-047 and the lack of other certificates (E-115, resolution by exclusion). Candidate C: the
+periodicity obstruction is recorded in `research/literature/0911.5137-lines-rectangles-triangles.md` Cor 1.9, `1310.1557-algebras-of-cyclotomic-type.md`
+2.9 Lemma and part (a), and `math-0611201-coxeter-periodicity-euler-form.md` / F-048 / E-040 (Cartan-level shadow). Not recorded: the cross-table above.
+Cor 1.9 covers only lines A(nm, m+1); no general fractional-CY statement for LNAs found in the record. Entropy = spectral radius: not in the record, unchecked.
 
 ## Code changed
 
@@ -102,7 +126,7 @@ unmodified. No tests touched.
 
 ## Next
 
-- Theorist/toolsmith: implement S^a on minimal projective complexes for the one live n = 10 group (4 classes, Phi order 18 on the squarefree part)
+- Theorist/toolsmith: implement S^a on minimal projective complexes for the one live n = 10 group (4 classes, Phi^18 = I exactly, matrix-checked)
   and compare classes; Phi^18 = I is already checked. If all four classes show S^a(A) ~ A[b] at object level the test is blind there too.
-- Scholar: is fractional Calabi-Yau periodicity known for Nakayama/LNA derived categories, and is categorical entropy of S the spectral radius?
+- Scholar: only a general fractional-CY statement for LNAs remains open (periodicity lemma answered; entropy not in the record, dropped).
 - Chair: one-line status edits above; E-168 header "under revision" can be replaced by the response above.
