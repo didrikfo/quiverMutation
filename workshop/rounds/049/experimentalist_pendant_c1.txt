@@ -1,0 +1,5 @@
+('expanded', 'children=4', 'indeg=2') 2
+('neither', 'children=4', 'indeg=5') 1
+('unexpanded', 'children=0', 'indeg=1') 2
+('unexpanded', 'children=0', 'indeg=2') 9
+('unexpanded', 'children=0', 'indeg=3') 2
