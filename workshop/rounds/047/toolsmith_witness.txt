@@ -1,12 +1,23 @@
 pairs 10
 pair 0 230300->030300 halves 3+3 total 6 (tied meetings 1): gate 6 J0 6 keykept 6 of 6 edges; replay ends on meeting key: True paths [1, 1, 2] [1, 2, 1] 2s
+   inverse B-half edges: gate 3 J0 3 of 3
 pair 1 230302->030302 halves 3+3 total 6 (tied meetings 1): gate 6 J0 6 keykept 6 of 6 edges; replay ends on meeting key: True paths [1, 1, 2] [1, 2, 1] 1s
+   inverse B-half edges: gate 3 J0 3 of 3
 pair 2 230302->230300 halves 3+3 total 6 (tied meetings 1): gate 6 J0 6 keykept 6 of 6 edges; replay ends on meeting key: True paths [-8, -8, -7] [-8, -7, -8] 1s
+   inverse B-half edges: gate 3 J0 3 of 3
 pair 3 230400->030400 halves 3+3 total 6 (tied meetings 1): gate 6 J0 6 keykept 6 of 6 edges; replay ends on meeting key: True paths [1, 1, 2] [1, 2, 1] 2s
+   inverse B-half edges: gate 3 J0 3 of 3
 pair 4 240030->040030 halves 3+3 total 6 (tied meetings 1): gate 6 J0 6 keykept 6 of 6 edges; replay ends on meeting key: True paths [1, 1, 2] [1, 2, 1] 2s
+   inverse B-half edges: gate 3 J0 3 of 3
 pair 5 250002->050002 halves 3+3 total 6 (tied meetings 1): gate 6 J0 6 keykept 6 of 6 edges; replay ends on meeting key: True paths [1, 1, 2] [1, 2, 1] 2s
+   inverse B-half edges: gate 3 J0 3 of 3
 pair 6 250002->250000 halves 3+3 total 6 (tied meetings 1): gate 6 J0 6 keykept 6 of 6 edges; replay ends on meeting key: True paths [-8, -8, -7] [-8, -7, -8] 2s
+   inverse B-half edges: gate 3 J0 3 of 3
 pair 7 304002->304000 halves 3+3 total 6 (tied meetings 1): gate 6 J0 6 keykept 6 of 6 edges; replay ends on meeting key: True paths [-8, -8, -7] [-8, -7, -8] 2s
+   inverse B-half edges: gate 3 J0 3 of 3
 pair 8 400302->400300 halves 3+3 total 6 (tied meetings 1): gate 6 J0 6 keykept 6 of 6 edges; replay ends on meeting key: True paths [-8, -8, -7] [-8, -7, -8] 2s
+   inverse B-half edges: gate 3 J0 3 of 3
 pair 9 030302->030300 halves 3+3 total 6 (tied meetings 1): gate 6 J0 6 keykept 6 of 6 edges; replay ends on meeting key: True paths [-8, -8, -7] [-8, -7, -8] 2s
+   inverse B-half edges: gate 3 J0 3 of 3
+INVERSE B-half {'edges': 30, 'J0': 30, 'gate': 30}
 TOTAL {'edges': 60, 'J0': 60, 'gate': 60, 'key': 60} shortest totals [6, 6, 6, 6, 6, 6, 6, 6, 6, 6]

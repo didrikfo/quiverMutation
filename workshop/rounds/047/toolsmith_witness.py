@@ -40,9 +40,21 @@ def replay(alg0, path, target):
     end = search.quiverKey(pathAlgebra.dualPathAlgebra(alg) if dual else alg)
     return edges, end == target
 
+def inverseEdges(alg0, path):
+    """Inverse of each forward step alg_i -> alg_{i+1} at v, taken as the forward step at v of the OPPOSITE of alg_{i+1}
+    (quiver mutation is an involution and commutes with op). -> list of (v, gate, J0) in the frame the path ran in."""
+    dual = bool(path) and path[0] < 0
+    alg = pathAlgebra.dualPathAlgebra(alg0) if dual else copy.deepcopy(alg0); out = []
+    for s in path:
+        v = abs(s)
+        alg = reduction.reducePathAlgebra(mutation.quiverMutationAtVertex(copy.deepcopy(alg), v))
+        op = pathAlgebra.dualPathAlgebra(alg)
+        out.append((v, mutation.mutationIsPossibleAtVertex(op, v), bool(tiltingPlus(op.quiver, procedure.relationsFrom(op), v))))
+    return out
+
 P = pairs(); sel = range(len(P)) if A.pairs == 'all' else [int(x) for x in A.pairs.split(',')]
 print('pairs', len(P), flush=True)
-tot = dict(edges=0, J0=0, gate=0, key=0); depths = []
+tot = dict(edges=0, J0=0, gate=0, key=0); inv = dict(edges=0, J0=0, gate=0); depths = []
 for i in sel:
     a, b = P[i]; t0 = time.time()
     X, Y = (nk.LinearNakayamaAlgebra(8, list(t)) for t in (a, b))
@@ -56,7 +68,9 @@ for i in sel:
                sum(e[1] for e in es), sum(e[2] for e in es), sum(e[3] for e in es), len(es), okl and okr)
         print('pair %d %s->%s halves %d+%d total %d (tied meetings %d): gate %d J0 %d keykept %d of %d edges; replay ends on meeting key: %s' % row,
               'paths', pl, pr, '%.0fs' % (time.time() - t0), flush=True)
+        ie = inverseEdges(Y, pr); inv['edges'] += len(ie); inv['gate'] += sum(e[1] for e in ie); inv['J0'] += sum(e[2] for e in ie)
+        print('   inverse B-half edges: gate %d J0 %d of %d' % (sum(e[1] for e in ie), sum(e[2] for e in ie), len(ie)), flush=True)
         for k, v in zip(('gate', 'J0', 'key'), row[7:10]): tot[k] += v
         tot['edges'] += len(es)
     depths.append(best)
-print('TOTAL', tot, 'shortest totals', sorted(depths))
+print('INVERSE B-half', inv); print('TOTAL', tot, 'shortest totals', sorted(depths))
