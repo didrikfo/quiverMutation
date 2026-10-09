@@ -600,7 +600,7 @@ polynomial by a different route. And the guard changes no answer at `n = 6` or
 so it is not doing violence to results that were right.
 
 **What would settle it.** A second invariant applied along a guarded path:
-`τ`-periodicity data, Hochschild cohomology, or the Avella-Alaminos–Geiß
+`τ`-periodicity data, Hochschild cohomology, or the Avella-Alaminos–Geiß *[Round 055, E-170: Hochschild cohomology is dead as an LNA invariant: HH^* = k for every LNA (theorem, 2312.14699 / 0805.1018 Prop 5.1); brute force n <= 10 agrees.]*
 invariant where it applies (R-008 says it does not apply directly here). Cheaper
 and worth doing first: take every step the guard admits at `n = 6` and `n = 7`,
 and check whether the two algebras have the same *hereditary form* where both

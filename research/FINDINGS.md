@@ -1136,7 +1136,7 @@ distinguishes a real link from one the search fabricated.
 classes, so the derived classes at `n = 10` number between 43 and 46. More
 importantly it answers a question H-013 framed as needing a *new invariant*: the
 pair the polynomial cannot separate did not need separating. Before reaching for
-τ-periodicity or Hochschild cohomology on a pair like this, search it.
+τ-periodicity or Hochschild cohomology on a pair like this, search it. *[Round 055, E-170: HH is closed by a theorem (2312.14699); do not run it as a search.]*
 
 **Where it does not reach.** Seven mutations is beyond every depth the pipeline
 runs at by default (`classify.py` starts at 6 and decays), which is why an orbit
@@ -2304,7 +2304,7 @@ theorem-level statement pinned for n = 4 to 10 in
 no class but the hereditary one contains a gentle algebra at all. In particular
 neither member of the cospectral pair `P^(1,4)_(1,0,1)` / `P^(1,2)_(1,1,2)` has a
 single gentle member among its 18 — checked directly. The AAG route is closed;
-what is left on idea 22's list is Hochschild cohomology, which is a derived
+what is left on idea 22's list is Hochschild cohomology, which is a derived *[Round 055, E-170: HH is closed by a theorem (2312.14699).]*
 invariant of any algebra and does not care about the relation lengths. R-008.
 
 ---

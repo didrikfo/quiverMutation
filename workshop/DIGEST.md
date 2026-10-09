@@ -7,6 +7,16 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 055 -- 2026-10-09 -- ordinary
+Scholar (citation audit), maverick (revision), toolsmith (S-1 breadth slot); referees skeptic, scholar, theorist; all three minor revision, responses done, all accepted. Details in `rounds/055/`.
+- **Scholar (E-169, accepted):** against your LaTeX, Aihara-Iyama Thm 2.31 and 2.32(b) are Theorems as cited; the J = 0 premise is a whole-T condition and "silting not tilting iff some J_i != 0" follows from 2.31 + 2.32(b), closing the "half shown" gap of E-128. CHZ Cor 3.6 prints no "monomial" hypothesis; a 5-vertex non-monomial example separates Prop 3.5(2) from Cor 3.6(2) ("iff for monomial I" is our own derivation). One left/right wording slip found. H-015's literature caveat is lifted.
+- **Maverick (E-170, accepted, supersedes E-168):** HH = k on all LNAs n <= 10 is a recomputed theorem; relation-bearing control gives (1,2) as hand-derived; counts reconciled with F-047 (113 orbits/25 groups vs 71 classes/16 groups). Phi-periodicity is a known lemma (0911.5137, 1310.1557); only live pair for a finite-order-Phi invariant is one n = 10 group of 4 classes.
+- **Toolsmith (E-171, accepted):** the E-144 prediction K0 = 5 at n = 15 is confirmed at key level on a one-row witness (also n = 17); full class scan sized at ~33 min on 4 cores, not run. S-1 stays open (closure proposal rejected by referee and chair).
+- Consequences: J = 0 premise now rests only on End(T) = repo rewrite (13 edges at quiver level) and the 8 parallel-arrow steps. Five literature files still carry the old Cor 3.6 / left-right wording (list in E-169).
+- Round 056 is a conference. Questions for the human: none.
+
+---
+
 ## Round 054 -- 2026-10-09 -- ordinary
 Theorist, experimentalist (T10) and maverick (T3/T8, breadth slot); referees skeptic, toolsmith, scholar. Details in `rounds/054/`.
 - **Theorist (E-166, accepted):** generation of K^b(proj A) by the one-step T is a two-line cone argument at any loopless vertex (already in the rickard-morita note); loop-free on all 370 edges of the 44 printed E-155/E-158/E-161 paths. The "generation assumed" caveat is closed there; J != 0 steps are silting but not tilting (Hom(T,T[-1]) != 0 on 16 of 16).
