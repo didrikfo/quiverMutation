@@ -1,0 +1,4 @@
+length 13 widths [8] rules 15 Counter({8: 15})
+0 42 0 17s
+10 462 0 117s
+DONE length 13 widths [8] slice 0::8 rules 15 confirmed 630 failures 0 (136s)

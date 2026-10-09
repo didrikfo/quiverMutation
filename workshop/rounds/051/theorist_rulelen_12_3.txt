@@ -1,0 +1,8 @@
+length 12 widths [6, 7, 8] rules 54 Counter({7: 32, 6: 22})
+0 132 0 13s
+10 1452 0 122s
+20 2232 0 201s
+30 2652 0 251s
+40 3522 0 341s
+50 4122 0 402s
+DONE length 12 widths [6, 7, 8] slice 3::4 rules 54 confirmed 4248 failures 0 (413s)

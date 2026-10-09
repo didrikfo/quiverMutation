@@ -1,0 +1,73 @@
+== core 4 5 n=12
+0 ['closed', 1410, 'inside', 21431), 'closed', 1410, 'inside', 21431), 'closed', 1410, 'inside', 21431)] SAME
+1 ['closed', 740, 'outside', 69567), 'closed', 740, 'outside', 69567), 'closed', 740, 'outside', 69567)] SAME
+2 ['closed', 1766, 'outside', 79965), 'closed', 1766, 'outside', 79965), 'closed', 1766, 'outside', 79965)] SAME
+3 ['closed', 740, 'outside', 69567), 'closed', 740, 'outside', 69567), 'closed', 740, 'outside', 69567)] SAME
+4 ['closed', 1410, 'inside', 21431), 'closed', 1410, 'inside', 21431), 'closed', 1410, 'inside', 21431)] SAME
+5 ['closed', 148, 'inside', 56984), 'closed', 148, 'inside', 56984), 'closed', 148, 'inside', 56984)] SAME
+6 not admissible
+7 not admissible
+8 not admissible
+== core 3 4 n=12
+0 ['closed', 1410, 'inside', 21431), 'closed', 1410, 'inside', 21431), 'closed', 1410, 'inside', 21431)] SAME
+1 ['closed', 1410, 'inside', 21431), 'closed', 1410, 'inside', 21431), 'closed', 1410, 'inside', 21431)] SAME
+2 ['closed', 1410, 'inside', 21431), 'closed', 1410, 'inside', 21431), 'closed', 1410, 'inside', 21431)] SAME
+3 ['closed', 1410, 'inside', 21431), 'closed', 1410, 'inside', 21431), 'closed', 1410, 'inside', 21431)] SAME
+4 ['closed', 1410, 'inside', 21431), 'closed', 1410, 'inside', 21431), 'closed', 1410, 'inside', 21431)] SAME
+5 ['closed', 1410, 'inside', 21431), 'closed', 1410, 'inside', 21431), 'closed', 1410, 'inside', 21431)] SAME
+6 ['closed', 1410, 'inside', 21431), 'closed', 1410, 'inside', 21431), 'closed', 1410, 'inside', 21431)] SAME
+7 not admissible
+8 not admissible
+== core 4 4 n=12
+0 ['closed', 1410, 'inside', 21431), 'closed', 1410, 'inside', 21431), 'closed', 1410, 'inside', 21431)] SAME
+1 ['closed', 1410, 'inside', 21431), 'closed', 1410, 'inside', 21431), 'closed', 1410, 'inside', 21431)] SAME
+2 ['closed', 1410, 'inside', 21431), 'closed', 1410, 'inside', 21431), 'closed', 1410, 'inside', 21431)] SAME
+3 ['closed', 1410, 'inside', 21431), 'closed', 1410, 'inside', 21431), 'closed', 1410, 'inside', 21431)] SAME
+4 ['closed', 1410, 'inside', 21431), 'closed', 1410, 'inside', 21431), 'closed', 1410, 'inside', 21431)] SAME
+5 ['closed', 1410, 'inside', 21431), 'closed', 1410, 'inside', 21431), 'closed', 1410, 'inside', 21431)] SAME
+6 ['closed', 1410, 'inside', 21431), 'closed', 1410, 'inside', 21431), 'closed', 1410, 'inside', 21431)] SAME
+7 not admissible
+8 not admissible
+== core 5 5 n=13
+0 ['closed', 447, 'inside', 96989), 'closed', 447, 'inside', 96989), 'closed', 447, 'inside', 96989)] SAME
+1 ['closed', 447, 'inside', 96989), 'closed', 447, 'inside', 96989), 'closed', 447, 'inside', 96989)] SAME
+2 ['closed', 447, 'inside', 96989), 'closed', 447, 'inside', 96989), 'closed', 447, 'inside', 96989)] SAME
+3 ['closed', 447, 'inside', 96989), 'closed', 447, 'inside', 96989), 'closed', 447, 'inside', 96989)] SAME
+4 ['closed', 447, 'inside', 96989), 'closed', 447, 'inside', 96989), 'closed', 447, 'inside', 96989)] SAME
+5 ['closed', 447, 'inside', 96989), 'closed', 447, 'inside', 96989), 'closed', 447, 'inside', 96989)] SAME
+6 ['closed', 447, 'inside', 96989), 'closed', 447, 'inside', 96989), 'closed', 447, 'inside', 96989)] SAME
+7 not admissible
+8 not admissible
+9 not admissible
+== core 3 5 n=13
+0 ['closed', 447, 'inside', 96989), 'closed', 447, 'inside', 96989), 'closed', 447, 'inside', 96989)] SAME
+1 ['closed', 447, 'inside', 96989), 'closed', 447, 'inside', 96989), 'closed', 447, 'inside', 96989)] SAME
+2 ['closed', 447, 'inside', 96989), 'closed', 447, 'inside', 96989), 'closed', 447, 'inside', 96989)] SAME
+3 ['closed', 447, 'inside', 96989), 'closed', 447, 'inside', 96989), 'closed', 447, 'inside', 96989)] SAME
+4 ['closed', 447, 'inside', 96989), 'closed', 447, 'inside', 96989), 'closed', 447, 'inside', 96989)] SAME
+5 ['closed', 447, 'inside', 96989), 'closed', 447, 'inside', 96989), 'closed', 447, 'inside', 96989)] SAME
+6 ['closed', 447, 'inside', 96989), 'closed', 447, 'inside', 96989), 'closed', 447, 'inside', 96989)] SAME
+7 not admissible
+8 not admissible
+9 not admissible
+== core 2 6 n=12
+0 ['closed', 86, 'inside', 9076), 'closed', 86, 'inside', 9076), 'closed', 86, 'inside', 9076)] SAME
+1 ['closed', 45, 'inside', 73572), 'closed', 45, 'inside', 73572), 'closed', 45, 'inside', 73572)] SAME
+2 ['closed', 45, 'inside', 73572), 'closed', 45, 'inside', 73572), 'closed', 45, 'inside', 73572)] SAME
+3 ['closed', 86, 'inside', 9076), 'closed', 86, 'inside', 9076), 'closed', 86, 'inside', 9076)] SAME
+4 ['closed', 492, 'inside', 12867), 'closed', 492, 'inside', 12867), 'closed', 492, 'inside', 12867)] SAME
+5 not admissible
+6 not admissible
+7 not admissible
+8 not admissible
+== core 4 6 n=13
+0 ['closed', 2386, 'inside', 70684), 'closed', 2386, 'inside', 70684), 'closed', 842, 'inside', 83530)] SAME
+1 ['closed', 2116, 'outside', 38568), 'closed', 2116, 'outside', 38568), 'closed', 2116, 'outside', 38568)] SAME
+2 ['closed', 493, 'outside', 38336), 'closed', 493, 'outside', 38336), 'closed', 493, 'outside', 38336)] SAME
+3 ['closed', 2116, 'outside', 38568), 'closed', 2116, 'outside', 38568), 'closed', 2116, 'outside', 38568)] SAME
+4 ['closed', 2386, 'inside', 70684), 'closed', 2386, 'inside', 70684), 'closed', 842, 'inside', 83530)] SAME
+5 ['closed', 224, 'inside', 20563), 'closed', 224, 'inside', 20563), 'closed', 224, 'inside', 20563)] SAME
+6 not admissible
+7 not admissible
+8 not admissible
+9 not admissible
