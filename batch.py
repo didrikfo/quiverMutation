@@ -24,6 +24,7 @@ import sys
 from quivermutation import freeMoves as fm
 from quivermutation import jobs
 from quivermutation import sampling
+from quivermutation import shapeAtlas
 
 
 class SampleTask(jobs.Task):
@@ -1015,7 +1016,58 @@ def _standardError(count, total):
     return (proportion * (1 - proportion) / total) ** 0.5
 
 
-TASKS = {task.name: task for task in [SampleTask(), CoresTask()]}
+class AtlasTask(jobs.Task):
+    """Walk out of LNAs and record every quiver shape the walks pass through.
+
+    One unit is one starting LNA: a depth-`--depth` walk out of it and out of
+    its opposite, every quiver reached recorded label-exactly with its WL
+    buckets, features and shortest path, and every step between them.  The
+    ledger is read by `python atlas.py`, which resolves the buckets into exact
+    keys up to relabelling and counts hubs, bridges and candidate merges.
+
+    `--sample 0` walks every LNA of the length, which is what n = 8 and 9 want.
+    `--sample N` walks every LNA outside a quipu class and N of each quipu class,
+    which is what n = 10 wants.  Spec:
+    docs/superpowers/specs/2026-09-24-shape-atlas-design.md; H-022.
+    """
+
+    name = 'atlas'
+    help = "record every quiver shape the walks out of a length's LNAs reach"
+
+    def addArguments(self, parser):
+        parser.add_argument("length", type = int, help = "the line length")
+        parser.add_argument("--depth", type = int, default = 4,
+                            help = "mutations to walk out of each start (default 4)")
+        parser.add_argument("--sample", type = int, default = 0,
+                            help = "rows per quipu class; 0 walks every LNA (default 0)")
+        parser.add_argument("--seed", type = int, default = 0,
+                            help = "the sample's seed (default 0)")
+
+    def ledgerPath(self, args):
+        return shapeAtlas.ledgerPath(args.length, args.depth, args.sample, args.seed)
+
+    def units(self, args):
+        return shapeAtlas.startsFor(args.length, args.sample, args.seed)
+
+    def run(self, unit, args):
+        return shapeAtlas.walkStart(args.length, unit, args.depth)
+
+    def summarise(self, records, args, out = sys.stdout):
+        results = [record['result'] for record in records]
+        if not results:
+            print("nothing in the ledger yet", file = out)
+            return
+        recorded = sum(len(result['nodes']) for result in results)
+        distinct = len({node['id'] for result in results for node in result['nodes']})
+        print("n = {0}, depth {1}: {2} starts walked".format(
+            args.length, args.depth, len(results)), file = out)
+        print("  {0} quivers recorded, {1} distinct with their labels".format(
+            recorded, distinct), file = out)
+        print("  read it with: python atlas.py {0} --depth {1} --sample {2} --seed {3}".format(
+            args.length, args.depth, args.sample, args.seed), file = out)
+
+
+TASKS = {task.name: task for task in [SampleTask(), CoresTask(), AtlasTask()]}
 
 
 #: The long jobs that keep their own front door, with the command that runs
@@ -1028,6 +1080,8 @@ ELSEWHERE = [
      "search for mutation paths between the orbits the moves leave over"),
     ("overlaps", "python overlaps.py 10 --free --doubles --no-rules",
      "which relation-overlap configurations a length leaves unplaced"),
+    ("atlas", "python atlas.py 9 --depth 4 --validate --page logs/atlas-n9.html",
+     "read a `batch.py atlas` ledger: hubs, bridges, cycles, candidate merges"),
     ("discover", "python discover.py --max-arrows 7 --max-width 8",
      "search for new rewrite rules"),
 ]

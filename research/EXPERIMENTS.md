@@ -6,6 +6,219 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-054 — The first shape atlas: n = 8 and 9 whole, n = 10 leftovers, depth 4
+*2026-09-26* · **all four instrument checks held once check 1's clause was corrected; two `n = 10` walks met at one non-line algebra under different labels, joining two orbits E-032's one-direction search left apart** → F-054, H-013, H-022
+
+*Renumbered at merge from `E-053`, which was taken on `main` first by the 2026-09-23 night while this branch was open. The design spec, plan and commit messages from the branch use the old identifier.*
+
+*2026-09-26, corrected before merge:* the first version said E-032's search
+could not see this merge "at any depth" because it compares quivers with their
+labels. `merges.py` compares lines, whose labels never mattered; what it lacks
+is mixed-direction paths, and E-032 searched to depth 8, not every depth. The
+candidate-merge passage and "what to run next" below are rewritten to say so.
+The top-five hub lists were quoted from a report whose ties came out in
+arbitrary order; they are recomputed with ties broken by key.
+
+**Outcome.** All four instrument checks held, once check 1's clause was
+corrected; meeting walks in the middle up to relabelling found one merge
+among `n = 10`'s leftover orbits that E-032's one-direction search to depth 8
+had not, at `n = 10` and depth 4 → F-054, H-013.
+
+**The commands**, one census and one analysis per length (`n = 8`, `9` whole;
+`n = 10` sampled, 20 rows per quipu class and every leftover):
+
+```
+python batch.py atlas 8  --depth 4              --jobs 7
+python batch.py atlas 9  --depth 4              --jobs 7
+python batch.py atlas 10 --depth 4 --sample 20  --jobs 6
+
+python atlas.py 8  --depth 4               --validate --page logs/atlas-n8.html
+python atlas.py 9  --depth 4               --validate --page logs/atlas-n9.html
+python atlas.py 10 --depth 4 --sample 20   --validate --page logs/atlas-n10.html
+```
+
+**Per length** (`atlas-nN-census.txt` for starts/quivers, `atlas-nN.txt` for
+shapes, `atlas-nN.time` for the analysis's wall clock and peak RSS):
+
+| n | starts | quivers recorded | distinct with labels | L0 | L1 | L2 | L3 | census wall clock | analysis wall clock | analysis peak RSS |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 8 | 429 | 96778 | 94607 | 158 | 1559 | 29298 | 29298 | 4m55s, 7 jobs | 5:06.99 | 762944 kB (0.76 GB) |
+| 9 | 1430 | 432914 | 425984 | 427 | 4407 | 153148 | 153148 | 30m58s, 7 jobs | 30:02.12 | 2215240 kB (2.22 GB) |
+| 10 | 835 | 324447 | 322676 | 1096 | 8665 | 196583 | 196583 | interrupted at 650/835, resumed for the remaining 185 in 8m51s on 6 jobs | 20:41.81 | 2313256 kB (2.31 GB) |
+
+`n = 8`'s 11 classes and `n = 9`'s 20 match F-016 / F-011. `n = 10`'s census
+covers 48 classes among its 835 sampled starts (the full `n = 10` count is
+H-013's 43–46, now 43–45 below).
+
+**The OOM, and its fix.** The first `n = 9` analysis was OOM-killed at 6.1 GB
+resident, against a 6 GB VM limit (`dmesg`). Commit `ceca125` reads the ledger
+a line at a time and keeps shape representatives as strings instead of
+building them all in memory; at `n = 8` this took the analysis's peak
+resident set from 2.22 GB to 0.74 GB (`atlas-n8-before.time`,
+`atlas-n8-after.time`) with identical shape counts and identical validation.
+Every run recorded in this table is under `ceca125`; the `n = 8` figure in the
+table (0.76 GB) is a separate, later invocation of the fixed code and differs
+from the 0.74 GB fix-verification figure only by ordinary run-to-run variance.
+`n = 10`'s census hit the same VM during the resumed run's ancestor and was
+restarted from its own ledger rather than from scratch (`atlas-n10-census.txt`
+line 651: `resuming: 650 units already done, 185 to go`); no time was recorded
+for the 650 units before the interruption.
+
+**Validation, all four checks, per length** (`atlas-nN.txt`, "validation
+(H-022)"):
+
+| n | check 1 (squares) | check 2 (quipu hub) | check 3 (certificates) | check 4 (coverage) |
+|---|---|---|---|---|
+| 8 | 1746 returning shapes, of which 993 squares, short sides {2: 957, 3: 36}, top `2x2`, majority 2 — **ok** | skipped (check 2 is defined at n = 9 only) | 12668 checked, 0 violations — ok | 43 starts checked, 0 missing — ok |
+| 9 | 6452 returning shapes, of which 4053 squares, short sides {2: 3888, 3: 165}, top `2x2`, majority 2 — ok | `P^(6)_(1,1)`, 9 leftover starts — ok | 54538 checked, 0 violations — ok | 41 starts checked, 0 missing — ok |
+| 10 | 6778 returning shapes, of which 4950 squares, short sides {2: 4800, 3: 150}, top `2x3`, majority 2 — ok | skipped (check 2 is defined at n = 9 only) | 67043 checked, 0 violations — ok | 42 starts checked, 0 missing — ok |
+
+Check 1's original wording (H-022's clause 1, "no square has a short side of
+three") **failed at `n = 8`**: 36 of the 993 returning squares have a short
+side of 3, not 0. They are genuine squares, not a counting error — e.g.
+`405000` by `[3, 2]` and `250000` by `[-7, -8]` both reach a 3×4 square that
+leads on to other lines. F-027 had counted only the intermediates of
+rule-table rules, so the clause over-generalised from that narrower set. The
+ruling (recorded here, not retracted as a finding since the clause was a
+prediction, not a belief — see H-022's amendment below): refute the
+"none" clause and relax check 1 to "the commonest returning square has a
+short side of 2, and 2 is the majority short side among returning squares",
+which held at all three lengths (3×k squares are 4% of returning squares at
+`n = 8` and `9`, 3% at `n = 10`) — commit `a3227b3`. The run continued under
+the relaxed check.
+
+**The conservative cases did not fire.** L2 and L3 count the same number of
+shapes at every length (29298 / 153148 / 196583), and no node id is a `raw:`
+hash (the fallback when `fingerprint.canonicalKey` refuses a quiver), so no
+canonical key was refused (counted from `logs/atlas-n*.nodes.parquet`). L3 can
+only split an L2 shape, and an isomorphism-cap hit always leaves two L3 keys
+over one L2 shape (the quiver hit the cap against a representative whose L2
+graph is isomorphic to its own); since nothing was split, there were no cap
+hits and no conservative misses at these lengths — and L3 never refined L2
+at `n ≤ 10`, depth 4: here the relation skeleton already determined the
+algebra. (A pair that L3
+does split is constructed in `tests/test_shape_keys.py`,
+`test_L3_splits_what_the_L2_skeleton_joins`, so the equality is a fact about
+these walks, not about the keys.) `atlas.py` now prints both counts.
+
+**Top five L2 hubs per length**, ordered by classes, then starts, then key
+(recomputed from the parquet tables with ties broken by key; `describe`
+abbreviated to the arrows and the first two relations; classes / starts /
+return rate):
+
+*n = 8* — the top five, and every hub tied with the fifth (12 in all at 21
+starts or more), are single-class, single-orbit:
+
+* `1->2 2->4 3->7 4->5 5->6 6->3 6->8 8->7` (zero 2-4-5; zero 4-5-6-8; …) — 1 class / 24 starts / 0.50
+* `1->3 2->1 2->5 3->4 4->6 5->3 6->8 8->7` (zero 1-3-4-6; comm 2-1-3=2-5-3; …) — 1 / 24 / 0.50
+* `1->2 2->6 3->1 3->4 4->6 5->7 6->5 7->8` (zero 2-6-5; comm 3-1-2-6=3-4-6; …) — 1 / 23 / 0.61
+* `1->3 2->1 3->4 4->5 4->8 5->6 7->6 8->7` (zero 2-1-3; zero 3-4-5; …) — 1 / 23 / 0.61
+* `1->5 2->1 2->4 3->2 5->6 6->7 7->8` (zero 1-5-6; zero 2-1-5; …) — 1 / 21 / 0.38, first by key of eight hubs tied at 21 starts
+
+*n = 9* — six hubs tie at 31 starts, all single-class, single-orbit, return
+rate 0.29; the first five by key:
+
+* `1->3 2->1 3->4 4->5 5->6 6->8 8->7 9->8` (zero 2-1-3; zero 3-4-5; …)
+* `1->3 2->1 3->5 4->3 5->6 6->7 7->9 9->8` (zero 2-1-3; zero 3-5-6; …)
+* `1->5 2->3 3->1 3->4 5->6 6->7 7->9 9->8` (zero 1-5-6; zero 2-3-4; …)
+* `1->5 2->1 2->4 3->2 5->6 6->7 7->8 8->9` (zero 2-1-5; zero 3-2-4; …)
+* `1->4 2->3 3->1 4->5 5->6 6->7 7->8 9->7` (zero 3-1-4; zero 4-5-6; …)
+
+*n = 10* — six hubs tie at two classes and 5 starts; the top five by key all
+have `leftoverShare = 1.00`: they are reached only from the sampled leftovers,
+two orbits and two classes apiece — every one of them `orbit:03345000` and
+`orbit:33460000`, the `C(2,4,5)` pair E-032 already merged — `firstDepth 3`,
+`returnRate 0.00`:
+
+* `1->2 1->5 2->3 3->4 4->6 4->10 5->4 6->7 7->8 9->8 10->9` (comm 1-2-3-4=1-5-4; zero 2-3-4-6-7; …)
+* `1->2 2->6 3->1 3->4 4->6 5->10 6->5 6->7 7->8 8->9 9->10` (zero 2-6-5; zero 2-6-7; …)
+* `1->2 1->4 2->3 3->5 3->10 4->3 5->6 6->7 7->8 9->8 10->9` (comm 1-2-3=1-4-3; zero 2-3-5-6-7; …)
+* `1->2 2->8 3->1 3->4 4->5 5->6 6->8 7->10 8->7 8->9 9->10` (zero 2-8-7; zero 2-8-9; …)
+* `1->2 2->7 3->1 3->4 4->5 5->7 6->10 7->6 7->8 8->9 9->10` (zero 2-7-6; zero 2-7-8; …)
+
+**What the leftover hubs show.** `n = 8` has no leftover-hub entries at all
+(no leftovers to have them). The report's top 30 leftover hubs at `n = 9`
+(the report's own `--top 30` cutoff, not a count of how many exist) are every
+one at `leftoverShare = 1.00` and none reaching further than 6 of the 9
+leftover starts — far short of the 24–31 starts the main hubs reach, so the
+leftovers huddle together but do not bridge out to the quipu-covered classes.
+`n = 10`'s sampled leftovers show the same pattern at a larger scale: its
+leftover hubs top out at 17 of the sampled leftover starts, again all
+`leftoverShare = 1.00` — the leftovers keep meeting each other, never a line
+already covered.
+
+**The commonest cycles through a line** (`line -> shape -> line`, top counts):
+`n = 8` peaks at 20 (`L2:ed499de5:0`), 19, 19, 16, 16; `n = 9` peaks at 26
+(`L2:2d395264:0` and `L2:9a92c449:0`), 23, 23, 22, 22; `n = 10` peaks at 10
+(four shapes tied, including `L2:c1f1ebd0:0` and `L2:e4f8a613:0`), then a
+long plateau at 9. The counts scale with the number of starts, not the
+length: `n = 9` (1430 starts) has the highest peak, `n = 10` (835 sampled
+starts) the lowest.
+
+**Candidate merges per length, with paths.** `n = 8`: 0. `n = 9`: 0. `n = 10`:
+3, all replayed and confirmed by `replay`, and each also re-checked by
+rebuilding both ends with `mutation.quiverMutationAtVertices` and comparing
+them label-exactly and through an explicit vertex map
+(`atlas-n10-merges-verified.txt`, from a script under `logs/` that is not
+committed; it uses the key's own `relabel` and `canonicalKey`, so it is
+independent of the ledger, not of the key):
+
+* `orbit:03033030` (member `30330300`, path `[7]`) ~ `orbit:30330400` (member
+  `30330400`, path `[8, 7]`) — not label-exact equal; same Coxeter polynomial;
+  vertex map `{7: 10, 8: 9, 9: 7, 10: 8}`. The meeting point is not a line:
+  two right walks meet in the middle, and relabelling is needed only because
+  a non-line quiver cannot be renumbered to a row as a line can. E-032's
+  `merges.py` never meets walks; it walks one direction from each member
+  (right mutations, or left ones via the relation dual) and collects the lines
+  reached, to depth 8. This merge needs a mixed path, which it could not take:
+  from `30330300`, `[7, -9, -10]` reaches, in three guarded steps, a line that
+  `lnaMoves.asRelLengths` reads as `30330400` — a second certificate of the
+  merge, independent of the atlas and its key
+  (`tests/test_shape_atlas.py::test_the_n10_merge_is_also_a_mixed_path_between_lines`,
+  with the replay and the vertex map in the two tests beside it). It joins `03033030`'s orbit (4 members) to
+  `30330400`'s (2 members), two of the four orbits E-032 reported as "all four
+  stayed apart to depth 8" in the polynomial group
+  `λ^10 + λ^9 − 2λ^8 − 3λ^7 + λ^6 + 4λ^5 + λ^4 − 3λ^3 − 2λ^2 + λ + 1`
+  (which also holds `30340030`, 2 members, and `30440030`, 1 member,
+  unaffected).
+* `orbit:03345000` (member `05040330`, path `[4, 3, 7, 2]`) ~
+  `orbit:33460000` (member `60504030`, path `[-10, -7, -2]`) — the `C(2,4,5)`
+  pair E-032 already found at depth 7 (`05040330 -> 33460000`); the atlas
+  reproduces it from depth-4 walks.
+* `orbit:34504030` (path `[4, 1, 2]`, 3 mutations) ~ `orbit:50505000` (path
+  `[-8, -7, -3, -7]`, 4 mutations) — F-037's pair, found there at depth 7; the
+  atlas reproduces it from depth-4 walks.
+
+Only the first is new; the other two were already known merges, now found
+again from a shorter, depth-4 walk rather than the depth-7 search that found
+them originally.
+
+**What it cost.** Census: roughly 34 core-minutes at `n = 8` (4m55s x 7
+jobs), 3.6 core-hours at `n = 9` (30m58s x 7 jobs), and 53 core-minutes for
+`n = 10`'s last 185 starts (8m51s x 6 jobs) plus an unrecorded amount for the
+650 before the VM died. Analysis: 276.62s + 1736.32s + 1190.82s of user time
+(about 53 minutes total, single-threaded), peaking at under 2.4 GB resident
+at every length under the streaming fix.
+
+**What to run next.** Depth 5 at `n = 10`, now that depth 4 already found one
+new merge among the leftovers; `n = 11` with sampling, the same way `n = 10`
+was sampled here; and give `merges.py` the kind of path that found this merge.
+Either let it take mixed-direction paths (the three-step `[7, -9, -10]` is
+within any depth it already runs), or let it meet walks in the middle up to
+relabelling — the atlas's L3 key is what makes a meeting point that is not a
+line usable at all, since only a line can be renumbered to a row.
+
+Reproduction: the six commands above; `logs/atlas-n8.txt`, `atlas-n9.txt`,
+`atlas-n10.txt` for the reports; `atlas-n8.time`, `atlas-n9.time`,
+`atlas-n10.time` for wall clock and peak RSS; `atlas-n8-before.time` /
+`atlas-n8-after.time` for the OOM fix comparison; the three
+`test_the_n10_merge_*` tests in `tests/test_shape_atlas.py` for the merge
+(seconds, no census needed); the hub lists above from
+`logs/atlas-n{8,9}-d4-s0-r0.*.parquet` and `logs/atlas-n10-d4-s20-r0.*.parquet`
+through `shapeAtlas.shapeMeasures(tables, 2)`, non-lines, first five rows.
+
+---
+
 ## E-053 — Every census from 13 to 18 finished, none undecided, and the night was 83 percent idle
 *2026-09-24* · **all ten shared censuses of E-051's line closed every placement at `--orbit-limit 500000` within 2.5 hours; H-020 holds in 12064 of 12064 cross-length comparisons at 13 to 18; a separated pair is exactly the worse of its halves in 5948 of 5948; `sample 17` at 500000 closed every leftover: 72.2% +- 0.8** → H-020, H-018, H-019, H-021, E-051
 
