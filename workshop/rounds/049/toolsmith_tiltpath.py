@@ -81,12 +81,17 @@ def reach(start, tball, depth, capn):
     return best, levels, capped
 
 t0 = time.time()
-tball, tl, tc = ball(classes[base], dT, cap, 'target')
+import os, hashlib
+cache = '/tmp/tsm/tball_c%d_d%d.pkl' % (cls, dT)   # cache of the target ball (scratch only; delete to recompute)
+if os.path.exists(cache): tball, tl, tc = pickle.load(open(cache, 'rb'))
+else:
+    tball, tl, tc = ball(classes[base], dT, cap, 'target'); pickle.dump((tball, tl, tc), open(cache, 'wb'))
+def tag(alg): return hashlib.md5(repr(fingerprint.canonicalKey(alg)).encode()).hexdigest()[:6]
 print('target ball: class', cls, 'seeds', len(classes[base]), 'levels', tl, 'keys', len(tball), 'capped', tc, '%.0fs' % (time.time() - t0), flush=True)
 
 def run(name, start, extra=''):
     t1 = time.time(); best, lv, capd = reach(start, tball, dC, cap)
-    print(name, extra, 'HIT total %d (child side %d + target side %d)' % best if best else 'MISS', 'child-ball levels', lv, 'capped' if capd else 'uncapped', '%.0fs' % (time.time() - t1), flush=True)
+    print(name, 'key', tag(start), extra, 'HIT total %d (child side %d + target side %d)' % best if best else 'MISS', 'child-ball levels', lv, 'capped' if capd else 'uncapped', '%.0fs' % (time.time() - t1), flush=True)
     return best
 
 if mode == 'children':

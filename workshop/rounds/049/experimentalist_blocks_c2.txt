@@ -1,0 +1,14 @@
+edges 79097 nodes 45427 seeds 14 expanded 20000 depth 8 pos 3216
+contracted graph 45414 79088 failing edges 9
+merge edges (same level or second parent): 59521 L* (shortest merge walk length) = 4 histogram [(4, 136), (6, 379), (7, 24), (8, 989), (9, 32), (10, 2416), (11, 75), (12, 5690)]
+failing edges:
+  depth(u,w) 7,8  in-degree(w)=1 deg(w)=1  inBlockOfSeeds=False  mult=1  walkLen=None
+  depth(u,w) 7,8  in-degree(w)=1 deg(w)=1  inBlockOfSeeds=False  mult=1  walkLen=None
+  depth(u,w) 7,8  in-degree(w)=1 deg(w)=1  inBlockOfSeeds=False  mult=1  walkLen=None
+  depth(u,w) 7,8  in-degree(w)=1 deg(w)=1  inBlockOfSeeds=False  mult=1  walkLen=None
+  depth(u,w) 7,8  in-degree(w)=1 deg(w)=1  inBlockOfSeeds=False  mult=1  walkLen=None
+  depth(u,w) 7,8  in-degree(w)=1 deg(w)=1  inBlockOfSeeds=False  mult=1  walkLen=None
+  depth(u,w) 8,9  in-degree(w)=1 deg(w)=1  inBlockOfSeeds=False  mult=1  walkLen=None
+  depth(u,w) 8,9  in-degree(w)=1 deg(w)=1  inBlockOfSeeds=False  mult=1  walkLen=None
+  depth(u,w) 8,9  in-degree(w)=1 deg(w)=1  inBlockOfSeeds=False  mult=1  walkLen=None
+summary (inBlock, multiple, connectedWithout): {(False, False, False): 9}

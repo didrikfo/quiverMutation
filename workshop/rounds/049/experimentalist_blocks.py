@@ -33,12 +33,6 @@ def bfs(skip):
     return d
 d0 = bfs(None)
 # merge edges: edges between nodes where a (non-tree) cycle exists; L* over edges whose removal keeps both ends connected
-Lmin = None; Lcnt = Counter()
-for a, b in G.edges():
-    if a == 's' or b == 's':
-        if mult[frozenset((a, b))] == 1 and (a == 's' and b == 's'): continue
-    if abs(d0[a] - d0[b]) == 0 or True:
-        pass
 # merge edge = non-tree BFS edge: |d(a)-d(b)|<=0 (same level) or an extra parent
 par = Counter()
 for a, b in G.edges():

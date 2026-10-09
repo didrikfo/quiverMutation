@@ -1,0 +1,21 @@
+edges 80922 nodes 48394 seeds 12 expanded 20000 depth 8 pos 7967
+contracted graph 48383 80922 failing edges 16
+merge edges (same level or second parent): 56419 L* (shortest merge walk length) = 4 histogram [(4, 88), (6, 200), (8, 482), (9, 6), (10, 1055), (11, 46), (12, 2532), (13, 190)]
+failing edges:
+  depth(u,w) 7,8  in-degree(w)=2 deg(w)=6  inBlockOfSeeds=True  mult=1  walkLen=16
+  depth(u,w) 7,8  in-degree(w)=2 deg(w)=6  inBlockOfSeeds=True  mult=1  walkLen=16
+  depth(u,w) 7,8  in-degree(w)=2 deg(w)=2  inBlockOfSeeds=True  mult=1  walkLen=16
+  depth(u,w) 7,8  in-degree(w)=2 deg(w)=2  inBlockOfSeeds=True  mult=1  walkLen=16
+  depth(u,w) 7,6  in-degree(w)=2 deg(w)=9  inBlockOfSeeds=True  mult=1  walkLen=15
+  depth(u,w) 8,9  in-degree(w)=2 deg(w)=2  inBlockOfSeeds=True  mult=1  walkLen=18
+  depth(u,w) 8,9  in-degree(w)=2 deg(w)=2  inBlockOfSeeds=True  mult=1  walkLen=18
+  depth(u,w) 8,9  in-degree(w)=2 deg(w)=2  inBlockOfSeeds=True  mult=1  walkLen=18
+  depth(u,w) 8,9  in-degree(w)=3 deg(w)=3  inBlockOfSeeds=True  mult=1  walkLen=18
+  depth(u,w) 8,9  in-degree(w)=2 deg(w)=2  inBlockOfSeeds=True  mult=1  walkLen=18
+  depth(u,w) 8,9  in-degree(w)=3 deg(w)=3  inBlockOfSeeds=True  mult=1  walkLen=18
+  depth(u,w) 8,9  in-degree(w)=1 deg(w)=1  inBlockOfSeeds=False  mult=1  walkLen=None
+  depth(u,w) 8,9  in-degree(w)=1 deg(w)=1  inBlockOfSeeds=False  mult=1  walkLen=None
+  depth(u,w) 8,9  in-degree(w)=2 deg(w)=2  inBlockOfSeeds=True  mult=1  walkLen=18
+  depth(u,w) 8,9  in-degree(w)=2 deg(w)=2  inBlockOfSeeds=True  mult=1  walkLen=18
+  depth(u,w) 8,9  in-degree(w)=2 deg(w)=2  inBlockOfSeeds=True  mult=1  walkLen=18
+summary (inBlock, multiple, connectedWithout): {(True, False, True): 14, (False, False, False): 2}
