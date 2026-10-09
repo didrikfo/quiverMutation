@@ -8,7 +8,7 @@ See [`README.md`](README.md) for conventions.
 ## F-054 — Two walks can meet at one algebra under different labels, and that joins two of E-032's four unlinked `n = 10` orbits
 *2026-09-26*
 
-Evidence: E-053.
+Evidence: E-054.
 
 *2026-09-26, corrected before merge:* the first version said E-032 missed this
 because `search.meetingPoints`, "which `merges.py` uses", compares quivers with

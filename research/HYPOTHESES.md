@@ -7,7 +7,7 @@ it. Status is one of `OPEN`, `SUPPORTED`, `CONFIRMED → F-nnn`, `REFUTED → R-
 ---
 
 ## H-022 — The walks pass through a small set of shapes, and the ones two classes share are merges
-*2026-09-24, written before the first census* · **SUPPORTED** *(checks 2–4 held at every length; check 1's "no short side of three" clause refuted, its "commonest and majority short side is two" dominance clause held; one new merge -- E-053, F-054. The hub half, "a small number of shapes carries most of the walks", was not measured: no share of walks through the top shapes was computed, and the densest hubs at `n = 8` and 9 are single-class, reached from one class only, which if anything cuts against the hub idea)*
+*2026-09-24, written before the first census* · **SUPPORTED** *(checks 2–4 held at every length; check 1's "no short side of three" clause refuted, its "commonest and majority short side is two" dominance clause held; one new merge -- E-054, F-054. The hub half, "a small number of shapes carries most of the walks", was not measured: no share of walks through the top shapes was computed, and the densest hubs at `n = 8` and 9 are single-class, reached from one class only, which if anything cuts against the hub idea)*
 
 Three non-line families have mattered so far -- quipus with relations (F-034),
 the squares with a side of two (F-027), one parallel pair (H-016) -- and each
@@ -56,7 +56,7 @@ square has a short side of two, and two is the majority short side", which
 held at `n = 8`, 9 and 10 (3x*k* squares are 4% of returning squares at
 `n = 8` and 9, 3% at `n = 10`). Checks 2 through 4 held as written at every
 length. One replayed candidate merge came out of the `n = 10` leftovers --
-E-053, F-054. The statement's reason for why such merges were unseen ("the
+E-054, F-054. The statement's reason for why such merges were unseen ("the
 label-exact meeting of `search.meetingPoints`") is not what hid this one:
 E-032's `merges.py` does not meet walks, and walks one direction only; F-054
 has the mechanism.
@@ -92,10 +92,16 @@ with a mirror in its orbit and no reflection pairing refutes it.
 and outside offsets, and the two-cluster words, where each cluster has its own
 distance to its own end (H-020's third amendment).
 
+**2026-09-24: the censuses cannot test it** (E-053). Every mixed slide from 13
+to 18 is `i^h o^m i^t` with `|h - t| <= 2`, so every one is a palindrome after
+stripping at most two insides from one end, which H-020 already implies. The
+conjecture is about which offsets share an orbit, and no ledger records that;
+the run it needs is still the `orbitReport` sweep above.
+
 ---
 
 ## H-020 — Where a core may sit is fixed by its distance to the two ends, not by the length
-*2026-09-20* · **SUPPORTED** *(for a single heavy cluster, 283 cores at `n = 13` to 17 without an exception under the plain walk -- E-046; under the reduced walk 1186 of 1192 comparisons from 13 to 18, the six failures all words whose slide at 13 is one or two offsets -- E-051; `45` closed at every offset to `n = 17` -- E-052; two clusters do not obey it -- E-047)*
+*2026-09-20* · **SUPPORTED** *(for a single heavy cluster, 283 cores at `n = 13` to 17 without an exception under the plain walk -- E-046; under the reduced walk 1186 of 1192 comparisons from 13 to 18, the six failures all words whose slide at 13 is one or two offsets -- E-051; `45` closed at every offset to `n = 17` -- E-052; every length 13 to 18 complete, 12064 of 12064 comparisons, and the pair words too -- E-053; two clusters did not obey it under the plain walk -- E-047)*
 
 **The conjecture.** For an overlapping core placed alone in a line, whether the
 moves carry it to an almost separate LNA depends only on how far it sits from
@@ -215,6 +221,17 @@ offset at the sink; H-021 asks whether that is the general shape.
 
 **What would settle it now.** The census at 15 to 18 under the reduced walk,
 finished, which E-051's faster walk and larger cap make a night's work.
+
+**2026-09-24: 13 to 18 complete, no exception** (E-053). Every shared census
+of `--max-word 4` from 13 to 18 closed every placement, and so did the
+five-letter words at 13 to 15, the six-letter words at 14 and the eight-arrow
+relations at 17. Over every pair of lengths, where the shorter slide has three
+offsets or more: **12064 of 12064** single-cluster comparisons hold, and
+**1544 of 1544** two-cluster ones -- the third amendment's drift was the plain
+walk's `35`/`36`. No slide at any length holds an inside in its interior. Head
+and tail are each at most 2 and never both 2. `n = 19` is the next length with
+room for something new, at a larger cap (E-053: the biggest outside orbit at
+18 is 430492 rows).
 
 ---
 
@@ -358,6 +375,17 @@ E-051's faster walk makes a few seconds a draw; and the same at 15 under
 `--walk shared`, since every number in this series is the plain walk's and the
 reduced walk places more (E-049).
 
+**2026-09-24: both run** (E-053). `sample 17` at 500000, 3030 draws: **72.2%
++- 0.8**, every leftover orbit closed, and every draw capped at 20000 is a
+closed leftover -- the capped share was all outside, as at 15. `sample 15`
+under the shared walk, 20000 draws: 56.9% +- 0.4; on the draws both ledgers
+hold, the reduced walk rescues 9 of 829 plain leftovers. The series by one
+instrument is 16, 28, 39.9, 57.4, 72.2 at 11, 12, 13, 15, 17, and what the
+moves place falls by a factor of about 0.82 per unit of length. The leftover
+share rises at every fixed overlap from 15 to 17, not only overall. What is
+left: `n = 19`, and a shared sample at every length for a series by the
+stronger walk, which costs a tenth of a second a draw at 15.
+
 ---
 
 ## H-018 — What escapes the quipu theorem is a placement, not an overlap
@@ -482,6 +510,12 @@ and 18 (partial) no half is rescued: every pair that is not inside has a half
 that is outside or undecided alone. So far the two-cluster verdict is the worse
 of its halves' and nothing else, which is the answer this hypothesis predicts
 for clusters that are genuinely apart.
+
+**2026-09-24: complete at 17 and 18, and three-vertex halves at 16** (E-053).
+5948 separated pairs, every one decided: a pair is inside exactly when both
+halves are inside alone, **5948 of 5948**, with no rescue anywhere --
+including the 4407 pairs of `--pair-word 3` at `n = 16`, the first run whose
+three-vertex halves are genuinely apart.
 
 ---
 

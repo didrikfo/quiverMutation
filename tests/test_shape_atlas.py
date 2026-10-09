@@ -231,7 +231,7 @@ def test_validation_at_n5(atlas5):
 
 
 def test_squares_verdict_is_ok_when_short_side_two_merely_dominates():
-    # E-053 (n = 8): 957 returning squares with a short side of 2 against 36
+    # E-054 (n = 8): 957 returning squares with a short side of 2 against 36
     # with a short side of 3 -- H-022's "never a 3" is refuted, but F-027's
     # dominance of 2 still holds, so this must be ok.
     ok, majority = sa._squaresVerdict(collections.Counter({2: 957, 3: 36}), '2x2')

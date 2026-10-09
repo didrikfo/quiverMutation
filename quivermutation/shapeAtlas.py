@@ -334,7 +334,7 @@ def shapeMeasures(tables, level):
     """Per shape at one level: how widely, how early, how mixed, and whether it
     leads back to a line.  Sorted by classes reached, then starts, then the key
     itself: without the last, ties come out in whatever order the group-by left
-    them, and a "top five" quoted from a report cannot be reproduced (E-053)."""
+    them, and a "top five" quoted from a report cannot be reproduced (E-054)."""
     key = 'key{0}'.format(level)
     visits = tables['visits'].join(tables['nodes'].select('id', key), on = 'id')
     perStart = visits.group_by(key, 'start', 'orbit', 'cls').agg(pl.col('depth').min())
@@ -529,7 +529,7 @@ def _squaresVerdict(shortSides, topSquare):
     can be tested without running a census.  F-027 holds when short side 2 is
     both the top square's own short side and strictly the most common one
     among all returning squares; H-022's stronger "only ever 2" clause was
-    refuted by E-053, so a minority of other short sides (e.g. 3xk) is fine."""
+    refuted by E-054, so a minority of other short sides (e.g. 3xk) is fine."""
     if not shortSides:
         return False, None
     majorityShortSide = shortSides.most_common(1)[0][0]
@@ -554,7 +554,7 @@ def validate(tables, length, records, coverageSample = 40):
 
     # 1. F-027's dominance of short side 2 among the squares of the shapes that
     # lead back to a line.  H-022 had also predicted no short side of 3 at
-    # all, but the n = 8 census (E-053) found 36 genuine 3xk returning
+    # all, but the n = 8 census (E-054) found 36 genuine 3xk returning
     # squares (e.g. 405000 by [3, 2]) alongside 957 with a short side of 2, so
     # that clause is refuted; F-027's "never a 3" was only ever measured on
     # steps inside rule-table rules, and over-generalised from there.

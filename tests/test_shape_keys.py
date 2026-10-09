@@ -169,7 +169,7 @@ def test_L3_splits_what_the_L2_skeleton_joins():
     so L2 is one shape.  The algebras are not: in {ac, bd} each arrow out of 1
     kills one arrow out of 2, in {ac, ad} one arrow out of 1 kills both -- as
     tensors, a span of two rank-one tensors against a whole a (x) W, which no
-    change of basis carries onto each other.  L3 must say two.  E-053 found L2
+    change of basis carries onto each other.  L3 must say two.  E-054 found L2
     and L3 equal at every length it counted; this is what keeps the L3 column
     from being a copy of L2 by construction.
     """
