@@ -6,6 +6,63 @@ it. Status is one of `OPEN`, `SUPPORTED`, `CONFIRMED → F-nnn`, `REFUTED → R-
 
 ---
 
+## H-022 — The walks pass through a small set of shapes, and the ones two classes share are merges
+*2026-09-24, written before the first census* · **SUPPORTED** *(checks 2–4 held at every length; check 1's "no short side of three" clause refuted, its "commonest and majority short side is two" dominance clause held; one new merge -- E-054, F-054. The hub half, "a small number of shapes carries most of the walks", was not measured: no share of walks through the top shapes was computed, and the densest hubs at `n = 8` and 9 are single-class, reached from one class only, which if anything cuts against the hub idea)*
+
+Three non-line families have mattered so far -- quipus with relations (F-034),
+the squares with a side of two (F-027), one parallel pair (H-016) -- and each
+was found by reading one walk by hand. The **shape atlas** (`batch.py atlas`,
+`atlas.py`; spec `docs/superpowers/specs/2026-09-24-shape-atlas-design.md`)
+records every quiver the depth-4 walks reach out of every LNA of `n = 8` and
+`9`, and out of the `n = 10` leftovers with 20 of each quipu class, keyed up to
+relabelling at four levels (L0 graph, L1 quiver, L2 relation skeleton, L3
+algebra).
+
+**The hypothesis.** A small number of shapes carries most of the walks between
+lines -- hubs -- and a shape reached from two classes is a merge the label-exact
+meeting of `search.meetingPoints` cannot see, because it compares quivers with
+their labels.
+
+**What must come out first, or the instrument is wrong** (`atlas.py --validate`):
+
+1. Among the non-line L2 shapes that lead back to a line, the commonest with a
+   square has a short side of **two**, and no square has a short side of three
+   (F-027).
+2. At `n = 9`, at least seven of the nine leftover LNAs reach `P^(6)_(1,1)`
+   with relations (H-014).
+3. On every quipu with monomial relations, equal L3 keys and equal
+   `quipuRelations.certificate` coincide exactly.
+4. Everything the label-exact search reaches at depth 2 is in the census.
+
+A failure of 1 or 2 means nothing else the atlas says is read. A failure of 3
+or 4 is a bug in the keys.
+
+**What would settle it.** Yes: a replayed candidate merge between two orbits
+that no move and no label-exact search has joined -- at `n = 10`, between two
+of H-013's leftover orbits. No: every shape shared across classes is shared
+only by classes already known to be one, at depth 4 and at depth 5, which says
+the non-line shapes are a detour at these lengths and not a shortcut. Either is
+worth having.
+
+**2026-09-26, amended: the census ran, and clause 1 as written is refuted.**
+The first `n = 8` validation failed check 1's literal wording -- "no square
+has a short side of three" -- with 36 of 993 returning squares at a short
+side of 3. They are genuine squares (e.g. `405000` by `[3, 2]` and `250000`
+by `[-7, -8]` both reach a 3x4 square that leads on to other lines), not a
+counting error: F-027 had only counted the intermediates of rule-table rules,
+and check 1 over-generalised from that narrower set to "none at all". The
+clause is **refuted**; the check was relaxed to "the commonest returning
+square has a short side of two, and two is the majority short side", which
+held at `n = 8`, 9 and 10 (3x*k* squares are 4% of returning squares at
+`n = 8` and 9, 3% at `n = 10`). Checks 2 through 4 held as written at every
+length. One replayed candidate merge came out of the `n = 10` leftovers --
+E-054, F-054. The statement's reason for why such merges were unseen ("the
+label-exact meeting of `search.meetingPoints`") is not what hid this one:
+E-032's `merges.py` does not meet walks, and walks one direction only; F-054
+has the mechanism.
+
+---
+
 ## H-021 — A core's slide is a palindrome when its class is self-dual, and the head/tail difference is the reflection's shortfall
 *2026-09-23* · **OPEN** *(round 048 ledger: the literal "exactly when" fails under both readings of the mirror clause (rounds 001-002 census, E-055..E-062); only the pairing `s = n - k(c)` on cores that pair survives (T1, dormant: E-061..E-064, E-067))*
 
@@ -37,10 +94,16 @@ with a mirror in its orbit and no reflection pairing refutes it.
 and outside offsets, and the two-cluster words, where each cluster has its own
 distance to its own end (H-020's third amendment).
 
+**2026-09-24: the censuses cannot test it** (E-053). Every mixed slide from 13
+to 18 is `i^h o^m i^t` with `|h - t| <= 2`, so every one is a palindrome after
+stripping at most two insides from one end, which H-020 already implies. The
+conjecture is about which offsets share an orbit, and no ledger records that;
+the run it needs is still the `orbitReport` sweep above.
+
 ---
 
 ## H-020 — Where a core may sit is fixed by its distance to the two ends, not by the length
-*2026-09-20* · **SUPPORTED** *(for a single heavy cluster, 283 cores at `n = 13` to 17 without an exception under the plain walk -- E-046; under the reduced walk 1186 of 1192 comparisons from 13 to 18, the six failures all words whose slide at 13 is one or two offsets -- E-051; `45` closed at every offset to `n = 17` -- E-052; two clusters do not obey it -- E-047)*
+*2026-09-20* · **SUPPORTED** *(for a single heavy cluster, 283 cores at `n = 13` to 17 without an exception under the plain walk -- E-046; under the reduced walk 1186 of 1192 comparisons from 13 to 18, the six failures all words whose slide at 13 is one or two offsets -- E-051; `45` closed at every offset to `n = 17` -- E-052; every length 13 to 18 complete, 12064 of 12064 comparisons, and the pair words too -- E-053; two clusters did not obey it under the plain walk -- E-047)*
 
 **The conjecture.** For an overlapping core placed alone in a line, whether the
 moves carry it to an almost separate LNA depends only on how far it sits from
@@ -160,6 +223,17 @@ offset at the sink; H-021 asks whether that is the general shape.
 
 **What would settle it now.** The census at 15 to 18 under the reduced walk,
 finished, which E-051's faster walk and larger cap make a night's work.
+
+**2026-09-24: 13 to 18 complete, no exception** (E-053). Every shared census
+of `--max-word 4` from 13 to 18 closed every placement, and so did the
+five-letter words at 13 to 15, the six-letter words at 14 and the eight-arrow
+relations at 17. Over every pair of lengths, where the shorter slide has three
+offsets or more: **12064 of 12064** single-cluster comparisons hold, and
+**1544 of 1544** two-cluster ones -- the third amendment's drift was the plain
+walk's `35`/`36`. No slide at any length holds an inside in its interior. Head
+and tail are each at most 2 and never both 2. `n = 19` is the next length with
+room for something new, at a larger cap (E-053: the biggest outside orbit at
+18 is 430492 rows).
 
 ---
 
@@ -303,6 +377,17 @@ E-051's faster walk makes a few seconds a draw; and the same at 15 under
 `--walk shared`, since every number in this series is the plain walk's and the
 reduced walk places more (E-049).
 
+**2026-09-24: both run** (E-053). `sample 17` at 500000, 3030 draws: **72.2%
++- 0.8**, every leftover orbit closed, and every draw capped at 20000 is a
+closed leftover -- the capped share was all outside, as at 15. `sample 15`
+under the shared walk, 20000 draws: 56.9% +- 0.4; on the draws both ledgers
+hold, the reduced walk rescues 9 of 829 plain leftovers. The series by one
+instrument is 16, 28, 39.9, 57.4, 72.2 at 11, 12, 13, 15, 17, and what the
+moves place falls by a factor of about 0.82 per unit of length. The leftover
+share rises at every fixed overlap from 15 to 17, not only overall. What is
+left: `n = 19`, and a shared sample at every length for a series by the
+stronger walk, which costs a tenth of a second a draw at 15.
+
 ---
 
 ## H-018 — What escapes the quipu theorem is a placement, not an overlap
@@ -427,6 +512,12 @@ and 18 (partial) no half is rescued: every pair that is not inside has a half
 that is outside or undecided alone. So far the two-cluster verdict is the worse
 of its halves' and nothing else, which is the answer this hypothesis predicts
 for clusters that are genuinely apart.
+
+**2026-09-24: complete at 17 and 18, and three-vertex halves at 16** (E-053).
+5948 separated pairs, every one decided: a pair is inside exactly when both
+halves are inside alone, **5948 of 5948**, with no rescue anywhere --
+including the 4407 pairs of `--pair-word 3` at `n = 16`, the first run whose
+three-vertex halves are genuinely apart.
 
 ---
 
@@ -691,6 +782,19 @@ family with relations is what is left.
 
 ## H-013 — The leftover orbits sharing a polynomial are few classes, and the search can say which
 *2026-09-17, written before the overnight run* · **SUPPORTED** *(2026-09-18: `n = 10` answered, two predictions right and one wrong; the search's own soundness is now the open question — E-032, E-033)*
+
+**2026-09-26, amended:** the shape atlas found a merge between two of the four
+orbits E-032 left apart in one polynomial group at `n = 10` (`30330300 ~
+30330400`). E-032's `merges.py` walks one direction at a time from each
+member — right mutations, or left ones via the relation dual — and collects
+the lines reached; this merge needs a mixed path, `[7, -9, -10]` from
+`30330300`, three guarded steps, which it could not take at any of its depths
+(to 8). The atlas found it by meeting two right walks in the middle, at a
+quiver that is not a line and so had to be compared up to relabelling. That
+takes one more orbit off the ceiling: at most 9 non-quipu classes, so
+**43–45** derived classes at `n = 10`, not 43–46 — F-054. *(Corrected before
+merge, same day: the first wording blamed label-exact comparison in
+`search.meetingPoints`, which `merges.py` does not use.)*
 
 **2026-09-18, what the run returned.** `n = 10` finished all four depths. Twelve
 orbits fall to **at most 10** classes, so the derived classes at `n = 10` number
