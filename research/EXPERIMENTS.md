@@ -6,6 +6,150 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-053 — Every census from 13 to 18 finished, none undecided, and the night was 83 percent idle
+*2026-09-24* · **all ten shared censuses of E-051's line closed every placement at `--orbit-limit 500000` within 2.5 hours; H-020 holds in 12064 of 12064 cross-length comparisons at 13 to 18; a separated pair is exactly the worse of its halves in 5948 of 5948; `sample 17` at 500000 closed every leftover: 72.2% +- 0.8** → H-020, H-018, H-019, H-021, E-051
+
+The line was `OVERNIGHT.md`'s "Tonight" of 2026-09-23: ten shared censuses and
+two samples, one worker each, nine hours, started 22:39.
+
+| job | placements | inside | outside | undecided | reused | wall clock | peak RSS |
+|---|---|---|---|---|---|---|---|
+| `cores 14 --max-word 6 --min-word 6 --gaps ,` | 7380 | 3893 | 3487 | 0 | 1100 | 7 min | 173 MB |
+| `cores 15 --max-word 4` | 2244 | 1304 | 940 | 0 | 1870 | 14 min | 193 MB |
+| `cores 15 --max-word 5 --min-word 5 --gaps ,` | 3079 | 1766 | 1313 | 0 | 612 | 12 min | 190 MB |
+| `cores 16 --max-word 4` | 2637 | 1475 | 1162 | 0 | 1425 | 39 min | 311 MB |
+| `cores 16 --max-word 2 --pair-word 3 --gaps 5,6` | 4487 | 3656 | 831 | 0 | 93 | 22 min | 224 MB |
+| `cores 17 --max-word 4` | 3031 | 1646 | 1385 | 0 | 1234 | 79 min | 578 MB |
+| `cores 17 --max-word 2 --pair-word 2 --gaps 5,6` | 762 | 543 | 219 | 0 | 562 | 43 min | 324 MB |
+| `cores 17 --max-word 3 --max-arrows 8 --gaps ,` | 894 | 531 | 363 | 0 | 388 | 33 min | 258 MB |
+| `cores 18 --max-word 4` | 3424 | 1817 | 1607 | 0 | 160 | **2 h 29 min** | **1489 MB** |
+| `cores 18 --max-word 2 --pair-word 2 --gaps 5,6` | 963 | 633 | 330 | 0 | 152 | 1 h 36 min | 668 MB |
+| `sample 15 --walk shared --orbit-limit 500000` | 20000 draws | | | | | **41 min** | -- |
+| `sample 17 --orbit-limit 500000` (plain) | 3030 of 20000 | | | | | 9 h, cut by budget | -- |
+
+(All `--orbit-limit 500000`. "Reused" is E-051's cross-ledger reuse. Samples do
+not record `maxRssMB`.)
+
+**Not one placement undecided, at any length.** Every outside verdict is a
+closed orbit. The largest: `360046@3` at `n = 18`, **430492 rows** (86 percent
+of the cap, 356 s, and the census's peak memory was past a gigabyte from it on);
+`45@2` at 18, 355328 rows in 1009 s; at 17 the largest is 152136. The largest
+walk that ended **inside** is 4579 rows at 18 and 1489 at 17 -- every
+certificate on record is found within 5000 rows, so the cap still buys outside
+verdicts only.
+
+**H-020, now with every length from 13 to 18 complete.** Joining every shared
+ledger of each length (row or mirror; no two ledgers disagree on any row), and
+comparing each core's slide at every pair of lengths where the shorter slide
+has three offsets or more: **12064 of 12064 single-cluster comparisons hold**
+(same head, same tail, interior all outside), and so do **1544 of 1544**
+two-cluster ones -- under the shared walk the pair words drift no more than the
+single ones do, where the plain walk had them break the law 31 times (E-046;
+the breaking half was always a `35` or `36`, which the reduced walk places
+everywhere). No slide at any length from 13 to 18, of any word in any catalogue
+(up to six letters, relations up to eight arrows), holds an inside in its
+interior. At `n = 18` the single-cluster mixed slides have
+
+| (head, tail) | (0,1) | (0,2) | (1,0) | (1,1) | (1,2) | (2,0) | (2,1) |
+|---|---|---|---|---|---|---|---|
+| cores | 92 | 40 | 46 | 13 | 3 | 106 | 3 |
+
+so both numbers are at most 2, and **never both 2**: `45`, `46`, `56` are the
+only (1,2) and their mirrors `504`, `6004`, `605` the only (2,1). At `n = 16`,
+whose catalogue also holds the five-letter words, the same seven cells and no
+others.
+
+**H-021 cannot be tested from slides.** Every mixed slide is `i^h o^m i^t` with
+`|h - t| <= 2`, so every one of them is a palindrome after stripping at most two
+insides from one end -- which is what H-020 already says. The conjecture is
+about which offsets share an orbit, and the ledgers do not record that.
+
+**H-018, two clusters with a free arrow between them.** Each half looked up
+alone at its own offset in the same length's single-core ledgers:
+
+| n | both halves inside | one half outside | both outside | pair inside with an outside half |
+|---|---|---|---|---|
+| 16 (`--pair-word 3`) | 3595, **all inside** | 805, all outside | 7, all outside | **0** |
+| 17 | 477, all inside | 194, all outside | 3, all outside | **0** |
+| 18 | 562, all inside | 290, all outside | 15, all outside | **0** |
+
+**5948 of 5948 separated pairs are exactly the worse of their halves.** The
+`--pair-word 3` census is the first with three-vertex halves genuinely apart,
+and it has no rescue either. E-047's rescues (all by a `35` or `36` half) were
+the one-way free move's.
+
+**H-019, the leftover rate.**
+
+* `sample 17 --orbit-limit 500000`, plain walk: 3030 draws, **72.2% +- 0.8**
+  leftover, **every leftover orbit closed** (largest 394399 rows, 79 percent of
+  the cap). On the 1131 draws shared with the 20000-row ledger, all 259 capped
+  there are closed leftovers here and no draw changes class: E-048/E-051's
+  22.9 percent capped share was entirely outside, and the "72.5 if it closes"
+  of H-019 is 72.2 measured.
+* `sample 15 --walk shared --orbit-limit 500000`: 20000 draws, **56.9% +- 0.4**,
+  every orbit closed. On the 1444 draws shared with the plain 100000-row
+  ledger, the reduced walk moves **9 of 829** plain leftovers to `moves` (1.1
+  percent of them, 0.6 points of the rate) and nothing else changes. So the
+  plain series is a faithful upper bound, off by well under a point at 15.
+* The series, closed orbits only: 16, 28, 39.9, --, 57.4 (56.9 shared), --,
+  **72.2** at `n = 11` to 17. What the moves place: 84, 72, 60, 43, 28 --
+  a factor of about 0.82 per unit of length from 13 to 17. Carried on, that is
+  about 19 percent placed (81 leftover) at `n = 19`.
+* By the draw's largest overlap, the leftover share rises at **every** overlap
+  from 15 to 17 -- 27 → 40 percent at overlap 2, 61 → 69 at 3, 76 → 84 at 4,
+  83 → 90 at 5 -- so the rise is not the long lengths drawing more overlap; it
+  is each overlap being placed less often, which is H-018's "placement, not
+  overlap" read off a uniform sample.
+
+**Where the time went -- the efficiency lessons.**
+
+* **The night was 83 percent idle.** Eleven of twelve jobs exited 0 by 01:08;
+  of 108 worker-hours about 18 were used. Only `sample 17` ran to the budget,
+  and it ran the plain walk.
+* **The shared sample is about a hundred times the plain one.** `sample 15`
+  shared: 0.12 s a draw (median closed leftover walks 2 rows -- it stops on a
+  class an earlier draw closed). `sample 17` plain at 500000: 10.7 s a draw.
+  E-051's 100000-row plain `sample 15`: 133 s a draw. Every sample from now on
+  should be `--walk shared`.
+* **Concurrent censuses of one length walk the same heads.** Reuse only sees
+  what another ledger has already *written*, and the costly placements are at
+  the front of every catalogue. `45@2` at `n = 17` was walked three times at
+  once (the `--max-word 4`, the pair and the eight-arrow censuses, 294 s each),
+  and at 18 twice (1009 s each). Rows walked in more than one ledger: 2090 of
+  9125 walking seconds at 17, 2077 of 14552 at 18. `--min-word 3` drops the
+  single cores from a pair census (8502 → 8414 placements at 17) and is the
+  cheap fix for that one.
+* **Memory grows with the orbits, not the placements.** The `n = 18` census
+  went from 280 MB to 1489 MB, and most of the jump was one 430492-row orbit.
+  At `n = 19` the same core's orbit is likely past a million rows, so a census
+  there wants the cap raised and WSL's share of memory raised with it.
+* Sample rows carry no `maxRssMB`, and a shared sample keeps every closed
+  orbit it walked; that is the one number tonight's line cannot watch.
+
+**Two trials at `n = 19`, to size the next night** (2026-09-24 morning, ten
+minutes each, into the ledgers tonight's line continues). `cores 19 --max-word
+4 --orbit-limit 2000000`: 57 placements, and `45@2` **closes at 468379 rows**
+in 590 s at 310 MB -- the sequence 77868, 122823, 355328, 468379 from 16 to
+19. `sample 19 --walk shared --orbit-limit 1000000`: 6 draws in 13 minutes, 415
+MB, and draw 5, `34040500330000020`, whose largest overlap is **2**, walked
+past a million rows without closing (700 s). At 17 no leftover orbit reached
+400000.
+
+Reproduce:
+
+```bash
+python batch.py cores 18 --max-word 4 --orbit-limit 500000 --summary
+python batch.py cores 18 --max-word 2 --pair-word 2 --gaps 5,6 --orbit-limit 500000 --summary
+python batch.py sample 17 --count 20000 --orbit-limit 500000 --summary
+python batch.py sample 15 --count 20000 --walk shared --orbit-limit 500000 --summary
+```
+
+The cross-length comparison and the half-by-half table join the ledgers on row
+names (a row and its mirror) with `batch._latest`, `batch._mirror` and
+`batch._rowFor`; neither is printed by `--summary`.
+
+---
+
 ## E-052 — The outside band of a core is its reflection pairs
 *2026-09-23* · **under the reduced walk the outside offsets of `45` fall into closed orbits `{o, n - 8 - o}`, one per pair, at every length from 12 to 17; the same pairing holds for seven more cores and fails for `3346`** → F-053, H-021, H-020, F-051
 
