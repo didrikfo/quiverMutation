@@ -97,7 +97,9 @@ def run(name, start, extra=''):
 if mode == 'children':
     recs = [r for r in pickle.load(open(pk, 'rb')) if r['kind'] == 'fail']
     print('children', len(recs), flush=True); hits = 0
+    LO, HI = (int(x) for x in os.environ.get('SLICE', '0:%d' % len(recs)).split(':'))   # SLICE=lo:hi to split the children over processes
     for i, r in enumerate(recs):
+        if not LO <= i < HI: continue
         if run('child %d' % i, r['childObj'], 'parentdepth %d v %d' % (r['depth'], r['v'])): hits += 1
     print('SUMMARY cls', cls, 'children', len(recs), 'hits', hits, 'dT', dT, 'dC', dC, 'cap', cap, 'stats', stats)
 else:
