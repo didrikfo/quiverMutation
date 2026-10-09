@@ -1,0 +1,52 @@
+MERGE c2_ctrl0 child key 1c732e8e7585 D 7 TD 4 levels<D [1, 8, 34, 121, 436, 1569, 5703] ball nodes through D-1 7872 shards 2 level-D frontier expanded 5703 new level-D keys 20665 ball nodes through D 28537 earlier best None skipped nodes [] children without canonical key 0 HITS at level D {'5959c3580fa5': 11, '5ebe8f24153b': 11, '41e435f89e19': 11, '50c34eaaf22e': 11, '35fc299f7f72': 11, '797fa519d316': 11, 'e041376d5f49': 11, '1dfdc61c2334': 11, 'b171e4978600': 11, '30efcf0c327b': 11, '96028d3bc12e': 11}
+MERGE c2_6 child key 0d3498e8940d D 7 TD 5 levels<D [1, 8, 34, 121, 436, 1569, 5703] ball nodes through D-1 7872 shards 2 level-D frontier expanded 5703 new level-D keys 20667 ball nodes through D 28539 earlier best None skipped nodes [] children without canonical key 0 HITS at level D {'e55efae960ad': 12, '77eabb02934d': 12, '1f254718b497': 12, '976089686140': 12, '6730ca87dff5': 12, '79bbdeda6e3a': 12, 'cd8eadc399e1': 12, 'cb9d4a77c218': 12, '791ba762f24e': 12, 'e8f3aa73d2b2': 12, '03b6cfde51ac': 12, 'c8ac9044e105': 12, '48f8dae3df47': 12, 'fe58d52736c5': 12, 'ef5f2232e8e4': 12, 'cc422839c56a': 12, '28a920a7565e': 12, '1e06ec123c1a': 12, '86c4eaedf9c9': 12, 'c5a8f46ba776': 12}
+MERGE c1_5 child key f7abe9c32d39 D 7 TD 5 levels<D [1, 10, 56, 229, 982, 4237, 18034] ball nodes through D-1 23519 shards 3 level-D frontier expanded 6900 new level-D keys 29368 ball nodes through D 52887 earlier best None skipped nodes [] children without canonical key 0 HITS at level D {'87f5e516e827': 12, '4694477a1cf4': 12, '2b178246b51c': 12, '52c862f32537': 12, '8bcd9debf4a4': 12, '7a3eda8f2e8c': 12, '4ce9a8316bc3': 12, '63b08611f6d9': 12, 'eff25c2f0e21': 12}
+MERGE c1_14 child key b32eca9cd989 D 7 TD 5 levels<D [1, 10, 56, 229, 982, 4246, 18002] ball nodes through D-1 23496 shards 14 level-D frontier expanded 18005 new level-D keys 77153 ball nodes through D 100649 earlier best None skipped nodes [12382, 12415, 12417, 12415] children without canonical key 343 HITS at level D none
+MERGE c1_12d4 child key dc45e9254aaa D 4 TD 5 levels<D [1, 6, 32, 153] ball nodes through D-1 180 shards 16 level-D frontier expanded 153 new level-D keys 659 ball nodes through D 839 earlier best None skipped nodes [108, 115, 116] children without canonical key 100 HITS at level D {'fa5296b28956': 9, '452fd8b9281a': 9, '07e4badd0333': 9}
+== /tmp/tsm/front_c1_12.log
+level 1 size 6 0s best None
+level 2 size 32 1s best None
+level 3 size 153 13s best None
+== /tmp/tsm/front_c1_14.log
+level 1 size 10 0s best None
+level 2 size 56 1s best None
+level 3 size 229 4s best None
+level 4 size 982 20s best None
+level 5 size 4246 89s best None
+level 6 size 18002 293s best None
+FRONT c1_14 {'pk': '/tmp/tsm/c1.pkl', 'cls': 1, 'idx': 14, 'D': 7, 'levels': [1, 10, 56, 229, 982, 4246, 18002], 'best': None, 'seenN': 23496, 'TD': 5, 'key': 'b32eca9cd989'} frontier 18002 294s
+== /tmp/tsm/front_c1_5.log
+level 1 size 10 0s best None
+level 2 size 56 1s best None
+level 3 size 229 5s best None
+level 4 size 982 20s best None
+level 5 size 4237 93s best None
+level 6 size 18034 294s best None
+FRONT c1_5 {'pk': '/tmp/tsm/c1.pkl', 'cls': 1, 'idx': 5, 'D': 7, 'levels': [1, 10, 56, 229, 982, 4237, 18034], 'best': None, 'seenN': 23519, 'TD': 5, 'key': 'f7abe9c32d39'} frontier 18034 296s
+== /tmp/tsm/front_c2_6.log
+level 1 size 8 0s best None
+level 2 size 34 1s best None
+level 3 size 121 2s best None
+level 4 size 436 7s best None
+level 5 size 1569 26s best None
+level 6 size 5703 97s best None
+FRONT c2_6 {'pk': '/tmp/tsm/c2.pkl', 'cls': 2, 'idx': 6, 'D': 7, 'levels': [1, 8, 34, 121, 436, 1569, 5703], 'best': None, 'seenN': 7872, 'TD': 5, 'key': '0d3498e8940d'} frontier 5703 97s
+== /tmp/tsm/front_c2_ctrl0.log
+level 1 size 8 0s best None
+level 2 size 34 1s best None
+level 3 size 121 2s best None
+level 4 size 436 7s best None
+level 5 size 1569 24s best None
+level 6 size 5703 93s best None
+FRONT c2_ctrl0 {'pk': '/tmp/tsm/c2.pkl', 'cls': 2, 'idx': 0, 'D': 7, 'levels': [1, 8, 34, 121, 436, 1569, 5703], 'best': None, 'seenN': 7872, 'TD': 4, 'key': '1c732e8e7585'} frontier 5703 93s
+depth-6 nodes 18034
+child 5 key f7abe9 replay ok total 12 | child->meet: F1 F3 F5 F4 R7 F3 R1 | LNA/dual #9 ->meet: F7 R2 R1 F2 F7 12s
+paths 6 key 0d3498 parentdepth 8 replay ok total 12 | child->meet: F1 F7 R3 R5 R5 F4 R6 | LNA/dual #0 ->meet: F1 F1 F2 R6 R5 220s
+DONE paths cls 2 stats {'gate': 63926, 'J': 103, 'tp': 0, 'key': 0, 'ok': 63823}
+depth-3 nodes 153
+node 147 skipped (time limit)
+node 154 skipped (time limit)
+node 155 skipped (time limit)
+child 12 key dc45e9 replay ok total 9 | child->meet: R7 R4 R7 R1 | LNA/dual #6 ->meet: F1 F5 F4 R7 F3 470s
+
+[exited with code 0]

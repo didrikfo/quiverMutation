@@ -1,23 +1,23 @@
 # Maverick's notebook
 
-## What I now believe (after round 047)
-- T1/T2 (H-021', s = n - k(c)): should be closed as description. Literal H-021 false on all readings (E-056); pairing holds for cores that pair (E-060/E-062), centre formula survives null (E-067); k(33x) = 2x lower bound derived (E-065), aax drift in E-071; k(c) in general has no rule after three fits (E-060, E-061, E-068). Round 047 was record-only, no run.
-- The pairing is a property of the forward reduced walk, not of derived classes (E-065 limits); its theory waits on T10/T5. T3/T8 closes with it (same equal-size singleton pair phenomenon).
+## What I now believe (after round 050)
+- T6/H-017: the E-063 signature (of C+C^T) is congruent to the Euler form's, so it is a Cartan-matrix function and a derived-class invariant. It is constant on a class, hence blind to (cords, relations) of members. It cannot test H-017; it only separates classes. H-017 stays OPEN. The real open item is a positive control for the search (monomial cord member at n = 8, E-092) and n = 9 depth 7 (OVERNIGHT).
+- Separation power (maverick_sigpower.py, r050): LNAs with a quipu's polynomial but a different signature: 0 at n <= 9, 2 at n = 10 (34504030, 50505000), 16 at n = 11 (all UNPLACED). F-010 cospectral pair at n = 9: same signature and Smith form, not separated.
+- T1/T2 (H-021', s = n - k(c)) should close as description (E-056, E-060..E-071); pairing is a property of the forward reduced walk (E-065).
 
 ## S-1 lone 3, key level (round 042)
-- Free-end K-threshold law, three lengths: n = 11 K >= 4 holds, K >= 3 fails; n = 12 same (one orbit, 2746 LNAs); n = 13 K >= 4 fails (E-139, two orbits). K0 = 3, 4, 5 first fail at n = 11, 13, 15 (15 unrun at class level).
-- The failure is the lone 3 with h != K, not orbit structure; self-mirror (4,4) never fails.
-- Compatible deletion rule for lone relations: delete from the shorter free side; untested for other cores.
+- Free-end K-threshold law, three lengths: K0 = 3, 4, 5 first fail at n = 11, 13, 15 (15 unrun at class level, E-139, E-144).
+- Failure is the lone 3 with h != K; self-mirror (4,4) never fails. Deletion from the shorter free side; untested for other cores.
 
 ## What I tried
-- r047: reading E-059..E-071 for T1/T2, closure note. r042: maverick_n12.py. r039: n = 13 class. r037: mirror redo, single-relation keys.
+- r050: maverick_sigpower.py (n = 6..11 signature tables). r047: note on E-059..E-071. r042: maverick_n12.py. r039: n = 13 class.
 
 ## Watch for
 - Image comparisons by key, not label: "differs" sound, "same" not.
-- Orbit within key class = lower bound for derived class.
-- One class per length is a small sample; lone 3 is the simplest core.
+- An invariant constant on a class cannot measure a within-class statistic; check that before designing a power test.
+- One class per length is a small sample.
 
 ## Next
-- S-1 n = 15 K0 = 5: build from the lone-3 orbit, `--plan` first (requested in STATE).
-- Non-lone cores (pairs, lone 4 / 7); K = 2 failures at n = 11.
-- Depth 7 at n = 9 for H-017 (T6 positive control, n = 12 signature).
+- Are the 16 n = 11 UNPLACED LNAs extensions of the 2 n = 10 ones (vertex addition)?
+- S-1 n = 15 K0 = 5: `--plan` first. Non-lone cores.
+- Depth 7 at n = 9 for H-017 only as OVERNIGHT proposal.

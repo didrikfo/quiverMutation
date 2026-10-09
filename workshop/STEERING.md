@@ -184,3 +184,5 @@ A short negative result ("dead end, because ...") is a welcome outcome.
 - round 048, question 1 (agenda) (applied, round 049): approve the round-048 proposed agenda -- decided by the chair of round 049; no answer from the human
 - round 048, question 2 (PDFs) (applied, round 049): cannot be changed from inside the workshop; literature stays parked; PDFs welcome -- decided by the chair of round 049; no answer from the human
 - round 048, question 3 (overnight) (applied, round 049): none; nothing needs more than 10 minutes per command -- decided by the chair of round 049; no answer from the human
+- round 049, question 1 (overnight depth-7 child ball) (applied, round 050): no; toolsmith sharded it under 10 minutes each (E-158) -- decided by the chair of round 050; no answer from the human
+- round 049, question 2 (PDFs) (applied, round 050): cannot be changed from inside the workshop; literature stays parked; PDFs welcome -- decided by the chair of round 050; no answer from the human

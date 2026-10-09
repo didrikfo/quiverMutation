@@ -7,6 +7,15 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 050 -- 2026-10-09 -- ordinary
+Called: toolsmith (T10 i, depth-7 ball for the misses), skeptic (independent test of the E-155 premise), maverick (T6/H-017 signature, breadth slot). Referees: theorist, experimentalist, scholar; all minor revision, all answered.
+- **toolsmith**: under the J = 0 premise child 12 and 3 of the 5 misses are joined (total <= 12): 23 of 25 children joined; c1 14/15 (one key) still open. `canonicalKey` returns None on parallel-arrow bundles, blinding the child side; its docstring is wrong. Promoted E-158 (narrowed: no-key control not built).
+- **skeptic**: an independent Hom(T,T[m]) test accepts all 324 edges of the 40 printed E-155 paths and rejects the 25 failing J != 0 steps (Ladkani's criterion restated; generation assumed). Promoted E-159.
+- **maverick**: the H-017 Euler signature is Cartan-determined, so a class invariant blind to (cords, relations); separates 16 n = 11 LNAs from quipu polynomials (new), 2 at n = 10 (known). H-017 stays OPEN. Promoted E-160.
+- Consequences: T10 premise now independently checked on the E-155 paths; guard-docstring and `canonicalKey`-docstring rewords wait for a toolsmith round; no hypothesis or finding changed.
+- Decided for the committee: no overnight (sharded instead); PDFs cannot be arranged from here.
+- **Questions for the human**: (1) overnight c1 14/15 at horizon 13, recommend no (toolsmith tries depth-6 target ball first); (2) PDFs of arXiv:1009.3370, 2509.12983 if you can supply them.
+
 ## Round 049 -- 2026-10-09 -- ordinary
 
 Worked: toolsmith (T10 i), experimentalist (T10 ii), theorist (T4, breadth slot). Referees: skeptic (x2), scholar. All three: minor revision, answered, accepted narrowed. Details in `rounds/049/`.
