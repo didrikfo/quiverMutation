@@ -481,6 +481,20 @@ its partner (E-047). Every rescue on record involves a `35` or a `36`, which the
 reduced walk places alone at every offset: an artifact of the plain walk
 (E-051).
 
+**Overhang.** How many offsets of a core have no reflection partner in range
+when the offsets are fitted to `o <-> s - o`; `0` is E-052's exact pairing. A
+loose fit (large overhang on a short range) is weak evidence of a reflection
+(E-055).
+
+**Onset (of a core).** The length below which no two offsets of a core share a
+Coxeter-key class, so nothing can pair; for `4056` pairs first appear at
+`n = 14`. Read off keys, not explained (E-056).
+
+**Ladkani criterion.** Prop. 2.3(c) of arXiv:1001.4765: an iff, computed as a
+rank, for `T^+_k` to be a tilting complex, so for a mutation step to be a
+derived equivalence. Agrees with the gate on every admitted step at `n <= 7`
+and fails at the E-032 ALARM step (E-057).
+
 ---
 
 ## Sampling long lengths
@@ -635,3 +649,47 @@ time. The saving in time came from the next step: the **shared walk** (E-050)
 remembers every class it settles, so the alias, the mirror and every row the
 walk passed through are answered for free, and it reaches the reduced walk's
 verdicts at a ninth of the plain census's cost.
+
+**Strict mirror (of a placement).** In the census of H-021: the mirror of `c@p`
+lies in an orbit whose held offsets do not include `p`. The *loose* reading counts
+a mirror held by the orbit of `c@p` itself; *strict2* also counts an orbit that
+holds the mirror of `c@p` and some `c@q`, `q != p`. False for every clean pairing
+by construction. E-058.
+
+**Gate / guard (in the H-015 audits).** *Gate* is `mutationIsPossibleAtVertex`
+(delegating to `procedure.isMutable`); *guard* is the check that the Coxeter key
+of the reduced child equals the parent's. Distinct from each other; "the guard
+never fires" means every gate-admitted child kept its key. E-057, E-059.
+
+**Shortfall (overhang) of a pairing core.** For a core that pairs at length `n`
+by a reflection `o <-> s - o`, `d = hi - s`, `hi` the last offset with a row.
+When the outside block of the slide is interior, `d` is the H-020 tail minus
+head. E-062.
+
+**Odd-n effect.** For the 7 cores `344 366 4044 4403 4404 4405 4605`, pairing by
+a reflection holds at every even n from 12 to 18 and fails at 13, 15, 17, where
+the folded offsets are equal-size singleton orbits. E-061.
+
+**Orbit-plus-mirror class.** The partition of a core's offsets in which two orbits are joined when one holds the mirror of an offset of the other. Compared with the Coxeter-key partition over the `--max-word 4` catalogue in E-066: it refines the key everywhere tested, and equals it in all but the parity-merged cores.
+
+**Drift chain.** For the family `33x`, the double mutation sends `33x@o` to `33(x-1)@(o+1)`; the label `c = x + o` is constant along the chain `S_c`, and the self-dual seed `333` identifies `c` with `n - c` (E-067).
+
+**Staircase (of double mutations).** The shortest move sequence `3a@o -> 3a@(o+2)` found in round 013 (E-082): add a two-arrow spectator, one rule or `[2,2]` double move, then double mutations `[t,t]` for t = a-1 down to 3, a - 1 moves in all (a = 5..12).
+
+**Class label `J` (of an orbit).** For a closed orbit, the set of offsets `o'` of the self-dual word `333` placed in it, which come in pairs `{j, n-6-j}`. At n = 12..17 the `444` orbit has `J = {0, n-6}` and the small `235/255/455` orbit has `J = {1, n-7}`; the class of `3x` is `x - 4`. A name for a table over words (E-090), not an invariant.
+
+**Lemma R.** The double mutation at the middle relation of four consecutive relation starts of lengths `a, b, b, d` (3 <= a <= b, d >= b) gives `(a-1, b, d+1)`, and `(a,b,b) -> (a-1,b)` with no fourth: `444 -> 34`, `3334 -> 35`. Checked against the rewrite engine over a bounded range (E-090), not proved.
+
+**Split word** (relative to an orbit `S`). A word, read as a core, whose placements lie partly in the row set `S` and partly outside it (E-093: among 4-letter words with a 4 and at least 4 placements, 6..18 words at n = 12..17 are split across the `444` orbit, each with exactly one placement in it). A *merged* word has all placements in one orbit, so it is never split.
+
+**Long-sided square (rejecting parent).** The shape found at every rejecting parent of the guarded walks at n = 5..7 (E-099): the mutated vertex v has one outgoing arrow v -> e and there is a relation between two paths from one vertex ending x, v, e (distinct x). The strict A5 square (arrows a>b, a>c, b>v, c>v, v>e) is only 767 of 1 123 at n = 6; "A5-shaped" in E-086 and E-097 reads as this shape.
+
+**Cycle member** (informally "cord member" in E-089, E-094, E-101 and the scripts; not a quipu cord). A reached algebra with at least n arrows and no parallel arrows, so its quiver has an undirected cycle; every one found carries a sum (commutativity) relation. See E-103.
+
+**D' reject** (E-107). A gate-admitted rejecting step at a vertex v with two outgoing arrows where the kernel element commutes into one arrow and is killed into the other by a monomial (zero) relation ending through v; reached by guarded class-0 walks at n = 8, not at n <= 7. A description of 61 cases, not a theorem.
+
+**Half-W / loose pendants** (E-115). The two shapes of `Gamma_i` for the out-degree 2 pairs with `J_b1`, `J_b2` both nonzero and `J = 0`: half-W is two edges with `p1 b1 = p2 b1 != 0` where `b2` kills only one of the two paths; loose pendants are two edges joined only through ground. Neither has a circuit.
+
+**Circuit graph `Gamma_i`** (E-112). For a source vertex i and a mutation vertex v: vertices are the nonzero classes of `e_i A e_{t b}` (one copy per out-arrow b of v), one edge per class of `e_i A e_v` joining its products with the out-arrows, a zero product being an edge to a "ground" vertex. For monomial and two-term relations, `ker g_i != 0` iff it has a circuit (balanced, if scalars differ from 1); rule W is its length-2 ground-path case.
+
+**Free-end strip** (E-114). Deleting a vertex of the run of K free vertices at one end of an LNA (left of every relation or right of every relation); for K >= 3 the class of the image at length n - 1 depends only on the class of the source at n = 8, 9, 10.

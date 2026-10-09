@@ -1,0 +1,38 @@
+# Workshop configuration. Read by the chair at the start of every round.
+# STEERING.md overrides anything here for the rounds it names.
+
+# Personas that may be called. A persona's file is personas/<id>.md.
+roster:
+  - experimentalist
+  - theorist
+  - skeptic
+  - scholar
+  - toolsmith
+  - maverick
+
+# How many personas do new work in an ordinary round (2-4).
+researchers_per_round: 3
+
+# Referees per submission. Never the author; the skeptic is preferred when free.
+reviewers_per_submission: 1
+
+# Every Nth round is a conference (position statements + proposed agenda).
+conference_every: 4
+
+# Models for the subagents (the Agent tool's `model`: sonnet, opus, haiku).
+# The chair is whatever model runs the round session itself.
+models:
+  researcher: sonnet
+  referee: sonnet
+  conference: haiku
+
+# Limits every subagent is told to keep.
+limits:
+  max_command_minutes: 10       # any single shell command
+  max_submission_lines: 120     # a submission, excluding tables of data
+  max_notebook_lines: 60        # a persona's notebook after it rewrites it
+  max_digest_entry_lines: 25    # the chair's entry in DIGEST.md
+
+# Whether the chair may write accepted results into research/ (on the
+# workshop branch; you still see them in the PR before they reach main).
+promote_to_research: true

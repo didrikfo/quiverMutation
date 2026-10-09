@@ -6,6 +6,7 @@
     python batch.py sample 14 --count 2000 --jobs 7 --budget-hours 9
     python batch.py sample 14 --summary           what the ledger says, no work
     python batch.py cores 15 --jobs 7             slide every core along a length
+    python batch.py orbits 13 --cores 45          orbits of a core's placements (E-052)
 
 Every task writes an append-only ledger under `logs/`, one line per finished
 unit, and every run resumes from it: the same command again does what is left
@@ -377,6 +378,111 @@ class CoresTask(jobs.Task):
             print("    {0:<16} core {1} at {2}, orbit {3} closed".format(
                 result['name'], result['core'], result['offset'],
                 result.get('orbit')), file = out)
+
+
+def orbitCensus(length, word, limit):
+    """The reduced-walk orbits of a core's placements at one length (E-052, T1).
+
+    Every offset with a row is a start; each orbit is walked to closure or
+    `limit`.  For each orbit: `held`, the offsets whose reduced row lies in it,
+    and `mirrors`, the offsets whose *mirror* row does (the loose reading of
+    H-021's mirror; a row whose orbit holds it and a different offset's mirror
+    is the strict one).  `None` where the core has no placement at this length.
+    The orbit, not the Coxeter key, is the unit: key class is not orbit (E-060).
+    `held` and `mirrors` are meaningful only for orbits with `closed` true; a
+    capped walk leaves them partial.
+    """
+    rows = {}
+    for offset in range(length):
+        row = _rowFor(length, word, offset)
+        if row is not None:
+            rows[offset] = tuple(row)
+    if not rows:
+        return None
+    reduced = {o: fm._startOf(r, fm.REDUCED) for o, r in rows.items()}
+    mirrored = {o: fm._startOf(fm.mirrorRow(length, r), fm.REDUCED)
+                for o, r in rows.items()}
+    orbits, done = [], set()
+    for offset in sorted(rows):
+        if offset in done:
+            continue
+        walk = fm.orbitReport(length, rows[offset], free = fm.REDUCED, limit = limit)
+        held = sorted(o for o in rows if reduced[o] in walk.rows)
+        done.update(held)
+        orbits.append({
+            'held': held,
+            'mirrors': sorted(o for o in rows if mirrored[o] in walk.rows),
+            'size': len(walk.rows),
+            'closed': walk.closed,
+        })
+    return {'offsets': sorted(rows), 'orbits': orbits}
+
+
+class OrbitsTask(jobs.Task):
+    """Orbits of a core's placements under the reduced walk, one core a unit.
+
+    E-052's report: at length `n`, which offsets of a core lie in one orbit of
+    the reduced free walk, how big the orbits are, and which offsets' mirrors
+    each holds.  Unit = a core word; the ledger is keyed by word, so a run
+    resumes core by core.  Words with a relation of two arrows are not in the
+    catalogue (the reduced walk treats them as their stripped form).  A pairing
+    summary is printed by `--summary`: `pairs` are two-offset orbits and their
+    sums `a + b` (a reflection `o <-> s - o` gives one sum).
+
+    A Coxeter key is a cheap invariant of a placement but *not* the orbit
+    (E-060: at n = 16 the offsets {1,2} of 4056 share a key and are two
+    mirror-image orbits), so nothing here skips a walk on the key alone.
+    """
+
+    name = 'orbits'
+    help = "orbits of each core's placements under the reduced walk, with mirrors"
+
+    def addArguments(self, parser):
+        parser.add_argument("length", type = int)
+        parser.add_argument("--max-word", type = int, default = 4, dest = "maxWord")
+        parser.add_argument("--max-arrows", type = int, default = 6, dest = "maxArrows")
+        parser.add_argument("--orbit-limit", type = int, default = 1500000,
+                            dest = "orbitLimit",
+                            help = "rows per orbit before it is called capped "
+                                   "(default 1500000, the round 002 census's)")
+        parser.add_argument("--cores", default = "",
+                            help = "only these core words, comma separated")
+
+    def ledgerPath(self, args):
+        return "logs/orbits-n{0}-w{1}a{2}-o{3}.jsonl".format(
+            args.length, args.maxWord, args.maxArrows, args.orbitLimit)
+
+    def units(self, args):
+        words = _singleCores(args.maxWord, args.maxArrows, False)
+        wanted = [w.strip() for w in args.cores.split(",") if w.strip()]
+        if wanted:
+            missing = [w for w in wanted if w not in words]
+            if missing:
+                raise ValueError("not in this catalogue: " + ", ".join(missing))
+            words = [w for w in words if w in set(wanted)]
+        return words
+
+    def run(self, unit, args):
+        record = orbitCensus(args.length, unit, args.orbitLimit)
+        return record if record is not None else {'offsets': [], 'orbits': []}
+
+    def summarise(self, records, args, out = sys.stdout):
+        placed = [r for r in records if r['result']['orbits']]
+        print("n = {0}: {1} cores placed, {2} without a placement".format(
+            args.length, len(placed), len(records) - len(placed)), file = out)
+        capped = [r['unit'] for r in placed
+                  if not all(o['closed'] for o in r['result']['orbits'])]
+        print("  capped orbits in: {0}".format(", ".join(capped) or "none"), file = out)
+        for r in sorted(placed, key = lambda r: _coreSortKey(r['unit'])):
+            orbits = r['result']['orbits']
+            pairs = [o['held'] for o in orbits if len(o['held']) == 2]
+            sums = sorted({sum(p) for p in pairs})
+            own = all(o['mirrors'] == o['held'] for o in orbits)
+            print("  {0:<8} {1}  pairs {2} sums {3}  mirrors {4}".format(
+                r['unit'],
+                " ".join("{%s}%d%s" % (",".join(map(str, o['held'])), o['size'],
+                                        "" if o['closed'] else "!") for o in orbits),
+                len(pairs), sums, "own" if own else "cross"), file = out)
 
 
 WALKS = ("shared", "reduced", "plain")
@@ -1067,7 +1173,7 @@ class AtlasTask(jobs.Task):
             args.length, args.depth, args.sample, args.seed), file = out)
 
 
-TASKS = {task.name: task for task in [SampleTask(), CoresTask(), AtlasTask()]}
+TASKS = {task.name: task for task in [SampleTask(), CoresTask(), OrbitsTask(), AtlasTask()]}
 
 
 #: The long jobs that keep their own front door, with the command that runs

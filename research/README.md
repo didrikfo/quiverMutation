@@ -20,6 +20,7 @@ When an entry coins a word, add it there.
 | [`RETRACTIONS.md`](RETRACTIONS.md) | things believed and then found false, kept with what corrected them |
 | [`EXPERIMENTS.md`](EXPERIMENTS.md) | runs made, with parameters and outcome, so they are not repeated |
 | [`literature/`](literature/) | one summary per paper: results, lemmas, caveats, with the arXiv reference |
+| [`syntheses/`](syntheses/) | periodic summaries of what a stretch of work found, written at checkpoints; they point to entries and add none |
 
 ## Conventions
 
