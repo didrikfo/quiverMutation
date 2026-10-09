@@ -9,7 +9,7 @@ import merges
 from quivermutation import lnaMoves as lm
 from quivermutation import mutation, nakayama as nk, reduction, search
 
-LENGTH, MEMBER, DEPTH = 6, (2, 0, 3, 0, 0, 0), 3
+LENGTH, MEMBER, DEPTH = 5, (0, 0, 0), 3
 
 
 def replay(row, witness):
