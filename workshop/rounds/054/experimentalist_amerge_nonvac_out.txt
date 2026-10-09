@@ -1,0 +1,14 @@
+start gate-admitted [1, 2, 3, 4, 5] of which J != 0: []
+  after 1 gate-admitted [2, 3, 4, 5] of which J != 0: []
+  after 2 gate-admitted [1, 2, 3, 4, 5] of which J != 0: []
+  after 3 gate-admitted [1, 2, 4, 5] of which J != 0: []
+  after 4 gate-admitted [1, 2, 3, 4, 5] of which J != 0: []
+  after 5 gate-admitted [1, 2, 3, 4] of which J != 0: []
+start-dual gate-admitted [2, 4, 6, 9, 10] of which J != 0: []
+  after -2 gate-admitted [4, 6, 9, 10] of which J != 0: []
+  after -4 gate-admitted [2, 6, 9, 10] of which J != 0: []
+  after -6 gate-admitted [2, 4, 9, 10] of which J != 0: []
+  after -9 gate-admitted [2, 4, 6, 7, 9, 10] of which J != 0: []
+  after -10 gate-admitted [2, 4, 6, 8, 9, 10] of which J != 0: []
+gate-admitted edges examined 56 with J != 0: 0
+checkpoint members 122 gate-admitted (member, orientation, vertex) triples 1146 with J != 0: 0 first example None
