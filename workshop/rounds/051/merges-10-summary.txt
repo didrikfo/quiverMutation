@@ -1,0 +1,29 @@
+
+A_10: 7 polynomial groups left over, 12 orbits
+  (lambda - 1)**2*(lambda + 1)**2*(lambda**2 - lambda + 1)*(lambda**2 + lambda + 1)**2
+    1 orbit(s) -> at most 1 class(es)
+          00334400   123 members,    0 certified not p.h., merged into 00334400, every member searched to depth 0
+  (lambda - 1)**2*(lambda + 1)**2*(lambda**2 + 1)*(lambda**4 + lambda**3 + lambda**2 + lambda + 1)
+    2 orbit(s) -> at most 2 class(es)
+          03345000    69 members,    0 certified not p.h., merged into 03345000, every member searched to depth 4
+          33460000    42 members,    0 certified not p.h., merged into 33460000, every member searched to depth 3
+  (lambda - 1)**2*(lambda + 1)**2*(lambda**4 + 1)*(lambda**2 + lambda + 1)
+    1 orbit(s) -> at most 1 class(es)
+          04500030    10 members,    6 certified not p.h., merged into 04500030, every member searched to depth 0
+  (lambda - 1)**2*(lambda + 1)**2*(lambda**2 + lambda + 1)*(lambda**4 - lambda**2 + 1)
+    4 orbit(s) -> at most 4 class(es)
+          03033030     4 members,    4 certified not p.h., merged into 03033030, every member searched to depth 4
+          30330400     2 members,    2 certified not p.h., merged into 30330400, every member searched to depth 4
+          30340030     2 members,    2 certified not p.h., merged into 30340030, every member searched to depth 4
+          30440030     1 members,    1 certified not p.h., merged into 30440030, every member searched to depth 4
+  (lambda - 1)**2*(lambda + 1)**4*(lambda**4 - lambda**3 + lambda**2 - lambda + 1)
+    1 orbit(s) -> at most 1 class(es)
+          30033030     6 members,    6 certified not p.h., merged into 30033030, every member searched to depth 0
+  (lambda + 1)**2*(lambda**2 - lambda + 1)*(lambda**6 - lambda**3 + 1)
+    2 orbit(s) -> at most 2 class(es)
+          34504030     1 members,    0 certified not p.h., merged into 34504030, every member searched to depth 4
+          50505000     1 members,    0 certified not p.h., merged into 50505000, every member searched to depth 4
+  (lambda**4 - lambda**2 + 1)*(lambda**6 + lambda**5 + lambda**4 + lambda**3 + lambda**2 + lambda + 1)
+    1 orbit(s) -> at most 1 class(es)
+          45050400     1 members,    0 certified not p.h., merged into 45050400, every member searched to depth 0
+  at most 12 non-quipu classes (each polynomial group is at least one)
