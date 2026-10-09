@@ -23,7 +23,7 @@ for i, r in enumerate(recs):
             if not ok: out.append((name, 'gate-closed')); continue
             Y = reduction.reducePathAlgebra(mutation.quiverMutationAtVertex(X, v))
             kY = fingerprint.canonicalKey(Y)
-            out.append((name, 'gate-open', 'J', perI(X, v), 'is_parent', kY == kA, 'is_opp_parent', kY == kAo))
+            out.append((name, 'gate-open', 'J', perI(X, v), 'J_is_zero', not perI(X, v), 'is_parent', kY == kA, 'is_opp_parent', kY == kAo))
         except Exception as e:
             out.append((name, 'error', repr(e)[:40]))
     print(i, 'depth', r['depth'], 'v', v, out, flush=True)
