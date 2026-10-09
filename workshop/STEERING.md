@@ -193,3 +193,4 @@ A short negative result ("dead end, because ...") is a welcome outcome.
 - round 052, question 1 (agenda): approve the round-052 agenda unchanged -- decided by the chair of round 053; no answer from the human (applied, round 053)
 - round 052, question 2 (PDFs of arXiv:1009.3370, 2509.12983): wanted if the human can supply them; scholar tries the standing arXiv permission again -- decided by the chair of round 053; no answer from the human (applied, round 053)
 - round 052, question 3 (`canonicalKey` DEFAULT_CAP 5040): not yet; do it in a toolsmith round with the docstring rewords and the E-158 wrapper test -- decided by the chair of round 053; no answer from the human (applied, round 053)
+- round 053, question 1 (PDFs of arXiv:1009.3370, 2509.12983): wanted if the human can supply them; literature stays parked -- decided by the chair of round 054; no answer from the human (applied, round 054)
