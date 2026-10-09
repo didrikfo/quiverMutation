@@ -7,6 +7,17 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 054 -- 2026-10-09 -- ordinary
+Theorist, experimentalist (T10) and maverick (T3/T8, breadth slot); referees skeptic, toolsmith, scholar. Details in `rounds/054/`.
+- **Theorist (E-166, accepted):** generation of K^b(proj A) by the one-step T is a two-line cone argument at any loopless vertex (already in the rickard-morita note); loop-free on all 370 edges of the 44 printed E-155/E-158/E-161 paths. The "generation assumed" caveat is closed there; J != 0 steps are silting but not tilting (Hom(T,T[-1]) != 0 on 16 of 16).
+- **Experimentalist (E-167, accepted narrowed):** the n = 10 group-A merge 05040330 -> 33460000 has 5 explicit 7-step paths, 35/35 edges gate, J = 0, key-keeping; none is labelled-equal, so the labelled join missed them. E-033 §4 had recorded the length. The J test is not shown able to fail (0 of 1202 gate-admitted edges).
+- **Maverick (E-168, major revision):** HH is k on all 6916 LNAs n <= 10, but that is a known theorem (2312.14699), the control had no relations, and "power control empty" holds only under a strict definition. Revision due round 055.
+- Consequences: J = 0 premise now rests on End(T) = next algebra (13 edges at quiver level) and the 8 parallel-arrow steps; both n = 10 merges replayed J = 0. HH still listed open in HYPOTHESES/FINDINGS (to update).
+- Your supplied LaTeX of 1009.3370 and 2509.12983 arrived mid-round; the scholar's citation check is agenda item 0 for round 055.
+- Questions for the human: none.
+
+---
+
 ## Round 053 -- 2026-10-09 -- ordinary
 Chair settled round 052's questions (agenda approved; PDFs wanted; `canonicalKey` cap not yet). Skeptic, toolsmith, scholar on T10; all three minor revision, responses done.
 - **Skeptic (E-164, accepted):** the Hom(T,T[±1]) test accepts all 33 edges of the 3 E-158 paths (Cartan level, J = 0 premise); 25 of 25 failing children = 23 by an edge-tested path + 2 (c1 13, 15) by key equality.

@@ -6,6 +6,33 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-166 — Generation of K^b(proj A) by the one-step complex T holds at every step whose mutated vertex has no loop (two-line cone argument); loop-freedom verified on the 370 edges of the 44 printed E-155/E-158/E-161 paths (n = 7, classes 1, 2); Hom(T,T[1]) = 0 on 2145 steps, Hom(T,T[-1]) != 0 on all 16 failing J != 0 steps (dim 1 x14, 2 x2)
+*2026-10-09* · **`.venv/bin/python workshop/rounds/054/theorist_gen.py lna 7`**, `... theorist_gen.py path13`, `timeout 10m .venv/bin/python workshop/rounds/054/theorist_loops.py /tmp/tsm/c1.pkl 1` (and `c2.pkl 2`; pickles from `workshop/rounds/050/toolsmith_collect.py`, 519 s / 392 s) · *workshop round 054, theorist, refereed by skeptic*
+
+Scope: the proof is for any finite-dimensional A and any vertex v without a loop, one step at a time. Checks: all LNAs and duals n = 5, 6, 7 (2116 steps at every vertex with an out-arrow, NOT gate-admitted), the 13 E-161 edges, the 16 failing J != 0 steps (n = 7, class 1); loop/cycle check on the 44 paths of E-155, E-158, E-161 (class 1: 26 paths, 214 edges; class 2: 18 paths, 156 edges): 0 loops, 0 oriented cycles, 0 irreproducible steps. For a step outside these sets, "no loop at v" is a hypothesis.
+
+Proof: no loop gives P_h a summand of T for every arrow v -> h, so M = (+)P_h is in add(T); the triangle P_v -> M -> T_v puts P_v in thick(T); the other P_i are summands. Empty M is covered (T_v = P_v[1]). Finite global dimension and Aihara-Iyama are not used. The elementary argument is already in `research/literature/rickard-morita-theory-derived-categories.md` (~line 78); what is new is the explicit hypothesis and the check on the walk data. The H1-H3 columns of the script are premises of the proof, not tests; the content is in the Hom columns. Hom(T,T[1]) = 0 is empirical.
+
+**Consequences.** The "generation assumed" caveat of E-159, E-164, E-165 is closed for the 370 printed edges; the J = 0 premise reduces to Hom(T,T[-1]) = 0 (the failing steps are silting but not tilting, consistent with E-128). It does not give End(T) = next algebra (E-165 quiver level on 13 edges only; Cartan level elsewhere). Review: skeptic, minor revision, required items done.
+
+---
+
+## E-167 — At n = 10, the group-A merge 05040330 -> 33460000 has 5 explicit 7-step tilting-only paths (4 + 3 relabelling-aware meet in the middle), 35 of 35 edges gate-admitted, J = 0 and key-keeping; none of the 5 meetings is labelled-equal
+*2026-10-09* · **`timeout 10m .venv/bin/python workshop/rounds/054/experimentalist_amerge.py fwd 4 F4.pkl`**, `... amerge.py back 3 B3.pkl`, `... experimentalist_amerge_join.py F4.pkl B3.pkl 5` (output `experimentalist_amerge_out.txt`; non-vacuity `experimentalist_amerge_nonvac.py`) · *workshop round 054, experimentalist, refereed by toolsmith*
+
+Scope: n = 10, one start (LNA [0,5,0,4,0,3,3,0]), the 42 members of orbit 33460000 in the E-162 checkpoint, joins of total length 7 only (forward depth 4, backward depth 3); parallel-arrow quivers skipped. Ends are isomorphic (structure graph, VF2) to the target member. E-033 section 4 already recorded a 7-step link (9 paths, 5 checked); new are the explicit signed paths, the `tiltingPlus` replay, and the relabelling-aware join. The labelled `quiverKey` test fails on these 5 meetings (so the labelled join of E-162 could not find them; nothing is claimed about `meetingPoints` in general). J = 0 is consistent with the gate; 1202 gate-admitted n = 10 edges were examined and none has J != 0, so this test is not shown able to fail here. A labelled-key comparison of each end with its member printed True in the author's run while the referee found differences: unreconciled, not relied on. Generation is now proved per step (E-166) at loop-free steps.
+
+**Consequences.** The group-A merge needs no J != 0 step on these paths; with F-037 (E-162) both n = 10 merges are replayed J = 0. Thread T10 (d) loses its "group-A witness" item.
+
+---
+
+## E-168 — Hochschild cohomology of all 6916 LNAs at n = 3..10 is k in degree 0 (recomputation of a theorem; confirms 2312.14699 and 0805.1018 Prop 5.1); at n <= 9 every certified-inequivalent LNA pair sharing a key is already separated by the F-047 profile
+*2026-10-09* · **`.venv/bin/python workshop/rounds/054/maverick_hhsweep.py 10`**, `maverick_pq.py 6 7 8 9`, `maverick_pq.py 10` (outputs in `workshop/rounds/054/`) · *workshop round 054, maverick, major revision (not accepted; recorded as a run)*
+
+Scope: whole-LNA key groups, not the `--max-word 4` core catalogue. The HH half is not new (2312.14699 literature note, 0805.1018 Prop 5.1, idea 22 dead); the code's positive control uses poset incidence algebras, which have no relations, so it does not test relation handling. The pair half holds only under the author's definition (certified-inequivalent pair with equal key and equal F-047 profile); the denominators (40 key groups, 16 with >= 2 classes, 13 unresolved at n = 10) are not reconciled with F-047's "25 cospectral groups". Nothing promoted to a finding.
+
+---
+
 ## E-164 — At n = 7, under the J = 0 premise, all 33 edges of the three E-158 paths (c2 child 6, c1 child 5, c1 child 12) pass the Hom(T,T[±1]) = 0 test with Cartan(End T) equal to the child's Cartan matrix; 23 of the 25 failing children have an edge-tested path, c1 children 13 and 15 only by key equality
 *2026-10-09* · **`workshop/rounds/053/skeptic_replay3.py`** (commands in `workshop/rounds/053/skeptic.md`; per-edge output `skeptic_replay3_*.txt`, `skeptic_key13_out.txt`, `skeptic_key15_out.txt`) · *workshop round 053, skeptic, refereed by theorist*
 

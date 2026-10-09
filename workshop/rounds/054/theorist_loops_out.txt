@@ -1,0 +1,4 @@
+SUMMARY cls 1 {'paths': 26, 'edges': 214, 'loop_at_v': 0, 'loops_any': 0, 'cyclic': 0, 'noout': 0, 'nokind': 0, 'end_bad': 0, 'nostep': 0}
+BAD []
+SUMMARY cls 2 {'paths': 18, 'edges': 156, 'loop_at_v': 0, 'loops_any': 0, 'cyclic': 0, 'noout': 0, 'nokind': 0, 'end_bad': 0, 'nostep': 0}
+BAD []
