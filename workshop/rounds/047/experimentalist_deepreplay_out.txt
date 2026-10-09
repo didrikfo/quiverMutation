@@ -1,0 +1,31 @@
+RESUME from /tmp/e47/c2.ckpt depth 8 pos 5089 expanded 14825 slices 1
+depth 8 expanded 24316 next 38907 nonmono parents 18362 775s
+n 8 class 2 key (1, 1, -1, -4, -5, -4, -1, 1, 1) starts 18 distinct algebras 63221 closed False
+('EDGE', 'tilt', 'merge', 'parentClean') 41424
+('EDGE', 'tilt', 'tree', 'parentClean') 63205
+('guard', 'tilt') 104629
+('noguard', 'NOTtilt') 2
+REJECTIONS (gate-admitted, tiltingPlus False): 2
+(7, [[[2, 5, 3]], [[3, 1, 4], [3, 8, 4]], [[5, 3, 1], [5, 6, 1]], [[5, 3, 8], [5, 6, 8]], [[5, 6, 1]], [[6, 1, 4, 7], [6, 8, 4, 7]]], 4, False, (6, 1, 1, 4, 3, 1, 7, 4))
+(7, [[[3, 1, 5, 2], [3, 8, 5, 2]], [[4, 3, 1], [4, 6, 1]], [[4, 3, 8]], [[4, 3, 8], [4, 6, 8]], [[6, 1, 5], [6, 8, 5]], [[7, 4, 6]]], 5, False, (17, 8, 5, 6, 8, 8, 2, 5))
+FAILING GUARDED EDGES (depth, vertex, isMergeEdge, parentTainted, path):
+GATE+TILT BUT KEY MOVES: 0
+exit 2
+depth 1 expanded 18 next 78 nonmono parents 0 0s
+depth 2 expanded 96 next 194 nonmono parents 12 2s
+depth 3 expanded 290 next 444 nonmono parents 86 7s
+depth 4 expanded 734 next 1030 nonmono parents 314 19s
+depth 5 expanded 1764 next 2344 nonmono parents 896 45s
+depth 6 expanded 4108 next 5628 nonmono parents 2422 111s
+depth 7 expanded 9736 next 14580 nonmono parents 6620 279s
+CHECKPOINT /tmp/e47/c2.ckpt depth 8 pos 5089 of 14580 expanded 14825
+n 8 class 2 key (1, 1, -1, -4, -5, -4, -1, 1, 1) starts 18 distinct algebras 37429 closed False
+('EDGE', 'tilt', 'merge', 'parentClean') 24306
+('EDGE', 'tilt', 'tree', 'parentClean') 37412
+('guard', 'tilt') 61718
+('noguard', 'NOTtilt') 1
+REJECTIONS (gate-admitted, tiltingPlus False): 1
+(7, [[[2, 5, 3]], [[3, 1, 4], [3, 8, 4]], [[5, 3, 1], [5, 6, 1]], [[5, 3, 8], [5, 6, 8]], [[5, 6, 1]], [[6, 1, 4, 7], [6, 8, 4, 7]]], 4, False, (6, 1, 1, 4, 3, 1, 7, 4))
+FAILING GUARDED EDGES (depth, vertex, isMergeEdge, parentTainted, path):
+GATE+TILT BUT KEY MOVES: 0
+exit 2

@@ -25,6 +25,7 @@ Three things are worth pinning, and they are different things:
 import collections
 import contextlib
 import io
+from fractions import Fraction
 
 import pytest
 import sympy
@@ -329,3 +330,89 @@ def test_step_seven_finds_the_relation_the_old_implementation_missed():
         others = [r for r in relations
                   if ap.projectToPathSets([r]) != [[[2, 5, 6, 7]]]]
         assert not ap.isInIdeal(quiver, others, theOne), name
+
+
+def test_reduce_against_pivots_is_a_normal_form():
+    """Congruent combinations have the same residue (research E-085).
+
+    The old reduction stopped at the first leading term that is not a pivot, so
+    `a` and `b` below, congruent through the commutative square, kept different
+    residues and step 7 of the mutation solved its kernel on them.
+    """
+    # abstract: a pivot column in the tail of a combination whose head is not a pivot
+    pivots = {2: {2: 1, 3: -1}}
+    assert ap.reduceAgainstPivots({0: 1, 2: 1}, pivots) == {0: 1, 3: 1}
+    # a real ideal: 1 -> 2 -> 4 = 1 -> 3 -> 4 followed by 4 -> 5
+    quiver = path_algebra([(1, 2), (1, 3), (2, 4), (3, 4), (4, 5)]).quiver
+    lift = lambda path: ap.liftPath(quiver, path)
+    square = ap.combination([(lift([1, 2, 4]), 1), (lift([1, 3, 4]), -1)])
+    pivotRows = ap.idealBasis(quiver, [square], 1, 5)
+    a = ap.combination([(lift([1, 2, 4, 5]), 1)])
+    b = ap.combination([(lift([1, 3, 4, 5]), 1)])
+    assert ap.isInIdeal(quiver, [square], ap.add(a, ap.negate(b)))
+    assert ap.reduceAgainstPivots(a, pivotRows) == ap.reduceAgainstPivots(b, pivotRows)
+    residue = ap.reduceAgainstPivots(a, pivotRows)
+    assert not set(residue) & set(pivotRows)
+    assert ap.reduceAgainstPivots(residue, pivotRows) == residue
+
+
+# -- the Cartan congruence as an opt-in check on the rewrite (round 022) ----
+
+# Parent 1 of the ten n = 8 class 2 steps of E-084/E-085 (key moved under the old
+# `reduceAgainstPivots`): a = 1>2>7 and b = -1>5>6>7 are congruent modulo a
+# relation that contains 1>5>7'.  Mutation at 3.
+E085_ARROWS = [(1, 2, 0), (1, 5, 0), (2, 7, 0), (3, 1, 0), (4, 5, 0), (5, 6, 0),
+               (5, 7, 1), (6, 7, 0), (7, 8, 0)]
+E085_RELATIONS = [
+    {((1, 2, 0), (2, 7, 0)): -1, ((1, 5, 0), (5, 6, 0), (6, 7, 0)): -1, ((1, 5, 0), (5, 7, 1)): 1},
+    {((1, 5, 0), (5, 7, 1)): 1},
+    {((3, 1, 0), (1, 2, 0)): 1},
+    {((3, 1, 0), (1, 5, 0), (5, 6, 0)): -1},
+    {((4, 5, 0), (5, 6, 0), (6, 7, 0)): -1, ((4, 5, 0), (5, 7, 1)): 1},
+]
+
+
+def _e085_parent():
+    quiver = nx.MultiDiGraph()
+    quiver.add_nodes_from(range(1, 9))
+    for tail, head, key in E085_ARROWS:
+        quiver.add_edge(tail, head, key=key)
+    return quiver, [ap.combination(list(r.items())) for r in E085_RELATIONS]
+
+
+def test_cartan_check_passes_on_the_e085_parent_and_catches_the_old_reduction(monkeypatch):
+    """With the normal form the rewrite is congruent; with the head-only reduction it is not."""
+    quiver, relations = _e085_parent()
+    assert pr.cartanDiscrepancy(quiver, relations, 3,
+                                *pr.mutateAtVertex(quiver, relations, 3)) == [[0] * 8] * 8
+    pr.mutateAtVertex(quiver, relations, 3, checkCartan=True)
+
+    def headOnly(comb, pivots):
+        row = {k: Fraction(v) for k, v in comb.items()}
+        while row:
+            head = min(row)
+            if head not in pivots:
+                break
+            factor, pivotRow = row[head], pivots[head]
+            row = {k: row.get(k, Fraction(0)) - factor * pivotRow.get(k, Fraction(0))
+                   for k in set(row) | set(pivotRow)}
+            row = {k: v for k, v in row.items() if v != 0}
+        return row
+    monkeypatch.setattr(ap, 'reduceAgainstPivots', headOnly)
+    with pytest.raises(pr.CartanCongruenceError):
+        pr.mutateAtVertex(quiver, relations, 3, checkCartan=True)
+    pr.mutateAtVertex(quiver, relations, 3)      # off by default: no error
+
+
+def test_cartan_check_environment_switch_and_non_tilting_step(monkeypatch):
+    """QM_CHECK_CARTAN=1 turns the check on; a step that is not tilting (E-078) fails it (E-093)."""
+    algebra = path_algebra([(1, 2), (1, 3), (2, 4), (3, 4), (4, 5)],
+                           rels=[[(1, 2, 4, 5), (1, 3, 4, 5)]])
+    relations = pr.relationsFrom(algebra)
+    monkeypatch.delenv('QM_CHECK_CARTAN', raising=False)
+    pr.mutateAtVertex(algebra.quiver, relations, 4)
+    monkeypatch.setenv('QM_CHECK_CARTAN', '1')
+    with pytest.raises(pr.CartanCongruenceError):
+        pr.mutateAtVertex(algebra.quiver, relations, 4)
+    monkeypatch.setenv('QM_CHECK_CARTAN', '0')
+    pr.mutateAtVertex(algebra.quiver, relations, 4)

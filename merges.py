@@ -138,13 +138,15 @@ def searchFrom(args):
     walks out of a member and out of its dual are different searches, and the
     workers are separate processes in any case.
     """
-    length, relLengths, depth, deeperSpec, dedupe = args
+    length, relLengths, depth, deeperSpec, dedupe = args[:5]
+    witness = len(args) > 5 and args[5]
     started = time.time()
     relationString = nk.LinearNakayamaAlgebra(length, list(relLengths)).relationString()
     probe = search.deeperWhenFromSpec(deeperSpec) if deeperSpec else None
     reached = set()
+    witnesses = {} if witness else None
     walk = {'nodes': 0, 'distinct': 0, 'skipped': 0}
-    for startPoint in search.memberAndItsDual(length, relationString):
+    for startIndex, startPoint in enumerate(search.memberAndItsDual(length, relationString)):
         collected = []
         visited = fingerprint.Visited() if dedupe else None
         search.mutationSearchDepthFirst(startPoint, depth, [], 'merges',
@@ -154,13 +156,20 @@ def searchFrom(args):
             summary = visited.summarise()
             for field in walk:
                 walk[field] += summary[field]
-        for pathAlg, _path, _numbering in collected:
+        for pathAlg, path, _numbering in collected:
             row = lm.asRelLengths(lm._copy(pathAlg), length)
             if row is not None:
                 reached.add(tuple(row))
+                if witnesses is not None:
+                    # Shortest mutation sequence found to this row.  `start` is 0
+                    # when it begins at the member, 1 at its relation dual
+                    # (`search.memberAndItsDual`); vertex labels are the walk's own.
+                    old = witnesses.get(tuple(row))
+                    if old is None or len(path) < len(old['path']):
+                        witnesses[tuple(row)] = {'start': startIndex, 'path': list(path)}
     return (tuple(relLengths), depth, sorted(reached), time.time() - started,
             probe.summarise() if probe is not None else None,
-            walk if dedupe else None)
+            walk if dedupe else None, witnesses)
 
 
 class Unions:
@@ -225,6 +234,10 @@ def main(argv = None):
                                "-- about 5x slower at these depths, and for "
                                "measuring what the dedup changes, not for "
                                "producing answers")
+    parser.add_argument("--witness", action = "store_true",
+                        help = "opt in: store, in each checkpoint record, the shortest "
+                               "mutation sequence found to every LNA reached in a linked "
+                               "orbit (key 'witnesses'; default records are unchanged)")
     parser.add_argument("--deeper-on", default = None, dest = "deeperOn",
                         help = "condition[:extraDepth[:budget[:limit]]] -- give the branches "
                                "that reach a quiver meeting the condition extra depth. "
@@ -301,13 +314,13 @@ def main(argv = None):
                         continue
                     inFlight[(member, depth)] = pool.apply_async(
                         searchFrom, ((length, member, depth, deeperSpec,
-                                      not args.noDedupe),))
+                                      not args.noDedupe, args.witness),))
                 done = [key for key, result in inFlight.items() if result.ready()]
                 if not done:
                     time.sleep(1)
                     continue
                 for key in done:
-                    member, depth, reached, seconds, probed, walk = inFlight.pop(key).get()
+                    member, depth, reached, seconds, probed, walk, witnesses = inFlight.pop(key).get()
                     own = orbitOf[member]
                     others = sorted({orbitOf[r] for r in reached if r in orbitOf} - {own})
                     # Three kinds of link, and the first version conflated the
@@ -323,7 +336,7 @@ def main(argv = None):
                         if other not in alarms and other not in covered:
                             unions.union(own, other)
                     searched[member] = max(searched.get(member, 0), depth)
-                    log.write(json.dumps({'length': length, 'member': list(member),
+                    record = ({'length': length, 'member': list(member),
                                           'class': lines.className(member), 'orbit': own,
                                           'depth': depth, 'lnasReached': len(reached),
                                           'deeper': deeperSpec,
@@ -337,7 +350,13 @@ def main(argv = None):
                                           # cost can be read back off the
                                           # checkpoint rather than re-measured.
                                           'walk': walk,
-                                          'at': time.strftime('%Y-%m-%d %H:%M:%S')}) + "\n")
+                                          'at': time.strftime('%Y-%m-%d %H:%M:%S')})
+                    if witnesses is not None:
+                        linked = set(others) - set(alarms) - set(covered)
+                        record['witnesses'] = {''.join(map(str, row)): w
+                                               for row, w in witnesses.items()
+                                               if orbitOf.get(row) in linked}
+                    log.write(json.dumps(record) + "\n")
                     log.flush()
                     note = ""
                     if others:

@@ -58,6 +58,7 @@ Cyclic quivers are still out of scope: step 3's cyclic case is not implemented
 (research F-002), and the LNA search stops at the first cycle.
 """
 
+import os
 from fractions import Fraction
 
 import networkx as nx
@@ -223,8 +224,42 @@ class _Arrows:
         return {tag: arrow for tag, arrow in self._arrow.items() if tag[0] == rank}
 
 
-def mutateAtVertex(quiver, relations, vertex):
+class CartanCongruenceError(AssertionError):
+    """The rewrite's Cartan matrix is not R C R^T (research E-085, E-093)."""
+
+
+def cartanDiscrepancy(quiver, relations, vertex, newQuiver, newRelations):
+    """`R C R^T - Cartan(new)` as nested lists (all zero when congruent).
+
+    `C` is the exact Cartan matrix of the parent, `R` the identity with row
+    `vertex` replaced by minus the unit vector at `vertex` plus the arrows out
+    of it (Ladkani, Prop. 2.3(c)).  Needs the same vertex set on both sides, as
+    `mutateAtVertex` gives.  A step that is not tilting is not congruent
+    (E-093), so a nonzero answer means a defective rewrite *or* a step the
+    gate should not have admitted -- it does not say which.
+    """
+    verts = sorted(quiver.nodes)
+    index = {v: i for i, v in enumerate(verts)}
+    size = len(verts)
+    parent = ap.cartanMatrix(quiver, relations, exact = True)
+    child = ap.cartanMatrix(newQuiver, newRelations, exact = True)
+    R = [[1 if i == j else 0 for j in range(size)] for i in range(size)]
+    R[index[vertex]] = [0] * size
+    R[index[vertex]][index[vertex]] = -1
+    for _tail, head, _key in ap.arrowsOutOf(quiver, vertex):
+        R[index[vertex]][index[head]] += 1
+    RC = [[sum(R[i][m] * parent[m][j] for m in range(size)) for j in range(size)]
+          for i in range(size)]
+    return [[sum(RC[i][m] * R[j][m] for m in range(size)) - child[i][j]
+             for j in range(size)] for i in range(size)]
+
+
+def mutateAtVertex(quiver, relations, vertex, checkCartan = None):
     """Steps 1 to 7 at `vertex`, returning (new quiver, new relations).
+
+    `checkCartan` (default: environment variable QM_CHECK_CARTAN set to 1)
+    raises `CartanCongruenceError` when the result's Cartan matrix is not
+    `R C R^T`; off by default because it costs a Cartan matrix of both sides.
 
     Does not reduce: like the paper, it leaves the cleanup after step 7 to the
     caller, which is `reduce` below.  Does not check admissibility either --
@@ -292,7 +327,15 @@ def mutateAtVertex(quiver, relations, vertex):
         _relationsOutOfMutatedVertex(quiver, relations, vertex, newQuiver,
                                      outArrows, outRelations, arrows))
 
-    return newQuiver, normalise(newRelations)
+    newRelations = normalise(newRelations)
+    if checkCartan is None:
+        checkCartan = os.environ.get('QM_CHECK_CARTAN', '') not in ('', '0')
+    if checkCartan:
+        difference = cartanDiscrepancy(quiver, relations, vertex, newQuiver, newRelations)
+        if any(entry for row in difference for entry in row):
+            raise CartanCongruenceError(
+                'mutation at vertex %r: R C R^T - Cartan(child) = %r' % (vertex, difference))
+    return newQuiver, newRelations
 
 
 def _carryPath(path, carried):

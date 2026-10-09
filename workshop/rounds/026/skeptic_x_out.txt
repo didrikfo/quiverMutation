@@ -1,0 +1,17 @@
+walk: algebras 7848 outdeg-2 rows 3623 200s
+CONTROL intrinsic: (J!=0, J_beta1!=0 and J_beta2!=0 (any i), same i): {(False, False, False): 3468, (False, True, False): 91, (True, True, True): 42, (False, True, True): 22}
+SHAPE (J!=0, shape orig presentation, shape shortened): {(False, False, False): 2814, (False, True, True): 767, (True, True, True): 42}
+rejecting rows 42 with a reducible relation 15 kerdim>0 persists on shortened 42 shape persists 42 monomial-ised relations (multi->fewer terms) 15
+KERNEL ELEMENT x (one per rejecting row): (terms, path lengths, coefficients, x*beta in I for all beta):
+  (2, (2, 3), ('1',), True) 4
+  (2, (2,), ('1',), True) 37
+  (2, (3,), ('1',), True) 5
+TERMS of x killed singly by each out-arrow (sorted pair; 0 = only the sum is killed): {(0, 2): 46}
+x found for 46 of 42 rows
+SAMPLE i=5 v=3 x = 1*513 + 1*573
+SAMPLE i=5 v=1 x = 1*531 + 1*571
+SAMPLE i=4 v=8 x = 1*428 + 1*468
+SAMPLE i=4 v=6 x = 1*426 + 1*486
+SAMPLE i=5 v=3 x = 1*513 + 1*573
+SAMPLE i=5 v=6 x = 1*536 + 1*576
+REDUCIBLE example: rels 7 -> 7 ; reducible steps 1

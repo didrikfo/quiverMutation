@@ -48,6 +48,9 @@ Run the test suite:
 * [`research/`](research/) — the mathematics: findings, hypotheses, retractions,
   the log of runs made, and summaries of the literature. All dated, nothing
   deleted. Read [`research/README.md`](research/README.md) before adding to it.
+* [`workshop/`](workshop/) — a multi-agent research workshop that runs unattended in
+  Claude Code on the web: researcher personas working and refereeing each other in
+  rounds, on the `workshop` branch. Read [`workshop/README.md`](workshop/README.md).
 
 ## Classifying a length
 
