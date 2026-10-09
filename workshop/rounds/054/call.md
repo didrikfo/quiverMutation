@@ -7,4 +7,6 @@ kind: ordinary
 ## Revisions due
 (none)
 ## Referees
-(filled in at step 3)
+- theorist: skeptic
+- experimentalist: toolsmith
+- maverick: scholar

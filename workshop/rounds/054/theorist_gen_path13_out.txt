@@ -1,0 +1,23 @@
+child F1 {'H1_acyclic': True, 'H2_targets_ne_v': True, 'H3_n_summands': True, 'H2b_P_h_in_addT': True, 'H4_det': -1, 'hom_p1': 0, 'hom_m1': 0}
+child F3 {'H1_acyclic': True, 'H2_targets_ne_v': True, 'H3_n_summands': True, 'H2b_P_h_in_addT': True, 'H4_det': -1, 'hom_p1': 0, 'hom_m1': 0}
+child F1 {'H1_acyclic': True, 'H2_targets_ne_v': True, 'H3_n_summands': True, 'H2b_P_h_in_addT': True, 'H4_det': -1, 'hom_p1': 0, 'hom_m1': 0}
+child F5 {'H1_acyclic': True, 'H2_targets_ne_v': True, 'H3_n_summands': True, 'H2b_P_h_in_addT': True, 'H4_det': -1, 'hom_p1': 0, 'hom_m1': 0}
+child F4 {'H1_acyclic': True, 'H2_targets_ne_v': True, 'H3_n_summands': True, 'H2b_P_h_in_addT': True, 'H4_det': -1, 'hom_p1': 0, 'hom_m1': 0}
+child R7 {'H1_acyclic': True, 'H2_targets_ne_v': True, 'H3_n_summands': True, 'H2b_P_h_in_addT': True, 'H4_det': -1, 'hom_p1': 0, 'hom_m1': 0}
+child R1 {'H1_acyclic': True, 'H2_targets_ne_v': True, 'H3_n_summands': True, 'H2b_P_h_in_addT': True, 'H4_det': -1, 'hom_p1': 0, 'hom_m1': 0}
+lna9 F7 {'H1_acyclic': True, 'H2_targets_ne_v': True, 'H3_n_summands': True, 'H2b_P_h_in_addT': True, 'H4_det': -1, 'hom_p1': 0, 'hom_m1': 0}
+lna9 R2 {'H1_acyclic': True, 'H2_targets_ne_v': True, 'H3_n_summands': True, 'H2b_P_h_in_addT': True, 'H4_det': -1, 'hom_p1': 0, 'hom_m1': 0}
+lna9 R1 {'H1_acyclic': True, 'H2_targets_ne_v': True, 'H3_n_summands': True, 'H2b_P_h_in_addT': True, 'H4_det': -1, 'hom_p1': 0, 'hom_m1': 0}
+lna9 F2 {'H1_acyclic': True, 'H2_targets_ne_v': True, 'H3_n_summands': True, 'H2b_P_h_in_addT': True, 'H4_det': -1, 'hom_p1': 0, 'hom_m1': 0}
+lna9 F7 {'H1_acyclic': True, 'H2_targets_ne_v': True, 'H3_n_summands': True, 'H2b_P_h_in_addT': True, 'H4_det': -1, 'hom_p1': 0, 'hom_m1': 0}
+lna9 R3 {'H1_acyclic': True, 'H2_targets_ne_v': True, 'H3_n_summands': True, 'H2b_P_h_in_addT': True, 'H4_det': -1, 'hom_p1': 0, 'hom_m1': 0}
+steps 13 {'H1_acyclic': 13, 'H2_targets_ne_v': 13, 'H2b_P_h_in_addT': 13, 'H3_n_summands': 13} det=+-1: 13
+(hom_p1==0, hom_m1==0) counts: Counter({(True, True): 13})
+FAILING steps (16):
+steps 16 {'H1_acyclic': 16, 'H2_targets_ne_v': 16, 'H2b_P_h_in_addT': 16, 'H3_n_summands': 16} det=+-1: 16
+(hom_p1==0, hom_m1==0) counts: Counter({(True, False): 16})
+[(0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 2), (0, 1), (0, 2), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1)]
+
+real	0m1.693s
+user	0m1.922s
+sys	0m0.118s
