@@ -1,0 +1,12 @@
+  return self.orig_func(*args, **kwargs)
+fwd 387 back targets 42 iso meetings 5 shortest total 7
+target 45055000 fwd [2, 1, 6, 5] back [5, 9, 1] -> full [2, 1, 6, 5, -4, -10, -8]
+  edges 7 gate 7 J0 7 key 7 end relLengths [4, 5, 0, 5, 5, 0, 0, 0]
+target 55504400 fwd [-10, -8, -4, -5] back [-8, -4, -5] -> full [-10, -8, -4, -5, 2, 1, 6]
+  edges 7 gate 7 J0 7 key 7 end relLengths [5, 5, 5, 0, 4, 4, 0, 0]
+target 60504030 fwd [4, 3, 2, 1] back [-10, -7, -8] -> full [4, 3, 2, 1, 7, 6, 9]
+  edges 7 gate 7 J0 7 key 7 end relLengths [6, 0, 5, 0, 4, 0, 3, 0]
+target 60504030 fwd [4, 3, 7, 2] back [-10, -7, -2] -> full [4, 3, 7, 2, 1, 6, 9]
+  edges 7 gate 7 J0 7 key 7 end relLengths [6, 0, 5, 0, 4, 0, 3, 0]
+target 60504030 fwd [4, 3, 7, 9] back [-7, -2, -3] -> full [4, 3, 7, 9, 2, 1, 6]
+  edges 7 gate 7 J0 7 key 7 end relLengths [6, 0, 5, 0, 4, 0, 3, 0]

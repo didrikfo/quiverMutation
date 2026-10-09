@@ -1,0 +1,11 @@
+crown (circle)    (np.int64(1), np.int64(1)) expect (1, 1)
+commutative sq    (np.int64(1),) expect (1,)
+K_{2,3}           (np.int64(1), np.int64(2)) expect (1, 2)
+n = 3 LNAs 2 HH profiles {(1,): 2}
+n = 4 LNAs 5 HH profiles {(1,): 5}
+n = 5 LNAs 14 HH profiles {(1,): 14}
+n = 6 LNAs 42 HH profiles {(1,): 42}
+n = 7 LNAs 132 HH profiles {(1,): 132}
+n = 8 LNAs 429 HH profiles {(1,): 429}
+n = 9 LNAs 1430 HH profiles {(1,): 1430}
+n = 10 LNAs 4862 HH profiles {(1,): 4862}
