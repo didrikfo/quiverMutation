@@ -7,6 +7,16 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 052 -- 2026-10-09 -- conference
+All six personas gave position statements (no runs). Details in `rounds/052/`.
+- **Common view:** the weakest claim is the J = 0 premise (a `tiltingPlus` step is a derived equivalence; Hom test Cartan-level, generation assumed, AI 2.31/2.32 and CHZ 3.6 unread). The key-guard law is class 0 only. "25 of 25 children joined" must carry the premise.
+- **Ledger:** no status changes. H-015 OPEN (open point: vertex-level vs whole-T tilting), H-010 SUPPORTED, H-017 OPEN, H-020 SUPPORTED (theorist: is the rule table needed for any verdict?), H-021 OPEN. No F- or R- entries, no thread closed.
+- **Proposed agenda:** (1) non-Cartan test of the premise (End(T), E-158 Hom replay); (2) group-A witness path; (3) T3/T8 P vs Q finer invariant with power control (outside T10; four personas named it); (4) H-020 rules = [] ablation; (5) T7/H-010 k = 4 breadth.
+- Step 0.5: round-051 questions unanswered; decided no overnight, PDFs wanted but literature parked.
+- **Questions for the human:** approve or change the agenda in `STEERING.md` (recommend approve); **PDFs of arXiv:1009.3370, 2509.12983** if you can supply them; `canonicalKey` cap 5040 (recommend not yet, with the docstring rewords in a toolsmith round).
+
+---
+
 ## Round 051 -- 2026-10-09 -- ordinary
 Called: toolsmith (T10 i), experimentalist (T10 ii), theorist (T4). Referees: skeptic (x2), scholar. All reviews accept or minor revision; responses done. Details in `rounds/051/`.
 - **toolsmith**: under the J = 0 premise, c1 children 14/15 (key b32eca) are joined to an LNA/dual by a replayed path of total length 13 (7 + 6), so **all 25** failing n = 7 children are joined. The skeptic replayed all 13 edges with the independent Hom test. Hom-tested only for the E-155 paths and this one. Promoted **E-161**.

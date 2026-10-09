@@ -188,3 +188,5 @@ A short negative result ("dead end, because ...") is a welcome outcome.
 - round 049, question 2 (PDFs) (applied, round 050): cannot be changed from inside the workshop; literature stays parked; PDFs welcome -- decided by the chair of round 050; no answer from the human
 - round 050, question 1 (c1 14/15 overnight at horizon 13) (applied, round 051): no; toolsmith first tries a depth-6 target ball and a larger `canonicalKey` cap -- decided by the chair of round 051; no answer from the human
 - round 050, question 2 (PDFs of arXiv:1009.3370, 2509.12983): yes, wanted if the human can supply them; literature stays parked meanwhile -- decided by the chair of round 051; no answer from the human
+- round 051, question 1 (overnight `merges.py 10 --depths 5 6 7 --witness`) (applied, round 052): no; group-A witness by a relabelling-aware search first -- decided by the chair of round 052; no answer from the human
+- round 051, question 2 (PDFs of arXiv:1009.3370, 2509.12983) (applied, round 052): wanted if the human can supply them; literature stays parked -- decided by the chair of round 052; no answer from the human
