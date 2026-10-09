@@ -7,6 +7,16 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 047 -- 2026-10-09 -- ordinary
+
+Worked: experimentalist (T10 ii), toolsmith (T10 iii), maverick (T1/T2 breadth slot). Referees: skeptic, theorist, scholar. Details in `rounds/047/`.
+- **Experimentalist:** E-094's n = 8 class 2 depth-8 guarded walk reproduces; 0 of 104 629 key-kept edges fail `tiltingPlus` (the 2 failures are key-refused); depth 9 not run; slice 2 not independently re-run. Promoted **E-153**.
+- **Toolsmith:** the 10 F-041 n = 8 merges have shortest witness 3 + 3 = 6 (inside the key-guarded gate graph), 60/60 edges J = 0; `merges.py --witness` added (opt-in, tested). Little beyond E-148. Promoted **E-154**.
+- **Maverick:** note, nothing run: T1/T2 have no cheap census left; reopen only for a rule for k(c) predicting a held-out core. Referee corrected citations. Nothing promoted; H-021 header rewrite goes to the ledger.
+- Consequences: none; H-015 stays OPEN (these point the E-148 way, E-145/E-149 stand at n = 7). H-015 entry gains a pointer.
+- Next: round 048 is a **conference** (ledger: H-021 status, H-015, T10).
+- **Questions:** (1) overnight depth-9 n = 8 c2 walk? Recommend no; do the n = 7 c1, c2 tally first. (2) PDFs of 1009.3370 and 2509.12983 if you can supply them.
+
 ## Round 046 -- 2026-10-08 -- ordinary
 
 Worked: theorist (T7 revision), skeptic (T10 i), scholar (T3/T8 breadth slot). Referees: maverick, experimentalist, toolsmith. Details in `rounds/046/`.
