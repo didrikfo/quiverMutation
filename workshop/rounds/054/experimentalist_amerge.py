@@ -79,7 +79,6 @@ def join(F, B, maxTotal=99):
                 if len(pf) + len(pb) > maxTotal: continue
                 phi = iso(kx, ky)
                 if phi is None: continue
-                back = [(-s if s > 0 else -s) for s in []]  # placeholder, replaced below
                 inv_b = [(-1 if s > 0 else 1) * phi[abs(s)] for s in reversed(pb)]
                 hits.append((len(pf) + len(pb), m, pf, pb, inv_b, kx, ky, phi))
     hits.sort(key=lambda h: h[0]); return hits

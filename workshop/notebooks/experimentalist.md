@@ -1,19 +1,18 @@
 # Experimentalist notebook (rewritten each round)
 
-## What I now believe (after round 051)
-- T10 (ii), n = 10: `merges.py 10 --depths 3 4 5 --witness` (4 jobs) gave 0 links at depth 3 and 4 (all 122 members) and depth 5 (19 of 122 done). E-032: the two n = 10 merges sit at one-sided depth 6 (group A, 05040330 -> 33460000) and 7 (F-037, 34504030 -> 50505000), so depth 5 cannot contain a witness; the run says nothing on J != 0 by itself.
-- Replayed the 5 F-037 paths (7 steps): 35 of 35 edges gate, J = 0, key-keeping, end on 50505000 (asRelLengths). Group A link unreplayed (E-033 did not run tiltingPlus).
-- Costs at n = 10 per search: depth 3 12 s, depth 4 30 s, depth 5 80-150 s; depth 5 all-122 about 4 CPU-h.
-- Earlier (049): n = 8 F-041 merges need no J != 0 step (E-148, E-154); no failing key-keeper (E-149) is on a shortest merge walk; n = 8 c2 depth 8 null is real (E-153).
-- Labelled quiver meet (search.meetingPoints) cannot see an LNA target that is only isomorphic: suspected cause of my null for 05040330 -> 33460000 at 4 + 4.
+## What I now believe (after round 054)
+- T10 (ii) group A is closed at replay level: 5 total-7 paths from [0,5,0,4,0,3,3,0] (05040330) to members of orbit 33460000 (e.g. 4 3 2 1 7 6 9, left steps negative), 35/35 edges gate, J = 0 (`tiltingPlus`), key-keeping, ends on the target row. All 5 meetings are non-labelled (phi nontrivial), so labelled `meetingPoints` misses them.
+- Cheap: forward depth 3/4/5 = 131/387/1091 quivers (4/23/108 s); backward depth 3 for 42 targets 117 s. The guard prunes hard; the earlier depth-5 merges.py cost (80-150 s per member) was the all-122 sweep.
+- The checkpoint "orbit" label 33460000 covers many relation rows (45055000, 55504400, 60504030, ...), 42 distinct members.
+- Earlier (051): F-037 5 paths replayed 35/35; n = 10 merges.py depths 3-5 find no link (E-162). 049: n = 8 F-041 merges need no J != 0 step; n = 8 c2 depth 8 null real.
 
 ## What I tried
-- 051: merges.py 10 in 10-minute chunks (budget-hours 0.13 + timeout 10m, resume from checkpoint), experimentalist_{merges10_summary,f037replay,a_meet}.py.
-- 049: deepreplay, blocks. 047 deepreplay; 045 t10b; 043 tally; 041 keyoff; 038 d3table; 035 dhist; 033 bothdie; 030 BFS; 027 W walks.
-- Lessons: background + poll; python -u; never pkill -f; parallel Bash calls with sleeps share a clock (do not issue several sleeps at once); an LNA end is recognised up to relabelling (lm.asRelLengths), not by labelled key.
+- 054: `experimentalist_amerge.py` (fwd/back reach stages, WL hash + VF2 iso join, signed-path inverse and replay) and `_join.py`.
+- 051: merges.py 10 chunks, f037replay, a_meet. Earlier: deepreplay, blocks, t10b, tally, keyoff, d3table, dhist, bothdie, BFS, W walks.
+- Lessons: background + poll with until-loops (no sleep chains); python -u; never pkill -f; an LNA end is recognised by lm.asRelLengths; a join up to relabelling needs invariant hash plus exact iso, and a transported inverse path (reverse, negate sign, rename by phi).
 
 ## What I would do next
-1. Overnight: merges.py 10 --depths 5 6 7 --witness --jobs 7, then tiltingPlus-replay every witness (proposal in the 051 submission). Or one depth-7 search from 05040330 with witness (hours).
-2. Replay group A link edge by edge with tiltingPlus; extend a_meet to an isomorphism key for the target.
-3. Depth 9 for n = 7 c1, c2 (see 049); second E-094 rejection (path (17,8,5,6,8,8,2,5) vertex 5); n = 9 c0 shape tally.
-- Watch: caps are not verdicts; depth 5 is below the depth of the recorded n = 10 links.
+1. Same join for F-037 (34504030 -> 50505000, 7 steps) with this script (start/target parametrised); find whether a 4 + 3 join exists, to cross-check.
+2. Check other depth splits (3+4, dual starts) for more group-A paths, and whether any total-7 join uses a J != 0 step (it would show as J0 < edges); extend to total 8 using fwd 5.
+3. Depth 9 for n = 7 c1, c2 (049); second E-094 rejection; n = 9 c0 shape tally.
+- Watch: only the paths found, not all paths, were tested for J = 0; 7 shortest relies on E-033.
