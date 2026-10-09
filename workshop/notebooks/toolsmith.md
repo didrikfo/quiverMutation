@@ -17,7 +17,7 @@
 
 ## Round 055 (S-1 sizing)
 - `allRelationLengths(n)` returns a tuple (fully built): n = 13/14/15 = 208 012 / 742 900 / 2 674 440 rows, 1.3/6.2/23 s. `lnaCoxeterKey` ~3 ms/row at n = 15 -> full key scan ~8000 CPU-s, ~33 min on 4 cores in 24 shards.
-- Cheaper test exists: one-row witness. Lone 3 (5,6)/(6,5) at n = 15 share a key, head/tail `removeVertex` images differ in key (also n = 17 (6,7)). `055/toolsmith_s1witness.py`, `toolsmith_s1plan.py`. Scan would only add counts; proposed S-1 closure / OVERNIGHT park.
+- Cheaper test exists: one-row witness. Lone 3 (5,6)/(6,5) at n = 15 share a key, head/tail `removeVertex` images differ in key (also n = 17 (6,7)). `055/toolsmith_s1witness.py`, `toolsmith_s1plan.py`. Scan not expected to change key-level verdict (orbit splits unknown). Referee: S-1 NOT closed, only E-144's n = 15 lone-3 key prediction confirmed; mirror pair so equal key is forced.
 - Lesson: ask whether the predicted failure needs the class scan or only a member of the class.
 
 ## Next
