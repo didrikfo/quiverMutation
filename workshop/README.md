@@ -168,3 +168,28 @@ separate long-lived cloud sessions rather than subagents of one session
 (more independence and longer work, at the price of git coordination and
 several times the tokens), and rounds that pick up long computations started
 by an earlier round.
+
+## Checkpoints: getting work into `main`
+
+`workshop` is the full archive: every submission, review, notebook and raw
+output. `main` gets a curated copy at checkpoints (usually after a
+conference), through a pull request from a branch made off `main`:
+
+1. Pause the rounds (stop starting new ones; nothing else to do).
+2. Write `research/syntheses/NNN-rounds-AAA-BBB.md` on `workshop`: what was
+   tried, found and not found, open questions, takeaways, each pointing to
+   entries. Commit it to `workshop` first, so both branches carry the same file.
+3. Make the branch from `main` and copy from `origin/workshop`, verbatim:
+   * everything outside `workshop/` that differs from `main` (library, tests,
+     `research/`, `GLOSSARY.md`, `OVERNIGHT.md`, `README.md`);
+   * `workshop/` itself except `rounds/` and `notebooks/`;
+   * from `workshop/rounds/`: every `*.py` and `*.sh`, every `call.md` and
+     `proceedings.md`, and any other file that `research/` or `OVERNIGHT.md`
+     cites by path, if it is under 100 KB.
+   Copying verbatim (never editing on the checkpoint branch) is what keeps the
+   next `git merge origin/main` on `workshop` conflict-free.
+4. Run the fast tests, open the PR, list library changes separately for
+   review, then resume the rounds.
+
+Left out of `main`: submissions, reviews, persona notebooks and raw outputs
+(they stay on `workshop`; the proceedings and the E-entries say where).
