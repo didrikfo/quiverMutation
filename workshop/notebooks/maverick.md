@@ -1,29 +1,34 @@
 # Maverick's notebook
 
-## What I now believe (after round 054)
-- T3/T8: Hochschild cohomology is vacuous on LNAs (tree quiver): HH^* = K on all 6916 LNAs n = 3..10 (maverick_hhsweep.py; code
-  validated on poset incidence algebras: crown -> (1,1), K_{2,3} -> (1,2)). Closes the F-019/R-008 fallback. Dead end.
-- Power control for "P vs Q" is empty at n <= 9: the only certified different-class pairs sharing a key (F-010 at n = 9, 3 groups
-  at n = 10) are separated by the F-047 Cartan-level profile. Groups the profile cannot separate (1,2,4,8,13 at n = 6..10) have no
-  certificate either way. So no finer invariant can be power-tested on LNAs; P, Q may simply be one class (H-003).
-- T6/H-017 (r050): E-063 signature is a Cartan function, constant on a class; cannot test H-017. Real open item: positive control
-  (monomial cord member at n = 8, E-092) and n = 9 depth 7 (OVERNIGHT).
+## What I now believe (after round 055)
+- T3/T8: HH^* = k on all 6916 LNAs n <= 10, a THEOREM already on file (2312.14699 note, 0805.1018 Prop 5.1, EXPERIMENTS ~l.2084, R-008).
+  My 054 "nobody computed it" was wrong; it is a code check only. Code now has relation-bearing controls (rad^2 = 0 crown+sink gives (1,2),
+  the incidence version (1,), the LNA version (1,)); so all-(1,) is not a relation bug. HH_* is also dead on LNAs (argued, not run).
+- "Key" = Coxeter polynomial. At n = 10: 40 key groups; F-047 orbits (tables+free+edges+doubles) 113, 25 groups with >= 2 orbits; plus
+  mirror join 71 classes, 16 groups; 3 split by profile, 13 unresolved. Same objects, different unit (maverick_recon.py).
+- Power control: no certified-inequivalent pair with equal key and equal F-047 profile at n <= 9. Unresolved classes are UNCERTIFIED, so
+  "distinct class" never means inequivalent. Certified pairs with different profile remain for agreement testing (F-010; 3 groups at n = 10).
+- Candidate C (idea): object-level Serre periodicity S^a(A) ~ A[b]. Vacuous if Phi has infinite order: true for the F-010 pair and 2 of
+  3 certified n = 10 groups. Live at one n = 10 certified group (4 classes, Phi^18 = I exactly). Unimplemented (needs minimal complexes).
+- T6/H-017: E-063 signature is Cartan-level; real open items are the monomial cord positive control (E-092) and n = 9 depth 7 (OVERNIGHT).
 - Separation power (r050): LNAs with a quipu's polynomial but another signature: 0 at n <= 9, 2 at n = 10, 16 at n = 11 (UNPLACED).
-- T1/T2 (H-021') should close as description (E-056, E-060..E-071).
 
 ## S-1 lone 3, key level (round 042)
-- Free-end K-threshold law, lengths K0 = 3,4,5 first fail at n = 11, 13, 15 (15 unrun, E-139, E-144). Failure is the lone 3
-  with h != K; self-mirror (4,4) never fails. Untested for other cores.
+- Free-end K-threshold law, lengths K0 = 3,4,5 first fail at n = 11, 13, 15 (15 unrun, E-139, E-144). Failure is the lone 3 with
+  h != K; self-mirror (4,4) never fails. Untested for other cores.
 
 ## What I tried
-- r054: maverick_pq.py, maverick_hhsweep.py (HH, key groups n = 6..10). r050: maverick_sigpower.py. r047, r042, r039 earlier.
+- r055: maverick_control.py, maverick_recon.py, maverick_fcy.py, maverick_phiorder.py. r054: maverick_pq.py, maverick_hhsweep.py.
+  r050: maverick_sigpower.py. r047, r042, r039 earlier.
 
 ## Watch for
-- A control must be certified different-class by a proof, not by "unmerged at depth d".
-- An invariant constant on a class cannot measure a within-class statistic. Image comparison by key, not label.
-- Check that a "non-Cartan" invariant is non-vacuous on a tree quiver before computing it.
+- grep research/ AND research/literature/ for the closing theorem before announcing a "dead end" or "nobody computed".
+- A positive control must exercise the feature under test (relations), not just the code path (posets).
+- A control must be certified different-class by a proof, not "unmerged at depth d".
+- An invariant constant on a class cannot measure a within-class statistic; image comparison by key, not label.
+- Denominators: always say what the unit is (orbit, class, polynomial group) when quoting counts against F-047.
 
 ## Next
-- Only non-Cartan route left: structure of D^b (tau-orbits, fractional CY data), or gentle-algebra controls outside LNAs; both unrun.
-- Are the 16 n = 11 UNPLACED LNAs extensions of the 2 n = 10 ones (vertex addition)?
+- Candidate C at the one live n = 10 group: implement S on complexes of projectives over an LNA; scholar to check the fractional-CY literature.
+- Gentle-algebra controls outside LNAs (equal Cartan, different AG) remain unrun. 16 n = 11 UNPLACED LNAs vs the 2 at n = 10 (vertex addition?).
 - S-1 n = 15 K0 = 5: `--plan` first. Depth 7 at n = 9 for H-017 only as OVERNIGHT proposal.
