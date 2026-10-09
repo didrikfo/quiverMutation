@@ -7,6 +7,20 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 048 -- 2026-10-09 -- conference
+
+All six personas wrote position statements (`rounds/048/`); nothing run, nothing promoted to E-/F-/R-.
+
+- **Convergence:** all six name one question: are the 25 key-keeping, `tiltingPlus`-failing n = 7 children (E-145, E-149) in the derived class? Preferred test: a tilting-only path search back to an LNA with a positive control (a hit settles it; a miss is only bounded). Weakest claim named by all: "the key guard keeps a walk in one derived class" (class 0 only; E-153 one class; AI/CHZ citations unverified).
+- **Disagreement:** whether H-017 (T6) can be revived as a second invariant; scholar and maverick warn its Euler signature is Cartan-determined and may fail as E-152 did. First step: check what the invariant is.
+- **Ledger:** H-015 stays OPEN (no R-entry: it is about derived equivalence); H-021 stays OPEN, status line rewritten short, history moved into the body; no other status change, no F-entry, no thread closed.
+- **Proposed agenda:** (1) T10 tilting path back + skeptic hand-check + theorist's exact "outside the class"; (2) n = 7 c1, c2 edge tally, `merges.py --witness` on a real link; (3) H-017 power check; (4) T4 falsifiable statement; (5) S-1 n = 15 sizing.
+- Step 0.5: round-047 questions unanswered; decided no depth-9 overnight, literature parked.
+- **Questions for the human:** (1) **approve or change the proposed agenda in `STEERING.md`** (recommend approve); (2) **PDFs of arXiv:1009.3370 and 2509.12983** if you can supply them; (3) overnight: none.
+- Next round 049 is ordinary; 052 is the next conference.
+
+---
+
 ## Round 047 -- 2026-10-09 -- ordinary
 
 Worked: experimentalist (T10 ii), toolsmith (T10 iii), maverick (T1/T2 breadth slot). Referees: skeptic, theorist, scholar. Details in `rounds/047/`.

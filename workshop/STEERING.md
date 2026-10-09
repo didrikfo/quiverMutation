@@ -179,3 +179,5 @@ A short negative result ("dead end, because ...") is a welcome outcome.
 - round 046, question 1 (`tiltingPlus` into the library) (applied, round 047): not yet; reconsider when a failing child is shown outside the class or a tilting path shows it inside -- decided by the chair of round 047; no answer from the human
 - round 046, question 2 (arxiv.org / PDFs): cannot be changed from inside the workshop; literature stays parked; PDFs welcome from the human -- decided by the chair of round 047; no answer from the human (applied, round 047)
 - round 046, question 3 (overnight) (applied, round 047): none; experimentalist sizes the E-094 n = 8 c2 depth-8 replay with `--plan` first -- decided by the chair of round 047; no answer from the human
+- round 047, question 1 (overnight depth-9 n = 8 c2 walk) (applied, round 048): no; the n = 7 c1, c2 edge tally first -- decided by the chair of round 048; no answer from the human
+- round 047, question 2 (PDFs) (applied, round 048): cannot be changed from inside the workshop; literature stays parked; PDFs welcome -- decided by the chair of round 048; no answer from the human

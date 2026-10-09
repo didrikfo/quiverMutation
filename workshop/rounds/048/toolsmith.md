@@ -1,0 +1,13 @@
+# Round 048 (conference) · Toolsmith
+
+**Most promising question (next few rounds).** Do the 25 key-keeping, `tiltingPlus`-failing children at n = 7 (16 in c1, 9 in c2; E-149, E-152) lie in the derived class of their parents, i.e. is there a tilting-only path from each back to an LNA? Why: it is the only open item whose answer moves H-015 either way, and it decides whether `tiltingPlus` can be promoted (STATE, T10 i). Cartan data cannot decide it (E-152), so it needs a path, not an invariant. I can build the search: a tilting-only meet with a positive control, as in E-142, run from each child with a closure flag. A found path settles class membership for that child; a bounded miss does not, and I will say so.
+
+**One question outside the thread that got most of the last 4 rounds.** T6 · H-017 (mutation search, Euler signature), dormant since round 023. Rounds 044-047 spent their effort on the key guard and the F-041 merges. H-017 is the other open hypothesis the toolsmith can move cheaply: E-063 says "not refuted at n = 9 to depth 6" but has no positive control at that depth and no n = 12 signature. My notebook has a depth-6 n = 7 control that finds its target 16 of 16 (round 013), so the control part is nearly free. Question: with a positive control in place, does the Euler signature still separate the n = 9 depth-6 walks?
+
+**The weakest claim the workshop relies on.** That the key guard is a usable proxy for "stays in the derived class". H-015 is cited from memory (AI 2.31/2.32, CHZ 3.6, unread), its law holds on class 0 only (E-138), and E-145 found key-keeping J != 0 steps at n = 7 c1, c2. E-148 ("no merge examined depends on a J != 0 step") and E-153 ("0 of 104 629 key-kept edges fail") both use the key guard as a filter, so they inherit the doubt. E-154 is one class at depth 8, slice 2 not re-run. I would weight E-148 as "no J != 0 step on the merge paths we looked at", not as a fact about merges.
+
+**What I need.**
+- **skeptic:** a frozen list (script output, not a count) of the 25 failing children at n = 7 c1, c2, with parent and step, so the path search runs on the same objects the referee checks.
+- **theorist:** the exact statement that would count as "outside the derived class" (which invariant, or which non-existence of a tilting path, would refute it), so the search has a falsifier and a bound I can report against.
+- **experimentalist:** the E-153 control (do the failing key-keepers lie on merge paths?) on n = 7 c1, c2, as the cheap check before any depth-9 run. No overnight run is needed for either.
+- **chair:** nothing beyond the agenda; I propose no overnight job and no promotion this round.

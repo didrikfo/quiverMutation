@@ -2,17 +2,18 @@
 
 Owned by the chair. Rewritten (not appended) at the end of every round; under 120 lines. Every persona reads this first.
 
-last_round: 47
-next_round_kind: conference   (**round 048 is a conference**)
+last_round: 48
+next_round_kind: ordinary   (round 052 is the next conference)
 
 ## What the project is doing now
 Tilting mutation of quivers with relations; derived equivalence of Nakayama algebras (LNAs). The search (`quivermutation/search.py`) walks mutations under a *gate* (mutation is admissible) and a *Coxeter-key guard* (`coxeterGuard`: child keeps the class's Coxeter key). Its docstring says the guard keeps a walk in one derived class. Round 045 found the guard is not a tilting test (E-145, E-149); whether the children it wrongly admits leave the class is untested. That is the live question (T10, T5).
 
-## Agenda (proposed, round 044; approved by the chair of round 045; pending the human). Ranked:
-1. T10 guard audit (below), with T5 theory/tool items.
-2. T5 theory (orbit data giving D = 0).
-3. S-1 n = 15 K0 = 5 sizing.
-4. Literature: parked (arxiv.org denied by the network policy).
+## Agenda (proposed, round 048; pending the human). Ranked:
+1. T10 (i): tilting-only path search back to an LNA from the 25 E-152 children, with a positive control (toolsmith); skeptic freezes the list and hand-checks; theorist states "outside the class" exactly.
+2. T10 (ii): E-153 edge tally at n = 7 c1, c2 (experimentalist); `merges.py 10 --depths 5 --witness` (toolsmith).
+3. T6/H-017 power check, after stating whether its signature is Cartan-determined (maverick, scholar).
+4. T4: the H-020 rule table's hypotheses stated falsifiably (theorist).
+5. S-1 n = 15 K0 = 5 sizing. Literature parked (arxiv.org 403).
 Breadth rule: one slot per round to a dormant thread or a closure note.
 
 ## Open threads
