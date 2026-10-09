@@ -1,20 +1,20 @@
-# Theorist notebook (rewritten round 046)
+# Theorist notebook (rewritten round 049)
 
 ## What I believe now
-- H-010 is unproved; I have no counterexample and no invariant. "No proof in reach" (045) was too strong: it meant I found none. Keep T7 open, H-010 SUPPORTED.
-- Bystander observation (not a lemma), margin 2, pair (8:3)(9:3), one bystander: lowering of the maximum overlap only when the bystander shares >= 2 arrows with the pair (run of three); 21/21 right and 14 left placements sharing <= 1 arrow inert at k = 2; 10 inert at k = 3. Left is the mirror of right. Runs of three tried at k = 3 (5) all lower, including (10:4), which needs 3 mutations (not 2). Other pair shapes (8:4)(9:4), (8:3)(9:4) behave the same on 7 placements. This is F-022's table with a sweep added, nothing deeper.
-- L1 (new, data): for all LNAs n <= 10, one mutation giving an LNA changes relation starts only at v-2, v-1, v. Exactly 2 of the n admissible directed mutations per LNA give an LNA (unexplained regularity). L1 does not give k-step locality, since intermediates are non-LNA.
-- E-066 is tagged H-010 in the record; my 045 claim it is "not an H-010 case" was unjustified and is withdrawn. H-010's "step 7" means the procedure's step.
-- Earlier, standing (042): C_B = C' + E_{vi}; Q(x) = x(adj S_ii - adj S_wi - adj S_iw), S = xZ + Z^T; Q_1, Q_2 first two orbit moments of S_w under F = Z Z^-T; Q_2 = 1 iff c_2 = 0 (proved when F e_i = -e_m; observed in all 296 s = 1 samples). s = -2 type: c_1 = 0, c_2 = 1, c_3 = 0 observed only. n = 4 counterexample (E-141) lies outside H2.
+- H-010 unproved, SUPPORTED; no counterexample, no invariant (see 046 below). L1: one-step LNA-to-LNA mutations change relation starts only at v-2..v, exactly 2 per LNA (E-151), unexplained.
+- H-020 is a statement about the move set, not the class. Hypotheses H1-H6 are in rounds/049/theorist.md. H1 (floating rules are length independent) survives: 0 failures in 11 170 applications at lengths w+5..11 for w <= 5; w = 6..8 (most of the 414 rules) unchecked beyond w+4.
+- F-051's "interior is one orbit, one verdict" is wrong after F-053: `45` at n = 13 has interior orbits 2386/1127/4217 (reflected pairs o <-> n-7-o); the equal verdicts across pairs are data, not a consequence of translation invariance (H4). Weakest of the hypotheses: H3 (outside = incomplete move set; refuted once, F-052).
+- "Outside the class" for the E-149/E-152 children: inside iff a tilting complex gives an LNA of the key class; witness = J=0 tilting path to an LNA (proof of insideness); outside needs a derived invariant with a power control, which does not exist at n = 7 yet. Children (class 2, 9): 7 vertices, 7 arrows, one commutativity relation + zero relations, no parallel arrows. One-step reverse: same-direction step gate-closed 9/9; opposite step gate-open, J = 0, but lands on neither parent nor its opposite 9/9.
+- Earlier, standing (042): C_B = C' + E_vi; Q_2 = 1 iff c_2 = 0 (proved when F e_i = -e_m, 296/296 s = 1 samples); s = -2 observed only.
+- Bystander (045/046): lowering of max overlap only with a run of three; margin 2, one bystander, k <= 3.
 
 ## What I tried
-- 046: `rounds/046/theorist_{single,leftsweep,locality,whichv}.py` (+ outputs).
-- 045: `rounds/045/theorist_bystander.py`. 042: `rounds/042/theorist_*.py`; earlier scripts as before.
+- 049: `rounds/049/theorist_{rulelen,orbits45,children,reverse}.py`; pickle for c2 rebuilt in the scratchpad (405 s via rounds/046/skeptic_collect.py 7 2 20000).
+- 046: theorist_{single,leftsweep,locality,whichv}.py. 045: theorist_bystander.py. 042: theorist_*.py.
 
 ## Next
-- Prove L1 from the gate (E-122, J_i = Hom(S_v, e_iA)) and explain the 2-per-LNA count (LNA results sit at v = 1, n, 2, n-1, ...: counts 42,14,10,10,14,42 at n = 7); grep for a known statement first.
-- Test the k-step window over non-LNA intermediates (support of the change vs the vertices used, k <= 3).
-- Engage H-010's "cheaper line" (F-025 end asymmetry) which I have still not done.
-- Cap-cut k = 3 rows with margin 1; two bystanders.
-- Back to the 042 programme if the chair keeps it: H2 and the orbit relation at module level, s = -2 as dual of s = 1, n = 8 search for H1+H2 with c_2 != 0.
-- Blind spots: all bystander results are margin 2, one bystander, at most k = 3; L1 pools left and right mutations; 766-record 042 sample is one walk's prefix.
+- Follow the 9 (then 16) tilting neighbours of the children with skeptic_back-style J=0 search, after a power control exists.
+- H1 for w = 6..8 at length 12-13 (overnight); H6 ablation (no anchored rules) at n = 13, 14 on `45`.
+- H4: a map between orbits of c@o and c@(o+1)? why sizes differ but verdicts agree.
+- Old: prove L1 and the 2-per-LNA count; k-step window over non-LNA intermediates; two bystanders; the 042 programme (c_2 = 0, s = -2 dual).
+- Blind spots: class 2 only for the children; 'outside' evidence here is conceptual, no invariant computed; H6 and H3 untested.

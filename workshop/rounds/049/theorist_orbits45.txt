@@ -1,0 +1,19 @@
+n=13
+0 closed 2386 70684
+1 closed 1127 12012
+2 closed 4217 8689
+3 closed 4217 8689
+4 closed 1127 12012
+5 closed 2386 70684
+6 closed 447 96989
+7 not admissible
+n=14
+0 closed 3767 25088
+1 closed 1636 57754
+2 closed 11820 60327
+3 closed 2179 98387
+4 closed 11820 60327
+5 closed 1636 57754
+6 closed 3767 25088
+7 closed 272 52913
+8 not admissible

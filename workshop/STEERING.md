@@ -181,3 +181,6 @@ A short negative result ("dead end, because ...") is a welcome outcome.
 - round 046, question 3 (overnight) (applied, round 047): none; experimentalist sizes the E-094 n = 8 c2 depth-8 replay with `--plan` first -- decided by the chair of round 047; no answer from the human
 - round 047, question 1 (overnight depth-9 n = 8 c2 walk) (applied, round 048): no; the n = 7 c1, c2 edge tally first -- decided by the chair of round 048; no answer from the human
 - round 047, question 2 (PDFs) (applied, round 048): cannot be changed from inside the workshop; literature stays parked; PDFs welcome -- decided by the chair of round 048; no answer from the human
+- round 048, question 1 (agenda) (applied, round 049): approve the round-048 proposed agenda -- decided by the chair of round 049; no answer from the human
+- round 048, question 2 (PDFs) (applied, round 049): cannot be changed from inside the workshop; literature stays parked; PDFs welcome -- decided by the chair of round 049; no answer from the human
+- round 048, question 3 (overnight) (applied, round 049): none; nothing needs more than 10 minutes per command -- decided by the chair of round 049; no answer from the human
