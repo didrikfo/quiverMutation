@@ -6,6 +6,27 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-163 — Floating H-020 rules of window width 6..8 (330 rules) hold at one length each, 12 (w = 6, 7), 13 (w = 8): 0 failures in 43 116 filed applications; dropping only the anchored rules changes no orbit or verdict in 45 placements at n = 12, 13 in the reduced walk, but does in a rules-only walk
+*2026-10-09* · **`.venv/bin/python workshop/rounds/051/theorist_rulelen.py 12 6,7,8 K 4`** (K = 0..3), **`... 13 8 K 8`**, **`workshop/rounds/051/theorist_ablate.py 13 4 5`**, rules-only contrast `workshop/rounds/050/skeptic_sensitivity.py` · *workshop round 051, theorist, refereed by skeptic*
+
+Scope: H1: `lnaMoves.VERIFIED_MOVES` floating rules of width 6..8; 216 rules (w = 6, 7) at length 12 (16 812 applications), 114 rules (w = 8) at 13 (4 788), 82 of the 216 also at 13 (21 516, killed runs); 0 failures in 43 116 filed applications. `lengthsToCheck` covers w+1..w+4 (w <= 6), w+1..w+2 (w >= 7), so lengths 11 (w = 6), 10-11 (w = 7), 11-12 (w = 8) are unchecked, as are lengths above 13 and the 54 rules of width 9..11 beyond w+2. A spot check at one larger length, not length independence. H6: 45 placements of 7 cores at n = 12, 13, 20 000-row cap never hit; reduced walk (free, end edges, doubles): dropping the anchored rules changes no orbit identity or verdict; dropping the whole table changes the orbit at 2 placements (core `46`, n = 13, offsets 0, 4), no verdict. Rules-only walk (core `45`): dropping the anchored rules changes the orbit at n = 12 offsets 0, 4, 5 (verdict at 0, 5) and at n = 13 offsets 0, 5, 6 (verdict at 0, 6). The "verdict comes from free/edge/double moves" reading is F-032 and the finding "Which move does it matter" (FINDINGS.md); only the anchored-rules-only ablation is new. With E-157 every width except 9..11 has one check at length >= w+5.
+
+---
+
+## E-162 — At n = 10, `merges.py --depths 3 4 5` finds no link (depth <= 4 over all 122 members, depth 5 over 19; repeats E-032's completed depth 5); F-037, one of the two n = 10 merges, uses no J != 0 step on 5 of its 19 recorded paths (35 of 35 edges pass gate, `tiltingPlus` and key)
+*2026-10-09* · **`.venv/bin/python workshop/rounds/051/experimentalist_f037replay.py`** (merges run: `merges.py 10 --depths 3 4 5 --witness --jobs 4 --checkpoint workshop/rounds/051/experimentalist_merges10.jsonl`, summary `experimentalist_merges10_summary.py`) · *workshop round 051, experimentalist, refereed by scholar*
+
+Scope: n = 10, the 122 members of the 12 leftover orbits (default `merges.py` groups). The run produced no witness link (both recorded merges appear only at one-sided depth 6, group A, and 7, F-037; E-032), so `--witness` stays untested on a real link. Replay: the 5 F-037 paths 34504030 -> 50505000 (7 mutations each), every edge gate-admitted, J = 0 under `tiltingPlus` and key-keeping, ends on row [5,0,5,0,5,0,0,0] up to relabelling. New beyond F-037/E-033: `tiltingPlus` on those 35 edges. Not shown: that no n = 10 merge depends on a J != 0 step. The group-A merge (05040330 -> 33460000, 7 steps, E-033) is unreplayed (no path recorded; a depth-7 split search by the scholar finished 7 of 20 branches, no hit). `meetingPoints` intersects `quiverKey` (search.py:726), a labelled key, so it cannot recognise an LNA reached under another numbering; whether it missed a total-7 meeting is untested.
+
+---
+
+## E-161 — At n = 7, class 1, under the J = 0 premise, a depth-6 target ball (62 297 keys) joins c1 children 14 and 15 (key b32eca) to an LNA/dual by a replayed `tiltingPlus` path of total length 13 (7 + 6); with E-155 and E-158 all 25 E-149 failing children are joined (Hom-tested for the E-155 paths and this one; the three E-158 paths not)
+*2026-10-09* · **see `workshop/rounds/051/toolsmith.md` (`toolsmith_tball.py`, `toolsmith_depth13.py`, `toolsmith_shards.sh`, `toolsmith_path13.py`; `toolsmith_logs.txt`)** · *workshop round 051, toolsmith, refereed by skeptic*
+
+Scope: as E-158, n = 7, class 1; child ball depth 7, target ball (LNAs + duals) depth 6 (levels 12, 88, 320, 954, 3086, 11402, 46435); `canonicalKey` cap 720 and 5040 give the same 21 hit keys, all total 13 (none at 6 + 6 = 12). Path: child side `F1 F3 F1 F5 F4 R7 R1`, LNA/dual #9 side `F7 R2 R1 F2 F7 R3`; the skeptic replayed all 13 edges with the E-159 Hom(T,T[m]) test (all pass, Cartan matrices agree, ends have equal non-None keys); child 15 joins by key equality. Shard 11500:13800 never finished (can only hide more hits). Cap 5040 keys 16 of the 28 keyless depth-6 nodes; 12 stay keyless at any cap. Controls: c1 child 5 reproduces its 12 as 6 + 6; a second control (random length-13 walk) meets at 9 so is weak; none with minimum exactly 13. Conditional on the premise that J = 0 `tiltingPlus` steps are derived equivalences; 13 is not shown shortest; n = 8 not covered.
+
+---
+
 ## E-160 — The H-017 Euler signature (signature of C + C^T) is a function of the Cartan matrix, hence constant on a derived class and blind to (cords, relations); as a separator from a quipu's Coxeter polynomial it acts on 2 LNAs at n = 10 (known, F-048) and 16 at n = 11 (not F-048 rows), n = 6..11
 *2026-10-09* · **`.venv/bin/python workshop/rounds/050/maverick_sigpower.py`** and **`workshop/rounds/050/maverick_sixteen.py`** (names of the 16) · *workshop round 050, maverick, refereed by scholar*
 

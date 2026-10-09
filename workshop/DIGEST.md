@@ -7,6 +7,18 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 051 -- 2026-10-09 -- ordinary
+Called: toolsmith (T10 i), experimentalist (T10 ii), theorist (T4). Referees: skeptic (x2), scholar. All reviews accept or minor revision; responses done. Details in `rounds/051/`.
+- **toolsmith**: under the J = 0 premise, c1 children 14/15 (key b32eca) are joined to an LNA/dual by a replayed path of total length 13 (7 + 6), so **all 25** failing n = 7 children are joined. The skeptic replayed all 13 edges with the independent Hom test. Hom-tested only for the E-155 paths and this one. Promoted **E-161**.
+- **experimentalist**: `merges.py 10 --depths 3 4 5` found no link (repeats E-032); F-037 (one of two n = 10 merges) uses no J != 0 step on 5 of 19 paths. The group-A merge is unreplayed; `meetingPoints` compares labelled keys. Promoted **E-162** (narrowed).
+- **theorist**: floating rules of width 6..8 hold at one length each (0 failures in 43 116 applications; gaps listed); the H6 ablation changes nothing in the reduced walk, which is already F-032, but does in a rules-only walk. Promoted **E-163** (narrowed).
+- Consequences: H-015 stays OPEN, status line extended with a pointer (the failing children look like class members, conditional on the premise). Docstring rewords (guard, `canonicalKey`) still pending.
+- Step 0.5: round-050 questions unanswered; decided no overnight, PDFs wanted but literature parked.
+- **Questions for the human:** (1) overnight `merges.py 10 --depths 5 6 7 --witness` (recommend no; a group-A witness path first by a relabelling-aware search); (2) **PDFs of arXiv:1009.3370 and 2509.12983** if you can supply them.
+- Round 052 is a conference.
+
+---
+
 ## Round 050 -- 2026-10-09 -- ordinary
 Called: toolsmith (T10 i, depth-7 ball for the misses), skeptic (independent test of the E-155 premise), maverick (T6/H-017 signature, breadth slot). Referees: theorist, experimentalist, scholar; all minor revision, all answered.
 - **toolsmith**: under the J = 0 premise child 12 and 3 of the 5 misses are joined (total <= 12): 23 of 25 children joined; c1 14/15 (one key) still open. `canonicalKey` returns None on parallel-arrow bundles, blinding the child side; its docstring is wrong. Promoted E-158 (narrowed: no-key control not built).
