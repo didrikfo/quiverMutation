@@ -1,0 +1,14 @@
+child 6 key 0d3498 LNA/dual #0 bbb8de
+child F1 tilt True cartan True hm1 0 hp1 0 {'J': False, 'tp': True} to 7e13d6
+child F7 tilt True cartan True hm1 0 hp1 0 {'J': False, 'tp': True} to abcf50
+child R3 tilt True cartan True hm1 0 hp1 0 {'J': False, 'tp': True} to a23fee
+child R5 tilt True cartan True hm1 0 hp1 0 {'J': False, 'tp': True} to bb5938
+child R5 tilt True cartan True hm1 0 hp1 0 {'J': False, 'tp': True} to 5ece3f
+child F4 tilt True cartan True hm1 0 hp1 0 {'J': False, 'tp': True} to d14660
+child R6 tilt True cartan True hm1 0 hp1 0 {'J': False, 'tp': True} to e55efa
+lna F1 tilt True cartan True hm1 0 hp1 0 {'J': False, 'tp': True} to e2d4d4
+lna F1 tilt True cartan True hm1 0 hp1 0 {'J': False, 'tp': True} to 4c99b9
+lna F2 tilt True cartan True hm1 0 hp1 0 {'J': False, 'tp': True} to 3b6da7
+lna R6 tilt True cartan True hm1 0 hp1 0 {'J': False, 'tp': True} to 51e788
+lna R5 tilt True cartan True hm1 0 hp1 0 {'J': False, 'tp': True} to e55efa
+RESULT edges 12 all-accept True meet True
