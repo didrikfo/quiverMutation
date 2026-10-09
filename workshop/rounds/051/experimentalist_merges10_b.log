@@ -1,0 +1,117 @@
+A_10: 12 leftover orbits in 7 polynomial groups, computed in 1s
+resumed 122 searches from workshop/rounds/051/experimentalist_merges10.jsonl
+05:28:14 depth 4 from 33450000 (orbit 03345000): 12 LNAs, 38s
+05:28:20 depth 4 from 25050030 (orbit 03345000): 13 LNAs, 45s
+05:28:23 depth 4 from 33505000 (orbit 03345000): 13 LNAs, 48s
+05:28:27 depth 4 from 34045000 (orbit 03345000): 9 LNAs, 51s
+05:28:53 depth 4 from 35050030 (orbit 03345000): 7 LNAs, 26s
+05:28:54 depth 4 from 34505000 (orbit 03345000): 4 LNAs, 41s
+05:29:03 depth 4 from 35050002 (orbit 03345000): 13 LNAs, 40s
+05:29:07 depth 4 from 34550000 (orbit 03345000): 13 LNAs, 47s
+05:29:17 depth 4 from 35050400 (orbit 03345000): 6 LNAs, 24s
+05:29:21 depth 4 from 35055000 (orbit 03345000): 13 LNAs, 27s
+05:29:22 depth 4 from 35605000 (orbit 03345000): 9 LNAs, 19s
+05:29:24 depth 4 from 45050030 (orbit 03345000): 6 LNAs, 17s
+05:29:31 depth 4 from 46600400 (orbit 03345000): 7 LNAs, 10s
+05:29:35 depth 4 from 50403300 (orbit 03345000): 14 LNAs, 13s
+05:29:37 depth 4 from 45504000 (orbit 03345000): 14 LNAs, 20s
+05:29:42 depth 4 from 50404030 (orbit 03345000): 9 LNAs, 18s
+05:29:47 depth 4 from 50500302 (orbit 03345000): 12 LNAs, 16s
+05:29:50 depth 4 from 50500330 (orbit 03345000): 13 LNAs, 15s
+05:29:51 depth 4 from 50504030 (orbit 03345000): 4 LNAs, 15s
+05:30:00 depth 4 from 55040300 (orbit 03345000): 15 LNAs, 18s
+05:30:07 depth 4 from 55050030 (orbit 03345000): 13 LNAs, 21s
+05:30:07 depth 4 from 56050030 (orbit 03345000): 9 LNAs, 17s
+05:30:07 depth 4 from 04444400 (orbit 03345000): 16 LNAs, 15s
+05:30:09 depth 4 from 23345000 (orbit 03345000): 10 LNAs, 9s
+05:30:16 depth 4 from 25040330 (orbit 03345000): 10 LNAs, 9s
+05:30:20 depth 4 from 23455000 (orbit 03345000): 13 LNAs, 13s
+05:30:22 depth 4 from 24550400 (orbit 03345000): 17 LNAs, 15s
+05:30:22 depth 4 from 25504030 (orbit 03345000): 15 LNAs, 13s
+05:30:25 depth 4 from 33345000 (orbit 03345000): 13 LNAs, 8s
+05:30:30 depth 4 from 33450002 (orbit 03345000): 10 LNAs, 11s
+05:30:38 depth 4 from 33450400 (orbit 03345000): 7 LNAs, 16s
+05:30:40 depth 4 from 33450030 (orbit 03345000): 12 LNAs, 18s
+05:30:49 depth 4 from 33455000 (orbit 03345000): 15 LNAs, 25s
+05:30:56 depth 4 from 34550002 (orbit 03345000): 15 LNAs, 26s
+05:31:07 depth 4 from 34550030 (orbit 03345000): 11 LNAs, 29s
+05:31:15 depth 4 from 34550400 (orbit 03345000): 14 LNAs, 35s
+05:31:19 depth 4 from 34555000 (orbit 03345000): 13 LNAs, 29s
+05:31:19 depth 4 from 35040330 (orbit 03345000): 12 LNAs, 23s
+05:31:36 depth 4 from 35504030 (orbit 03345000): 11 LNAs, 29s
+05:31:39 depth 4 from 45040330 (orbit 03345000): 7 LNAs, 20s
+05:31:45 depth 4 from 44444000 (orbit 03345000): 16 LNAs, 30s
+05:31:54 depth 4 from 44550400 (orbit 03345000): 18 LNAs, 36s
+05:32:08 depth 4 from 45504002 (orbit 03345000): 17 LNAs, 32s
+05:32:09 depth 4 from 45550400 (orbit 03345000): 4 LNAs, 15s
+05:32:12 depth 4 from 45504030 (orbit 03345000): 14 LNAs, 33s
+05:32:20 depth 4 from 45504400 (orbit 03345000): 18 LNAs, 36s
+05:32:27 depth 4 from 50403302 (orbit 03345000): 10 LNAs, 18s
+05:32:30 depth 4 from 50403330 (orbit 03345000): 13 LNAs, 20s
+05:32:39 depth 4 from 55040302 (orbit 03345000): 13 LNAs, 26s
+05:32:46 depth 4 from 33440330 (orbit 03345000): 4 LNAs, 7s
+05:32:50 depth 4 from 24444400 (orbit 03345000): 14 LNAs, 21s
+05:32:51 depth 4 from 55040330 (orbit 03345000): 15 LNAs, 30s
+05:32:57 depth 4 from 55504030 (orbit 03345000): 13 LNAs, 30s
+05:33:08 depth 4 from 34444400 (orbit 03345000): 17 LNAs, 22s
+05:33:10 depth 4 from 44444002 (orbit 03345000): 14 LNAs, 20s
+05:33:10 depth 4 from 44444400 (orbit 03345000): 9 LNAs, 13s
+05:33:12 depth 4 from 44444030 (orbit 03345000): 17 LNAs, 21s
+05:33:50 depth 4 from 35060000 (orbit 33460000): 11 LNAs, 42s
+05:33:52 depth 4 from 36060000 (orbit 33460000): 10 LNAs, 43s
+05:33:52 depth 4 from 40505000 (orbit 33460000): 6 LNAs, 42s
+05:33:57 depth 4 from 46005000 (orbit 33460000): 11 LNAs, 45s
+05:34:34 depth 4 from 60050030 (orbit 33460000): 11 LNAs, 42s
+05:34:36 depth 4 from 50500400 (orbit 33460000): 6 LNAs, 46s
+05:34:37 depth 4 from 50600400 (orbit 33460000): 11 LNAs, 45s
+05:34:38 depth 4 from 60600030 (orbit 33460000): 10 LNAs, 41s
+05:35:00 depth 4 from 33460000 (orbit 33460000): 10 LNAs, 26s
+05:35:03 depth 4 from 33560000 (orbit 33460000): 11 LNAs, 27s
+05:35:12 depth 4 from 34560000 (orbit 33460000): 13 LNAs, 35s
+05:35:14 depth 4 from 34660000 (orbit 33460000): 12 LNAs, 37s
+05:35:31 depth 4 from 40345000 (orbit 33460000): 10 LNAs, 28s
+05:35:36 depth 4 from 35660000 (orbit 33460000): 13 LNAs, 36s
+05:35:44 depth 4 from 44045000 (orbit 33460000): 7 LNAs, 30s
+05:35:53 depth 4 from 40455000 (orbit 33460000): 9 LNAs, 40s
+05:36:11 depth 4 from 44505000 (orbit 33460000): 10 LNAs, 40s
+05:36:15 depth 4 from 45055000 (orbit 33460000): 10 LNAs, 39s
+05:36:28 depth 4 from 45505000 (orbit 33460000): 11 LNAs, 43s
+05:36:38 depth 4 from 45605000 (orbit 33460000): 14 LNAs, 45s
+05:36:42 depth 4 from 50403400 (orbit 33460000): 10 LNAs, 28s
+05:36:54 depth 4 from 46605000 (orbit 33460000): 16 LNAs, 43s
+05:37:00 depth 4 from 50404400 (orbit 33460000): 7 LNAs, 32s
+05:37:18 depth 4 from 50504400 (orbit 33460000): 10 LNAs, 40s
+05:37:23 depth 4 from 50550400 (orbit 33460000): 11 LNAs, 41s
+05:37:27 depth 4 from 55040400 (orbit 33460000): 9 LNAs, 33s
+05:37:29 depth 4 from 55050400 (orbit 33460000): 10 LNAs, 29s
+
+A_10: 7 polynomial groups left over, 12 orbits
+  (lambda - 1)**2*(lambda + 1)**2*(lambda**2 - lambda + 1)*(lambda**2 + lambda + 1)**2
+    1 orbit(s) -> at most 1 class(es)
+          00334400   123 members,    0 certified not p.h., merged into 00334400, every member searched to depth 0
+  (lambda - 1)**2*(lambda + 1)**2*(lambda**2 + 1)*(lambda**4 + lambda**3 + lambda**2 + lambda + 1)
+    2 orbit(s) -> at most 2 class(es)
+          03345000    69 members,    0 certified not p.h., merged into 03345000, every member searched to depth 4
+          33460000    42 members,    0 certified not p.h., merged into 33460000, every member searched to depth 3
+  (lambda - 1)**2*(lambda + 1)**2*(lambda**4 + 1)*(lambda**2 + lambda + 1)
+    1 orbit(s) -> at most 1 class(es)
+          04500030    10 members,    6 certified not p.h., merged into 04500030, every member searched to depth 0
+  (lambda - 1)**2*(lambda + 1)**2*(lambda**2 + lambda + 1)*(lambda**4 - lambda**2 + 1)
+    4 orbit(s) -> at most 4 class(es)
+          03033030     4 members,    4 certified not p.h., merged into 03033030, every member searched to depth 4
+          30330400     2 members,    2 certified not p.h., merged into 30330400, every member searched to depth 4
+          30340030     2 members,    2 certified not p.h., merged into 30340030, every member searched to depth 4
+          30440030     1 members,    1 certified not p.h., merged into 30440030, every member searched to depth 4
+  (lambda - 1)**2*(lambda + 1)**4*(lambda**4 - lambda**3 + lambda**2 - lambda + 1)
+    1 orbit(s) -> at most 1 class(es)
+          30033030     6 members,    6 certified not p.h., merged into 30033030, every member searched to depth 0
+  (lambda + 1)**2*(lambda**2 - lambda + 1)*(lambda**6 - lambda**3 + 1)
+    2 orbit(s) -> at most 2 class(es)
+          34504030     1 members,    0 certified not p.h., merged into 34504030, every member searched to depth 4
+          50505000     1 members,    0 certified not p.h., merged into 50505000, every member searched to depth 4
+  (lambda**4 - lambda**2 + 1)*(lambda**6 + lambda**5 + lambda**4 + lambda**3 + lambda**2 + lambda + 1)
+    1 orbit(s) -> at most 1 class(es)
+          45050400     1 members,    0 certified not p.h., merged into 45050400, every member searched to depth 0
+  at most 12 non-quipu classes (each polynomial group is at least one)
+summary written to workshop/rounds/051/merges-10-summary.txt
+stopped on the budget; rerun the same command to continue

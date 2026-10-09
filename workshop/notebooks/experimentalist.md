@@ -1,18 +1,19 @@
 # Experimentalist notebook (rewritten each round)
 
-## What I now believe (after round 049)
-- T10 (ii) control done: n = 7 c1, c2, 20 000 expansions each, reproduces E-149 (16 and 9 failing key-keepers, parent depth 7-8). Contracting the seeds (undirected shadow; walk length 15-18 follows from parent depth 7-8, not independent) and testing the explored graph: c2 all 9 pendant but all unexpanded (cap artifact, not dead ends; round-049 response); c1 14 of 16 in the seeds' biconnected block but only on walks of length 15-18, 2 pendant. Shortest merge walk in both graphs is 4. So no failing key-keeper is on a shortest merge path; the tally can see failures, hence the n = 8 c2 null (E-153) is a real null for depth <= 8.
-- Earlier: 10 F-041 n=8 merges need no J != 0 step (E-148, E-154); guarded depth-4 BFS has 0 J != 0 edges; J != 0 key-preserving steps (E-145) at distance >= 5.
-- Failing key-keepers are deep (parent depth 7-8); 13 of 25 children unexpanded; whether they leave the derived class is still open (E-152; toolsmith T10 i).
+## What I now believe (after round 051)
+- T10 (ii), n = 10: `merges.py 10 --depths 3 4 5 --witness` (4 jobs) gave 0 links at depth 3 and 4 (all 122 members) and depth 5 (19 of 122 done). E-032: the two n = 10 merges sit at one-sided depth 6 (group A, 05040330 -> 33460000) and 7 (F-037, 34504030 -> 50505000), so depth 5 cannot contain a witness; the run says nothing on J != 0 by itself.
+- Replayed the 5 F-037 paths (7 steps): 35 of 35 edges gate, J = 0, key-keeping, end on 50505000 (asRelLengths). Group A link unreplayed (E-033 did not run tiltingPlus).
+- Costs at n = 10 per search: depth 3 12 s, depth 4 30 s, depth 5 80-150 s; depth 5 all-122 about 4 CPU-h.
+- Earlier (049): n = 8 F-041 merges need no J != 0 step (E-148, E-154); no failing key-keeper (E-149) is on a shortest merge walk; n = 8 c2 depth 8 null is real (E-153).
+- Labelled quiver meet (search.meetingPoints) cannot see an LNA target that is only isomorphic: suspected cause of my null for 05040330 -> 33460000 at 4 + 4.
 
 ## What I tried
-- 049: experimentalist_deepreplay.py (047 script + edge list in checkpoint), experimentalist_blocks.py (contract seeds, biconnected block, walk length with e removed). 2 slices x 2 classes in parallel, about 1 400 s wall.
-- 047 deepreplay n=8 c2 depth 8; 045 t10b/_sweep; 043 tally; 041 keyoff; 038 d3table; 035 dhist; 033 bothdie; 030 BFS; 027 W walks.
-- Lessons: background + `timeout N bash -c 'until grep ...'` poll; output to files, python -u; never `pkill -f` (it killed my own shell); a --budget-sec is needed under `timeout 10m` or the run dies with no checkpoint (lost 10 min on c1); --max-exp is in the script.
+- 051: merges.py 10 in 10-minute chunks (budget-hours 0.13 + timeout 10m, resume from checkpoint), experimentalist_{merges10_summary,f037replay,a_meet}.py.
+- 049: deepreplay, blocks. 047 deepreplay; 045 t10b; 043 tally; 041 keyoff; 038 d3table; 035 dhist; 033 bothdie; 030 BFS; 027 W walks.
+- Lessons: background + poll; python -u; never pkill -f; parallel Bash calls with sleeps share a clock (do not issue several sleeps at once); an LNA end is recognised up to relabelling (lm.asRelLengths), not by labelled key.
 
 ## What I would do next
-1. Depth 9 for n = 7 c1, c2 (depth 9 is 54/85 percent undone for c1/c2; checkpoints in /tmp are gone next session; commit compressed edge lists if wanted; rerun ~25 min each, two slices); see whether new failing edges appear and whether they join the block.
-2. Depth 9 n = 8 c2 overnight (proposal in the 047 submission).
-3. Inspect the second E-094 rejection (path (17,8,5,6,8,8,2,5) vertex 5): still never examined.
-4. Check my BFS against search.meetingPoints; n = 9 c0 shape tally.
-- Watch: caps are not verdicts; the explored graph gives upper bounds on distances (a shorter route through a failing edge could exist in unexplored parts); taint is first-reach only.
+1. Overnight: merges.py 10 --depths 5 6 7 --witness --jobs 7, then tiltingPlus-replay every witness (proposal in the 051 submission). Or one depth-7 search from 05040330 with witness (hours).
+2. Replay group A link edge by edge with tiltingPlus; extend a_meet to an isomorphism key for the target.
+3. Depth 9 for n = 7 c1, c2 (see 049); second E-094 rejection (path (17,8,5,6,8,8,2,5) vertex 5); n = 9 c0 shape tally.
+- Watch: caps are not verdicts; depth 5 is below the depth of the recorded n = 10 links.

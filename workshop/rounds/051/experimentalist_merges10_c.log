@@ -1,0 +1,36 @@
+A_10: 12 leftover orbits in 7 polynomial groups, computed in 1s
+resumed 122 searches from workshop/rounds/051/experimentalist_merges10.jsonl
+05:38:33 depth 4 from 60040330 (orbit 33460000): 10 LNAs, 26s
+05:38:33 depth 4 from 60500330 (orbit 33460000): 11 LNAs, 26s
+05:38:49 depth 4 from 56050400 (orbit 33460000): 14 LNAs, 42s
+05:38:50 depth 4 from 56600400 (orbit 33460000): 16 LNAs, 42s
+05:39:08 depth 4 from 60504030 (orbit 33460000): 13 LNAs, 34s
+05:39:08 depth 4 from 66004030 (orbit 33460000): 12 LNAs, 35s
+05:39:14 depth 4 from 44445000 (orbit 33460000): 13 LNAs, 24s
+05:39:21 depth 4 from 66050030 (orbit 33460000): 13 LNAs, 32s
+05:39:28 depth 4 from 44455000 (orbit 33460000): 15 LNAs, 20s
+05:39:31 depth 4 from 44555000 (orbit 33460000): 11 LNAs, 22s
+05:39:41 depth 4 from 50444400 (orbit 33460000): 13 LNAs, 20s
+05:39:42 depth 4 from 45555000 (orbit 33460000): 15 LNAs, 28s
+05:39:51 depth 4 from 55044400 (orbit 33460000): 15 LNAs, 23s
+05:39:53 depth 4 from 55504400 (orbit 33460000): 11 LNAs, 23s
+05:40:04 depth 5 from 34504030 (orbit 34504030): 1 LNAs, 22s
+05:40:06 depth 4 from 55550400 (orbit 33460000): 15 LNAs, 25s
+05:40:48 depth 5 from 50505000 (orbit 50505000): 1 LNAs, 58s
+05:40:51 depth 5 from 23033030 (orbit 03033030): 3 LNAs, 45s
+05:40:58 depth 5 from 03033030 (orbit 03033030): 3 LNAs, 64s
+05:41:15 depth 5 from 30330300 (orbit 03033030): 3 LNAs, 71s
+05:41:32 depth 5 from 30330302 (orbit 03033030): 3 LNAs, 44s
+05:42:16 depth 5 from 30330400 (orbit 30330400): 2 LNAs, 84s
+05:42:20 depth 5 from 40033030 (orbit 30330400): 2 LNAs, 82s
+05:42:35 depth 5 from 30340030 (orbit 30340030): 2 LNAs, 79s
+05:42:51 depth 5 from 30403030 (orbit 30340030): 2 LNAs, 78s
+05:43:00 depth 5 from 30440030 (orbit 30440030): 1 LNAs, 44s
+05:44:39 depth 5 from 03505000 (orbit 03345000): 15 LNAs, 140s
+05:45:00 depth 5 from 05050030 (orbit 03345000): 12 LNAs, 146s
+05:45:16 depth 5 from 35050000 (orbit 03345000): 12 LNAs, 145s
+05:45:30 depth 5 from 36005000 (orbit 03345000): 12 LNAs, 151s
+05:46:45 depth 5 from 03345000 (orbit 03345000): 18 LNAs, 88s
+05:47:12 depth 5 from 50500300 (orbit 03345000): 15 LNAs, 152s
+05:47:34 depth 5 from 03455000 (orbit 03345000): 20 LNAs, 123s
+05:47:37 depth 5 from 50600030 (orbit 03345000): 12 LNAs, 157s
