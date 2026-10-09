@@ -70,7 +70,18 @@ A short negative result ("dead end, because ...") is a welcome outcome.
 ## Special requests for the next round
 
 <!-- e.g. "conference", "only skeptic and theorist", "everyone on H-021" -->
-(none)
+**The two papers are now in the repository** (from the human, 2026-10-09):
+`research/literature/sources/1009.3370v3-aihara-iyama-silting-mutation.tex`
+and `research/literature/sources/2509.12983v2-pavon-chz-criterion.tex`. This
+answers the PDF question of rounds 049-053. For the next ordinary round:
+the scholar reads them and checks, against the actual statements, every
+citation the record makes from memory (Aihara-Iyama Thm 2.31 / 2.32 and the
+"silting but not tilting iff some J_i != 0" reading of E-122, E-128; CHZ
+Cor 3.6 and the "monomial" caveat of E-066, E-122), and with it the J = 0
+premise the round-052 conference named the weakest claim (vertex-level
+versus whole-T). Mark each citation in `research/` as verified, corrected,
+or wrong, and update the two literature summaries. A skeptic or theorist
+referee checks the readings against the source. Clear this request once done.
 
 ## Answers to the chair
 
