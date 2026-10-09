@@ -6,6 +6,20 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-164 — At n = 7, under the J = 0 premise, all 33 edges of the three E-158 paths (c2 child 6, c1 child 5, c1 child 12) pass the Hom(T,T[±1]) = 0 test with Cartan(End T) equal to the child's Cartan matrix; 23 of the 25 failing children have an edge-tested path, c1 children 13 and 15 only by key equality
+*2026-10-09* · **`workshop/rounds/053/skeptic_replay3.py`** (commands in `workshop/rounds/053/skeptic.md`; per-edge output `skeptic_replay3_*.txt`, `skeptic_key13_out.txt`, `skeptic_key15_out.txt`) · *workshop round 053, skeptic, refereed by theorist*
+
+Scope: n = 7, key classes 1 and 2; the three paths printed in E-158 (12 + 12 + 9 = 33 edges); E-149 walk rebuilt at 20 000 expansions. Test written without `tiltingPlus`, `perI` or the gate (code-independent; same verdict as the gate at every edge, so no new information about J). Cartan level only: this is Cartan(End T) = Cartan(child), not End T ≅ child; generation assumed; m = ±1 suffices because T is a two-term complex. Both ends of each path have equal non-None `canonicalKey`. The 25 split as 23 by their own edge-tested path (E-155, E-158, E-161) and 2 (c1 children 13 = child 5, key f7abe9; 15 = child 14, key b32eca) by key equality only. Closes the E-158 gap "paths not replayed". Conditional on the J = 0 premise; no claim of derived equivalence. The referee reproduced all three replays (pickles not rebuilt).
+
+---
+
+## E-165 — At n = 7, class 1, End(T) of the tilting complex, computed as a quiver with relations, is isomorphic (label-preserving, over the algebraic closure) to the next algebra on all 13 E-161 edges; the same holds at 8 of the 16 J != 0 failing steps (8 undecided, parallel arrows), so on those 8 the comparison does not see the J = 0 premise
+*2026-10-09* · **`.venv/bin/python workshop/rounds/053/toolsmith_endt_run.py path13`** (needs `/tmp/tsm/c1.pkl` from `toolsmith_collect.py 7 1 20000 /tmp/tsm/c1.pkl 100`, 513 s; controls `toolsmith_endt_control.py gen|wrong|same`, output `toolsmith_endt_control_out.txt`) · *workshop round 053, toolsmith, refereed by maverick*
+
+Scope: n = 7, class 1, the 13 edges of the E-161 path (child 14: `F1 F3 F1 F5 F4 R7 R1`; LNA/dual #9: `F7 R2 R1 F2 F7 R3`). Hom_K(T_i,T_j) exact over Q, relations by Groebner basis over arrow scalars plus radical-square corrections (4 edges need the correction); code independent of `mutation`, `reduction`, `tiltingPlus`. Discharges the E-159 caveat "End(T) matched to the child by Hom dimensions only" for these 13 edges. Arrows generate End(T) on 13 of 13 edges (per-edge radical-filtration check). Controls: replacing a binomial relation by one term rejected 22 of 22; coefficient doubling 10 of 22 (torus-cycle edges 10 of 10); wrong-algebra control rejects 411 of 411 genuinely different algebras but only at the dims filter, so it adds no power for relations. Not covered: label-preserving only; generation of K^b(proj) by T assumed (Okuyama-Rickard); class 2, the 3 E-158 paths, n = 8; the 8 undecided parallel-arrow failing steps (needs matrix-valued arrow identification). The referee reproduced path13, perturb and fail (about 2 s each); I re-ran path13.
+
+---
+
 ## E-163 — Floating H-020 rules of window width 6..8 (330 rules) hold at one length each, 12 (w = 6, 7), 13 (w = 8): 0 failures in 43 116 filed applications; dropping only the anchored rules changes no orbit or verdict in 45 placements at n = 12, 13 in the reduced walk, but does in a rules-only walk
 *2026-10-09* · **`.venv/bin/python workshop/rounds/051/theorist_rulelen.py 12 6,7,8 K 4`** (K = 0..3), **`... 13 8 K 8`**, **`workshop/rounds/051/theorist_ablate.py 13 4 5`**, rules-only contrast `workshop/rounds/050/skeptic_sensitivity.py` · *workshop round 051, theorist, refereed by skeptic*
 

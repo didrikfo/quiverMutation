@@ -7,6 +7,14 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 053 -- 2026-10-09 -- ordinary
+Chair settled round 052's questions (agenda approved; PDFs wanted; `canonicalKey` cap not yet). Skeptic, toolsmith, scholar on T10; all three minor revision, responses done.
+- **Skeptic (E-164, accepted):** the Hom(T,T[±1]) test accepts all 33 edges of the 3 E-158 paths (Cartan level, J = 0 premise); 25 of 25 failing children = 23 by an edge-tested path + 2 (c1 13, 15) by key equality.
+- **Toolsmith (E-165, accepted narrowed):** End(T) as a quiver with relations is iso to the next algebra on 13/13 E-161 edges, arrows generate End(T) on each; the same holds at the 8 decided of 16 J != 0 failing steps, so this check does not see the J = 0 premise. 8 parallel-arrow cases undecided.
+- **Scholar (note):** arXiv still 403; from memory the J = 0 step needs Hom in K^b(proj A) only; the live gap is generation of K^b(proj) by T and coverage. Provenance lines of the two literature summaries are inconsistent.
+- Consequences: H-015 stays OPEN; "25 of 25" must keep "under the J = 0 premise (generation assumed)".
+- **Question for the human:** can you supply PDFs of arXiv:1009.3370 and 2509.12983? Recommend yes; nothing else needs you.
+
 ## Round 052 -- 2026-10-09 -- conference
 All six personas gave position statements (no runs). Details in `rounds/052/`.
 - **Common view:** the weakest claim is the J = 0 premise (a `tiltingPlus` step is a derived equivalence; Hom test Cartan-level, generation assumed, AI 2.31/2.32 and CHZ 3.6 unread). The key-guard law is class 0 only. "25 of 25 children joined" must carry the premise.

@@ -1,0 +1,32 @@
+child F1 arrows generate End(T): True | sum dim End(T) = 19 | generated = 19
+child F3 arrows generate End(T): True | sum dim End(T) = 18 | generated = 18
+child F1 arrows generate End(T): True | sum dim End(T) = 19 | generated = 19
+child F5 arrows generate End(T): True | sum dim End(T) = 22 | generated = 22
+child F4 arrows generate End(T): True | sum dim End(T) = 21 | generated = 21
+child R7 arrows generate End(T): True | sum dim End(T) = 25 | generated = 25
+child R1 arrows generate End(T): True | sum dim End(T) = 22 | generated = 22
+lna9 F7 arrows generate End(T): True | sum dim End(T) = 24 | generated = 24
+lna9 R2 arrows generate End(T): True | sum dim End(T) = 19 | generated = 19
+lna9 R1 arrows generate End(T): True | sum dim End(T) = 22 | generated = 22
+lna9 F2 arrows generate End(T): True | sum dim End(T) = 24 | generated = 24
+lna9 F7 arrows generate End(T): True | sum dim End(T) = 25 | generated = 25
+lna9 R3 arrows generate End(T): True | sum dim End(T) = 22 | generated = 22
+GEN 13 of 13
+child F1 candidates 32 {'dims': 32, 'arrows': 0, 'filt_iso': 0, 'filt_reject': 0, 'filt_undec': 0, 'vset': 0}
+child F3 candidates 32 {'dims': 32, 'arrows': 0, 'filt_iso': 0, 'filt_reject': 0, 'filt_undec': 0, 'vset': 0}
+child F1 candidates 31 {'dims': 31, 'arrows': 0, 'filt_iso': 0, 'filt_reject': 0, 'filt_undec': 0, 'vset': 0}
+child F5 candidates 31 {'dims': 31, 'arrows': 0, 'filt_iso': 0, 'filt_reject': 0, 'filt_undec': 0, 'vset': 0}
+child F4 candidates 32 {'dims': 32, 'arrows': 0, 'filt_iso': 0, 'filt_reject': 0, 'filt_undec': 0, 'vset': 0}
+child R7 candidates 31 {'dims': 31, 'arrows': 0, 'filt_iso': 0, 'filt_reject': 0, 'filt_undec': 0, 'vset': 0}
+   ISO with edge lna9 R3
+child R1 candidates 32 {'dims': 31, 'arrows': 0, 'filt_iso': 1, 'filt_reject': 0, 'filt_undec': 0, 'vset': 0}
+lna9 F7 candidates 31 {'dims': 31, 'arrows': 0, 'filt_iso': 0, 'filt_reject': 0, 'filt_undec': 0, 'vset': 0}
+lna9 R2 candidates 32 {'dims': 32, 'arrows': 0, 'filt_iso': 0, 'filt_reject': 0, 'filt_undec': 0, 'vset': 0}
+lna9 R1 candidates 31 {'dims': 31, 'arrows': 0, 'filt_iso': 0, 'filt_reject': 0, 'filt_undec': 0, 'vset': 0}
+lna9 F2 candidates 33 {'dims': 33, 'arrows': 0, 'filt_iso': 0, 'filt_reject': 0, 'filt_undec': 0, 'vset': 0}
+lna9 F7 candidates 32 {'dims': 32, 'arrows': 0, 'filt_iso': 0, 'filt_reject': 0, 'filt_undec': 0, 'vset': 0}
+   ISO with edge child R1
+lna9 R3 candidates 33 {'dims': 32, 'arrows': 0, 'filt_iso': 1, 'filt_reject': 0, 'filt_undec': 0, 'vset': 0}
+WRONG {'cand': 413, 'dims': 411, 'arrows': 0, 'filt': 0, 'reject': 0, 'iso': 2, 'undec': 0, 'vset': 0}
+child R1 next algebra == lna9 R3 next algebra (same arrows+relations, same labels): False
+canonical keys equal: True

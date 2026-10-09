@@ -73,3 +73,9 @@ if CMODE == 'wrong':
         for k_, x in cnt.items(): T[{'filt_iso':'iso','filt_reject':'reject','filt_undec':'undec'}.get(k_, k_)] = T.get({'filt_iso':'iso','filt_reject':'reject','filt_undec':'undec'}.get(k_, k_), 0) + x
         T['cand'] += len(cands)
     print('WRONG', T)
+
+if CMODE == 'same':   # are the two 'ISO' hits the same algebra (the two walks meet at the E-161 target)?
+    c1 = [e for e in E13 if e[0] == 'child' and e[1] == 'R1'][0][4]; c2 = [e for e in E13 if e[0] == 'lna9' and e[1] == 'R3'][0][4]
+    print('child R1 next algebra == lna9 R3 next algebra (same arrows+relations, same labels):',
+          sorted(ap.arrowsOf(c1.quiver)) == sorted(ap.arrowsOf(c2.quiver)) and procedure.relationsFrom(c1) == procedure.relationsFrom(c2))
+    print('canonical keys equal:', fingerprint.canonicalKey(c1) == fingerprint.canonicalKey(c2))
