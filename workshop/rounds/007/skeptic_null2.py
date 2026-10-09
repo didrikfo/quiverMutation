@@ -1,4 +1,4 @@
-"""Null for the centre formula s = first + last outside offset (E-060/E-061), n = 13 census + slides.
+"""Null for the centre formula s = first + last outside offset (E-062/E-063), n = 13 census + slides.
   .venv/bin/python workshop/rounds/007/skeptic_null2.py [trials]
 Null B: shuffle which offsets are 'outside' (same number), keep the fitted s; pred = first+last outside.
 Null A: keep the slide, redo the orbit partition at random (same block sizes), refit, compare s to pred.

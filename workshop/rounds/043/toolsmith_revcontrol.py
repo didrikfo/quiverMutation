@@ -1,4 +1,4 @@
-"""Round 043 (toolsmith): reverse positive control at depth 2 and diagnosis of the ~12% lost reverse edges (E-142).
+"""Round 043 (toolsmith): reverse positive control at depth 2 and diagnosis of the ~12% lost reverse edges (E-144).
 Uses the prelude of rounds/041/toolsmith_n6meet.py (LNA class 0 at n = 6, gate, Coxeter key guard, tiltingPlus).
  Part A (--diag): collect forward tilting edges A -(v)-> B on the LNA side; for each, look for a vertex w of opposite(B) whose
           UNFILTERED mutation has opposite == A (up to canonical key), then say which filter (gate / J / illegal relation / key guard / none)

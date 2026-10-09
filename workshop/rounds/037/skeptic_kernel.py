@@ -1,4 +1,4 @@
-"""Round 037 (skeptic): the kernel element J_i of each E-127 row as a combination of path classes e_iAe_v, and which out-arrows it uses.
+"""Round 037 (skeptic): the kernel element J_i of each E-129 row as a combination of path classes e_iAe_v, and which out-arrows it uses.
 Usage: skeptic_kernel.py skeptic_rows.pkl"""
 import sys, pickle
 sys.path.insert(0, '.'); ARGV = sys.argv; sys.argv = ['x']

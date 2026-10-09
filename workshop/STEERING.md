@@ -105,9 +105,9 @@ A short negative result ("dead end, because ...") is a welcome outcome.
 - round 012, question 2 (agenda): approve the round-012 agenda unchanged -- decided by the chair of round 013; no answer from the human (applied, round 013)
 - round 013, question 1 (n = 17 key-coarser lists overnight) (applied, round 014): not yet; experimentalist re-runs and saves the n = 17 `5046`/`5056` output first -- decided by the chair of round 014; no answer from the human
 - round 013, question 2 (H-017 depth 7 overnight) (applied, round 014): no; an n = 8 control with a non-hereditary source is sized first (maverick, round 014) -- decided by the chair of round 014; no answer from the human
-- round 014, question 1 (`isTilting`) (applied, round 015): still not promoted; Cartan congruence on the replayed parents computed (E-085) -- decided by the chair of round 015; no answer from the human
-- round 014, question 2 (overnight) (applied, round 015): no overnight; n = 8 control with cords built (E-087) -- decided by the chair of round 015; no answer from the human
-- round 015, question 1 (`reduceAgainstPivots` fix) (applied, round 016): toolsmith patches it with a unit test on the congruent pair in round 017, and the experimentalist re-runs the E-084 n = 8 class 2 walk -- decided by the chair of round 016; no answer from the human
+- round 014, question 1 (`isTilting`) (applied, round 015): still not promoted; Cartan congruence on the replayed parents computed (E-087) -- decided by the chair of round 015; no answer from the human
+- round 014, question 2 (overnight) (applied, round 015): no overnight; n = 8 control with cords built (E-089) -- decided by the chair of round 015; no answer from the human
+- round 015, question 1 (`reduceAgainstPivots` fix) (applied, round 016): toolsmith patches it with a unit test on the congruent pair in round 017, and the experimentalist re-runs the E-086 n = 8 class 2 walk -- decided by the chair of round 016; no answer from the human
 - round 015, question 2 (overnight) (applied, round 016): no overnight; toolsmith sizes the n = 8 `MONO=1` plan first -- decided by the chair of round 016; no answer from the human
 - round 016, question 1 (overnight): none; the depth-8 n = 8 class 2 walk needs a checkpoint first -- decided by the chair of round 017; no answer from the human (applied, round 017)
 - round 016, question 2 (agenda): approve the round-016 agenda unchanged -- decided by the chair of round 017; no answer from the human (applied, round 017)
@@ -115,10 +115,10 @@ A short negative result ("dead end, because ...") is a welcome outcome.
 - round 017, question 2 (agenda): approve the round-016 agenda unchanged -- decided by the chair of round 018; no answer from the human (applied, round 018)
 - round 018, question 1 (overnight) (applied, round 019): none; the depth-8 n = 8 class 2 walk needs a checkpoint in `scholar_walk.py` first (toolsmith, round 019) -- decided by the chair of round 019; no answer from the human
 - round 018, question 2 (agenda) (applied, round 019): approve the round-016 agenda unchanged -- decided by the chair of round 019; no answer from the human
-- round 019, question 1 (overnight) (applied, round 020): none yet; replay the 10 E-084 parents first -- decided by the chair of round 020; no answer from the human
+- round 019, question 1 (overnight) (applied, round 020): none yet; replay the 10 E-086 parents first -- decided by the chair of round 020; no answer from the human
 - round 019, question 2 (agenda) (applied, round 020): approve the round-016 agenda unchanged -- decided by the chair of round 020; no answer from the human
 - round 020, question 1 (agenda) (applied, round 021): approve the round-020 agenda unchanged -- decided by the chair of round 021; no answer from the human
-- round 020, question 2 (overnight) (applied, round 021): none yet; A5-shape check and replay of the 10 E-084 parents first -- decided by the chair of round 021; no answer from the human
+- round 020, question 2 (overnight) (applied, round 021): none yet; A5-shape check and replay of the 10 E-086 parents first -- decided by the chair of round 021; no answer from the human
 - round 021, question 1 (agenda) (applied, round 022): keep the round-020 agenda -- decided by the chair of round 022; no answer from the human
 - round 021, question 2 (overnight) (applied, round 022): none; the non-MONO L = 5 walk is not worth 4.5 CPU-hours -- decided by the chair of round 022; no answer from the human
 - round 022, question 1 (agenda) (applied, round 023): keep the round-020 agenda -- decided by the chair of round 023; no answer from the human
@@ -165,7 +165,7 @@ A short negative result ("dead end, because ...") is a welcome outcome.
 - round 041, question 1 (agenda) (applied, round 042): keep the round-040 agenda, item 1 reshaped to why Q(x) has lowest term x^2 on LNA walks -- decided by the chair of round 042; no answer from the human
 - round 041, question 2 (overnight) (applied, round 042): no; the 3 h reverse job waits for a reverse positive control at depth >= 2 -- decided by the chair of round 042; no answer from the human
 - round 041, question 3 (literature) (applied, round 042): yes, scholar fetches arXiv:1009.3370 and arXiv:2509.12983 (also covered by the standing arXiv permission) -- decided by the chair of round 042; no answer from the human
-- round 042, question 1 (agenda) (applied, round 043): keep the round-040 agenda; item 1 now = H1/H2 step with c_2 != 0 and the n = 8 tally for E-143 -- decided by the chair of round 043; no answer from the human
+- round 042, question 1 (agenda) (applied, round 043): keep the round-040 agenda; item 1 now = H1/H2 step with c_2 != 0 and the n = 8 tally for E-145 -- decided by the chair of round 043; no answer from the human
 - round 042, question 2 (literature) (applied, round 043): no PDFs supplied; item 3 stays parked -- decided by the chair of round 043; no answer from the human
 - round 042, question 3 (overnight) (applied, round 043): none; nothing needs more than 10 minutes per command -- decided by the chair of round 043; no answer from the human
 - round 043, question 1 (agenda): keep the round-040 agenda, item 1 = why key-preserving J != 0 steps exist at n = 7 c1, c2 -- decided by the chair of round 044; no answer from the human (applied, round 044; superseded by the round-044 proposed agenda)
@@ -174,17 +174,17 @@ A short negative result ("dead end, because ...") is a welcome outcome.
 - round 044, question 1 (agenda): approve the round-044 proposed agenda, with the guard audit (T10) ahead of it as the special request for round 045 asks -- decided by the chair of round 045; no answer from the human (applied, round 045)
 - round 044, question 2 (overnight): none; nothing needs more than 10 minutes per command -- decided by the chair of round 045; no answer from the human (applied, round 045)
 - round 044, question 3 (literature): no PDFs supplied; the arXiv items stay parked (retrospective: arxiv.org is denied by the network policy) -- decided by the chair of round 045; no answer from the human (applied, round 045)
-- round 045, question 1 (`tiltingPlus` into the library) (applied, round 046): not yet; the skeptic's out-of-class test of the E-149 / E-145 children (T10 i) comes first, then reconsider as an opt-in keyword -- decided by the chair of round 046; no answer from the human
+- round 045, question 1 (`tiltingPlus` into the library) (applied, round 046): not yet; the skeptic's out-of-class test of the E-151 / E-147 children (T10 i) comes first, then reconsider as an opt-in keyword -- decided by the chair of round 046; no answer from the human
 - round 045, question 2 (arxiv.org) (applied, round 046): cannot be changed from inside the workshop (checked again, round 046: still 403); literature stays parked; PDFs welcome from the human -- decided by the chair of round 046; no answer from the human
 - round 046, question 1 (`tiltingPlus` into the library) (applied, round 047): not yet; reconsider when a failing child is shown outside the class or a tilting path shows it inside -- decided by the chair of round 047; no answer from the human
 - round 046, question 2 (arxiv.org / PDFs): cannot be changed from inside the workshop; literature stays parked; PDFs welcome from the human -- decided by the chair of round 047; no answer from the human (applied, round 047)
-- round 046, question 3 (overnight) (applied, round 047): none; experimentalist sizes the E-094 n = 8 c2 depth-8 replay with `--plan` first -- decided by the chair of round 047; no answer from the human
+- round 046, question 3 (overnight) (applied, round 047): none; experimentalist sizes the E-096 n = 8 c2 depth-8 replay with `--plan` first -- decided by the chair of round 047; no answer from the human
 - round 047, question 1 (overnight depth-9 n = 8 c2 walk) (applied, round 048): no; the n = 7 c1, c2 edge tally first -- decided by the chair of round 048; no answer from the human
 - round 047, question 2 (PDFs) (applied, round 048): cannot be changed from inside the workshop; literature stays parked; PDFs welcome -- decided by the chair of round 048; no answer from the human
 - round 048, question 1 (agenda) (applied, round 049): approve the round-048 proposed agenda -- decided by the chair of round 049; no answer from the human
 - round 048, question 2 (PDFs) (applied, round 049): cannot be changed from inside the workshop; literature stays parked; PDFs welcome -- decided by the chair of round 049; no answer from the human
 - round 048, question 3 (overnight) (applied, round 049): none; nothing needs more than 10 minutes per command -- decided by the chair of round 049; no answer from the human
-- round 049, question 1 (overnight depth-7 child ball) (applied, round 050): no; toolsmith sharded it under 10 minutes each (E-158) -- decided by the chair of round 050; no answer from the human
+- round 049, question 1 (overnight depth-7 child ball) (applied, round 050): no; toolsmith sharded it under 10 minutes each (E-160) -- decided by the chair of round 050; no answer from the human
 - round 049, question 2 (PDFs) (applied, round 050): cannot be changed from inside the workshop; literature stays parked; PDFs welcome -- decided by the chair of round 050; no answer from the human
 - round 050, question 1 (c1 14/15 overnight at horizon 13) (applied, round 051): no; toolsmith first tries a depth-6 target ball and a larger `canonicalKey` cap -- decided by the chair of round 051; no answer from the human
 - round 050, question 2 (PDFs of arXiv:1009.3370, 2509.12983): yes, wanted if the human can supply them; literature stays parked meanwhile -- decided by the chair of round 051; no answer from the human

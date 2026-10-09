@@ -1,4 +1,4 @@
-"""Round 039 (skeptic): replay an LNA -> M and a hit -> M path of E-134 (n = 6, class 0) step by step.
+"""Round 039 (skeptic): replay an LNA -> M and a hit -> M path of E-136 (n = 6, class 0) step by step.
 Each step: gate (mutationIsPossibleAtVertex), tiltingPlus (Ladkani 2.3(c)), Cartan congruence (Ladkani 3.6), Coxeter key.
 Usage: skeptic_n6path.py LNA_SECONDS HIT_SECONDS [HITS=0,1,2]"""
 import sys, time

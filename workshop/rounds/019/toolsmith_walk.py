@@ -1,5 +1,5 @@
-"""T5 round 019: scholar_walk.py (round 014, E-084) with checkpoint/resume. Same walk, same counts, same output
-lines; the library is used as it is (E-089 fix is in it), no monkeypatch.
+"""T5 round 019: scholar_walk.py (round 014, E-086) with checkpoint/resume. Same walk, same counts, same output
+lines; the library is used as it is (E-091 fix is in it), no monkeypatch.
   toolsmith_walk.py n --plan
   toolsmith_walk.py n --class I [--depth D] [--budget-sec S] [--stop-on-reject] [--ckpt FILE]
 With --ckpt FILE: if FILE exists the walk resumes from it (n, class, depth must match); when the budget (seconds,

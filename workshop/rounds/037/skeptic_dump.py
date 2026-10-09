@@ -1,4 +1,4 @@
-"""Round 037 (skeptic): re-run the E-127 n=8 c0 walk (same as rounds/034/skeptic_outdeg3.py) and pickle the algebras of every
+"""Round 037 (skeptic): re-run the E-129 n=8 c0 walk (same as rounds/034/skeptic_outdeg3.py) and pickle the algebras of every
 out-degree >= 3 gate-admitted row with J != 0. Usage: skeptic_dump.py budget_sec max_exp out.pkl"""
 import sys, time, pickle
 sys.path.insert(0, '.'); ARGV = sys.argv; sys.argv = ['x']

@@ -1,4 +1,4 @@
-"""E-078 n=5 (a=1,b=2,c=3,d=4,e=5; abde=acde) at d=4: R C R^T, Cartan(child), and the difference; also the map kernel."""
+"""E-080 n=5 (a=1,b=2,c=3,d=4,e=5; abde=acde) at d=4: R C R^T, Cartan(child), and the difference; also the map kernel."""
 import sys; sys.path.insert(0, '.'); sys.argv = ['x']
 src = open('workshop/rounds/001/scholar_h015.py').read().replace("\nmain()\n", "\n")
 exec(compile(src, 'h015', 'exec'))

@@ -1,6 +1,6 @@
-"""Round 027 (scholar): is J != 0 explained by a PAIR of paths with equal signature (W2), and is W (E-107) the b2-zero special case?
+"""Round 027 (scholar): is J != 0 explained by a PAIR of paths with equal signature (W2), and is W (E-109) the b2-zero special case?
 J = {x in e_i A e_v : x b = 0 in A for all arrows b out of v}.  sig(p) = (normal form of p*b in e_i A e_{t(b)})_b.
-W2: two paths p1,p2 : i -> v, p1 - p2 != 0 in A, sig(p1) = sig(p2).  Then x = p1 - p2 is in J.  (W of E-107 = W2 with b2-component zero.)
+W2: two paths p1,p2 : i -> v, p1 - p2 != 0 in A, sig(p1) = sig(p2).  Then x = p1 - p2 is in J.  (W of E-109 = W2 with b2-component zero.)
 Usage: scholar_pairtest.py --hand | n budget_sec class"""
 import sys, time
 from collections import Counter

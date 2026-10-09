@@ -8,7 +8,7 @@ _a = ARGV; exec(compile(src, 'bd', 'exec')); _a = ARGV
 a3 = [(1,2),(1,3),(1,4),(2,5),(3,5),(4,5),(5,6)]
 F = {'T1 (d,J)=(3,1)': (a3, [[[1,2,5,6],[1,3,5,6]]], 6, 5),
      'T2 (3,2)': (a3, [[[1,2,5,6],[1,3,5,6]],[[1,3,5,6],[1,4,5,6]]], 6, 5),
-     'E-078 square a-b,a-c,b-d,c-d,d-e abde=acde (2,1) at d': ([(1,2),(1,3),(2,4),(3,4),(4,5)], [[[1,2,4,5],[1,3,4,5]]], 5, 4)}
+     'E-080 square a-b,a-c,b-d,c-d,d-e abde=acde (2,1) at d': ([(1,2),(1,3),(2,4),(3,4),(4,5)], [[[1,2,4,5],[1,3,4,5]]], 5, 4)}
 for name, (arr, rl, n, v) in F.items():
     A = build(arr, rl, list(range(1, n+1)))
     ok = mutation.mutationIsPossibleAtVertex(A, v)

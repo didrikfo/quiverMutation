@@ -1,4 +1,4 @@
-"""E-125 redone with freeMoves.mirrorRow for head ends (r034 reversed digit strings). Reads every K>=3 end of the failing
+"""E-127 redone with freeMoves.mirrorRow for head ends (r034 reversed digit strings). Reads every K>=3 end of the failing
 n=11 class as a TAIL word: tail ends keep m, head ends use mirrorRow(n, m). Reports whether image = f(K, tail word),
 head-vs-tail agreement, and the words common to K=3 and K=4. usage: python workshop/rounds/037/maverick_endtable_mirror.py"""
 import sys, collections

@@ -1,4 +1,4 @@
-"""The gate (`mutationIsPossibleAtVertex`) is only a necessary condition (research E-078, E-066).
+"""The gate (`mutationIsPossibleAtVertex`) is only a necessary condition (research E-080, E-068).
 
 The 5-vertex algebra a>b>d, a>c>d, d>e with the single relation abde = acde has a 2-dimensional
 e_a A e_d whose image under p |-> p(d>e) is 1-dimensional, so the two-term complex at d is not

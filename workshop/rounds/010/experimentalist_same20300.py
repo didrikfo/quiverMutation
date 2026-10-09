@@ -1,4 +1,4 @@
-"""n = 16: is the size-20300 orbit of 348 {2},{3} and 349 {1},{3} the 4056 orbit (E-064)?
+"""n = 16: is the size-20300 orbit of 348 {2},{3} and 349 {1},{3} the 4056 orbit (E-066)?
 Walks each offset's reduced orbit (limit 1500000), prints size, closed, and pairwise shared rows,
 plus whether a start row (or its mirror) of one lies in the other.
   timeout 10m .venv/bin/python workshop/rounds/010/experimentalist_same20300.py

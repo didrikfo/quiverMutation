@@ -1,5 +1,5 @@
 """Round 015 theorist: monkeypatch arrowPaths.reduceAgainstPivots to a FULL reduction (every term that is a pivot
-column is eliminated, not just the leading one), then redo, for the replayed parents of E-084 n = 8 class 2
+column is eliminated, not just the leading one), then redo, for the replayed parents of E-086 n = 8 class 2
 (1 rejection + 10 'M' lines), the mutation + Cartan congruence + key check.  Usage: theorist_fix.py [n class]"""
 import sys
 n, c = (int(sys.argv[1]), int(sys.argv[2])) if len(sys.argv) > 2 else (8, 2)

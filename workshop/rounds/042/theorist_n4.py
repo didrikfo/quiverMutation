@@ -1,4 +1,4 @@
-"""Round 042 (theorist): the n = 4 non-LNA example of E-141 through the same lens: C', Z = C_A|V\\v, u, F = Z Z^-T, orbit relation F^s e_w = e_i, moments c_k, Q.
+"""Round 042 (theorist): the n = 4 non-LNA example of E-143 through the same lens: C', Z = C_A|V\\v, u, F = Z Z^-T, orbit relation F^s e_w = e_i, moments c_k, Q.
 Usage: theorist_n4.py (repo root)"""
 import sys
 import numpy as np, sympy as sp

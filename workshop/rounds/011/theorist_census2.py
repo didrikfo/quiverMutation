@@ -3,7 +3,7 @@ Walk every single-relation row's reduced orbit (k = 3..n-2, all offsets).  A cat
 every placement's reduced row lies in a single-relation orbit and the orbit ids at consecutive offsets alternate a, b, a, b
 (two orbits, offset parity).  Words with a placement in no single-relation orbit are 'unknown' (need their own walk).
 The two orbits must carry one Coxeter key and each hold its own mirror (406 fails the last: its two orbits are mirror images).
-Compare with the E-074 lists A (even n) / B (odd n).
+Compare with the E-076 lists A (even n) / B (odd n).
   timeout 10m .venv/bin/python workshop/rounds/011/theorist_census2.py N [limit]
 """
 import sys, time
@@ -39,7 +39,7 @@ for w in batch._singleCores(4, 6, False):
     elif len(set(ids)) > 1 and len(set(ids)) <= 3 : other.append((w, ids))
 ref = A if n % 2 == 0 else B
 print('predicted (alternating between two single-relation orbits):', ' '.join(pred))
-print('E-074 list:', ' '.join(ref))
+print('E-076 list:', ' '.join(ref))
 print('in prediction not in list:', sorted(set(pred) - set(ref)), '; in list not in prediction:', sorted(set(ref) - set(pred)))
 print('words with a placement in no single-relation orbit: %d' % unknown)
 print('words in 2..3 single-relation orbits, not alternating:', [(w, ''.join(map(str, [chr(48 + x % 10) for x in ids]))) for w, ids in other][:12], len(other))

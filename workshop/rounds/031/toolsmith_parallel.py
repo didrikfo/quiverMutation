@@ -1,5 +1,5 @@
-"""Round 031 (toolsmith): parallel-arrow controls for rule W (E-107, E-110, E-111) and an independent check of the
-dim e_iAe_v count on quivers with doubled arrows (E-117 caveat).
+"""Round 031 (toolsmith): parallel-arrow controls for rule W (E-109, E-112, E-113) and an independent check of the
+dim e_iAe_v count on quivers with doubled arrows (E-119 caveat).
 Usage: toolsmith_parallel.py --controls | --dimcheck [N seed]
 Controls are built with arrow-level relations (procedure.toPathAlgebra), so a relation may run along a doubled arrow.
 Independent count: enumerate arrow paths by DFS, build the ideal part u*r*w spanning set, exact rank over Q (sympy). No arrowPaths call."""
@@ -102,8 +102,8 @@ def controls():
     # 8. tripled arrow, H chain (3-term kernel): g0b1=g1b1, g1b2=g2b2, g0b2=0, g2b1=0
     C['P6 parallel H: tripled arrow chain'] = ([(2,4),(2,4),(2,4),(4,5),(4,6)],
         [{(A(2,4,0),A(4,5)):1,(A(2,4,1),A(4,5)):-1},{(A(2,4,1),A(4,6)):1,(A(2,4,2),A(4,6)):-1},{(A(2,4,0),A(4,6)):1},{(A(2,4,2),A(4,5)):1}], 4)
-    # plain (non-parallel) twins, E-110 cases D and W-type, for comparison
-    C['D0 plain cancels (E-110 D)'] = ([(1,2),(1,3),(2,4),(3,4),(4,5),(4,6)],
+    # plain (non-parallel) twins, E-112 cases D and W-type, for comparison
+    C['D0 plain cancels (E-112 D)'] = ([(1,2),(1,3),(2,4),(3,4),(4,5),(4,6)],
         [{(A(1,2),A(2,4),A(4,5)):1,(A(1,3),A(3,4),A(4,5)):-1},{(A(1,2),A(2,4),A(4,6)):1,(A(1,3),A(3,4),A(4,6)):-1}], 4)
     C['W0 plain W-type'] = ([(1,2),(1,3),(2,4),(3,4),(4,5),(4,6)],
         [{(A(1,2),A(2,4),A(4,5)):1,(A(1,3),A(3,4),A(4,5)):-1},{(A(1,2),A(2,4),A(4,6)):1},{(A(1,3),A(3,4),A(4,6)):1}], 4)

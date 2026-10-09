@@ -1,5 +1,5 @@
 """Single-relation cores (length a, h free vertices at the head, K at the tail, h+K+a+1=n): Coxeter key vs offset.
-E-125 / the 037 mirror table says the I1/I2 split at n=11 is carried by a single 3 (or 7) core at K_eff=3 vs 4.
+E-127 / the 037 mirror table says the I1/I2 split at n=11 is carried by a single 3 (or 7) core at K_eff=3 vs 4.
 usage: python workshop/rounds/037/maverick_single.py"""
 import collections
 from quivermutation import coxeterTables as ct

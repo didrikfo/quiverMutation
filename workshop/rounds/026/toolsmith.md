@@ -1,7 +1,7 @@
 # `longSquare` now sees parallel-arrow long squares (4 of 16 out-degree 1 rejects at n = 8 class 1 were missed), and the n = 9 class 0 reject walk has checkpoint/resume with `--budget-hours`
 
 author: toolsmith · round: 026 · kind: tool
-thread: T5 · bears on: E-103, E-105, E-106
+thread: T5 · bears on: E-105, E-107, E-108
 
 ## Claim
 
@@ -10,7 +10,7 @@ thread: T5 · bears on: E-103, E-105, E-106
 The fixed test reads the arrow relations (`procedure.relationsFrom`, which prefers `arrowRels`) and asks for distinct second-to-last
 *arrows*. On an n = 8 class 1 walk (420 s, 10 106 expansions) all 16 distinct-step out-degree 1 rows with J != 0 now have a long
 square; the old test missed 4 of the 16 steps (4 distinct (parent, v), all parallel-arrow). It does NOT claim "reject iff long
-square" (E-105: out-degree >= 2 rejects have none, by construction of the test) nor anything about n = 9 beyond the prefix below.
+square" (E-107: out-degree >= 2 rejects have none, by construction of the test) nor anything about n = 9 beyond the prefix below.
 (2) `toolsmith_rejwalk.py` is the round 023/025 walk plus classifier with `--ckpt`, `--budget-hours`, `--max-exp`; resume gives
 the same table as an uninterrupted run (n = 7 class 0, 3000 expansions, 3 slices; diff empty). Overnight n = 9 class 0 is feasible
 as a multi-night resumable job, not a one-shot (sizing below).
@@ -18,7 +18,7 @@ as a multi-night resumable job, not a one-shot (sizing below).
 ## Evidence
 
 Unit tests, `tests/test_longsquare.py` (3 pass): case 1 builds 3 -> 2 => 5 -> 4 (2 => 5 doubled) with the relation
-`a g0 e = a g1 e`; `alg.rels == [[[3,2,5,4],[3,2,5,4]]]` (the E-106 shape), `longSquareOld(alg,5)` False (fails before),
+`a g0 e = a g1 e`; `alg.rels == [[[3,2,5,4],[3,2,5,4]]]` (the E-108 shape), `longSquareOld(alg,5)` False (fails before),
 `longSquare(alg,5)` True. Case 2: an ordinary square and its two non-squares (relation stops at v; monomial) agree old/new.
 Case 3: parallel arrows before the penultimate arrow (same second-to-last arrow) is correctly not a square.
 Old vs new over n = 6, 7 LNAs and duals plus one step out (2 016 and 8 316 (algebra, v) tests): 0 differences, but also 0 positives,
@@ -31,7 +31,7 @@ the 4 parallel steps. Walk tables (`longsq`, `old`):
 | n = 7 c0, 3 000 exp | 26 | 0 | 0 |
 | n = 9 c0, 100 s, 1 388 exp | 32 | 0 | 0 |
 
-Distinct (parent, v) at n = 8 c1: 54 = 38 D-part1/2 + 8 (dim J 2) + 4 sq + 4 sq-parallel-only. Counts depend on load and cap (E-106).
+Distinct (parent, v) at n = 8 c1: 54 = 38 D-part1/2 + 8 (dim J 2) + 4 sq + 4 sq-parallel-only. Counts depend on load and cap (E-108).
 
 Resume check: `toolsmith_rejwalk_resume_check_uninterrupted.txt` (one run, `--max-exp 3000`) vs
 `..._3slices.txt` (`--max-exp 1000`, `2000`, `3000` with one `--ckpt`; checkpoint 4.8 MB): identical after dropping time and slice count.
@@ -63,8 +63,8 @@ Exit 0 = closed, 2 = budget spent (checkpoint written; SIGTERM also checkpoints)
 
 ## Prior record
 
-E-106 (STATE T5): "out-degree 1 no-square rejects are parallel-arrow long squares missed by `longSquare`" -- now fixed and counted (4 steps
-here). E-105: n = 9 c0 prefix (8 231 algebras, 500 s) shows no D' rejects; coverage-dependent, my 1 388-expansion prefix is shorter and
+E-108 (STATE T5): "out-degree 1 no-square rejects are parallel-arrow long squares missed by `longSquare`" -- now fixed and counted (4 steps
+here). E-107: n = 9 c0 prefix (8 231 algebras, 500 s) shows no D' rejects; coverage-dependent, my 1 388-expansion prefix is shorter and
 adds nothing. Prior checkpointed walk: round 019 `toolsmith_walk.py` (scholar_walk, different counts). Nothing in RETRACTIONS touched.
 
 ## Code changed
@@ -83,5 +83,5 @@ older scripts, which keep the old test. Tests run: `tests/test_longsquare.py` on
 
 ## Next
 
-experimentalist: approve/run the overnight command; classify `sq-parallel-only` with a minimality check (E-103 caveat: is the relation minimal?).
+experimentalist: approve/run the overnight command; classify `sq-parallel-only` with a minimality check (E-105 caveat: is the relation minimal?).
 theorist: whether the n = 9 level growth (ratio 2.5) means class 0 never closes, which would make "coverage by algebra count" the only honest unit.

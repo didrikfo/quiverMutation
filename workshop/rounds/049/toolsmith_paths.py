@@ -1,6 +1,6 @@
 """Round 049 (toolsmith), response to referee: path recovery and parent check on top of toolsmith_tiltpath.py (same moves F / R, J = 0 etc.).
 Usage (repo root): toolsmith_paths.py in.pkl cls dC mode     mode = buildball (target ball, depth 5, WITH parent pointers; once per class, cached in /tmp/tsm) | paths | parents
- paths  : for each E-152 child (one per distinct canonical key) search to depth dC against the target ball and PRINT the moves (F v / R v) on both
+ paths  : for each E-154 child (one per distinct canonical key) search to depth dC against the target ball and PRINT the moves (F v / R v) on both
           sides of the meeting key: child -> meet (moves from the child) and LNA/dual -> meet (moves from the LNA, traversed backwards = inverse of a
           tilting step). Both sides are replayed with fresh move generation and the keys checked (replay ok).
  parents: the same for each distinct parent (by canonicalKey) of the children (is the parent itself tilting-path connected to an LNA?).

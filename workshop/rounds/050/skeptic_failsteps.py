@@ -1,4 +1,4 @@
-"""Round 050 (skeptic): apply the independent tilting test to the recorded E-149/E-152 steps (rounds/049/toolsmith_collect.py pickle):
+"""Round 050 (skeptic): apply the independent tilting test to the recorded E-151/E-154 steps (rounds/049/toolsmith_collect.py pickle):
 the 'fail' steps (key-keeping, J != 0 / tiltingPlus false) and the 'ctrl' steps (J = 0).  Usage: skeptic_failsteps.py in.pkl"""
 import sys, pickle
 import numpy as np

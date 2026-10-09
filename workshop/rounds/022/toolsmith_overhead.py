@@ -1,4 +1,4 @@
-"""Overhead of checkCartan on mutateAtVertex (round 022). Times the 10 E-084 parents' step and a hot-path sample:
+"""Overhead of checkCartan on mutateAtVertex (round 022). Times the 10 E-086 parents' step and a hot-path sample:
 mutateAtVertex alone vs with checkCartan=True, then a depth-5 guarded n = 8 sample of admitted steps."""
 import sys, time
 sys.argv = ['x']

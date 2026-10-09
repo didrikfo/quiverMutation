@@ -1,6 +1,6 @@
-"""Round 022 (experimentalist): control for E-097's long-sided square.
+"""Round 022 (experimentalist): control for E-099's long-sided square.
 Guarded BFS as rounds/021/scholar_step7_entries.py (class C, from LNAs and duals), but at EVERY gate-admitted step (parent, v)
-record tiltingPlus and the two shape tests of E-097 at v (strict A5 = hasA5; long square = hasLongSquare, both copied from
+record tiltingPlus and the two shape tests of E-099 at v (strict A5 = hasA5; long square = hasLongSquare, both copied from
 rounds/021/scholar_step7_entries.py), de-duplicated on (canonical key of parent, v). Also: v has exactly one out-arrow.
 Usage: experimentalist_shapectl.py n [--class I] [--budget-sec S] [--maxexp N]"""
 import argparse, sys, time

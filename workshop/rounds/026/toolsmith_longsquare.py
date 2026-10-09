@@ -1,4 +1,4 @@
-"""Round 026 (toolsmith): `longSquare` that handles parallel arrows (E-106).
+"""Round 026 (toolsmith): `longSquare` that handles parallel arrows (E-108).
 
 `longSquareOld(alg, v)` is the round 023/022 test (scholar_longsquare.py), on the vertex-list `alg.rels`: two paths through a
 doubled arrow project to the same vertex list, so `len({q[-3]}) == len(rel)` fails and a real long square is missed.

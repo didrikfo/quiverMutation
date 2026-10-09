@@ -1,5 +1,5 @@
 """T6 (round 023, maverick): variants of the peeling formula over ALL LNAs n = 8, 9, 10 (depth from workshop/rounds/022/theorist_blocked_depths.txt,
-1 for every LNA not listed there, which D1 licenses: 0 mismatches in E-101). Variant v: the chain on a side continues through a relation r iff pred_v(r).
+1 for every LNA not listed there, which D1 licenses: 0 mismatches in E-103). Variant v: the chain on a side continues through a relation r iff pred_v(r).
 usage: maverick_variants.py   (repository root)"""
 import sys
 from quivermutation import coxeterTables as ct

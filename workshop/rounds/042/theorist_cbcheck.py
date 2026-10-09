@@ -1,4 +1,4 @@
-"""Round 042 (theorist): check C_B = r C_A r^T + e_v J^T (E-136) on every gate-admitted record of a dump (closes the round-041 review item for n = 7).
+"""Round 042 (theorist): check C_B = r C_A r^T + e_v J^T (E-138) on every gate-admitted record of a dump (closes the round-041 review item for n = 7).
 Usage: theorist_cbcheck.py dump.pkl"""
 import sys, pickle
 import numpy as np

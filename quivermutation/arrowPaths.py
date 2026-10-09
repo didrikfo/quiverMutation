@@ -296,7 +296,7 @@ def reduceAgainstPivots(comb, pivots):
     A normal form: no term of the result is a pivot column, so two combinations
     congruent modulo the ideal have the same residue.  (Round 017; before it only
     the leading term was reduced, and a residue could keep a pivot column in its
-    tail -- research E-085.)  Each pivot row has its pivot as its smallest key, so
+    tail -- research E-087.)  Each pivot row has its pivot as its smallest key, so
     eliminating the smallest remaining pivot term never reintroduces a smaller one.
     """
     row = {k: Fraction(v) for k, v in comb.items()}

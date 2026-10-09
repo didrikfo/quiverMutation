@@ -1,6 +1,6 @@
-"""Round 030 (experimentalist): max dim e_iAe_v by BFS mutation depth over the capped walk of an n class (E-113 follow-up).
+"""Round 030 (experimentalist): max dim e_iAe_v by BFS mutation depth over the capped walk of an n class (E-115 follow-up).
 Per algebra (each canonical key once, at its first-found depth): max over ALL ordered pairs (i,v) of dim e_iAe_v (acyclic quiver), and the same
-restricted to v of out-degree 2 that admit mutation (the E-113 'rows').  Depth = BFS level from the class's start algebras.
+restricted to v of out-degree 2 that admit mutation (the E-115 'rows').  Depth = BFS level from the class's start algebras.
 Usage: experimentalist_dimdepth.py n budget_sec class [maxexp]"""
 import sys, time
 from collections import Counter, defaultdict

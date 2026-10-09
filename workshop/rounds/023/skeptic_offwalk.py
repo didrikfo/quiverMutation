@@ -74,7 +74,7 @@ def gen():
             else: rels.append([list(rnd.choice(xs))])
         return edges, rels
 def longDict(quiver, rels, v):
-    """(shaped, genuine) on relationsFrom-style dict relations: shaped = E-097 shape; genuine = truncated combination nonzero mod I."""
+    """(shaped, genuine) on relationsFrom-style dict relations: shaped = E-099 shape; genuine = truncated combination nonzero mod I."""
     outs = ap.arrowsOutOf(quiver, v)
     if len(outs) != 1: return (False, False)
     e = outs[0]; shaped = False; genuine = False
@@ -88,7 +88,7 @@ def longDict(quiver, rels, v):
             if res: genuine = True
     return (shaped, genuine)
 def perArrow(quiver, rels, v):
-    """for each out-arrow of v: does a shaped relation (E-097 shape, ending in that arrow) exist?"""
+    """for each out-arrow of v: does a shaped relation (E-099 shape, ending in that arrow) exist?"""
     res = []
     for e in ap.arrowsOutOf(quiver, v):
         ok = False

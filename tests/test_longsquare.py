@@ -1,4 +1,4 @@
-"""`longSquare` of workshop/rounds/026/toolsmith_longsquare.py (E-106): a long square through a doubled arrow.
+"""`longSquare` of workshop/rounds/026/toolsmith_longsquare.py (E-108): a long square through a doubled arrow.
 
 The test is on the algebra at v with exactly one out-arrow b: some relation with >= 2 paths all ending ..., b and starting at one
 vertex, with distinct second-to-last arrows. The round 023 version compared predecessor *vertices*, so two paths through a doubled

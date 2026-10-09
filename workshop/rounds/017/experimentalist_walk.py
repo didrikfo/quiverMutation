@@ -1,4 +1,4 @@
-"""Round 017 experimentalist: run workshop/rounds/014/scholar_walk.py (E-084 guarded walk) with
+"""Round 017 experimentalist: run workshop/rounds/014/scholar_walk.py (E-086 guarded walk) with
 arrowPaths.reduceAgainstPivots replaced by the FULL reduction of workshop/rounds/015/theorist_fix.py
 (library untouched). Same arguments as scholar_walk.py; `--unpatched` runs it unchanged (control)."""
 import sys

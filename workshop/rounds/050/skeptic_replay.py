@@ -1,4 +1,4 @@
-"""Round 050 (skeptic), T10 (i): replay the printed E-155 paths (rounds/049/toolsmith_paths_logs.txt) and test EVERY edge with the independent
+"""Round 050 (skeptic), T10 (i): replay the printed E-157 paths (rounds/049/toolsmith_paths_logs.txt) and test EVERY edge with the independent
 tilting test of skeptic_tilt.py (no tiltingPlus / perI / gate used for the verdict; they are printed for context).
 Usage (repo root): skeptic_replay.py in.pkl cls   where in.pkl = rounds/049/toolsmith_collect.py output for class cls (7 1 / 7 2).
 Per edge x -> y (move F v: step at v of x; move R v: step at v of dual(x), carried back): a = x or dual(x), c = reduced mutation of a at v.

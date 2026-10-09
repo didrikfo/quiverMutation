@@ -1,4 +1,4 @@
-"""S-1 rerun of E-112's free-end deletion with E-115-corrected class labels (unresolved cospectral LNAs placed by the F-047 profile
+"""S-1 rerun of E-114's free-end deletion with E-117-corrected class labels (unresolved cospectral LNAs placed by the F-047 profile
 where it gives a single class). K0 = min free-run length at the end that is deleted from. Reports, per K0, source classes whose
 image classes (over all LNAs, both ends) are one class. n=11: sources/images unresolved after the profile are dropped (counted).
 usage: python workshop/rounds/030/maverick_endstrip2.py N"""

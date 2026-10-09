@@ -1,5 +1,5 @@
 """Round 038 (toolsmith): is the key-preserving n = 6 class infinite? Per BFS level, max arrow count and max parallel-arrow multiplicity.
-Usage: toolsmith_n6growth.py CLASSIDX LEVELS   (class 0 = the 2-LNA key class holding the E-132 key coincidences)"""
+Usage: toolsmith_n6growth.py CLASSIDX LEVELS   (class 0 = the 2-LNA key class holding the E-134 key coincidences)"""
 import sys, collections
 a = sys.argv[1:]; sys.argv = ['x']
 src = open('workshop/rounds/038/toolsmith_n6close.py').read().split("hits = json.load")[0]
