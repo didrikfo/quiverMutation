@@ -1,0 +1,48 @@
+# skeptic r046 data (n = 7; E-149 walk, 20000 expansions; c1 459 s, c2 341 s)
+## skeptic_collect.py
+n 7 cls 1 seeds 12 expanded 20000 frontier 18879 fail steps 16 distinct fail 16 ctrl 300 459s
+n 7 cls 2 seeds 14 expanded 20000 frontier 6999 fail steps 9 distinct fail 9 ctrl 300 341s
+## skeptic_iso.py box 1, fail steps c2 then c1 (kind=fail)
+0 depth 7 [('C_B', 'FOUND', 96), ('C_B^T', 'FOUND', 96)]
+1 depth 7 [('C_B', 'FOUND', 96), ('C_B^T', 'FOUND', 96)]
+2 depth 7 [('C_B', 'FOUND', 88), ('C_B^T', 'FOUND', 88)]
+3 depth 7 [('C_B', 'FOUND', 96), ('C_B^T', 'FOUND', 96)]
+4 depth 7 [('C_B', 'FOUND', 88), ('C_B^T', 'FOUND', 88)]
+5 depth 7 [('C_B', 'FOUND', 96), ('C_B^T', 'FOUND', 96)]
+6 depth 8 [('C_B', 'FOUND', 96), ('C_B^T', 'FOUND', 96)]
+7 depth 8 [('C_B', 'FOUND', 96), ('C_B^T', 'FOUND', 96)]
+8 depth 8 [('C_B', 'FOUND', 88), ('C_B^T', 'FOUND', 88)]
+0 depth 7 [('C_B', 'FOUND', 132), ('C_B^T', 'FOUND', 132)]
+1 depth 7 [('C_B', 'FOUND', 132), ('C_B^T', 'FOUND', 132)]
+2 depth 7 [('C_B', 'FOUND', 132), ('C_B^T', 'FOUND', 132)]
+3 depth 7 [('C_B', 'FOUND', 132), ('C_B^T', 'FOUND', 132)]
+4 depth 8 [('C_B', 'FOUND', 160), ('C_B^T', 'FOUND', 160)]
+5 depth 8 [('C_B', 'FOUND', 124), ('C_B^T', 'FOUND', 124)]
+6 depth 8 [('C_B', 'FOUND', 156), ('C_B^T', 'FOUND', 156)]
+7 depth 8 [('C_B', 'FOUND', 156), ('C_B^T', 'FOUND', 156)]
+8 depth 8 [('C_B', 'FOUND', 136), ('C_B^T', 'none', 136)]
+9 depth 8 [('C_B', 'FOUND', 156), ('C_B^T', 'FOUND', 156)]
+10 depth 8 [('C_B', 'FOUND', 136), ('C_B^T', 'none', 136)]
+11 depth 8 [('C_B', 'FOUND', 132), ('C_B^T', 'FOUND', 132)]
+12 depth 8 [('C_B', 'none', 158), ('C_B^T', 'none', 158)]
+13 depth 8 [('C_B', 'FOUND', 124), ('C_B^T', 'FOUND', 124)]
+14 depth 8 [('C_B', 'FOUND', 124), ('C_B^T', 'FOUND', 124)]
+15 depth 8 [('C_B', 'FOUND', 124), ('C_B^T', 'FOUND', 124)]
+## skeptic_iso12.py (c1 step 12)
+box 1 none (C_B, C_B^T); box 2 and box 3: P found for C_B
+## skeptic_back.py 6000 expansions, c2 (fail 0-8, ctrl 0-3)
+ctrl 0 parent depth 3 expanded 6000 open no LNA reached 90s
+ctrl 1 parent depth 3 expanded 6000 open no LNA reached 95s
+ctrl 2 parent depth 3 expanded 6000 open no LNA reached 100s
+ctrl 3 parent depth 3 expanded 6000 open no LNA reached 79s
+fail 0 parent depth 7 expanded 6000 open no LNA reached 90s
+fail 1 parent depth 7 expanded 6000 open no LNA reached 92s
+fail 2 parent depth 7 expanded 6000 open no LNA reached 90s
+fail 3 parent depth 7 expanded 6000 open no LNA reached 91s
+fail 4 parent depth 7 expanded 6000 open no LNA reached 86s
+fail 5 parent depth 7 expanded 6000 open no LNA reached 92s
+fail 6 parent depth 8 expanded 6000 open no LNA reached 90s
+fail 7 parent depth 8 expanded 6000 open no LNA reached 92s
+## skeptic_pairs.py 7 1 1 2 (response to referee, box 1)
+class 1 algebras 12 distinct Cartan 12 pairs 66 P found 66 none 0 timeout 0 3s
+class 2 algebras 14 distinct Cartan 14 pairs 91 P found 91 none 0 timeout 0 0s

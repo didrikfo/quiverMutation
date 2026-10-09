@@ -1,0 +1,4 @@
+pattern [(8, 3), (9, 3), (7, 3)] L=19 steps=3 margin=2 base=2 reached=6 min=0 lowered=4 (14s)
+pattern [(8, 3), (9, 3), (6, 4)] L=19 steps=3 margin=2 base=2 reached=4 min=0 lowered=1 (20s)
+pattern [(8, 3), (9, 3), (6, 3)] L=19 steps=3 margin=2 base=2 reached=1 min=2 lowered=0 (21s)
+pattern [(9, 3), (10, 3), (6, 4)] L=20 steps=3 margin=2 base=2 reached=1 min=2 lowered=0 (32s)

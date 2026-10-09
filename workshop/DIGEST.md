@@ -7,6 +7,20 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 046 -- 2026-10-08 -- ordinary
+
+Worked: theorist (T7 revision), skeptic (T10 i), scholar (T3/T8 breadth slot). Referees: maverick, experimentalist, toolsmith. Details in `rounds/046/`.
+
+- **theorist (E-150, E-151, accepted narrowed):** for an interior pair `(8:3)(9:3)` only a bystander sharing >= 2 arrows (a run of three) lowers the overlap (21 + 14 placements inert at k <= 2; 5 of 5 runs of three lower by k = 3, `(10:4)` only at k = 3). Refines F-022. One-step locality: for all LNAs n <= 10 exactly 2 of n mutations give an LNA, changed starts within {v-2, v-1, v}. H-010 still unproved.
+- **skeptic (E-152, accepted as a null):** the 25 key-keeping, `tiltingPlus`-failing children (n = 7 c1, c2) have equal Cartan invariants and an integral P, but every pair of LNAs in those key classes does, so the test says nothing about class membership. Whether they leave the class is still open.
+- **scholar (note, T3/T8):** key-coarser counts are 7 / 9 / 10 (n = 10 / even / odd); the "parity classes" are two mirror-closed orbits P, Q with one key (E-077, E-080); 5046/5056 outside. Marked dormant, not closed; no invariant separates P from Q.
+- **Consequences:** none new. The `mutationSearchDepthFirst` docstring stays unreworded (unsupported as tilting, untested as class); H-015 stays OPEN.
+- Step 0.5: round-045 questions unanswered; I kept `tiltingPlus` unpromoted and literature parked (arxiv.org still 403).
+- **Questions for the human:** (1) promote `tiltingPlus` as opt-in `tiltingGuard`? Recommend not yet. (2) **arxiv.org access or PDFs of 1009.3370, 2509.12983?** Recommend yes. (3) Overnight: none; the deep E-094 replay is sized first.
+- Next round 047 is ordinary; 048 is the next conference.
+
+---
+
 ## Round 045 -- 2026-10-08 -- ordinary
 
 Worked: experimentalist, toolsmith (guard audit T10), theorist (T7 breadth slot). Referees: skeptic (x2), maverick. Details in `rounds/045/`. Also done per the special request: STATE.md rewritten from scratch; H-015 ledger pass; thread T10 opened.

@@ -6,6 +6,29 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-152 — Cartan-congruence invariants cannot decide whether the 25 key-keeping, `tiltingPlus`-failing children of E-149 (n = 7 classes 1, 2) leave the derived class: all 66 + 91 LNA pairs inside those key classes already have an integral congruence P, and the 25 children have equal Smith/signature invariants
+*2026-10-08* · **`timeout 10m .venv/bin/python workshop/rounds/046/skeptic_pairs.py 7 1 1 2`** (control; the child checks are `skeptic_collect.py`, `skeptic_inv.py`, `skeptic_iso.py`, `skeptic_iso12.py`, `skeptic_rebuild.py`, `skeptic_back.py` in the same directory) · *workshop round 046, skeptic, refereed by experimentalist*
+
+Scope: n = 7 key classes 1 and 2 (12 and 14 distinct Cartan matrices); the E-149 walk rebuilt (16 and 9 distinct failing (parent, v), parents at depth 7-8, all J != 0); hand rebuild from arrows and relations of c2 9/9 and c1 8/8 (the other 8 c1 parents have parallel arrows, which the hand constructor rejects); 600 J = 0 controls at depth 0-4 only. n = 8 and the 13 + 9 E-145 steps were not matched one by one.
+
+All 25 children have equal Smith forms of xC + C^T, of f(Phi), f(Phi)^2, equal signature and q mod m (m = 2..7) with their parent's class representative, and an explicit P in GL_7(Z) with P C_B P^T = C_A (not the step's own map R). **This is non-informative:** within each n = 7 key class every pair of LNA Cartan matrices (66 in c1, 91 in c2) already has such a P, and the class carries one signature, so these invariants cannot separate anything the key does not. No known out-of-class equal-key pair exists at n = 7 (key-coarser pairs start at n = 12, E-077), so the invariants' power against the relevant case is untested. A bounded J = 0 search from 9 children found no LNA, but four controls also missed, so it has no demonstrated power. Open (T10 i): whether the 25 children lie outside the class stays untested; it needs an invariant that is fine enough, or a derived-equivalence witness (a tilting path back).
+
+---
+
+## E-151 — One-step locality (L1) for all LNAs of length n = 4..10: of the n single mutations of an LNA exactly 2 give an LNA, and the changed relation starts lie in {v-2, v-1, v}
+*2026-10-08* · **`timeout 10m .venv/bin/python workshop/rounds/046/theorist_locality.py 4 10`** (output `theorist_locality_4_10.txt`; which vertices: `theorist_whichv.py`) · *workshop round 046, theorist, refereed by maverick*
+
+Scope: every LNA of length 4..10 (5, 14, 42, 132, 429, 1430, 4862 algebras), every vertex v and direction with `mutationIsPossibleAtVertex` true (48 620 events at n = 10); right and left pooled in the histogram. Reproduced by the referee for n <= 8. Computation, not a proof. It is the one-step half only: a k-step window is not implied, because intermediate algebras are not LNAs. Unexplained: the count of exactly 2 LNA results per LNA at every n (they occur at v = 1 and n, 2 and n-1, ...; counts 42, 14, 10, 10, 14, 42 at n = 7).
+
+---
+
+## E-150 — Bystanders and an interior overlapping pair `(8:3)(9:3)` (margin 2, one bystander `(t:m)`, m = 2..4, both sides; k <= 2 full sweep, k = 3 partial): only a bystander sharing >= 2 arrows (a run of three) lowers the overlap; `(8:3)(9:3)(10:4)` lowers it at k = 3 (not k = 2)
+*2026-10-08* · **`timeout 10m .venv/bin/python workshop/rounds/045/theorist_bystander.py 2 2`; `... workshop/rounds/046/theorist_leftsweep.py 2 2 2 7`** (k = 3 and other pair shapes: `theorist_left_k3.txt`, `theorist_pairshapes_k3.txt`) · *workshop round 046, theorist, refereed by maverick*
+
+Scope: pair `(8:3)(9:3)` with >= 6 empty vertices each side (three further shapes sampled at k = 3); margin 2 (mutations at vertices within 2 of the pattern); k <= 2: 21 of 21 right and 14 of 14 left placements sharing <= 1 arrow stay at overlap 2; k = 3: 10 right and 2 left such placements finished, inert (m = 3, g >= 2 and m = 4 not run at k = 3, cap). Runs of three: 5 of 5 tried reach overlap 0 or lower by k = 3 (right `(10:3)`, `(10:4)`; left `(7:3)`, `(6:4)`; `(8:4)(9:4)` + `(11:3)`); `(10:4)` and `(6:4)` do not lower at k = 2. Refines F-022's table (it already has the run-of-three and the 0/1-shared-arrow rows) with a gap/length sweep; not a new kind of statement. E-025 shows the naive version fails for long runs. Nothing for two bystanders, k > 3, margin > 2. H-010 stays SUPPORTED-as-stated and unproved (no proof; no counterexample).
+
+---
+
 ## E-149 — On key-guarded BFS walks at n = 7 classes 1, 2 (20 000 expansions) 16 of 80 978 and 9 of 79 143 key-keeping steps fail `tiltingPlus` (parent depth 7-8; n = 8 c0, c1 at 1 200 expansions: none), so key preservation does not imply tilting; an added J = 0 check costs 8-11% of a step
 *2026-10-08* · **`timeout 10m .venv/bin/python workshop/rounds/045/toolsmith_guardaudit.py 7 1 20000 A`; `... 7 2 20000 A`; `... 8 1 1200 A`; `... 7 1 2500 J`** · *workshop round 045, toolsmith, refereed by skeptic*
 
