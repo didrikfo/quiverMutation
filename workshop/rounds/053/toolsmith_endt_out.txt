@@ -1,0 +1,141 @@
+== selftest
+1 same same (4, 4) all 0 relations monomial and vanish in End(T) tiltingPlus True J False
+2 same same (4, 4) all 1 relations monomial and vanish in End(T) tiltingPlus True J False
+3 same same (4, 4) all 1 relations monomial and vanish in End(T) tiltingPlus True J False
+4 same same (4, 4) all 1 relations monomial and vanish in End(T) tiltingPlus True J False
+2 same same (4, 4) all 1 relations monomial and vanish in End(T) tiltingPlus True J False
+3 same same (4, 4) all 1 relations monomial and vanish in End(T) tiltingPlus True J False
+4 same same (4, 4) all 1 relations monomial and vanish in End(T) tiltingPlus True J False
+5 same same (4, 4) all 0 relations monomial and vanish in End(T) tiltingPlus True J False
+1 same same (4, 4) all 0 relations monomial and vanish in End(T) tiltingPlus True J False
+3 same same (4, 4) all 2 relations monomial and vanish in End(T) tiltingPlus True J False
+4 same same (4, 4) all 2 relations monomial and vanish in End(T) tiltingPlus True J False
+3 same same (4, 4) all 1 relations monomial and vanish in End(T) tiltingPlus True J False
+4 same same (4, 4) all 2 relations monomial and vanish in End(T) tiltingPlus True J False
+5 same same (4, 4) all 1 relations monomial and vanish in End(T) tiltingPlus True J False
+1 same same (4, 4) all 1 relations monomial and vanish in End(T) tiltingPlus True J False
+4 same same (4, 4) all 3 relations monomial and vanish in End(T) tiltingPlus True J False
+4 same same (4, 4) all 2 relations monomial and vanish in End(T) tiltingPlus True J False
+5 same same (4, 4) all 2 relations monomial and vanish in End(T) tiltingPlus True J False
+1 same same (4, 4) all 2 relations monomial and vanish in End(T) tiltingPlus True J False
+5 same same (4, 4) all 2 relations monomial and vanish in End(T) tiltingPlus True J False
+1 same same (4, 4) all 1 relations monomial and vanish in End(T) tiltingPlus True J False
+3 same same (4, 4) all 3 relations monomial and vanish in End(T) tiltingPlus True J False
+4 same same (4, 4) all 3 relations monomial and vanish in End(T) tiltingPlus True J False
+5 same same (5, 5) non-monomial relations (1 binomial), scalar torus system consistent (left kernel dim 0): arrow scalars exist tiltingPlus True J False
+1 same same (4, 4) all 1 relations monomial and vanish in End(T) tiltingPlus True J False
+3 same same (4, 4) all 2 relations monomial and vanish in End(T) tiltingPlus True J False
+3 same same (4, 4) all 2 relations monomial and vanish in End(T) tiltingPlus True J False
+5 same same (4, 4) all 1 relations monomial and vanish in End(T) tiltingPlus True J False
+1 same same (5, 5) non-monomial relations (1 binomial), scalar torus system consistent (left kernel dim 0): arrow scalars exist tiltingPlus True J False
+2 same same (4, 4) all 2 relations monomial and vanish in End(T) tiltingPlus True J False
+4 same same (4, 4) all 2 relations monomial and vanish in End(T) tiltingPlus True J False
+3 same same (4, 4) all 2 relations monomial and vanish in End(T) tiltingPlus True J False
+4 same same (5, 5) non-monomial relations (1 binomial), scalar torus system consistent (left kernel dim 0): arrow scalars exist tiltingPlus True J False
+5 same same (4, 4) all 1 relations monomial and vanish in End(T) tiltingPlus True J False
+1 same same (5, 5) non-monomial relations (1 binomial), scalar torus system consistent (left kernel dim 0): arrow scalars exist tiltingPlus True J False
+2 same same (5, 5) non-monomial relations (1 binomial), scalar torus system consistent (left kernel dim 0): arrow scalars exist tiltingPlus True J False
+4 same same (5, 5) non-monomial relations (1 binomial), scalar torus system consistent (left kernel dim 0): arrow scalars exist tiltingPlus True J False
+5 same same (5, 5) non-monomial relations (1 binomial), scalar torus system consistent (left kernel dim 0): arrow scalars exist tiltingPlus True J False
+1 same same (5, 5) non-monomial relations (1 binomial), scalar torus system consistent (left kernel dim 0): arrow scalars exist tiltingPlus True J False
+2 same same (4, 4) all 3 relations monomial and vanish in End(T) tiltingPlus True J False
+3 same same (4, 4) all 3 relations monomial and vanish in End(T) tiltingPlus True J False
+5 same same (4, 4) all 1 relations monomial and vanish in End(T) tiltingPlus True J False
+1 same same (5, 5) non-monomial relations (1 binomial), scalar torus system consistent (left kernel dim 0): arrow scalars exist tiltingPlus True J False
+2 same same (4, 4) all 2 relations monomial and vanish in End(T) tiltingPlus True J False
+3 same same (4, 4) all 2 relations monomial and vanish in End(T) tiltingPlus True J False
+3 same same (4, 4) all 2 relations monomial and vanish in End(T) tiltingPlus True J False
+4 same same (4, 4) all 2 relations monomial and vanish in End(T) tiltingPlus True J False
+5 same same (5, 5) non-monomial relations (1 binomial), scalar torus system consistent (left kernel dim 0): arrow scalars exist tiltingPlus True J False
+1 same same (4, 4) all 1 relations monomial and vanish in End(T) tiltingPlus True J False
+2 same same (4, 4) all 1 relations monomial and vanish in End(T) tiltingPlus True J False
+4 same same (4, 4) all 2 relations monomial and vanish in End(T) tiltingPlus True J False
+2 same same (4, 4) all 2 relations monomial and vanish in End(T) tiltingPlus True J False
+4 same same (4, 4) all 1 relations monomial and vanish in End(T) tiltingPlus True J False
+5 same same (4, 4) all 1 relations monomial and vanish in End(T) tiltingPlus True J False
+1 same same (4, 4) all 2 relations monomial and vanish in End(T) tiltingPlus True J False
+2 same same (4, 4) all 2 relations monomial and vanish in End(T) tiltingPlus True J False
+2 same same (4, 4) all 3 relations monomial and vanish in End(T) tiltingPlus True J False
+5 same same (4, 4) all 1 relations monomial and vanish in End(T) tiltingPlus True J False
+steps 58
+
+real	0m2.044s
+user	0m2.215s
+sys	0m0.178s
+== path13
+child key b32eca
+child F1 dims same arrows same (8, 8) max dim Hom 1 | non-monomial relations (2 binomial), scalar torus system con | iso (system with 8 unknowns, 2 equations consistent)
+child F3 dims same arrows same (7, 7) max dim Hom 1 | non-monomial relations (1 binomial), scalar torus system con | iso (system with 7 unknowns, 1 equations consistent)
+child F1 dims same arrows same (8, 8) max dim Hom 1 | non-monomial relations (2 binomial), scalar torus system con | iso (system with 8 unknowns, 2 equations consistent)
+child F5 dims same arrows same (7, 7) max dim Hom 2 | non-monomial relations (1 binomial), scalar torus system con | iso (system with 7 unknowns, 1 equations consistent)
+child F4 dims same arrows same (8, 8) max dim Hom 2 | FAIL images not proportional in ((5, 2, 0), (2, 1, 0)) | iso (system with 8 unknowns, 2 equations consistent)
+child R7 dims same arrows same (8, 8) max dim Hom 2 | FAIL images not proportional in ((1, 7, 0), (7, 3, 0), (3, 5 | iso (system with 8 unknowns, 2 equations consistent)
+child R1 dims same arrows same (8, 8) max dim Hom 2 | FAIL images not proportional in ((7, 3, 0), (3, 5, 0)) | iso (system with 8 unknowns, 2 equations consistent)
+lna9 F7 dims same arrows same (7, 7) max dim Hom 1 | non-monomial relations (1 binomial), scalar torus system con | iso (system with 7 unknowns, 1 equations consistent)
+lna9 R2 dims same arrows same (7, 7) max dim Hom 1 | non-monomial relations (1 binomial), scalar torus system con | iso (system with 7 unknowns, 1 equations consistent)
+lna9 R1 dims same arrows same (9, 9) max dim Hom 1 | non-monomial relations (4 binomial), scalar torus system con | iso (system with 9 unknowns, 4 equations consistent)
+lna9 F2 dims same arrows same (9, 9) max dim Hom 1 | non-monomial relations (4 binomial), scalar torus system con | iso (system with 9 unknowns, 4 equations consistent)
+lna9 F7 dims same arrows same (7, 7) max dim Hom 2 | non-monomial relations (2 binomial), scalar torus system con | iso (system with 7 unknowns, 2 equations consistent)
+lna9 R3 dims same arrows same (8, 8) max dim Hom 2 | FAIL images not proportional in ((7, 1, 0), (1, 5, 0)) | iso (system with 8 unknowns, 2 equations consistent)
+
+real	0m1.925s
+user	0m2.150s
+sys	0m0.131s
+== tilt
+child F1 Hom(T,T[-1]) 0 Hom(T,T[1]) 0 H == own End dims True
+child F3 Hom(T,T[-1]) 0 Hom(T,T[1]) 0 H == own End dims True
+child F1 Hom(T,T[-1]) 0 Hom(T,T[1]) 0 H == own End dims True
+child F5 Hom(T,T[-1]) 0 Hom(T,T[1]) 0 H == own End dims True
+child F4 Hom(T,T[-1]) 0 Hom(T,T[1]) 0 H == own End dims True
+child R7 Hom(T,T[-1]) 0 Hom(T,T[1]) 0 H == own End dims True
+child R1 Hom(T,T[-1]) 0 Hom(T,T[1]) 0 H == own End dims True
+lna9 F7 Hom(T,T[-1]) 0 Hom(T,T[1]) 0 H == own End dims True
+lna9 R2 Hom(T,T[-1]) 0 Hom(T,T[1]) 0 H == own End dims True
+lna9 R1 Hom(T,T[-1]) 0 Hom(T,T[1]) 0 H == own End dims True
+lna9 F2 Hom(T,T[-1]) 0 Hom(T,T[1]) 0 H == own End dims True
+lna9 F7 Hom(T,T[-1]) 0 Hom(T,T[1]) 0 H == own End dims True
+lna9 R3 Hom(T,T[-1]) 0 Hom(T,T[1]) 0 H == own End dims True
+
+real	0m1.604s
+user	0m1.838s
+sys	0m0.142s
+== perturb
+child F1 [(1, 'is', 'NO'), (2, 'is', 'NO')]
+child F3 [(1, 'is', 'NO')]
+child F1 [(1, 'is', 'NO'), (2, 'is', 'NO')]
+child F5 [(1, 'is', 'NO')]
+child F4 [(2, 'is', 'NO')]
+child R7 [(0, 'is', 'NO')]
+child R1 [(1, 'is', 'NO')]
+lna9 F7 [(1, 'is', 'NO')]
+lna9 R2 [(3, 'is', 'NO')]
+lna9 R1 [(0, 'NO', 'NO'), (1, 'NO', 'NO'), (2, 'NO', 'NO'), (3, 'NO', 'NO')]
+lna9 F2 [(0, 'NO', 'NO'), (1, 'NO', 'NO'), (2, 'NO', 'NO'), (3, 'NO', 'NO')]
+lna9 F7 [(0, 'NO', 'NO'), (1, 'NO', 'NO')]
+lna9 R3 [(1, 'is', 'NO')]
+PERTURB {'A_no': 10, 'A_iso': 12, 'B_no': 22, 'B_iso': 0}
+
+real	0m1.873s
+user	0m2.086s
+sys	0m0.131s
+== fail
+fail 0 v 4 dims same arrows same (7, 7) | parallel-arrows (not decided)
+fail 1 v 4 dims same arrows same (7, 7) | parallel-arrows (not decided)
+fail 2 v 4 dims same arrows same (7, 7) | parallel-arrows (not decided)
+fail 3 v 4 dims same arrows same (7, 7) | parallel-arrows (not decided)
+fail 4 v 6 dims same arrows same (7, 7) | non-monomial relations (1 binomial), scalar torus system consistent (left kernel dim 0): arrow scalars exist
+fail 5 v 7 dims same arrows same (8, 8) | non-monomial relations (2 binomial), scalar torus system consistent (left kernel dim 0): arrow scalars exist
+fail 6 v 4 dims same arrows same (7, 7) | non-monomial relations (1 binomial), scalar torus system consistent (left kernel dim 0): arrow scalars exist
+fail 7 v 4 dims same arrows same (7, 7) | non-monomial relations (1 binomial), scalar torus system consistent (left kernel dim 0): arrow scalars exist
+fail 8 v 4 dims same arrows same (7, 7) | parallel-arrows (not decided)
+fail 9 v 4 dims same arrows same (7, 7) | non-monomial relations (1 binomial), scalar torus system consistent (left kernel dim 0): arrow scalars exist
+fail 10 v 4 dims same arrows same (7, 7) | parallel-arrows (not decided)
+fail 11 v 5 dims same arrows same (7, 7) | parallel-arrows (not decided)
+fail 12 v 4 dims same arrows same (8, 8) | parallel-arrows (not decided)
+fail 13 v 7 dims same arrows same (8, 8) | non-monomial relations (2 binomial), scalar torus system consistent (left kernel dim 0): arrow scalars exist
+fail 14 v 7 dims same arrows same (8, 8) | non-monomial relations (2 binomial), scalar torus system consistent (left kernel dim 0): arrow scalars exist
+fail 15 v 7 dims same arrows same (8, 8) | non-monomial relations (2 binomial), scalar torus system consistent (left kernel dim 0): arrow scalars exist
+
+real	0m1.824s
+user	0m2.041s
+sys	0m0.118s

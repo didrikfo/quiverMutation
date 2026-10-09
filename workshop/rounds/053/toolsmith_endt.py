@@ -18,7 +18,6 @@ sys.path.insert(0, '.')
 from fractions import Fraction
 from itertools import product
 from quivermutation import arrowPaths as ap, procedure
-exec(open('workshop/rounds/050/skeptic_tilt.py').read().split("P = 2147483647")[0].split('"""', 2)[2])  # imports only
 _src = open('workshop/rounds/050/skeptic_tilt.py').read()
 exec(_src[_src.index('class Alg'):_src.index('def rank')])
 exec(_src[_src.index('def complexT'):_src.index('def compose_mat')])
