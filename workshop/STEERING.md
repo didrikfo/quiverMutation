@@ -26,6 +26,17 @@ by a command, and checked against what is already recorded.
   that are relevant enough to the work (abstract pages and PDFs from
   arxiv.org) and summarise them in `research/literature/`. No need to ask
   first; say in the submission what was fetched and why.
+  **arxiv.org and the arXiv API are reachable from the cloud environment**
+  (opened by the human 2026-10-09). Useful forms: metadata and abstracts with
+  `curl -s "https://export.arxiv.org/api/query?id_list=<id>"` or
+  `?search_query=...`; LaTeX source with
+  `curl -sL https://arxiv.org/e-print/<id> -o <id>.src` (a gzip or tar.gz;
+  unpack it in its own directory under the scratchpad and grep it), which is
+  better than the PDF for checking statements. Commit a source to
+  `research/literature/sources/` only when the record cites it, and say in the
+  summary which version (`vN`) was read. Cite theorem numbers only after
+  matching them in the source; anything cited from memory is marked
+  UNVERIFIED.
 
 ## Avoid
 
