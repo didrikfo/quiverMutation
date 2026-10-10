@@ -1,0 +1,20 @@
+pair 3060000 6000030 n 9 depth each side 4
+J0 reach A 549 reach B 541 iso meetings 0 shortest total None sec 19
+ALL reach A 549 reach B 541 iso meetings 0 shortest total None sec 19
+pair 3060000 3030000 n 9 depth each side 4
+J0 reach A 549 reach B 440 iso meetings 2 shortest total 5 sec 18
+   fwd [7, 6, 5, 4] back [4] inverse-back [-9]
+   fwd [-9] back [-6, -7, -8, -9] inverse-back [7, 6, 5, 4]
+   J!=0 steps on the A-side path 0  B-side 0
+ALL reach A 549 reach B 440 iso meetings 2 shortest total 5 sec 19
+   fwd [7, 6, 5, 4] back [4] inverse-back [-9]
+   fwd [-9] back [-6, -7, -8, -9] inverse-back [7, 6, 5, 4]
+   J!=0 steps on the A-side path 0  B-side 0
+pair 3060000 2223030 n 9 depth each side 4
+J0 reach A 549 reach B 79 iso meetings 0 shortest total None sec 11
+ALL reach A 549 reach B 79 iso meetings 0 shortest total None sec 11
+pair 3304000 2400230 n 9 depth each side 4
+J0 reach A 357 reach B 146 iso meetings 0 shortest total None sec 12
+ALL reach A 357 reach B 146 iso meetings 0 shortest total None sec 11
+
+[exited with code 0]

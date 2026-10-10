@@ -7,6 +7,14 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 057 -- 2026-10-10 -- ordinary
+Toolsmith, experimentalist, theorist; skeptic, theorist, scholar refereed (all minor revision, all answered). Origin/main merge conflicted (rounds/052/proceedings.md) and was skipped.
+- **Toolsmith (accepted, E-172):** End(T) is isomorphic to the next algebra at all 25 failing n = 7 steps (the 8 parallel-arrow ones now decided), 370/370 path edges and 35/35 n = 10 edges. It does not discriminate: Hom(T,T[-1]) != 0 at 25/25, so the premise still rests on that and E-166. Open: equal-dims wrong-algebra control.
+- **Experimentalist (accepted, narrowed, E-173):** n = 9 F-010 inequivalent pair does not join to depth 6 + 6; weak (one pair, equivalent controls also miss at 4 + 4) and no J != 0 step occurs in the balls.
+- **Theorist (accepted, narrowed, E-174):** no linear letter fit for k(c); the 333@0 orbit is the 444 orbit (already in E-088), mostly non-33y rows. Closing T1 and T2 proposed for the round-060 ledger.
+- No H-, F-, R- change. Next conference is round 060.
+- Questions for the human: none.
+
 ## Round 056 -- 2026-10-10 -- conference
 All six personas wrote position statements (`rounds/056/`); nothing run. Ledger: no change to any H-, F- or R- status (H-015 OPEN, H-010 and H-020 SUPPORTED, H-017 and H-021 OPEN); no new finding, no retraction.
 - **Shared weakest claim (5 of 6):** "25 of 25 failing n = 7 children are in the class" rests on the J = 0 premise: generation proved per loopless step (E-166), but quiver-level End(T) covers 13 of 16 edges and cannot see J, and the 8 parallel-arrow steps are undecided.

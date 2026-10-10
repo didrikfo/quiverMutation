@@ -1,0 +1,157 @@
+path 0 E155 child 0 child F1 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.1s
+path 0 E155 child 0 child F4 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.1s
+path 0 E155 child 0 child R5 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.1s
+path 0 E155 child 0 child R5 dims same arrows same par 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 0.2s
+path 0 E155 child 0 child R6 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.1s
+path 0 E155 child 0 child F5 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.0s
+path 0 E155 child 0 lna11 F5 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 0 E155 child 0 lna11 R2 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.0s
+path 0 E155 child 0 lna11 F6 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.0s
+path 0 E155 child 0 lna11 F4 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 0 E155 child 0 lna11 F7 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.0s
+path 1 E155 child 1 child F1 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.2s
+path 1 E155 child 1 child F1 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.1s
+path 1 E155 child 1 child R2 dims same arrows same par 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 0.2s
+path 1 E155 child 1 child R6 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.1s
+path 1 E155 child 1 child R1 dims same arrows same par 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 0.1s
+path 1 E155 child 1 child R2 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.2s
+path 1 E155 child 1 lna11 F6 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.2s
+path 1 E155 child 1 lna11 F7 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.3s
+path 1 E155 child 1 lna11 R1 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.2s
+path 1 E155 child 1 lna11 R2 dims same arrows same par 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 0.2s
+path 1 E155 child 1 lna11 R6 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.1s
+path 2 E155 child 2 child F2 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 2 E155 child 2 child F7 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 2 E155 child 2 child F4 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 2 E155 child 2 lna10 R6 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.1s
+path 2 E155 child 2 lna10 R5 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.0s
+path 2 E155 child 2 lna10 R4 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 2 E155 child 2 lna10 F5 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 2 E155 child 2 lna10 R7 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 3 E155 child 3 child F3 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.0s
+path 3 E155 child 3 child F1 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.0s
+path 3 E155 child 3 child R5 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 3 E155 child 3 child R6 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 3 E155 child 3 child R6 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.0s
+path 3 E155 child 3 child F7 dims same arrows same par 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 0.2s
+path 3 E155 child 3 lna11 F6 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.1s
+path 3 E155 child 3 lna11 F7 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.2s
+path 3 E155 child 3 lna11 R2 dims same arrows same par 1 | iso (9 unknowns, 11 equations consistent; 0 parallel pairs) 1.2s
+path 3 E155 child 3 lna11 R6 dims same arrows same par 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 1.0s
+path 3 E155 child 3 lna11 F2 dims same arrows same par 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 0.1s
+path 4 E155 child 4 child F6 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 4 E155 child 4 child F1 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 4 E155 child 4 child F1 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 4 E155 child 4 lna11 R2 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.1s
+path 4 E155 child 4 lna11 R3 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.0s
+path 4 E155 child 4 lna11 R4 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 4 E155 child 4 lna11 F3 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 4 E155 child 4 lna11 R4 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 5 E155 child 5 child F4 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.2s
+path 5 E155 child 5 child F7 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.1s
+path 5 E155 child 5 child R1 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.0s
+path 5 E155 child 5 child R3 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.0s
+path 5 E155 child 5 child R2 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.0s
+path 5 E155 child 5 child R3 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 5 E155 child 5 lna10 R6 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.1s
+path 5 E155 child 5 lna10 F2 dims same arrows same par 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 0.1s
+path 5 E155 child 5 lna10 F3 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.1s
+path 5 E155 child 5 lna10 F2 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.0s
+path 5 E155 child 5 lna10 F4 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 6 E155 child 7 child F2 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.2s
+path 6 E155 child 7 child R1 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.1s
+path 6 E155 child 7 child R1 dims same arrows same par 1 | iso (9 unknowns, 11 equations consistent; 0 parallel pairs) 1.7s
+path 6 E155 child 7 child R6 dims same arrows same par 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 1.0s
+path 6 E155 child 7 child F1 dims same arrows same par 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 0.2s
+path 6 E155 child 7 lna11 R1 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 6 E155 child 7 lna11 R2 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.1s
+path 6 E155 child 7 lna11 F6 dims same arrows same par 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 0.1s
+path 6 E155 child 7 lna11 F2 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.0s
+path 6 E155 child 7 lna11 F7 dims same arrows same par 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 0.1s
+path 7 E155 child 8 child F1 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 7 E155 child 8 child F7 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.1s
+path 7 E155 child 8 child F4 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 7 E155 child 8 child F7 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 7 E155 child 8 lna0 F1 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 7 E155 child 8 lna0 R6 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.1s
+path 7 E155 child 8 lna0 R5 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.0s
+path 7 E155 child 8 lna0 R4 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 7 E155 child 8 lna0 F5 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 8 E155 parent 0 child R1 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.0s
+path 8 E155 parent 0 child R5 dims same arrows same par 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 0.1s
+path 8 E155 parent 0 lna10 F2 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.1s
+path 8 E155 parent 0 lna10 F1 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.2s
+path 8 E155 parent 0 lna10 F3 dims same arrows same par 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 0.1s
+path 8 E155 parent 0 lna10 F3 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 8 E155 parent 0 lna10 F6 dims same arrows same par 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 0.1s
+path 9 E155 parent 1 child R2 dims same arrows same par 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 0.3s
+path 9 E155 parent 1 child R4 dims same arrows same par 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 0.1s
+path 9 E155 parent 1 lna10 F2 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.1s
+path 9 E155 parent 1 lna10 F1 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.2s
+path 9 E155 parent 1 lna10 F3 dims same arrows same par 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 0.1s
+path 9 E155 parent 1 lna10 F3 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 9 E155 parent 1 lna10 F6 dims same arrows same par 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 0.1s
+path 10 E155 parent 2 child R5 dims same arrows same par 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 0.1s
+path 10 E155 parent 2 child R6 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 10 E155 parent 2 lna10 F2 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.1s
+path 10 E155 parent 2 lna10 F3 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.0s
+path 10 E155 parent 2 lna10 F1 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.1s
+path 10 E155 parent 2 lna10 F3 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.0s
+path 10 E155 parent 2 lna10 F1 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 11 E155 parent 3 child R4 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.0s
+path 11 E155 parent 3 child R6 dims same arrows same par 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 0.1s
+path 11 E155 parent 3 lna11 F6 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.1s
+path 11 E155 parent 3 lna11 F7 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.2s
+path 11 E155 parent 3 lna11 F5 dims same arrows same par 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 0.1s
+path 11 E155 parent 3 lna11 F5 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 11 E155 parent 3 lna11 F2 dims same arrows same par 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 0.1s
+path 12 E155 parent 4 child R3 dims same arrows same par 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 0.1s
+path 12 E155 parent 4 child R2 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 12 E155 parent 4 lna11 F6 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.1s
+path 12 E155 parent 4 lna11 F5 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.0s
+path 12 E155 parent 4 lna11 F5 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 12 E155 parent 4 lna11 F7 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.0s
+path 12 E155 parent 4 lna11 F7 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 13 E155 parent 5 child R3 dims same arrows same par 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 0.4s
+path 13 E155 parent 5 child R2 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.0s
+path 13 E155 parent 5 lna11 F6 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.1s
+path 13 E155 parent 5 lna11 F5 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.0s
+path 13 E155 parent 5 lna11 F7 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.1s
+path 13 E155 parent 5 lna11 F7 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.0s
+path 13 E155 parent 5 lna11 F5 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.0s
+path 14 E155 parent 6 child R2 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.0s
+path 14 E155 parent 6 child R5 dims same arrows same par 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 0.1s
+path 14 E155 parent 6 child R6 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 14 E155 parent 6 lna0 F1 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 14 E155 parent 6 lna0 F1 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.1s
+path 14 E155 parent 6 lna0 F2 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.2s
+path 14 E155 parent 6 lna0 F3 dims same arrows same par 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 0.1s
+path 14 E155 parent 6 lna0 F3 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 15 E155 parent 7 child F2 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.2s
+path 15 E155 parent 7 child F2 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.1s
+path 15 E155 parent 7 lna9 F7 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.1s
+path 15 E155 parent 7 lna9 F6 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.0s
+path 15 E155 parent 7 lna9 F7 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.0s
+path 15 E155 parent 7 lna9 F6 dims same arrows same par 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 0.3s
+path 15 E155 parent 7 lna9 R1 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.1s
+path 16 E155 parent 8 child F1 dims same arrows same par 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 0.1s
+path 16 E155 parent 8 child R6 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 16 E155 parent 8 child R5 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.1s
+path 16 E155 parent 8 lna7 R2 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.1s
+path 16 E155 parent 8 lna7 F6 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.0s
+path 16 E155 parent 8 lna7 R1 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.1s
+path 16 E155 parent 8 lna7 R4 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 16 E155 parent 8 lna7 F7 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.0s
+path 17 E158 child 6 child F1 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.0s
+path 17 E158 child 6 child F7 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.0s
+path 17 E158 child 6 child R3 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.1s
+path 17 E158 child 6 child R5 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 17 E158 child 6 child R5 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.0s
+path 17 E158 child 6 child F4 dims same arrows same par 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 0.1s
+path 17 E158 child 6 child R6 dims same arrows same par 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 1.3s
+path 17 E158 child 6 lna0 F1 dims same arrows same par 1 | iso (no equations; 0 parallel pairs) 0.0s
+path 17 E158 child 6 lna0 F1 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.1s
+path 17 E158 child 6 lna0 F2 dims same arrows same par 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0.2s
+path 17 E158 child 6 lna0 R6 dims same arrows same par 1 | iso (9 unknowns, 11 equations consistent; 0 parallel pairs) 1.1s
+path 17 E158 child 6 lna0 R5 dims same arrows same par 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 0.9s
+TOTAL {'iso': 156}

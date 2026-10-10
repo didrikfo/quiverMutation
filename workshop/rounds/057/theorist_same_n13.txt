@@ -1,0 +1,9 @@
+n 13 |444 orbit| 2386
+333@0 2386 equal444
+333@1 447 overlap 0
+333@2 449 overlap 0
+333@3 501 overlap 0
+333@4 501 overlap 0
+333@5 449 overlap 0
+333@6 447 overlap 0
+333@7 2386 equal444

@@ -1,0 +1,5 @@
+pair 3060000 6000030 n 9 depth each side 6
+J0 reach A 4080 reach B 3992 iso meetings 178 shortest total 9 sec 175
+   fwd [1, 1, 3, 1, 2, 2] back [-8, -9, -9] inverse-back [3, 3, 2]
+   fwd [1, 1, 3, 2, 3, 2] back [-8, -9, -9] inverse-back [1, 1, 2]
+   J!=0 steps on the A-side path 0  B-side 0

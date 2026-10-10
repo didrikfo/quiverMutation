@@ -1,18 +1,18 @@
 # Experimentalist notebook (rewritten each round)
 
-## What I now believe (after round 054)
-- T10 (ii) group A is closed at replay level: 5 total-7 paths from [0,5,0,4,0,3,3,0] (05040330) to members of orbit 33460000 (e.g. 4 3 2 1 7 6 9, left steps negative), 35/35 edges gate, J = 0 (`tiltingPlus`), key-keeping, ends on the target row. All 5 meetings are non-labelled (phi nontrivial), so labelled `meetingPoints` misses them.
-- Cheap: forward depth 3/4/5 = 131/387/1091 quivers (4/23/108 s); backward depth 3 for 42 targets 117 s. The guard prunes hard; the earlier depth-5 merges.py cost (80-150 s per member) was the all-122 sweep.
-- The checkpoint "orbit" label 33460000 covers many relation rows (45055000, 55504400, 60504030, ...), 42 distinct members.
-- Earlier (051): F-037 5 paths replayed 35/35; n = 10 merges.py depths 3-5 find no link (E-162). 049: n = 8 F-041 merges need no J != 0 step; n = 8 c2 depth 8 null real.
+## What I now believe (after round 057)
+- Power control for the J = 0 join test (T10, agenda 2) at n = 9: F-010 pair 3060000 / 3304000 (equal polynomial, F-047 profile differs, certified inequivalent) has 0 J = 0 joins at depth 2..6 per side (balls 4080 / 2304); certified-equivalent pairs do join (3060000~3030000 total 5; 3060000~6000030 total 9, 6+6; 2223030 and the second quipu pair missed at 4+4). So the test can say "no" and "joined" is not produced for an inequivalent pair, to depth 6.
+- BUT in all those balls the J = 0 ball equals the gate+key ball and all 1551 edges up to depth 4 pass the Hom test: no J != 0 step occurs. The control does not test the premise; it tests that key-guarded tilting steps do not cross a Z-conjugacy invariant (nearly tautological).
+- Only n = 9 F-010 is certified (plus 3 n = 10 profile-separated groups, rows not collected; the Phi^18 group is uncertified, E-170).
+- Earlier (054): group A (05040330 -> 33460000) has 5 total-7 J = 0 paths, non-labelled meetings (E-167); F-037 5 paths; n = 10 merges.py depths 3-5 finds no link (E-162).
 
 ## What I tried
-- 054: `experimentalist_amerge.py` (fwd/back reach stages, WL hash + VF2 iso join, signed-path inverse and replay) and `_join.py`.
-- 051: merges.py 10 chunks, f037replay, a_meet. Earlier: deepreplay, blocks, t10b, tally, keyoff, d3table, dhist, bothdie, BFS, W walks.
-- Lessons: background + poll with until-loops (no sleep chains); python -u; never pkill -f; an LNA end is recognised by lm.asRelLengths; a join up to relabelling needs invariant hash plus exact iso, and a transported inverse path (reverse, negate sign, rename by phi).
+- 057: `experimentalist_powerjoin.py` (J0 / ALL walks, WL + VF2 join, reuses amerge), `_powerhom.py` (skeptic_tilt.stepTest on every edge). Costs: depth 4/5/6 per row 19/53/155 s per mode.
+- 054: amerge fwd/back/join; 051: merges.py, f037replay; earlier deepreplay, blocks, BFS, W walks.
+- Lessons: background + until-loop polling; never pkill -f; a miss at fixed depth is not a verdict (2 of 4 equivalent controls missed at 4+4); relabelling-aware join needs hash + exact iso.
 
 ## What I would do next
-1. Same join for F-037 (34504030 -> 50505000, 7 steps) with this script (start/target parametrised); find whether a 4 + 3 join exists, to cross-check.
-2. Check other depth splits (3+4, dual starts) for more group-A paths, and whether any total-7 join uses a J != 0 step (it would show as J0 < edges); extend to total 8 using fwd 5.
-3. Depth 9 for n = 7 c1, c2 (049); second E-094 rejection; n = 9 c0 shape tally.
-- Watch: only the paths found, not all paths, were tested for J = 0; 7 shortest relies on E-033.
+1. OVERNIGHT proposal (written in the submission): F-010 pair at depth 7-8 per side, report first J != 0 edge in either ball and its Hom verdict (growth ~2.7x/level).
+2. Collect n = 10 rows of the 3 separated groups (maverick) and run the same script with depth 4.
+3. Same join for F-037 (34504030 -> 50505000) with amerge parametrised; depth 9 n = 7 c1, c2 (049).
+- Watch: depth < 7 never meets a J != 0 step at n = 9; do not quote this as support for the premise.

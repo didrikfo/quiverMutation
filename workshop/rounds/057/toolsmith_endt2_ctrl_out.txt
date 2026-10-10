@@ -1,0 +1,9 @@
+step 0 v 4 multi-term relations (idx, A, B): [(3, 'is', 'NO')]
+step 1 v 4 multi-term relations (idx, A, B): [(3, 'is', 'NO')]
+step 2 v 4 multi-term relations (idx, A, B): [(2, 'is', 'NO')]
+step 3 v 4 multi-term relations (idx, A, B): [(2, 'is', 'NO')]
+step 8 v 4 multi-term relations (idx, A, B): [(1, 'is', 'NO')]
+step 10 v 4 multi-term relations (idx, A, B): [(1, 'is', 'NO')]
+step 11 v 5 multi-term relations (idx, A, B): [(3, 'is', 'NO')]
+step 12 v 4 multi-term relations (idx, A, B): [(5, 'is', 'NO'), (6, 'is', 'NO')]
+CONTROL {'A_no': 0, 'A_iso': 9, 'B_no': 9, 'B_iso': 0, 'n': 8}

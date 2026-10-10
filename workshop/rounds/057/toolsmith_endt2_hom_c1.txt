@@ -1,0 +1,17 @@
+c1 0 v 4 Hom(T,T[-1]) 1 Hom(T,T[1]) 0
+c1 1 v 4 Hom(T,T[-1]) 1 Hom(T,T[1]) 0
+c1 2 v 4 Hom(T,T[-1]) 1 Hom(T,T[1]) 0
+c1 3 v 4 Hom(T,T[-1]) 1 Hom(T,T[1]) 0
+c1 4 v 6 Hom(T,T[-1]) 1 Hom(T,T[1]) 0
+c1 5 v 7 Hom(T,T[-1]) 1 Hom(T,T[1]) 0
+c1 6 v 4 Hom(T,T[-1]) 1 Hom(T,T[1]) 0
+c1 7 v 4 Hom(T,T[-1]) 1 Hom(T,T[1]) 0
+c1 8 v 4 Hom(T,T[-1]) 2 Hom(T,T[1]) 0
+c1 9 v 4 Hom(T,T[-1]) 1 Hom(T,T[1]) 0
+c1 10 v 4 Hom(T,T[-1]) 2 Hom(T,T[1]) 0
+c1 11 v 5 Hom(T,T[-1]) 1 Hom(T,T[1]) 0
+c1 12 v 4 Hom(T,T[-1]) 1 Hom(T,T[1]) 0
+c1 13 v 7 Hom(T,T[-1]) 1 Hom(T,T[1]) 0
+c1 14 v 7 Hom(T,T[-1]) 1 Hom(T,T[1]) 0
+c1 15 v 7 Hom(T,T[-1]) 1 Hom(T,T[1]) 0
+TOTAL c1: 16 of 16 have Hom(T,T[-1]) != 0

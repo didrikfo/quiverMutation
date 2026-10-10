@@ -1,0 +1,9 @@
+pair 3060000 3030000 n 9 depth each side 5
+J0 reach A 1527 reach B 1103 iso meetings 27 shortest total 5 sec 51
+   fwd [7, 6, 5, 4] back [4] inverse-back [-9]
+   fwd [-9] back [-6, -7, -8, -9] inverse-back [7, 6, 5, 4]
+   J!=0 steps on the A-side path 0  B-side 0
+ALL reach A 1527 reach B 1103 iso meetings 27 shortest total 5 sec 54
+   fwd [7, 6, 5, 4] back [4] inverse-back [-9]
+   fwd [-9] back [-6, -7, -8, -9] inverse-back [7, 6, 5, 4]
+   J!=0 steps on the A-side path 0  B-side 0

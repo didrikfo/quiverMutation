@@ -1,0 +1,12 @@
+n 16 |444 orbit| 8134
+333@0 8134 equal444
+333@1 516 overlap 0
+333@2 1416 overlap 0
+333@3 594 overlap 0
+333@4 1640 overlap 0
+333@5 310 overlap 0
+333@6 1640 overlap 0
+333@7 594 overlap 0
+333@8 1416 overlap 0
+333@9 516 overlap 0
+333@10 8134 equal444

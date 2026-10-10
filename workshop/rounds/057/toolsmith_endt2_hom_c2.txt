@@ -1,0 +1,10 @@
+c2 0 v 5 Hom(T,T[-1]) 1 Hom(T,T[1]) 0
+c2 1 v 2 Hom(T,T[-1]) 1 Hom(T,T[1]) 0
+c2 2 v 5 Hom(T,T[-1]) 1 Hom(T,T[1]) 0
+c2 3 v 6 Hom(T,T[-1]) 1 Hom(T,T[1]) 0
+c2 4 v 3 Hom(T,T[-1]) 1 Hom(T,T[1]) 0
+c2 5 v 3 Hom(T,T[-1]) 1 Hom(T,T[1]) 0
+c2 6 v 5 Hom(T,T[-1]) 1 Hom(T,T[1]) 0
+c2 7 v 1 Hom(T,T[-1]) 1 Hom(T,T[1]) 0
+c2 8 v 5 Hom(T,T[-1]) 1 Hom(T,T[1]) 0
+TOTAL c2: 9 of 9 have Hom(T,T[-1]) != 0

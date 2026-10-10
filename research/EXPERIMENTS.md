@@ -6,6 +6,39 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-172 — At n = 7 (classes 1, 2) End(T) is isomorphic to the next algebra at all 25 failing J != 0 steps (the 8 parallel-arrow ones now decided) and on 370 of 370 path edges, plus 35 of 35 n = 10 E-167 edges; the comparison does not discriminate (Hom(T,T[-1]) != 0 at 25 of 25)
+*2026-10-10* · **`CLS=1 timeout 10m .venv/bin/python workshop/rounds/057/toolsmith_endt2_run.py fail`** (also `paths 0:40`, CLS=2, `toolsmith_endt2_n10.py run 0:5`, `toolsmith_endt2_hom.py`; pickles rebuilt with `workshop/rounds/050/toolsmith_collect.py 7 <c> 20000`, ~10 min each) · *workshop round 057, toolsmith, refereed by skeptic*
+
+Scope: n = 7 classes 1, 2 (E-149 walk rebuilt at 20 000 expansions; keys of the 28 + 18 logged children/parents reproduced) and the five n = 10 E-167 paths; label-preserving isomorphism K Q_c/I_c -> End(T) over the algebraic closure, with matrix-valued identification of parallel arrows (one Rabinowitsch variable per block); Hom over Q. The dimensions of the child algebra and the completeness of its relation set `crels` are inputs, not outputs, of the test. Generation of K^b(proj) by T not re-tested here (E-166). Not covered: n = 8, class-2 negative control, an equal-dims wrong-algebra control.
+
+Result. The 8 parallel-arrow failing c1 steps left undecided by E-165 are decided, all iso: 16 of 16 c1 and 9 of 9 c2 failing steps are iso (0 undecided). On the E-155/E-158/E-161 paths: 370 of 370 edges iso (c1 214 with 56 parallel-arrow edges, c2 156); E-167 n = 10: 35 of 35 iso (max Hom dimension 1, the weakest check). Hom(T,T[-1]) != 0 at 16 of 16 c1 and 9 of 9 c2 failing steps (skeptic's `stepTest`), so "J != 0 at 25 of 25" is computed. Because End(T) is also iso to the child at every J != 0 step, the End(T) comparison did not discriminate at any failing step; only Hom(T,T[-1]) separates them. Relation-level power: replacing a binomial by its first term is rejected 9/9; coefficient doubling is absorbed 9/9 (expected).
+
+**Consequences.** Closes the "8 undecided parallel-arrow cases" of T10 (E-165): all 25 failing steps are decided at quiver level, label-preserving. It does not strengthen the J = 0 premise: the lemma "End(T) = mutation algebra at every step" is a conjecture on n = 7 and one n = 10 start. Open: equal-dims wrong-algebra control with a parallel pair.
+
+---
+
+## E-173 — At n = 9, one pair: the J = 0 join test finds no join of the certified-inequivalent F-010 pair through depth 6 + 6, a weak specificity datum; no J != 0 step occurs in the balls, so it cannot test the J = 0 premise
+*2026-10-10* · **`timeout 10m .venv/bin/python workshop/rounds/057/experimentalist_powerjoin.py 9 3060000 3304000 6`** (310 s; controls and Hom test in the submission) · *workshop round 057, experimentalist, refereed by theorist*
+
+Scope: n = 9, F-010 pair 3060000 vs 3304000 (equal key, Z-conjugacy profile of F-047 differs, certified inequivalent by Ladkani Cor 3.15) and 4 certified-equivalent controls; gate + key-guard balls of depth <= 6 per side, relabelling-aware meet (WL hash + VF2, as E-167); Hom test on depth <= 4. n = 10 not run. Run from the repository root.
+
+Result. 0 joins for the inequivalent pair at depth 2..6 (balls 4080 and 2304 at depth 6). Equivalent controls: 3060000 ~ 3030000 joins at total 5; 3060000 ~ 6000030 only at 6 + 6 (total 9, 178 meetings); 2223030 and the second-quipu pair miss at 4 + 4. So a non-join at 6 + 6 is weak evidence of specificity (one pair; controls need up to 6 + 6). In every ball the J = 0 ball equals the gate + key ball, and all 1551 DFS-tree edges up to depth 4 have J = 0 and Hom(T,T[+-1]) = 0: the run is circular given the premise and checks the implementation, not the premise. E-149 puts first J != 0 failures at parent depth 7-8, outside depth 6.
+
+**Consequences.** None for any finding. Gives the first specificity datum for the join test; the same weakness as E-167 (no J != 0 step) persists. Proposal kept for OVERNIGHT (not added): F-010 pair at depth 8 + 8.
+
+---
+
+## E-174 — T1/T2 breadth note: no linear letter-statistic fit predicts k(c) (17 recorded values, 11 independent of 33x; leave-one-out best SSE 54.4 / 48.3, at most 6 of 17 / 3 of 11 exact); the orbit of 333@0 and 333@(n-6) is the 444 orbit at n = 13..16, and at n = 14 it is mostly not 33y rows
+*2026-10-10* · **`timeout 10m .venv/bin/python workshop/rounds/057/theorist_kfit.py [no33]`**, `theorist_same.py 14` (also 13, 15, 16), `theorist_breakdown.py 14` · *workshop round 057, theorist, refereed by scholar*
+
+Scope: linear models with 1-3 letter statistics on k values of E-062 (n = 13, 12 cores) and E-065 (33x, x = 3..8); row sets under `freeMoves.REDUCED` (limit 300 000, all closed) at n = 13..16 (sizes of the 444 orbit 2386, 3767, 5648, 8134; other 333 placements disjoint, sizes in the submission); word breakdown at n = 14 only. Orbits of the reduced walk, not derived equivalence. The row-set equality is E-088's J label (`J = {0, n-6}` for `444`) and E-065 (`444@o` in the orbit of `333@0`) made explicit; only the explicit set comparison, the fit and the breakdown are new.
+
+Result. T1: no cheap rule; only linear letter statistics tried, a drift-based rule untried. T2: at n = 14 the 3767 rows of the 444 orbit have 2871 distinct trimmed words, 3442 rows of trimmed length >= 5, about 20 rows `33y`; so E-065's claim concerns only which `33y` rows share an orbit, not the orbit. Proposal: T1 and T2 (as stated) for the round-060 ledger's closure; the live question is what makes the 444 orbit so large.
+
+**Consequences.** E-065's upper bound is not a statement about the orbit (as its title already limited). No H- or F-status changes.
+
+---
+
 ## E-169 — Citation audit against the LaTeX: Aihara-Iyama Thm 2.31 and 2.32(b), the whole-T reading of J = 0, and CHZ Prop 3.5 / Cor 3.6 are as the record cites them, except that Cor 3.6 states no "monomial" hypothesis (a 5-vertex non-monomial example separates its two forms)
 *2026-10-09* · **`timeout 10m .venv/bin/python workshop/rounds/055/scholar_chz_nonmonomial.py`** (citation table, 20 rows, in `workshop/rounds/055/scholar.md`) · *workshop round 055, scholar, refereed by skeptic*
 

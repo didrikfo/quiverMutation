@@ -1,0 +1,3 @@
+pair 3060000 3304000 n 9 depth each side 6
+J0 reach A 4080 reach B 2304 iso meetings 0 shortest total None sec 155
+ALL reach A 4080 reach B 2304 iso meetings 0 shortest total None sec 155

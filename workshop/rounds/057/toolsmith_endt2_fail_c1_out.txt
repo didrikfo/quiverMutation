@@ -1,0 +1,16 @@
+fail c1 0 v 4 dims same arrows same (7, 7) maxpar 2 | iso (9 unknowns, 8 equations consistent; 1 parallel pairs) 0s
+fail c1 1 v 4 dims same arrows same (7, 7) maxpar 2 | iso (9 unknowns, 8 equations consistent; 1 parallel pairs) 0s
+fail c1 2 v 4 dims same arrows same (7, 7) maxpar 2 | iso (9 unknowns, 8 equations consistent; 1 parallel pairs) 0s
+fail c1 3 v 4 dims same arrows same (7, 7) maxpar 2 | iso (9 unknowns, 8 equations consistent; 1 parallel pairs) 0s
+fail c1 4 v 6 dims same arrows same (7, 7) maxpar 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0s
+fail c1 5 v 7 dims same arrows same (8, 8) maxpar 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 1s
+fail c1 6 v 4 dims same arrows same (7, 7) maxpar 1 | iso (8 unknowns, 8 equations consistent; 0 parallel pairs) 0s
+fail c1 7 v 4 dims same arrows same (7, 7) maxpar 1 | iso (8 unknowns, 8 equations consistent; 0 parallel pairs) 0s
+fail c1 8 v 4 dims same arrows same (7, 7) maxpar 2 | iso (9 unknowns, 8 equations consistent; 1 parallel pairs) 0s
+fail c1 9 v 4 dims same arrows same (7, 7) maxpar 1 | iso (8 unknowns, 8 equations consistent; 0 parallel pairs) 0s
+fail c1 10 v 4 dims same arrows same (7, 7) maxpar 2 | iso (9 unknowns, 8 equations consistent; 1 parallel pairs) 0s
+fail c1 11 v 5 dims same arrows same (7, 7) maxpar 2 | iso (9 unknowns, 8 equations consistent; 1 parallel pairs) 0s
+fail c1 12 v 4 dims same arrows same (8, 8) maxpar 2 | iso (12 unknowns, 11 equations consistent; 2 parallel pairs) 0s
+fail c1 13 v 7 dims same arrows same (8, 8) maxpar 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 0s
+fail c1 14 v 7 dims same arrows same (8, 8) maxpar 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 1s
+fail c1 15 v 7 dims same arrows same (8, 8) maxpar 1 | iso (8 unknowns, 9 equations consistent; 0 parallel pairs) 0s
