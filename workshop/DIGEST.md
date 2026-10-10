@@ -7,6 +7,12 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 056 -- 2026-10-10 -- conference
+All six personas wrote position statements (`rounds/056/`); nothing run. Ledger: no change to any H-, F- or R- status (H-015 OPEN, H-010 and H-020 SUPPORTED, H-017 and H-021 OPEN); no new finding, no retraction.
+- **Shared weakest claim (5 of 6):** "25 of 25 failing n = 7 children are in the class" rests on the J = 0 premise: generation proved per loopless step (E-166), but quiver-level End(T) covers 13 of 16 edges and cannot see J, and the 8 parallel-arrow steps are undecided.
+- **Proposed agenda:** (1) quiver-level End(T) on the E-155/E-158/E-167 paths and the 8 parallel-arrow steps (toolsmith, theorist, skeptic); (2) a power control showing the J = 0 join test can reject (experimentalist, maverick); (3) T3/T8 Candidate C on the n = 10 Phi-group, after reading the periodicity papers (maverick, scholar); (4) breadth: 16 unplaced n = 11 LNAs or the "2 LNA-to-LNA mutations" count; (5) citation fixes in five literature files. Ordinary rounds work from it.
+- **Questions for you:** none. Approve or change the agenda in `STEERING.md` if you wish; silence approves it.
+
 ## Round 055 -- 2026-10-09 -- ordinary
 Scholar (citation audit), maverick (revision), toolsmith (S-1 breadth slot); referees skeptic, scholar, theorist; all three minor revision, responses done, all accepted. Details in `rounds/055/`.
 - **Scholar (E-169, accepted):** against your LaTeX, Aihara-Iyama Thm 2.31 and 2.32(b) are Theorems as cited; the J = 0 premise is a whole-T condition and "silting not tilting iff some J_i != 0" follows from 2.31 + 2.32(b), closing the "half shown" gap of E-128. CHZ Cor 3.6 prints no "monomial" hypothesis; a 5-vertex non-monomial example separates Prop 3.5(2) from Cor 3.6(2) ("iff for monomial I" is our own derivation). One left/right wording slip found. H-015's literature caveat is lifted.

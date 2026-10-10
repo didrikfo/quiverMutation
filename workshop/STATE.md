@@ -2,20 +2,19 @@
 
 Owned by the chair. Rewritten (not appended) at the end of every round; under 120 lines. Every persona reads this first.
 
-last_round: 55
-next_round_kind: conference   (round 056)
+last_round: 56
+next_round_kind: ordinary   (round 057)
 
 ## What the project is doing now
 Tilting mutation of quivers with relations; derived equivalence of Nakayama algebras (LNAs). The search (`quivermutation/search.py`) walks mutations under a *gate* (mutation is admissible) and a *Coxeter-key guard* (`coxeterGuard`: child keeps the class's Coxeter key). Its docstring says the guard keeps a walk in one derived class. Round 045 found the guard is not a tilting test (E-145, E-149). Under the J = 0 premise all 25 failing n = 7 children are now joined to an LNA (E-155, E-158, E-161); the premise itself is the live question (T10, T5).
 
-## Agenda (proposed, round 052; approved by default, round 053; ordinary rounds work from it until the human changes it). Ranked:
-0. **Human's special request (STEERING, round 054):** the two papers arXiv:1009.3370 and 2509.12983 are now in `research/literature/sources/` (LaTeX). DONE round 055 (E-169): AI 2.31/2.32 and the whole-T reading of J = 0 verified against the LaTeX; CHZ Cor 3.6 has no printed 'monomial' hypothesis (iff for monomial I is our derivation). Left: annotate the remaining literature files listed in E-169.
-1. T10 premise: generation is now proved per loop-free step (E-166, 370 printed edges loop-free); quiver-level End(T) done for the 13 E-161 edges (E-165), Cartan-level Hom replay for the 3 E-158 paths (E-164). Next: the 8 undecided parallel-arrow failing steps (toolsmith), quiver-level End(T) on the E-155/E-158 paths and class 2 (toolsmith, skeptic).
-2. T10 (ii): done at n = 10 for group A (E-167: 5 explicit 7-step J = 0 paths). Left: Hom/End(T) check on those 35 edges (skeptic, toolsmith); relabelling-aware `meetingPoints` (toolsmith).
-3. T3/T8 (outside T10): finer non-Cartan derived invariant separating P and Q at n = 10. Round 054: HH is dead (a theorem, 2312.14699); the power control is empty under the strict definition (E-168, under revision). Next: a candidate that is not Cartan-level nor HH, powered on certified pairs with different profile (maverick, revision).
-4. T4/H-020: cores with >= 3 relations at n = 13, 14 where rules = [] changes a verdict, else restate H-020 for the move set; H6 in a rules-only walk (theorist).
-5. Breadth T7/H-010: run-of-three bystander at k = 4, two arrows away, with positive control (toolsmith/theorist). S-1 n = 15 sizing after item 1.
-Breadth rule: one slot per round to a dormant thread or a closure note. Toolsmith round: `canonicalKey` cap and docstring rewords (guard, `canonicalKey`).
+## Agenda (proposed, round 056 conference; ordinary rounds work from it until the human changes it). Ranked:
+1. T10 premise at quiver level: toolsmith decides the 8 parallel-arrow failing steps and runs End(T) on the E-155/E-158/E-167 paths (`--plan` first); theorist proves End(T) = next algebra for a loopless J = 0 step; skeptic replays independently.
+2. Power control for the J = 0 join test: equal-key, certified-inequivalent pair (n = 10 P/Q or the E-170 Phi-group); experimentalist, maverick supplies the pair.
+3. T3/T8: maverick's Candidate C (S^a(A) ~ A[b]) on the one n = 10 group with Phi^18 = I; scholar reads 0911.5137 and 1310.1557 first. Level: idea.
+4. Breadth: T6/H-017 (16 unplaced n = 11 LNAs) or T7 (why exactly 2 LNA-to-LNA mutations, n = 9, 10).
+5. Housekeeping: scholar applies E-169 citation fixes to five literature files; toolsmith docstring rewords and `canonicalKey` cap. S-1 n = 15 scan parked.
+Breadth rule: one slot per round to a dormant thread or a closure note.
 
 ## Open threads
 Each: question · state · last round worked · owner.
@@ -44,6 +43,7 @@ Each: question · state · last round worked · owner.
 The key-guard law (class 0 only); E-145 class-1 count (one script); H-015 citations from memory; the S-1 K-threshold law (two lengths); E-149 counts are step counts on capped BFS samples; E-153 is one n = 8 class, depth 8, slice 2 not independently re-run; 'in the class' for the 25 children rests on the J = 0 premise (generation now proved per loopless step, E-166), edge-tested at Cartan level (E-155, E-161, E-164 paths), at quiver level only for the 13 E-161 edges (E-165, label-preserving); the E-163 length check is one length per rule.
 
 ## Standing facts
+- Round 056 was a conference: ledger changed no H-, F- or R- status.
 - arxiv.org is blocked by the network policy (403); PDFs would need the human.
 - Round 055 added E-169..E-171 (E-170 supersedes E-168; HH closed by a theorem). Round 054 added E-166..E-168; the human supplied the LaTeX of 1009.3370 and 2509.12983 (citations verified in round 055). Round 053 added E-164, E-165. Round 052 was a conference: no change to any H-, F-, R- status (ledger in proceedings). Round 051 added E-161..E-163. Round 050 added E-158..E-160. Round 045 added E-148, E-149; H-015 OPEN. Round 046 added E-150..E-152; round 047 added E-153, E-154. Nothing in F- or R-.
 
