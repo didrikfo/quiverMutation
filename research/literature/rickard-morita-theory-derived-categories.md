@@ -7,7 +7,7 @@
 **Written from secondary sources.** Neither paper is on arXiv, and neither was
 read here. Everything below is either (a) the modern restatement in
 Aihara–Iyama, arXiv:1009.3370 Definition 2.1(b), Example 2.2(a) and Proposition
-2.3, which *was* read; (b) an elementary computation done here from those
+2.3, which *was* read (numbers checked against the LaTeX in round 055, E-171); (b) an elementary computation done here from those
 definitions; or (c) a citation taken at face value from Bobiński–Ciborski,
 arXiv:2409.05158, whose reference [21] is the 1991 paper. The **numbering**
 "Theorem 6.4" is the one the literature uses for the 1989 result; it was not

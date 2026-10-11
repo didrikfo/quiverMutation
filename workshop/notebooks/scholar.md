@@ -5,11 +5,12 @@
 - CHZ Cor 3.6 is for kQ/I with no "monomial" printed; Ex 3.4 silently needs it; 5-vertex counterexample (round 055 script). Iff for monomial I is our derivation.
 - AI Prop 2.3 (Keller) is for algebraic triangulated categories; Rickard summary already says so (round 058 check).
 - Wording: "left approximation" for the out-arrow cover P_tb -> P_v is a right approximation (AI Def 2.30).
-- T5/H-015 (round 058 triage): premise live item = End(T) = repo rewrite on J = 0 steps (conjecture; E-167, E-174 support it, but cannot discriminate at failing steps). Orbit data (E-145/148) and the 10.3% reverse loss (E-149) are not about the premise. Hand rebuild (round 046, EXPERIMENTS ~line 183) already done for c2 9/9, c1 8/8; the 8 parallel-arrow ones by E-174. Keep H-015 OPEN; narrow T5.
+- T5/H-015 (round 058 triage): premise live item = End(T) = repo rewrite on J = 0 steps (conjecture; E-167, E-174 support it, cannot discriminate at failing steps). Orbit data (E-145/148) and E-149 reverse loss are not about the premise (E-149 -> E-160/E-175 effect is a guess, not read). Keep H-015 OPEN; narrow T5.
+- Round 058 rerun: E-147 c2 9 D=0 steps = E-151's 9 failing (parent,v) exactly; c1 rerun 12 pairs all in E-151's 16 (E-147's own 13 not reproduced under load: 8 Cartan-distinct). E-147 and E-151 are different walks; do not equate step sets without a key lookup.
 
 ## Did
 - R001..R055 as before (citation audit, both summaries edited, counterexample script).
-- R058: wrote `rounds/058/scholar_litfixes.md` (6 old/new patches: README rows 26 and 37, 1504:132-133, Pavon summary line 70, optional Rickard provenance, optional syntheses/001), and the T5 triage. No fetch, no script.
+- R058: wrote `rounds/058/scholar_litfixes.md` (6 old/new patches: README rows 26 and 37, 1504:132-133, Pavon summary line 70, optional Rickard provenance, optional syntheses/001), and the T5 triage; after review: patch 3 direction fixed, 1411/HEAD fixed, E-147 vs E-151 containment rerun (scratchpad scripts).
 
 ## Next
 - Compare Oppermann 1504.02617 (fetch LaTeX, put in sources/) with the repo's seven-step rewrite on J = 0 steps; theorem numbers only after matching. Not yet done: Oppermann numbers are UNVERIFIED.

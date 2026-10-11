@@ -6,6 +6,39 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-177 — At n = 7 class 1, the E-174 End(T) comparison rejects 280 of 280 equal-dimension killed-line variants of the child (7 parallel-arrow failing steps) and accepts all 168 isomorphic ones; dropping a relation is accepted 47 of 47, so "iso" takes the relation set as input
+*2026-10-11* · **`CLS=1 timeout 10m .venv/bin/python workshop/rounds/058/skeptic_wrongalg.py`** (~1 min; pickle `/tmp/tsm/c1.pkl` rebuilt with `workshop/rounds/050/toolsmith_collect.py 7 1 20000 /tmp/tsm/c1.pkl`, sha256 prefix 623f9df0ea710a88, 231761 bytes) · *workshop round 058, skeptic, refereed by theorist*
+
+Scope: n = 7, class 1 only; the 7 failing steps (c1 numbering of E-174: 0, 1, 2, 3, 8, 10, 11) whose child has exactly one parallel pair and 3 line-type relations; one family of wrong algebras (re-chosen killed line among [1:0], [0:1], [1:1], [1:-1], 4^3 = 64 per step, 448 in all, all with the true child's quiver, Cartan matrix and independently recomputed dimension); label-preserving isomorphism only. Step 12 (two parallel pairs), class 2, n = 10 and wrong algebras produced by the search not done.
+
+Result. Truth by independent computation: 168 variants isomorphic to the child, 280 not. The comparison (`symcheck2`) says iso on 168 of 168 and `NO label-preserving iso` on 280 of 280 (verdict strings counted; no timeouts or errors). Power is against coincidence patterns of the three killed points (three points of P^1 have no moduli). Separately, dropping one relation (47 variants, 8 parallel-arrow steps incl. step 12) gives a strictly larger algebra and the test still says iso 47 of 47: the code compares arrow counts and Cartan with the child's dimensions and never checks dim K Q/I' against dim End(T), so soundness of "iso" requires `crels` complete.
+
+**Consequences.** E-174's 25/25, 370/370, 35/35 are not vacuous on parallel-arrow relations; they still say nothing about J (End(T) is iso to the child at J != 0 steps too) and depend on `crels` being complete. Open for the toolsmith: make `compare2` compute dim K Q/I' from `crels` and assert equality.
+
+---
+
+## E-178 — At n = 10, one certified-inequivalent pair of the Phi^18 group (90000000 vs 50505000): the J = 0 join test finds no join through depth 6 + 6 (J0), 5 + 5 (gate + key); a 7-step equivalent pair (34504030 ~ 50505000) joins at 4 + 4
+*2026-10-11* · **`timeout 10m .venv/bin/python workshop/rounds/057/experimentalist_powerjoin.py 10 90000000 50505000 6 J0`** (424 s; depths 3-5 in 11, 39, 140 s; control `... 10 34504030 50505000 4 J0`, 31 s; group structure `workshop/rounds/058/maverick_group.py`) · *workshop round 058, maverick, refereed by skeptic*
+
+Scope: n = 10; the one live E-172 group (Coxeter polynomial (T+1)^2(T^2-T+1)(T^6-T^3+1), Phi^18 = I) has 4 key-and-orbit classes: class 0 (320 rows, one orbit, includes 00000030) and singletons 34504030, 50505000, 90000000. 34504030 ~ 50505000 (F-037, E-032), so there are 3 derived-equivalence candidates and 2 certified inequivalences by the F-047 profile criterion ({0} vs {1,2}, {1,2} vs {3}); 0 vs 3 share a profile. One pair run: J0 to depth 6 per side, gate + key (ALL) to depth 5 (identical reach sets, so no J != 0 step enters these balls through depth 5); no Hom test.
+
+Result. 0 joins at depth 3, 4, 5, 6 (reach 373/185, 1325/588, 4273/1823, 12855/5438). Controls: 34504030 ~ 50505000 joins at 4 + 4 (reach 275/588, 28 meetings, shortest total 7); in class 0, 00000030 ~ 00000230 (total 4) and ~ 20000030 (total 1) join, 00000030 vs 30000002 (same orbit) misses at 4 + 4. So the empty join at 6 + 6 is what the premise predicts, and is stronger than E-175 because a 7-step control joins at 4 + 4 from the 50505000 side, but it does not test the premise (no J != 0 step in the balls) and the 90000000 side has no long-path control. Depth 8 + 8 projected ~1 h per mode per pair (not approved, not added to OVERNIGHT.md).
+
+**Consequences.** None for any finding. Second specificity datum for the join test, same weakness as E-169/E-175.
+
+---
+
+## E-179 — Round 058 literature housekeeping and T5 triage: the E-171 citation corrections applied to six files; E-151's failing steps contain E-147's class-2 D = 0 steps exactly and 12 of the 16 class-1 failing pairs by rerun, E-147's 13 class-1 steps not reproduced
+*2026-10-11* · **`research/literature/README.md` rows 26, 37 and four more files (patches in `workshop/rounds/058/scholar_litfixes.md`)**; containment rerun with scratchpad copies of `workshop/rounds/043/skeptic_c2.py` and `workshop/rounds/046/skeptic_collect.py` (not committed) · *workshop round 058, scholar, refereed by toolsmith*
+
+Scope: reading plus one rerun at n = 7 classes 1, 2; no arXiv fetch. Oppermann 1504.02617 theorem numbers UNVERIFIED (no LaTeX in `sources/`).
+
+Result. Applied: README rows 26 and 37 (AI Thm 2.32(b) is an iff for *tilting*, not for derived equivalence); `1504.02617` summary lines 132-133 (2.32(a) left, 2.32(b) right; `Hom(T,T[<0])` is the part of Def. 2.1(b) beyond silting); Pavon summary line 70 (Cor 3.6 as printed has no "monomial" hypothesis; its Example 3.4 needs one); Rickard provenance clause; three annotations in `syntheses/001`. Containment (T5 item 1): class 2, E-147's 9 D = 0 steps = E-151's 9 failing (parent, v) pairs; class 1, a rerun gave 12 D = 0 pairs, all among E-151's 16, but did not reproduce E-147's 13 (8 Cartan-distinct steps, 56 distinct J != 0 steps against E-147's 67, under load), so the class-1 containment is open. T5 triage: one live item, "End(T) = the repo's rewrite on J = 0 steps" (proof or Oppermann citation); the orbit-data and reverse-loss (E-149) items are not premise items; whether E-149 affects E-160/E-175 negatives is a guess, unchecked.
+
+**Consequences.** H-015 stays OPEN. No finding changes.
+
+---
+
 ## E-174 — At n = 7 (classes 1, 2) End(T) is isomorphic to the next algebra at all 25 failing J != 0 steps (the 8 parallel-arrow ones now decided) and on 370 of 370 path edges, plus 35 of 35 n = 10 E-169 edges; the comparison does not discriminate (Hom(T,T[-1]) != 0 at 25 of 25)
 *2026-10-10* · **`CLS=1 timeout 10m .venv/bin/python workshop/rounds/057/toolsmith_endt2_run.py fail`** (also `paths 0:40`, CLS=2, `toolsmith_endt2_n10.py run 0:5`, `toolsmith_endt2_hom.py`; pickles rebuilt with `workshop/rounds/050/toolsmith_collect.py 7 <c> 20000`, ~10 min each) · *workshop round 057, toolsmith, refereed by skeptic*
 

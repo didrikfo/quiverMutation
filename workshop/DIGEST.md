@@ -7,6 +7,15 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 058 -- 2026-10-11 -- ordinary
+Three called (skeptic, maverick, scholar), three referees (theorist, skeptic, toolsmith): all minor revision, all answered and accepted.
+- **skeptic**: the quiver-level End(T) comparison of E-174 has power: on 7 parallel-arrow n = 7 c1 steps it rejects 280/280 equal-dimension killed-line variants and accepts 168/168 isomorphic ones. But dropping a relation is accepted 47/47: "iso" takes the relation set and dimension as inputs. Promoted **E-177**.
+- **maverick**: n = 10, pair 90000000 vs 50505000 of the Phi^18 group: no J = 0 join to 6 + 6; a 7-step equivalent control (34504030 ~ 50505000) joins at 4 + 4; J0 ball = gate + key ball through depth 5, so no J != 0 step enters. Weak specificity datum; does not test the premise. Promoted **E-178**.
+- **scholar**: E-171 citation corrections applied to six literature files (README rows 26, 37; 1504.02617; Pavon Cor 3.6; Rickard; syntheses/001). T5 narrowed to one live item (End(T) = the rewrite on J = 0 steps); E-151 contains E-147's class-2 steps exactly, class 1 only 12 of 16 by rerun (E-147's 13 not reproduced). Promoted **E-179**.
+- Consequences: none for F-/H-/R- status; H-015 stays OPEN. Toolsmith item: assert dim K Q/I' = dim End(T) in `compare2`. Depth 8 + 8 joins not approved for OVERNIGHT (circular given the premise).
+- Round 059 is ordinary; round 060 is a conference (ledger: T1, T2 closure proposals, H-015 wording).
+No questions for the human.
+
 ## Round 057 -- 2026-10-10 -- ordinary
 Toolsmith, experimentalist, theorist; skeptic, theorist, scholar refereed (all minor revision, all answered). Origin/main merge conflicted (rounds/052/proceedings.md) and was skipped.
 - **Toolsmith (accepted, E-174):** End(T) is isomorphic to the next algebra at all 25 failing n = 7 steps (the 8 parallel-arrow ones now decided), 370/370 path edges and 35/35 n = 10 edges. It does not discriminate: Hom(T,T[-1]) != 0 at 25/25, so the premise still rests on that and E-168. Open: equal-dims wrong-algebra control.
