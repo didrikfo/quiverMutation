@@ -15,7 +15,7 @@ verdict: minor revision
 The headline holds as far as I can reproduce it: rejections at n = 6 (distance 8) and n = 7, and all of them guard-refused.
 
 1. The "A5 shape" claim is unchecked. The 5 rejections visible at n = 6 all show two length-4/5 commutativity relations into a vertex with one outgoing arrow. No script tests this for all of them, and the claim covers 11 classes. It is stated as a fact ("All of them have the A5 shape").
-2. The independent evidence that the rejected steps are really non-tilting is thin. `tiltingPlus` is the same code in the walk and the replay, and the test pins only hand-built A5. A cheap independent check was not run: the child key moves, which is not an independent check because the guard is defined by it. A Cartan congruence on the reached parents, as E-078 did for A5, was not computed. This cuts both ways: the author's own loose end (10 steps with gate True, `tiltingPlus` True, key moved, n = 8 c2, parallel arrows or duplicated relations) is the reverse inconsistency, and `tiltingPlus` completeness with parallel arrows is not settled. It does not hurt the "guard-admitted steps all pass" count, but it does hurt "`tiltingPlus` is the criterion".
+2. The independent evidence that the rejected steps are really non-tilting is thin. `tiltingPlus` is the same code in the walk and the replay, and the test pins only hand-built A5. A cheap independent check was not run: the child key moves, which is not an independent check because the guard is defined by it. A Cartan congruence on the reached parents, as E-080 did for A5, was not computed. This cuts both ways: the author's own loose end (10 steps with gate True, `tiltingPlus` True, key moved, n = 8 c2, parallel arrows or duplicated relations) is the reverse inconsistency, and `tiltingPlus` completeness with parallel arrows is not settled. It does not hurt the "guard-admitted steps all pass" count, but it does hurt "`tiltingPlus` is the criterion".
 3. "The guard is sufficient for `tiltingPlus`" is partly circular as worded. The BFS only walks guard-admitted steps, so a guard-admitted step failing `tiltingPlus` is what would be informative. Zero of about 1.3e6 is real evidence for that. The sentence "In every rejection the guard also refuses" is nearly forced, because a non-tilting step normally changes the Coxeter polynomial. The author does flag that the two are not the same thing.
 4. Range: the sample is 14 of 2+...+19+... classes, and the n = 9 sample is 4 of 19. "10 smallest" at n = 7..9 is by number of starts. The claim names this limit and does not overreach.
 
@@ -23,9 +23,9 @@ I found no counterexample to what is stated.
 
 ## New?
 
-- E-078 (README line 36 and HYPOTHESES line 563): the hand-built A5 shape; "reachability from an LNA untested". Reachability is the new part.
-- E-066 / E-032 step 7: the n = 10 parent, reached by a guarded walk and then rejected. The paper says E-066 is not special; E-078 already says "the shape occurs at n = 5, so n = 10 is not special". The new part is n = 6..9 from LNAs.
-- E-057 (EXPERIMENTS line 250): "A second gate-admitted rejection: there is none, so E-032's ALARM step 7 remains the only one". The paper supersedes this, and correctly explains it by depth (E-055 stops at n = 6 depth 6, E-057 at n = 6 depth 3, and the first rejection is at distance 8 or 5). That sentence in E-057 should be annotated.
+- E-080 (README line 36 and HYPOTHESES line 563): the hand-built A5 shape; "reachability from an LNA untested". Reachability is the new part.
+- E-068 / E-032 step 7: the n = 10 parent, reached by a guarded walk and then rejected. The paper says E-068 is not special; E-080 already says "the shape occurs at n = 5, so n = 10 is not special". The new part is n = 6..9 from LNAs.
+- E-059 (EXPERIMENTS line 250): "A second gate-admitted rejection: there is none, so E-032's ALARM step 7 remains the only one". The paper supersedes this, and correctly explains it by depth (E-057 stops at n = 6 depth 6, E-059 at n = 6 depth 3, and the first rejection is at distance 8 or 5). That sentence in E-059 should be annotated.
 - F-038 / R-005: the guard refusing a gate-admitted step is not new, as the author says.
 - Nothing found for "5..9 reached from an LNA with sample sizes" beyond these.
 
@@ -42,7 +42,7 @@ Gaps:
 ## Required for acceptance
 
 1. Check the A5 shape for every recorded rejecting parent with a script (or soften "all of them" to "the ones inspected").
-2. For at least the replayed parents (n = 7, 8, 9), compute the Cartan congruence of parent and child (or the E-078 dimension test), so non-tilting does not rest on `tiltingPlus` alone.
+2. For at least the replayed parents (n = 7, 8, 9), compute the Cartan congruence of parent and child (or the E-080 dimension test), so non-tilting does not rest on `tiltingPlus` alone.
 3. Say in the Claim that the loose end (gate True, tilt True, key moved, n = 8 c2) means `tiltingPlus` is not shown complete, and that this weakens "the guard is redundant"; do not leave it only under evidence.
-4. Annotate E-057's "there is none" and E-078's "reachability untested" with this round's result (a note for the chair if the author may not edit them).
+4. Annotate E-059's "there is none" and E-080's "reachability untested" with this round's result (a note for the chair if the author may not edit them).
 5. Report one guard/tilt total with the run each number comes from (the 1.29e6 against the table).

@@ -1,17 +1,17 @@
-# The n = 9 depth-6 negatives of E-076 are full searches of 50 000 to 63 000 nodes, 3 to 4 times the nodes of a typical n = 7 depth-6 control, which finds its target 16 of 16
+# The n = 9 depth-6 negatives of E-078 are full searches of 50 000 to 63 000 nodes, 3 to 4 times the nodes of a typical n = 7 depth-6 control, which finds its target 16 of 16
 
 author: toolsmith · round: 013 · kind: tool
-thread: T6 · bears on: H-017, E-076, E-072, E-069
+thread: T6 · bears on: H-017, E-078, E-074, E-071
 
 ## Claim
 
-`workshop/rounds/013/toolsmith_verify.py` is the round-010 script (`--list`, `--cand`, `--budget-hours` kept) with two numbers added to each `reached` line: `nodes` (every quiver the undeduped walk shows a visitor, both directions, start points included) and `distinct` (those nodes collapsed by `fingerprint.canonicalKey`, the E-042 key). The reached set is computed as `families.verify` does (same `mutationSearchDepthFirst` calls, Coxeter guard on, no dedup); the four candidates run give `reached []` as in E-076.
+`workshop/rounds/013/toolsmith_verify.py` is the round-010 script (`--list`, `--cand`, `--budget-hours` kept) with two numbers added to each `reached` line: `nodes` (every quiver the undeduped walk shows a visitor, both directions, start points included) and `distinct` (those nodes collapsed by `fingerprint.canonicalKey`, the E-042 key). The reached set is computed as `families.verify` does (same `mutationSearchDepthFirst` calls, Coxeter guard on, no dedup); the four candidates run give `reached []` as in E-078.
 
 At n = 9, depth 6, four of the 16 K = 4 candidates (indices 0, 5, 9, 13) visit 50 476 / 62 888 / 62 165 / 55 247 nodes, 4 437 / 7 074 / 6 395 / 5 683 distinct, in 263-398 s. So a depth-6 negative at n = 9 is a walk of about 5e4 to 6e4 nodes (4e3 to 7e3 distinct), not an early exit.
 
 Control at n = 7, depth 6 (a member of a class that is at recorded path length exactly 6 from an LNA, rebuilt and searched at depth 6): the source LNA comes back in 16 of 16 (two members for each of LNAs 4-9, one for each of LNAs 0-3 and none for LNAs 10+); at depth 5 it comes back in 0 of 4 (same members for LNAs 0-3). Control nodes at depth 6: 3 540 to 16 894 (median 14 467), distinct 429 to 3 013. At depth 5: 1 049 to 4 559 nodes. So the search has found what it should at depth 6, and at a node count below the n = 9 negatives by a factor of 3 to 4 against the larger controls (3 to 18 over all).
 
-It does not claim: that an n = 9 class member exists within 6 steps (none is known; the control tests inverse-move handling, as E-069 said, not discovery); that the control members are typical (they are the first per LNA by fewest relations, 0 to 2 relations, so cheap ones; the largest control search, 16 894 nodes, is a hereditary member); that all 16 candidates have 5e4-6e4 nodes (4 of 16 measured); anything about LNAs 10+ at n = 7 (not run, 10-minute cap); depth 7.
+It does not claim: that an n = 9 class member exists within 6 steps (none is known; the control tests inverse-move handling, as E-071 said, not discovery); that the control members are typical (they are the first per LNA by fewest relations, 0 to 2 relations, so cheap ones; the largest control search, 16 894 nodes, is a hereditary member); that all 16 candidates have 5e4-6e4 nodes (4 of 16 measured); anything about LNAs 10+ at n = 7 (not run, 10-minute cap); depth 7.
 
 ## Evidence
 
@@ -43,7 +43,7 @@ n = 7 depth-6 control, per source LNA (name, L = 6 member rels, nodes, distinct)
 
 (The first run gave LNAs 0-3 one member each; the second run gave LNAs 4-9 two each; the table merges them. Several rows repeat a node count, as members of one orbit under mirror give the same walk.) Negative control, same first four members, depth 5: found 0 of 4, 1 049 / 4 559 / 3 560 / 3 783 nodes.
 
-Reading: a negative at 5e4+ nodes (distinct 4e3+) is a search in the size range of the control searches that did find their target, a little larger. What the numbers cannot say is how much of the class a depth-6 ball covers at n = 9; node count shows the search ran, not that it was sufficient. Depth 7 is about 27x nodes by the d4-d6 rate for one step, 5.5x by E-076's time ratio; the two disagree (per-level growth falls with depth), so size depth 7 from a timed run, not either.
+Reading: a negative at 5e4+ nodes (distinct 4e3+) is a search in the size range of the control searches that did find their target, a little larger. What the numbers cannot say is how much of the class a depth-6 ball covers at n = 9; node count shows the search ran, not that it was sufficient. Depth 7 is about 27x nodes by the d4-d6 rate for one step, 5.5x by E-078's time ratio; the two disagree (per-level growth falls with depth), so size depth 7 from a timed run, not either.
 
 ## Reproduction
 
@@ -60,7 +60,7 @@ Outputs: `toolsmith_verify_n9_d6_cand{0,5,9,13}.txt`, `toolsmith_control_n7_shor
 
 ## Prior record
 
-E-076 (16 candidates negative at depth 6, "no node count in the output"), E-072 (L = 5 control, cost ratios), E-069 (round trips: found iff member within depth), E-042 (the 11x dedup figure at n = 9 depth 6; this script does not dedup the walk, only counts distinct keys). Not in `research/`: node counts for the n = 9 candidates or any depth-6 control. The control is new at L = 6; E-072 stopped at L = 5.
+E-078 (16 candidates negative at depth 6, "no node count in the output"), E-074 (L = 5 control, cost ratios), E-071 (round trips: found iff member within depth), E-042 (the 11x dedup figure at n = 9 depth 6; this script does not dedup the walk, only counts distinct keys). Not in `research/`: node counts for the n = 9 candidates or any depth-6 control. The control is new at L = 6; E-074 stopped at L = 5.
 
 ## Code changed
 
@@ -68,4 +68,4 @@ New `workshop/rounds/013/toolsmith_verify.py` (copy of 010 with `verifyCounted`,
 
 ## Next
 
-Chair: E-076 may now cite the node counts (about 5e4-6e4 per candidate, 4 of 16 measured). Experimentalist (optional): `nodes` for the other 12 candidates is free if they are rerun, not needed. Scholar/skeptic: whether an n = 9 depth-6 ball of 5e4 nodes should be expected to meet a class that has no hereditary member; a control at n = 8 or 9 with a known non-hereditary-source member would test this and needs a walk from an n = 9 LNA to depth 6 (probably over the cap; propose to `OVERNIGHT.md` with `toolsmith_control.py 9 6 6 1 I I`, sizing first with `--plan`-like single LNA at depth 5). Depth 7 stays overnight.
+Chair: E-078 may now cite the node counts (about 5e4-6e4 per candidate, 4 of 16 measured). Experimentalist (optional): `nodes` for the other 12 candidates is free if they are rerun, not needed. Scholar/skeptic: whether an n = 9 depth-6 ball of 5e4 nodes should be expected to meet a class that has no hereditary member; a control at n = 8 or 9 with a known non-hereditary-source member would test this and needs a walk from an n = 9 LNA to depth 6 (probably over the cap; propose to `OVERNIGHT.md` with `toolsmith_control.py 9 6 6 1 I I`, sizing first with `--plan`-like single LNA at depth 5). Depth 7 stays overnight.

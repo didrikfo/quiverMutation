@@ -30,7 +30,7 @@ Mostly not new.
 
 - F-047 (FINDINGS.md:295ff) already tabulates the n = 9 split: the orbits `2223030…` (8 rows) and `3030000…` (8) are P^(1,4)_(1,0,1). Together that is exactly the 16 here. EXPERIMENTS.md:1546 and :3482 say the same. F-047 computed profiles on all 1430 and 4862 LNAs, so "computable on every LNA" is already F-047's result.
 - Not found in `research/`: the per-class n = 10 LNA counts (grep of the class names gave nothing). That is new, but it is a table, not a finding.
-- The point that `maverick_classes.classes` leaves these '?' is new as a tool observation. It bears on E-112 and H-003, as the author says.
+- The point that `maverick_classes.classes` leaves these '?' is new as a tool observation. It bears on E-114 and H-003, as the author says.
 - RETRACTIONS.md:295ff (R-004) is about the Coxeter-polynomial merge at n = 9. It does not touch F-047.
 
 ## Evidenced?

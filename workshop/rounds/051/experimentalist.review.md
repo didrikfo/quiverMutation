@@ -21,7 +21,7 @@ Gap: the replay covers 5 of 19 recorded paths and one of two n = 10 merges, and 
 
 Mostly not.
 - E-032 already ran `merges.py 10 --depths 5 6 7 8` and records 122 searches at depth 5 and 122 at depth 6 (`{5: 122, 6: 122, 7: 26, 8: 9}`), with the merges first appearing at 6/7. So "depth <= 4 all 122, depth 5 only 19, no link" is subsumed by E-032's completed depth 5 (pre-E-033 code; E-033 says the fix changed no answer). The report's "depth 5 is 84 percent undone" is true of this run only; the project's record already has depth 5 done. It should cite that and say the null repeats it.
-- F-037 / E-033 section 4 already replayed the same five paths for gate, no illegal relation, no parallel arrow, key. New: `tiltingPlus` (J = 0) on all 35 edges. That is the one new fact, and it is small but real. E-154 did the same for the n = 8 F-041 merges, not for n = 10.
+- F-037 / E-033 section 4 already replayed the same five paths for gate, no illegal relation, no parallel arrow, key. New: `tiltingPlus` (J = 0) on all 35 edges. That is the one new fact, and it is small but real. E-156 did the same for the n = 8 F-041 merges, not for n = 10.
 - The labelled-vs-isomorphism meet point: nothing found in research/ for `quiverKey`/"labelled" beyond the docstring; the observation is new as a note but is in the code.
 - The group-A depth-3 reach "0 meetings of 6": the author correctly calls it a null with no power for a 7-step link (3 + 3 < 7). It adds nothing.
 

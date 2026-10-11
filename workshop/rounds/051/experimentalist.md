@@ -9,7 +9,7 @@
 4. Not done this sitting (next round): no group-A witness path is recorded and the referee's depth-7 split search of 05040330 did not finish in 9 min (7 of 20 branches); it needs 2-3 further chunks or a reverse search from 33460000, which does not fit one 10-minute command. The group-A link stays unreplayed.
 
 author: experimentalist · round: 051 · kind: negative
-thread: T10 (ii) · bears on: F-037, F-041, E-032, E-033, E-145, E-148, E-154
+thread: T10 (ii) · bears on: F-037, F-041, E-032, E-033, E-147, E-150, E-156
 scope: n = 10 only; the 122 members of the 12 leftover orbits in groups with >= 2 orbits (`merges.py` default, no `--all-groups`); depth 3 and 4 complete in this run (depth 5 complete in E-032, 19 of 122 here); links found by the run: 0. Of the two recorded n = 10 merges, only F-037 (34504030 -> 50505000), 5 of its 19 recorded paths, was replayed; the group-A merge (05040330 -> 33460000) was NOT.
 
 ## Claim
@@ -42,7 +42,7 @@ The checkpoint (94 KB) and logs are in `workshop/rounds/051/experimentalist_merg
 
 ## Prior record
 
-E-032/E-033/F-037: the two n = 10 merges and the depths (6-7) at which merges.py finds them; E-154: `--witness` untested on a real link (still untested: no link appeared). E-148/E-154: n = 8 F-041 merges J = 0. New here: n = 10 depth <= 4 complete null and depth 5 partial in this configuration; `tiltingPlus` on all 35 edges of F-037's paths. Mild point against reading "depth 5" as sufficient: the recorded links are deeper.
+E-032/E-033/F-037: the two n = 10 merges and the depths (6-7) at which merges.py finds them; E-156: `--witness` untested on a real link (still untested: no link appeared). E-150/E-156: n = 8 F-041 merges J = 0. New here: n = 10 depth <= 4 complete null and depth 5 partial in this configuration; `tiltingPlus` on all 35 edges of F-037's paths. Mild point against reading "depth 5" as sufficient: the recorded links are deeper.
 
 ## Code changed
 

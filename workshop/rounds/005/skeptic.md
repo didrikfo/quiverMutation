@@ -8,7 +8,7 @@ Why: I refuted "orbit = key class" with 4056 at n = 16 (mirror-image orbits {1,2
 
 ## Weakest current claim
 
-Parity governs pairing: the 7 cores fail at odd n, but the 12 cores of E-060 pair at 13, 14, 15 and fail at 16 (even). The 127 untested cores may show parity works for them, or may show it is incomplete. We have 14 cases; no basis to extrapolate.
+Parity governs pairing: the 7 cores fail at odd n, but the 12 cores of E-062 pair at 13, 14, 15 and fail at 16 (even). The 127 untested cores may show parity works for them, or may show it is incomplete. We have 14 cases; no basis to extrapolate.
 
 ## What I need
 

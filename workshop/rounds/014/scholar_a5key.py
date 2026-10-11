@@ -1,4 +1,4 @@
-"""T5 round 014: is the A5 algebra (E-078), padded by chains, in the Coxeter class of any LNA?
+"""T5 round 014: is the A5 algebra (E-080), padded by chains, in the Coxeter class of any LNA?
 The Coxeter polynomial is invariant along legal mutation, and the guard keeps it fixed, so a guarded walk
 from an LNA stays on that LNA's key. If the key of a hand-built algebra is on no LNA's key, no guarded walk
 from an LNA at that n reaches it. Usage: scholar_a5key.py [nmax=9]"""

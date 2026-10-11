@@ -1,7 +1,7 @@
 # The exact criterion (Ladkani 2.3(c)) rejects steps on non-monomial parents too, but only where the gate already refuses; the ALARM step is still the only gate-admitted rejection
 
 author: scholar · round: 002 · kind: result (revision of round 001)
-thread: T5 · bears on: H-015, F-016, F-038, E-032, E-055
+thread: T5 · bears on: H-015, F-016, F-038, E-032, E-057
 
 ## Response to referee
 
@@ -55,7 +55,7 @@ Every gate-admitted step on a non-monomial parent had `child Cartan = r C r^T` (
 two independent computations again agree. Illegal-relation children: none.
 
 Why the ALARM step is still the one that counts: it is the only recorded gate-admits/2.3(c)-rejects step
-(E-055), and it lives at n=12 (steps of `03033030` relation dual), far from this range. The negatives here are
+(E-057), and it lives at n=12 (steps of `03033030` relation dual), far from this range. The negatives here are
 "gate correctly refuses", the weakest kind of negative for a would-be replacement gate: they show 2.3(c) is
 not trivially True, not that it is stronger than the gate. To get a second gate-admitted rejection one must
 go where F-038 says corruption is possible (n >= 10, seven clean steps deep): that is the Menu 4
@@ -74,8 +74,8 @@ NOTtilt parents (relations printed as arrow paths; up to 200 kept). It reuses `t
 
 ## Prior record
 
-As in round 001: 2.3(c) unused in `research/` before E-055; F-016, F-038, F-047 as cited there. Grepped again
-(`tiltingPlus`, `isTilting`, `2.3(c)`): nothing new since E-055. Nothing here touches RETRACTIONS.
+As in round 001: 2.3(c) unused in `research/` before E-057; F-016, F-038, F-047 as cited there. Grepped again
+(`tiltingPlus`, `isTilting`, `2.3(c)`): nothing new since E-057. Nothing here touches RETRACTIONS.
 
 ## Code changed
 

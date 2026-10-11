@@ -14,7 +14,7 @@ verdict: minor revision
 
 Nothing wrong found in what was computed. Gaps:
 
-1. **The headline "predicts the n = 17, 18 lists ... both came out" is not a test.** The "E-074 list" that `theorist_census2.py` compares against (lines 13-14) is the hard-coded n <= 16 word list. No key-coarser list was ever computed at n = 17 or 18. E-074 itself says "nothing for n >= 17". What was shown is that the census rule outputs the same words at 17, 18 as at 12..16 (stability of the rule's output). It is not that those words are key-coarser at 17, 18. The title and item (2) say "predicts"; that overstates it.
+1. **The headline "predicts the n = 17, 18 lists ... both came out" is not a test.** The "E-076 list" that `theorist_census2.py` compares against (lines 13-14) is the hard-coded n <= 16 word list. No key-coarser list was ever computed at n = 17 or 18. E-076 itself says "nothing for n >= 17". What was shown is that the census rule outputs the same words at 17, 18 as at 12..16 (stability of the rule's output). It is not that those words are key-coarser at 17, 18. The title and item (2) say "predicts"; that overstates it.
 2. **Post-hoc fit at n = 12..16.** The rule (two orbits, one key, own mirror, alternation) was tuned on lists A, B, including the mirror clause added to remove `406`. So 12..16 is a fit, not a confirmation. The only out-of-sample items are 17, 18, and those have no ground truth (point 1). The rule has 3 free clauses; one was added after seeing a failure.
 3. **The rule fails on 2 of 10 words at every odd n (13, 15, 17).** `5046 5056` are in B and not predicted. This is a 20% miss on B, and the necessary-side caveat is stated. Hence "this is the explanation of A, B" holds only for A and 8/10 of B.
 4. No null for how selective the rule is. Item (2) gives "69 words with a placement in no single-relation orbit" but not how many of the 30 single-relation orbits the catalogue words land in. The absence of any non-alternating 2..3-orbit word (0) suggests the rule is selective, but this is not shown against a random orbit pairing. The n = 12..20 match of P/Q parity (even offsets in P, odd in Q) is checked per-n and fine, but it is a reachability observation, as the author says.
@@ -22,7 +22,7 @@ Nothing wrong found in what was computed. Gaps:
 
 ## New?
 
-Grepped `research/*.md` for "single.relation", `3@2`, `5@0`, `5046`, `5056`: the only related records are E-074 (lists A, B; "why unexplained"), E-064 (parity classes, own mirror), E-051 per the author. No hit for the single-relation seed identification. The single-relation description of the two orbits is new. No retraction conflict.
+Grepped `research/*.md` for "single.relation", `3@2`, `5@0`, `5046`, `5056`: the only related records are E-076 (lists A, B; "why unexplained"), E-066 (parity classes, own mirror), E-051 per the author. No hit for the single-relation seed identification. The single-relation description of the two orbits is new. No retraction conflict.
 
 ## Evidenced?
 

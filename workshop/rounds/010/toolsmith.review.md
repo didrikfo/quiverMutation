@@ -19,7 +19,7 @@ Claims hold. Gaps, none fatal:
 4. Table row labels give (cords, rels) for K=1 indices 1 and 2 as both (3, 2); true, but they are different polynomials. Cosmetic.
 
 ## New?
-Grepped research/ for E-072, H-017, "maverick_verify", "depth 6". E-072 already records the depth-5 negative (321 s, 49-98 s each), depth-6 for candidate 1 at 280 s, and the shard plan (16 candidates, one per 10-minute shard). The submission itself says it is a reproduction, and I agree: the only new things are the tool options and one saved depth-6 output. Note E-072's "candidate 1 at depth 6, 280 s" vs this "candidate 2, 434 s": different candidates by numbering (K=1 indices), consistent with 5.4-5.7x growth. The 5.5 ratio now rests on two pairs (E-072's and this one), not one; the report should say so.
+Grepped research/ for E-074, H-017, "maverick_verify", "depth 6". E-074 already records the depth-5 negative (321 s, 49-98 s each), depth-6 for candidate 1 at 280 s, and the shard plan (16 candidates, one per 10-minute shard). The submission itself says it is a reproduction, and I agree: the only new things are the tool options and one saved depth-6 output. Note E-074's "candidate 1 at depth 6, 280 s" vs this "candidate 2, 434 s": different candidates by numbering (K=1 indices), consistent with 5.4-5.7x growth. The 5.5 ratio now rests on two pairs (E-074's and this one), not one; the report should say so.
 
 ## Evidenced?
 Mostly yes: timings per candidate, output files saved, reproduction commands given with K. Missing: (a) the K=1 to K=4 index map; (b) the extrapolated depth-6 times (230/360/375 s) are predictions, labelled as such, fine, but "all four fit a shard" is not checked, and 3 of 4 K=1 candidates remain unrun at depth 6; (c) the claim "a candidate near the cap is killed with no output" is true by construction but the worst of the 12 untimed candidates is unmeasured, so the 16-shard plan is unverified; the report does say so.
@@ -28,4 +28,4 @@ Mostly yes: timings per candidate, output files saved, reproduction commands giv
 1. State the K=1 -> K=4 index map (0->0, 1->4, 2->8, 3->12) and drop or flag index 8 in the 16-shard plan.
 2. Say the budget test result depends on machine speed (the 7 s figure is not reproducible), or give a test that does not, e.g. `--budget-hours 0` and expect all skipped.
 3. Note that the BUDGET message under --cand lists only selected candidates.
-4. Update the 5.5 ratio statement: two depth 5-to-6 pairs now (E-072 candidate 1, this candidate 2).
+4. Update the 5.5 ratio statement: two depth 5-to-6 pairs now (E-074 candidate 1, this candidate 2).

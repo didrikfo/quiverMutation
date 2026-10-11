@@ -1,4 +1,4 @@
-"""Round 051 (toolsmith, from 050's toolsmith_depth7.py: env TBD target-ball file depth, TD truncation, CAP key cap), T10 (i): depth-7 child ball for the E-155 misses, sharded.  Same moves as rounds/049/toolsmith_tiltpath.py (F and R, J = 0,
+"""Round 051 (toolsmith, from 050's toolsmith_depth7.py: env TBD target-ball file depth, TD truncation, CAP key cap), T10 (i): depth-7 child ball for the E-157 misses, sharded.  Same moves as rounds/049/toolsmith_tiltpath.py (F and R, J = 0,
 tiltingPlus, gate, legal, vertex-preserving, class key kept), same canonical-key meet against the class target ball (LNAs + duals, depth TD, cache
 /tmp/tsm/tball_c<cls>_d5.pkl built by 049's script).  A meeting at child depth d and target depth t = a tilting-only path of length d + t.
 Usage (repo root; every command is bounded, see --plan):

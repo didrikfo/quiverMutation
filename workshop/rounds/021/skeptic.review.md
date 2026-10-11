@@ -11,17 +11,17 @@ Ran `skeptic_null.py` for n = 12, 13, 14 (2.6 s, 3.6 s, 5.4 s; the claimed "~1 m
 
 The numbers reproduce. Problems with the reading:
 1. "Words WITHOUT a 4 give the same counts" is false beyond n = 12: 6/9/12 (with a 4) against 6/13/22 (without). The no-4 counts are larger, up to 1.8x. The 4-letter "generic rate" claim needs "at least as many", not "same". Since 4-letter no-4 words at n = 14 number 70 against 56 with a 4, the extra is partly a pool-size effect. Pool sizes should be stated beside the counts.
-2. (a) tests "exactly one" against a binomial with the stratum's pooled in-S rate. The strata differ in rate (.28 vs .16), and E-091 never claimed selectivity relative to that null. It claimed an exact count among split words. So (a) shows "exactly one" is not enriched. It does not show that E-091 is generic in the sense of its own statement. The reading is fair, but the framing "NOT selective" is stronger than what was tested.
+2. (a) tests "exactly one" against a binomial with the stratum's pooled in-S rate. The strata differ in rate (.28 vs .16), and E-093 never claimed selectivity relative to that null. It claimed an exact count among split words. So (a) shows "exactly one" is not enriched. It does not show that E-093 is generic in the sense of its own statement. The reading is fair, but the framing "NOT selective" is stronger than what was tested.
 3. S = the orbit from the middle placement of 444, with `limit=300000`. The script never checks that the orbit closed. If any n hit the cap, S is truncated and "in-S" is undercounted. |S| is printed in the .txt but the review does not state it or say closure was verified. This is the cap-as-verdict blind spot.
 4. (b) uses 2/m as the per-word chance. The author's caveat that the null ignores the S-shape bias is correct and is acknowledged, so (b) says "S favours the right end", which is what the author concludes.
 
 ## New?
 
-E-091 and E-096 are the targets (confirmed present in EXPERIMENTS.md). I did not find any no-4 or 5-6-letter control in the entries I looked at. E-079 is cited for inseparability, but I did not verify it. Treated as new.
+E-093 and E-098 are the targets (confirmed present in EXPERIMENTS.md). I did not find any no-4 or 5-6-letter control in the entries I looked at. E-081 is cited for inseparability, but I did not verify it. Treated as new.
 
 ## Evidenced?
 
-Mostly. The table is specific (n, k, stratum, counts). Gaps: |S| and orbit closure per n, pool sizes next to the counts, and "same counts" overstated. The claim that E-091's n = 15..17 values are "not rerun" is honestly flagged. Since the run takes 5 s at n = 14, the author could have gone further than n = 14 here instead of deferring it.
+Mostly. The table is specific (n, k, stratum, counts). Gaps: |S| and orbit closure per n, pool sizes next to the counts, and "same counts" overstated. The claim that E-093's n = 15..17 values are "not rerun" is honestly flagged. Since the run takes 5 s at n = 14, the author could have gone further than n = 14 here instead of deferring it.
 
 ## Required for acceptance
 

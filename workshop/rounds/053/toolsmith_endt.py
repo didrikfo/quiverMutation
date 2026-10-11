@@ -1,7 +1,7 @@
 """Round 053 (toolsmith), T10 agenda item 1: End(T) of the tilting complex as a QUIVER WITH RELATIONS, compared with the mutated algebra.
 
 Library part (this file, no search): given a PathAlgebra `a` (acyclic) and a vertex k, build T = (+_{i != k} P_i) + T_k,
-T_k = (P_k -> +_{k->h} P_h) in degrees (S, S+1), S = -1 (the convention of skeptic_replay13 / E-159), P_x with Hom(P_x,P_y) = paths x ~> y mod I,
+T_k = (P_k -> +_{k->h} P_h) in degrees (S, S+1), S = -1 (the convention of skeptic_replay13 / E-161), P_x with Hom(P_x,P_y) = paths x ~> y mod I,
 composition `f then g` = path concatenation f + g (rounds/050/skeptic_tilt.py).  Then, over Q (exact Fractions):
   * Hom_K(T_i, T_j) = chain maps / homotopies, with an explicit basis and coordinates;  composition of basis elements;
   * radical filtration rad^m(i,j) (i != j; End(T_i) = K is checked), arrows of End(T) = rad/rad^2, lifts chosen by a fixed rule;

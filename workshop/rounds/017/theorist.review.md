@@ -17,7 +17,7 @@ Item 4 and the "class 1 != class 0" statement are explicitly scoped to this move
 One small point: "x-4 at every placement (odd n)" is tested only up to x=9. I did not test x>=10 or letters >=6 in prefix words. The author does not claim these.
 
 ## New?
-Grepped research/ for 3334, 2455, "444 -> 34", "lemma R", "class label". Only E-083/E-086/E-065/E-080 (memberships by size and by row set, and the drift label), as the author cites. The one-step reduction to 35, the shared lemma R and the J table are not recorded. Not in RETRACTIONS.
+Grepped research/ for 3334, 2455, "444 -> 34", "lemma R", "class label". Only E-085/E-088/E-067/E-082 (memberships by size and by row set, and the drift label), as the author cites. The one-step reduction to 35, the shared lemma R and the J table are not recorded. Not in RETRACTIONS.
 
 ## Evidenced?
 Yes. Ranges (n, a/b/d) and counts are stated, and the scripts and output files are named. Missing: no explicit statement that the J table was checked at n=17 (I did it, and it holds), and the "no invariant, closed under this move set only" caveat is correctly kept.

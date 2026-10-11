@@ -333,7 +333,7 @@ def test_step_seven_finds_the_relation_the_old_implementation_missed():
 
 
 def test_reduce_against_pivots_is_a_normal_form():
-    """Congruent combinations have the same residue (research E-085).
+    """Congruent combinations have the same residue (research E-087).
 
     The old reduction stopped at the first leading term that is not a pivot, so
     `a` and `b` below, congruent through the commutative square, kept different
@@ -358,7 +358,7 @@ def test_reduce_against_pivots_is_a_normal_form():
 
 # -- the Cartan congruence as an opt-in check on the rewrite (round 022) ----
 
-# Parent 1 of the ten n = 8 class 2 steps of E-084/E-085 (key moved under the old
+# Parent 1 of the ten n = 8 class 2 steps of E-086/E-087 (key moved under the old
 # `reduceAgainstPivots`): a = 1>2>7 and b = -1>5>6>7 are congruent modulo a
 # relation that contains 1>5>7'.  Mutation at 3.
 E085_ARROWS = [(1, 2, 0), (1, 5, 0), (2, 7, 0), (3, 1, 0), (4, 5, 0), (5, 6, 0),
@@ -405,7 +405,7 @@ def test_cartan_check_passes_on_the_e085_parent_and_catches_the_old_reduction(mo
 
 
 def test_cartan_check_environment_switch_and_non_tilting_step(monkeypatch):
-    """QM_CHECK_CARTAN=1 turns the check on; a step that is not tilting (E-078) fails it (E-093)."""
+    """QM_CHECK_CARTAN=1 turns the check on; a step that is not tilting (E-080) fails it (E-095)."""
     algebra = path_algebra([(1, 2), (1, 3), (2, 4), (3, 4), (4, 5)],
                            rels=[[(1, 2, 4, 5), (1, 3, 4, 5)]])
     relations = pr.relationsFrom(algebra)

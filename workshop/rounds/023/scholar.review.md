@@ -19,13 +19,13 @@ The one case further falsifies the walk statement. n = 8 output:
 ('J!=0','tiltingPlus',False,'outdeg',2,'longsq',False ...) 42
 ```
 
-So 42 gate-admitted rejecting steps have out-degree 2 and no long square on `alg.rels`. This is a D-type (or G-type) reject reached by a guided walk. It contradicts "the walks reach no D or G type algebra" and "J != 0 <=> out-degree 1 and long square holds step by step", and it answers the author's own Next item 1. The claim is that the iff holds for n = 5..7 only, and it breaks at n = 8. Wording in the claim and the note for E-084/E-095/E-100 ("shape of the walk class") must not be extended past n = 7. I did not classify the 42 as D or as G (presentation artefact) or as something else. The dominance of out-degree 2 at n = 8 (42 against 2) makes it more likely a real D-type phenomenon than an artefact.
+So 42 gate-admitted rejecting steps have out-degree 2 and no long square on `alg.rels`. This is a D-type (or G-type) reject reached by a guided walk. It contradicts "the walks reach no D or G type algebra" and "J != 0 <=> out-degree 1 and long square holds step by step", and it answers the author's own Next item 1. The claim is that the iff holds for n = 5..7 only, and it breaks at n = 8. Wording in the claim and the note for E-086/E-097/E-102 ("shape of the walk class") must not be extended past n = 7. I did not classify the 42 as D or as G (presentation artefact) or as something else. The dominance of out-degree 2 at n = 8 (42 against 2) makes it more likely a real D-type phenomenon than an artefact.
 
 The hand-built analysis itself is sound: direction (1) follows from minimality; (2)(a) is correctly labelled a hypothesis. The n = 8 result supports the author's own caveat that (a) is not forced; it shows (a) is also not an invariant of reachable algebras. The text "an empirical regularity of the algebras reached" is false at n = 8. Caveat on (1): "out-degree 1 not needed" is asserted, not tested; case D shows J != 0 with all relations present, but no hand case isolates an out-degree 2 algebra with a minimal long relation into one arrow only (that is E, J = 0, consistent).
 
 ## New?
 
-Grepped FINDINGS, HYPOTHESES, RETRACTIONS for "out-degree", "long-sided", "long square": nothing. In EXPERIMENTS: E-066, E-078, E-097, E-100 are as cited. Out-degree 1 versus 2 on the walk class is not recorded; the D/E/G split and the "short level is fine" one-liner are new. Walk counts duplicate E-100 (n = 5..7) and add nothing there.
+Grepped FINDINGS, HYPOTHESES, RETRACTIONS for "out-degree", "long-sided", "long square": nothing. In EXPERIMENTS: E-068, E-080, E-099, E-102 are as cited. Out-degree 1 versus 2 on the walk class is not recorded; the D/E/G split and the "short level is fine" one-liner are new. Walk counts duplicate E-102 (n = 5..7) and add nothing there.
 
 ## Evidenced?
 

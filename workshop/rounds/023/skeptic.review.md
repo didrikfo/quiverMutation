@@ -11,14 +11,14 @@ Re-ran `skeptic_offwalk.py 6 6000 3 A` (21 s). Counts match the table exactly: g
 
 (1) and (2) hold as stated for the sampled range. Two qualifications.
 
-- Kind (a) is a straw man against the rounds/022 code. `hasLongSquare` in `experimentalist_shapectl.py` begins with `if len(outs) != 1: return False`, so it is False by construction at any vertex with two out-arrows. 19 of the 26 examples are this kind. The real finding is that E-100's test is only defined for 1-out vertices. Say so. As written, "fails literally" overstates the news. Only kinds (b) and (c), and the (1,F) examples, are failures of the test's own domain: 1 + 3 + 3 = about 7 of 26.
+- Kind (a) is a straw man against the rounds/022 code. `hasLongSquare` in `experimentalist_shapectl.py` begins with `if len(outs) != 1: return False`, so it is False by construction at any vertex with two out-arrows. 19 of the 26 examples are this kind. The real finding is that E-102's test is only defined for 1-out vertices. Say so. As written, "fails literally" overstates the news. Only kinds (b) and (c), and the (1,F) examples, are failures of the test's own domain: 1 + 3 + 3 = about 7 of 26.
 - Claim (3), that kinds (a)-(b) are unreachable by the walk, rests on Coxeter polynomials being in no class at n=6. This is not re-verified. It is stated for a and b only, with c and n=7 untested, and the title says "none reachable" for all 14. The title should be scoped to what was shown.
 
 The generator has no length-2 relations and no parallel arrows, and has j-i<=3. The text discloses this. Kind (c), a reduced relation, is the case most likely to arise on a walk, and it is the one left unchecked.
 
 ## New?
 
-Nothing found in `research/` for "two out", "shared suffix" or "redundant long". E-100 (Limits) and E-097 record the 1-out case and the open `alg.rels` vs `relationsFrom` question. The reduction to Ladkani 2.3(c), "truncation is the kernel element", is the author's own remark, not recorded elsewhere. The new content is modest: the 2-out and shared-suffix shapes, and the non-minimal-presentation artefact (362 steps).
+Nothing found in `research/` for "two out", "shared suffix" or "redundant long". E-102 (Limits) and E-099 record the 1-out case and the open `alg.rels` vs `relationsFrom` question. The reduction to Ladkani 2.3(c), "truncation is the kernel element", is the author's own remark, not recorded elsewhere. The new content is modest: the 2-out and shared-suffix shapes, and the non-minimal-presentation artefact (362 steps).
 
 ## Evidenced?
 

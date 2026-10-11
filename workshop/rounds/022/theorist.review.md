@@ -19,11 +19,11 @@ The claims I could test hold. Problems are of scope and wording, not of fact:
 2. "Maximum depth 1 + floor((n-4)/2): 4 for n = 11" is derived only from single-big-relation LNAs with m = 3. The note itself says that LNAs with two big relations break the formula (31 mismatches) and have no formula. So the maximum over ALL LNAs is not established for n >= 11. At n <= 10 it is exhaustive (maxima 3, 3, 4 observed). At n = 11 only `222302222` was run, at n = 12 only one LNA. State it as "among single-big-relation LNAs", or "observed for n <= 10".
 3. "Only n <= 9 makes 'within 3' true" is stated in the title as "n <= 9". n = 10 is refuted by one LNA. That "n = 10 needs 4, n = 12 needs 5" holds is only for the cited LNAs, and "n = 11" is unrun. For n <= 9, "within 3" is established by the exhaustive n = 8 and n = 9 runs (n = 9 to L = 4 only for the 56 blocked ones). The title is fine; it just needs "n = 11 not run".
 4. The mechanism for D1 (the kernel K argument) is a derivation sketch. The author flags that the blocking step has no derivation. Agreed; that is the real gap, and it is honestly labelled.
-5. The "cord" naming point (cycle, not quipu cord) is correct and useful; E-087/E-092 do define it as arrows >= n with no parallel arrows.
+5. The "cord" naming point (cycle, not quipu cord) is correct and useful; E-089/E-094 do define it as arrows >= n with no parallel arrows.
 
 ## New?
 
-Grepped `research/*.md` for "peel", "blocked", "within 3", "depth 4", "cycle member". Nothing on the blocking rule or the peeling depth. E-099 (EXPERIMENTS.md line 9) is the claim it corrects: "within 3 mutation steps", n = 8 only. Its title says n = 8, so strictly E-099 is not false; the error is in how the criterion has been quoted downstream (H-017 context), so check the quoting rather than E-099 itself. E-092 and E-087 are cited and consistent. New.
+Grepped `research/*.md` for "peel", "blocked", "within 3", "depth 4", "cycle member". Nothing on the blocking rule or the peeling depth. E-101 (EXPERIMENTS.md line 9) is the claim it corrects: "within 3 mutation steps", n = 8 only. Its title says n = 8, so strictly E-101 is not false; the error is in how the criterion has been quoted downstream (H-017 context), so check the quoting rather than E-101 itself. E-094 and E-089 are cited and consistent. New.
 
 ## Evidenced?
 
@@ -36,5 +36,5 @@ Mostly yes for the data: counts, ranges and the LNA names are stated. Missing:
 
 1. Say that the variant `sym` of D1 was chosen among four by fit to the n = 6..10 data, and add the out-of-sample check (I got 0 mismatches on n = 11, LNAs 8000-8300, 301 LNAs) or run one yourself.
 2. Restrict the "maximum depth 1 + floor((n-4)/2)" statement to single-big-relation LNAs, or to n <= 10 where exhaustive; do not state it as the maximum over all LNAs for n = 11, 12.
-3. Note that E-099's own title is n = 8, so what is refuted is the depth clause as it has been quoted, and name where it was quoted (H-017 or the scripts).
+3. Note that E-101's own title is n = 8, so what is refuted is the depth clause as it has been quoted, and name where it was quoted (H-017 or the scripts).
 4. Fix the library `import os` item only if it is still open; I did not check it.

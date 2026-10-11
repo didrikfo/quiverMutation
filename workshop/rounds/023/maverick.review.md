@@ -28,7 +28,7 @@ Minor: the claim "n = 10 row not independent" sentence is garbled but the point 
 
 ## New?
 
-grep of FINDINGS, HYPOTHESES, RETRACTIONS, EXPERIMENTS for `230302`, "mirror chain", "two big", "several big", "any length": nothing relevant (hits are unrelated mirror/orbit entries). E-101 has the 2-arrow formula and the 31 mismatches; this extends it as the author states.
+grep of FINDINGS, HYPOTHESES, RETRACTIONS, EXPERIMENTS for `230302`, "mirror chain", "two big", "several big", "any length": nothing relevant (hits are unrelated mirror/orbit entries). E-103 has the 2-arrow formula and the 31 mismatches; this extends it as the author states.
 
 ## Evidenced?
 
@@ -36,4 +36,4 @@ Yes for n = 8..10 (exhaustive, counts per class given), n = 10, 11 predictions (
 
 ## Required for acceptance
 
-None. Suggested: record the n = 12 results above (the depth-4 case `2223030222` in particular) in E-101's follow-up, and state the Reproduction time as 9 s.
+None. Suggested: record the n = 12 results above (the depth-4 case `2223030222` in particular) in E-103's follow-up, and state the Reproduction time as 9 s.

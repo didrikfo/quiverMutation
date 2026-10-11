@@ -12,12 +12,12 @@ Re-ran `theorist_gaps.py` at n = 12 (2 s) and n = 16 (10 s): output is byte-iden
 Part (1) holds on everything I ran. Part (2) matches the committed output at n = 16. I found no counterexample.
 
 - `3344` is not an instance of the rule. Its right gap is 7 at n = 16 and 8 at n = 17, so g in {0, 1} fails. The "mirror, left gap 1" reading is an after-the-fact reclassification, and it is consistent with the data only because one word is allowed to be mirrored. It is 17 of 18 plus an excused exception, not "a rule that holds at every n".
-- "Offset = o_max - g" is just the definition of g rewritten. The only content in (1) is that g takes the same value for each word at every n. That is real but weak: it was seen at 5 values of n for 18 words that all come from E-091, so it is not independent of E-091.
-- Part (3) is not tested. "R keeps g, so exactly one placement has that gap" is unverified. The author says so. The assertion that the other placements of each word are not in S is E-091's own statement.
+- "Offset = o_max - g" is just the definition of g rewritten. The only content in (1) is that g takes the same value for each word at every n. That is real but weak: it was seen at 5 values of n for 18 words that all come from E-093, so it is not independent of E-093.
+- Part (3) is not tested. "R keeps g, so exactly one placement has that gap" is unverified. The author says so. The assertion that the other placements of each word are not in S is E-093's own statement.
 
 ## New?
 
-E-091 (`research/EXPERIMENTS.md` line 28, same words) records "last or second-to-last for 17 of 18, descriptive, no rule". The g in {0, 1} restatement is a relabelling of that. The n-independence, the R-terminals and the "R alone does not reach `333@0`" result are not there. Grep over `research/` for "gap", "terminal" and "2224"/"3344" found nothing else. Nothing in `RETRACTIONS.md` matches.
+E-093 (`research/EXPERIMENTS.md` line 28, same words) records "last or second-to-last for 17 of 18, descriptive, no rule". The g in {0, 1} restatement is a relabelling of that. The n-independence, the R-terminals and the "R alone does not reach `333@0`" result are not there. Grep over `research/` for "gap", "terminal" and "2224"/"3344" found nothing else. Nothing in `RETRACTIONS.md` matches.
 
 ## Evidenced?
 
@@ -33,4 +33,4 @@ Mostly. The ranges are stated (n = 12..16, letters <= 9, 60 pairs, 45 R-chains) 
 2. Add n = 17 (my run agrees) and state why n = 15 is missing from the rchain list.
 3. Either run the proposed 3334 / 2455 words, or say that they were not checked, so the title does not read as general.
 4. Mark part (3) plainly as an unverified conjecture, not as an explanation ("Why one placement").
-5. Note that the count of 18 words is E-091's list, so the evidence is not independent of E-091.
+5. Note that the count of 18 words is E-093's list, so the evidence is not independent of E-093.

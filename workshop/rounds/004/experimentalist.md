@@ -1,11 +1,11 @@
-# The 12 cores of E-060 keep `k(c) = n - s` and `d` at n = 15 and 16 (9 of 12 at 16); at 16 three cores lose the fit through an unmerged middle pair of equal-size singletons, so "parity" is not the story for them
+# The 12 cores of E-062 keep `k(c) = n - s` and `d` at n = 15 and 16 (9 of 12 at 16); at 16 three cores lose the fit through an unmerged middle pair of equal-size singletons, so "parity" is not the story for them
 
 author: experimentalist · round: 004 · kind: result
-thread: T1, T2 · bears on: H-021, E-056, E-059, E-060, F-053
+thread: T1, T2 · bears on: H-021, E-058, E-061, E-062, F-053
 
 ## Claim
 
-For the 12 cores of E-060 (`45 46 504 3344 3355 3445 3444 3345 4556 4045 4506 334`), n = 15: all 12 fit (round-002 rule, `|d| <= 6`), all orbits closed, and `k = n - s` and signed `d = hi - s` equal their n = 13 and n = 14 values for every core (12 of 12; table below). n = 16: 9 of 12 fit with the same `k` and `d`; `3355 3445 46` have no fit. The three failures are not a different centre: each has the centre `s = 16 - k` predicted from 13..15 (9, 5, 7) and every orbit closed under it except the two middle offsets, which are two separate singleton orbits of equal size 20300 (`3355 {4}{5}`, `3445 {2}{3}`, `46 {3}{4}`; the reflection is present as an equality of sizes, not as one merged orbit). This is the signature the 7 cores of E-059 show at odd n (equal singletons, no merge). Parity does not carry over: the 12 pair at 13, 14, 15 (odd and even), and lose pairing at 16 only for 3 of them. Not claimed: that 3355 3445 46 fail at 17, 18 (unrun); that the other 9 keep pairing at 16 because of anything but the data (9 of 9); anything about the other 127 cores of the n = 13 census (unrun at 15, 16); a mechanism. Disjoint from the 7 of E-059 (checked), so no core is tested in both families.
+For the 12 cores of E-062 (`45 46 504 3344 3355 3445 3444 3345 4556 4045 4506 334`), n = 15: all 12 fit (round-002 rule, `|d| <= 6`), all orbits closed, and `k = n - s` and signed `d = hi - s` equal their n = 13 and n = 14 values for every core (12 of 12; table below). n = 16: 9 of 12 fit with the same `k` and `d`; `3355 3445 46` have no fit. The three failures are not a different centre: each has the centre `s = 16 - k` predicted from 13..15 (9, 5, 7) and every orbit closed under it except the two middle offsets, which are two separate singleton orbits of equal size 20300 (`3355 {4}{5}`, `3445 {2}{3}`, `46 {3}{4}`; the reflection is present as an equality of sizes, not as one merged orbit). This is the signature the 7 cores of E-061 show at odd n (equal singletons, no merge). Parity does not carry over: the 12 pair at 13, 14, 15 (odd and even), and lose pairing at 16 only for 3 of them. Not claimed: that 3355 3445 46 fail at 17, 18 (unrun); that the other 9 keep pairing at 16 because of anything but the data (9 of 9); anything about the other 127 cores of the n = 13 census (unrun at 15, 16); a mechanism. Disjoint from the 7 of E-061 (checked), so no core is tested in both families.
 
 ## Evidence
 
@@ -46,7 +46,7 @@ Note: individual census runs at 16 need 160+ s each; a single command over all 1
 
 ## Prior record
 
-E-060 (13/13 and 3/3 at 14, "shift of s, d untested beyond 14"); E-059 (the 7, parity split); T2 in STATE. The 2026-09-30 entry (`research/EXPERIMENTS.md` line 76) already records equal-size singleton orbits `{1}20300 {2}20300` at n = 16 for core `4056` ("neither holds its own mirror"), so the equal-singleton signature at n = 16 is not new in itself; what is new is that it appears for 3 of the 12 pairing cores at 16 with the centre still `n - k`. Nothing in RETRACTIONS on these terms.
+E-062 (13/13 and 3/3 at 14, "shift of s, d untested beyond 14"); E-061 (the 7, parity split); T2 in STATE. The 2026-09-30 entry (`research/EXPERIMENTS.md` line 76) already records equal-size singleton orbits `{1}20300 {2}20300` at n = 16 for core `4056` ("neither holds its own mirror"), so the equal-singleton signature at n = 16 is not new in itself; what is new is that it appears for 3 of the 12 pairing cores at 16 with the centre still `n - k`. Nothing in RETRACTIONS on these terms.
 
 ## Code changed
 

@@ -23,7 +23,7 @@ Minor: the round-001 n=6/7 skipped count is "expected 0, unverified" and is flag
 
 ## New?
 
-Grep of `research/` for `tiltingPlus|isTilting|2.3(c)`: hits only in EXPERIMENTS.md (E-055 at line 9, plus its cross-references), the 1001.4765 literature note and the literature README. Nothing in FINDINGS, HYPOTHESES or RETRACTIONS. The non-monomial refused-parent result (tilt False at gate-refused vertices on commutative-square parents) is not recorded. New, but modest: it is a consistency check, not a discovery.
+Grep of `research/` for `tiltingPlus|isTilting|2.3(c)`: hits only in EXPERIMENTS.md (E-057 at line 9, plus its cross-references), the 1001.4765 literature note and the literature README. Nothing in FINDINGS, HYPOTHESES or RETRACTIONS. The non-monomial refused-parent result (tilt False at gate-refused vertices on commutative-square parents) is not recorded. New, but modest: it is a consistency check, not a discovery.
 
 ## Evidenced?
 

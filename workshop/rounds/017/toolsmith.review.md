@@ -21,15 +21,15 @@ The negative (2): consistent with what I re-ran. "Plan over visited quivers" is 
 
 ## New?
 
-- The fix: E-085 (EXPERIMENTS.md) asked for it; the patch is new. Nothing in RETRACTIONS/FINDINGS on `reduceAgainstPivots`.
-- Negative: HYPOTHESES.md H-017 note and E-087 record "no monomial cord member found at n = 6, 7"; the n = 8, L = 6 extension for six LNAs is new. The author cites both.
+- The fix: E-087 (EXPERIMENTS.md) asked for it; the patch is new. Nothing in RETRACTIONS/FINDINGS on `reduceAgainstPivots`.
+- Negative: HYPOTHESES.md H-017 note and E-089 record "no monomial cord member found at n = 6, 7"; the n = 8, L = 6 extension for six LNAs is new. The author cites both.
 
 ## Evidenced?
 
 Mostly. The six LNAs, L = 6, the MONO definition (arrows >= 8, rels >= 1) and the exclusions are stated. Gaps:
-- "These six carry all the non-monomial members at L <= 6" rests on the L = 5 plan covering only LNAs 0-15 (stated) and on E-087; for L = 6, LNAs 16..428 were not walked, so the sentence's "all" is over a range the author says was not walked. It should read "the six found among the walked".
-- A 0 count that comes from a 0-node plan (output shows "total nodes 0") is only meaningful if MONO filtering is not rejecting before counting; the non-MONO contrast (770, 736 members) is cited from E-087, and the L = 5 non-MONO histogram match is a good control, but no run shows MONO=1 returning a nonzero count anywhere. A positive MONO control (a monomial relation set known to be a cord member, e.g. a case at n = 9) is missing.
-- The E-084 counts were made with the old rewrite; the author says so and defers it.
+- "These six carry all the non-monomial members at L <= 6" rests on the L = 5 plan covering only LNAs 0-15 (stated) and on E-089; for L = 6, LNAs 16..428 were not walked, so the sentence's "all" is over a range the author says was not walked. It should read "the six found among the walked".
+- A 0 count that comes from a 0-node plan (output shows "total nodes 0") is only meaningful if MONO filtering is not rejecting before counting; the non-MONO contrast (770, 736 members) is cited from E-089, and the L = 5 non-MONO histogram match is a good control, but no run shows MONO=1 returning a nonzero count anywhere. A positive MONO control (a monomial relation set known to be a cord member, e.g. a case at n = 9) is missing.
+- The E-086 counts were made with the old rewrite; the author says so and defers it.
 
 ## Required for acceptance
 

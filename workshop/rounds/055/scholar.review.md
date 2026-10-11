@@ -17,11 +17,11 @@ Checked against the LaTeX:
 - Table rows spot-checked beyond the headline (EXPERIMENTS.md line numbers): row 5 (:245 text matches), row 7 (:364 "minimal left approximation of P_v is the sum of P_tb", and :419 "left add(A/P_v)-approximation"), row 8 (:364 "J_i = H^{-1} of the mutation cone"), row 10 (README.md:26 "iff for 'this mutation is a derived equivalence'"), row 12 (README.md:37 "stated for kA_n/I"), row 9 (1504 summary :133 "condition Hom(T,T[<0]) = 0 of AI Thm 2.32"), rows 13, 14 (:774, :900). All quoted text exists at those lines; corrections are right. Row 7: it is a wording/convention slip at worst, since for right modules the arrow-cover P_tb -> P_v is a right approximation (the submission already notes E-355 says "right"); not a mathematical error in the J formula.
 - Edits to the two literature summaries: they are already in HEAD (d1c0005), so `git diff` on research/literature is empty; I read the r055-marked passages instead. They match the table (whole-object paragraph, N = cone[-1] in degrees 0 and 1, Thm 3.1 hereditary/canonical only, Cor 3.6 correction with the 5-vertex example). No misreading found. Minor: 2509 summary line 131 says "A tail-maximal path is always a socle element": true. "Prop 3.5 is proved for every artin algebra": matches the statement.
 
-Not an error but a gap: row 14 says "V (mechanism)" yet the E-066 parent was not rerun; fine as stated.
+Not an error but a gap: row 14 says "V (mechanism)" yet the E-068 parent was not rerun; fine as stated.
 
 ## New?
 
-`grep -rn monomial research/EXPERIMENTS.md`: E-066 (:774 area), E-122 and :900 carry the caveat from memory; E-092 (:643) concerns cord members, not CHZ. No earlier record of "the paper has no monomial hypothesis, Ex 3.4 needs it" nor of the 5-vertex example; the 2.50(c) = Prop 3.5(2) at S={v} identification is not in the record either. Genuinely new but small; mostly a rediscovery/citation audit as labelled.
+`grep -rn monomial research/EXPERIMENTS.md`: E-068 (:774 area), E-124 and :900 carry the caveat from memory; E-094 (:643) concerns cord members, not CHZ. No earlier record of "the paper has no monomial hypothesis, Ex 3.4 needs it" nor of the 5-vertex example; the 2.50(c) = Prop 3.5(2) at S={v} identification is not in the record either. Genuinely new but small; mostly a rediscovery/citation audit as labelled.
 
 ## Evidenced?
 

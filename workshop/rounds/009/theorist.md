@@ -1,11 +1,11 @@
 # The drift family `aax` closes (computed criterion) when its seed `aaa` does not collapse onto the word `34`; `33x`, `55x`, `66x` close, `44x` does not
 
 author: theorist · round: 009 · kind: result (criterion, computed; not proved)
-thread: T2/T4 · bears on: H-020, H-021, F-032, F-051, E-061, E-065, E-068
+thread: T2/T4 · bears on: H-020, H-021, F-032, F-051, E-063, E-067, E-070
 
 ## Claim
 
-Drift families are `aax` (a = 3..6): the double mutation sends `aax@o -> aa(x-1)@(o+1)` in the interior (verified for `33x` in E-065; for `44x`, `55x`, `66x`
+Drift families are `aax` (a = 3..6): the double mutation sends `aax@o -> aa(x-1)@(o+1)` in the interior (verified for `33x` in E-067; for `44x`, `55x`, `66x`
 see the neighbour table below), so `c = x+o` is conserved along a chain that ends at the seed `aaa`. The chain closes into a pair `{c, n-c}` (an orbit of
 only chain rows, `k = 2x + 3 - a`) unless the chain reaches the big orbit `O*` (the orbit of `333@0`, size 3767 at n = 14). **Criterion (interior
 collapse):** the seed `aaa` has a double-mutation neighbour of span 2, its collapse `(a-1)a`. For a = 3, 5, 6 this is `23`, `45`, `56`; the orbit of `aaa@o`
@@ -32,12 +32,12 @@ Orbit test at n = 14 (`theorist_closure.py`: for each offset the reduced-walk or
 
 | family | interior collapse reaches full translator | prediction | outcome (held sets) |
 |---|---|---|---|
-| 33x, x=3..7 | no (`23`); only `333@0,8` reach `34` (edge) | rigid | pairs `o <-> n-2x-o` (E-065 rechecked; sizes 320, 886, 364, 491) |
+| 33x, x=3..7 | no (`23`); only `333@0,8` reach `34` (edge) | rigid | pairs `o <-> n-2x-o` (E-067 rechecked; sizes 320, 886, 364, 491) |
 | 44x, x=4..7 | yes (`34`, all 8 offsets of `444`) | merged | one orbit, size 3767, all offsets |
 | 55x, x=5..8 | no (`45`) | rigid | s = 6, 4, 2, 0 (`[0,6],[1,5],[2,4],[3]` for 555), k = 2x-2 |
 | 66x, x=6..8 | no (`56`) | rigid | s = 5, 3, 1 (`[0,5],[1,4],[2,3]` for 666), k = 2x-3 |
 
-The rigid values fit the E-065 formula `k = 2x + w0 - x0` with w0 = 3 and x0 = a: `k = 2x + 3 - a`. The end link is uniform: in `33x`, `55x`, `66x` the rows in
+The rigid values fit the E-067 formula `k = 2x + w0 - x0` with w0 = 3 and x0 = a: `k = 2x + 3 - a`. The end link is uniform: in `33x`, `55x`, `66x` the rows in
 the size-3767 orbit `O*` are exactly the seed at offset 0 (`333@0`, `555@0`, `666@0`) and the right-touching rows `aax@hi`; every other orbit is a pure chain pair. So the
 unpaired offsets (o > s) are the right-touching ones and the seed at the source end: that is the observed form of the end link, for three values of a
 instead of one. Sizes are shared across families (11820 = `55x` offset 1..2 = `66x` offset 1 = `45x` orbits), i.e. chain orbits are not family-specific.
@@ -62,9 +62,9 @@ timeout 10m .venv/bin/python workshop/rounds/009/theorist_translator.py 14 33 4-
 
 ## Prior record
 
-E-065 states the drift and `33x` closure and says `44x` fails without a reason; F-051/H-020 give the interior-uniform rule; E-068 records `34x`, `45x`. `grep` of
+E-067 states the drift and `33x` closure and says `44x` fails without a reason; F-051/H-020 give the interior-uniform rule; E-070 records `34x`, `45x`. `grep` of
 `research/` for "collapse", "translator", "55x", "66x" finds nothing: the `55x`/`66x` closure and the collapse-to-`34` reason are new. They are not in
-`RETRACTIONS.md`. The E-065 statement "the argument does not extend to 44x" becomes: the argument extends to every `aax` with a != 4, and fails at a = 4
+`RETRACTIONS.md`. The E-067 statement "the argument does not extend to 44x" becomes: the argument extends to every `aax` with a != 4, and fails at a = 4
 because of `444 -> 34`.
 
 ## Code changed
@@ -75,7 +75,7 @@ None in the library. New scripts only, in `workshop/rounds/009/` (`theorist_*.py
 
 - Explain `34`: why `34@o ~ 34@(o+2)` through `403` and `3333 -> 3403 -> 44`, while `23`, `45`, `56` have no such route (hand computation with F-032's double mutation; this is the proof gap).
 - Run `55x` at n = 15 and 16 (the n = 14 run took ~4 min; try `--plan`-sized first) and `77x` (needs n >= 15) to confirm `k = 2x + 3 - a` and "no collapse to 34".
-- experimentalist: does `44x` also fail at n = 17+ (it is one orbit at 14..16, E-065).
+- experimentalist: does `44x` also fail at n = 17+ (it is one orbit at 14..16, E-067).
 - skeptic: a neighbour-aware null for "a = 4 is special" (four values of a tested, one exception).
 
 

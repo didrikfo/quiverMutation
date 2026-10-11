@@ -1,6 +1,6 @@
 """S-1 n = 15, K0 = 5: witness check without the full class scan (round 055).
 usage: python workshop/rounds/055/toolsmith_s1witness.py
-Lone 3 at (h,K) has h+K = n-4. Uses piecewiseHereditary.removeVertex (as E-144 'ends') and lnaCoxeterKey."""
+Lone 3 at (h,K) has h+K = n-4. Uses piecewiseHereditary.removeVertex (as E-146 'ends') and lnaCoxeterKey."""
 import sys
 from quivermutation import coxeterTables as ct, piecewiseHereditary as pwh, nakayama
 def lone(n, h): return tuple([0]*h + [3] + [0]*(n-2-h-1))

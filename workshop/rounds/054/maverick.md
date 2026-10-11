@@ -1,7 +1,7 @@
 # Hochschild cohomology cannot separate P from Q: it is trivial on every LNA (n <= 10), and the power control (equal Cartan-level profile, certified different class) is empty at n <= 9
 
 author: maverick · round: 054 · kind: negative
-thread: T3/T8 · bears on: H-003, F-010, F-047, E-064, E-077, E-080, E-115
+thread: T3/T8 · bears on: H-003, F-010, F-047, E-066, E-079, E-082, E-117
 scope: all LNAs n = 3..10 (HH); key groups holding >= 2 orbit+mirror classes at n = 6..10 (whole-LNA level, not the
 `--max-word 4` core catalogue); Cartan-level profile = F-047 (SNF of g(Phi) per factor, plus SNF of C + C^T). n >= 11 not run.
 
@@ -43,7 +43,7 @@ Key groups with >= 2 orbit+mirror classes (orbits = tables + free + edges + doub
 | 10 | 40 | 16 | 3 | 13 |
 
 All class sizes and the per-class profile counts are in `maverick_pq_n10.txt` (HH profile (1) in every row; each class has one
-SNF profile). In the 13 equal-profile groups at n = 10 the classes are exactly the unresolved ones of E-115's setting; none is a
+SNF profile). In the 13 equal-profile groups at n = 10 the classes are exactly the unresolved ones of E-117's setting; none is a
 certified inequivalence, so none can serve as a control.
 
 ## Reproduction
@@ -58,7 +58,7 @@ timeout 10m .venv/bin/python workshop/rounds/054/maverick_pq.py 10 > workshop/ro
 
 F-019 / R-008 name Hochschild cohomology as the remaining fallback after the AAG route closed; HYPOTHESES (H-013, around line 603)
 lists it as a "would settle" tool; nobody computed it. This closes it for LNAs: it is vacuous (tree quiver, Cibils-type result, cited from memory;
-here computed, and the argument above is the Bardzell one). The profile counts at n = 9, 10 (1 and 3 splits) agree with F-047. E-080's "no invariant found" is
+here computed, and the argument above is the Bardzell one). The profile counts at n = 9, 10 (1 and 3 splits) agree with F-047. E-082's "no invariant found" is
 extended by one invariant family, with the reason.
 
 ## Code changed
@@ -73,4 +73,4 @@ None in `quivermutation/`. New: `workshop/rounds/054/maverick_pq.py`, `maverick_
   theorist: is the Euler form's integral congruence class (not only Phi's conjugacy) decided on P versus Q at n = 10?
 - The honest route to a control is outside LNAs (gentle algebras with equal Cartan, different AG invariant, n <= 9); but HH-type
   invariants then do not transfer to P/Q since HH is blind on LNAs. Not run.
-- A search for a merge (E-064 style) remains the only way P, Q at n = 10 can move; separation has no instrument.
+- A search for a merge (E-066 style) remains the only way P, Q at n = 10 can move; separation has no instrument.

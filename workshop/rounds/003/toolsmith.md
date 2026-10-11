@@ -1,7 +1,7 @@
 # `batch.py orbits` reproduces E-052's orbit report for `45` at n = 13 as a resumable, tested task
 
 author: toolsmith · round: 003 · kind: tool
-thread: T8 · bears on: H-021, F-053, E-052, E-058
+thread: T8 · bears on: H-021, F-053, E-052, E-060
 
 ## Claim
 
@@ -12,7 +12,7 @@ line under `logs/`, resumable, with `--summary` printing a pairing/mirror
 table. For `45` at n = 13 it gives `{0,5} 2386`, `{1,4} 1127`, `{2,3} 4217`,
 `{6} 447`, each holding exactly its own offsets' mirrors, as recorded in
 round 002; a test pins this (8 s, not slow). Not claimed: any new mathematics;
-that the Coxeter key can serve as a prefilter (it cannot alone, E-058; none was
+that the Coxeter key can serve as a prefilter (it cannot alone, E-060; none was
 added); that the pairing summary decides H-021's overhang fit (it lists only
 the sums `a+b` of two-offset orbits; the fit stays in `experimentalist_fit.py`).
 
@@ -62,8 +62,8 @@ name includes it.
 
 ## Prior record
 
-E-052 (orbit pairing of `45`, first census), E-056 (strict/loose readings
-census at n = 13, the source of the script), E-058 (key class is not orbit:
+E-052 (orbit pairing of `45`, first census), E-058 (strict/loose readings
+census at n = 13, the source of the script), E-060 (key class is not orbit:
 `4056` at n = 16). This adds no finding; it makes the census a task.
 `research/` has no other orbit-report tool (grepped `orbitReport`, `census`
 in `batch.py`/`README`: only the round 002 script).

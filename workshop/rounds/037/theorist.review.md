@@ -19,7 +19,7 @@ The stated claim holds: the gate admits (d,J) = (3,1), and T1 is not on a walk i
 
 ## New?
 
-Mostly already recorded. E-126 already says that "d_i <= 2 whenever J_i != 0 on walks is not implied" and gives the layered (3,2) gate-admitted example. E-124 and E-122 (layered family, 0 LNA-key hits) already show J != 0 gate-admitted algebras that are off the LNA key set. E-129 already carries the empirical absence of d >= 3 with J != 0. What is new is the explicit (3,1) example and the n = 6 enumeration count (183 / 167 / 16). That is a small increment, and the framing ("the gate alone does not force d = 2") restates E-126's limit. Nothing was found in RETRACTIONS.md for these terms.
+Mostly already recorded. E-128 already says that "d_i <= 2 whenever J_i != 0 on walks is not implied" and gives the layered (3,2) gate-admitted example. E-126 and E-124 (layered family, 0 LNA-key hits) already show J != 0 gate-admitted algebras that are off the LNA key set. E-131 already carries the empirical absence of d >= 3 with J != 0. What is new is the explicit (3,1) example and the n = 6 enumeration count (183 / 167 / 16). That is a small increment, and the framing ("the gate alone does not force d = 2") restates E-128's limit. Nothing was found in RETRACTIONS.md for these terms.
 
 ## Evidenced?
 
@@ -28,6 +28,6 @@ Mostly. The enumeration scope is stated (core path lengths, number of out-arrows
 ## Required for acceptance
 
 1. Fix the BFS (d,J) list: (7,1) is not in the output; (7,0) is.
-2. Cite E-126's layered (3,2) example as the prior statement of the same limit, and say what (3,1) adds.
+2. Cite E-128's layered (3,2) example as the prior statement of the same limit, and say what (3,1) adds.
 3. Replace "all 16 appear to be one class" with a stated test, or drop it.
 4. Either state why no pendants or extra attachments are needed at n = 6, or limit the enumeration claim to the shapes listed.

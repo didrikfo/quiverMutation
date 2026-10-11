@@ -17,7 +17,7 @@ Re-ran both commands from the repo root. `skeptic_null.py 300` and `skeptic_null
 The numbers are right. The inferences need three qualifications.
 
 1. **The joint 1e-7 is overstated.** Independence across the 13 cores is assumed, and the cores are not independent. `505/555/605`, `566/606/666`, `504/6004` and `45/46/56` are one-parameter families of the same shape, and their P_B values are nearly identical (0.40, 0.41, 0.40). The effective number of independent tests is nearer 5 or 6, which gives roughly 1e-3 to 1e-4. That still rejects the null, but the headline should not be 1e-7 or 1e-18.
-2. **"Interior" is defined after the fact.** The 13 were picked as those whose outside block is interior and which fit at n = 13 (E-060), so the class is selected. The null holds the class fixed and randomises the outside set, which is fair, but the note says so only for the n = 15/16 cores. Say it for the n = 13 class as well.
+2. **"Interior" is defined after the fact.** The 13 were picked as those whose outside block is interior and which fit at n = 13 (E-062), so the class is selected. The null holds the class fixed and randomises the outside set, which is fair, but the note says so only for the n = 15/16 cores. Say it for the n = 13 class as well.
 3. **allO is unresolved in the table.** The "hits expected by chance" cell reads "(see note)" and there is no note. The `skeptic_null2` output shows P_B sum = 7.0 = observed for allO informative, so the prediction is deterministic there, and null A gives about 2.3. The 7/10 is therefore a null-A statement (7 against 2.3), not null-B. State that.
 
 Also, the `skeptic_null.py` docstring discusses a "neighbour-aware null" that is not implemented. Remove it or implement it, because neighbour structure is the real weakness of the uniform null (the author concedes this in Limits). Only a contiguous null for interior cores was run, and that is not in the committed scripts. The claimed 0.3-0.5 per core cannot be reproduced from the repo.
@@ -26,7 +26,7 @@ The null is appropriate for the existence claim, because it is deliberately gene
 
 ## New?
 
-Nothing found for "null", "chance" or "vacuous" in `research/` FINDINGS, HYPOTHESES or EXPERIMENTS. grep "null" found only E-060's and E-061's own mention of a null test as open. The numerator counts being corrected are recorded in E-061 (allO 10/13, allI 45/62) and E-060 (13/13, 17/21). The class counts come from EXPERIMENTS.md line 55, and the 13/13 interior claim is in H-021. The null test and the removal of the 39 one-orbit cores are new.
+Nothing found for "null", "chance" or "vacuous" in `research/` FINDINGS, HYPOTHESES or EXPERIMENTS. grep "null" found only E-062's and E-063's own mention of a null test as open. The numerator counts being corrected are recorded in E-063 (allO 10/13, allI 45/62) and E-062 (13/13, 17/21). The class counts come from EXPERIMENTS.md line 55, and the 13/13 interior claim is in H-021. The null test and the removal of the 39 one-orbit cores are new.
 
 ## Evidenced?
 

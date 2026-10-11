@@ -15,7 +15,7 @@ No error found. Two points:
 
 ## New?
 
-Partly. E-058 (`research/EXPERIMENTS.md` line 75; the submission cites only "line 76") already records equal-size unmerged singletons `{1}20300 {2}20300` at n = 16 for `4056` (F-053, H-021). The submission concedes this. The new part, three of the twelve E-060 cores losing pairing at 16 with the centre kept, is not in FINDINGS, HYPOTHESES or RETRACTIONS (grepped 3355, 3445). Note the size 20300 recurs across `4056` and all three failures, which points to one shared object at n = 16; the submission says "same middle offsets" but does not remark that 20300 is the same number as in E-058.
+Partly. E-060 (`research/EXPERIMENTS.md` line 75; the submission cites only "line 76") already records equal-size unmerged singletons `{1}20300 {2}20300` at n = 16 for `4056` (F-053, H-021). The submission concedes this. The new part, three of the twelve E-062 cores losing pairing at 16 with the centre kept, is not in FINDINGS, HYPOTHESES or RETRACTIONS (grepped 3355, 3445). Note the size 20300 recurs across `4056` and all three failures, which points to one shared object at n = 16; the submission says "same middle offsets" but does not remark that 20300 is the same number as in E-060.
 
 ## Evidenced?
 
@@ -26,6 +26,6 @@ Yes for the table and orbit sizes: specific, per-core, per-n, with caps and clos
 
 ## Required for acceptance
 
-1. Cite E-058 by identifier, not by line number, in Prior record.
+1. Cite E-060 by identifier, not by line number, in Prior record.
 2. State in the Claim that "no fit" means "middle pair unmerged under the round-002 rule", and that the equal sizes are the only sign of the reflection; do not present it as loss of the reflection symmetry.
-3. Note that 20300 is the same orbit size as E-058's `4056` singletons, and say whether that is a coincidence or a shared orbit (a one-line check of the sizes at n = 16 is enough).
+3. Note that 20300 is the same orbit size as E-060's `4056` singletons, and say whether that is a coincidence or a shared orbit (a one-line check of the sizes at n = 16 is enough).

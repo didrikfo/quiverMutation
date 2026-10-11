@@ -20,11 +20,11 @@ Points to tighten:
 2. "Equivalent" for {1,2} is inferred, not walked. It follows from a single orbit membership plus F-026, which is fine, but say so.
 3. Claim (a): the "three-offset class" and "3346 has all-distinct keys" are unchanged from round 001 and stand. "Orbits at 13-15 agree" is true only for the five named cores. The submission does not say whether any mirror pair like {1,2} could hide at n = 13-15 as a separate orbit. Those partitions agreed with the key, so none did there. Say this, because it is the reason n = 16 is the first counterexample.
 4. The claim that "orbit = key class" is false at n = 16 is a single counterexample (one core, one length). The right conclusion is "the key is an upper bound only, and can be strictly coarser than the walk", which the submission largely says. Its Next item, "orbit-plus-mirror against key classes", is a hypothesis and is labelled as one. Good.
-5. The repaired scan numbers (309 / 155 / 121) are checked against the saved file and are consistent. Note that E-054 in `research/EXPERIMENTS.md` (l.56) still carries the round-001 "309 / 7 / 123", which this submission now says is wrong. That entry needs correcting when the round is recorded.
+5. The repaired scan numbers (309 / 155 / 121) are checked against the saved file and are consistent. Note that E-056 in `research/EXPERIMENTS.md` (l.56) still carries the round-001 "309 / 7 / 123", which this submission now says is wrong. That entry needs correcting when the round is recorded.
 
 ## New?
 
-- Key vs orbit at n <= 15: E-054 and E-052, already recorded.
+- Key vs orbit at n <= 15: E-056 and E-052, already recorded.
 - Mirror-orbit pairs: H-021 (HYPOTHESES.md l.29-32) says a core should have "no orbit holding a mirror of its own placements". Here each orbit holds the mirror of the other's placement, not its own. That is a new shape of case for H-021. F-053's "each pair is one self-dual orbit" is stated for n <= 17 for `45`. For `4056` the census covers n = 13 and 14 only.
 - Nothing found for a walked orbit strictly finer than the key class in `research/` (grepped `key class`, `mirror`, `Coxeter key`). So the n = 16 `4056` split is new. Nothing in RETRACTIONS.md is affected.
 
@@ -40,4 +40,4 @@ Yes for the n = 16 result: sizes, closure, both partitions, mirror test, and run
 
 1. State that `mirrorRow` is the relation dual of F-026 (or cite the function), and that offsets 1 and 2 are equivalent by inference from one mirror membership, not by a walk joining them.
 2. Say explicitly that the n = 13-15 agreements show no mirror-pair splits there, so n = 16 is the first counterexample, and that it is a single core at a single length.
-3. Flag that E-054 (EXPERIMENTS.md l.56) carries the superseded "7 / 123" and must be corrected together with this round.
+3. Flag that E-056 (EXPERIMENTS.md l.56) carries the superseded "7 / 123" and must be corrected together with this round.

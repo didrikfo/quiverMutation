@@ -25,12 +25,12 @@ The lone-3 pair (4,5) vs (3,5) is the minimal witness, and I confirmed it by han
 Gaps, none fatal:
 - The 4349-orbit is only a lower bound on the derived class. This does not matter for the failure claim, because a larger class would only add ends.
 - The 5023 key class was found by scanning rows. I did not independently check that the scan is exhaustive. The shard sums are consistent with the stated total.
-- The orbit uses the rule table, free stripping, edge moves and double mutations. The submission does not say which of these are VERIFIED_MOVES and which are table rules. Whether the "backward" moves join (4,5) and (5,4) is therefore taken on trust. It is the same trust that E-118 and E-133 already extend.
-- The title says "holds" for the E-133 prediction. That is fine, but the n = 12 half ("K >= 4 holds at 12") is explicitly not run. The title should not suggest otherwise.
+- The orbit uses the rule table, free stripping, edge moves and double mutations. The submission does not say which of these are VERIFIED_MOVES and which are table rules. Whether the "backward" moves join (4,5) and (5,4) is therefore taken on trust. It is the same trust that E-120 and E-135 already extend.
+- The title says "holds" for the E-135 prediction. That is fine, but the n = 12 half ("K >= 4 holds at 12") is explicitly not run. The title should not suggest otherwise.
 
 ## New?
 
-The prediction is E-133. E-118 has K >= 4 at n = 11 and the 34 + 48 orbit split. E-125 has the n = 11 class (orbits 15107 and 15035). The n = 13 orbit-level confirmation is new. I grepped research/ for "n = 13" in FINDINGS, HYPOTHESES and RETRACTIONS and found nothing on lone-3 or K >= 4 image classes. The author's novelty statement is correct.
+The prediction is E-135. E-120 has K >= 4 at n = 11 and the 34 + 48 orbit split. E-127 has the n = 11 class (orbits 15107 and 15035). The n = 13 orbit-level confirmation is new. I grepped research/ for "n = 13" in FINDINGS, HYPOTHESES and RETRACTIONS and found nothing on lone-3 or K >= 4 image classes. The author's novelty statement is correct.
 
 ## Evidenced?
 

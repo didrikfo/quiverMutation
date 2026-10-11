@@ -31,7 +31,7 @@ HH half: not new. Already recorded:
 
 The statement "nobody computed it" in Prior record is therefore only literally true. The result was derived from the theorem and recorded, and what is new is the brute-force confirmation for n <= 10, which adds no information beyond the theorem. HYPOTHESES line 603 and FINDINGS lines 1139 and 2307 still list HH as open. The submission should point at the literature note and propose updating those lines, rather than present itself as closing the item.
 
-Power-control half: no grep hit for "power control" or "equal profile" as a stated finding. The nearest records are F-047 (what the profile does and does not split, "conservative where it should be", 3 of 25 at n = 10) and E-115 (unresolved LNAs placed by exclusion). The observation that no certified inequivalent pair has equal profile at n <= 9 appears new, but it is a corollary of F-047 plus the absence of other certifications (E-115 shows resolution is by exclusion only).
+Power-control half: no grep hit for "power control" or "equal profile" as a stated finding. The nearest records are F-047 (what the profile does and does not split, "conservative where it should be", 3 of 25 at n = 10) and E-117 (unresolved LNAs placed by exclusion). The observation that no certified inequivalent pair has equal profile at n <= 9 appears new, but it is a corollary of F-047 plus the absence of other certifications (E-117 shows resolution is by exclusion only).
 
 ## Evidenced?
 
@@ -50,7 +50,7 @@ Delete "Hochschild cohomology cannot separate P from Q" as a headline; it is not
 
 ## Required for acceptance
 
-1. Cite 2312.14699, 0805.1018 Prop 5.1 and E-080 (the EXPERIMENTS entry near line 2057) as the prior record for the HH claim; remove "nobody computed it" and reword as "recomputed as a code check". Propose the status update to HYPOTHESES ~603 and FINDINGS ~1139/2307.
+1. Cite 2312.14699, 0805.1018 Prop 5.1 and E-082 (the EXPERIMENTS entry near line 2057) as the prior record for the HH claim; remove "nobody computed it" and reword as "recomputed as a code check". Propose the status update to HYPOTHESES ~603 and FINDINGS ~1139/2307.
 2. Fix the "Cibils, from memory" citation to the actual Bardzell statement, or drop it.
 3. Add one relation-bearing control with known nonzero HH (for example a monomial algebra with a cycle or a rad^2 = 0 crown), so that all-(1,) cannot be a bug in relation handling.
 4. State how "key group" relates to F-047's "25 cospectral groups at n = 10", and why the denominators differ (40 / 16 / 25).

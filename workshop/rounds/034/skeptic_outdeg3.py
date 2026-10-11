@@ -1,4 +1,4 @@
-"""Round 034 (skeptic): out-degree >= 3 gate-admitted rows with J != 0 on the n = 8 c0 walk (E-124 note), mutated with checkCartan=True.
+"""Round 034 (skeptic): out-degree >= 3 gate-admitted rows with J != 0 on the n = 8 c0 walk (E-126 note), mutated with checkCartan=True.
 Usage: skeptic_outdeg3.py n class budget_sec max_exp
 Per (algebra, v) with out-degree >= 3: J (perI), then mutateAtVertex(checkCartan=True) -> congruent / FAILS; for failures the support of the
 Cartan discrepancy R C R^T - C' is compared with the set {i : J_i != 0} (socle reading control). Also tallies J = 0 out-degree >= 3 rows

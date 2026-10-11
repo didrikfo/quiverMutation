@@ -1,5 +1,5 @@
-"""T1: is k(c) (E-062 / round-004 shift table) a simple function of the core word? Leave-one-out over 11 cores
-(k from experimentalist_shift_table.txt n=13, plus 33x family k=2x from E-065)."""
+"""T1: is k(c) (E-064 / round-004 shift table) a simple function of the core word? Leave-one-out over 11 cores
+(k from experimentalist_shift_table.txt n=13, plus 33x family k=2x from E-067)."""
 import itertools, re, numpy as np
 rows={}
 for l in open('workshop/rounds/004/experimentalist_shift_table.txt'):

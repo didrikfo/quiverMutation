@@ -12,15 +12,15 @@ Re-ran `skeptic_dprime.py 6 0 0 3000`: 29 s, output identical to the committed `
 - The headline "admitted exactly because the gate tests single paths while the kernel element is a two-term sum" is near-tautological, and the author says so in the Claim. The title overstates it. The gate refuses iff some single path lies in J, and J != 0 with no path in J is the definition of an admitted reject. Nothing about the 61 follows. The title should say that.
 - "Selective, occurs only in class 0" is stated for a capped prefix walk. Classes 1-3 and 4-10 at n = 8 are not walked to closure (1 500-2 500 of unknown total), and nothing is done at n = 9. "Only class 0" is true of the sample, not of the classes. The text hedges in Next but not in the title or claim (2).
 - Table arithmetic is wrong. The "algebras expanded" column sums to 54 667, not the stated 53 162. The n = 7 c1..c5 row says 15 000 but the file has 1 995+4x3 000 = 13 995. The n = 8 c4..c10 row says 12 500 but the file has 3x2 000+4x1 500 = 12 000. The 53 162 total matches the files. Only the two row entries are wrong.
-- The n = 8 c0 count is an unusually long-run result: 61 is the E-111 figure, so reproducing it supports consistency, but 5 145 expanded algebras is a cap, and the walk is not shown closed.
+- The n = 8 c0 count is an unusually long-run result: 61 is the E-113 figure, so reproducing it supports consistency, but 5 145 expanded algebras is a cap, and the walk is not shown closed.
 - The L definition requires only that some monomial relation ends in b2 through v, not that it reaches p1 or p2. That is why L is true with W false. The author's Next item (why do the 25 L-true accepts fail W) is the real question and is left open. No counterexample to the stated claims was found.
 
 ## New?
 
 Mostly known.
-- Rejects need the two-term/zero-relation shape, shape necessary but not sufficient (767 accepting rows with shape): E-106 (EXPERIMENTS.md line ~56).
-- W & K perfectly separates, converse tested on one family, 0 out-2 rejects at c2, c3, n = 9 c0 prefix: E-107, E-111.
-- The n = 8 c0 count of 61 and its description: E-105.
+- Rejects need the two-term/zero-relation shape, shape necessary but not sufficient (767 accepting rows with shape): E-108 (EXPERIMENTS.md line ~56).
+- W & K perfectly separates, converse tested on one family, 0 out-2 rejects at c2, c3, n = 9 c0 prefix: E-109, E-113.
+- The n = 8 c0 count of 61 and its description: E-107.
 - Genuinely new: (a) the loose shape L exists, accepted, at n = 6 c0 (5) and n = 7 c0 (20), so the n <= 7 absence of rejects is not an absence of the shape; (b) c4..c10 at n = 8 and all n = 6, 7 classes have no out-2 rejects within the caps; (c) the class-0-only tally. The "Prior record" section states this correctly. Grep of RETRACTIONS found nothing touching it.
 
 ## Evidenced?

@@ -4,11 +4,11 @@
 
 Why does the n=7 both-die BFS frontier grow exponentially (ratio 2.4–2.6) instead of falling? This is the gate for all downstream: forward search exhausts budget, and reverse search feasibility depends on frontier size.
 
-**Why it matters:** E-130 sized the forward closure: class 1 ratio 2.2→2.5 (29k at level 8, 240 s), class 3 ratio 2.6→1.9 (40k at level 7), 0/44 targets reached in 10 min each. Frontier growth is the bottleneck. If the ratio is structural (mutation algebra property), we need a different strategy (hand-built examples, guessing from invariants, or acceptance of non-reachability). If it's an artifact (bad BFS order, key drops, repeats in the seen set), it's a toolsmith fix.
+**Why it matters:** E-132 sized the forward closure: class 1 ratio 2.2→2.5 (29k at level 8, 240 s), class 3 ratio 2.6→1.9 (40k at level 7), 0/44 targets reached in 10 min each. Frontier growth is the bottleneck. If the ratio is structural (mutation algebra property), we need a different strategy (hand-built examples, guessing from invariants, or acceptance of non-reachability). If it's an artifact (bad BFS order, key drops, repeats in the seen set), it's a toolsmith fix.
 
 ## Weakest claim the workshop relies on
 
-**"0/44 reached in 240 s per class" assumes all 44 targets have non-None Coxeter keys.** My notebook (round 035) flags: does `_coxeterKeyOrNone` return None on any target? If yes, the BFS skips them silently, and the count is misleading. This is E-124's base case and must be verified before any reverse search.
+**"0/44 reached in 240 s per class" assumes all 44 targets have non-None Coxeter keys.** My notebook (round 035) flags: does `_coxeterKeyOrNone` return None on any target? If yes, the BFS skips them silently, and the count is misleading. This is E-126's base case and must be verified before any reverse search.
 
 ## What I need from another persona
 

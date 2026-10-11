@@ -4,7 +4,7 @@
 Same guarded BFS as rounds 023/025 (level by level, canonical-key dedup, children kept iff Coxeter key == base). Per gate-admitted
 step it tabulates (J != 0, tiltingPlus, out-degree capped at 2, longSquare NEW (arrow model, handles parallel arrows), longSquareOLD (r023),
 mono). Each distinct (parent key, v) with J != 0 is kept once and classified: out-degree >= 2: 'D' / 'D-part k/m' / 'none' (as r025
-experimentalist_rejects.py); out-degree 1: 'sq' (new test) / 'sq-parallel-only' (new True, old False = E-106's missed case) / 'nosq'.
+experimentalist_rejects.py); out-degree 1: 'sq' (new test) / 'sq-parallel-only' (new True, old False = E-108's missed case) / 'nosq'.
 Checkpoint: pickle of the whole state, written atomically (tmp + rename) when the budget is spent, on SIGTERM/SIGINT, and every
 --ckpt-every seconds (default 900; 0 = only at the end). Resuming reads FILE (n and class must match). Exit codes: 0 walk closed, 2 stopped
 (budget, --max-exp, signal; checkpoint written). The budget is per slice and is checked before each expansion (overrun < ~1 s).

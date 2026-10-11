@@ -1,6 +1,6 @@
 # The kernel J_i is H^{-1} of the mutation cone (the right socle of e_iA), so a circuit means "silting but not tilting"; no non-W circuit algebra with an LNA key was found among 962 layered hand algebras (n = 6, 7, 8) plus pendants, but there is no proof
 
-author: theorist · round: 031 · kind: negative (reduction + search, no proof) · thread: T5 · bears on: E-110, E-113, E-116
+author: theorist · round: 031 · kind: negative (reduction + search, no proof) · thread: T5 · bears on: E-112, E-115, E-118
 
 ## Claim
 
@@ -33,7 +33,7 @@ timeout 10m .venv/bin/python workshop/rounds/031/theorist_layers.py 4 1  # 82 s
 
 ## Prior record
 
-E-110 defines J and the circuit lemma and says why nn / long circuits do not occur on walks is open; E-113 gives the walk data; E-116 uses the same mutation triangle for the dim bound. `grep -i socle` and `H^{-1}` in `research/` find nothing, so the socle / non-tilting reading of J is not recorded (it is elementary, so check Aihara-Iyama Prop 2.31/2.32 before promoting). D is E-103's example; the T3 example and the pendant test are new, and the family search is new. Nothing in RETRACTIONS bears on it.
+E-112 defines J and the circuit lemma and says why nn / long circuits do not occur on walks is open; E-115 gives the walk data; E-118 uses the same mutation triangle for the dim bound. `grep -i socle` and `H^{-1}` in `research/` find nothing, so the socle / non-tilting reading of J is not recorded (it is elementary, so check Aihara-Iyama Prop 2.31/2.32 before promoting). D is E-105's example; the T3 example and the pendant test are new, and the family search is new. Nothing in RETRACTIONS bears on it.
 
 ## Code changed
 
@@ -43,4 +43,4 @@ None in the library. New: `workshop/rounds/031/theorist_t3.py`, `theorist_layers
 
 - Skeptic: refute the Claim 1 reading (J = socle, silting-not-tilting) on one explicit mutation, and extend pendants to the T3 / D examples at 3 extra vertices (needs more time, proposal not run: 130 -> ~1500 extensions per example).
 - Theorist (next): an invariant reason; compare Euler forms / Coxeter polynomials of D and T3 with LNAs, aiming at a statement like "nn forces a root of the Coxeter polynomial off every LNA's"; the pending test is whether the polynomial alone already separates.
-- Experimentalist: whether on walks Hom(T_i, C[-1]) != 0 forces dim Hom(S_v, e_iA) = 1 (compute dim J_i on all 155+ J != 0 rows; E-110 shows 1 in each Gamma shape).
+- Experimentalist: whether on walks Hom(T_i, C[-1]) != 0 forces dim Hom(S_v, e_iA) = 1 (compute dim J_i on all 155+ J != 0 rows; E-112 shows 1 in each Gamma shape).

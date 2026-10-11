@@ -12,11 +12,11 @@
   3 certified n = 10 groups. Live at one n = 10 certified group (4 classes, Phi^18 = I exactly; matrix-checked, char poly (T+1)^2(T^2-T+1)(T^6-T^3+1),
   -1 eigenspace dim 2 so diagonalisable there). Unimplemented (needs minimal complexes).
   The periodicity obstruction is KNOWN (0911.5137 Cor 1.9, 1310.1557 2.9); only the finite-order-Phi x certified cross-table is mine. Entropy = spectral radius: unchecked folklore, dropped.
-- T6/H-017: E-063 signature is Cartan-level; real open items are the monomial cord positive control (E-092) and n = 9 depth 7 (OVERNIGHT).
+- T6/H-017: E-065 signature is Cartan-level; real open items are the monomial cord positive control (E-094) and n = 9 depth 7 (OVERNIGHT).
 - Separation power (r050): LNAs with a quipu's polynomial but another signature: 0 at n <= 9, 2 at n = 10, 16 at n = 11 (UNPLACED).
 
 ## S-1 lone 3, key level (round 042)
-- Free-end K-threshold law, lengths K0 = 3,4,5 first fail at n = 11, 13, 15 (15 unrun, E-139, E-144). Failure is the lone 3 with
+- Free-end K-threshold law, lengths K0 = 3,4,5 first fail at n = 11, 13, 15 (15 unrun, E-141, E-146). Failure is the lone 3 with
   h != K; self-mirror (4,4) never fails. Untested for other cores.
 
 ## What I tried

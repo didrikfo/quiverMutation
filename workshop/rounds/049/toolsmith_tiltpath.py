@@ -1,4 +1,4 @@
-"""Round 049 (toolsmith), T10 (i): tilting-only meet-in-the-middle path search from the E-152 children back to an LNA.
+"""Round 049 (toolsmith), T10 (i): tilting-only meet-in-the-middle path search from the E-154 children back to an LNA.
 Moves (all J = 0, tiltingPlus true, gate-admitted, legal, vertex-preserving, Coxeter key kept):
   F v : the forward step at v;   R v : the inverse of a forward step, taken as the forward step at v of the OPPOSITE algebra, carried back.
 Mixed F/R paths allowed (an undirected graph on algebras, keyed by fingerprint.canonicalKey; a node with no canonical key is not deduplicated).

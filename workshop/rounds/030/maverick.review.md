@@ -19,7 +19,7 @@ I found no error in the numbers. Three points:
 
 ## New?
 
-Nothing found for "free end", "end-strip", "K >= 3" or "deletion rule" in FINDINGS, HYPOTHESES or RETRACTIONS. EXPERIMENTS has E-112 (the rule at n = 8..10) and E-115 (profile placement). The n = 11 failure and the K >= 4 statement are new. The n = 8..10 rerun with complete labels is a genuine strengthening of E-112, since it removes the 4 '?' images.
+Nothing found for "free end", "end-strip", "K >= 3" or "deletion rule" in FINDINGS, HYPOTHESES or RETRACTIONS. EXPERIMENTS has E-114 (the rule at n = 8..10) and E-117 (profile placement). The n = 11 failure and the K >= 4 statement are new. The n = 8..10 rerun with complete labels is a genuine strengthening of E-114, since it removes the 4 '?' images.
 
 ## Evidenced?
 

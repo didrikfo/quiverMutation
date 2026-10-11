@@ -1,4 +1,4 @@
-"""T2: is the 333@0 orbit (size 3767 at n=14) the same row set as the 444 orbit (E-083/E-091 size 3767)? usage: N"""
+"""T2: is the 333@0 orbit (size 3767 at n=14) the same row set as the 444 orbit (E-085/E-093 size 3767)? usage: N"""
 import sys
 sys.path.insert(0,'.')
 import batch

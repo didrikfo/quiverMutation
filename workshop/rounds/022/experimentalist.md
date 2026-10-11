@@ -1,20 +1,20 @@
 # The long-sided square is selective for rejection: 0 of 479 761 tilting steps on guarded walks at n = 5..7 have it, against every rejecting parent
 
 author: experimentalist · round: 022 · kind: result
-thread: T5 · bears on: E-097 (its named missing control), E-084, E-095
+thread: T5 · bears on: E-099 (its named missing control), E-086, E-097
 
 ## Claim
 
-On guarded walks (class 0 and class 1 where run) at n = 5, 6, 7, no step at which `tiltingPlus` holds has E-097's long-sided square at the mutated
+On guarded walks (class 0 and class 1 where run) at n = 5, 6, 7, no step at which `tiltingPlus` holds has E-099's long-sided square at the mutated
 vertex v (`hasLongSquare`: v has one out-arrow v->e and a relation of >= 2 paths from one start, all ending x, v, e with distinct x), while every
 rejecting step has it. Strict A5 (arrows a>b, a>c, b>v, c>v, v>e) is NOT selective: it occurs at 0.5 to 1.2 % of tilting steps as well. So the
 long square, not the strict A5 quiver shape, is what separates the rejecting parents here. It does not claim the long square implies rejection (the
 control counts only steps the walks reach, and the test needs a relation, so quiver-only A5 steps never pass it), nor that the 0 holds off the
-walks (E-078's hand-built family contains tilting steps with a long relation; not run here).
+walks (E-080's hand-built family contains tilting steps with a long relation; not run here).
 
 ## Evidence
 
-Guarded BFS (as E-097's script), every gate-admitted step, de-duplicated on (canonical key of parent, v); 480 s cap per run, so counts are lower bounds.
+Guarded BFS (as E-099's script), every gate-admitted step, de-duplicated on (canonical key of parent, v); 480 s cap per run, so counts are lower bounds.
 
 | n, class | expansions | tilting steps (distinct parent,v) | tilting with long square | tilting with strict A5 | rejecting (parent,v) | rejecting with long square | rejecting with strict A5 |
 |---|---|---|---|---|---|---|---|
@@ -26,8 +26,8 @@ Guarded BFS (as E-097's script), every gate-admitted step, de-duplicated on (can
 
 - Every one of the 807 + 2 306 + 1 316 + 60 tilting steps with strict A5 lacks the long square ("A5 but not long"), so in the tilting steps A5 occurs without any relation of that shape.
 - Every rejecting step has v with exactly one out-arrow (1 842 of 1 842; 262 of 262); among tilting steps 99 631 of 150 592 (n = 6 c0) do, and none has the long square, so one-out-arrow is not the separating feature.
-- Strict A5 at rejecting parents: 70.5 % at n = 6 (E-097: 767 of 1 123 = 68.3 %, different cap and run), 100 % at n = 7 (E-097: 156 of 156). Rate with A5 only: 1 299 / (1 299 + 807) = 62 % of A5-quiver steps at n = 6 c0 reject; with the long square, 100 % (1 842 of 1 842 + 0).
-- The n = 6 rejecting count here (1 842 distinct (parent,v), one per parent as E-095 found) is larger than E-097's 1 123 only because this run did less work per step and so reached more of the walk in 480 s (41 825 expansions vs E-097's 46 584 algebras with a heavier script); the rates are what to read.
+- Strict A5 at rejecting parents: 70.5 % at n = 6 (E-099: 767 of 1 123 = 68.3 %, different cap and run), 100 % at n = 7 (E-099: 156 of 156). Rate with A5 only: 1 299 / (1 299 + 807) = 62 % of A5-quiver steps at n = 6 c0 reject; with the long square, 100 % (1 842 of 1 842 + 0).
+- The n = 6 rejecting count here (1 842 distinct (parent,v), one per parent as E-097 found) is larger than E-099's 1 123 only because this run did less work per step and so reached more of the walk in 480 s (41 825 expansions vs E-099's 46 584 algebras with a heavier script); the rates are what to read.
 
 ## Reproduction
 
@@ -40,7 +40,7 @@ Outputs: `workshop/rounds/022/experimentalist_shapectl_n{5c1,6c0,6c1,7c0}.txt` (
 
 ## Prior record
 
-E-097's Limits name this control as missing ("no control of how many tilting parents have the long square"; `hasLongSquare` loose). E-084/E-095 call rejecting parents A5-shaped; E-097 corrects this to long square. Grep of `research/` finds no tilting-side count. New: the control, 0 of 479 761.
+E-099's Limits name this control as missing ("no control of how many tilting parents have the long square"; `hasLongSquare` loose). E-086/E-097 call rejecting parents A5-shaped; E-099 corrects this to long square. Grep of `research/` finds no tilting-side count. New: the control, 0 of 479 761.
 
 ## Code changed
 
@@ -48,5 +48,5 @@ None in the library. New script `workshop/rounds/022/experimentalist_shapectl.py
 
 ## Next
 
-- Theorist: 0 of 479 761 suggests "tiltingPlus fails at v on the walk iff v has a long square" is a conjecture worth a proof or counterexample: the long square (relation a->..->x->v->e from two paths, v one out-arrow) is E-066's commutativity element into a vertex with one outgoing arrow. Skeptic: the test is loose; find a long-square tilting step off the walks (E-078 `long` family, rounds with relations of 3 paths).
+- Theorist: 0 of 479 761 suggests "tiltingPlus fails at v on the walk iff v has a long square" is a conjecture worth a proof or counterexample: the long square (relation a->..->x->v->e from two paths, v one out-arrow) is E-068's commutativity element into a vertex with one outgoing arrow. Skeptic: the test is loose; find a long-square tilting step off the walks (E-080 `long` family, rounds with relations of 3 paths).
 - Experimentalist: converse on the walks is already this table (all rejecting have it); run n = 6 classes 2-3, n = 7 classes 1+ with `--maxexp`; n = 8 c2's 2 rejections (path (17,8,5,6,8,8,2,5)) shape check.

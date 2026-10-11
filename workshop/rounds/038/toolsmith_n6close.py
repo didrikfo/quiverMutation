@@ -1,7 +1,7 @@
 """Round 038 (toolsmith): close the n = 6 LNA derived classes (key-preserving BFS, as rounds/035/toolsmith_closure.py) and tabulate (d_i, dim J_i) over every gate-admitted (algebra, v, i).
 Usage: toolsmith_n6close.py --plan SECONDS        per-class size sample, no verdict
        toolsmith_n6close.py [--budget-hours H] [--only IDX]   full closure; exit 2 if budget spent
-Also reports whether the 16 key-coinciding fans of rounds/037/theorist_d3_hits_n6.json (E-132) have their canonicalKey in a closed class."""
+Also reports whether the 16 key-coinciding fans of rounds/037/theorist_d3_hits_n6.json (E-134) have their canonicalKey in a closed class."""
 import sys, time, json, argparse
 from collections import Counter, defaultdict
 ap_ = argparse.ArgumentParser(); ap_.add_argument('--plan', type=float, default=None, help='seconds per class, sizing only')

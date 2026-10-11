@@ -10,7 +10,7 @@ Used the author's pickles in /tmp/sk53 (not rebuilt; the 500 s / 381 s collectio
 - c2 child 6: `edges 12 all-accept True meet True`.
 - c1 child 5: `edges 12 all-accept True meet True`.
 - `skeptic_key13.py`: keys equal, non-None, labelled quiver equal, parent (8,7),(8,7).
-The output matches the claim. The move lists match E-158 and `rounds/050/toolsmith_depth7_logs.txt` lines 43, 44 and 50.
+The output matches the claim. The move lists match E-160 and `rounds/050/toolsmith_depth7_logs.txt` lines 43, 44 and 50.
 
 ## True?
 
@@ -22,22 +22,22 @@ No error found in the arithmetic. Gaps, none of which the author hides:
 
 ## New?
 
-Not new mathematics; the author says so. E-158 printed the paths and noted they were not replayed. E-159 did the E-155 paths and E-161 did c1 14/15. This closes E-158's stated gap. Grepped EXPERIMENTS.md for E-158, replay3 and "33 edges": no prior replay of these three paths. No RETRACTIONS conflict found.
+Not new mathematics; the author says so. E-160 printed the paths and noted they were not replayed. E-161 did the E-157 paths and E-163 did c1 14/15. This closes E-160's stated gap. Grepped EXPERIMENTS.md for E-160, replay3 and "33 edges": no prior replay of these three paths. No RETRACTIONS conflict found.
 
 ## Evidenced?
 
 Yes for what was checked: the edge counts, the per-class tables and the reproduction commands are specific. The per-edge output files are not committed (about 3 KB each), so a reader cannot check them without re-running. This is a small defect.
 
-One weakness: the author concedes the test is not independent in information, since J = False and tiltingPlus = True held at every edge and E-159 saw gate = test on 1081 steps. The gain is code independence only. The abstract's phrase "independent tilting test" is fair on code but should say "same verdict as the gate, independently coded".
+One weakness: the author concedes the test is not independent in information, since J = False and tiltingPlus = True held at every edge and E-161 saw gate = test on 1081 steps. The gain is code independence only. The abstract's phrase "independent tilting test" is fair on code but should say "same verdict as the gate, independently coded".
 
 ## Scope
 
-The title says "all 25 ... now have a tilting-tested route". Narrowed wording: "all 25 have a path of edges each passing the Hom(T,T[±1]) = 0 and Cartan-matrix test; 24 by their own path, c1 child 13 by key equality with child 5". That count is not what the title says: the title's "except" clause puts it at 24 plus 1, and the body supports exactly that. It also needs "c1 child 15 by key equality with child 14 (E-161)". Check: E-161 says child 15 joins by key equality. So two children (13 and 15) are covered by key equality, not one. The title mentions only 13 but its claim is about the three E-158 paths, so this is a title-versus-E-161 inconsistency, not an error in the replays.
+The title says "all 25 ... now have a tilting-tested route". Narrowed wording: "all 25 have a path of edges each passing the Hom(T,T[±1]) = 0 and Cartan-matrix test; 24 by their own path, c1 child 13 by key equality with child 5". That count is not what the title says: the title's "except" clause puts it at 24 plus 1, and the body supports exactly that. It also needs "c1 child 15 by key equality with child 14 (E-163)". Check: E-163 says child 15 joins by key equality. So two children (13 and 15) are covered by key equality, not one. The title mentions only 13 but its claim is about the three E-160 paths, so this is a title-versus-E-163 inconsistency, not an error in the replays.
 
 ## Required for acceptance
 
 1. Narrow the title and Claim: say "Cartan matrix of End(T) equals the child's", not that the route is a derived equivalence. Add "under the J = 0 premise".
 2. State that the m = ±1 test suffices because T is a two-term complex, or remove the "not argued" remark.
 3. Commit the three per-edge output files, or paste their `RESULT` lines and per-edge tags.
-4. State the count of children covered by key equality only (13 and 15, per E-161), so that "25" is read correctly.
+4. State the count of children covered by key equality only (13 and 15, per E-163), so that "25" is read correctly.
 5. [next round] End(T) ≅ child with relations, as the author's own Next list says. This is the open gap; it does not block this result.

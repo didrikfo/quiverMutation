@@ -1,4 +1,4 @@
-"""Round 053 (skeptic): c1 children 14 and 15 (E-161: 15 joined only by key equality with 14): canonicalKey equal and non-None?
+"""Round 053 (skeptic): c1 children 14 and 15 (E-163: 15 joined only by key equality with 14): canonicalKey equal and non-None?
 Usage (repo root): skeptic_key15.py c1.pkl"""
 import sys, pickle
 sys.path.insert(0, '.')

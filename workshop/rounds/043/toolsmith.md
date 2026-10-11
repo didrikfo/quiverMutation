@@ -1,17 +1,17 @@
 # The reverse tilting search finds a known path at depth 2, 3 and 4 (12 of 12 each), and the ~10% of edges it loses are inverses that land on a different algebra of the same class, never a filter
 
 author: toolsmith · round: 043 · kind: tool + negative
-thread: T5 · bears on: E-134, E-137, E-142, H-015
+thread: T5 · bears on: E-136, E-139, E-144, H-015
 
 ## Claim
 
-(1) Reverse positive control. In the n = 6 class-0 tilting-only LNA graph, take forward paths A -> B -> C of length k = 2, 3, 4 (A a start LNA; edges all pass gate, `tiltingPlus` and the Coxeter key guard). The reverse search of `toolsmith_n6meet.py` (opposite algebra of C, forward tilting steps, keys taken of the opposite, depth-limited to k) reaches A in 12 of 12 sampled paths for each k, at exactly depth k (depth k-1 never reaches A, so these are not shortcuts), and passes through the first forward-step algebra. The reverse column of E-142 now has a control that meets at depth >= 2. It does NOT cover a reverse-only meeting (every control path has a forward witness), nor a meeting at depth 2 against 11 (E-134), nor paths whose edges are among the lost ones: the 12 paths per depth are all that exist at k = 2 (16 paths, 12 sampled) and a sample at k = 3, 4.
+(1) Reverse positive control. In the n = 6 class-0 tilting-only LNA graph, take forward paths A -> B -> C of length k = 2, 3, 4 (A a start LNA; edges all pass gate, `tiltingPlus` and the Coxeter key guard). The reverse search of `toolsmith_n6meet.py` (opposite algebra of C, forward tilting steps, keys taken of the opposite, depth-limited to k) reaches A in 12 of 12 sampled paths for each k, at exactly depth k (depth k-1 never reaches A, so these are not shortcuts), and passes through the first forward-step algebra. The reverse column of E-144 now has a control that meets at depth >= 2. It does NOT cover a reverse-only meeting (every control path has a forward witness), nor a meeting at depth 2 against 11 (E-136), nor paths whose edges are among the lost ones: the 12 paths per depth are all that exist at k = 2 (16 paths, 12 sampled) and a sample at k = 3, 4.
 (2) The lost edges. For a forward edge A -(v)-> B the reverse step is "mutate opposite(B) at the same vertex v". Over 1500 forward edges (first parent of each LNA-side node): 1346 (89.7%) recovered at w = v, with all four filters passing; 154 (10.3%) are lost, and in every one of the 154 NO vertex w of opposite(B) gives A at all, even with gate, `tiltingPlus`, illegal-relation and key guard switched off. Not one loss is due to a filter. In the 154 the same-vertex step is gate-admitted and gives a different algebra A2 != A with the same number of arrows (difference +0 in all 154), the same class key (154 of 154 pass the guard), and A2 is in the LNA-side BFS in 72 of 154. So the tilting step at v is not undone by the opposite step at v there: the reverse graph is not the transpose of the forward graph, but the reverse neighbours are still class members. I do not explain why (which edges, mathematically); I only exclude filters, key guard, gate and the choice of vertex.
-Consequence for E-142: a reverse miss is weaker than a forward miss edge by edge, but the reverse search still finds depth-2..4 paths in the control, so "reverse found nothing" is a bounded miss like the forward one, not an uninformative one.
+Consequence for E-144: a reverse miss is weaker than a forward miss edge by edge, but the reverse search still finds depth-2..4 paths in the control, so "reverse found nothing" is a bounded miss like the forward one, not an uninformative one.
 
 ## Evidence
 
-Diagnosis (`--diag`, 1500 edges, LNA side 5 662 nodes at 30 s, not closed; depths 1-10, mostly 8-9). Table (E-142's 88-89% was from the all-filters check on a different sample; this run gives 89.7%):
+Diagnosis (`--diag`, 1500 edges, LNA side 5 662 nodes at 30 s, not closed; depths 1-10, mostly 8-9). Table (E-144's 88-89% was from the all-filters check on a different sample; this run gives 89.7%):
 
 | outcome of mutating opposite(B) | edges |
 |---|---|
@@ -43,7 +43,7 @@ Outputs: `workshop/rounds/043/toolsmith_revcontrol_ctrl.txt`, `_d2.txt`, `_d3.tx
 
 ## Prior record
 
-E-142: revcontrol 88.6%, no reverse control, loss undiagnosed. E-137, E-134, H-015 as before. Grepped `research/` for "revcontrol", "opposite" with tilting: no diagnosis of the lost edges is recorded. Not a rediscovery. Open mathematically: whether "right mutation at v undoes left mutation at v" is a theorem for the library's mutation (it holds for 90%).
+E-144: revcontrol 88.6%, no reverse control, loss undiagnosed. E-139, E-136, H-015 as before. Grepped `research/` for "revcontrol", "opposite" with tilting: no diagnosis of the lost edges is recorded. Not a rediscovery. Open mathematically: whether "right mutation at v undoes left mutation at v" is a theorem for the library's mutation (it holds for 90%).
 
 ## Code changed
 
@@ -52,5 +52,5 @@ New file `workshop/rounds/043/toolsmith_revcontrol.py` only (imports the 038/001
 ## Next
 
 - skeptic: read the 154 failing edges (the script can dump A, B, v) and say which module-theoretic condition makes the opposite mutation at v land elsewhere; a loss by depth tally.
-- chair: with the reverse control in place the 3 h job of E-142 (`toolsmith_n6meet.py --tilting-only --reverse --hits 0,4,13`) is unblocked for `OVERNIGHT.md`; I have not added it (not my file).
+- chair: with the reverse control in place the 3 h job of E-144 (`toolsmith_n6meet.py --tilting-only --reverse --hits 0,4,13`) is unblocked for `OVERNIGHT.md`; I have not added it (not my file).
 - toolsmith: a reverse-only control (a hit-side node whose only path to the class uses a non-transposable edge) would close the last gap; I did not build one.

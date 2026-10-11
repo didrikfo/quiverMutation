@@ -21,11 +21,11 @@ The 33x claim holds on everything I ran (n = 14 fresh, n = 17 x = 7 new). Proble
 
 ## New?
 
-grep of `research/*.md` for E-061, conserv, drift, `33x`, `34x` and `c <-> n`: only E-061 (EXPERIMENTS.md:27, `k = 2x`, `d = x - 3` for n = 13..17, x = 3..7, description only). Nothing in FINDINGS, HYPOTHESES or RETRACTIONS on the drift mechanism (the "conserved quantity" hits at HYPOTHESES.md:958, 1004 are the H-010 parked idea, unrelated). So the mechanism (drift `33x@o -> 33(x-1)@(o+1)`, conserved `c = x + o`, seed `333` self-dual, `c <-> n-c`) is new relative to the record. The "it is the rule table" correction in (1) is new as well. Author's prior-record paragraph is accurate; F-032 and F-053 are cited correctly.
+grep of `research/*.md` for E-063, conserv, drift, `33x`, `34x` and `c <-> n`: only E-063 (EXPERIMENTS.md:27, `k = 2x`, `d = x - 3` for n = 13..17, x = 3..7, description only). Nothing in FINDINGS, HYPOTHESES or RETRACTIONS on the drift mechanism (the "conserved quantity" hits at HYPOTHESES.md:958, 1004 are the H-010 parked idea, unrelated). So the mechanism (drift `33x@o -> 33(x-1)@(o+1)`, conserved `c = x + o`, seed `333` self-dual, `c <-> n-c`) is new relative to the record. The "it is the rule table" correction in (1) is new as well. Author's prior-record paragraph is accurate; F-032 and F-053 are cited correctly.
 
 ## Evidenced?
 
-Mostly. The 135-placement table states n, placements, matches, and closed counts, and the output files are kept. Gaps: (a) orbit sizes are given as a range; the equal-size-for-equal-{c, n-c} claim needs the per-c list (it is in the .txt files, not the write-up). (b) The 34x/45x rows say "rest unfinished", "not run", "one job still running" - these are undecided, not verdicts, and should not feed the `k = x + 3` law. (c) The 4-layer "proof" has two unproved steps (end link, upper bound) that the author states plainly; fine. (d) The E-061 range is n = 13..17 but this submission's check is n = 14..16, plus my 17; say so.
+Mostly. The 135-placement table states n, placements, matches, and closed counts, and the output files are kept. Gaps: (a) orbit sizes are given as a range; the equal-size-for-equal-{c, n-c} claim needs the per-c list (it is in the .txt files, not the write-up). (b) The 34x/45x rows say "rest unfinished", "not run", "one job still running" - these are undecided, not verdicts, and should not feed the `k = x + 3` law. (c) The 4-layer "proof" has two unproved steps (end link, upper bound) that the author states plainly; fine. (d) The E-063 range is n = 13..17 but this submission's check is n = 14..16, plus my 17; say so.
 
 ## Required for acceptance
 

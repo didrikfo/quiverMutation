@@ -6,7 +6,7 @@ all P_i, i != v are summands; hence thick(T) = K^b(proj A).  The script checks t
   (H5) the Euler form of T: sum_m (-1)^m dim Hom(T_i,T_j[m]) = X C X^T (consistency, computed from the same Hom code),
   and records dim Hom(T,T[1]) and dim Hom(T,T[-1]) (J = 0 is the vanishing of both).
 Usage:  .venv/bin/python workshop/rounds/054/theorist_gen.py lna N      all LNAs and duals of length N, every vertex with mutationIsPossibleAtVertex
-        .venv/bin/python workshop/rounds/054/theorist_gen.py path13     the 13 E-161 edges (needs /tmp/tsm/c1.pkl, see toolsmith_endt_run.py)"""
+        .venv/bin/python workshop/rounds/054/theorist_gen.py path13     the 13 E-163 edges (needs /tmp/tsm/c1.pkl, see toolsmith_endt_run.py)"""
 import sys
 sys.path.insert(0, '.')
 MODE = sys.argv[1] if len(sys.argv) > 1 else 'lna'

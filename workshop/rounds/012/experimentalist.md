@@ -11,4 +11,4 @@
 
 ---
 
-**Why this question now:** E-077 gave us a working pattern (A alternates 3@2/5@0, B alternates 3@3/6@0) but with a concrete gap. The gap is small enough to debug and large enough to teach us something about why the words cluster as they do. If orbit mergers explain the gap, that's capital T Theory; if closure properties do, that's mechanism for H-021; if neither, we may be looking at the wrong frame and should hunt for parity definitions in the place where the lists come from.
+**Why this question now:** E-079 gave us a working pattern (A alternates 3@2/5@0, B alternates 3@3/6@0) but with a concrete gap. The gap is small enough to debug and large enough to teach us something about why the words cluster as they do. If orbit mergers explain the gap, that's capital T Theory; if closure properties do, that's mechanism for H-021; if neither, we may be looking at the wrong frame and should hunt for parity definitions in the place where the lists come from.

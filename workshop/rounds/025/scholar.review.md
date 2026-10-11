@@ -21,7 +21,7 @@ One case further (n = 9, class 0, my earlier 500 s run, `experimentalist_n9_c0.t
 
 ## New?
 
-grep of FINDINGS, HYPOTHESES, RETRACTIONS, EXPERIMENTS for "out-degree", "long-sided", "long square", "D-type": only E-097 and E-100 (EXPERIMENTS.md lines ~19-38). E-100's "every one of 2 104 rejecting (parent, v) has the long-sided square" is range n = 5..7 and is not contradicted there. Its Limits cover only n = 6 and 7 class 0 for the rejecting side. The n = 8 break and D' are new. Nothing in RETRACTIONS. E-100 should carry a limit line citing this note (chair task, as the note says).
+grep of FINDINGS, HYPOTHESES, RETRACTIONS, EXPERIMENTS for "out-degree", "long-sided", "long square", "D-type": only E-099 and E-102 (EXPERIMENTS.md lines ~19-38). E-102's "every one of 2 104 rejecting (parent, v) has the long-sided square" is range n = 5..7 and is not contradicted there. Its Limits cover only n = 6 and 7 class 0 for the rejecting side. The n = 8 break and D' are new. Nothing in RETRACTIONS. E-102 should carry a limit line citing this note (chair task, as the note says).
 
 ## Evidenced?
 

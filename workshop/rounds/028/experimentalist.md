@@ -8,7 +8,7 @@ The rule W (reject iff a two-term relation with the right structure and killing)
 
 ## Weakest claim the workshop relies on
 
-The 61 D' rejects at n = 8 class 0 are structurally representative of larger-n rejection mechanisms. They come from one n, one class, and are not re-confirmed against new data (E-105/E-106 were capped walks; E-107/E-108 tested them but only derived the sum branch). Out-degree >= 3 has zero rejects in 3 494 rows; no mechanism is known. Parallel-arrow rows (1 135 with out-arrows >= 2) never reject. The workshop is assuming rejection is a unified phenomenon; it may be n-specific.
+The 61 D' rejects at n = 8 class 0 are structurally representative of larger-n rejection mechanisms. They come from one n, one class, and are not re-confirmed against new data (E-107/E-108 were capped walks; E-109/E-110 tested them but only derived the sum branch). Out-degree >= 3 has zero rejects in 3 494 rows; no mechanism is known. Parallel-arrow rows (1 135 with out-arrows >= 2) never reject. The workshop is assuming rejection is a unified phenomenon; it may be n-specific.
 
 ## What I need
 

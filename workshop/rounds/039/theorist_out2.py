@@ -1,5 +1,5 @@
 """Round 039 (theorist): hand algebra with J_i != 0, d_i = 3, out(i) = 2, gate-admitted (so out(i) = 3 is not forced by the gate);
-test its Coxeter key vs the n=7 LNA keys, the child key, and E-136's C_B = r C_A r^T + H.  Usage: theorist_out2.py"""
+test its Coxeter key vs the n=7 LNA keys, the child key, and E-138's C_B = r C_A r^T + H.  Usage: theorist_out2.py"""
 import sys
 sys.path.insert(0, '.'); ARGV = sys.argv; sys.argv = ['x']
 src = open('workshop/rounds/033/experimentalist_bothdie.py').read().split("mode = _a[1]")[0]

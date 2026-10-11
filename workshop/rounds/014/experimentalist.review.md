@@ -16,12 +16,12 @@ No error found. Gaps:
 - "Same orbit as `444`" at n = 12, 14, 15 rests on equal size alone (the author says so under Next). Equal size is not identity. I confirmed identity at n = 13 only.
 - Merged means every placement lies in the orbit of the middle offset. The middle offset is one choice, but "merged" is symmetric, so it is not a bias. The remaining words are called "rigid", which includes words split into several orbits and words whose middle orbit is merely missing some placements. The claim never says which. The "others are small orbits" line covers only the merged ones.
 - The claim that the 4-letter words "always carry a 2 or a 4-run" is a description of the listed words. No scan of 4-letter words without a 4 backs it, and the author says as much.
-- The n = 17 ledger is shared by both runs, so the two words' agreement is partly one computation, not two. The author discloses this. Row sets were not compared, only sizes. Equal sizes for `5046` and `5056` is what E-080 already reports.
+- The n = 17 ledger is shared by both runs, so the two words' agreement is partly one computation, not two. The author discloses this. Row sets were not compared, only sizes. Equal sizes for `5046` and `5056` is what E-082 already reports.
 
 ## New?
 
-- n = 17 sizes for `5046`, `5056`: already in E-080 (one run each, `5056` not re-run). The new content is a saved output for `5056`. This is confirmation, not a new claim.
-- 3-letter version of the big-orbit statement: E-075 (and E-079) already say that at n = 14 the 3767 orbit holds most merged words, and that the `444` orbit is the large one. The 4-letter slice (that it adds members to the same orbit) is not in `research/`. Grepped `max-word 4`, `4-letter`, `5056`, `122673` in FINDINGS, HYPOTHESES, EXPERIMENTS, RETRACTIONS. E-074 and E-064 count key-coarser cores, not merged words. Genuinely new but small.
+- n = 17 sizes for `5046`, `5056`: already in E-082 (one run each, `5056` not re-run). The new content is a saved output for `5056`. This is confirmation, not a new claim.
+- 3-letter version of the big-orbit statement: E-077 (and E-081) already say that at n = 14 the 3767 orbit holds most merged words, and that the `444` orbit is the large one. The 4-letter slice (that it adds members to the same orbit) is not in `research/`. Grepped `max-word 4`, `4-letter`, `5056`, `122673` in FINDINGS, HYPOTHESES, EXPERIMENTS, RETRACTIONS. E-076 and E-066 count key-coarser cores, not merged words. Genuinely new but small.
 
 ## Evidenced?
 
@@ -32,4 +32,4 @@ Mostly. The ranges are stated (n = 12..15, letters 1..9, nondecreasing, contains
 1. Qualify the title and claim 3: "same orbit as `444`" is established by row membership at n = 13 only; at n = 12, 14, 15 by size. Or add the membership check for those n.
 2. State what "rigid" covers (several orbits vs. a partial middle orbit), or drop the contrast.
 3. Say that the n = 17 `--plan` and the second run read a shared ledger, so the two words' agreement is not two independent computations. Row-set equality is untested.
-4. Label the claim as a slice of E-075/E-079 (cite them in the Claim, not only under Prior record) and as a confirmation of E-080 at n = 17.
+4. Label the claim as a slice of E-077/E-081 (cite them in the Claim, not only under Prior record) and as a confirmation of E-082 at n = 17.

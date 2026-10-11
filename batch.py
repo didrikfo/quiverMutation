@@ -387,7 +387,7 @@ def orbitCensus(length, word, limit):
     and `mirrors`, the offsets whose *mirror* row does (the loose reading of
     H-021's mirror; a row whose orbit holds it and a different offset's mirror
     is the strict one).  `None` where the core has no placement at this length.
-    The orbit, not the Coxeter key, is the unit: key class is not orbit (E-058).
+    The orbit, not the Coxeter key, is the unit: key class is not orbit (E-060).
     `held` and `mirrors` are meaningful only for orbits with `closed` true; a
     capped walk leaves them partial.
     """
@@ -429,7 +429,7 @@ class OrbitsTask(jobs.Task):
     sums `a + b` (a reflection `o <-> s - o` gives one sum).
 
     A Coxeter key is a cheap invariant of a placement but *not* the orbit
-    (E-058: at n = 16 the offsets {1,2} of 4056 share a key and are two
+    (E-060: at n = 16 the offsets {1,2} of 4056 share a key and are two
     mirror-image orbits), so nothing here skips a walk on the key alone.
     """
 

@@ -19,7 +19,7 @@ I found nothing false. The claim is stated as negative and non-exhaustive.
 
 ## New?
 
-E-138 covers n = 8 c0 and n = 6, 7 c0, so the verdict for c0 is not new, as the author says. I grepped `research/EXPERIMENTS.md` and `HYPOTHESES.md` for the key-guard and child-key terms, and for c1 and c2 at n = 6, 7, 8, and found nothing. The new content is:
+E-140 covers n = 8 c0 and n = 6, 7 c0, so the verdict for c0 is not new, as the author says. I grepped `research/EXPERIMENTS.md` and `HYPOTHESES.md` for the key-guard and child-key terms, and for c1 and c2 at n = 6, 7, 8, and found nothing. The new content is:
 - classes 1 and 2;
 - n = 7 c1;
 - the off-mode expansion;

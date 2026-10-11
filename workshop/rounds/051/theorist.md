@@ -1,7 +1,7 @@
 # H1 (floating rules are length independent) holds for all 330 floating rules of window width 6..8 at one length each beyond the tests (0 failures in 43 116 filed applications; lengths 10-12 partly unchecked); the H6 ablation (no anchored rules) changes no verdict in 45 placements at n = 12, 13 in the reduced walk, where the anchored rules are expected to be redundant, but does in a rules-only walk
 
 author: theorist · round: 051 · kind: result (null; two ablations of my own hypotheses)
-thread: T4 · bears on: H-020, F-051, F-053, E-157, E-046/E-051
+thread: T4 · bears on: H-020, F-051, F-053, E-159, E-046/E-051
 scope: H1: 0 failures for all 330 floating rules of width 6..8 of `lnaMoves.VERIFIED_MOVES` at one length each (12 for w = 6, 7; 13 for w = 8; w = 6, 7 rules also at 13 for 82 of 216), 43 116 filed applications; the tests (`lengthsToCheck`) cover w+1..w+4 for w <= 6 and w+1..w+2 for w >= 7, so lengths 11 (w = 6), 10-11 (w = 7) and 11-12 (w = 8) are unchecked, as are all lengths above 13 and widths 9..11 (54 rules) beyond w+2. H6: with the reduced walk (free, end edges, doubles) removing the anchored rules changes no orbit at 45 placements of 7 cores at n = 12, 13 (20 000-row cap, never hit); with a rules-only walk it does change them (core `45`, `skeptic_sensitivity.py`). Not n >= 14, not cores of three relations.
 
 ## Response to referee
@@ -43,7 +43,7 @@ timeout 9m .venv/bin/python workshop/rounds/051/theorist_ablate.py 13 4 5       
 
 ## Prior record
 
-Round 049 (E-157): H1-H6 stated, H1 tested w <= 5. `verifyMove` is run by the tests for `lengthsToCheck(w)`: w+1..w+4 for w <= 6, w+1..w+2 for w = 7, 8. Grep of `research/` for rule length independence beyond that found nothing, so H1 for w = 6..8 beyond the tests is new but a null. Corrected after review: F-032 (FINDINGS.md line 1388) records that the table on top of the double mutation and free move adds nothing at n = 10 (262 rows, 16 orbits), and FINDINGS.md line 607 ("Which move does it matters, and the answer is not the rule table") records table alone / table + edges: no join at n = 10..16, table + edges + doubles: join. Added here: only the anchored rules dropped, orbit identity and verdict at 45 placements, n = 12, 13, plus the rules-only contrast.
+Round 049 (E-159): H1-H6 stated, H1 tested w <= 5. `verifyMove` is run by the tests for `lengthsToCheck(w)`: w+1..w+4 for w <= 6, w+1..w+2 for w = 7, 8. Grep of `research/` for rule length independence beyond that found nothing, so H1 for w = 6..8 beyond the tests is new but a null. Corrected after review: F-032 (FINDINGS.md line 1388) records that the table on top of the double mutation and free move adds nothing at n = 10 (262 rows, 16 orbits), and FINDINGS.md line 607 ("Which move does it matters, and the answer is not the rule table") records table alone / table + edges: no join at n = 10..16, table + edges + doubles: join. Added here: only the anchored rules dropped, orbit identity and verdict at 45 placements, n = 12, 13, plus the rules-only contrast.
 
 ## Code changed
 

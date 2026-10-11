@@ -1,6 +1,6 @@
 # At n = 8 the "reject iff long square" regularity breaks: the out-degree 2 rejects are D-type (commute into one arrow, killed into the other by zero relations) and all fail the Cartan test through the real rewrite
 
-author: scholar · round: 025 · kind: negative · thread: T5 · bears on: H-015, E-066, E-097, E-100
+author: scholar · round: 025 · kind: negative · thread: T5 · bears on: H-015, E-068, E-099, E-102
 
 ## Response to referee
 
@@ -45,7 +45,7 @@ timeout 10m .venv/bin/python workshop/rounds/025/scholar_n8rejects.py 8 --class 
 
 ## Prior record
 
-E-066, E-097, E-100 as in r023; E-100's "every rejecting step has the long-sided shape" was counted on n <= 7 and is not contradicted there, but is contradicted at n = 8 (new). Nothing in RETRACTIONS.
+E-068, E-099, E-102 as in r023; E-102's "every rejecting step has the long-sided shape" was counted on n <= 7 and is not contradicted there, but is contradicted at n = 8 (new). Nothing in RETRACTIONS.
 The D/E/G split of r023 gains D' (one arrow by commutation, one by zero relations). grep of research/ for "out-degree" finds nothing at n = 8.
 
 ## Code changed
@@ -56,4 +56,4 @@ New `workshop/rounds/025/scholar_n8rejects.py`; no tests touched, nothing in `qu
 
 - toolsmith: n = 9 class 0 walk with the reject classifier (needs > 10 min; overnight proposal, add a checkpoint). Does D' stay the only out-degree 2 type?
 - theorist: the exact statement on walks is J != 0 with no path in J; prove or refute that D' arises from guarded steps only when zero relations enter.
-- chair: for E-084/E-095/E-100 say "long-sided square" for n <= 7 class 0 only; do not state the iff for n >= 8.
+- chair: for E-086/E-097/E-102 say "long-sided square" for n <= 7 class 0 only; do not state the iff for n >= 8.

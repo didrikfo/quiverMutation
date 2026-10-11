@@ -1,6 +1,6 @@
 """Round 057, T10 power control for the J = 0 join test (specificity).
 Walks from LNA rows A and B (n = 9 default) in two modes, both with the gate and the Coxeter-key guard:
-  J0  : every step must also satisfy tiltingPlus (J = 0), the E-155/E-161/E-167 test;
+  J0  : every step must also satisfy tiltingPlus (J = 0), the E-157/E-163/E-169 test;
   ALL : gate + key guard only (the search's own walk, J != 0 steps allowed).
 Both with right steps from the LNA and from its dual (left steps).  Then a relabelling-aware join (WL hash + VF2, as amerge) of A's reach set with B's.
 A certified-equivalent pair (same quipu, F-047) must join (sensitivity); a certified-inequivalent pair with equal Coxeter polynomial

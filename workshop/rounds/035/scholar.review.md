@@ -15,7 +15,7 @@ Minor: the C2 rad^2=0 case is a valid test of M1/M3 but v is gate-rejected there
 
 ## New?
 
-Grepped FINDINGS, HYPOTHESES and RETRACTIONS for "Hom(N,N", "N[-1]" and "cyclic". Nothing states M1 or M3. E-126 (L2) is the acyclic-only version and E-122 is the open question. This is a small extension, genuinely new relative to those two.
+Grepped FINDINGS, HYPOTHESES and RETRACTIONS for "Hom(N,N", "N[-1]" and "cyclic". Nothing states M1 or M3. E-128 (L2) is the acyclic-only version and E-124 is the open question. This is a small extension, genuinely new relative to those two.
 
 ## Evidenced?
 

@@ -29,7 +29,7 @@ None of these makes the stated claims false.
 
 ## New?
 
-- E-110 already defines J, the circuit lemma, and the open question of why nn and long circuits do not occur on walks. E-113 gives the n=8 walk data. E-116 uses the same cone.
+- E-112 already defines J, the circuit lemma, and the open question of why nn and long circuits do not occur on walks. E-115 gives the n=8 walk data. E-118 uses the same cone.
 - The socle / H^{-1} / "silting not tilting" wording was not found. My grep of `research/*.md` and `research/literature/` for `socle`, `H^{-1}`, and "not tilting" gives only unrelated hits: 1009.3370 notes that silting transitivity differs from tilting transitivity, and 2310.08346 is about socles of Nakayama projectives. The author's reading is therefore not recorded, and it is elementary, as the author says.
 - The T3 example, the layered family search, and the pendant test are new. No RETRACTIONS entry bears on it.
 

@@ -1,4 +1,4 @@
-# skeptic r046 data (n = 7; E-149 walk, 20000 expansions; c1 459 s, c2 341 s)
+# skeptic r046 data (n = 7; E-151 walk, 20000 expansions; c1 459 s, c2 341 s)
 ## skeptic_collect.py
 n 7 cls 1 seeds 12 expanded 20000 frontier 18879 fail steps 16 distinct fail 16 ctrl 300 459s
 n 7 cls 2 seeds 14 expanded 20000 frontier 6999 fail steps 9 distinct fail 9 ctrl 300 341s

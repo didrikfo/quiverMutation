@@ -1,5 +1,5 @@
 """Round 039 (theorist; copy of experimentalist_d3table.py, adds edges, relations, and whether the child passes the key guard to each row)
-Original: Round 038 (experimentalist): rerun the E-131 walk (n = 8, class idx c0, key-preserving BFS, acyclic algebras, gate-admitted v) and
+Original: Round 038 (experimentalist): rerun the E-133 walk (n = 8, class idx c0, key-preserving BFS, acyclic algebras, gate-admitted v) and
 save, for every (alg, v, i) with path i->v and (J_i != 0 or d_i >= 3): d_i, dim J_i, outdeg(i), outdeg(v), dims e_iAe_v, Cartan row of i,
 dim A, distinct-algebra id (canonicalKey, else structural hash), BFS level, expansion index.
 Usage: experimentalist_d3table.py n cls budget_sec max_exp out.pkl"""

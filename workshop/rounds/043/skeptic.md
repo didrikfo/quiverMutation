@@ -1,15 +1,15 @@
 # Gate-admitted J != 0 steps with H1, H2 and x^2 coefficient != 1 exist, and at n = 7 classes 1 and 2 some are key-preserving (D = 0), so "J != 0 moves the key" is a class-0 statement
 
-author: skeptic · round: 043 · kind: result (counterexample to E-140's reading; independent build)
-thread: T5 · bears on: E-138, E-140, E-141, E-143, H-015
+author: skeptic · round: 043 · kind: result (counterexample to E-142's reading; independent build)
+thread: T5 · bears on: E-140, E-142, E-143, E-145, H-015
 
 ## Claim
 
-(1) Independent of `theorist_*.py`: on guard-walks from the n = 6, 7 class-0 LNAs (316 and 300-317 distinct J != 0 steps) every step has H1/H2, an orbit relation e_i = F^s e_w (s = 1 or 6 = -2 mod 8 at n = 6; s = 1 or 3 at n = 7) and D(x) = det(xC_B+C_B^T) - det(xC_A+C_A^T) with lowest term exactly x^2, coefficient 1. E-143's observation reproduces; no c_2 != 0 inside class 0.
-(2) Class 0 is not typical. At n = 7, key-guarded walks (500 s, depth <= 30) in class 1 (67 distinct J != 0 steps) and class 2 (64) contain **D = 0 steps: 13 and 9** (12 and 9 with H1, H2 in the strict sense). These are gate-admitted, J = e_i, key-preserving, and still occur when the walk is also restricted to tiltingPlus steps (12 and 9 of 66 and 64). So E-140's "none of the J != 0 steps keeps the class key" (c1: 2 steps, c2: vacuous) was a depth/time artefact; the law does not hold at n = 7 c1, c2.
+(1) Independent of `theorist_*.py`: on guard-walks from the n = 6, 7 class-0 LNAs (316 and 300-317 distinct J != 0 steps) every step has H1/H2, an orbit relation e_i = F^s e_w (s = 1 or 6 = -2 mod 8 at n = 6; s = 1 or 3 at n = 7) and D(x) = det(xC_B+C_B^T) - det(xC_A+C_A^T) with lowest term exactly x^2, coefficient 1. E-145's observation reproduces; no c_2 != 0 inside class 0.
+(2) Class 0 is not typical. At n = 7, key-guarded walks (500 s, depth <= 30) in class 1 (67 distinct J != 0 steps) and class 2 (64) contain **D = 0 steps: 13 and 9** (12 and 9 with H1, H2 in the strict sense). These are gate-admitted, J = e_i, key-preserving, and still occur when the walk is also restricted to tiltingPlus steps (12 and 9 of 66 and 64). So E-142's "none of the J != 0 steps keeps the class key" (c1: 2 steps, c2: vacuous) was a depth/time artefact; the law does not hold at n = 7 c1, c2.
 (3) The orbit relation can fail: in c1, 44 of 66 H1/H2 steps have no s (F^s e_w = e_i has no solution for |s| <= 40), 52 of 52 in c2 with D low term x^3 (coefficient 1); in c2 the nine D = 0 steps do have it (s = 10). With random acyclic parents (m = 5, 6, 7) it fails in most strict H1/H2 steps (m = 6: 19 of 23 hits with D = 0 and 800+ others lack s) and then the lowest term is x^1 (coefficient mostly 1).
 (4) Where the orbit relation holds on non-LNA-walk parents, x^2 coefficients 2, 3 and -1, -2 occur (random m = 6, 7: 33 strict H1/H2 steps with an orbit relation and lowest term x^2, coefficient != 1), i.e. c_2 != 0 is realisable at the matrix-plus-gate level; none of them has D = 0.
-Not claimed: that any D = 0 child is derived equivalent to its parent. Every J != 0 step fails tiltingPlus by definition (all 700+ here: `(tiltingPlus, D == 0)` tables), the four D = 0 steps rebuilt by hand are Cartan-incongruent (R C_A R^T != C_B), as in E-137. The key guard is therefore useless as a test of derived equivalence off J = 0 steps; that is H-015's guard, not its conclusion.
+Not claimed: that any D = 0 child is derived equivalent to its parent. Every J != 0 step fails tiltingPlus by definition (all 700+ here: `(tiltingPlus, D == 0)` tables), the four D = 0 steps rebuilt by hand are Cartan-incongruent (R C_A R^T != C_B), as in E-139. The key guard is therefore useless as a test of derived equivalence off J = 0 steps; that is H-015's guard, not its conclusion.
 
 ## Evidence
 
@@ -42,7 +42,7 @@ timeout 10m .venv/bin/python -u workshop/rounds/043/skeptic_rand.py M 11 420    
 
 ## Prior record
 
-E-143 (H1/H2, orbit relation, c_2 = 0 observed, class 0 only); E-140 (278 steps, none key-preserving; n=7 c1 2 steps, c2 vacuous); E-138, E-141 ("J != 0 implies key moves", false for general parents). E-137 notes a key-preserving non-tilting step at n = 6 out of an E-134 hit (kernel dim 2). New: dim-1 key-preserving J != 0 steps with H1/H2 at n = 7 c1, c2 reachable from LNAs by key (and tilting) steps; failure of the orbit relation; the c_2 != 0 matrices. Grep of research/ for "key-preserving" and "orbit relation": nothing contradicting. RETRACTIONS: not touched.
+E-145 (H1/H2, orbit relation, c_2 = 0 observed, class 0 only); E-142 (278 steps, none key-preserving; n=7 c1 2 steps, c2 vacuous); E-140, E-143 ("J != 0 implies key moves", false for general parents). E-139 notes a key-preserving non-tilting step at n = 6 out of an E-136 hit (kernel dim 2). New: dim-1 key-preserving J != 0 steps with H1/H2 at n = 7 c1, c2 reachable from LNAs by key (and tilting) steps; failure of the orbit relation; the c_2 != 0 matrices. Grep of research/ for "key-preserving" and "orbit relation": nothing contradicting. RETRACTIONS: not touched.
 
 ## Code changed
 
@@ -52,4 +52,4 @@ None in the library. New: `skeptic_c2.py`, `skeptic_rand.py`, `skeptic_zero.py` 
 
 - Theorist: P1 gives Q = xB; D = 0 needs B = 0 = 1 - c_s - c_{-s} with s = 10 in c2. Find which orbit data realise it; do the c2 steps need a long F-cycle (F of order > 8 here)?
 - Experimentalist: n = 8 c1, c2 tally with `skeptic_c2.py 8` after `--plan`-style sizing (n = 7 c1, c2 took 500 s); is the key-preserving step reachable from the LNA by a path whose earlier steps are all J = 0 (tilting) -- the tguard run says yes at the key level; replay one path with Cartan congruence.
-- Skeptic/referee: any "key guard excludes J != 0" claim (E-138 law, E-140) must say class 0; E-140's c1, c2 cells should be marked non-vacuous.
+- Skeptic/referee: any "key guard excludes J != 0" claim (E-140 law, E-142) must say class 0; E-142's c1, c2 cells should be marked non-vacuous.

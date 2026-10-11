@@ -1,4 +1,4 @@
-"""Cartan congruence check for replayed parents of E-084 (round 015, theorist).
+"""Cartan congruence check for replayed parents of E-086 (round 015, theorist).
 Usage: theorist_cartan.py n class     -- replays every recorded line of workshop/rounds/014/scholar_walk_n{n}_c{class}.txt
  ('REJECTIONS' lines: gate True, tiltingPlus False;  'M' lines: gate True, tiltingPlus True, key moved).
 For each parent: gate, tiltingPlus, cong = (C(child) == R C(parent) R^T) for the reduced child AND the unreduced child,

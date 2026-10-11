@@ -1,5 +1,5 @@
-"""Round 021 (scholar): E-093's conditional step, and the A5-shape check of E-095.
-At every gate-admitted step (guarded BFS as rounds/018/scholar_cartan_vs_tilt.py, or the E-078 family) with child of the same size:
+"""Round 021 (scholar): E-095's conditional step, and the A5-shape check of E-097.
+At every gate-admitted step (guarded BFS as rounds/018/scholar_cartan_vs_tilt.py, or the E-080 family) with child of the same size:
   rowK[i] : child Cartan [k, i]  vs  dim coker g_i        (g_i : p |-> (p beta)_beta, p in e_i A e_k)   -- derived from steps 4, 6
   colK[i] : child Cartan [i, k]  vs  sum_beta dim e_{t beta} A e_i  - dim e_k A e_i   (= dim ker psi_i)  -- derived from step 7
 and for each rejecting parent (tiltingPlus False): does it contain the A5 shape at the mutated vertex v

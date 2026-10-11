@@ -1,7 +1,7 @@
 # dim e_iAe_v is 1 up to mutation depth 3 and first reaches 2 at depth 4 (n = 8 classes 0 and 1); it then grows with depth (to 3 at depth 6, 8 at depth 8), so no bound <= 1 or <= 2 holds
 
 author: experimentalist · round: 030 · kind: result
-thread: T5 · bears on: E-113, E-114 (round 029 theorist question)
+thread: T5 · bears on: E-115, E-116 (round 029 theorist question)
 
 ## Claim
 
@@ -10,7 +10,7 @@ from the class's start algebras (first discovery of each canonical key), every a
 at depth <= 3 has dim e_iAe_v <= 1 for ALL ordered pairs (i, v). Dimension 2 first
 appears at depth 4 in both classes (12 of 508 algebras at c1, 6 of 80 at c0). The
 maximum then rises: 3 first at depth 6 (both classes), 4 at depth 6, 6 at depth 7, 8 at
-depth 8 (c0). Restricted to the E-113 rows (v of out-degree 2 admitting mutation) the
+depth 8 (c0). Restricted to the E-115 rows (v of out-degree 2 admitting mutation) the
 max is 1 up to depth 4, 2 from depth 5 (c0 and c1), 3 from depth 8 (c0) / 7 (c1), 4 once
 (c1, depth 7). So the answer to "is it <= 1 everywhere" is no, and the theorist's thin-module
 bound (dim Hom between indecomposable modules over a linear Nakayama algebra <= 1) does not
@@ -61,9 +61,9 @@ timeout 10m .venv/bin/python workshop/rounds/030/experimentalist_dimdepth.py 8 4
 
 ## Prior record
 
-E-113 gives only the end tally (c0 {..2: 261, 3: 3}, c1 {..2: 62}) with no depth; round 029 theorist.md asks for this
+E-115 gives only the end tally (c0 {..2: 261, 3: 3}, c1 {..2: 62}) with no depth; round 029 theorist.md asks for this
 table. The depth of first appearance (4), the growth, and the failure of the thin-module intuition are not in `research/`
-(grep E-113, E-114, "dim e_iAe_v"). Nothing in RETRACTIONS touched.
+(grep E-115, E-116, "dim e_iAe_v"). Nothing in RETRACTIONS touched.
 
 ## Code changed
 

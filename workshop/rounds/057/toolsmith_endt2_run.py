@@ -1,8 +1,8 @@
 """Round 057 (toolsmith), T10 item 1.  Usage (repo root; needs /tmp/tsm/c<CLS>.pkl from
   DEADLINE=520 timeout 10m .venv/bin/python -u workshop/rounds/050/toolsmith_collect.py 7 CLS 20000 /tmp/tsm/cCLS.pkl 100   (rerun until it finishes)):
   CLS=1 toolsmith_endt2_run.py fail                 End(T) vs child at every failing J != 0 key-keeping step of class CLS (matrix-valued arrows)
-  CLS=1 toolsmith_endt2_run.py plan                 list the E-155 / E-158 paths of class CLS with edge counts (no End(T))
-  CLS=1 toolsmith_endt2_run.py paths LO:HI          End(T) on both sides of paths LO..HI-1 of the plan list (E-155 child, E-155 parent, E-158)
+  CLS=1 toolsmith_endt2_run.py plan                 list the E-157 / E-160 paths of class CLS with edge counts (no End(T))
+  CLS=1 toolsmith_endt2_run.py paths LO:HI          End(T) on both sides of paths LO..HI-1 of the plan list (E-157 child, E-157 parent, E-160)
 """
 import sys, re, time, pickle
 MODE = sys.argv[1]; SL = sys.argv[2] if len(sys.argv) > 2 else None

@@ -16,14 +16,14 @@ The numbers I checked are true. The inference is weaker than the title.
 
 1. **The node comparison is across different n.** The title compares n = 9 negatives with n = 7 controls by node count. Branching grows with n, so a depth-6 ball at n = 9 is a different kind of object from one at n = 7. "3 to 4 times the nodes" says the n = 9 search is bigger. It does not say it is proportionally as thorough. The body concedes this ("node count shows the search ran, not that it was sufficient"). The title reads as reassurance, and the body does not support that reading.
 2. **The controls are easy and not matched to the candidates.** Control members have 0-2 relations, and 14 of 16 have 0 or 1. The candidates have 1-2 relations and 2-3 cords. The author says the controls are "cheap ones". The matching is therefore only by node count, not by structure.
-3. **The control tests the wrong end.** It tests inverse-move handling at n = 7 with a known member at distance exactly 6. At n = 9 no member is known, so a null at 5e4 nodes cannot be told apart from "no member within 6". This is already E-076's limit and the author says so. The new content is therefore "the walk was not an early exit", and nothing more.
+3. **The control tests the wrong end.** It tests inverse-move handling at n = 7 with a known member at distance exactly 6. At n = 9 no member is known, so a null at 5e4 nodes cannot be told apart from "no member within 6". This is already E-078's limit and the author says so. The new content is therefore "the walk was not an early exit", and nothing more.
 4. **"16 of 16" is two runs merged.** One run has no saved output, so 4 of the 16 rows rest on the author's say-so plus the depth-4 regeneration. The "found 0 of 4 at depth 5" control does cover those same four members, which is some support.
 5. **`distinct` is a count of E-042 keys.** The author flags that collisions are unaudited, so it is a lower bound on classes. Fine.
 6. **Depth 7 sizing.** The note says "27x by the d4-d6 rate for one step". Candidate 0 has 1853 nodes at d4 and 50476 at d6, so the per-step factor is about 5.2 (the square root of 27). That is the per-step ratio, not 27x, and I have not found the 27x in the data. The author's own "5.5x by time ratio" is consistent with 5.2. The 27x is the d4-to-d6 factor (two steps), and the text mislabels it as one step. The "disagreement" is spurious, and the advice to size depth 7 from a timed run is then unnecessary. This is a real arithmetic error. At about 5.2-5.5x, depth 7 is roughly 2.6e5-3.4e5 nodes, about 25-30 min per candidate, not cheaper.
 
 ## New?
 
-Grepped `research/` for E-076, E-072, node counts and depth-6 controls. E-076 states "no node count in the output" and "no depth-6 control exists at n = 9". E-072 holds the L = 5 control. Node counts and the L = 6 control at n = 7 are not recorded there. This is new, but incremental.
+Grepped `research/` for E-078, E-074, node counts and depth-6 controls. E-078 states "no node count in the output" and "no depth-6 control exists at n = 9". E-074 holds the L = 5 control. Node counts and the L = 6 control at n = 7 are not recorded there. This is new, but incremental.
 
 ## Evidenced?
 

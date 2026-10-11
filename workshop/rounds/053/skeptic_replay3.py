@@ -1,5 +1,5 @@
-"""Round 053 (skeptic), T10 agenda 1: replay the 3 printed E-158 paths (rounds/050/toolsmith.md, 'Printed paths') edge by edge with the
-Hom_K(T,T[m]) test of rounds/050/skeptic_tilt.py (same machinery as skeptic_replay13.py / E-159 / E-161); the gate, perI, tiltingPlus are printed for context only.
+"""Round 053 (skeptic), T10 agenda 1: replay the 3 printed E-160 paths (rounds/050/toolsmith.md, 'Printed paths') edge by edge with the
+Hom_K(T,T[m]) test of rounds/050/skeptic_tilt.py (same machinery as skeptic_replay13.py / E-161 / E-163); the gate, perI, tiltingPlus are printed for context only.
 Usage (repo root): skeptic_replay3.py in.pkl cls childIdx ldx 'child moves' 'LNA/dual moves'
   in.pkl = rounds/050/toolsmith_collect.py 7 cls 20000 in.pkl 100.   childIdx indexes the 'fail' records, ldx indexes classes[base] (LNAs+duals).
 Per edge: tilt := Hom(T,T[-1]) = 0 and Hom(T,T[1]) = 0; cartan := H = Cartan(c)^T (labelled).  Also: end keys of the two sides equal and not None;

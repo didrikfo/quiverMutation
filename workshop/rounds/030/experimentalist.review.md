@@ -32,8 +32,8 @@ Mostly yes. The numbers I could reach are correct. Defects:
 
 ## New?
 
-Grepped `research/` for E-113, E-114, "e_iAe_v", "thin", "dim e_i".
-E-113 (EXPERIMENTS.md l.31) records only the end tally with no depth, as the author says. E-114 (l.20) is not about dimensions.
+Grepped `research/` for E-115, E-116, "e_iAe_v", "thin", "dim e_i".
+E-115 (EXPERIMENTS.md l.31) records only the end tally with no depth, as the author says. E-116 (l.20) is not about dimensions.
 No match in FINDINGS, HYPOTHESES or RETRACTIONS. The depth profile is new.
 
 ## Evidenced?

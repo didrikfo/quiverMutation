@@ -1,11 +1,11 @@
 # "Only a = 4 merges" survives a neighbour-aware null, but only as "the letter 4 is special"; it does not single out the collapse to 34
 
 author: skeptic · round: 010 · kind: negative (partial: observation supported, mechanism not)
-thread: T2 · bears on: E-071, E-065, E-068, H-020, H-021
+thread: T2 · bears on: E-073, E-067, E-070, H-020, H-021
 
 ## Claim
 
-E-071 / round-009 theorist: seed `aaa` collapses to `34` only for a = 4, so `44x` merges into one orbit and `aax` (a != 4) stays rigid.
+E-073 / round-009 theorist: seed `aaa` collapses to `34` only for a = 4, so `44x` merges into one orbit and `aax` (a != 4) stays rigid.
 Null: scan EVERY nondecreasing 3-letter word xyz (letters 1..9, >= 4 interior offsets) at n = 12..15 (291 word-cells), call it *merged* if the
 reduced-walk orbit of the word at one interior offset holds it at all its offsets, and ask whether `444` stands out among words.
 Result: (1) the observation holds: among a = 3..9, only `444` is merged, at all four n (12..15); `333 555 666 777 888 999` are rigid in every cell
@@ -33,7 +33,7 @@ and it is the one with the highest letter rate: the claim is a special case of a
 so a p-value would be false precision.
 
 Why the 34 mechanism is not singled out: words with a 4 and no `34` merge (`445 446 447 448 456 457 467 468 478`), while words with `34` often do NOT
-(`344 345 347 348 349` rigid at n = 14, 15; `346` merges; cf. E-068, `34x` pairs). If "34 reaches the slider" were the whole mechanism, `34x` should merge;
+(`344 345 347 348 349` rigid at n = 14, 15; `346` merges; cf. E-070, `34x` pairs). If "34 reaches the slider" were the whole mechanism, `34x` should merge;
 it does not. The slider route holds for the seed `444` (theorist's 7-step path) but is not what makes a word merge in general.
 
 `aaa` at n = 12..15 (merged?, orbit size): 444: yes at 1410, 2386, 3767, 5648 (orbit size grows, same word); 333 rigid (98, 501, 491, 877); 555 rigid
@@ -55,8 +55,8 @@ Scan times: n = 12 4 s, 13 25 s, 14 58 s, 15 135 s.
 
 ## Prior record
 
-E-071 and the round-009 theorist submission state the criterion; the review asked for exactly this null. `grep` of `research/` for "letter 4" /
-"rate" of merging finds nothing; the near-universality of merging for 4-words is new but unrecorded as a finding. E-068 (`34x` pairs, `346` one orbit) agrees
+E-073 and the round-009 theorist submission state the criterion; the review asked for exactly this null. `grep` of `research/` for "letter 4" /
+"rate" of merging finds nothing; the near-universality of merging for 4-words is new but unrecorded as a finding. E-070 (`34x` pairs, `346` one orbit) agrees
 with my `344 345 347 348` rigid, `346` merged. Not in `RETRACTIONS.md`.
 
 ## Code changed
@@ -65,7 +65,7 @@ None in the library; new scripts `skeptic_probe.py`, `skeptic_scan.py`, `skeptic
 
 ## Next
 
-- Keep the E-071 wording as "only `444` merges among `aaa`, n = 12..15" and do NOT write the "collapse to 34" criterion into H-021's text (STEERING q2): the null
+- Keep the E-073 wording as "only `444` merges among `aaa`, n = 12..15" and do NOT write the "collapse to 34" criterion into H-021's text (STEERING q2): the null
   does not discriminate it; propose the competing statement "words containing a 4 merge at 0.55, others at 0.02-0.15" for the theorist to explain (why 4?).
 - theorist: why are `344 345 347` rigid while `346` and `446` merge; what is special about 4 as a letter in the rule table.
 - experimentalist: `aaa` at n = 16, 17 (a = 3..9) and 4-letter seeds `aaaa`; `22x` needs a different test (2 is degenerate: 222 orbit size 1).

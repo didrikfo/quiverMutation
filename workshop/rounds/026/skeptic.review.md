@@ -18,7 +18,7 @@ Yes as stated. Gaps:
 
 ## New?
 
-Grepped `research/` for E-105, E-106, E-103, "out-degree 2", "kernel element". E-105 (D' description, 61 rejects, hand-checked for one) and E-106 Limits (names the kernel element and shorter presentation as untested) already record the description. New: mechanical check of all 42, the (0, 2) count, the intrinsic 22-row control. Marginal, and the author says so.
+Grepped `research/` for E-107, E-108, E-105, "out-degree 2", "kernel element". E-107 (D' description, 61 rejects, hand-checked for one) and E-108 Limits (names the kernel element and shorter presentation as untested) already record the description. New: mechanical check of all 42, the (0, 2) count, the intrinsic 22-row control. Marginal, and the author says so.
 
 ## Evidenced?
 

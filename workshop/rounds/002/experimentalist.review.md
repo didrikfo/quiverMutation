@@ -16,7 +16,7 @@ No error found. Notes:
 
 ## New?
 
-Partly. Recorded already: E-052/F-053 (pairing), H-021 "exactly when", E-053 (loose reading fails, 129/139, 20 cores). E-053 predicted that only `344 4044 4403` would survive the strict reading and said "that count has not been run". The new content is the strict and strict2 counts, the list of 7 (four more than predicted: `366 4404 4405 4605`), and the 13 that drop out. Committed fit code closes E-053's "not in the repository" caveat.
+Partly. Recorded already: E-052/F-053 (pairing), H-021 "exactly when", E-055 (loose reading fails, 129/139, 20 cores). E-055 predicted that only `344 4044 4403` would survive the strict reading and said "that count has not been run". The new content is the strict and strict2 counts, the list of 7 (four more than predicted: `366 4404 4405 4605`), and the 13 that drop out. Committed fit code closes E-055's "not in the repository" caveat.
 
 ## Evidenced?
 

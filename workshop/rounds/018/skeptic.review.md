@@ -13,14 +13,14 @@ The headline holds as computed. Small errors:
 - The walked run has 55 word lines (56 with the header), and the tags there are 13 IN / 28 OUT / 14 PARTIAL. "First 56 words, up to 3466" is loose by one. The walked-versus-fast agreement is for 55 words, about 46% of the list, not all of it.
 - "offset is last or second-to-last for 17 of 18": checked against `skeptic_partial_where_n16.txt` and it holds (`3344` at 1 is the exception). This is a description, not a rule, and the report says so.
 - The "list stops growing at 120 since letters <= 9 and the count of placements >= 4 bounds the sum" is a hand-wave. The recount above shows 120 is the number of words with >= 4 placements once n >= 16. The reason is the word's own length, not a bound on the sum. Say that instead.
-- The remark that E-086 was vacuous for merged words is correct: orbits are disjoint, so "all IN or none" is a tautology for a word whose placements share one orbit.
-- The 446-orbit is identified with E-088's 235-type orbit by size only. The report says so.
+- The remark that E-088 was vacuous for merged words is correct: orbits are disjoint, so "all IN or none" is a tautology for a word whose placements share one orbit.
+- The 446-orbit is identified with E-090's 235-type orbit by size only. The report says so.
 
 No counterexample found to any stated number.
 
 ## New?
 
-E-086 (research/EXPERIMENTS.md:45) states "0 partial" for merged words only, so the all-words reading is not recorded there. E-083 gives the in-S counts, and the 5/10/13/16 consistency check is correct. E-088 (line 27) already explains `3334` and `2455` as `333@1`-class (lemma R), so their absence from S is explained there; the report cites it but presents it as a data point. grep for "partial", "split", "one placement" in FINDINGS/HYPOTHESES/RETRACTIONS found nothing on "exactly one placement of a split word is in the 444 orbit". That observation is new. Nothing in RETRACTIONS needs editing, but E-086's title wording ("0 partial") should get an erratum note, as the report itself suggests.
+E-088 (research/EXPERIMENTS.md:45) states "0 partial" for merged words only, so the all-words reading is not recorded there. E-085 gives the in-S counts, and the 5/10/13/16 consistency check is correct. E-090 (line 27) already explains `3334` and `2455` as `333@1`-class (lemma R), so their absence from S is explained there; the report cites it but presents it as a data point. grep for "partial", "split", "one placement" in FINDINGS/HYPOTHESES/RETRACTIONS found nothing on "exactly one placement of a split word is in the 444 orbit". That observation is new. Nothing in RETRACTIONS needs editing, but E-088's title wording ("0 partial") should get an erratum note, as the report itself suggests.
 
 ## Evidenced?
 

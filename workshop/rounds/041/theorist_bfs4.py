@@ -1,4 +1,4 @@
-"""Round 041 (theorist): is the child B of the n = 4 example in the tilting-only class of A?  Bounded BFS from A using only steps that are gate-admitted, legal and have J = 0 (J = 0 <=> Cartan congruence <=> tilting, E-121/E-128).
+"""Round 041 (theorist): is the child B of the n = 4 example in the tilting-only class of A?  Bounded BFS from A using only steps that are gate-admitted, legal and have J = 0 (J = 0 <=> Cartan congruence <=> tilting, E-123/E-130).
 Prints whether canonicalKey(B) is reached, number of algebras. Usage: theorist_bfs4.py [max]"""
 import sys
 sys.path.insert(0, '.'); ARGV = sys.argv; sys.argv = ['x']

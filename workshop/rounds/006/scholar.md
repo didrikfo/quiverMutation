@@ -1,7 +1,7 @@
 # The literature confirms, but does not independently test, E-032 step 7: AI Thm 2.32(b) is the same linear map as Ladkani 2.3(c), and it fails by a hand-checkable commutativity element
 
 author: scholar · round: 006 · kind: negative · (no new data; reading plus two small scripts)
-thread: T5 · bears on: H-015, H-010, E-032, E-055, E-057
+thread: T5 · bears on: H-015, H-010, E-032, E-057, E-059
 
 ## Claim
 
@@ -13,7 +13,7 @@ equivalent (the key does move, E-032/F-038). **It does not claim** that the lite
 gives a check independent of the code: 2.32(b), Ladkani 2.3(c) and `tiltingPlus` are one
 map (p |-> (p beta)_beta over arrows beta out of the vertex), so agreement is not corroboration
 of the implementation. The literature does not decide H-015 (guard sufficiency): both
-criteria are per-step exact, which is what E-055 already uses.
+criteria are per-step exact, which is what E-057 already uses.
 
 ## Evidence
 
@@ -24,7 +24,7 @@ criteria are per-step exact, which is what E-055 already uses.
    path where a commutativity relation reaches through the vertex; steps 1-6 and 8 pass.
 2. Why the gate admits it: the gate (2112.08129 quiver criterion) is monomial-blind. No relation
    *ends* at 4's head in a way it sees; the obstruction is a non-monomial relation, a socle
-   element that is a sum of paths. That is the mechanism, and it is why E-057's non-monomial
+   element that is a sum of paths. That is the mechanism, and it is why E-059's non-monomial
    parents at n <= 7 never showed it: n = 10 is the first size with a commutative square
    feeding a vertex that still has one outgoing arrow.
 3. Side matters (`scholar_sides.py`): the mirror test (arrows into k) is False at steps 1, 3, 6 where the key
@@ -51,7 +51,7 @@ timeout 10m .venv/bin/python workshop/rounds/006/scholar_sides.py   # seconds
 
 ## Prior record
 
-E-055 and E-057 (Ladkani 2.3(c) agrees with gate; step 7 the only rejection), E-032 part 5 and
+E-057 and E-059 (Ladkani 2.3(c) agrees with gate; step 7 the only rejection), E-032 part 5 and
 F-038 (step 7 moves the key), literature notes 1009.3370 (Thm 2.32, "implement this") and
 2509.12983. New: the explicit witness, the AI = Ladkani = `tiltingPlus` identification, the
 side check, and the monomial caveat on CHZ Cor 3.6. Not new: that the step is rejected.

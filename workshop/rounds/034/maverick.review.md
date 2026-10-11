@@ -18,7 +18,7 @@ No counterexample found. I did not run n=12 (not claimed).
 
 ## New?
 
-Partly. E-118 (research/EXPERIMENTS.md line 69) already records the failing class, the two images, the split inside orbit 15107, "K >= 4 holds" at n=11, and the 66 K=3 / 16 K=4 end counts. Its Limits paragraph says the K=3 attribution was "not tabulated per end". So the per-end table and "all K=4 ends go to I2" mostly re-derive E-118 (K >= 4 on resolved classes). What is new:
+Partly. E-120 (research/EXPERIMENTS.md line 69) already records the failing class, the two images, the split inside orbit 15107, "K >= 4 holds" at n=11, and the 66 K=3 / 16 K=4 end counts. Its Limits paragraph says the K=3 attribution was "not tabulated per end". So the per-end table and "all K=4 ends go to I2" mostly re-derive E-120 (K >= 4 on resolved classes). What is new:
 - the same-core K=3 vs K=4 comparison (12 words);
 - the statement that the image is a function of (K, core word) over 77 keys.
 
@@ -35,4 +35,4 @@ The numbers are specific and reproducible. Missing:
 
 1. Reword the Claim: separate the observed result (image = f(K, core word), K=3 vs K=4 same-core split) from the "room to move" interpretation, and mark the interpretation as a hypothesis. Drop "So the failure is..." as a conclusion, or add a direct test of it.
 2. Rerun the function-of-word check with `freeMoves.mirrorRow` for head ends, or restrict the claim to the tail table and say head counts equal tail counts as a mirror consistency check only.
-3. Say in Prior record that E-118 already has "K >= 4 holds" and the 66/16 end split, so the new content is the same-core comparison and the function statement.
+3. Say in Prior record that E-120 already has "K >= 4 holds" and the 66/16 end split, so the new content is the same-core comparison and the function statement.

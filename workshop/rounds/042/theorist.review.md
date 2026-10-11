@@ -18,12 +18,12 @@ Not re-run: theorist_exceptions (the 8 H1 failures), theorist_lemma on n=7 (the 
 
 No error found. P1 and P2 are short algebra and every numerical consequence I re-ran holds. Concerns:
 1. The "(-2, 6)" in the s column of my reduce output shows s = -2 and 6 are both found; the text says "s = -2" only. Harmless, but the claim that "e_i = F^s e_w never absent" should say it is mod the order of F, which is small here (period 8 on the moment sequences), so some coincidences are cheap. The orbit relation is less surprising for a short F-period than the text suggests; the author should state the F-order for these Z.
-2. The case one further (n=8) was not run by the author or me (a single 10-minute walk reaches too few J != 0 steps; E-140 had 278 over n=6,7,8 with guard off). The claim is stated for n=6,7 only, which is fair.
+2. The case one further (n=8) was not run by the author or me (a single 10-minute walk reaches too few J != 0 steps; E-142 had 278 over n=6,7,8 with guard off). The claim is stated for n=6,7 only, which is fair.
 3. The exceptions (H1/H2 fail) are asserted to have Q = x^2(1+...) from the library, not from the P1 formula, so the "iff two orbit numbers vanish" statement is silent on 50/766 steps. The title's "exactly when" is therefore proved for s = 1, H1+H2 only; for the rest it is observed correlation. The Claim section says this; the title overstates.
 
 ## New?
 
-grep of EXPERIMENTS/FINDINGS/RETRACTIONS/HYPOTHESES for Serre, moment, orbit number, x^2: nothing relevant (only an unrelated x^4+x^3.. polynomial at FINDINGS.md:1261). Predecessor E-141 (x^2 lowest term, observed, n=6,7, conditional on E-136 at n=7), E-136 (C_B = C'+H), E-140 (guard-off). The block form, P2 and the orbit relation are new. The n=7 C_B = C'+H check closing E-141's conditional is new and reproduced.
+grep of EXPERIMENTS/FINDINGS/RETRACTIONS/HYPOTHESES for Serre, moment, orbit number, x^2: nothing relevant (only an unrelated x^4+x^3.. polynomial at FINDINGS.md:1261). Predecessor E-143 (x^2 lowest term, observed, n=6,7, conditional on E-138 at n=7), E-138 (C_B = C'+H), E-142 (guard-off). The block form, P2 and the orbit relation are new. The n=7 C_B = C'+H check closing E-143's conditional is new and reproduced.
 
 ## Evidenced?
 

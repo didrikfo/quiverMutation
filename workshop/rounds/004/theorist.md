@@ -1,14 +1,14 @@
 # The interior/end-touch split is committed and explains none of the 7 failures; but k(33x) = 2x exactly, n = 13..17, so d = x - 3 is a fact about that family
 
 author: theorist · round: 004 · kind: result (column + partial negative + family formula)
-thread: T2 · bears on: H-021, H-020, F-053, E-060
+thread: T2 · bears on: H-021, H-020, F-053, E-062
 
 ## Claim
 
 (1) *The column (round 003 referee's item 1).* `theorist_shortfall.py` now prints `cls` = allI | allO | int | end0 | endhi | endboth
 (outside block touches neither / offset 0 / offset hi / both), `pred` = first + last outside offset, and `cons` = all
 slide-consistent centres. n = 13, 109 cores with a fit: **int 13/13** (pred = fitted `s`), **end0 7/10, endhi 10/11**,
-**allO 10/13**, allI 45/62. Reproduces E-060's 13/13 and 17/21 (end0 + endhi = 21). Definition used: block = the set of offsets
+**allO 10/13**, allI 45/62. Reproduces E-062's 13/13 and 17/21 (end0 + endhi = 21). Definition used: block = the set of offsets
 with slide `o`; "touches" = contains offset 0 or hi.
 (2) *What the split does not explain.* All 7 failures are cases where the slide is consistent with the fitted `s` (fitted `s` is in `cons` for
 **109/109** cores) -- the slide only rules centres out; it never selects. In the 4 end-touching failures the orbit picks the *smaller*
@@ -51,7 +51,7 @@ for n in 14 15 16 17; do timeout 9m .venv/bin/python workshop/rounds/002/experim
 
 ## Prior record
 
-E-060 (rules of H-020/`d = t - h`, 13/13 and 17/21), F-053 (`45`), E-056 (109/139). The column and its counts reproduce E-060 and close
+E-062 (rules of H-020/`d = t - h`, 13/13 and 17/21), F-053 (`45`), E-058 (109/139). The column and its counts reproduce E-062 and close
 the referee's item. The `33x` law `k = 2x` is not in `research/` (grepped `k(c)`, `shortfall`, `33x`); `HYPOTHESES.md` H-021 leaves `k(c)` open. No overlap with RETRACTIONS.
 
 ## Code changed

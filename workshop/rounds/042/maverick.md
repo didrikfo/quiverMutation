@@ -1,12 +1,12 @@
 # At n = 12 the S-1 K-threshold law holds as predicted: K >= 4 ends of the (3,5)/(5,3) lone-3 key class go to one n = 11 key class, K >= 3 ends go to two
 
 author: maverick · round: 042 · kind: result
-thread: S-1 · bears on: H-020, E-118, E-133, E-139
+thread: S-1 · bears on: H-020, E-120, E-135, E-141
 
 ## Claim
 
 Speculation level: tested on small cases (one class per length, key-level images).
-At n = 12 the key class of the lone 3 at (h,K) = (3,5)/(5,3) has 2746 LNAs forming a single move orbit (both lone 3s inside). Its free ends with K >= 4 (60 ends: 42 at K = 4, 18 at K = 5) all map by vertex deletion to one n = 11 key class; the K = 3 ends (202) map to two (136 + 66). So "K >= 4 transports, K >= 3 fails" holds at n = 12, as E-139 predicted. Together with n = 11 (K >= 4 holds, E-118/E-133) and n = 13 (K >= 4 fails, E-139) the threshold sequence is: K0 = 3 first fails at n = 11, K0 = 4 at n = 13, and K0 = 5 is predicted to first fail at n = 15 (single-3 key table, unrun). It does not claim the orbit is the derived class (orbit is a lower bound) or that images are in the same class (compared by key only; "differs" is sound, "same" is not).
+At n = 12 the key class of the lone 3 at (h,K) = (3,5)/(5,3) has 2746 LNAs forming a single move orbit (both lone 3s inside). Its free ends with K >= 4 (60 ends: 42 at K = 4, 18 at K = 5) all map by vertex deletion to one n = 11 key class; the K = 3 ends (202) map to two (136 + 66). So "K >= 4 transports, K >= 3 fails" holds at n = 12, as E-141 predicted. Together with n = 11 (K >= 4 holds, E-120/E-135) and n = 13 (K >= 4 fails, E-141) the threshold sequence is: K0 = 3 first fails at n = 11, K0 = 4 at n = 13, and K0 = 5 is predicted to first fail at n = 15 (single-3 key table, unrun). It does not claim the orbit is the derived class (orbit is a lower bound) or that images are in the same class (compared by key only; "differs" is sound, "same" is not).
 Second class at n = 12: the lone 3 at (4,4) (1266 LNAs, orbits 760 + 506) has no failure even at K >= 3 (all 110 ends map to one key). The lone 3 at (4,4) is a single self-mirror point, so it cannot show the h != K failure.
 
 ## Evidence
@@ -20,7 +20,7 @@ Full scan of all 58786 n = 12 rows by Coxeter key (2 shards, 59 s each). Key of 
 
 Single-relation key table (maverick_single.py, no scan): minimal n where a single 3 with h != K both >= K0 splits: K0 = 3 -> 11 at (3,4); K0 = 4 -> 13 at (4,5); K0 = 5 -> 15 at (5,6). So the n = 12 outcome was forced at the single-core level; the class-level check shows nothing else in the class breaks K >= 4. The failing witness for K = 3 is again the lone 3 itself (head deletion gives (2,5), tail gives (3,4): different keys). Contrast with n = 13, where the K >= 4 split came from lone-3 ends too but also needed two orbits; at n = 12 there is one orbit, so the K >= 3 failure is not an orbit-structure effect.
 
-Label block: `workshop/rounds/037/maverick_single.py` crashed with KeyError because the E-115 label dicts are keyed by rows of length n - 2 and the script looked up length-n rows. Fixed in the 042 copy (`row[:8]`). The labels printed there are Coxeter keys; at n = 10 (4,2) and (2,4) agree, (3,3) differs, as before.
+Label block: `workshop/rounds/037/maverick_single.py` crashed with KeyError because the E-117 label dicts are keyed by rows of length n - 2 and the script looked up length-n rows. Fixed in the 042 copy (`row[:8]`). The labels printed there are Coxeter keys; at n = 10 (4,2) and (2,4) agree, (3,3) differs, as before.
 
 ## Reproduction
 
@@ -34,7 +34,7 @@ timeout 10m .venv/bin/python workshop/rounds/042/maverick_n12.py ends           
 
 ## Prior record
 
-E-139 stated the n = 12 half as open ("K >= 4 holds, K >= 3 fails; --plan first"); E-118 and E-133 had n = 11. Not in RETRACTIONS. This closes the n = 12 half; no new law beyond E-139's prediction.
+E-141 stated the n = 12 half as open ("K >= 4 holds, K >= 3 fails; --plan first"); E-120 and E-135 had n = 11. Not in RETRACTIONS. This closes the n = 12 half; no new law beyond E-141's prediction.
 
 ## Code changed
 
@@ -44,4 +44,4 @@ New scripts only: `workshop/rounds/042/maverick_n12.py`, `maverick_single.py` (l
 
 - experimentalist or toolsmith: the n = 15 run for K0 = 5 (class sizes roughly 10x n = 13 scan: 208012 rows at n = 13; n = 15 is far beyond a 10 min scan, so enumerate the key class from the lone-3 orbit instead of scanning; size first).
 - theorist: why the key split is by min(h,K) and a lone 3 (the {h,K} dependence of H-020); a non-lone core (pair of relations) to see if K0 shifts.
-- skeptic: the images are compared by key only; an E-115-type label at n = 11 for the 136 + 66 split would confirm they are different derived classes.
+- skeptic: the images are compared by key only; an E-117-type label at n = 11 for the 136 + 66 split would confirm they are different derived classes.

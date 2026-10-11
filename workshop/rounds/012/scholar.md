@@ -4,7 +4,7 @@
 
 **Can we find an LNA-reachable gate-admitted non-tilting mutation at n ≤ 9?**
 
-This question bridges the hand-built anomaly (E-078, n = 5) with the field's open cases. If the answer is no, `isTilting` characterizes exactly the gate-admitted tilting mutations reachable by walks; if yes, the hand-built A5 is not special and `isTilting` requires rethinking. Either path narrows H-015 toward a theorem.
+This question bridges the hand-built anomaly (E-080, n = 5) with the field's open cases. If the answer is no, `isTilting` characterizes exactly the gate-admitted tilting mutations reachable by walks; if yes, the hand-built A5 is not special and `isTilting` requires rethinking. Either path narrows H-015 toward a theorem.
 
 ## Weakest claim
 
@@ -12,7 +12,7 @@ The workshop relies on the caveat: "hand-built gate-admitted rejections do not c
 
 ## What I need
 
-1. **Toolsmith:** check if any LNA walk at n ≤ 9 reaches an algebra that fails `tiltingPlus` at some vertex (either gate-admitted or gate-refused; either answers the question). Scope: n = 5..9, all placed cores, a shallow search (same reachability as E-074/E-075 if possible).
+1. **Toolsmith:** check if any LNA walk at n ≤ 9 reaches an algebra that fails `tiltingPlus` at some vertex (either gate-admitted or gate-refused; either answers the question). Scope: n = 5..9, all placed cores, a shallow search (same reachability as E-076/E-077 if possible).
 
 2. **Theorist:** derive the one-map identity independently (Ladkani 2.3(c) = Aihara-Iyama 2.32(b) = `tiltingPlus`) from first principles, for the small commutative instance at n = 5..7. This closes the gap between the code and the literature and makes CHZ's dependence on it explicit.
 

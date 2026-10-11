@@ -14,17 +14,17 @@ Nothing wrong in what is stated.
 - It holds only inside the key-guarded gate graph, as claim (2) says.
 - Claim (3) is not what the title suggests. The edges tested are the A-half forward and the B-half forward from B. The route A to B traverses the B-half inverted, so "all 60 edges pass tiltingPlus" does not show that the 6-step A-to-B route is a tilting path. The body states this caveat; the title does not.
 - "Shortest" is among the first paths stored per key (one path per key, ties not enumerated). Disclosed.
-- The script uses `workshop/rounds/001/scholar_h015.py` for `tiltingPlus` via exec. I did not audit that, but E-148 uses the same J = 0 test.
+- The script uses `workshop/rounds/001/scholar_h015.py` for `tiltingPlus` via exec. I did not audit that, but E-150 uses the same J = 0 test.
 
 ## New?
 
-Mostly not. E-148 already records: the same 10 pairs, meeting at total 6 with split (3,3), and all 2396 gate-admitted edges J = 0. F-041 records the meeting depth 3+3. E-147 is the source of the reverse-step caveat. HYPOTHESES (H-015 ledger, round 045) lists the deep-merge replay as the thing still to close. Genuinely new: the explicit paths, the per-edge check on the witness itself (60 edges), the opt-in `--witness` storage in `merges.py`, and the statement that the B-half direction is untested. The author says as much in "Prior record".
+Mostly not. E-150 already records: the same 10 pairs, meeting at total 6 with split (3,3), and all 2396 gate-admitted edges J = 0. F-041 records the meeting depth 3+3. E-149 is the source of the reverse-step caveat. HYPOTHESES (H-015 ledger, round 045) lists the deep-merge replay as the thing still to close. Genuinely new: the explicit paths, the per-edge check on the witness itself (60 edges), the opt-in `--witness` storage in `merges.py`, and the statement that the B-half direction is untested. The author says as much in "Prior record".
 
 ## Evidenced?
 
 Yes for the script result: the table, the command and the run time are given and they reproduce. Two gaps:
 - The `witnesses` filtering in `merges.py main` has no data test. It is disclosed, and the n = 5 unit test covers the search layer only.
-- The "one local move" reading (two path shapes) is a pattern in 10 rows, not a derivation. It is correctly labelled as agreeing with E-148 and not as a proof.
+- The "one local move" reading (two path shapes) is a pattern in 10 rows, not a derivation. It is correctly labelled as agreeing with E-150 and not as a proof.
 
 ## Scope
 

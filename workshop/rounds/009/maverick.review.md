@@ -22,7 +22,7 @@ The two control results are true as stated. Problems:
 
 ## New?
 
-Partly. Grepped `research/` for E-069, H-017, "L >= 5", "L - 1", "depth 5". E-069 (research/EXPERIMENTS.md:27) states "no L >= 5 case" and "L shortest not checked" in its Limits. This round fills the n = 6 case and gives an 8-LNA n = 7 sample. E-063 (:81) already covers the forward walks to depth 6. Extending to L = 5 is new but incremental. The "depth 5 negative for four n = 9 cells" is not recorded elsewhere, but it is weak: it excludes only members within 5 steps and the forward walk needed 6.
+Partly. Grepped `research/` for E-071, H-017, "L >= 5", "L - 1", "depth 5". E-071 (research/EXPERIMENTS.md:27) states "no L >= 5 case" and "L shortest not checked" in its Limits. This round fills the n = 6 case and gives an 8-LNA n = 7 sample. E-065 (:81) already covers the forward walks to depth 6. Extending to L = 5 is new but incremental. The "depth 5 negative for four n = 9 cells" is not recorded elsewhere, but it is weak: it excludes only members within 5 steps and the forward walk needed 6.
 
 ## Evidenced?
 
@@ -35,5 +35,5 @@ Mostly. The table gives n, L, counts and timings, and the commands are given. Mi
 
 1. Fix the depth 6 sizing: total for the 4 cells and for 16, and the shard size that fits under 10 minutes (probably 1 candidate).
 2. Explain the 4-of-16 candidate gap. Save the n = 9 depth 5 and 6 outputs to a file.
-3. Drop claim (2) from the title and claim list, or label it a consistency check only (E-069 already says the depth L-1 negative is the real test).
+3. Drop claim (2) from the title and claim list, or label it a consistency check only (E-071 already says the depth L-1 negative is the real test).
 4. Fix the title wording. Say "first 8 of 132" (near-trivial LNAs) in the title-level claim, or run more n = 7 LNAs.

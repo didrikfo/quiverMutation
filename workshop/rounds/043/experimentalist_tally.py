@@ -1,4 +1,4 @@
-"""Round 043 (experimentalist): n-tally for E-143 on the class walk (guarded as rounds/041/theorist_dump.py, or 'off' = key guard off to depth D as 042/theorist_dump_off.py).
+"""Round 043 (experimentalist): n-tally for E-145 on the class walk (guarded as rounds/041/theorist_dump.py, or 'off' = key guard off to depth D as 042/theorist_dump_off.py).
 For every gate-admitted step with J != 0 (J = perI): shape (|out v|, |supp J|, dim J, C'e_v = e_v, u = e_w - e_i), and on H1&H2 steps: s with F^s e_w = e_i (|s|<=8),
 order of F, c_2 = (Y^T F^2)_ww, Q(x) = det(xC_B+C_B^T) - det(xC'+C'^T) lowest term (library C_B), and Q == x(adjS_ii-adjS_wi-adjS_iw).
 Usage: experimentalist_tally.py n cls budget_sec [off DEPTH] [--plan]    (repo root)"""

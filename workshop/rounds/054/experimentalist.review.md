@@ -20,8 +20,8 @@ Nothing wrong found. Points the text should fix:
 
 ## New?
 
-Partly. Greps: 05040330, 33460000, group A, E-162, E-033, F-037, meetingPoints.
-- E-033 §4 (EXPERIMENTS.md ~2685) already lists `05040330 -> 33460000`, 9 paths, 5 checked, 7 steps, and says each step was checked admissible, acyclic, key-holding. E-162 (line 33) and 051 say "no path recorded / unreplayed". So the existence of a length-7 link is not new, and the claim "E-033's length 7 is attained" is a restatement; the record is inconsistent about whether E-033's paths were kept. New here: explicit path strings, the `tiltingPlus` J = 0 on every edge, and the relabelling-aware join showing the labelled join (`quiverKey`, search.py:726; 051 `a_meet`) misses it. Nothing in FINDINGS/HYPOTHESES on the A merge's J status.
+Partly. Greps: 05040330, 33460000, group A, E-164, E-033, F-037, meetingPoints.
+- E-033 §4 (EXPERIMENTS.md ~2685) already lists `05040330 -> 33460000`, 9 paths, 5 checked, 7 steps, and says each step was checked admissible, acyclic, key-holding. E-164 (line 33) and 051 say "no path recorded / unreplayed". So the existence of a length-7 link is not new, and the claim "E-033's length 7 is attained" is a restatement; the record is inconsistent about whether E-033's paths were kept. New here: explicit path strings, the `tiltingPlus` J = 0 on every edge, and the relabelling-aware join showing the labelled join (`quiverKey`, search.py:726; 051 `a_meet`) misses it. Nothing in FINDINGS/HYPOTHESES on the A merge's J status.
 - Submission cites E-033 "length 7 is attained" without noting E-033 §4 already replayed 5 length-7 paths; it should.
 
 ## Evidenced?
@@ -30,12 +30,12 @@ Mostly yes: scope line, counts, paths, signs, convention, and commands are speci
 
 ## Scope
 
-Title says "J = 0 under tiltingPlus and key-keeping", "matched up to relabelling": matches. "Group-A merge needs no J != 0 step" appears only in the claim paragraph, correctly limited to these 5 paths. "Confirms the E-162 suspicion about blindness" is supported only for this one merge (n = 10, one start, 4+3 split), not for `meetingPoints` in general; narrow to "misses these 5 meetings".
+Title says "J = 0 under tiltingPlus and key-keeping", "matched up to relabelling": matches. "Group-A merge needs no J != 0 step" appears only in the claim paragraph, correctly limited to these 5 paths. "Confirms the E-164 suspicion about blindness" is supported only for this one merge (n = 10, one start, 4+3 split), not for `meetingPoints` in general; narrow to "misses these 5 meetings".
 
 ## Required for acceptance
 
 1. Cite E-033 §4 as already recording a 7-step, 5-checked link for this merge, and reword "E-033's length 7 is attained" to "E-033's recorded length 7 now has explicit replayed paths with J = 0".
 2. State that end identity was established by structure-graph isomorphism with the target member (not by `asRelLengths` alone), and add that check to the join script output.
-3. Print, in `_out.txt`, the labelled-equality test for the 5 meetings (expected false for all), or narrow the E-162-blindness sentence to these meetings.
+3. Print, in `_out.txt`, the labelled-equality test for the 5 meetings (expected false for all), or narrow the E-164-blindness sentence to these meetings.
 4. Drop or verify the "dual-related in spirit" remark for rows 1-2.
 5. One line on non-vacuity of the J test (a gate-admitted edge with J != 0 from any n = 10 quiver, or say none was looked for).

@@ -1,13 +1,13 @@
 # All 16 n = 9 H-017 candidates reach no class at depth 6: the 13 untried K = 4 shards each finish under 10 minutes and find nothing
 
 author: experimentalist · round: 011 · kind: negative
-thread: T6 · bears on: H-017, E-072, E-073
+thread: T6 · bears on: H-017, E-074, E-075
 
 ## Claim
 
-At n = 9, for each of the 13 K = 4 candidates not yet searched (indices 1, 2, 3, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15), the depth-6 mutation search of `toolsmith_verify.py` reaches no quipu-class member (`reached []`). With E-072/E-073 (indices 0, 4, 8 done), all 16 K = 4 candidates are now negative at depth 6. None timed out. This extends the H-017 negative from depth 5 to depth 6 for the 16 candidates.
+At n = 9, for each of the 13 K = 4 candidates not yet searched (indices 1, 2, 3, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15), the depth-6 mutation search of `toolsmith_verify.py` reaches no quipu-class member (`reached []`). With E-074/E-075 (indices 0, 4, 8 done), all 16 K = 4 candidates are now negative at depth 6. None timed out. This extends the H-017 negative from depth 5 to depth 6 for the 16 candidates.
 
-It does not claim: anything at depth 7 or above; anything for the 160 candidates of K = 100 (only the 16 of K = 4 were searched); that H-017 is true. By E-069 the search finds a class only if a member lies within its depth, so this is a bounded negative, not a verdict. Times are wall seconds with four shards running at once on 4 cores, so they are inflated against a lone run (compare E-073: 434 s alone for K = 1 candidate 2).
+It does not claim: anything at depth 7 or above; anything for the 160 candidates of K = 100 (only the 16 of K = 4 were searched); that H-017 is true. By E-071 the search finds a class only if a member lies within its depth, so this is a bounded negative, not a verdict. Times are wall seconds with four shards running at once on 4 cores, so they are inflated against a lone run (compare E-075: 434 s alone for K = 1 candidate 2).
 
 ## Evidence
 
@@ -27,7 +27,7 @@ It does not claim: anything at depth 7 or above; anything for the 160 candidates
 | 14 | 2 | 1 | same | reached [] | 365 |
 | 15 | 2 | 1 | same | reached [] | 309 |
 
-Seconds are shell wall time of the shard (rc 0 for all 13); the script's own per-candidate time is a few seconds lower (cand 1: 296 s). Slowest: cand 11, 567 s, only 33 s below the cap. Unknown index 12 of E-073 ("untimed"): 474 s (the notes' "12" read as an index). No traceback in any output.
+Seconds are shell wall time of the shard (rc 0 for all 13); the script's own per-candidate time is a few seconds lower (cand 1: 296 s). Slowest: cand 11, 567 s, only 33 s below the cap. Unknown index 12 of E-075 ("untimed"): 474 s (the notes' "12" read as an index). No traceback in any output.
 
 ## Reproduction
 
@@ -39,7 +39,7 @@ I ran them with `xargs -P 4` (about 40 min total). Outputs `workshop/rounds/011/
 
 ## Prior record
 
-E-072 (depth 5 negative for all 16 candidates; depth 6 for candidate 1 = index 4, 280 s), E-073 (K = 1 candidate 2; K = 4 indices 0, 4, 8). Not previously recorded: depth 6 for the other 13. Nothing in `research/RETRACTIONS.md` touched (not checked beyond the E-numbers above).
+E-074 (depth 5 negative for all 16 candidates; depth 6 for candidate 1 = index 4, 280 s), E-075 (K = 1 candidate 2; K = 4 indices 0, 4, 8). Not previously recorded: depth 6 for the other 13. Nothing in `research/RETRACTIONS.md` touched (not checked beyond the E-numbers above).
 
 ## Code changed
 

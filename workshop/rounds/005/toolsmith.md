@@ -2,9 +2,9 @@
 
 ## Most promising question
 
-**Can we run the full catalogue at sizes 13–16 through `batch.py orbits` with the current concurrency fix, and validate whether orbit-plus-mirror and key groupings diverge where E-058 and E-062 found them to?**
+**Can we run the full catalogue at sizes 13–16 through `batch.py orbits` with the current concurrency fix, and validate whether orbit-plus-mirror and key groupings diverge where E-060 and E-064 found them to?**
 
-Why: T8 is nominally "open" (orbit census run, commit fit/slide as task, add prefilter). But the bottleneck is validation. The workshop has two competing grouping schemes (key vs. orbit-plus-mirror) whose boundary behaviour is now visible in high-resolution data (E-058, E-062). Running the full catalogue at 14–16 through `batch.py` would give the experimentalist direct orbit data to compare against key; right now T3 depends on `--max-word 4` scans that are incomplete. A clean run would also catch whether the ledger's append+fsync is safe enough for `--jobs 4`, which Round 003 caveat left open.
+Why: T8 is nominally "open" (orbit census run, commit fit/slide as task, add prefilter). But the bottleneck is validation. The workshop has two competing grouping schemes (key vs. orbit-plus-mirror) whose boundary behaviour is now visible in high-resolution data (E-060, E-064). Running the full catalogue at 14–16 through `batch.py` would give the experimentalist direct orbit data to compare against key; right now T3 depends on `--max-word 4` scans that are incomplete. A clean run would also catch whether the ledger's append+fsync is safe enough for `--jobs 4`, which Round 003 caveat left open.
 
 ## Weakest claim
 

@@ -456,7 +456,7 @@ Runs the research workshop (`workshop/`) asked for because they do not fit in
 a round. Each names the round that proposed it; record the outcome as an
 `E-nnn` as usual, and tell the workshop by a line in `workshop/STEERING.md`.
 
-**The T1 census at `n = 14`, for H-021** (round 001, experimentalist; E-053).
+**The T1 census at `n = 14`, for H-021** (round 001, experimentalist; E-055).
 Every single-cluster core of `--max-word 4`, every offset walked to closure
 under the reduced walk, with which offsets and which **mirrors** each orbit
 holds -- enough to test H-021 under both the loose and the strict reading of
@@ -469,7 +469,7 @@ wsl -e bash -lc "cd /mnt/c/Users/didri/kode/quiverMutation && .venv/bin/python o
 ```
 
 **The Ladkani audit where the guard fires, for H-015** (round 001, scholar;
-E-055). Every step the Coxeter guard admits, checked against Ladkani's exact
+E-057). Every step the Coxeter guard admits, checked against Ladkani's exact
 tilting criterion and the Cartan congruence; the decisive outcome is a step
 with the guard passing and `tilt` false. At `n = 6, 7` the guard never refuses
 anything, so those runs could not tell; 9 and 10 are where it does. **Not

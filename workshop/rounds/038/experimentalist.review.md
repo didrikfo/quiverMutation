@@ -13,11 +13,11 @@ Statement as written is true of the sample. Gaps:
 - "out(i) = 3 necessary" rests on 9 rows / 5 algebras, all at BFS level 9, all in the last ~670 expansions, and rows from 3 expansion-indices cluster (7822, 7831, 7836 are one or two algebras each). Effective independent n is about 5, with dim A 47/64/75 each a different (d, dimA) pairing. The text says this; the headline title still says "necessary in the sample", which is accurate but weak.
 - Algebra count of 5 is by id (key or hash); the two with keys vs three with hashes means pairwise distinctness is unchecked (author says so).
 - Prediction of the claim: d >= 3 with J != 0 and out(i) != 3 does not appear. Not tested past the cap; the J = 0, d >= 3 rows show out(i) from 1 to 7 on the same tail, so the out(i) = 3 restriction is not a tail artefact of out-degree range generally, but the author does not compare J != 0 d = 2 vs d >= 3 rows at equal level (all d >= 3 are level 9; 146 d = 2 J != 0 rows at level 9 for comparison would be the fair control, and the author's own out(i) distribution there, which I find as 2/1/3, has 3 only about 5 percent).
-- Mechanism is not offered; E-131 already gives one (relation p1 b = p2 b on the single non-parallel out-arrow). The two new rows have three distinct targets and no parallel arrow, so that mechanism does not cover them: this is the interesting part and is correctly flagged.
+- Mechanism is not offered; E-133 already gives one (relation p1 b = p2 b on the single non-parallel out-arrow). The two new rows have three distinct targets and no parallel arrow, so that mechanism does not cover them: this is the interesting part and is correctly flagged.
 
 ## New?
 
-E-129 (d = 2 on all 285 rows; d >= 3 only at J = 0), E-131 (three d = 4, 4, 5 rows, J != 0, filtered on out-degree >= 3 of v; not out(i)), E-132 (hand (3,1) example, off-walk). Nothing found in research/ for "out-degree(i)" or a (3,1) row on a walk. So the two (3,1) walk rows with distinct targets, and the out(i) = 3 tabulation, are new. The d = 2 count (234) restates E-129's kind of count at larger scale; not new in content.
+E-131 (d = 2 on all 285 rows; d >= 3 only at J = 0), E-133 (three d = 4, 4, 5 rows, J != 0, filtered on out-degree >= 3 of v; not out(i)), E-134 (hand (3,1) example, off-walk). Nothing found in research/ for "out-degree(i)" or a (3,1) row on a walk. So the two (3,1) walk rows with distinct targets, and the out(i) = 3 tabulation, are new. The d = 2 count (234) restates E-131's kind of count at larger scale; not new in content.
 
 ## Evidenced?
 

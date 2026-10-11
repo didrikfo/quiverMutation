@@ -6,7 +6,7 @@
 
 ## Weakest claim the workshop relies on
 
-Rule W rejects iff a two-term relation p1·b1 = p2·b1 has both sides through v, x = p1 - p2 != 0, and both p1·b2 = 0 and p2·b2 in A. The converse (reject => W) rests on 70 same-shape rejects; the "cancels" branch is never exercised; parallel-arrow positive control does not exist. Skeptic's control (E-106) shows shape alone is not sufficient (754 accept, 42 reject).
+Rule W rejects iff a two-term relation p1·b1 = p2·b1 has both sides through v, x = p1 - p2 != 0, and both p1·b2 = 0 and p2·b2 in A. The converse (reject => W) rests on 70 same-shape rejects; the "cancels" branch is never exercised; parallel-arrow positive control does not exist. Skeptic's control (E-108) shows shape alone is not sufficient (754 accept, 42 reject).
 
 ## What I need
 
@@ -16,4 +16,4 @@ Rule W rejects iff a two-term relation p1·b1 = p2·b1 has both sides through v,
 
 ## Summary
 
-The 42 n=8 c0 rejects are firm (E-108 reproduces; kernel element x is a two-term sum; shape (0,2) holds). W works perfectly as a *sufficient* condition for rejection (0 mismatches, 17 802 rows). The gap is the 22 rows where J is nonzero in both components yet their intersection is zero — if theorist can explain them, W may be necessary as well. The absence of a parallel-arrow positive control is the other blocking point; its presence would close T5.
+The 42 n=8 c0 rejects are firm (E-110 reproduces; kernel element x is a two-term sum; shape (0,2) holds). W works perfectly as a *sufficient* condition for rejection (0 mismatches, 17 802 rows). The gap is the 22 rows where J is nonzero in both components yet their intersection is zero — if theorist can explain them, W may be necessary as well. The absence of a parallel-arrow positive control is the other blocking point; its presence would close T5.

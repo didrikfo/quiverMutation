@@ -1,4 +1,4 @@
-"""Round 007 null test for |R|<=4 reflection fits (E-060/E-061/E-062 data).
+"""Round 007 null test for |R|<=4 reflection fits (E-062/E-063/E-064 data).
   .venv/bin/python workshop/rounds/007/skeptic_null.py [trials]
 Null: keep each core's offsets and orbit block sizes, randomly reassign offsets to blocks
 (uniform over labelled permutations), run the project's own fit() (d<=6).

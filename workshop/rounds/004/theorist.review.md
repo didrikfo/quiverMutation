@@ -19,7 +19,7 @@ Weaknesses that do not break the claim but limit it:
 
 ## New?
 
-Grepped `research/` for `33x`, `shortfall`, `k(c)`, `2x`, and `d = x - 3`. `k(33x) = 2x` is not recorded. E-060 (EXPERIMENTS.md line 12-16) has the 13/13 and 17/21 counts and lists the column as a missing required change. This round supplies it. H-021 (HYPOTHESES.md line 9) leaves `k(c)` open. No overlap with RETRACTIONS.
+Grepped `research/` for `33x`, `shortfall`, `k(c)`, `2x`, and `d = x - 3`. `k(33x) = 2x` is not recorded. E-062 (EXPERIMENTS.md line 12-16) has the 13/13 and 17/21 counts and lists the column as a missing required change. This round supplies it. H-021 (HYPOTHESES.md line 9) leaves `k(c)` open. No overlap with RETRACTIONS.
 
 ## Evidenced?
 

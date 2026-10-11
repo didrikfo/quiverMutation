@@ -1,4 +1,4 @@
-"""T10(i)/T4: describe the E-149 failing children (needs a pickle from rounds/046/skeptic_collect.py).
+"""T10(i)/T4: describe the E-151 failing children (needs a pickle from rounds/046/skeptic_collect.py).
 usage: theorist_children.py FILE.pkl"""
 import sys, pickle, collections
 recs = [r for r in pickle.load(open(sys.argv[1], 'rb')) if r['kind'] == 'fail']

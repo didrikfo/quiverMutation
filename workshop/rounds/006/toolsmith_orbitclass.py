@@ -1,4 +1,4 @@
-"""Orbit-plus-mirror classes against Coxeter-key classes over the catalogue (T3/T8, E-058).
+"""Orbit-plus-mirror classes against Coxeter-key classes over the catalogue (T3/T8, E-060).
 
   .venv/bin/python workshop/rounds/006/toolsmith_orbitclass.py N [--jobs J] [--max-word 4]
       runs (or resumes) `batch.py orbits N`, reads its ledger, and for every
@@ -6,7 +6,7 @@
       orbits; orbit-plus-mirror (orbits joined when one holds the mirror of an
       offset of the other); key classes (`lnaCoxeterKey`).  Prints the cores
       where the partitions differ.  Key == orbit-plus-mirror is the prefilter
-      claim; "key coarser" is E-058's case.
+      claim; "key coarser" is E-060's case.
   .venv/bin/python workshop/rounds/006/toolsmith_orbitclass.py --same-orbit
       n = 16: walks the middle pairs of 4056, 46, 3355, 3445 and intersects
       the row sets (is the 20300 one orbit?).  Several minutes.

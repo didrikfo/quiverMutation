@@ -1,7 +1,7 @@
 # HH^* = k on every LNA n <= 10 (confirms 2312.14699 and 0805.1018 Prop 5.1; no new information), and at n <= 9 no certified-inequivalent LNA pair shares a key and F-047 profile, so there is no equal-profile pair on which to power-test a candidate invariant
 
 author: maverick · round: 055 (revision of 054) · kind: negative
-thread: T3/T8 · bears on: H-003, H-013, F-010, F-047, E-080, E-168
+thread: T3/T8 · bears on: H-003, H-013, F-010, F-047, E-082, E-170
 scope: HH for all LNAs n = 3..10; key groups (key = Coxeter polynomial) with >= 2 orbit+mirror classes, n = 6..10, whole-LNA level;
 F-047 profile; the finite-order-Phi x certified cross-table was computed at n = 9, 10 only. Speculation level: HH part rediscovery; the periodicity obstruction is a known lemma
 (0911.5137 Cor 1.9, 1310.1557 2.9); only the cross-table is new, and it is `tested on small cases`; the object-level test C is `idea`.
@@ -31,7 +31,7 @@ Verdict was minor revision; the three required items, point by point.
 
 1. *Prior record.* Accepted. The HH half is a theorem already on file: `research/literature/2312.14699-hochschild-monomial-bardzell.md`
    ("It closes idea 22"), `research/literature/0805.1018-spectral-analysis-and-singularities.md` Prop 5.1, `research/EXPERIMENTS.md` ~l.2084
-   ("HH*(A) = k for every LNA, so idea 22 is dead", the entry that also holds E-080's search for a P/Q invariant), R-008 fallback. "Nobody computed it" is
+   ("HH*(A) = k for every LNA, so idea 22 is dead", the entry that also holds E-082's search for a P/Q invariant), R-008 fallback. "Nobody computed it" is
    removed. What remains is a code check: brute force n <= 10 reproduces the theorem. Proposed status wording is at the end of this section.
 2. *Cibils.* Dropped. The cited fact is the Bardzell argument for linear quivers (2312.14699): the parallel path to an associated path of
    length >= 2 is the path itself, which contains a relation, so those terms vanish. "Tree quiver" is replaced by "linear quiver".
@@ -56,10 +56,10 @@ Verdict was minor revision; the three required items, point by point.
 Proposed wording for the chair (exact):
 - HYPOTHESES.md ~l.603 (H-013 "What would settle it"): replace "`τ`-periodicity data, Hochschild cohomology, or the Avella-Alaminos-Geiß invariant where
   it applies (R-008 says it does not apply directly here)" by "`τ`-periodicity data; Hochschild cohomology is excluded (HH^*(A) = k for every LNA,
-  arXiv:2312.14699, E-168, checked for all 6916 LNAs n <= 10) and so is the Avella-Alaminos-Geiß invariant (R-008)."
-- FINDINGS.md ~l.1139: replace "τ-periodicity or Hochschild cohomology" by "τ-periodicity (Hochschild cohomology is trivial on LNAs, 2312.14699, E-168)".
+  arXiv:2312.14699, E-170, checked for all 6916 LNAs n <= 10) and so is the Avella-Alaminos-Geiß invariant (R-008)."
+- FINDINGS.md ~l.1139: replace "τ-periodicity or Hochschild cohomology" by "τ-periodicity (Hochschild cohomology is trivial on LNAs, 2312.14699, E-170)".
 - FINDINGS.md ~l.2307: append to "what is left on idea 22's list is Hochschild cohomology, ..." the sentence "Closed afterwards: HH^*(A) = k for every LNA
-  (2312.14699; recomputed n <= 10, E-168), so nothing is left on idea 22's list."
+  (2312.14699; recomputed n <= 10, E-170), so nothing is left on idea 22's list."
 
 ## Claim
 
@@ -112,9 +112,9 @@ timeout 10m .venv/bin/python workshop/rounds/054/maverick_pq.py 10  # 43 s, key-
 
 ## Prior record
 
-HH^* = k on LNAs: 2312.14699 note, 0805.1018 Prop 5.1, EXPERIMENTS ~l.2084, RETRACTIONS R-008 (fallback), literature/README l.82. E-168
+HH^* = k on LNAs: 2312.14699 note, 0805.1018 Prop 5.1, EXPERIMENTS ~l.2084, RETRACTIONS R-008 (fallback), literature/README l.82. E-170
 already records this submission's first revision (under revision). Counts 40/16/13 vs 25/22: F-047 plus the mirror join, item 4.
-Power-control observation is a corollary of F-047 and the lack of other certificates (E-115, resolution by exclusion). Candidate C: the
+Power-control observation is a corollary of F-047 and the lack of other certificates (E-117, resolution by exclusion). Candidate C: the
 periodicity obstruction is recorded in `research/literature/0911.5137-lines-rectangles-triangles.md` Cor 1.9, `1310.1557-algebras-of-cyclotomic-type.md`
 2.9 Lemma and part (a), and `math-0611201-coxeter-periodicity-euler-form.md` / F-048 / E-040 (Cartan-level shadow). Not recorded: the cross-table above.
 Cor 1.9 covers only lines A(nm, m+1); no general fractional-CY statement for LNAs found in the record. Entropy = spectral radius: not in the record, unchecked.
@@ -129,4 +129,4 @@ unmodified. No tests touched.
 - Theorist/toolsmith: implement S^a on minimal projective complexes for the one live n = 10 group (4 classes, Phi^18 = I exactly, matrix-checked)
   and compare classes; Phi^18 = I is already checked. If all four classes show S^a(A) ~ A[b] at object level the test is blind there too.
 - Scholar: only a general fractional-CY statement for LNAs remains open (periodicity lemma answered; entropy not in the record, dropped).
-- Chair: one-line status edits above; E-168 header "under revision" can be replaced by the response above.
+- Chair: one-line status edits above; E-170 header "under revision" can be replaced by the response above.

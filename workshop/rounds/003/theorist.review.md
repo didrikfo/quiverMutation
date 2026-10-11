@@ -20,7 +20,7 @@ Not checked, and the author says so: n-independence past 14 (12 chosen cores, no
 ## New?
 
 - F-053 states the same fact for `45` (slide palindrome on `0..n-8`, offset `n-7` unpaired, i.e. `d = t - h = 1`) and says "not special to `45`" for n = 13, 14 with other cores. E-052 holds the orbits.
-- H-021 asks whether `d(c)` is the head/tail difference; E-056 is the 109/139 census the restatement leans on.
+- H-021 asks whether `d(c)` is the head/tail difference; E-058 is the 109/139 census the restatement leans on.
 - The general form `d = t - h` for interior blocks: grepped `shortfall|overhang|first outside|tail - head|t - h` in `research/`; nothing beyond the entries above. The part that is new is the 13/13 with a proved conditional; the part that is close to tautology is acknowledged by the author.
 - Nothing overlapping in RETRACTIONS.
 

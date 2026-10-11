@@ -1,6 +1,6 @@
 """T6 (round 023, maverick): LNAs with >= 2 relations of >= 3 arrows at n = 8, 9: D1 and peeling formula against the recorded
 minimum cord depth (workshop/rounds/022/theorist_blocked_depths.txt: all LNAs of depth >= 2, n = 8..10).
-Depth 1 for every LNA not listed there (D1 is E-101's, 0 mismatches over all LNAs, so unlisted = depth 1 iff some big relation unblocked).
+Depth 1 for every LNA not listed there (D1 is E-103's, 0 mismatches over all LNAs, so unlisted = depth 1 iff some big relation unblocked).
 usage: maverick_twobig.py N   (repository root)"""
 import sys, itertools
 sys.path.insert(0, 'workshop/rounds/022')

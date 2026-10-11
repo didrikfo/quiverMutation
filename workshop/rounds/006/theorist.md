@@ -1,7 +1,7 @@
 # k(33x) = 2x is a conservation law of the double mutation plus one self-dual seed; the argument does not extend to 44x, and explains 34x only at x = 5
 
 author: theorist · round: 006 · kind: result (mechanism, one step unproved) + negative for the extension
-thread: T2/T4 · bears on: H-021, H-020, F-051, F-032, E-061
+thread: T2/T4 · bears on: H-021, H-020, F-051, F-032, E-063
 
 ## Claim
 
@@ -20,7 +20,7 @@ mirror of the chain `S_{n-c}`: the conserved label is identified under `c <-> n 
 (iii) *Consequence.* `33x@o` and `33x@o'` share an orbit iff `o + x` and `o' + x` are `{c, n-c}`, i.e. `o' = o` or `o' = n - 2x - o`.
 That is the reflection with **`s = n - 2x`, `k = 2x`**. It needs `o' >= 0`, so offsets `o > s` have no partner: their number is
 `hi - s = (n-x-3) - (n-2x) = x - 3 = d`. **`d = x - 3` is the count of offsets where the second chain no longer has room for `33x`.**
-Both E-061 numbers follow; `hi = n - x - 3` is the footprint `x + 3`.
+Both E-063 numbers follow; `hi = n - x - 3` is the footprint `x + 3`.
 (iv) *Generalisation of the formula.* For any drift family `F_x` (footprint `x + w0`) with a self-dual member `x0`:
 `k = 2x + w0 - x0`. For `33x`: `w0 = x0 = 3`.
 
@@ -39,7 +39,7 @@ Both E-061 numbers follow; `hi = n - x - 3` is the footprint `x + 3`.
   (both one double mutation, n = 20 o = 6), so `345@o` carries `c = o + 4` and pairs with `o' = n - 8 - o = hi - o`: `k = 8` is the `33x` law at `x = 4`
   shifted by the footprint. `347, 348, 344` carry no `33y` row (empty c-set): their reflection is observed, not derived.
 * **`45x`**: no drift neighbour (`455 -> 5504, 35@68, 5055`). Observed: `456` and `457` merge (into the `333@0` orbit and the `347@0` orbit), `455` merges at 15 and
-  at 16 is a **parity** translation `{0,2,4,6,8}, {1,3,5,7}` (the `4046` pattern of E-061), `458` at 15 is `{0,2,4}`. Predicted by the argument: no reflection. Consistent.
+  at 16 is a **parity** translation `{0,2,4,6,8}, {1,3,5,7}` (the `4046` pattern of E-063), `458` at 15 is `{0,2,4}`. Predicted by the argument: no reflection. Consistent.
 
 ## Evidence
 
@@ -85,8 +85,8 @@ Outputs kept: `theorist_chain_n14.txt`, `_n15.txt`, `_n16.txt`, `theorist_link_{
 
 ## Prior record
 
-E-061 states `k(33x) = 2x`, `d = x - 3` as a description (round 004, mine); "why" was open. F-032 has the double mutation but not this use of it; F-053/E-052 have
-reflection pairs for `45`; E-059 has parity for 7 cores (the `455` parity at 16 is new data, in the `4046` family, unexplained). Grepped `RETRACTIONS.md`, `conserved`, `drift`:
+E-063 states `k(33x) = 2x`, `d = x - 3` as a description (round 004, mine); "why" was open. F-032 has the double mutation but not this use of it; F-053/E-052 have
+reflection pairs for `45`; E-061 has parity for 7 cores (the `455` parity at 16 is new data, in the `4046` family, unexplained). Grepped `RETRACTIONS.md`, `conserved`, `drift`:
 nothing. The claim "it is the rule table" from the assignment is corrected in (1). `S_c` / `c <-> n - c` is new.
 
 ## Code changed
@@ -96,5 +96,5 @@ None in the library. New scripts in `workshop/rounds/006/`: `theorist_{rule,step
 ## Next
 
 * theorist: prove the end link (a) (a chain-top `33c@0` joined to its mirror `D(c)@(n-c-3)`) and the upper bound by listing every move out of the orbit rows for one `(n, c)` (orbit size 310 at n = 16).
-* experimentalist: `33x` at n = 17, x = 7, 8 (exact-membership test of `theorist_chain.py`, edit its cap 9); `34x`, `45x`, x = 5..9, n = 16, 17 against the predictions above (`k = x + 3`, `d = 0` for `34x`; no reflection for `45x`); the n = 15 `344` odd-n singletons (E-059 parity).
+* experimentalist: `33x` at n = 17, x = 7, 8 (exact-membership test of `theorist_chain.py`, edit its cap 9); `34x`, `45x`, x = 5..9, n = 16, 17 against the predictions above (`k = x + 3`, `d = 0` for `34x`; no reflection for `45x`); the n = 15 `344` odd-n singletons (E-061 parity).
 * skeptic: `44x` merges into the `333@0` orbit: is that orbit an end-touch artifact (the `c = 3` chain has `33c@0` at the source) that also swallows the `34x`/`45x` members at x = 6? `346`, `456`, `446` all land there.

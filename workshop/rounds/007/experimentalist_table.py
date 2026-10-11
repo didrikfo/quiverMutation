@@ -1,4 +1,4 @@
-"""Tabulate experimentalist_kd_*.txt: per word and n: s, k = n - s, raw d, d after pairing equal-size singletons o, s-o (mirror pairs, E-064) and dropping the centre.
+"""Tabulate experimentalist_kd_*.txt: per word and n: s, k = n - s, raw d, d after pairing equal-size singletons o, s-o (mirror pairs, E-066) and dropping the centre.
   .venv/bin/python workshop/rounds/007/experimentalist_table.py"""
 import glob, re, ast
 rows = {}

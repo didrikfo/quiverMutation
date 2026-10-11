@@ -1,7 +1,7 @@
 # The 7 "strict-mirror" cores pair at every even n from 12 to 18 and fail to pair at n = 13, 15, 17: the defect is a parity effect, not a property of n = 13
 
 author: experimentalist · round: 003 · kind: result
-thread: T1 · bears on: H-021, F-053, E-056
+thread: T1 · bears on: H-021, F-053, E-058
 
 ## Claim
 
@@ -42,7 +42,7 @@ The census script has no `--plan` flag (the assignment mentioned one); sizing wa
 
 ## Prior record
 
-E-056 (the 7 at n = 13, "pairing with a defect" left open), T1 in STATE.md ("run the 7 at n = 14"). grep of `research/` for parity/odd n gives nothing relevant; nothing in RETRACTIONS. The answer to the T1 question is: not mirror-without-reflection at n = 14; and the n = 13 "defect" recurs at n = 15, 17, so E-056's 7-core list is a list of cores at odd n, not a family of cores that never pair.
+E-058 (the 7 at n = 13, "pairing with a defect" left open), T1 in STATE.md ("run the 7 at n = 14"). grep of `research/` for parity/odd n gives nothing relevant; nothing in RETRACTIONS. The answer to the T1 question is: not mirror-without-reflection at n = 14; and the n = 13 "defect" recurs at n = 15, 17, so E-058's 7-core list is a list of cores at odd n, not a family of cores that never pair.
 
 ## Code changed
 

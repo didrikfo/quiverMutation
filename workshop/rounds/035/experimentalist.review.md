@@ -21,22 +21,22 @@ I did not rerun the 500 s case. The saved outputs in `experimentalist_dhist_n*.t
 I found no error. The arithmetic of the table and the max-d-by-level lines is consistent with the saved outputs.
 
 Points that weaken the statement as written:
-1. The headline "d_i = 2 exactly (285 of 285)" is mostly forced by E-126 (L1), because J != 0 requires d >= 2, and d = 1 with J != 0 is already excluded by L1. The only empirical content is the absence of d >= 3 with J != 0. The title should say that, not "d_i = 2 exactly".
+1. The headline "d_i = 2 exactly (285 of 285)" is mostly forced by E-128 (L1), because J != 0 requires d >= 2, and d = 1 with J != 0 is already excluded by L1. The only empirical content is the absence of d >= 3 with J != 0. The title should say that, not "d_i = 2 exactly".
 2. Claim (1) reads "in 4 classes". J != 0 occurs in only 3 of the 4 (c2 has none), so "in 4 classes" is the sample, not the observation of the phenomenon.
 3. Rows are (algebra, v, i) with many v and i per algebra, and are heavily correlated. The 109, 49 and 127 are not independent samples. The number of distinct algebras with J != 0 is the more honest count and is not given.
-4. The d >= 3 rows are 28 of about 100 000, and they all sit at level 7-8. The claim that J = 0 there is "a datum" is true but based on 28 correlated rows from two classes (c0, c1). It says nothing about the d >= 3 rows E-116 expects deeper.
+4. The d >= 3 rows are 28 of about 100 000, and they all sit at level 7-8. The claim that J = 0 there is "a datum" is true but based on 28 correlated rows from two classes (c0, c1). It says nothing about the d >= 3 rows E-118 expects deeper.
 5. Class c0 is non-monotone: max d is 3 at level 8 and 2 at level 9. The text does not explain this, and it is probably a cap or frontier-truncation artifact (the last level is partial). The author states that "max d grows with depth", but this table does not show it for level 9.
 6. The text says the walk expands "at every gate-admitted v" but the script only expands algebras that pass the `isIllegalRelation` filter and stay in the same Coxeter key (`== base`). So the walk is restricted to one key class, not the entire derived class. "On a walk" should carry that qualifier (the final Next bullet gestures at it).
 
 ## New?
 
-grep of `research/` for E-124, E-126, "dim J_i", "d_i", "J_i":
-- E-126 (EXPERIMENTS.md line 18) already has dim J_i <= d_i - 1 and records "d_i <= 2 whenever J_i != 0 on walks" as empirical, with a layered counter-example at d = 3, dim J = 2 that is not a walk.
-- E-124 records dim J_i = 1 on every walk row.
+grep of `research/` for E-126, E-128, "dim J_i", "d_i", "J_i":
+- E-128 (EXPERIMENTS.md line 18) already has dim J_i <= d_i - 1 and records "d_i <= 2 whenever J_i != 0 on walks" as empirical, with a layered counter-example at d = 3, dim J = 2 that is not a walk.
+- E-126 records dim J_i = 1 on every walk row.
 - No FINDINGS or HYPOTHESES entry bears on it.
 - Nothing in RETRACTIONS bears on it.
 
-The new content is the extension of the walk sample to d >= 3 rows (all with J = 0) and the n = 9 data. It is an incremental extension of E-126, not a new claim. The submission's own Prior record says as much.
+The new content is the extension of the walk sample to d >= 3 rows (all with J = 0) and the n = 9 data. It is an incremental extension of E-128, not a new claim. The submission's own Prior record says as much.
 
 ## Evidenced?
 

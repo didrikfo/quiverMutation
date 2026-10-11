@@ -1,14 +1,14 @@
 # "Reject iff long-sided square" splits: long square => reject needs only minimality; reject => long square needs out-degree 1 (a hypothesis that is not a theorem) and a choice of generators
 
-author: scholar · round: 023 · kind: proof · thread: T5 · bears on: H-015, E-066, E-097, E-100
+author: scholar · round: 023 · kind: proof · thread: T5 · bears on: H-015, E-068, E-099, E-102
 
 ## Claim
 
-Notation as E-097: v the mutated vertex, alpha the arrows out of v, J_i = {c in e_iAe_v : c alpha = 0 in A for every alpha}, I the ideal.
-Facts used (E-097): tiltingPlus False <=> some g_i not injective <=> J != 0 (as a quotient of J by I, i.e. c not in I). The gate (`procedure.isMutable`,
+Notation as E-099: v the mutated vertex, alpha the arrows out of v, J_i = {c in e_iAe_v : c alpha = 0 in A for every alpha}, I the ideal.
+Facts used (E-099): tiltingPlus False <=> some g_i not injective <=> J != 0 (as a quotient of J by I, i.e. c not in I). The gate (`procedure.isMutable`,
 read from its code) refuses exactly when some *single path* p not in I has p alpha in I for all alpha. So "reject" (gate admits, tiltingPlus False) means:
 J has a nonzero class, and no nonzero class is a single path. Step 7 enters only to say that the code's rewrite fails the Cartan test exactly then
-(E-097 (b), step-7 completeness); the shape statement itself below does not use step 7.
+(E-099 (b), step-7 completeness); the shape statement itself below does not use step 7.
 
 (1) Long square => reject. Hypothesis: v has exactly one outgoing arrow alpha, and I has a *minimal* generator r = c alpha with c a combination of >= 2
 paths into v (c = sum of the paths of the relation with the last arrow alpha removed). Then c alpha in I, and c not in I, because otherwise r = c alpha
@@ -19,11 +19,11 @@ else the gate refuses and this is a gate refusal, not a step-7 rejection). Needs
 (I : alpha) = I. Hypotheses needed: (a) out-degree of v is 1; (b) "a relation in the presentation" is read up to a change of generators (G below: the
 presentation {P1 - X, P2 - X} has c = P1 - P2 but no generator whose paths all end in alpha). (a) is an empirical regularity of the algebras reached, not
 a consequence of the gate or step 7: case D (below) is rejected with out-degree 2.
-Not claimed: (a) holds on all gate-admitted algebras; the hypothesis "step 7 complete" (E-097 (b)) is the only unproved link between this and the code's behaviour.
+Not claimed: (a) holds on all gate-admitted algebras; the hypothesis "step 7 complete" (E-099 (b)) is the only unproved link between this and the code's behaviour.
 
-Why E-078's length-3 square is fine (my notebook's question): then the relation lies at v itself, c in I (c alpha = 0 trivially, class 0); a relation reaching
+Why E-080's length-3 square is fine (my notebook's question): then the relation lies at v itself, c in I (c alpha = 0 trivially, class 0); a relation reaching
 past e has c alpha not in I. The kernel needs the relation to end exactly at the arrow(s) out of v. That is what "long-sided" means.
-Why no path kernel survives on walks: the gate removes the monomial case (F). So the commutativity element is forced: a >= 2-term relation, as in E-066.
+Why no path kernel survives on walks: the gate removes the monomial case (F). So the commutativity element is forced: a >= 2-term relation, as in E-068.
 
 ## Evidence
 
@@ -45,7 +45,7 @@ Guided walks (class 0, gate-admitted steps, 300 s cap each; counts are steps, no
 | 5 (closed, 6 240 algebras) | 16 620 | 0 | - | 0 | 0 |
 | 6 (46 858) | 101 045 | 1 139 | 1 139 / 1 139 | 0 | 0 |
 | 7 (35 094) | 66 049 | 162 | 162 / 162 | 0 | 0 |
-So on the walks "J != 0 <=> out-degree 1 and long square on alg.rels" holds step by step (consistent with E-100, which counted the same on 479 761 steps); the
+So on the walks "J != 0 <=> out-degree 1 and long square on alg.rels" holds step by step (consistent with E-102, which counted the same on 479 761 steps); the
 walks reach no D or G type algebra. Out-degree 2 occurs in 33 309 + 17 933 admitted steps, all with J = 0.
 
 ## Reproduction
@@ -59,10 +59,10 @@ timeout 10m .venv/bin/python workshop/rounds/023/scholar_longsquare.py 7 --class
 
 ## Prior record
 
-E-066 located the commutativity element; E-097 gave kernel/cokernel and the long-sided shape; E-100 gave the walk control (no tilting step has it, all 2 104 rejecting
+E-068 located the commutativity element; E-099 gave kernel/cokernel and the long-sided shape; E-102 gave the walk control (no tilting step has it, all 2 104 rejecting
 do) and left "is it a theorem" open. New here: the two directions with their hypotheses, the gate's single-path/combination split as the reason the kernel
 is a >= 2-term element, the "short level is fine" one-liner, and the out-degree-2 example D showing the shape is not forced. Nothing here is in RETRACTIONS.
-The step that is still not proved is E-097's step-7 completeness; the (2) direction is a restatement of J != 0 once out-degree 1 and generators are fixed.
+The step that is still not proved is E-099's step-7 completeness; the (2) direction is a restatement of J != 0 once out-degree 1 and generators are fixed.
 
 ## Code changed
 
@@ -72,4 +72,4 @@ None in `quivermutation/`. New `workshop/rounds/023/scholar_longsquare.py`; no t
 
 - toolsmith/theorist: is out-degree >= 2 with J != 0 reachable from an LNA by guarded steps (D-like)? A bounded search at n = 8, 9 for gate-admitted J != 0 with out-degree >= 2 would decide whether "long square" is a theorem on the walk class or only a pattern.
 - theorist: referee (1) and the step-7 completeness link; test case D through the actual rewrite (Cartan congruence should fail).
-- chair: wording for E-084/E-095/E-100: "long-sided square" is a shape of the walk class, with the iff holding intrinsically as J != 0.
+- chair: wording for E-086/E-097/E-102: "long-sided square" is a shape of the walk class, with the iff holding intrinsically as J != 0.

@@ -21,7 +21,7 @@ Minor points:
 
 ## New?
 
-`grep orbitReport|orbitCensus` over NOTES, GLOSSARY, research/, `quivermutation/`, `batch.py`: `freeMoves.orbitReport` (the primitive), the round 001/002 census scripts, EXPERIMENTS.md E-052/E-056 (the runs). No existing `batch.py` task or module does the per-core orbit report. The submission is a port of the round 002 script into the task framework, and says so.
+`grep orbitReport|orbitCensus` over NOTES, GLOSSARY, research/, `quivermutation/`, `batch.py`: `freeMoves.orbitReport` (the primitive), the round 001/002 census scripts, EXPERIMENTS.md E-052/E-058 (the runs). No existing `batch.py` task or module does the per-core orbit report. The submission is a port of the round 002 script into the task framework, and says so.
 
 ## Evidenced?
 

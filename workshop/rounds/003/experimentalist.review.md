@@ -18,13 +18,13 @@ Nothing found wrong in the range stated (7 cores, n = 12..18). Two limits:
 
 ## New?
 
-grep of `research/` for parity, odd n, even n, odd length, even length: nothing relevant (one unrelated hit in FINDINGS.md line 229 about arrows). Related and not duplicates: E-056 (the 7 at n = 13, "pairing with a defect"), E-052 and H-021 ("eight cores pair at n = 13 and 14"; this submission shows that for these 7 the n = 13 non-pairing is the odd exception, and extends the pairing to 12, 16, 18). It also bears on F-053. Nothing in RETRACTIONS. The result is new.
+grep of `research/` for parity, odd n, even n, odd length, even length: nothing relevant (one unrelated hit in FINDINGS.md line 229 about arrows). Related and not duplicates: E-058 (the 7 at n = 13, "pairing with a defect"), E-052 and H-021 ("eight cores pair at n = 13 and 14"; this submission shows that for these 7 the n = 13 non-pairing is the odd exception, and extends the pairing to 12, 16, 18). It also bears on F-053. Nothing in RETRACTIONS. The result is new.
 
 ## Evidenced?
 
 Yes for what is stated: the table gives n, cores, pair, strict, no-fit; the orbit listings are specific; the "not claimed" list is honest (n > 18, n < 12, other 132 cores, mechanism). Gaps:
 
-* The 74-row file and the loop leave the 8-core versus 7-core discrepancy unexplained: H-021 says eight cores pair at n = 13 and 14, E-056 says 8 cores have strict mirror true. The submission does not say which E-056 strict-mirror core is not among the 7 (or whether 8 = 7 + `3346`-like).
+* The 74-row file and the loop leave the 8-core versus 7-core discrepancy unexplained: H-021 says eight cores pair at n = 13 and 14, E-058 says 8 cores have strict mirror true. The submission does not say which E-058 strict-mirror core is not among the 7 (or whether 8 = 7 + `3346`-like).
 * d = 0 for 4 of 7 at n = 14 is the strong evidence; d = 1, 2 for the rest rests on the generous d <= 6 rule. The author states this and passes it to the skeptic; fine, but the table should give d per core per even n (a column, or a saved text file), since the "7 of 7 pair" figure is only as strong as the d values.
 * Title should read "for these 7 cores".
 
@@ -32,5 +32,5 @@ Yes for what is stated: the table gives n, cores, pair, strict, no-fit; the orbi
 
 1. Retitle or qualify the title: the parity effect is shown for these 7 selected cores, not for cores in general.
 2. Add d (and s) per core at each even n to the evidence (a small table or a saved text file next to the JSONL), so "pairs" is checkable at a glance.
-3. Say how the 7 relate to the 8 cores of H-021/E-052 and the 8 strict-true cores of E-056 (which one is missing and why).
+3. Say how the 7 relate to the 8 cores of H-021/E-052 and the 8 strict-true cores of E-058 (which one is missing and why).
 4. Mark the "would pair" reading of equal-size singletons as interpretation.

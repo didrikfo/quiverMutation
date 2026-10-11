@@ -16,7 +16,7 @@ No counterexample found. Two points:
 
 ## New?
 
-Fills gaps listed in the Limits of E-107 (no n = 9, classes 2-3, out >= 3, parallel rows skipped). Nothing in E-105/E-106/E-108/E-109 states these. Honest as a null extension; no RETRACTIONS item touched.
+Fills gaps listed in the Limits of E-109 (no n = 9, classes 2-3, out >= 3, parallel rows skipped). Nothing in E-107/E-108/E-110/E-111 states these. Honest as a null extension; no RETRACTIONS item touched.
 
 ## Evidenced?
 

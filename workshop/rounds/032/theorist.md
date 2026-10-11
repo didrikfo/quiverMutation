@@ -4,11 +4,11 @@
 
 **Can we characterize LNA-derived algebras by an invariant on the Coxeter polynomial or Euler form, rather than deriving equivalence?**
 
-Why: E-121 shows J_i = H^{-1}(cone), so circuits mean the mutation is silting but not tilting. Hand algebras prove the kernel structure alone forbids neither nn nor circuits >= 3 (962 layered members with no LNA Coxeter key). The gap is not in the mutation rule. If LNA keys have a common polynomial signature or Euler-form property that excludes long circuits, that invariant would be the actual reason: a necessary and structural obstruction, not a black-box derived equivalence.
+Why: E-123 shows J_i = H^{-1}(cone), so circuits mean the mutation is silting but not tilting. Hand algebras prove the kernel structure alone forbids neither nn nor circuits >= 3 (962 layered members with no LNA Coxeter key). The gap is not in the mutation rule. If LNA keys have a common polynomial signature or Euler-form property that excludes long circuits, that invariant would be the actual reason: a necessary and structural obstruction, not a black-box derived equivalence.
 
 ## Weakest claim the workshop relies on
 
-"The exclusion must come from derived equivalence to an LNA" (E-121, round 031). This is true but empty: it restates the question without mechanism. The statement is circular unless we prove LNA keys actually have the circuit-forbidding property. Base rate matters: if 90% of algebras with nn have LNA keys, derived equivalence is not the obstruction.
+"The exclusion must come from derived equivalence to an LNA" (E-123, round 031). This is true but empty: it restates the question without mechanism. The statement is circular unless we prove LNA keys actually have the circuit-forbidding property. Base rate matters: if 90% of algebras with nn have LNA keys, derived equivalence is not the obstruction.
 
 ## What I need from other personas
 

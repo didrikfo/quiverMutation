@@ -15,19 +15,19 @@ I found no error. Two gaps:
 
 ## New?
 
-Mostly the same material as E-155 (19 of 25, 5 misses, child 12 undecided), extended in depth. The new content is the 4 added joins, the 2 remaining misses, and the no-key diagnosis. The "nothing recorded" claim for no-key nodes is slightly off. E-153 (research/EXPERIMENTS.md) already records that two n = 8 depth-8 children have no canonical key because of the relabelling cap and are never entered in `seen`. The new part is the scale: 11 of 153 and 100 of 659 at n = 7. The docstring correction in `fingerprint.DEFAULT_CAP` ("far beyond anything a search has produced") is justified. Nothing found for "tilting-only depth 7" or for the b32eca key.
+Mostly the same material as E-157 (19 of 25, 5 misses, child 12 undecided), extended in depth. The new content is the 4 added joins, the 2 remaining misses, and the no-key diagnosis. The "nothing recorded" claim for no-key nodes is slightly off. E-155 (research/EXPERIMENTS.md) already records that two n = 8 depth-8 children have no canonical key because of the relabelling cap and are never entered in `seen`. The new part is the scale: 11 of 153 and 100 of 659 at n = 7. The docstring correction in `fingerprint.DEFAULT_CAP` ("far beyond anything a search has produced") is justified. Nothing found for "tilting-only depth 7" or for the b32eca key.
 
 ## Evidenced?
 
 Mostly yes. Level sizes, shard counts, hit totals, paths and replays are all given, and the log file holds them. Missing or loose:
-- The title and claim say "4 of the 5 misses" joined and "23 of 25". The 25 and the 19 are E-155's. The 4 are 3 misses (c2 6, c1 5, c1 13) plus child 12, which was undecided, not a miss. The wording "4 of the 5 E-155 misses" is wrong: it is 3 of 5 misses plus the undecided one. Counts: 19 + 4 = 23 is right.
+- The title and claim say "4 of the 5 misses" joined and "23 of 25". The 25 and the 19 are E-157's. The 4 are 3 misses (c2 6, c1 5, c1 13) plus child 12, which was undecided, not a miss. The wording "4 of the 5 E-157 misses" is wrong: it is 3 of 5 misses plus the undecided one. Counts: 19 + 4 = 23 is right.
 - c1 13 is joined only by sharing key f7abe9 with c1 5. That is sound for reachability in the ball, but the path was printed for 5 only. Say so in the claim.
 - c1 child 5: the depth-7 run was stopped at 6 900 of 18 034 frontier nodes. The hits are valid, since a hit is a hit, but "total 12" is an upper bound there. It could be shorter only if the target ball were deeper, so it is fine, but the table says "yes" without the stopped-early note. That note appears only in the text.
 - The premise (J = 0 + `tiltingPlus` steps are derived equivalences) is untested, and the author says so. "Joined to an LNA of their class" means joined by such steps. The title does not carry that condition.
 
 ## Scope
 
-n = 7, classes 1 and 2, total path length <= 12, J = 0 tilting-only moves F and R, key-kept. The claim stays inside that. Suggested title wording: "... a depth-7 child ball joins child 12 (undecided in E-155) and 3 of the 5 E-155 misses (c2 6, c1 5 and 13) to an LNA or dual by J = 0 `tiltingPlus` paths of length <= 12, conditional on the premise; c1 14 and 15 (key b32eca) are open at 12, with no-key nodes unmatched".
+n = 7, classes 1 and 2, total path length <= 12, J = 0 tilting-only moves F and R, key-kept. The claim stays inside that. Suggested title wording: "... a depth-7 child ball joins child 12 (undecided in E-157) and 3 of the 5 E-157 misses (c2 6, c1 5 and 13) to an LNA or dual by J = 0 `tiltingPlus` paths of length <= 12, conditional on the premise; c1 14 and 15 (key b32eca) are open at 12, with no-key nodes unmatched".
 
 ## Required for acceptance
 
@@ -35,5 +35,5 @@ n = 7, classes 1 and 2, total path length <= 12, J = 0 tilting-only moves F and 
 2. State how many no-key nodes occur at depths 1-6 of the c1 14 child ball and in the depth <= 5 target ball (a count from the existing pickles; seconds).
 3. Mark c1 5 in the table as "stopped at first hits (6 900 of 18 034)" and note that c1 13 is joined by key equality only; no path was printed for it.
 4. Add the premise to the title or the first line of the Claim ("under the J = 0 premise").
-5. Cite E-153 as prior record for the no-key phenomenon (n = 8, 2 nodes) instead of saying no entry exists.
+5. Cite E-155 as prior record for the no-key phenomenon (n = 8, 2 nodes) instead of saying no entry exists.
 6. [next round] A positive control that exercises the time-limit and no-key route, for example a hit known by another route on a ball with no-key nodes. Child 12 at depth 4 partly does this. Optional, not a blocker.

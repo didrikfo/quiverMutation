@@ -38,7 +38,7 @@ for k in 0 1 2 3; do timeout 10m .venv/bin/python workshop/rounds/002/experiment
 
 ## Prior record
 
-E-052/F-053 (pairing for nine cores), H-021 ("exactly when"), round 001's E-053 (loose reading fails). Nothing in RETRACTIONS on H-021. The strict-reading table and 7-core list are new; the census script is now in the repository (`experimentalist_census.py` is round 001's, unchanged apart from location).
+E-052/F-053 (pairing for nine cores), H-021 ("exactly when"), round 001's E-055 (loose reading fails). Nothing in RETRACTIONS on H-021. The strict-reading table and 7-core list are new; the census script is now in the repository (`experimentalist_census.py` is round 001's, unchanged apart from location).
 
 ## Code changed
 

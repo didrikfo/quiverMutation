@@ -18,18 +18,18 @@ Not re-run: the 40 s shards for hits 2-15 and the 240 s hit-0 run (over 7 min ea
 The stable outputs reproduce (control passes, 0 shared, nothing closed, about 12% of edges not inverted). No error found in the claim as worded; the author is careful to call it a bounded miss.
 
 Gaps:
-- The control is LNA-to-LNA, forward only, meeting at depth 1 from each start. The real hit meeting was depth 2 against depth 11 (E-137). It shows the code finds a meet, not that it would find one that deep or one that is reverse-only.
+- The control is LNA-to-LNA, forward only, meeting at depth 1 from each start. The real hit meeting was depth 2 against depth 11 (E-139). It shows the code finds a meet, not that it would find one that deep or one that is reverse-only.
 - No positive control for `--reverse` at all. The revcontrol shows reverse is incomplete (about 12% of edges lost), so a reverse miss at 0 shared is uninformative until a control meeting through reverse edges is shown. The text says this ("weaker"); the table still lists the reverse column as if it were a second test.
 - The reverse BFS is labelled `REVERSE(J=0 only)` in the output; the text does not say the J = 0 restriction is applied to the reverse side.
 - "Hits 0, 4, 13 chosen as the three smallest-depth-different samples" is unexplained: every hit is stated to have v = 2 and depth 2, so "depth-different" has no content.
 
 ## New?
 
-Partly. E-137 already records tilting-only LNA side (27 518, 150 s), hit sides 323-501, and 0 shared for every hit; its Limits name the missing control, the missing closed flag, and the 13 unreplayed hits. This submission adds the control, the closure flags, the reverse direction and the revcontrol. New content: the E-137 hit sides were time-capped (the text says so; E-137 does not). Nothing in `research/` on the 12-13% non-inversion (grepped tilting-only, revcontrol, opposite). Related: E-134, E-132, H-015; E-121/E-128/E-093 for J != 0 iff not tilting.
+Partly. E-139 already records tilting-only LNA side (27 518, 150 s), hit sides 323-501, and 0 shared for every hit; its Limits name the missing control, the missing closed flag, and the 13 unreplayed hits. This submission adds the control, the closure flags, the reverse direction and the revcontrol. New content: the E-139 hit sides were time-capped (the text says so; E-139 does not). Nothing in `research/` on the 12-13% non-inversion (grepped tilting-only, revcontrol, opposite). Related: E-136, E-134, H-015; E-123/E-130/E-095 for J != 0 iff not tilting.
 
 ## Evidenced?
 
-Mostly. Specific counts, caps, parallel-load caveat and output file names are given. Missing: the 240 s hit-0 and 100 s LNA numbers differ from E-137's 27 518 by 4-8x, attributed to a "longer single-process run" without a number for how long; the memory remark for 10^5 nodes is unmeasured (acknowledged). The sizing "10^5 algebras each" is an extrapolation, stated as "plausibly".
+Mostly. Specific counts, caps, parallel-load caveat and output file names are given. Missing: the 240 s hit-0 and 100 s LNA numbers differ from E-139's 27 518 by 4-8x, attributed to a "longer single-process run" without a number for how long; the memory remark for 10^5 nodes is unmeasured (acknowledged). The sizing "10^5 algebras each" is an extrapolation, stated as "plausibly".
 
 ## Required for acceptance
 
@@ -37,4 +37,4 @@ Mostly. Specific counts, caps, parallel-load caveat and output file names are gi
 2. Either add a reverse positive control (a meet that uses only reverse edges, ideally depth >= 2) or label the reverse column "uninformative until controlled" in the Claim and the table.
 3. Explain or drop "smallest-depth-different samples" for hits 0, 4, 13.
 4. Note that the control meets at depth 1 and the hit meeting would be at depth 2 vs 11; state what the control does and does not cover.
-5. State the wall-clock behind E-137's 27 518 so the 3.6k-6.8k versus 27.5k LNA-side gap is a stated throughput difference, not an apparent inconsistency.
+5. State the wall-clock behind E-139's 27 518 so the 3.6k-6.8k versus 27.5k LNA-side gap is a stated throughput difference, not an apparent inconsistency.

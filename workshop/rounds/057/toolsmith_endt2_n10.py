@@ -1,4 +1,4 @@
-"""Round 057 (toolsmith): End(T) vs next algebra on the 7-step E-167 paths (n = 10, start LNA [0,5,0,4,0,3,3,0]); signed moves s: F|s| on the algebra (s > 0) or on its dual (s < 0), as experimentalist_amerge.replay.
+"""Round 057 (toolsmith): End(T) vs next algebra on the 7-step E-169 paths (n = 10, start LNA [0,5,0,4,0,3,3,0]); signed moves s: F|s| on the algebra (s > 0) or on its dual (s < 0), as experimentalist_amerge.replay.
 Usage (repo root): .venv/bin/python workshop/rounds/057/toolsmith_endt2_n10.py plan | run LO:HI   (paths are the 5 'full' lists of workshop/rounds/054/experimentalist_amerge_out.txt)"""
 import sys, re, time
 MODE = sys.argv[1]; SL = sys.argv[2] if len(sys.argv) > 2 else None

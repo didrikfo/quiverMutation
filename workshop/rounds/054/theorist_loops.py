@@ -1,8 +1,8 @@
-"""Round 054 (theorist), response to referee item 2: along every printed path edge (E-155 child + parent paths, E-158 three paths, E-161 path),
+"""Round 054 (theorist), response to referee item 2: along every printed path edge (E-157 child + parent paths, E-160 three paths, E-163 path),
 check that the algebra a (x for an F move, dual(x) for an R move) has NO LOOP at the mutated vertex v (= all targets of arrowsOutOf(a,v) differ from v),
 and also that its quiver has no loop and no oriented cycle at all (H1).  Also checks the final (meeting) algebra of each side is loopless/acyclic.
 Usage (repo root): theorist_loops.py in.pkl cls     (in.pkl from rounds/050/toolsmith_collect.py 7 cls 20000 in.pkl 100)
-Edges: E-155 from rounds/049/toolsmith_paths_logs.txt (sections paths_c<cls>, parents_c<cls>); E-158 and E-161 hard-coded from the entries."""
+Edges: E-157 from rounds/049/toolsmith_paths_logs.txt (sections paths_c<cls>, parents_c<cls>); E-160 and E-163 hard-coded from the entries."""
 import sys, re, pickle
 import networkx as nx
 A_ = sys.argv; PK, CLS = A_[1], int(A_[2])

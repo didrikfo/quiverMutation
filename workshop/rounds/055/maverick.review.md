@@ -21,7 +21,7 @@ Slips in the candidate section:
 
 ## New?
 
-HH half: not new, correctly credited now (2312.14699, 0805.1018 Prop 5.1, EXPERIMENTS ~l.2084, R-008, E-168). Proposed wording edits to HYPOTHESES ~603 and FINDINGS ~1139 / ~2307 are exact and fine.
+HH half: not new, correctly credited now (2312.14699, 0805.1018 Prop 5.1, EXPERIMENTS ~l.2084, R-008, E-170). Proposed wording edits to HYPOTHESES ~603 and FINDINGS ~1139 / ~2307 are exact and fine.
 
 Reconciliation 40/16/13 vs F-047's 25/22: accepted (key = Coxeter polynomial, 25 is F-047's orbit count, 16 adds the mirror join).
 
@@ -29,7 +29,7 @@ Candidate C: the Prior record says a grep for "fractional", "Calabi", "entropy" 
 - `0911.5137-lines-rectangles-triangles.md`, Cor 1.9: lines A(n m, m+1) are fractionally CY; "d/e-CY (nu^e = [d]) is a derived invariant, so a separator in principle"; "nu^e = [d] forces Phi^e = (-1)^d I, so a fractionally CY algebra has periodic Coxeter transformation".
 - `1310.1557-algebras-of-cyclotomic-type.md`, 2.9 Lemma and part (a): p/q-CY implies sigma^{2q} = 1 and phi^{2q} = 1.
 - `math-0611201-coxeter-periodicity-euler-form.md` / F-048 / E-040: periodic Coxeter as the Cartan-level shadow.
-Not in FINDINGS, HYPOTHESES, RETRACTIONS or EXPERIMENTS (grepped serre, fractional, calabi, periodic: only F-048 and E-136's "Serre" in the Euler-form sense). So the vacuity on the F-010 pair (Phi non-periodic) is the known lemma, not a pre-check discovery. What is unrecorded: the cross-tabulation (finite-order Phi x certified groups), giving one live group at n = 10. Fractional CY for a Nakayama class: Cor 1.9 covers the lines A(n m, m+1) only; I did not find a general statement for LNAs in the record. Entropy = spectral radius (DHKK): not in the record; not checked by me.
+Not in FINDINGS, HYPOTHESES, RETRACTIONS or EXPERIMENTS (grepped serre, fractional, calabi, periodic: only F-048 and E-138's "Serre" in the Euler-form sense). So the vacuity on the F-010 pair (Phi non-periodic) is the known lemma, not a pre-check discovery. What is unrecorded: the cross-tabulation (finite-order Phi x certified groups), giving one live group at n = 10. Fractional CY for a Nakayama class: Cor 1.9 covers the lines A(n m, m+1) only; I did not find a general statement for LNAs in the record. Entropy = spectral radius (DHKK): not in the record; not checked by me.
 
 ## Evidenced?
 

@@ -15,7 +15,7 @@ No counterexample found. Two small points:
 
 ## New?
 
-Nothing found for "Hom(T,T[" / "tilting complex" / Okuyama beyond E-126 (Hom(T,T[-1]) = sum J_i, theory) and E-223 / literature notes (rickard, 2509.12983 CHZ). No recorded computation of Hom(T,T[m]) on E-155 edges. New as a computation; the author states that it adds no information over `tiltingPlus` on 1081 tests except code/formulation independence. I agree: the novelty is independence, not a result.
+Nothing found for "Hom(T,T[" / "tilting complex" / Okuyama beyond E-128 (Hom(T,T[-1]) = sum J_i, theory) and E-223 / literature notes (rickard, 2509.12983 CHZ). No recorded computation of Hom(T,T[m]) on E-157 edges. New as a computation; the author states that it adds no information over `tiltingPlus` on 1081 tests except code/formulation independence. I agree: the novelty is independence, not a result.
 
 ## Evidenced?
 

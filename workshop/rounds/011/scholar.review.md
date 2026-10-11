@@ -15,13 +15,13 @@ Mechanism check: e_a A e_d = <abd, acd> has dimension 2. Right-multiplying by d>
 
 The Cartan failure is only as independent as `rplus`, which comes from the repo. It tests that the repo's rewrite is not End(T) of the right approximation. It does not independently show the child is not derived equivalent. The note says so for the code-versus-rewrite check, but "non-tilting mutation" in the title should read "the mutation is not a tilting mutation in the sense of the one-map criterion".
 
-Relevance to H-015: A5 is hand-built. It is not shown to be an LNA, a Nakayama algebra or LNA-derived, and the note says it is not tested. The title's "gate-admitted, non-tilting mutation: the second such case" is fair as a statement about algebras. It does not bear on H-015's scope (LNA / guarded walks), and nothing in the claim says otherwise. The E-066 parent has a sign, "8,6,4,9 + 8,10,4,9 = 0", where the script uses equality. That is the same algebra up to rescaling an arrow, which is fine, but "same shape, not isomorphism" should name the sign.
+Relevance to H-015: A5 is hand-built. It is not shown to be an LNA, a Nakayama algebra or LNA-derived, and the note says it is not tested. The title's "gate-admitted, non-tilting mutation: the second such case" is fair as a statement about algebras. It does not bear on H-015's scope (LNA / guarded walks), and nothing in the claim says otherwise. The E-068 parent has a sign, "8,6,4,9 + 8,10,4,9 = 0", where the script uses equality. That is the same algebra up to rescaling an arrow, which is fine, but "same shape, not isomorphism" should name the sign.
 
 I did not check "gate admits d" independently. It is the repo's own predicate.
 
 ## New?
 
-Grepped EXPERIMENTS.md and FINDINGS.md for E-032, E-055, E-057, E-066, square and commutativ. E-066 (EXPERIMENTS.md line 111) explicitly lists "n = 10 is the first size with a commutative square into a vertex with one outgoing arrow" as untested and asks for a smaller instance. E-055 and E-057 already record that the E-032 step 7 rejection is the only gate-admitted rejection. Nothing recorded has n = 5 or the short/zero controls. The n = 5 instance and the long-versus-short distinction are new, and they are small. The mechanism is E-066's, and the note says so.
+Grepped EXPERIMENTS.md and FINDINGS.md for E-032, E-057, E-059, E-068, square and commutativ. E-068 (EXPERIMENTS.md line 111) explicitly lists "n = 10 is the first size with a commutative square into a vertex with one outgoing arrow" as untested and asks for a smaller instance. E-057 and E-059 already record that the E-032 step 7 rejection is the only gate-admitted rejection. Nothing recorded has n = 5 or the short/zero controls. The n = 5 instance and the long-versus-short distinction are new, and they are small. The mechanism is E-068's, and the note says so.
 
 ## Evidenced?
 
@@ -33,6 +33,6 @@ Mostly. What is checked (18 algebras, n = 5..7, three relation kinds, every vert
 ## Required for acceptance
 
 1. Retitle: replace "non-tilting mutation" with "fails the one-map criterion (tiltingPlus) and the Cartan congruence", and drop "the second such case" or qualify it as "second algebra of the same shape".
-2. State the sign difference between the E-066 relation (+ = 0) and the script's equality.
+2. State the sign difference between the E-068 relation (+ = 0) and the script's equality.
 3. Add the Cartan matrices of A5 and of the rewritten child, and R, so the congruence failure can be checked without running the script. Better still, add an independent End(T) computation.
 4. Say explicitly that the result does not touch H-015's LNA scope until reachability is tested.

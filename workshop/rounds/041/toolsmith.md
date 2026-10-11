@@ -1,11 +1,11 @@
 # The tilting-only meet at n = 6 has a working positive control, but no closure: none of the 16 hits meets the LNA side forward or backward in 40-240 s, and neither side closes
 
 author: toolsmith · round: 041 · kind: tool + negative
-thread: T5 · bears on: E-134, E-137, H-015
+thread: T5 · bears on: E-136, E-139, H-015
 
 ## Claim
 
-`workshop/rounds/041/toolsmith_n6meet.py` (copy of the round-038 script) now has `--tilting-only` (BFS steps filtered by `tiltingPlus`, gate and Coxeter key guard kept), `--control`, `--revcontrol`, `--reverse`, `--hits`, `--plan`, `--budget-hours` (exit 2), and prints CLOSED or CAP HIT with the frontier left for every BFS. All 16 hits (not only the 3 replayed in E-137) share 0 canonical keys with the tilting-only LNA side, in the forward direction and in the reverse direction (hit-side cap 40 s; hit 0 also at 240 s). This is a **bounded miss**: no BFS closed (LNA side 3.6k-6.8k at 20-150 s, not closed; hit 0 forward passes 5 356 and is still growing), so it neither supports nor refutes "the hits lie in the LNA derived class". It does NOT show the hits are outside the class. The "323-501 seen" hit sides of E-137 were a 12 s time cap, not a small closed class.
+`workshop/rounds/041/toolsmith_n6meet.py` (copy of the round-038 script) now has `--tilting-only` (BFS steps filtered by `tiltingPlus`, gate and Coxeter key guard kept), `--control`, `--revcontrol`, `--reverse`, `--hits`, `--plan`, `--budget-hours` (exit 2), and prints CLOSED or CAP HIT with the frontier left for every BFS. All 16 hits (not only the 3 replayed in E-139) share 0 canonical keys with the tilting-only LNA side, in the forward direction and in the reverse direction (hit-side cap 40 s; hit 0 also at 240 s). This is a **bounded miss**: no BFS closed (LNA side 3.6k-6.8k at 20-150 s, not closed; hit 0 forward passes 5 356 and is still growing), so it neither supports nor refutes "the hits lie in the LNA derived class". It does NOT show the hits are outside the class. The "323-501 seen" hit sides of E-139 were a 12 s time cap, not a small closed class.
 
 ## Evidence
 
@@ -13,7 +13,7 @@ Positive control (`--control`): in the tilting-only LNA BFS find a node z with t
 
 Reverse direction (`--reverse`): a tilting step is not assumed invertible by the same code; the reverse of a step A -> B at v is taken to be the forward tilting step on the opposite algebras (BFS on `dualPathAlgebra`, keys of the opposite). Check (`--revcontrol`), on LNA-side tilting edges A -> B: A recovered from opposite(step(opposite(B))) in 2217 of 2507 (88%) at one budget and 3489 of 4014 (87%) at the other. So the reverse search is **incomplete** (about 13% of edges are not inverted this way; cause not diagnosed -- could be the key guard on the opposite, the single parent tested, or the reverse of a tilting step needing a different vertex or a non-tilting-plus form). A reverse miss is therefore weaker than a forward miss.
 
-Throughput: J != 0 steps are rare in these classes (LNA side: 16 dropped of 12 168 gate-admitted; hit sides: about 6% dropped), so tilting-only changes the BFS little; E-137's "0 shared" is not because the filter prunes much but because the BFS is far from closed.
+Throughput: J != 0 steps are rare in these classes (LNA side: 16 dropped of 12 168 gate-admitted; hit sides: about 6% dropped), so tilting-only changes the BFS little; E-139's "0 shared" is not because the filter prunes much but because the BFS is far from closed.
 
 Replay of the 16 hits, tilting-only, forward and reverse, LNA side 100 s (4 shards in parallel with 1 control run on 4 cores, so seen counts are slower than a single run):
 
@@ -29,7 +29,7 @@ All 16 hits have v = 2 and the 16 hits are not inside the LNA-side set. Reverse 
 
 ## Sizing (answer to "use `--plan` first; propose for OVERNIGHT.md if too long")
 
-Per-algebra cost is about 60-190 seen/s. Class 0 was not closed by any BFS (E-132 line: 30-70k algebras for the four classes at 4 min; round 038 closure never finished). A closed tilting-only LNA side plus a closed reverse set from one hit is plausibly 10^5 algebras each: 20-60 min each. One-hit full run at 10 min is not enough.
+Per-algebra cost is about 60-190 seen/s. Class 0 was not closed by any BFS (E-134 line: 30-70k algebras for the four classes at 4 min; round 038 closure never finished). A closed tilting-only LNA side plus a closed reverse set from one hit is plausibly 10^5 algebras each: 20-60 min each. One-hit full run at 10 min is not enough.
 
 **Proposal for OVERNIGHT.md** (3 h, accepts `--budget-hours`, exit 2 when spent):
 
@@ -51,7 +51,7 @@ Counts depend on wall-clock caps and machine load; the keys shared (0) and the c
 
 ## Prior record
 
-E-137 (tilting-only LNA side 27 518 in 150 s, hits 323-501, 0 shared; Limits: no positive control, no closed flag, 13 hits not replayed). E-121/E-128/E-093: J != 0 iff not tilting. E-134: the original meeting. This round supplies the control, the closure flag and the 13 hits, and finds the hit sides in E-137 were capped, not closed. Not rediscovery. (E-137's LNA side of 27 518 came from a longer, single-process run; mine are shorter.)
+E-139 (tilting-only LNA side 27 518 in 150 s, hits 323-501, 0 shared; Limits: no positive control, no closed flag, 13 hits not replayed). E-123/E-130/E-095: J != 0 iff not tilting. E-136: the original meeting. This round supplies the control, the closure flag and the 13 hits, and finds the hit sides in E-139 were capped, not closed. Not rediscovery. (E-139's LNA side of 27 518 came from a longer, single-process run; mine are shorter.)
 
 ## Code changed
 
@@ -62,4 +62,4 @@ New file `workshop/rounds/041/toolsmith_n6meet.py` only (execs `rounds/038/tools
 - chair: put the overnight line above in OVERNIGHT.md if wanted.
 - skeptic: diagnose the 13% of LNA-side tilting edges not inverted by opposite-step (is the reverse of a tilting step a non-tilting-plus step on the opposite?); until then a reverse miss is weak.
 - toolsmith (next): a meet that is not BFS-vs-BFS: since 94% of gate-admitted steps are tilting, replace the 'meeting' with an invariant that separates the hit from the class (e.g. a derived invariant beyond the Coxeter key), or compute the hit's kernel obstruction to being a tilting source.
-- theorist: is "key-preserving, gate-admitted, non-tilting step landing in the class" excluded by anything? Without it E-134 stays unsupported.
+- theorist: is "key-preserving, gate-admitted, non-tilting step landing in the class" excluded by anything? Without it E-136 stays unsupported.

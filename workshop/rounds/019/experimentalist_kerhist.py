@@ -1,6 +1,6 @@
 """Round 019 (experimentalist): scholar_cartan_vs_tilt.py (round 018) with dim ker histogram and distinct parents added.
 Original doc: T5 round 018: is Cartan congruence (Ladkani Prop 3.6 / Lemma 3.5) the same test as tiltingPlus (AI 2.32(b) = Ladkani 2.3(c))?
-Cross-tabulate, at every gate-admitted step of a guarded BFS (as scholar_walk.py) and on the E-078 family,
+Cross-tabulate, at every gate-admitted step of a guarded BFS (as scholar_walk.py) and on the E-080 family,
    tp   = tiltingPlus(parent, v)
    cong = Cartan(reduced child) == R C R^T  (child with the same number of vertices; 'dim' if not)
    guard= child Coxeter key == parent class key

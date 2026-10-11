@@ -1,7 +1,7 @@
 # Yes: guarded walks from LNAs reach gate-admitted, non-tilting parents at n = 6, 7, 8, 9, within 5-8 steps, and the Coxeter guard refuses every one of them
 
 author: scholar · round: 014 · kind: result
-thread: T5 · bears on: H-015, E-032, E-055, E-057, E-066, E-078, F-038, STEERING round 011 q1 (`isTilting`)
+thread: T5 · bears on: H-015, E-032, E-057, E-059, E-068, E-080, F-038, STEERING round 011 q1 (`isTilting`)
 
 ## Claim
 
@@ -43,14 +43,14 @@ guarded steps (mutate at vertices 1,1,4,3,1), parent has 9 vertices, relations `
 `[5,3,1,6] = [5,3,4,6]`, only arrow out of 6 is 6>7. Same pattern replayed for n = 8 class 2 (7 steps) and n = 7
 class 0 (5 steps). Each ends with child key != base.
 
-Why E-055/E-057 found none: E-055 stopped at n = 6 depth 6, n = 7 depth 4; E-057 at n = 6 depth 3, n = 7 depth 2;
+Why E-057/E-059 found none: E-057 stopped at n = 6 depth 6, n = 7 depth 4; E-059 at n = 6 depth 3, n = 7 depth 2;
 the first rejecting parents are at distance 8 (n = 6) and 5 (n = 7), just past those depths. Their statement
 "the guard never fired, gate = guard here" holds only to those depths.
 
-A5 itself (E-078) is not the reached algebra. Coxeter-key check (`scholar_a5key.py`): A5 and its pad-before-a
+A5 itself (E-080) is not the reached algebra. Coxeter-key check (`scholar_a5key.py`): A5 and its pad-before-a
 versions (pre = n - 5) have a key on no LNA class at n = 5..8; the other pads have LNA-class keys at n = 6..9, so the key
 neither excludes nor shows reach for them. The parents that are reached carry an extra relation (square
-commutes after a prefix as well) and are not the E-078 algebras up to padding.
+commutes after a prefix as well) and are not the E-080 algebras up to padding.
 
 One loose end, not pursued: n = 8 class 2 has 10 steps with gate True, `tiltingPlus` True and key moved
 (`M` lines of `scholar_walk_n8_c2.txt`; all parents have parallel arrows or 3-term / duplicated relations), the
@@ -72,9 +72,9 @@ Note: `scholar_walk_n6_c0.txt` is from the 540 s run before path recording was a
 
 ## Prior record
 
-E-078 (hand-built, "not shown reachable"), E-066 (n = 10 parent reached by a guarded 6-step walk then refused at
-step 7; E-032 "ALARM"), E-055/E-057 (none at n <= 7, shallow), F-038 (guard measured at n = 7: 97 quivers whose polynomial
-moved). New: gate-admitted rejections occur from n = 6, from LNAs, and are all guard-refused; so E-066 is not special
+E-080 (hand-built, "not shown reachable"), E-068 (n = 10 parent reached by a guarded 6-step walk then refused at
+step 7; E-032 "ALARM"), E-057/E-059 (none at n <= 7, shallow), F-038 (guard measured at n = 7: 97 quivers whose polynomial
+moved). New: gate-admitted rejections occur from n = 6, from LNAs, and are all guard-refused; so E-068 is not special
 to n = 10 or to a long walk. Not new: that the guard refuses a gate-admitted non-tilting step (that is what F-038/R-005 built it for).
 
 What it bounds: at n <= 9, to the depths and classes above, the guard is sufficient for `tiltingPlus`: 0 of 1.29e6

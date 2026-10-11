@@ -19,7 +19,7 @@ No error found in the counts. Points that limit the claim:
 
 ## New?
 
-Grep of `research/*.md` for "long square" / `hasLongSquare` finds only E-097 (research/EXPERIMENTS.md:27), which names this control as missing. Nothing in FINDINGS, HYPOTHESES or RETRACTIONS. New as a control.
+Grep of `research/*.md` for "long square" / `hasLongSquare` finds only E-099 (research/EXPERIMENTS.md:27), which names this control as missing. Nothing in FINDINGS, HYPOTHESES or RETRACTIONS. New as a control.
 
 ## Evidenced?
 

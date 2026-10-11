@@ -1,7 +1,7 @@
 # `3334` and `2455` are one double mutation from `35`, so they lie in the class of `333@1` (not `333@0`, the `444` orbit); the same move sends `444` to `34`
 
 author: theorist · round: 017 · kind: result (lemma checked by exhaustion over a bounded range, not proved)
-thread: T1/T2/T4 · bears on: H-020, H-021, F-032, F-051, E-065, E-079, E-083, E-086
+thread: T1/T2/T4 · bears on: H-020, H-021, F-032, F-051, E-067, E-081, E-085, E-088
 
 ## Claim
 
@@ -19,11 +19,11 @@ thread: T1/T2/T4 · bears on: H-020, H-021, F-032, F-051, E-065, E-079, E-083, E
    (the others are in the class-less parity shadow, as for `35` itself).
 3. **Reading.** Class of `3x` is `x - 4` for x = 4..7 (folds by `j <-> n-6-j` at x = 8, 9), at every placement (odd n). The "4" of
    `3334` is irrelevant: R turns it into the 5 of `35`. The 4 of `444` has nothing after it and R gives `34` (class 0).
-   So "the `444` orbit" is the class of `34`/`333@0`, the small orbit is the class of `35`/`333@1`; E-086's `235/255/455`, `2455`, `3334`
+   So "the `444` orbit" is the class of `34`/`333@0`, the small orbit is the class of `35`/`333@1`; E-088's `235/255/455`, `2455`, `3334`
    having equal size is one orbit, not coincidence.
-4. **`k(33x) = 2x`.** Given the class table (`33x@o` has `J = {x+o-3, n-3-x-o}`, drift label of E-065, and distinct `J` are
+4. **`k(33x) = 2x`.** Given the class table (`33x@o` has `J = {x+o-3, n-3-x-o}`, drift label of E-067, and distinct `J` are
    distinct orbits), `33x@o` and `33x@o'` share an orbit iff `o' = o` or `o + o' = n - 2x`, so `s = n-2x`, `k = 2x`, `d = x-3`.
-   This is E-065's argument; what I add is the *link*: the class of `3x@0` is reached by one anchored rule `3x@0 -> 33(x-1)@0`
+   This is E-067's argument; what I add is the *link*: the class of `3x@0` is reached by one anchored rule `3x@0 -> 33(x-1)@0`
    (seen at n = 13 for x = 5 on a labelled path; consistent with the class table for x = 4..7), so the `3x` family is
    `x - 4` and joins the `33y` chain at its drift label.
 
@@ -51,7 +51,7 @@ and the P/Q nulls stand); the upper bound in 4 (orbit contains nothing beyond th
   placements; other parity is a 272 / 446 orbit with no `333`).
 - Labelled shortest path (n = 13) `3334@3 -> 3@2`, 10 steps: two double mutations to `5@..` and `35`, then `35@0 -> 334@0` (anchored rule
   `3 5 -> 3 3 4`), `334@0 -> 333@1` (x = 4 rule), `333@1 -> 3@2` (`333 -> 23` at w = 2). `444@3 -> 3@1` and `-> 4@0`: 5 steps, `444 -> 34` first.
-  `4@0 -> 3@1` is in class 0 (E-080).
+  `4@0 -> 3@1` is in class 0 (E-082).
 - Hand check of R on `3334` placed at starts 4..7: intervals `(4,7),(5,8),(6,9),(7,11)`; `r = (5,8)`, third `(6,9)` ends at `t+1 = 9`, none ends at 6;
   result `(4,6),(5,8),(6,11)` = `2,3,5`; strip the 2: `35`.
 
@@ -66,8 +66,8 @@ timeout 10m .venv/bin/python workshop/rounds/017/theorist_chain.py 13 3334 3 3 2
 
 ## Prior record
 
-E-083/E-086 record the memberships (by size, then by row set) and call the cause open; E-065 gives the 33x drift and says
-the end link is open; E-080 has `4@0 -> 3@1` as one width-4 move; E-074's list A contains `35 455 3334`. New: the one-step reduction
+E-085/E-088 record the memberships (by size, then by row set) and call the cause open; E-067 gives the 33x drift and says
+the end link is open; E-082 has `4@0 -> 3@1` as one width-4 move; E-076's list A contains `35 455 3334`. New: the one-step reduction
 to `35` and the shared lemma R with `444 -> 34`, and the class label `J` as a table over words (not in the record; grep
 `J`, "class" and `35` in `research/` found nothing equivalent). Not in `RETRACTIONS.md`.
 

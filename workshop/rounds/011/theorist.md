@@ -1,7 +1,7 @@
 # The key-coarser lists A, B are the words that alternate between the two single-relation orbits of the key of `35` (even n) or `36` (odd n); this predicts the n = 17, 18 lists except `5046`, `5056`
 
 author: theorist · round: 011 · kind: conjecture (tested prediction, no proof)
-thread: T1/T3 · bears on: H-021, E-064, E-070, E-074, E-075
+thread: T1/T3 · bears on: H-021, E-066, E-072, E-076, E-077
 
 ## Claim
 
@@ -18,7 +18,7 @@ Prediction for n = 17, 18 was the lists B (minus `5046 5056`, which lie outside 
 single-relation orbits would be missed, as `5046 5056` are at 13, 15, 17.
 (3) The mirror clause matters: `406` alternates between two single-relation orbits with one key (n = 13, 15, 17) but is not in B, because its two orbits are swapped by the mirror
 (mirror of `406`@even lies in the orbit of the odd offsets; n = 15 checked), so orbit+mirror merges them and key = orbit+mirror.
-(4) Letter 4 (E-075), observation only: the orbit of `4@0` holds `3@1` (and `3@(n-5)`) at every n = 12..16 (sizes 1410, 2386, 3767, 5648, 8134), whereas
+(4) Letter 4 (E-077), observation only: the orbit of `4@0` holds `3@1` (and `3@(n-5)`) at every n = 12..16 (sizes 1410, 2386, 3767, 5648, 8134), whereas
 `k@0` for k >= 5 holds a `3@j` only when k and n have the same parity (`5@0`, `7@0`, `9@0` hold none at even n; `6@0`, `8@0` hold none at odd n). So 4 is the one letter whose
 `k@0` is joined to the 3-orbit at both parities, and the smallest cut-off `k` is 5 (even n) / 6 (odd n), exactly the Q seeds. This explains why 4-words are over-represented in the big orbit, not why `444` merges.
 Not claimed: a proof that `35`@o lies in P iff o is even; any n beyond 20 for the orbits; `--max-word 5`; an independent test of `5046 5056`.
@@ -61,9 +61,9 @@ timeout 10m .venv/bin/python workshop/rounds/011/theorist_word.py 15 406 5046 # 
 
 ## Prior record
 
-E-074 states the lists and says "why unexplained"; E-064 that the orbits are parity classes each holding its own mirror; E-051 notes `35`, `36` are placed alone at every offset in the reduced walk
-(the same words). Nothing in `research/` links the lists to single-relation rows or to the orbits of `3@2`, `5@0` (grep of "single relation", "3@2", "5@0" in `research/`: no hit). E-075's merging
-statistics and E-065's `34 -> 44` are consistent with item (4) but do not contain it. No retraction involved.
+E-076 states the lists and says "why unexplained"; E-066 that the orbits are parity classes each holding its own mirror; E-051 notes `35`, `36` are placed alone at every offset in the reduced walk
+(the same words). Nothing in `research/` links the lists to single-relation rows or to the orbits of `3@2`, `5@0` (grep of "single relation", "3@2", "5@0" in `research/`: no hit). E-077's merging
+statistics and E-067's `34 -> 44` are consistent with item (4) but do not contain it. No retraction involved.
 
 ## Code changed
 

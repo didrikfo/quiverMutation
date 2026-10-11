@@ -23,13 +23,13 @@ if _a[1] == 'hand':
         for x, y in arrs: A.add_arrow(x, y)
         for r in rl: A.add_rel(r)
         return A
-    # H1: E-078 long square a b c d e = 1..5, relation abde = acde, v = d = 4
+    # H1: E-080 long square a b c d e = 1..5, relation abde = acde, v = d = 4
     H1 = build([(1,2),(1,3),(2,4),(3,4),(4,5)], [[[1,2,4,5],[1,3,4,5]]])
     # H2: i=1 -> a_k (2,3,4) -> v=5 -> t1=6,t2=7, p1 b = p2 b = p3 b for both b (chains of 2-term relations)
     ar = [(1,k) for k in (2,3,4)] + [(k,5) for k in (2,3,4)] + [(5,6),(5,7)]
     rl = [[[1,2,5,t],[1,3,5,t]] for t in (6,7)] + [[[1,3,5,t],[1,4,5,t]] for t in (6,7)]
     H2 = build(ar, rl)
-    for name, H, v in (("E-078", H1, 4), ("layered m=3", H2, 5)):
+    for name, H, v in (("E-080", H1, 4), ("layered m=3", H2, 5)):
         print(name, "gate", mutation.mutationIsPossibleAtVertex(H, v), "(d_i, dim J_i):", dims(H, v)[0], "path back from out-neighbour to v:", dims(H, v)[1])
 else:
     n, cls, maxexp = int(_a[2]), int(_a[3]), int(_a[4])

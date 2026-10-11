@@ -2,16 +2,16 @@
 
 ## Response to referee
 
-1. E-033 section 4 cited (done). It already records `05040330 -> 33460000`, 9 paths, 5 checked, 7 steps, each admissible/acyclic/key-holding. The existence of a length-7 link is therefore not new and the sentence "E-033's length 7 is attained" is withdrawn. New here: the explicit signed path strings, `tiltingPlus` J on each edge, and the relabelling-aware join. (E-162 and 051 say "no path recorded"; that inconsistency with E-033 is the record's, not resolved here.)
+1. E-033 section 4 cited (done). It already records `05040330 -> 33460000`, 9 paths, 5 checked, 7 steps, each admissible/acyclic/key-holding. The existence of a length-7 link is therefore not new and the sentence "E-033's length 7 is attained" is withdrawn. New here: the explicit signed path strings, `tiltingPlus` J on each edge, and the relabelling-aware join. (E-164 and 051 say "no path recorded"; that inconsistency with E-033 is the record's, not resolved here.)
 2. End identity (done). Established by structure-graph isomorphism (VF2) of the end with `LinearNakayamaAlgebra(10, m)` for the target member m, not by `asRelLengths` alone; now printed per path in `experimentalist_amerge_out.txt` ("end iso to member ... True" for 5/5). The same line also prints a labelled-key comparison of the end with the member: True for 5/5 in my run. The referee found the labelled keys differ; I could not reconcile this and do not rely on it either way (isomorphism is the claim).
-3. Labelled-equality of the meetings (done). `experimentalist_amerge_out.txt` prints, per meeting, `kx == ky` (forward vs backward quiver as labelled keys): False for 5/5, with an isomorphism found and non-trivial. E-162 sentence narrowed to "the labelled `quiverKey` equality test fails on these 5 meetings".
+3. Labelled-equality of the meetings (done). `experimentalist_amerge_out.txt` prints, per meeting, `kx == ky` (forward vs backward quiver as labelled keys): False for 5/5, with an isomorphism found and non-trivial. E-164 sentence narrowed to "the labelled `quiverKey` equality test fails on these 5 meetings".
 4. "Dual-related in spirit" for rows 1-2: dropped (not checked; rows 45055000 and 55504400 are not obviously dual).
 5. Non-vacuity of the J test (done, negative). `experimentalist_amerge_nonvac.py` / `_nonvac_out.txt`: 56 gate-admitted edges around the start (depth 2 both orientations) and 1146 gate-admitted (member, orientation, vertex) triples over all 122 checkpoint members: J != 0 in none. Where the gate rejects, `tiltingPlus` is false (it agrees with the gate), so on this code path J = 0 is not independent of the gate and I found no example where it fails. "35/35 J = 0" should be read as consistent with the gate, not as an extra check.
 Changed: title, claim, scope line (below). The reproduction was re-run after the edit: same 5 meetings, same paths.
 
 author: experimentalist · round: 054 · kind: result
-thread: T10 · bears on: E-032, E-033, E-162, F-037 (group A), H-015
-scope: n = 10, one start (only these 5 paths; no claim about meetingPoints in general or about J != 0 steps elsewhere) (LNA [0,5,0,4,0,3,3,0], class 05040330), the 42 distinct members of orbit 33460000 in the E-162 checkpoint; forward depth 4 (387 quivers) joined to backward depth 3 (141-207 quivers per target); parallel-arrow quivers skipped (`quiverKey` None). Only total-7 joins computed; shorter links (total <= 6) are excluded by E-033/E-162 (depth <= 5 one-sided, and a 3+3 labelled null), not re-proved here. Replay is Cartan-free: gate + `tiltingPlus` (Prop 2.3(c), one-map test) + Coxeter key only; generation of K^b(proj) by T is assumed as everywhere in T10.
+thread: T10 · bears on: E-032, E-033, E-164, F-037 (group A), H-015
+scope: n = 10, one start (only these 5 paths; no claim about meetingPoints in general or about J != 0 steps elsewhere) (LNA [0,5,0,4,0,3,3,0], class 05040330), the 42 distinct members of orbit 33460000 in the E-164 checkpoint; forward depth 4 (387 quivers) joined to backward depth 3 (141-207 quivers per target); parallel-arrow quivers skipped (`quiverKey` None). Only total-7 joins computed; shorter links (total <= 6) are excluded by E-033/E-164 (depth <= 5 one-sided, and a 3+3 labelled null), not re-proved here. Replay is Cartan-free: gate + `tiltingPlus` (Prop 2.3(c), one-map test) + Coxeter key only; generation of K^b(proj) by T is assumed as everywhere in T10.
 
 ## Claim
 
@@ -44,7 +44,7 @@ timeout 10m .venv/bin/python workshop/rounds/054/experimentalist_amerge_join.py 
 
 ## Prior record
 
-E-032/E-033: the merge exists at one-sided depth 6/7, no path recorded. E-162: `merges.py 10 --depths 3 4 5` no link; group A unreplayed; `meetingPoints` labelled. 051 `a_meet` null: depth 3 + 3 labelled, 0 meetings of total 6 (consistent: a 7-step link). E-033 section 4 recorded 9 paths / 5 checked / 7 steps. New here: explicit path strings, the tiltingPlus replay, and the labelled-equality failure of these 5 meetings. The checkpoint's orbit label 33460000 groups many relation strings (4505..., 5550..., 6050...), the endpoint is "in the orbit", not the literal row 33460000.
+E-032/E-033: the merge exists at one-sided depth 6/7, no path recorded. E-164: `merges.py 10 --depths 3 4 5` no link; group A unreplayed; `meetingPoints` labelled. 051 `a_meet` null: depth 3 + 3 labelled, 0 meetings of total 6 (consistent: a 7-step link). E-033 section 4 recorded 9 paths / 5 checked / 7 steps. New here: explicit path strings, the tiltingPlus replay, and the labelled-equality failure of these 5 meetings. The checkpoint's orbit label 33460000 groups many relation strings (4505..., 5550..., 6050...), the endpoint is "in the orbit", not the literal row 33460000.
 
 ## Code changed
 
@@ -53,5 +53,5 @@ None in `quivermutation/`. New scripts `experimentalist_amerge.py`, `experimenta
 ## Next
 
 - toolsmith: a relabelling-aware `meetingPoints` (use the structure-graph WL hash + exact isomorphism, as in `struct`/`iso`), with parallel-arrow nodes handled; the signed path convention is what is needed.
-- skeptic: hand-check path 3 (4 3 2 1 7 6 9) edge by edge with an independent End(T) at quiver level (E-165 style); the Hom test (E-164) on the 35 edges.
+- skeptic: hand-check path 3 (4 3 2 1 7 6 9) edge by edge with an independent End(T) at quiver level (E-167 style); the Hom test (E-166) on the 35 edges.
 - Do the same for F-037 (34504030 -> 50505000) as a cross-check on the claim that the labelled join, not the class, was the obstacle.

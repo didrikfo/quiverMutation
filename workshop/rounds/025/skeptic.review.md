@@ -14,12 +14,12 @@ I also ran a control, `theorist_control.py` (same walk, 200 s): among all out-de
 Mostly yes; three overstatements.
 
 1. Reachability. "Key equals base" is true by construction (BFS adds only key == base), so the 42/42 check is vacuous as evidence. The content is only that the parents are BFS-visited nodes, which is the answer to the reachability question for these 42: yes. This is fine, and the text says "trivially". It does not show the walk is the relevant one, only that it reaches them.
-2. "Same mechanism as E-103" is a shape match only. The control shows that "two out-arrows each carry a relation" is necessary in this sample (0 rejections without it) but not close to sufficient: 754 steps with that shape accept, 42 reject. No kernel element x was extracted (admitted). So "not a new mechanism" is asserted, not shown; the discriminating condition is unexplained. The author's own Next item (x for the 42) is the missing piece.
+2. "Same mechanism as E-105" is a shape match only. The control shows that "two out-arrows each carry a relation" is necessary in this sample (0 rejections without it) but not close to sufficient: 754 steps with that shape accept, 42 reject. No kernel element x was extracted (admitted). So "not a new mechanism" is asserted, not shown; the discriminating condition is unexplained. The author's own Next item (x for the 42) is the missing piece.
 3. Title says "minimal presentations", the Caveat says the presentation is not minimal (`4513 = 4573` beside `451 = 0` is `4573 = 0`). "Irredundant" (no relation in the ideal of the others) is not "minimal". The title and the Claim (2) heading contradict the Caveat. Whether the reject survives replacing it by the shorter presentation was not tested; kerdim over `relationsFrom` could change.
 
 ## New?
 
-Grepped `research/EXPERIMENTS.md` for "out-degree 2", "two out-arrow", "two-out". E-103 already records the two-out kind (19 of 26) and its Limits already cite the n = 8 class-0 count of 42 with out-degree 2 and no long square (referee run, 200 s). New here: parents keep the class, irredundant, per-arrow count table. Nothing in RETRACTIONS touches it. Marginal novelty.
+Grepped `research/EXPERIMENTS.md` for "out-degree 2", "two out-arrow", "two-out". E-105 already records the two-out kind (19 of 26) and its Limits already cite the n = 8 class-0 count of 42 with out-degree 2 and no long square (referee run, 200 s). New here: parents keep the class, irredundant, per-arrow count table. Nothing in RETRACTIONS touches it. Marginal novelty.
 
 ## Evidenced?
 

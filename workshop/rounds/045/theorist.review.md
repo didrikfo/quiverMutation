@@ -18,7 +18,7 @@ What was run is true as far as I could check. Problems:
 3. The word "criterion" in the Lemma's name and the "only if" are fine as stated, but the lemma also says the condition is not sufficient and the single non-lowering run-of-three (`(10:4)`) was seen only at k = 2. Whether `(10:4)` lowers at k = 3 decides whether it is a "criterion" or just a necessary condition with one example.
 4. The margin is 2, while F-022's baseline used 3 (and the 4-mutation row 6). With margin 2, mutations at vertices farther from the cluster are never tried. "No lowering" is a statement about the windowed enumeration, not about all mutations at depth 3 on the line. This should be stated; the Scope line mentions "within 2" but the Claim does not.
 5. The "Why no proof" section asserts, with "Hence", that a depth-k sequence depends only on a window of radius about k and is translation covariant. This is neither proved nor tested (the author's own Next item proposes testing L1). The consistency with F-024 counts (2, 4, 4, 6) is a check of a different thing. It should be marked as conjecture.
-6. Point 4 says the E-066 step-7 element is "not an instance of H-010". I did not read E-066 in full, but this is a claim about the sources, and the justification offered ("a statement about J") is the same sentence as the claim.
+6. Point 4 says the E-068 step-7 element is "not an instance of H-010". I did not read E-068 in full, but this is a claim about the sources, and the justification offered ("a statement about J") is the same sentence as the claim.
 
 ## New?
 
@@ -47,5 +47,5 @@ The tables are specific enough to be believed for k = 2. For k = 3 the "not reac
 4. Run `(8:3)(9:3)(10:4)` at k = 3 (single placement, should finish well under the cap) and report whether it lowers; this decides "criterion" versus "necessary condition".
 5. Mark the locality/translation-covariance claim in point 2 as a conjecture (or run L1 for n <= 9, which the author already proposes; if it fits, it belongs in this round, not the next).
 6. Include the left-bystander result (my variation: `(7:3)(8:3)(9:3)` lowers, 4 reached / 2 lowered / min 1 at k = 2; every other left placement inert) or run it yourself. This removes the "not run" caveat in the Claim.
-7. Replace "close T7" by a recommendation of status for the Chair that matches the evidence ("no proof found in one sitting; L1 untested"), and either read E-066 and quote the relevant line for point 4 or drop that sentence.
+7. Replace "close T7" by a recommendation of status for the Chair that matches the evidence ("no proof found in one sitting; L1 untested"), and either read E-068 and quote the relevant line for point 4 or drop that sentence.
 8. [next round] Finish the cap-cut k = 3 rows (m = 3, g >= 2; m = 4) with margin 1, as the author already suggests, and run one other pair shape.

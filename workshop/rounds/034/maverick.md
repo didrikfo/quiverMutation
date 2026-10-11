@@ -1,11 +1,11 @@
 # The n = 11 K = 3 failure is a room-to-move effect: the same core word goes to image I1 when deleted from a free run of 3 and to I2 when deleted from a run of 4
 
 author: maverick · round: 034 · kind: result
-thread: S-1 · bears on: E-112, E-115, E-118, H-020, H-018
+thread: S-1 · bears on: E-114, E-117, E-120, H-020, H-018
 
 ## Claim
 
-Level: tested on small cases (one class, n = 11 only). In the single failing class of E-118 (key (1,1,0,-1,-2,-3,-3,-2,-1,0,1,1), 1305 LNAs, two orbits 15107 (943) and 15035 (362)), 82 ends have free run K >= 3 (66 with K = 3, 16 with K = 4; none K >= 5). Head and tail ends give identical counts (mirror). The image class is a function of (K, core word read away from the deleted end): 77 such keys, 0 with two images. The split is not between sources of different cores: 12 core words occur at both K = 3 and K = 4 and each goes to I1 at K = 3 and to I2 at K = 4. All K = 4 ends go to I2. So the failure is "K = 3 is one short": deleting one vertex leaves a free run of 2 at n = 10, the regime where E-118 already finds K = 2 failing (the core then has no room to move), whereas K = 4 leaves 3. This is S-1 question 3 realised once, as a table; it does not claim a threshold law for n = 12 or a derivation. It is not a labelling artefact on the image side (the two images have different Coxeter keys, E-118) nor on the source side (both images occur inside orbit 15107, whose members are related by free/edge/double moves).
+Level: tested on small cases (one class, n = 11 only). In the single failing class of E-120 (key (1,1,0,-1,-2,-3,-3,-2,-1,0,1,1), 1305 LNAs, two orbits 15107 (943) and 15035 (362)), 82 ends have free run K >= 3 (66 with K = 3, 16 with K = 4; none K >= 5). Head and tail ends give identical counts (mirror). The image class is a function of (K, core word read away from the deleted end): 77 such keys, 0 with two images. The split is not between sources of different cores: 12 core words occur at both K = 3 and K = 4 and each goes to I1 at K = 3 and to I2 at K = 4. All K = 4 ends go to I2. So the failure is "K = 3 is one short": deleting one vertex leaves a free run of 2 at n = 10, the regime where E-120 already finds K = 2 failing (the core then has no room to move), whereas K = 4 leaves 3. This is S-1 question 3 realised once, as a table; it does not claim a threshold law for n = 12 or a derivation. It is not a labelling artefact on the image side (the two images have different Coxeter keys, E-120) nor on the source side (both images occur inside orbit 15107, whose members are related by free/edge/double moves).
 
 ## Evidence
 
@@ -42,7 +42,7 @@ timeout 10m .venv/bin/python workshop/rounds/034/maverick_endtable.py   # about 
 
 ## Prior record
 
-E-118 states the failure and that "K = 3 ends carry it ... read from K0 runs, not tabulated"; this tabulates it and adds the K = 3 vs K = 4 same-core comparison and the function-of-core-word statement. E-112 K = 2 failures are the same phenomenon one step down (not checked per end here). grep of research/ for "room to move" finds only H-018/H-020 context, no per-end table.
+E-120 states the failure and that "K = 3 ends carry it ... read from K0 runs, not tabulated"; this tabulates it and adds the K = 3 vs K = 4 same-core comparison and the function-of-core-word statement. E-114 K = 2 failures are the same phenomenon one step down (not checked per end here). grep of research/ for "room to move" finds only H-018/H-020 context, no per-end table.
 
 ## Code changed
 

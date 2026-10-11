@@ -1,4 +1,4 @@
-"""Which GF(2)-affine functionals of a row are constant on a reduced-walk orbit? (T1/T3, E-074)
+"""Which GF(2)-affine functionals of a row are constant on a reduced-walk orbit? (T1/T3, E-076)
   timeout 10m .venv/bin/python workshop/rounds/011/theorist_invariant.py N word [word..]
 Features per row: r_i mod 2 and [r_i != 0] for i = 1..n-2, and i*r_i etc. are linear combos of these.
 Prints, for each placement, orbit size, and the dimension of the invariant space, and whether the

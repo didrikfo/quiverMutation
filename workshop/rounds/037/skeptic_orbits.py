@@ -1,4 +1,4 @@
-"""Round 037 (skeptic): orbits of the E-127 rows (needs skeptic_rows.pkl from skeptic_dump.py) under vertex relabelling and opposite;
+"""Round 037 (skeptic): orbits of the E-129 rows (needs skeptic_rows.pkl from skeptic_dump.py) under vertex relabelling and opposite;
 import numpy as np
 per-row Gamma_i data (d_i, rank of g_i, support of images) against parallel multiplicity and #J_i != 0.
 Usage: skeptic_orbits.py skeptic_rows.pkl"""

@@ -1,4 +1,4 @@
-"""T10(i): one-step reverse test. For each failing E-149 child B (from a skeptic_collect pickle), mutate B at the same vertex v
+"""T10(i): one-step reverse test. For each failing E-151 child B (from a skeptic_collect pickle), mutate B at the same vertex v
 (plain, and via the opposite algebra) and report gate / J / key / whether the result is the parent (canonicalKey) or parent's opposite.
 If a J = 0 gate-admitted reverse step returned the parent, B -> P would be a tilting step and B would be in the parent's class.
 usage: theorist_reverse.py in.pkl   (run from repo root)"""

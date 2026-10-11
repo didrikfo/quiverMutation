@@ -1,7 +1,7 @@
 # A both-die square on 6 vertices is gate-admitted with J != 0 but its Coxeter key is not an LNA key at n = 6 (first LNA-key examples at n = 7); dim J_i = 1 on every walk J != 0 row
 
 author: experimentalist · round: 033 · kind: result
-thread: T5 · bears on: E-114, E-119, E-120, E-121, H-015
+thread: T5 · bears on: E-116, E-121, E-122, E-123, H-015
 
 ## Claim
 
@@ -32,10 +32,10 @@ Enumeration (`enum n`; counts of gate-admitted J != 0 / of which LNA key):
 | 7 | 88 / 44 | 792 / 0 | 44 / 0 | 4 / 4 | 48 |
 | 8 | 2 288 / 1 316 | 20 592 / 0 | 1 144 / 0 | 104 / 92 | 1 408 |
 
-Observation: at n = 7 and 8 only the cores with two length-2 sides (A) and length (2,3) sides (D) get LNA keys; the cores with an arrow side (B, C: the arrow-versus-path squares that E-120 found at n = 6, 7, and which are half-W there) never do (0 of 21 736 at n = 8). A both-die square with an arrow side thus has a non-LNA key at every length tested; the walk's squares with an arrow side are all half-die (E-120), consistent. The mechanism is in the key, i.e. the Coxeter polynomial; I have not derived it.
+Observation: at n = 7 and 8 only the cores with two length-2 sides (A) and length (2,3) sides (D) get LNA keys; the cores with an arrow side (B, C: the arrow-versus-path squares that E-122 found at n = 6, 7, and which are half-W there) never do (0 of 21 736 at n = 8). A both-die square with an arrow side thus has a non-LNA key at every length tested; the walk's squares with an arrow side are all half-die (E-122), consistent. The mechanism is in the key, i.e. the Coxeter polynomial; I have not derived it.
 
 Walk J_i (`experimentalist_dimji_n*.txt`; capped 100-420 s walks; counts are (algebra, vertex) rows, rates not totals): n = 6 c0 234 rows, all (out 1, J_i = (1)); n = 7 c0 115 rows, same; n = 8 c0 153 rows: out 1: 16 x (1); out 2: 112 x (1), 23 x (1,1), 1 x (1,1,1); out 3: 1 x (1,1); n = 8 c1 56 rows: out 1: 10 x (1), 8 x (1,1); out 2: 38 x (1). dim e_iAe_v at every i with J_i != 0 is 2 (243 of 243). So J_i = 1 inside a 2-dimensional space: the kernel is a line in a plane, matching a two-term relation p1 - p2.
-Flag: the n = 8 c0 out-degree 3 row (v = 4) has a relation with a repeated path ([2,4,8], [2,4,8], i.e. parallel arrows), so it falls in the parallel-arrow case; E-111 reports 0 out-degree >= 3 rejects, so this walk (6 855 expanded, different from E-111's) finds one. Unverified that it is a genuine counterexample to E-111 (dim count with parallel arrows validated only for n <= 6, E-119). Also 112 + 23 + 1 = 136 out-2 rows here against E-111's 61 at c0: different caps, and "rows" differ ((algebra, v) here); not reconciled.
+Flag: the n = 8 c0 out-degree 3 row (v = 4) has a relation with a repeated path ([2,4,8], [2,4,8], i.e. parallel arrows), so it falls in the parallel-arrow case; E-113 reports 0 out-degree >= 3 rejects, so this walk (6 855 expanded, different from E-113's) finds one. Unverified that it is a genuine counterexample to E-113 (dim count with parallel arrows validated only for n <= 6, E-121). Also 112 + 23 + 1 = 136 out-2 rows here against E-113's 61 at c0: different caps, and "rows" differ ((algebra, v) here); not reconciled.
 
 ## Reproduction
 
@@ -49,7 +49,7 @@ Outputs beside the scripts: `experimentalist_hand.txt`, `_enum_n6n7.txt`, `_reac
 
 ## Prior record
 
-E-120 says capped n = 6, 7 walks have no both-die row and leaves open whether it is walk reach or the algebras; E-121 shows the kernel structure alone does not exclude circuits and that non-LNA keys matter. This submission answers E-120's question partly: at n = 6 it is the algebras (no both-die square has an LNA key in the families enumerated); at n = 7 the key does not forbid it, and the capped walks (36 877 expanded, 80 680 seen) simply do not reach it. grep of `research/` for "both-die" finds only E-120. Not in RETRACTIONS.
+E-122 says capped n = 6, 7 walks have no both-die row and leaves open whether it is walk reach or the algebras; E-123 shows the kernel structure alone does not exclude circuits and that non-LNA keys matter. This submission answers E-122's question partly: at n = 6 it is the algebras (no both-die square has an LNA key in the families enumerated); at n = 7 the key does not forbid it, and the capped walks (36 877 expanded, 80 680 seen) simply do not reach it. grep of `research/` for "both-die" finds only E-122. Not in RETRACTIONS.
 
 ## Code changed
 
@@ -59,4 +59,4 @@ None in the library. New: `experimentalist_bothdie.py`, `experimentalist_dimji.p
 
 - Overnight proposal: close the n = 7 classes idx 1 and 3 (BFS ratio per level is large; 47 000 seen at level 8) and test the 44 canonical keys; closure would turn "not found" into a verdict. Or cheaper: for each of the 44 targets, test derived equivalence by mutating the target itself down toward an LNA (reverse direction), which needs no closure.
 - Theorist: why arrow-side squares (B, C) never get an LNA key but (2,2) and (2,3) sides do at n >= 7: a Coxeter-polynomial computation on the square core.
-- Skeptic: check the out-degree 3 row (n = 8 c0, v = 4) against E-111.
+- Skeptic: check the out-degree 3 row (n = 8 c0, v = 4) against E-113.

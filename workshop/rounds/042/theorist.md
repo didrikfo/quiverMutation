@@ -1,11 +1,11 @@
 # On LNA walks Q(x) = x(adj S_ii - adj S_wi - adj S_iw); its x^2 coefficient is 1 exactly when two Coxeter-orbit numbers of the simple S_w vanish, which is proved for F e_w = e_i and only observed otherwise
 
 author: theorist · round: 042 · kind: proof (partial) + result
-thread: T5 · bears on: E-141, E-138, E-140, E-136, H-015
+thread: T5 · bears on: E-143, E-140, E-142, E-138, H-015
 
 ## Claim
 
-Setting (E-136, as in 041). A has Cartan matrix C_A (acyclic, so unitriangular after a permutation), v is a gate-admitted vertex, J = e_i (every J != 0 step seen has dim 1, one vertex), C' = r C_A r^T, C_B = C' + E_{vi}. Order v last and put Z = C_A restricted to V \ v, Y = Z^-1, T = Y^T, F = Z Z^-T (minus the Coxeter matrix of Z), S(x) = xZ + Z^T, N = S^-1.
+Setting (E-138, as in 041). A has Cartan matrix C_A (acyclic, so unitriangular after a permutation), v is a gate-admitted vertex, J = e_i (every J != 0 step seen has dim 1, one vertex), C' = r C_A r^T, C_B = C' + E_{vi}. Order v last and put Z = C_A restricted to V \ v, Y = Z^-1, T = Y^T, F = Z Z^-T (minus the Coxeter matrix of Z), S(x) = xZ + Z^T, N = S^-1.
 
 **(P1, proved, exact).** If (H1) C' e_v = e_v (column v of C' is the unit vector) and (H2) the row of v in C' is u = e_w - e_i off the diagonal, then C' = [[Z,0],[u^T,1]], C_B = [[Z,0],[e_w^T,1]], and by the Schur complement det(xC+C^T) = (1+x) det S - x u^T adj(S) u. Hence
  Q(x) = x B(x),  B = adj(S)_ii - adj(S)_wi - adj(S)_iw = det S * (N_ii - N_wi - N_iw)
@@ -15,7 +15,7 @@ Setting (E-136, as in 041). A has Cartan matrix C_A (acyclic, so unitriangular a
 Proof sketch of every step: F e_w = e_i <=> Y^T e_w = Y e_i, i.e. Y_wb = Y_bi for all b; b = i gives Y_wi = 1. Terms: W = T Z T = T F, W_iw = T_ii = 1, W_wi = (T F e_i)_w = c_2. Weakest step: none in P2 itself; the weak points are the hypotheses, below.
 
 **Not proved, only computed (the exact gaps).**
-(G1) H1 and H2 are observations about the library's walk steps, not consequences of the gate. H2 says C_B has row (v) = e_v + e_w: after the mutation the only new arrow at v is the old one. Counter-shape: in the n = 4 example of E-141 u = e_2 + e_4 (not e_w - e_i, u_i = 0) and Q = 0 identically, so the reduction does not apply there, consistently with E-141.
+(G1) H1 and H2 are observations about the library's walk steps, not consequences of the gate. H2 says C_B has row (v) = e_v + e_w: after the mutation the only new arrow at v is the old one. Counter-shape: in the n = 4 example of E-143 u = e_2 + e_4 (not e_w - e_i, u_i = 0) and Q = 0 identically, so the reduction does not apply there, consistently with E-143.
 (G2) The orbit relation e_i = F^s e_w (s = 1 in 176/716 n = 6 steps and 120/120 n = 7 steps; s = -2 in the other 540 of 716 at n = 6; never absent when H1, H2 hold). For s = -2 the same moment formulas apply (B_0 = 1 - c_{-2} - c_2 = 1 - Y_iw - Y_wi, B_1 = c_{-1} + c_3 - c_1 = 1 + c_3 - c_1, verified numerically) but I have no argument for the numbers c_1 = 0, c_2 = 1, c_3 = 0 that give B_0 = c_0 - c_1 - c_2 = 0 and B_1 = 1; they are observed. Why e_i lies in the F-orbit of e_w at all is the open question; for s = 1 it reads "the relation i ~> v -> w = 0 is a relation between S_i and S_w in eAe, and Phi S_w = S_i".
 (G3) c_2 = 0 in the s = 1 cases (176 n = 6, 120 n = 7) is observed; the termwise vanishing sum_b Y_bw (F e_i)_b = 0 holds in 130/176 (n = 6) and 120/120 (n = 7); in the other 46 F e_i has full support and the sum cancels.
 (G4) Random unitriangular Z with Y_wi = 1 (so B_0 = 0) have B_1 anything (-37..13): the identity B_1 = 1 is not a matrix identity of Z; it needs F-orbit data that only realisable (Cartan) Z have. This is the "identity that fails to generalise".
@@ -28,8 +28,8 @@ Proof sketch of every step: F e_w = e_i <=> Y^T e_w = Y e_i, i.e. Y_wb = Y_bi fo
 | n = 6 c0 key guard OFF, depth 10, parent has class key | 82 | 82 | 38 | 44 | 82/82 | 0 |
 | n = 7 c0 guarded walk, 521 s | 120 | 120 | 120 (s in {1, -4}) | 0 | 120/120 | 0 |
 
-C_B = C' + H (E-136) holds on every gate-admitted record: 74 384/74 384 (n = 6), 44 761/44 761 (n = 7); this closes the round-041 review item for n = 7. Every J != 0 step has J = e_i (dim 1). Moment sequences are few: s = 1, n = 6: c_{-3..6} = 0 0 1 1 0 0 -1 -1 0 0; s = 1, n = 7: 0 0 1 1 0 0 0 1 1 0; s = -2, n = 6: 1 0 1 1 0 1 0 0 1 0. Newton form of the result: tr F and the x^1 coefficient agree for A and B; the e_2 coefficient of det(xC+C^T) differs by exactly 1, equivalently tr(Phi_B^2) = tr(Phi_A^2) - 2.
-The n = 6 counts here (766) exceed E-140's 147 because the budget is 522 s and different walk order; the claim is about this sample, not a re-count of E-140.
+C_B = C' + H (E-138) holds on every gate-admitted record: 74 384/74 384 (n = 6), 44 761/44 761 (n = 7); this closes the round-041 review item for n = 7. Every J != 0 step has J = e_i (dim 1). Moment sequences are few: s = 1, n = 6: c_{-3..6} = 0 0 1 1 0 0 -1 -1 0 0; s = 1, n = 7: 0 0 1 1 0 0 0 1 1 0; s = -2, n = 6: 1 0 1 1 0 1 0 0 1 0. Newton form of the result: tr F and the x^1 coefficient agree for A and B; the e_2 coefficient of det(xC+C^T) differs by exactly 1, equivalently tr(Phi_B^2) = tr(Phi_A^2) - 2.
+The n = 6 counts here (766) exceed E-142's 147 because the budget is 522 s and different walk order; the claim is about this sample, not a re-count of E-142.
 
 ## Reproduction
 
@@ -44,14 +44,14 @@ timeout 10m .venv/bin/python workshop/rounds/042/theorist_dump_off.py 6 0 520 /t
 .venv/bin/python workshop/rounds/042/theorist_orbits.py /tmp/n6.pkl        # all F-orbit coincidences
 .venv/bin/python workshop/rounds/042/theorist_exceptions.py /tmp/n6.pkl    # the 50 off-shape steps
 .venv/bin/python workshop/rounds/042/theorist_cbcheck.py /tmp/n7.pkl       # C_B = C' + H
-.venv/bin/python workshop/rounds/042/theorist_n4.py                        # E-141 n = 4 example: u_i = 0, Q = 0
+.venv/bin/python workshop/rounds/042/theorist_n4.py                        # E-143 n = 4 example: u_i = 0, Q = 0
 .venv/bin/python workshop/rounds/042/theorist_zrandom.py 5 3000            # prints a LOT (head it); G4
 ```
 (`theorist_explore.py`, `theorist_blocks.py` are exploratory.) The n = 6 sample is a time-limited walk prefix, so counts vary a little with machine speed.
 
 ## Prior record
 
-E-141 states Q's lowest term x^2 (n = 6, 7) as observed, "no proof; x = 0, infinity, trace routes closed". New here: the exact block form Q = x B (P1), the reduction of Q_2 = 1 to Euler-form moments of the simple S_w under F, the proof for F e_w = e_i (P2), the orbit relation e_i = F^s e_w (s = 1 or -2) as the new regularity, the exceptions (50) which also have x^2 lowest term, and the n = 7 check C_B = C' + H. Grep of EXPERIMENTS/FINDINGS/RETRACTIONS/HYPOTHESES for "Serre", "moment", "one-point": nothing relevant; no retraction touches these. Bears on the key guard: R = 1 would need B = 0, which requires u not of the form e_w - e_i (as in the n = 4 example); so a proof of the walk law would need G1 (why the new vertex v of B has exactly one arrow) plus G2.
+E-143 states Q's lowest term x^2 (n = 6, 7) as observed, "no proof; x = 0, infinity, trace routes closed". New here: the exact block form Q = x B (P1), the reduction of Q_2 = 1 to Euler-form moments of the simple S_w under F, the proof for F e_w = e_i (P2), the orbit relation e_i = F^s e_w (s = 1 or -2) as the new regularity, the exceptions (50) which also have x^2 lowest term, and the n = 7 check C_B = C' + H. Grep of EXPERIMENTS/FINDINGS/RETRACTIONS/HYPOTHESES for "Serre", "moment", "one-point": nothing relevant; no retraction touches these. Bears on the key guard: R = 1 would need B = 0, which requires u not of the form e_w - e_i (as in the n = 4 example); so a proof of the walk law would need G1 (why the new vertex v of B has exactly one arrow) plus G2.
 
 ## Code changed
 

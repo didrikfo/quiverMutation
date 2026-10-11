@@ -1,5 +1,5 @@
 """Round 033 (toolsmith): base rate of an LNA/dual-LNA Coxeter key.
-Usage: toolsmith_baserate.py layers m          -- E-121 layered family, ALL members (incl. circuit-free), key in LNA keys by category
+Usage: toolsmith_baserate.py layers m          -- E-123 layered family, ALL members (incl. circuit-free), key in LNA keys by category
        toolsmith_baserate.py walk n cls maxexp -- gate-admitted out-degree 2 walk rows: parent key / raw child key vs LNA keys (parent is in class by construction)
 """
 import sys

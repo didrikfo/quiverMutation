@@ -1,15 +1,15 @@
-# The n = 8 class 2 loose end is a bug in step 7 of the mutation rewrite (`reduceAgainstPivots` is not a normal form), not a gap in `tiltingPlus`; the rejections of E-084 are confirmed by the Cartan congruence
+# The n = 8 class 2 loose end is a bug in step 7 of the mutation rewrite (`reduceAgainstPivots` is not a normal form), not a gap in `tiltingPlus`; the rejections of E-086 are confirmed by the Cartan congruence
 
 author: theorist · round: 015 · kind: result
-thread: T5 · bears on: H-015, E-084, E-078, E-057, F-038, R-005
+thread: T5 · bears on: H-015, E-086, E-080, E-059, F-038, R-005
 
 ## Claim
 
-(1) For the replayed non-tilting parents of E-084 (n = 7 class 0, n = 8 class 2, n = 9 class 0; 5 + 1 + 5 recorded
+(1) For the replayed non-tilting parents of E-086 (n = 7 class 0, n = 8 class 2, n = 9 class 0; 5 + 1 + 5 recorded
 rejections; the n = 8 and n = 9 files list the others the same way) the Cartan congruence, computed without
 `tiltingPlus`, fails in every one: the predicted matrix R C R^T has an entry -1 (impossible for a Cartan matrix),
 and the child's key differs. So `tiltingPlus` False and "Cartan congruence fails" agree on all 11 rejecting parents
-replayed; nothing new about E-084's main claim.
+replayed; nothing new about E-086's main claim.
 (2) The n = 8 class 2 loose end (10 steps: gate True, `tiltingPlus` True, key moves) is explained. In all 10 the
 Cartan congruence fails too (the child has dimension 2 where R C R^T predicts 1 at one or two entries), but `tiltingPlus`
 is right: it is vacuous or true, and R C R^T is the Cartan matrix of End(T). The wrong thing is the **child**: step 7
@@ -20,7 +20,7 @@ replaced by a full reduction (monkeypatch, `theorist_fix.py`), all 10 steps give
 and the parent's key (parents identical to the recorded ones); the 3 rejection sets stay rejected.
 Parallel arrows are incidental: 6 of the 10 lines have one pair, 4 have none (the 10 lines are 7 distinct parents).
 It does **not** claim: that this is the only defect of the rewrite, how often the bug fires (only the 7 distinct
-parents of this one file were examined; the other 13 classes of E-084 recorded no such step), or that E-084's counts
+parents of this one file were examined; the other 13 classes of E-086 recorded no such step), or that E-086's counts
 (rejections, 1.29e6 guard-admitted steps) are unchanged: the BFS ran with the buggy rewrite, so child algebras
 that depended on a missing relation were possibly wrong and are not re-run. No library change was made.
 
@@ -42,7 +42,7 @@ non-pivot head. After the fix the extra relation appears and everything matches.
 | rejections n = 7 c0, 8 c2, 9 c0 | 5 + 1 + 5 | True | False | False, predicted entry -1 | no | unchanged (False; n = 8 c0 also run: 4 lines) |
 | n = 8 c2 'M' lines | 10 | True | True | False, child 2 vs predicted 1 | no | cong True, key equal, 10 of 10 |
 
-Not a retraction of E-057 / E-084's `tiltingPlus` result: this is the first case where `tiltingPlus` and the congruence
+Not a retraction of E-059 / E-086's `tiltingPlus` result: this is the first case where `tiltingPlus` and the congruence
 disagree, and the congruence is the one that is right about End(T) while the rewritten child is the faulty object.
 The same non-canonical residue is used by `_isForcedByNearer` (decided by `reduceAgainstPivots`; zero test, so safe)
 and by `tiltingPlus`'s `rank` of residues of p·beta (not safe when a path p lies in the ideal; not tested here).
@@ -60,7 +60,7 @@ Outputs: `theorist_cartan_n{7c0,8c2,9c0}.txt`, `theorist_fix_n8c2.txt`, `theoris
 
 ## Prior record
 
-E-078 (the congruence as a check for the length-4 square), E-084 (the loose end, "not pursued"), E-057 ("0 disagreements"
+E-080 (the congruence as a check for the length-4 square), E-086 (the loose end, "not pursued"), E-059 ("0 disagreements"
 between `tiltingPlus` and the congruence, depth-limited). `grep` of `research/` for `reduceAgainstPivots`, residue
 and normal form finds nothing about this defect. So the defect is new, as far as the record goes.
 
@@ -73,6 +73,6 @@ non-pivot leading term (my `fullReduce`), or make `idealBasis` fully reduced. Ra
 
 ## Next
 
-- Toolsmith: apply the fix, add a unit test on this parent (child Cartan = R C R^T; 6 vertices are enough: the 3>1 / 1>2 / 1>5>6 pattern), run the fast mutation tests, then ask whether anything recorded depended on the old behaviour (E-084 n = 8 class 2 BFS size 54,326 will move).
+- Toolsmith: apply the fix, add a unit test on this parent (child Cartan = R C R^T; 6 vertices are enough: the 3>1 / 1>2 / 1>5>6 pattern), run the fast mutation tests, then ask whether anything recorded depended on the old behaviour (E-086 n = 8 class 2 BFS size 54,326 will move).
 - Experimentalist: re-run the n = 8 class 2 walk with the fix; look for any step with congruence False and `tiltingPlus` True (after the fix there should be none; if some remain, `tiltingPlus` really is incomplete).
 - Chair: R-005 gains a possible second source of "rewrite is not a derived equivalence": a missing relation, not only an inadmissible vertex. Worth a record line once the fix is checked.

@@ -1,4 +1,4 @@
-"""Round 035 (toolsmith): size / run the n = 7 BFS closure of LNA key classes against the both-die targets (E-124).
+"""Round 035 (toolsmith): size / run the n = 7 BFS closure of LNA key classes against the both-die targets (E-126).
 Usage: toolsmith_closure.py plan CLASSIDX SECONDS      -- per-level growth + rate for SECONDS, no verdict
        toolsmith_closure.py run  CLASSIDX [--budget-hours H]  -- full BFS; exit 2 if budget spent, 0 if closed
 Same BFS as rounds/033/experimentalist_bothdie.py reach (acyclic-quiver algebras expanded, children kept iff key == class key)."""

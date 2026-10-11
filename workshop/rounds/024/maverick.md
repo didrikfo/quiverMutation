@@ -8,7 +8,7 @@ Does the mirror-chain depth rule reflect deep structure in the quipu poset, or i
 
 **Weakest claim I rely on:**
 
-"The any-length-link mirror chain predicts depth for all LNAs at n >= 13." This is extrapolated from four values of n (8..11) with no proof or mechanism. The `303` depth-3 shape dominates the out-of-sample test; non-303 shapes and depth-4+ predictions at n = 12 are untested. The peeling formula E-101 already fails on multi-big-relation cases, so the chain rule's scope is unknown.
+"The any-length-link mirror chain predicts depth for all LNAs at n >= 13." This is extrapolated from four values of n (8..11) with no proof or mechanism. The `303` depth-3 shape dominates the out-of-sample test; non-303 shapes and depth-4+ predictions at n = 12 are untested. The peeling formula E-103 already fails on multi-big-relation cases, so the chain rule's scope is unknown.
 
 **What I need from another persona:**
 

@@ -16,8 +16,8 @@ verdict: minor revision
 
 I found no counterexample. Gaps:
 
-1. The "<=>" in (i) rests on 0 xor over 807 (now 920+) non-tilting steps. These are not independent. They come from guarded walks from LNAs, and E-084 says all rejecting parents have the A5 shape. The table does not say how many distinct parents, or which values dim ker g_i takes. If all are 1, then "equals -dim ker" is shown only for dim 1. Report the distribution of dim ker and the number of distinct parents.
-2. "n = 5 closed, 0 non-tilting" tests only the positive direction. The negative direction is supported only by n = 6, 7 (capped) and the 18 hand-built E-078 algebras (6 steps).
+1. The "<=>" in (i) rests on 0 xor over 807 (now 920+) non-tilting steps. These are not independent. They come from guarded walks from LNAs, and E-086 says all rejecting parents have the A5 shape. The table does not say how many distinct parents, or which values dim ker g_i takes. If all are 1, then "equals -dim ker" is shown only for dim 1. Report the distribution of dim ker and the number of distinct parents.
+2. "n = 5 closed, 0 non-tilting" tests only the positive direction. The negative direction is supported only by n = 6, 7 (capped) and the 18 hand-built E-080 algebras (6 steps).
 3. Direction "congruence => tiltingPlus" is supported by data only. The author says so, and the derivation covers only (k,i) off the diagonal. The claim "difference supported in row k off the diagonal" is a data claim (807 of 807). It is not derived for diagonal or column-k entries. It is also not stated as a claim about arbitrary algebras, which is fine, but the abstract line "same condition" reads stronger than "no xor seen in guarded BFS".
 4. The crosstab omits the `illegal` and `'dim'` buckets. The script counts them in `tab` (`illegal`, and `cong == 'dim'`); the output shows neither, so both are 0. State that.
 5. Mechanism (rewrite's (k,i) entry = dim coker g_i) is admitted unproved and read off the data. Since the script computes X - Y and ker separately and finds them equal, this is circular only for the mechanism, not for the data claim. Acceptable if labelled as it is.
@@ -25,11 +25,11 @@ I found no counterexample. Gaps:
 
 ## New?
 
-Nothing found for "dim ker", "coker", "row k", "same condition", "one criterion" in FINDINGS / HYPOTHESES / RETRACTIONS / EXPERIMENTS (hits are unrelated or literature on Rickard). Related, correctly cited: E-055 (two separate checks, 61 718 steps), E-084 (guard refuses all rejections; no Cartan data), E-085 (congruence fails on 11 rejecting parents; "one-map identity not derived"), E-078 (Cartan failure on hand-built family), `literature/1001.4765` (Prop 3.6 specialises Lemma 3.5). New content is the identification with -dim ker and the row-k localisation. The prior-record paragraph is accurate.
+Nothing found for "dim ker", "coker", "row k", "same condition", "one criterion" in FINDINGS / HYPOTHESES / RETRACTIONS / EXPERIMENTS (hits are unrelated or literature on Rickard). Related, correctly cited: E-057 (two separate checks, 61 718 steps), E-086 (guard refuses all rejections; no Cartan data), E-087 (congruence fails on 11 rejecting parents; "one-map identity not derived"), E-080 (Cartan failure on hand-built family), `literature/1001.4765` (Prop 3.6 specialises Lemma 3.5). New content is the identification with -dim ker and the row-k localisation. The prior-record paragraph is accurate.
 
 ## Evidenced?
 
-Mostly. Table has algebra and step counts, stopping rules, and runtimes. Missing: (a) distribution of dim ker and of distinct parents (gap 1); (b) the capped runs give different numbers on a rerun, so say "counts depend on the 420 s cap; pattern, not count, is the claim"; (c) n = 8 and 9 not run, and E-090 says n = 8 class 2 lies past 10 minutes, so the one place where E-085's defect arose is untested with the fixed rewrite. The author states this.
+Mostly. Table has algebra and step counts, stopping rules, and runtimes. Missing: (a) distribution of dim ker and of distinct parents (gap 1); (b) the capped runs give different numbers on a rerun, so say "counts depend on the 420 s cap; pattern, not count, is the claim"; (c) n = 8 and 9 not run, and E-092 says n = 8 class 2 lies past 10 minutes, so the one place where E-087's defect arose is untested with the fixed rewrite. The author states this.
 
 ## Required for acceptance
 

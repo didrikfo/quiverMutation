@@ -225,7 +225,7 @@ class _Arrows:
 
 
 class CartanCongruenceError(AssertionError):
-    """The rewrite's Cartan matrix is not R C R^T (research E-085, E-093)."""
+    """The rewrite's Cartan matrix is not R C R^T (research E-087, E-095)."""
 
 
 def cartanDiscrepancy(quiver, relations, vertex, newQuiver, newRelations):
@@ -235,7 +235,7 @@ def cartanDiscrepancy(quiver, relations, vertex, newQuiver, newRelations):
     `vertex` replaced by minus the unit vector at `vertex` plus the arrows out
     of it (Ladkani, Prop. 2.3(c)).  Needs the same vertex set on both sides, as
     `mutateAtVertex` gives.  A step that is not tilting is not congruent
-    (E-093), so a nonzero answer means a defective rewrite *or* a step the
+    (E-095), so a nonzero answer means a defective rewrite *or* a step the
     gate should not have admitted -- it does not say which.
     """
     verts = sorted(quiver.nodes)

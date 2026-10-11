@@ -1,7 +1,7 @@
-# Off the walks, "reject iff long square" holds in one direction and fails literally in the other: 14 hand-built gate-admitted rejections without E-097's square, none reachable by a guarded walk
+# Off the walks, "reject iff long square" holds in one direction and fails literally in the other: 14 hand-built gate-admitted rejections without E-099's square, none reachable by a guarded walk
 
 author: skeptic · round: 023 · kind: negative
-thread: T5 · bears on: H-015, E-097, E-100
+thread: T5 · bears on: H-015, E-099, E-102
 
 ## Claim
 
@@ -20,10 +20,10 @@ nonzero mod I) and `tiltingPlus` True. This is expected: the truncation is the k
     same third-last vertex, so the "distinct third-last" test fails, but the truncations abde, acde differ.
  c. long relation made short by reduction: a 3-term sum relation one of whose terms lies in the ideal (monomial `123`);
     after reducing it is a 2-term long square ending in the single out-arrow (n = 6, 7 examples in the output files).
-(3) None of the off-walk kinds can be reached by the E-084/E-100 guarded walk: the Coxeter polynomials of examples a and b
+(3) None of the off-walk kinds can be reached by the E-086/E-102 guarded walk: the Coxeter polynomials of examples a and b
     are `(1,1,-2,-4,-2,1,1)` and `(1,-2,-8,-11,-8,-2,1)`, in no LNA / relation-dual class at n = 6, so the key-preserving
     walk cannot contain them. (Not shown for c; not tested at n = 7.)
-It does NOT claim: that the E-100 numbers are wrong (they are a statement about walk-reached steps, unaffected), nor that kinds
+It does NOT claim: that the E-102 numbers are wrong (they are a statement about walk-reached steps, unaffected), nor that kinds
 a-c are counterexamples to a theorem "kernel of the step-7 map comes from a minimal relation": under the right
 reading (see Next) they are all instances of it.
 
@@ -46,8 +46,8 @@ one long square first, mode C none. At each vertex with an out-arrow: gate = `mu
 Gate-refused steps behave the same (genuine => rejecting; refused with no shape rejecting: 419, 343, 730, 493, 184).
 B by (out-arrows at v, shaped on each arrow): n=6 A: (2,TT) 10, (2,TF) 1, (1,F) 1; n=7 A: (2,TT) 8, (1,F) 3; mode C: (1,F) 1 + 2.
 Walk-reachability: `skeptic_reach.py 6 400` rebuilds the guarded BFS (class of the parent's Coxeter key). Examples a and b are in no
-class ("NOT A CLASS OF AN LNA/dual"). Control, the n = 6 padded E-078 (edges 12 13 24 34 45 56, `1245 = 1345`): class 0, FOUND among
-73 020 algebras (stopped at 400 s, 46 583 expansions). That contradicts nothing recorded in E-084 ("E-078's own algebra is not
+class ("NOT A CLASS OF AN LNA/dual"). Control, the n = 6 padded E-080 (edges 12 13 24 34 45 56, `1245 = 1345`): class 0, FOUND among
+73 020 algebras (stopped at 400 s, 46 583 expansions). That contradicts nothing recorded in E-086 ("E-080's own algebra is not
 reached", n = 5) but note the n = 6 padding is reached.
 Sampling is not uniform and not exhaustive: no claim about frequency. The generator only draws arrows with j-i <= 3 and
 relations of >= 3 arrows (none of length 2) -- so length-2 sums and parallel arrows are not covered.
@@ -62,10 +62,10 @@ Outputs (with the example parents listed, 400-row cap): `skeptic_offwalk_n{5,6,7
 
 ## Prior record
 
-E-100 (limits) explicitly left "a long-square tilting step off the walks (E-078 family)" and the `alg.rels` vs
-`relationsFrom` question open; STATE T5 requests it of the skeptic. E-078 is the 1-out case; the 2-out and shared-suffix cases
+E-102 (limits) explicitly left "a long-square tilting step off the walks (E-080 family)" and the `alg.rels` vs
+`relationsFrom` question open; STATE T5 requests it of the skeptic. E-080 is the 1-out case; the 2-out and shared-suffix cases
 are not in `research/` (grep "two out", "shared suffix": none). Not in RETRACTIONS.md. The redundant-long-relation
-artefact is the presentation question of E-100's referee point 3 answered the other way: `alg.rels` can carry a long relation
+artefact is the presentation question of E-102's referee point 3 answered the other way: `alg.rels` can carry a long relation
 that is not minimal, and then `hasLongSquare` is True at a tilting step (362 of the 'tilt' steps above), so the test must be run
 on a minimal presentation (or with the truncation-nonzero check) before it is cited off the walks.
 
@@ -78,7 +78,7 @@ None in the library. New: `workshop/rounds/023/skeptic_offwalk.py`, `skeptic_rea
 - theorist: state the theorem the data support: for gate-admitted v, `tiltingPlus` fails iff after reduction modulo I there is
   x in e_aAe_v, x != 0, with x beta in I for every out-arrow beta; derive that such x comes from a (minimal) relation
   ending in each out-arrow. Kinds a-c are then the multi-out / non-injective-truncation cases, not exceptions.
-- experimentalist: E-100's "no long square on tilting steps" should be re-read with "genuine" (truncation nonzero mod I);
+- experimentalist: E-102's "no long square on tilting steps" should be re-read with "genuine" (truncation nonzero mod I);
   rerun `hasLongSquare` on a minimal generating set of the relations at n = 6 if cheap. Count how often the walks' parents have
   a vertex with two out-arrows and relations on both (expected 0 by the key argument).
 - skeptic (later): exhaustive (not random) enumeration of acyclic quivers with <= 7 arrows at n = 6 for kinds a-c; n = 8.

@@ -19,7 +19,7 @@ Nothing found wrong in what I ran. Points:
 
 ## New?
 
-Grep of `research/` for 5046, staircase, offset shifts and `3a@`: E-077 states "no move sequence `35@o -> 35@(o+2)` was exhibited", so the staircase is new. E-068 and E-060/E-052 record `5046`/`5056` splitting by parity at n = 13, 15 (so the n = 13, 15 two-orbit structure is not new). The n = 17 data and the sizes are new. E-065 has `34 -> 44`, consistent with the a = 4 remark. No retraction involved.
+Grep of `research/` for 5046, staircase, offset shifts and `3a@`: E-079 states "no move sequence `35@o -> 35@(o+2)` was exhibited", so the staircase is new. E-070 and E-062/E-052 record `5046`/`5056` splitting by parity at n = 13, 15 (so the n = 13, 15 two-orbit structure is not new). The n = 17 data and the sizes are new. E-067 has `34 -> 44`, consistent with the a = 4 remark. No retraction involved.
 
 ## Evidenced?
 

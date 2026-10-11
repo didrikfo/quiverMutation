@@ -21,7 +21,7 @@ Yes, as far as it was run. Points checked against my 045 list:
 Remaining small points, none blocking:
 - The L1 "changed start" test is about relation starts only; I did not check that it also covers a changed relation's length or the appearance/disappearance of a relation. The author says "changed relation starts"; the claim is worded that way, so it stands as stated.
 - "5 of 5 runs of three tried" includes `(8:4)(9:4)(11:3)` where the pair itself is `(8:4)(9:4)`, a different shape. It is listed separately; fine.
-- Item 7 withdraws the E-066 sentence honestly. The F-025 "cheaper line" is still not engaged, said so.
+- Item 7 withdraws the E-068 sentence honestly. The F-025 "cheaper line" is still not engaged, said so.
 
 ## New?
 

@@ -1,4 +1,4 @@
-"""Round 046 (skeptic), T10 (i): collect key-keeping steps of the E-149 walk (as rounds/045/toolsmith_guardaudit.py mode A:
+"""Round 046 (skeptic), T10 (i): collect key-keeping steps of the E-151 walk (as rounds/045/toolsmith_guardaudit.py mode A:
 BFS over canonicalKey-deduplicated algebras, seeds = LNAs and duals of key class cls, expansion only into key-kept children).
 Per gate-admitted legal vertex-preserving key-kept step records Cartan matrices of parent and child, J, tiltingPlus, depth, and
 (arrows, relations) of both.  Keeps ALL J != 0 key-kept steps (distinct by parent canonicalKey, v) and up to NCTRL J = 0 control steps.

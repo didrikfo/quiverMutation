@@ -7,7 +7,7 @@ verdict: minor revision
 
 - `experimentalist_kd.py 14 34 3-9`: 55 s. Same classes, sizes, sums and k as the table (344..349 at n=14). Only the "closed" timings differ.
 - Read the stored n=15 and n=17 outputs (`_n15.txt`, `_n17.txt`, `_n17_8/9`) and checked every singleton by hand. Each is the centre or an equal-size mirror pair: 344@15 (2,6 = 64,64; 4 centre), 344@17 (2,8 = 78; 4,6 = 86; 5 centre), 348@17 (2,4 = 9622; 3 centre), 349@17 (1,4 = 20769). The table matches the files.
-- `experimentalist_core4046.py 13 4046`: {0,2}(63) {1}(104) {3}(2116), as stated. The E-060/STATE discrepancy is real; the author's 4046 result reproduces.
+- `experimentalist_core4046.py 13 4046`: {0,2}(63) {1}(104) {3}(2116), as stated. The E-062/STATE discrepancy is real; the author's 4046 result reproduces.
 - Not re-run: n=16 and n=17 (6 to 8 min each), 45x, 4046 at n=14..16.
 
 ## True?
@@ -20,13 +20,13 @@ The data hold. Three wording problems.
 
 The `458@15` and `459@14,16` "k is an artefact" remark is a correct self-correction.
 
-Not checked: x >= 10, n >= 18, and whether 346 being one orbit is a size effect or a join with `333@0`. The author says "the `333@0` orbit of E-065" without a check.
+Not checked: x >= 10, n >= 18, and whether 346 being one orbit is a size effect or a join with `333@0`. The author says "the `333@0` orbit of E-067" without a check.
 
 ## New?
 
 - `grep -E "34x|k\(34|x \+ 3|4046"` over FINDINGS, HYPOTHESES, RETRACTIONS, EXPERIMENTS and literature found no record of `k(34x) = x + 3`.
-- The E-056, E-060 and E-061 lines and STATE T2 (line 14) are the context. E-065, cited by the author, was not located in the files I grepped, only via the author's and STATE's citations.
-- The 4046 discrepancy with STATE/E-060 is a new finding, and a useful one.
+- The E-058, E-062 and E-063 lines and STATE T2 (line 14) are the context. E-067, cited by the author, was not located in the files I grepped, only via the author's and STATE's citations.
+- The 4046 discrepancy with STATE/E-062 is a new finding, and a useful one.
 - I did not check the `literature/` hits for anything relevant to a reflection formula; the only `34x` hit there is a polynomial coefficient.
 
 ## Evidenced?

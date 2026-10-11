@@ -23,7 +23,7 @@ No counterexample found.
 
 ## New?
 
-Grepped `research/` (FINDINGS, HYPOTHESES, RETRACTIONS, EXPERIMENTS, literature) for "positive control", "linesReachedFrom", "round trip/round-trip". Hits: EXPERIMENTS.md:1723 (compares `linesReachedFrom` with and without parallel arrows, not a control), FINDINGS.md:2888 (round trips on the named quipus, a different object), RETRACTIONS.md:68 (what `linesReachedFrom` reports, not a control). None is a round trip from quipu-with-relations members. The submission's novelty claim stands. It is a control, not a finding, and it closes the gap flagged in E-063 / round 004.
+Grepped `research/` (FINDINGS, HYPOTHESES, RETRACTIONS, EXPERIMENTS, literature) for "positive control", "linesReachedFrom", "round trip/round-trip". Hits: EXPERIMENTS.md:1723 (compares `linesReachedFrom` with and without parallel arrows, not a control), FINDINGS.md:2888 (round trips on the named quipus, a different object), RETRACTIONS.md:68 (what `linesReachedFrom` reports, not a control). None is a round trip from quipu-with-relations members. The submission's novelty claim stands. It is a control, not a finding, and it closes the gap flagged in E-065 / round 004.
 
 ## Evidenced?
 

@@ -15,7 +15,7 @@ Gaps:
 3. Hom(T,T[1]) = 0 "never fails" is empirical (2145 steps) and is not proved. The text should not suggest otherwise. Also, 8 parallel-arrow failing steps are outside the Hom code (the author lists this in Next).
 
 ## New?
-Partly recorded. `research/literature/rickard-morita-theory-derived-categories.md` (the generation paragraph, about line 78) already says that for T = mu^-_{P_i}(A), generation holds "because the triangle recovers P_i from the rest", and that this is not automatic for arbitrary two-term complexes. The elementary argument is therefore in the literature notes. What is new is the explicit loop hypothesis and the check on the walk data. The "Prior record" section does not cite this note and should. The caveat in E-159/E-164/E-165 and `research/syntheses/001-rounds-001-052.md:86` ("generation assumed") is the thing closed. The submission is honest that it is a caveat-closing, not a new phenomenon.
+Partly recorded. `research/literature/rickard-morita-theory-derived-categories.md` (the generation paragraph, about line 78) already says that for T = mu^-_{P_i}(A), generation holds "because the triangle recovers P_i from the rest", and that this is not automatic for arbitrary two-term complexes. The elementary argument is therefore in the literature notes. What is new is the explicit loop hypothesis and the check on the walk data. The "Prior record" section does not cite this note and should. The caveat in E-161/E-166/E-167 and `research/syntheses/001-rounds-001-052.md:86` ("generation assumed") is the thing closed. The submission is honest that it is a caveat-closing, not a new phenomenon.
 
 ## Evidenced?
 Yes for what is claimed. Ranges, counts and the failing-dimension breakdown are stated and reproduce. The failing-step set depends on a 519 s run, and I did not independently rebuild it.
@@ -25,7 +25,7 @@ The title says "for every loopless step (so for all tiltingPlus steps on acyclic
 
 ## Required for acceptance
 1. Cite the rickard-morita note as prior art, and rephrase "new" accordingly.
-2. Either check that every child on the E-161, E-158 and E-155 paths has no loop at the next mutated vertex, or restate the corollary conditionally.
+2. Either check that every child on the E-163, E-160 and E-157 paths has no loop at the next mutated vertex, or restate the corollary conditionally.
 3. State that the 2116 steps are not gate-admitted, and say that H1-H3 are premises of the proof and are checked only for confirmation.
 4. Note that the empty-M case is also covered.
 All are doable in one sitting.

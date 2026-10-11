@@ -19,10 +19,10 @@ I found no error in what was run. Two gaps:
 
 The row-set equality is not new. The author says it was not found; it is recorded:
 
-- E-088 (line ~702): `theorist_label.py` labels each closed orbit by the offsets J of `333@o'` it holds: `J = {0, n-6}` for `444` (n = 12..16, plus n = 17 with `J = {0,11}`, size 11340), `J = {1, n-7}` for the small orbit. That is the same statement as "333@0 and 333@(n-6) are in the `444` orbit; other placements are elsewhere". Its sizes (n = 13: 2386 vs 447) agree.
-- E-065 (line ~858): "`444@o` is in the orbit of `333@0` at every offset"; "`44x` one orbit of size 3767".
-- E-086 / E-091: S = row set of the `444` orbit with sizes 1410 / 2386 / 3767 / 5648.
-- E-065 title already says the upper bound is "only computed, and the argument fails for `44x`". So "E-065's upper bound is false as a statement about the orbit" is the existing E-065 limit restated.
+- E-090 (line ~702): `theorist_label.py` labels each closed orbit by the offsets J of `333@o'` it holds: `J = {0, n-6}` for `444` (n = 12..16, plus n = 17 with `J = {0,11}`, size 11340), `J = {1, n-7}` for the small orbit. That is the same statement as "333@0 and 333@(n-6) are in the `444` orbit; other placements are elsewhere". Its sizes (n = 13: 2386 vs 447) agree.
+- E-067 (line ~858): "`444@o` is in the orbit of `333@0` at every offset"; "`44x` one orbit of size 3767".
+- E-088 / E-093: S = row set of the `444` orbit with sizes 1410 / 2386 / 3767 / 5648.
+- E-067 title already says the upper bound is "only computed, and the argument fails for `44x`". So "E-067's upper bound is false as a statement about the orbit" is the existing E-067 limit restated.
 
 What is new: the explicit row-by-row set comparison at n = 13..16, and the disjointness of the other `333` placements with the `444` orbit at n = 14. The T1 fit is new. Nothing found for the term "k(c)" fit or "no rule" in HYPOTHESES/EXPERIMENTS.
 
@@ -35,11 +35,11 @@ T2: the n = 14 table is full. For n = 13, 15, 16 only "o = 0, n-6" is given, and
 ## Scope
 
 - Title "T1 should be closed" overreaches. Narrowed wording: "T1: n-independence of s = n - k(c) holds on the cores checked; no linear function of simple letter statistics predicts k(c) on 17 recorded values (11 independent of the 33x family)". Whether that counts as closing T1 is the chair's call, but a rule from drift structure was not tried (the author admits this).
-- T2: "same row set at n = 13..16" is supported (n = 14 rerun); present it as E-088's J-label made explicit as a set equality, not as a new finding about 33x.
+- T2: "same row set at n = 13..16" is supported (n = 14 rerun); present it as E-090's J-label made explicit as a set equality, not as a new finding about 33x.
 
 ## Required for acceptance
 
-1. Change the Prior record to cite E-088 (J labels), E-065 (line ~858, `444@o` in the orbit of `333@0`) and E-086, and drop "I did not find stated".
+1. Change the Prior record to cite E-090 (J labels), E-067 (line ~858, `444@o` in the orbit of `333@0`) and E-088, and drop "I did not find stated".
 2. Print the full per-placement table for n = 13, 15, 16 (one 2-minute sitting), or reduce the table claim to n = 14.
 3. Refit T1 without the 33x block (11 cores), or add a held-out check; report the result. Reword the ledger line so it does not say "no rule for k(c)" as an established fact.
 4. Give a source for "9 of 12 at n = 16", or remove it.

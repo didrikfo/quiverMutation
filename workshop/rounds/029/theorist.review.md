@@ -20,7 +20,7 @@ No error found in the stated counts. Gaps:
 
 ## New?
 
-Nothing found for `half-W`, `loose pendant`, `nn 2-cycle` in `research/` (grep of FINDINGS, HYPOTHESES, RETRACTIONS, EXPERIMENTS, literature). `circuit` appears only in E-110 (circuit lemma, D/G/H). Claims 1 (shape of the 22), 3 (component bound 2) and the dim tally are new. Claim 2 re-confirms E-110. Key obstruction for D/G/H is not in E-103, as the report says.
+Nothing found for `half-W`, `loose pendant`, `nn 2-cycle` in `research/` (grep of FINDINGS, HYPOTHESES, RETRACTIONS, EXPERIMENTS, literature). `circuit` appears only in E-112 (circuit lemma, D/G/H). Claims 1 (shape of the 22), 3 (component bound 2) and the dim tally are new. Claim 2 re-confirms E-112. Key obstruction for D/G/H is not in E-105, as the report says.
 
 ## Evidenced?
 

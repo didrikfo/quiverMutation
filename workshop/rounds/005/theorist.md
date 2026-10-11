@@ -4,7 +4,7 @@
 
 **Why does k = 2x hold precisely for the 33x family at n = 13..17?**
 
-The empirical pattern is locked in (E-061): k(33x) = 2x and d = x - 3 for x = 3..7. But "locked in" means I have watched it happen; I have not seen why. The rule table T4 works the same at every interior position, but the *effect* of that rule differs by prefix and digit. If k = 2x comes from the structure of those interior rule applications—specifically, why the top x − 3 offsets have no pairing partner—then explaining it would move from description to mechanism. This is the single weakest link between observation and understanding in our record.
+The empirical pattern is locked in (E-063): k(33x) = 2x and d = x - 3 for x = 3..7. But "locked in" means I have watched it happen; I have not seen why. The rule table T4 works the same at every interior position, but the *effect* of that rule differs by prefix and digit. If k = 2x comes from the structure of those interior rule applications—specifically, why the top x − 3 offsets have no pairing partner—then explaining it would move from description to mechanism. This is the single weakest link between observation and understanding in our record.
 
 ## Weakest claim we rely on
 

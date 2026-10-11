@@ -1,7 +1,7 @@
 # Out-degree-2 rejects with no long square recur at n = 8 class 1 but not (in these caps) at n = 8 class 3 or n = 9 class 0
 
 author: experimentalist · round: 025 · kind: result
-thread: T5 · bears on: E-100, E-103, H-015
+thread: T5 · bears on: E-102, E-105, H-015
 
 ## Claim
 
@@ -11,7 +11,7 @@ the J != 0 rows with out-degree 2 and no long square are: 48 at n = 8 class 0 (r
 n = 8 c3 only 18 269 algebras with just 6 J != 0 rows in total (none out-degree 2).
 Also new: n = 8 class 1 has 2 rejects with out-degree 1 and NO long square (a second way to break the iff), and at n = 8 c0 and c1 the out-degree-2 rejects are the majority of J != 0 rows.
 Every J != 0 row in every run has tiltingPlus False; every J = 0 row has tiltingPlus True; `mono` is False in all rows. The J != 0 <=> tiltingPlus False link is intact; only the "long square" shape fails.
-Not claimed: these are D-type (not classified); that they are reachable only at n >= 8 (n <= 7 data are from E-100/023 only); anything about completeness.
+Not claimed: these are D-type (not classified); that they are reachable only at n >= 8 (n <= 7 data are from E-102/023 only); anything about completeness.
 
 ## Evidence
 
@@ -42,7 +42,7 @@ Outputs: `workshop/rounds/025/experimentalist_n8_c0.txt`, `_n8_c1.txt`, `_n8_c3.
 
 ## Prior record
 
-E-100 (n = 5..7 iff), E-103 and STATE T5 (42 out-degree-2 rejects at n = 8 c0, hasLongSquare is a one-out-arrow test). Not in RETRACTIONS. New: recurrence in n = 8 c1 (15), the
+E-102 (n = 5..7 iff), E-105 and STATE T5 (42 out-degree-2 rejects at n = 8 c0, hasLongSquare is a one-out-arrow test). Not in RETRACTIONS. New: recurrence in n = 8 c1 (15), the
 2 out-degree-1 no-long-square rejects at n = 8 c1 (a case that `hasLongSquare` misses even with one out arrow; possibly a presentation artefact like scholar's G; not inspected), and the null at n = 8 c3 / n = 9 c0 within caps.
 
 ## Code changed

@@ -1,5 +1,5 @@
-"""Replay the 10 E-084 key-moved 'M' parents (n = 8 class 2) under the fixed library (round 022).
-Usage: toolsmith_replay.py [--old]   (--old: monkeypatch the pre-E-089 reduceAgainstPivots, head-only reduction)
+"""Replay the 10 E-086 key-moved 'M' parents (n = 8 class 2) under the fixed library (round 022).
+Usage: toolsmith_replay.py [--old]   (--old: monkeypatch the pre-E-091 reduceAgainstPivots, head-only reduction)
 Reads workshop/rounds/014/scholar_walk_n8_c2.txt (lines 'M (depth, rels, v, path)'), rebuilds each parent by
 the path from the class's algebra list (as workshop/rounds/015/theorist_cartan.py), then for the step at v:
 gate, tiltingPlus, Cartan discrepancy (procedure.cartanDiscrepancy) and key(child) == key(parent)."""

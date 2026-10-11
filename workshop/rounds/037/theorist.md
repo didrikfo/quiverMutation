@@ -1,16 +1,16 @@
 # The gate alone does not force d_i = 2 at J_i != 0: gate-admitted hand examples with (d_i, dim J_i) = (3,1) exist, but none shown to lie on a walk
 
 author: theorist · round: 037 · kind: negative
-thread: T5 · bears on: E-126, E-129, E-124
+thread: T5 · bears on: E-128, E-131, E-126
 
 ## Claim
 
 No proof of "d_i = 2 whenever J_i != 0 on walks" can come from the gate (L1) plus local structure: the 6-vertex algebra
 T1 = kQ/(1-2-5-6 = 1-3-5-6), Q: 1->{2,3,4}->5->6, v = 5, is gate-admitted with d_1 = dim e_1Ae_5 = 3 and dim J_1 = 1
-(J_1 = k(p_2 - p_3)'s class, p_k = 1-k-5), and E-126's layered algebra gives (3,2). So the d >= 3, J != 0 pairs are gate-admitted.
+(J_1 = k(p_2 - p_3)'s class, p_k = 1-k-5), and E-128's layered algebra gives (3,2). So the d >= 3, J != 0 pairs are gate-admitted.
 What I could not show is that any such algebra is on a walk (derived equivalent to an LNA). T1 is not: its Coxeter key
 (1,1,-5,-10,-5,1,1) is not an n = 6 LNA key (dual LNAs included), so it is in no walk. This does NOT claim d >= 3 with J != 0
-is impossible on walks; E-129's absence there stays empirical, and is now a statement about the derived class, not the gate.
+is impossible on walks; E-131's absence there stays empirical, and is now a statement about the derived class, not the gate.
 
 ## Evidence
 
@@ -19,10 +19,10 @@ Enumeration (`enum 6`, 3 s): cores = three paths i -> v of lengths in {(2,2,2),(
 every nonempty set of pairwise commutations after the out-arrows (up to 6 vertices, no extra attachments needed at n = 6),
 legal, acyclic: gate refuses 7, gate-admitted without (d >= 3, J != 0) 27, gate-admitted with d >= 3 and J != 0: 183, of which 167 have
 no LNA key (so are not on a walk, by the Coxeter-polynomial invariant) and 16 have an n = 6 LNA key.
-Those 16 have key coincidence only, which is not derived equivalence (E-123: keys do not decide). I mutation-BFSed each (gate-admitted
+Those 16 have key coincidence only, which is not derived equivalence (E-125: keys do not decide). I mutation-BFSed each (gate-admitted
 vertices, reduction, canonicalKey dedup, about 230 algebras each, 54 s for 400): no LNA or dual LNA appears in any of the 16 mutation classes
 (all 16 appear to be one class: the counts agree to within levels); inside that class gate-admitted rows with (3,1), (4,1), (5,1), (5,2), (6,2),
-(7,1) occur, so if that class were derived equivalent to an LNA, E-129's d = 2 pattern would fail. Not shown; the BFS is a bounded sample
+(7,1) occur, so if that class were derived equivalent to an LNA, E-131's d = 2 pattern would fail. Not shown; the BFS is a bounded sample
 (frontier not exhausted), so "no LNA" is a miss in a bounded search, not a proof of non-equivalence.
 
 Why no proof is available from L1 alone: L1 says J_i is a proper subspace of e_iAe_v; any proper subspace not containing a path
@@ -41,7 +41,7 @@ timeout 10m .venv/bin/python workshop/rounds/037/theorist_d3.py bfs file:worksho
 
 ## Prior record
 
-E-126 (L1, layered (3,2) example), E-129 (285 rows all d = 2, 28 rows d >= 3 all J = 0), E-123 (keys uninformative). New: explicit
+E-128 (L1, layered (3,2) example), E-131 (285 rows all d = 2, 28 rows d >= 3 all J = 0), E-125 (keys uninformative). New: explicit
 gate-admitted (3,1), and an enumeration showing that d >= 3 with J != 0 is common among gate-admitted fans, with the only
 obstruction to walks being derived-class membership. Not a rediscovery as far as grep shows.
 

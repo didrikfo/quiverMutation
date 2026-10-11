@@ -8,7 +8,7 @@ verdict: minor revision
 - `theorist_rulelen.py 9 4`: 6 s, "confirmed 516 failures 0", rule census 414 (widths sum correctly). Matches.
 - `theorist_rulelen.py 11 5`: 175 s, "confirmed 10654 failures 0". Matches.
 - `theorist_orbits45.py 13`: orbit sizes by offset 0..6 = 2386, 1127, 4217, 4217, 1127, 2386, 447; offset 7 not admissible. Matches the text. n = 14 not re-run.
-- Not re-run: the 405 s E-149 collection, `theorist_children.py`, `theorist_reverse.py`. I read the saved `theorist_reverse_c2.txt`: 9 rows, each `same gate-closed`, `opp gate-open`, not parent, not opposite. Matches the prose.
+- Not re-run: the 405 s E-151 collection, `theorist_children.py`, `theorist_reverse.py`. I read the saved `theorist_reverse_c2.txt`: 9 rows, each `same gate-closed`, `opp gate-open`, not parent, not opposite. Matches the prose.
 
 ## True?
 
@@ -24,7 +24,7 @@ The one-step reverse check is weak. The step P->B has J != 0, so it is not a til
 - Point (a), "the interior is one orbit" is false, is already recorded: F-053 (FINDINGS.md line 8, and the amendment note on F-051 at line 90): "not one orbit but one per reflected pair of offsets". H-020 text also quotes it. The only addition is the size numbers (the 45-by-offset sizes). I found these nowhere in research/, but E-051/F-053 state the pairing.
 - H1 extension to w+5: `verifyMove` at w+1..w+4 is in the code. I found no record of longer lengths. New, and a null result.
 - H4, H5: E-046/E-051 (975 and 1186 comparisons) already state these; the author cites them. The "six failures at n = 13" are in H-020 verbatim.
-- "Outside the derived class" definition and the power-control requirement: E-152 already says "needs an invariant fine enough, or a tilting path back" and "power ... untested". The definition adds the witness form but the substance is E-152's. Nothing found for the candidate invariants (gl.dim, dim Z, HH^1) in a derived-inequivalence role.
+- "Outside the derived class" definition and the power-control requirement: E-154 already says "needs an invariant fine enough, or a tilting path back" and "power ... untested". The definition adds the witness form but the substance is E-154's. Nothing found for the candidate invariants (gl.dim, dim Z, HH^1) in a derived-inequivalence role.
 
 ## Evidenced?
 
@@ -35,7 +35,7 @@ The one-step reverse check is weak. The step P->B has J != 0, so it is not a til
 
 ## Scope
 
-Narrow: "the 9 class-2 children", not the 16 class-1 (stated). The title's "defined, with the witnesses that would settle it" is accurate for the definition but "the witnesses" for the outside side is a requirements list, not a witness. Suggested title wording: "H-020's rule table rests on six hypotheses; length independence of floating rules holds for w <= 5 to length 11 (0 failures in 10 654); 'outside the derived class' for the E-152 children is defined, with the inside witness checkable and the outside witness not yet available".
+Narrow: "the 9 class-2 children", not the 16 class-1 (stated). The title's "defined, with the witnesses that would settle it" is accurate for the definition but "the witnesses" for the outside side is a requirements list, not a witness. Suggested title wording: "H-020's rule table rests on six hypotheses; length independence of floating rules holds for w <= 5 to length 11 (0 failures in 10 654); 'outside the derived class' for the E-154 children is defined, with the inside witness checkable and the outside witness not yet available".
 
 ## Required for acceptance
 
@@ -44,4 +44,4 @@ Narrow: "the 9 class-2 children", not the 16 class-1 (stated). The title's "defi
 3. Credit F-053 for point (a): say the new content is the orbit sizes only.
 4. In the Claim paragraph, state that H1 was tested for w <= 5 only (30 of 414 rules), not just in the body.
 5. Say in the reverse check what outcome would have been informative, or demote it to a note; print J explicitly in the output.
-6. Note that the "outside witness" is a requirements list and cite E-152 as the source of the power-control demand.
+6. Note that the "outside witness" is a requirements list and cite E-154 as the source of the power-control demand.

@@ -20,7 +20,7 @@ No counterexample found. Gaps:
 - Untested: a=2 (22x), a=8,9 (only 77 done, by me), n>=16 for any, and 34x/45x (correctly flagged silent).
 
 ## New?
-grep of research/ (FINDINGS, HYPOTHESES, EXPERIMENTS) for collapse, translator, 55x, 66x, 44x: "collapse" hits are the unrelated end-pair collapse (F-022/F-029 region); 44x appears only as "not run" in a Limits line at research/EXPERIMENTS.md:21 and in E-065. Nothing on 55x/66x closure or the collapse-to-34 reason. Author's novelty claim stands. Literature hits are incidental.
+grep of research/ (FINDINGS, HYPOTHESES, EXPERIMENTS) for collapse, translator, 55x, 66x, 44x: "collapse" hits are the unrelated end-pair collapse (F-022/F-029 region); 44x appears only as "not run" in a Limits line at research/EXPERIMENTS.md:21 and in E-067. Nothing on 55x/66x closure or the collapse-to-34 reason. Author's novelty claim stands. Literature hits are incidental.
 
 ## Evidenced?
 Mostly. Specific n, x ranges, orbit sizes, offsets and the reproduction commands are given. Missing: n other than 14 for 55x/66x (I supply 12,13; 77x at 15), a record of the pre-registered prediction, and the null for "only a=4 special" (author defers to skeptic). The 10/24 negative result on the broader criterion is a useful stated control.

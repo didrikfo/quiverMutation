@@ -173,9 +173,9 @@ def report(name,A,v):
     assert h(N,D,-1)==sJ and res[1]==0 and res[-2]==0
     return J,h(N,N,-1),res
 if __name__=="__main__":
-    # 0. E-078 acyclic control: abde = acde
+    # 0. E-080 acyclic control: abde = acde
     A0=Alg([1,2,3,4,5],{'a':(1,2),'b':(1,3),'c':(2,4),'d':(3,4),'e':(4,5)},[{('a','c','e'):1,('b','d','e'):-1}],6)
-    report("E-078 square (acyclic control)",A0,4)
+    report("E-080 square (acyclic control)",A0,4)
     # 1. 2-cycle, rad^2 = 0: b: v->t, c: t->v, bc = cb = 0
     A1=Alg(['v','t'],{'b':('v','t'),'c':('t','v')},[],2)
     report("C2 rad^2=0 (cyclic)",A1,'v')

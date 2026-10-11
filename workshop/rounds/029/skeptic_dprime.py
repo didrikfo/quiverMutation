@@ -1,7 +1,7 @@
 """Round 029 (skeptic): gate admission of D' rejects, analogues in other n/classes, and a selectivity null.
 Usage: skeptic_dprime.py n class_lo class_hi max_exp [budget_sec_per_class]
 Per gate-admitted (algebra, v) of the round-023 guarded walk (same as experimentalist_w.py), tally
- key = (outdeg capped 3, L, W, K): K = J != 0 (kerdim); W = E-107 rule (out-degree 2 only);
+ key = (outdeg capped 3, L, W, K): K = J != 0 (kerdim); W = E-109 rule (out-degree 2 only);
  L = loose D' shape: some two-term relation with both terms ending b1 through v and x=p1-p2 not in I (commute into one out-arrow),
      and some monomial relation whose last arrow is the other out-arrow b2 with penultimate vertex v (zero relation into b2).
 For K rows: witness pattern of the gate: over nonzero paths p into v, which out-arrows have p*arrow nonzero in A."""

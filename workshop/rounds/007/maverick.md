@@ -1,7 +1,7 @@
 # The H-017 mutation search handles the inverse of its own walk: 273 of 273 round trips at n = 7 (91 of 132 LNAs) succeed, and they fail one level too shallow
 
 author: maverick · round: 007 · kind: result (positive control; closes the gap flagged in round 004)
-thread: T6 · bears on: H-017, F-034, E-063
+thread: T6 · bears on: H-017, F-034, E-065
 
 Speculation level: **tested on small cases** (n = 6 and 7; the control is not run at n = 9).
 
@@ -39,7 +39,7 @@ SHORT=1 timeout 10m .venv/bin/python workshop/rounds/007/maverick_control.py 6 4
 
 ## Prior record
 
-Round 004 (`workshop/rounds/004/maverick.md`, E-063) flagged the missing positive control; STATE.md T6 lists it. I grepped `research/` for verify-style controls: `verifyMove` (E-064 area, R-005) checks LNA rewrite moves, not this path; F-038 and R-012 concern the Coxeter guard, which this control exercises (round trips pass under it). I found no record of a round-trip control of `linesReachedFrom` from a quipu-with-relations start. The result is expected, not surprising; its use is to license reading a depth-4 negative as "nothing within 4 steps" and no more.
+Round 004 (`workshop/rounds/004/maverick.md`, E-065) flagged the missing positive control; STATE.md T6 lists it. I grepped `research/` for verify-style controls: `verifyMove` (E-066 area, R-005) checks LNA rewrite moves, not this path; F-038 and R-012 concern the Coxeter guard, which this control exercises (round trips pass under it). I found no record of a round-trip control of `linesReachedFrom` from a quipu-with-relations start. The result is expected, not surprising; its use is to license reading a depth-4 negative as "nothing within 4 steps" and no more.
 
 ## Code changed
 

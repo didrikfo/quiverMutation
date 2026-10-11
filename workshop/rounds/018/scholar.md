@@ -1,7 +1,7 @@
-# The Cartan congruence of E-085 and `tiltingPlus` are the same condition on every gate-admitted step tested: congruence fails exactly where the one map of AI 2.32(b) / Ladkani 2.3(c) has a kernel, and the discrepancy equals minus its dimension
+# The Cartan congruence of E-087 and `tiltingPlus` are the same condition on every gate-admitted step tested: congruence fails exactly where the one map of AI 2.32(b) / Ladkani 2.3(c) has a kernel, and the discrepancy equals minus its dimension
 
 author: scholar · round: 018 · kind: result (with a short derivation, one step conditional)
-thread: T5 · bears on: H-015, E-066, E-078, E-085, E-089
+thread: T5 · bears on: H-015, E-068, E-080, E-087, E-091
 
 ## Claim
 
@@ -17,20 +17,20 @@ algebra (X = chi, which counts Hom^0 - Hom^{-1} - Hom^1, can in principle cancel
 
 ## Evidence
 
-Library as after E-089 (full-reduction `reduceAgainstPivots`). Crosstab (tilt, congruence) at every gate-admitted step
+Library as after E-091 (full-reduction `reduceAgainstPivots`). Crosstab (tilt, congruence) at every gate-admitted step
 of a guarded BFS from the LNAs and relation duals, steps beyond the guard also tested (every child, guard or not):
 
 | set | algebras | steps tilt+cong | steps NOT tilt, NOT cong | xor | NOT-cong with diff = -dim ker (row k only) |
 |---|---|---|---|---|---|
-| E-078 family n = 5..7 (18 algebras, all vertices) | 18 | 75 | 6 | 0 | 6 of 6 |
+| E-080 family n = 5..7 (18 algebras, all vertices) | 18 | 75 | 6 | 0 | 6 of 6 |
 | n = 5, both key classes, closed | 11 700 | 30 300 | 0 | 0 | - |
 | n = 6 class 0, stopped at 420 s (not closed) | 32 450 | 65 914 | 696 | 0 | 696 of 696 |
 | n = 7 class 0, stopped at 420 s (not closed) | 22 016 | 39 901 | 111 | 0 | 111 of 111 |
 
-All 807 non-tilting steps are guard-refused (consistent with E-084). The 10 n = 8 class 2 "key moved" steps of E-085 (a rewrite
+All 807 non-tilting steps are guard-refused (consistent with E-086). The 10 n = 8 class 2 "key moved" steps of E-087 (a rewrite
 defect, congruence failed while `tiltingPlus` was True) are the only recorded disagreement; with the fixed rewrite none appears
-in these runs, and the n = 8 class 2 walk itself is not re-run here (E-090).
-E-078 at n = 5, vertex d: X - Y has a single nonzero entry, -1 at (d, a), and ker g_a = <abd - acd> has dimension 1. The
+in these runs, and the n = 8 class 2 walk itself is not re-run here (E-092).
+E-080 at n = 5, vertex d: X - Y has a single nonzero entry, -1 at (d, a), and ker g_a = <abd - acd> has dimension 1. The
 `d`-row of X is (-1,0,0,1,1), of Y (0,0,0,1,1): the rewrite cannot represent a negative Hom, so it drops to 0.
 
 Derivation sketch. T^+_k = (P_k -> (+)P_beta). Apply Hom(P_i, -): H^{-1} = ker g_i, H^0 = coker g_i, so
@@ -52,12 +52,12 @@ Outputs: `workshop/rounds/018/scholar_cartan_n6_c0.txt`, `scholar_cartan_n7_c0.t
 
 ## Prior record
 
-E-055 ran both tests on 61 718 steps (n = 6, 7) with 0 failures but as two separate checks, never as one question; E-078 and
-E-085 show both failing together (17 parents) and E-085 leaves "one criterion?" open (STATE T5). Lit note
+E-057 ran both tests on 61 718 steps (n = 6, 7) with 0 failures but as two separate checks, never as one question; E-080 and
+E-087 show both failing together (17 parents) and E-087 leaves "one criterion?" open (STATE T5). Lit note
 `literature/1001.4765` already says Prop 3.6 is the specialisation of Lemma 3.5. New here: the identification of the
-discrepancy with dim ker g_i, the row-k localisation, and the 807 non-tilting steps (E-084 had 0 Cartan data for them beyond
-the 11 replays). Consequence: E-085's "Cartan congruence agrees with `tiltingPlus`" is not two pieces of evidence for
-non-tilting; and on the tilting side congruence is a check on the **rewrite** (it caught the E-085 defect), which `tiltingPlus` cannot do.
+discrepancy with dim ker g_i, the row-k localisation, and the 807 non-tilting steps (E-086 had 0 Cartan data for them beyond
+the 11 replays). Consequence: E-087's "Cartan congruence agrees with `tiltingPlus`" is not two pieces of evidence for
+non-tilting; and on the tilting side congruence is a check on the **rewrite** (it caught the E-087 defect), which `tiltingPlus` cannot do.
 
 ## Code changed
 
@@ -65,6 +65,6 @@ None in the library. New scripts `scholar_cartan_vs_tilt.py`, `scholar_e078_diff
 
 ## Next
 
-- Toolsmith: Cartan congruence as an assertion inside `mutateAtVertex` (cheap, catches rewrite defects like E-085); keeps `tiltingPlus` as the gate.
+- Toolsmith: Cartan congruence as an assertion inside `mutateAtVertex` (cheap, catches rewrite defects like E-087); keeps `tiltingPlus` as the gate.
 - Theorist: confirm "rewrite's (k,i) entry = dim coker g_i" from step 7, and whether diagonal / column-k entries can ever differ.
 - Anyone: an algebra with gate True where ker g_i != 0 yet X = Y would refute the equivalence; none seen (807 cases).

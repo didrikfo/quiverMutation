@@ -17,7 +17,7 @@ Reproduces. Points not checked by the author:
 
 ## New?
 
-Grepped `research/EXPERIMENTS.md` for "20 of 25", "11 of the 25", 3767. E-079 (line 57) already states 11 of 25 and the unreconciled 20; E-075 (line 93) states 20 of 25. E-083 (line 21) says row sets compared at n = 13 only, sizes at 12, 14, 15. So the new content is: (a) row-set identity at n = 12..15 for all merged 3- and 4-letter words (closes E-083's by-size caveat), (b) a diagnosis of the 20 vs 11 as a plausible counting artefact, (c) OUT 4-letter words matching small 3-letter orbits by size. Nothing in FINDINGS/HYPOTHESES/RETRACTIONS found for these terms.
+Grepped `research/EXPERIMENTS.md` for "20 of 25", "11 of the 25", 3767. E-081 (line 57) already states 11 of 25 and the unreconciled 20; E-077 (line 93) states 20 of 25. E-085 (line 21) says row sets compared at n = 13 only, sizes at 12, 14, 15. So the new content is: (a) row-set identity at n = 12..15 for all merged 3- and 4-letter words (closes E-085's by-size caveat), (b) a diagnosis of the 20 vs 11 as a plausible counting artefact, (c) OUT 4-letter words matching small 3-letter orbits by size. Nothing in FINDINGS/HYPOTHESES/RETRACTIONS found for these terms.
 
 ## Evidenced?
 

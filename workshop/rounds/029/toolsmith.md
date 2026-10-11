@@ -1,7 +1,7 @@
 # The 16 unresolved n = 9 LNAs (and the 176 at n = 10) are all placed by the F-047 Smith profile: 16/16 into P^(1,4)_(1,0,1); 176/176 into one of the 4 quipu classes, in 15 s
 
 author: toolsmith · round: 029 · kind: result (tool; partly rediscovery)
-thread: S-1 validation · bears on: F-047, F-010, E-112, H-003
+thread: S-1 validation · bears on: F-047, F-010, E-114, H-003
 
 ## Claim
 
@@ -25,7 +25,7 @@ Soundness: on every resolved LNA of the cospectral keys the profile is constant 
 
 n = 9 members: 2223030, 2203030, 2023030, 2003030, 3030000, 3030200, 3030220, 3030222, 3030202, 3030020, 3030022, 3030002, 0223030, 0203030, 0023030, 0003030 (all P^(1,4)_(1,0,1)); the other 'unresolved' 3030000 x-family is thus one orbit-and-its-mirror family that the join of free/edge/double/mirror orbits did not connect to a seed.
 
-Sizing (--plan): n = 9 0 s, n = 10 4 s estimate; actual 3.7 s and 11.7 s including the class tables. A mutation search was not needed. (The F-045/E-076 route, depth-6 searches of 25-30 min per candidate and `reached []` so far, would have been the expensive alternative.)
+Sizing (--plan): n = 9 0 s, n = 10 4 s estimate; actual 3.7 s and 11.7 s including the class tables. A mutation search was not needed. (The F-045/E-078 route, depth-6 searches of 25-30 min per candidate and `reached []` so far, would have been the expensive alternative.)
 
 ## Reproduction
 
@@ -38,7 +38,7 @@ It imports `workshop/rounds/027/maverick_classes.py` for the label set and unres
 
 ## Prior record
 
-F-047 already says the profile splits the n = 9 pair, and names `3030000` (8 rows, with 3060000, 6000030, 2223030) as P^(1,4)_(1,0,1) (the orbit of 3030000 sits in F-047's table). The n = 9 result here is therefore a rediscovery, and consistent with F-047: the new content is that the profile is *computable on every LNA*, so the maverick gap is not a gap in the classification but in `classes()`: its orbit join (free + edges + doubles + mirror) does not link those 16 to a quipu seed, while the profile does. F-047 states the n = 10 split as "3 of 25 groups" at the orbit level; the 176 here are the LNAs of two such groups. I did not find the n = 10 per-class counts recorded (grep of 3030000 / the keys gave only F-047, E-076 context). Retraction check: nothing in RETRACTIONS.md touches F-047 that I found (not searched exhaustively).
+F-047 already says the profile splits the n = 9 pair, and names `3030000` (8 rows, with 3060000, 6000030, 2223030) as P^(1,4)_(1,0,1) (the orbit of 3030000 sits in F-047's table). The n = 9 result here is therefore a rediscovery, and consistent with F-047: the new content is that the profile is *computable on every LNA*, so the maverick gap is not a gap in the classification but in `classes()`: its orbit join (free + edges + doubles + mirror) does not link those 16 to a quipu seed, while the profile does. F-047 states the n = 10 split as "3 of 25 groups" at the orbit level; the 176 here are the LNAs of two such groups. I did not find the n = 10 per-class counts recorded (grep of 3030000 / the keys gave only F-047, E-078 context). Retraction check: nothing in RETRACTIONS.md touches F-047 that I found (not searched exhaustively).
 
 ## Code changed
 
@@ -46,6 +46,6 @@ None in `quivermutation/`. New: `workshop/rounds/029/toolsmith_snfresolve.py`. N
 
 ## Next
 
-- maverick/experimentalist: patch the labelling by adding a fallback to the profile for '?' LNAs (the script's `profile`) and redo the E-112 tables with all 1430 and 4862 LNAs; the K >= 3 count would then be over complete classes, especially n = 10 ('?' ends).
+- maverick/experimentalist: patch the labelling by adding a fallback to the profile for '?' LNAs (the script's `profile`) and redo the E-114 tables with all 1430 and 4862 LNAs; the K >= 3 count would then be over complete classes, especially n = 10 ('?' ends).
 - Why the orbit join misses these 16 (theorist): a family 3030000 ... 0003030 of 16 with a '3 0 3 0' core; is it one orbit under a move not yet in `freeMoves` (H-003: orbits that ought to merge)?
 - toolsmith: add the profile as an opt-in column of `coxeterTables`, with a test (pins n = 9 16 -> P^(1,4)_(1,0,1)); extend to n = 11 (cospectral groups there: 4) if wanted.

@@ -8,7 +8,7 @@ Why: Experimentalist just delivered all 16 K = 4 candidates at depth 6 (13 shard
 
 **Weakest claim the workshop relies on:**
 
-"Orbit + mirror = key for understanding pairing." E-077 upended this: the key-coarser cores (9–10 words) are actually *parity classes of two single-relation orbits*, not just a refinement gone backwards. They don't fully predict the E-060 behaviour; `5046` and `5056` are missing at odd n even though they are single-relation. The rule is more subtle. We model parity, then parity-class alternation, but we still don't have a principled account of *why* those pairs, *why* even n favours one and odd n the other, *why* some single-relation orbits join and others don't.
+"Orbit + mirror = key for understanding pairing." E-079 upended this: the key-coarser cores (9–10 words) are actually *parity classes of two single-relation orbits*, not just a refinement gone backwards. They don't fully predict the E-062 behaviour; `5046` and `5056` are missing at odd n even though they are single-relation. The rule is more subtle. We model parity, then parity-class alternation, but we still don't have a principled account of *why* those pairs, *why* even n favours one and odd n the other, *why* some single-relation orbits join and others don't.
 
 **What I need from another persona:**
 

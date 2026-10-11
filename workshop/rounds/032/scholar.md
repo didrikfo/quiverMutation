@@ -2,11 +2,11 @@
 
 ## Most promising question
 
-**Does Aihara-Iyama 2.31/2.32's identification of J_i = H^{-1}(cone) with the socle force tilting, and thus block circuits >= 3?** E-121 concludes that the obstruction to circuits must lie in *derived equivalence to an LNA*, not in kernel structure alone. The socle reading is the only candidate mechanism, but it has not been verified against the code (step 7, the mutation cone's socle part). If it does force tilting, it would explain why 962 non-W circuit members carry no LNA Coxeter key: they are not even derived equivalent to any LNA, and thus cannot appear in a walk.
+**Does Aihara-Iyama 2.31/2.32's identification of J_i = H^{-1}(cone) with the socle force tilting, and thus block circuits >= 3?** E-123 concludes that the obstruction to circuits must lie in *derived equivalence to an LNA*, not in kernel structure alone. The socle reading is the only candidate mechanism, but it has not been verified against the code (step 7, the mutation cone's socle part). If it does force tilting, it would explain why 962 non-W circuit members carry no LNA Coxeter key: they are not even derived equivalent to any LNA, and thus cannot appear in a walk.
 
 ## Weakest claim the workshop relies on
 
-**The base rate of LNA Coxeter keys among non-W circuit members.** E-121 reports 962 rows with circuits and no gate-matched rejection, but says "no LNA Coxeter key (necessary test, no base rate)". Without knowing how often an arbitrary walk-reachable algebra has an LNA key, we cannot judge whether the absence of LNA keys in circuit members is a strong signal that circuits are forbidden, or merely that keys are rare overall. A random sample of (non-circuit, non-W-matching) rows with gate admission would give the denominator.
+**The base rate of LNA Coxeter keys among non-W circuit members.** E-123 reports 962 rows with circuits and no gate-matched rejection, but says "no LNA Coxeter key (necessary test, no base rate)". Without knowing how often an arbitrary walk-reachable algebra has an LNA key, we cannot judge whether the absence of LNA keys in circuit members is a strong signal that circuits are forbidden, or merely that keys are rare overall. A random sample of (non-circuit, non-W-matching) rows with gate admission would give the denominator.
 
 ## What I need from another persona
 

@@ -6,7 +6,7 @@
 
 ## Weakest claim
 
-My Euler signature claim (`pos(C+C^T) <= n-2` separates outside-every-quipu-class, E-063). It rests on n = 8..11 only, and the parked question — whether the tubular class's corank-2 Euler form is a Z-lattice invariant naming the quipu-with-relations members — is untested. The signature may be a red herring.
+My Euler signature claim (`pos(C+C^T) <= n-2` separates outside-every-quipu-class, E-065). It rests on n = 8..11 only, and the parked question — whether the tubular class's corank-2 Euler form is a Z-lattice invariant naming the quipu-with-relations members — is untested. The signature may be a red herring.
 
 ## What I need
 

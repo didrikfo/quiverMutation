@@ -1,42 +1,42 @@
 n = 12: 14 single-relation orbits walked, 0 capped, 3s
 predicted (alternating between two single-relation orbits): 35 455 3334 3336 5003 5055 5504 5505 5506
-E-074 list: 35 455 3334 3336 5003 5055 5504 5505 5506
+E-076 list: 35 455 3334 3336 5003 5055 5504 5505 5506
 in prediction not in list: [] ; in list not in prediction: []
 words with a placement in no single-relation orbit: 68
 words in 2..3 single-relation orbits, not alternating: [('344', '567765'), ('345', '23432'), ('355', '69096'), ('356', '2343'), ('366', '7007'), ('4044', '56776'), ('4055', '6909'), ('4066', '700'), ('4403', '567765'), ('4404', '67765'), ('4405', '7765'), ('4406', '765')] 21
 n = 13: 19 single-relation orbits walked, 0 capped, 5s
 predicted (alternating between two single-relation orbits): 36 405 406 466 3335 5004 5006 5066 5605
-E-074 list: 36 405 466 3335 5004 5006 5046 5056 5066 5605
+E-076 list: 36 405 466 3335 5004 5006 5046 5056 5066 5605
 in prediction not in list: ['406'] ; in list not in prediction: ['5046', '5056']
 words with a placement in no single-relation orbit: 69
 words in 2..3 single-relation orbits, not alternating: [('345', '234432'), ('355', '012210'), ('356', '23443'), ('4055', '01221'), ('4066', '9454'), ('4444', '234432'), ('4455', '34432'), ('4466', '4432'), ('4504', '012210'), ('4505', '34432'), ('4555', '23443'), ('4666', '2344')] 12
 n = 15: 24 single-relation orbits walked, 0 capped, 15s
 predicted (alternating between two single-relation orbits): 36 405 406 466 3335 5004 5006 5066 5605
-E-074 list: 36 405 466 3335 5004 5006 5046 5056 5066 5605
+E-076 list: 36 405 466 3335 5004 5006 5046 5056 5066 5605
 in prediction not in list: ['406'] ; in list not in prediction: ['5046', '5056']
 words with a placement in no single-relation orbit: 69
 words in 2..3 single-relation orbits, not alternating: [] 0
 n = 16: 24 single-relation orbits walked, 0 capped, 23s
 predicted (alternating between two single-relation orbits): 35 455 3334 3336 5003 5055 5504 5505 5506
-E-074 list: 35 455 3334 3336 5003 5055 5504 5505 5506
+E-076 list: 35 455 3334 3336 5003 5055 5504 5505 5506
 in prediction not in list: [] ; in list not in prediction: []
 words with a placement in no single-relation orbit: 69
 words in 2..3 single-relation orbits, not alternating: [] 0
 n = 17: 32 single-relation orbits walked, 0 capped, 36s
 predicted (alternating between two single-relation orbits): 36 405 406 466 3335 5004 5006 5066 5605
-E-074 list: 36 405 466 3335 5004 5006 5046 5056 5066 5605
+E-076 list: 36 405 466 3335 5004 5006 5046 5056 5066 5605
 in prediction not in list: ['406'] ; in list not in prediction: ['5046', '5056']
 words with a placement in no single-relation orbit: 69
 words in 2..3 single-relation orbits, not alternating: [] 0
 n = 18: 30 single-relation orbits walked, 0 capped, 54s
 predicted (alternating between two single-relation orbits): 35 455 3334 3336 5003 5055 5504 5505 5506
-E-074 list: 35 455 3334 3336 5003 5055 5504 5505 5506
+E-076 list: 35 455 3334 3336 5003 5055 5504 5505 5506
 in prediction not in list: [] ; in list not in prediction: []
 words with a placement in no single-relation orbit: 69
 words in 2..3 single-relation orbits, not alternating: [] 0
 n = 13: 19 single-relation orbits walked, 0 capped, 5s
 predicted (alternating between two single-relation orbits): 36 405 466 3335 5004 5006 5066 5605
-E-074 list: 36 405 466 3335 5004 5006 5046 5056 5066 5605
+E-076 list: 36 405 466 3335 5004 5006 5046 5056 5066 5605
 in prediction not in list: [] ; in list not in prediction: ['5046', '5056']
 Traceback (most recent call last):
   File "/home/user/quiverMutation/workshop/rounds/011/theorist_census2.py", line 45, in <module>
@@ -44,11 +44,11 @@ Traceback (most recent call last):
 BrokenPipeError: [Errno 32] Broken pipe
 n = 15: 24 single-relation orbits walked, 0 capped, 15s
 predicted (alternating between two single-relation orbits): 36 405 466 3335 5004 5006 5066 5605
-E-074 list: 36 405 466 3335 5004 5006 5046 5056 5066 5605
+E-076 list: 36 405 466 3335 5004 5006 5046 5056 5066 5605
 in prediction not in list: [] ; in list not in prediction: ['5046', '5056']
 n = 17: 32 single-relation orbits walked, 0 capped, 36s
 predicted (alternating between two single-relation orbits): 36 405 466 3335 5004 5006 5066 5605
-E-074 list: 36 405 466 3335 5004 5006 5046 5056 5066 5605
+E-076 list: 36 405 466 3335 5004 5006 5046 5056 5066 5605
 in prediction not in list: [] ; in list not in prediction: ['5046', '5056']
 Traceback (most recent call last):
   File "/home/user/quiverMutation/workshop/rounds/011/theorist_census2.py", line 44, in <module>

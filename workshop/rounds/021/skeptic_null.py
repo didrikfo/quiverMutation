@@ -1,4 +1,4 @@
-"""Selectivity null for E-091/E-096. For n and each word length k in 4,5,6: ALL nondecreasing words over letters 2..9
+"""Selectivity null for E-093/E-098. For n and each word length k in 4,5,6: ALL nondecreasing words over letters 2..9
 (the only words that are LNAs), with >=4 placements. Per word: placements m, in-S count (S = 444 orbit rows), right gaps of in-S placements.
 Strata: contains a 4 or not. Also binomial expectation of 'exactly one in S' from the stratum's per-placement in-S rate.
 Usage: timeout 10m .venv/bin/python workshop/rounds/021/skeptic_null.py N   -> workshop/rounds/021/skeptic_null_n{N}.txt"""

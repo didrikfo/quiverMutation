@@ -1,7 +1,7 @@
 # The parity classes of lists A/B are joined by an explicit staircase of double mutations (`3a`@o -> `3a`@(o+2), a-1 steps, a = 5..9) and `4@0 -> 3@1` is one anchored table rule; why no step of size 1 exists is still not explained
 
 author: theorist · round: 013 · kind: result (explicit move sequences; negative on the obstruction)
-thread: T1/T3 · bears on: H-021, E-064, E-074, E-075, E-077
+thread: T1/T3 · bears on: H-021, E-066, E-076, E-077, E-079
 
 ## Claim
 
@@ -15,8 +15,8 @@ single relation of more than two arrows are four rules of width 4 (`4 -> 3` at o
 at n = 12 `5@0` has exactly 2 neighbours (`5500..`, `5003..`), `6@0` 2, `7@0` 2, while `4@0` has 5. That is why `4@0` falls into the 3-orbit and `5@0` does not at the first step. It is a statement about the move table.
 (3) **What stops `5@0 -> 3@2`: nothing found beyond "the closed orbit of 5@0 (148 rows at n = 12) does not contain it".** I looked for an invariant of the orbit P vs Q (number of relations, largest or smallest letter, sum of letters, single-relation rows: P and Q both contain 1..6 relations, overlapping
 letter ranges, sums 8..28 vs 5..25, same single-relation rows pattern `3@j`/`5@j`) and found none; the earlier nulls (GF(2) functionals, integer statistics, SNF) stand. The data therefore show that the parity is a property of the reachability set, and that the staircase moves by 2 because each rewrite uses a doubled mutation `[t,t]` (a vertex mutated twice); I have no proof that a shift by 1 is impossible and I do not claim one. "Parity class" is a name for the two orbits, not an invariant.
-(4) **`5046`, `5056` at odd n, which the census rule of E-077 missed.** At n = 13, 15, 17 (computed: n = 17 for the first time) each has exactly two closed reduced orbits, offsets {even} and {odd}, one Coxeter key over all offsets, and the same two row sets for both words:
-n = 13: 4217 / 2116; n = 15: 18157 / 8794; n = 17: 122673 / 54266 (offsets 0,2,4,6 and 1,3,5,7; one key class [0..7]). The two sizes differ, so the mirror (a bijection of orbits preserving size) cannot swap them: orbit+mirror does not merge them and the key does, hence `5046`, `5056` are key-coarser at n = 17 in the E-074 sense (the key-coarser test for these two words only; the other 137 cores at n = 17 were not run).
+(4) **`5046`, `5056` at odd n, which the census rule of E-079 missed.** At n = 13, 15, 17 (computed: n = 17 for the first time) each has exactly two closed reduced orbits, offsets {even} and {odd}, one Coxeter key over all offsets, and the same two row sets for both words:
+n = 13: 4217 / 2116; n = 15: 18157 / 8794; n = 17: 122673 / 54266 (offsets 0,2,4,6 and 1,3,5,7; one key class [0..7]). The two sizes differ, so the mirror (a bijection of orbits preserving size) cannot swap them: orbit+mirror does not merge them and the key does, hence `5046`, `5056` are key-coarser at n = 17 in the E-076 sense (the key-coarser test for these two words only; the other 137 cores at n = 17 were not run).
 Path `5046`@0 -> `5046`@2 at n = 13: 7 double mutations (below). These two words are in no single-relation orbit, which is why the census rule missed them; they are a third family with the same staircase mechanism and larger orbits (growth about 4.3 per n -> n+2).
 Not claimed: any proof of why 1 is not reachable; any new n >= 18 orbit; the n = 17 status of other words; that every `3a` path template holds for a >= 10 or for all n.
 
@@ -33,7 +33,7 @@ Shortest paths (BFS in the reduced walk, rows are relation lengths at vertices 1
 | 16 | `38`@0 -> `38`@2 | 08000003 / 07000033300 / 06000334 / 05003350 / 04033600 / 03337 / 0038 (7 moves) |
 | 17 | `39`@0 -> `39`@2 | 8 moves, same pattern (leading `9,8,...,4,3` stepping down, `3 3 3` block moving in from the right) |
 | 14, 16 | `35`@0 -> `35`@2 | identical to n = 12 (4 moves, padded with zeros) |
-| 14 | `34`@0 -> `34`@2 | 2 moves (rule `[2,2]`, then rule `[-7,4,-7]`): the a = 4 case is shorter, consistent with E-065's `34 -> 44` |
+| 14 | `34`@0 -> `34`@2 | 2 moves (rule `[2,2]`, then rule `[-7,4,-7]`): the a = 4 case is shorter, consistent with E-067's `34 -> 44` |
 | 13 | `5046`@0 -> `5046`@2 | 7 moves: 50460000000, 40360003000, 40350033300, 40340334000, 40333350000, 33340350000, 03500350000, 00504600000 |
 | 12 | `4`@0 -> `3`@1 | one rule move (0300000000) |
 | 12 | `5`@0 -> `3`@2 | orbit of `5`@0 closed at 148 rows, target absent |
@@ -55,8 +55,8 @@ timeout 10m .venv/bin/python workshop/rounds/011/theorist_word.py 17 5046   # ab
 
 ## Prior record
 
-E-077 lists the orbits P, Q and says no move sequence was exhibited; E-065 has `34 -> 44` and drift families; E-068 says the parity translation belongs to `5046`/`5056` at odd n (grep "5046" in EXPERIMENTS.md).
-Not found in `research/`: the staircase paths, the "only width-4 rules have a lone-relation left side" account of `4@0 -> 3@1`, or `5046`/`5056` at n = 17 (E-074 had "nothing for n >= 17"). Nothing in `RETRACTIONS.md` involved (grep of "5046": none).
+E-079 lists the orbits P, Q and says no move sequence was exhibited; E-067 has `34 -> 44` and drift families; E-070 says the parity translation belongs to `5046`/`5056` at odd n (grep "5046" in EXPERIMENTS.md).
+Not found in `research/`: the staircase paths, the "only width-4 rules have a lone-relation left side" account of `4@0 -> 3@1`, or `5046`/`5056` at n = 17 (E-076 had "nothing for n >= 17"). Nothing in `RETRACTIONS.md` involved (grep of "5046": none).
 
 ## Code changed
 

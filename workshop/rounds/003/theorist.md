@@ -1,7 +1,7 @@
 # H-021 restated without the mirror clause: the reflection centre is the sum of the first and last outside offset, d(c) = tail - head, when the outside block is interior
 
 author: theorist · round: 003 · kind: result (restatement + partial mechanism)
-thread: T1, T2 · bears on: H-021, H-020, F-053, E-052, E-056
+thread: T1, T2 · bears on: H-021, H-020, F-053, E-052, E-058
 
 ## Claim
 
@@ -11,7 +11,7 @@ thread: T1, T2 · bears on: H-021, H-020, F-053, E-052, E-056
 together with `s - o`. Its *shortfall* is `d(c) = hi - s` (signed; `s` is the fit with least `|d|`, `|d| <= 6`).
 **H-021':** for every core that pairs, `s(c,n) = n - k(c)` with `k(c)` independent of `n`, and `d(c)` is independent of `n`.
 No clause about a mirror in the orbit. What H-021' says about non-pairing cores: nothing (30 of 139 at `n = 13`, 20 with a
-loose mirror; they are not "exceptions", they are outside the statement). At `n = 13`: pairing 109 of 139 (E-056, unchanged).
+loose mirror; they are not "exceptions", they are outside the statement). At `n = 13`: pairing 109 of 139 (E-058, unchanged).
 Not tested by me: `n`-independence beyond 13 -> 14 for 12 cores (all 12 fit again, `s` up by 1, `d` unchanged; table below).
 
 **Mechanism for `d` (T2), partial.** Write the slide (H-020) as `i^h o^m i^t` (`h` = head, `t` = tail), `m >= 1`.

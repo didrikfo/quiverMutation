@@ -3,7 +3,7 @@ Usage: experimentalist_bothdie.py hand | walk n class budget_sec [max_exp]
 hand: build squares 1->2->4, 1->3->4 with v=4 out-arrows b1:4->5, b2:4->6; relation p1 b1 = p2 b1 (commutes) and
   monomials killing p1 b2 and p2 b2 (several ways); print gate, kerdim, tiltingPlus, Coxeter key, key in LNA key sets at n=6.
 walk: guarded BFS (as rounds/023) of each class at n; for every visited algebra test whether its canonicalKey equals a hand algebra's;
-  and tally the 'both-die' pattern (E-120 pattern) per class."""
+  and tally the 'both-die' pattern (E-122 pattern) per class."""
 import sys, time
 from collections import Counter
 sys.path.insert(0, '.'); _a = sys.argv; sys.argv = ['x']

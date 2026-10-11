@@ -1,7 +1,7 @@
 """T6 (round 023, maverick): 'mirror chain' peeling formula, tested over ALL LNAs n = 8, 9, 10 (depth data as in maverick_variants.py).
 Relation = (start s, end e = s + len). For a big relation (s, e): the left chain is the longest sequence of relations R1, R2, ... with e(R1) = s + 1,
 e(R_{k+1}) = s(R_k) + 1; the right chain: s(R1) = e - 1, s(R_{k+1}) = e(R_k) - 1. depth = 1 + min over big relations of min(left, right).
-Variants: 'chain' (all lengths, ambiguous choice resolved by shortest-chain-max: take the longest), 'chain2' (only length-2 links, as E-101 / theorist_peel.py).
+Variants: 'chain' (all lengths, ambiguous choice resolved by shortest-chain-max: take the longest), 'chain2' (only length-2 links, as E-103 / theorist_peel.py).
 usage: maverick_chain.py   (repository root)"""
 from quivermutation import coxeterTables as ct
 data = {}

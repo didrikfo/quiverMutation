@@ -38,7 +38,7 @@ I did not check that nothing else moves. That would mean running the BFS or the 
 
 ## New?
 
-Nothing found in `research/` for `reduceAgainstPivots`, "normal form" (the hits are Smith normal form, unrelated) or "residue" (E-024's residue means something else). The grep matches the author's report. The loose end itself is E-084 ("not pursued"), and E-078 and E-057 are correctly cited as context. New as far as the record goes.
+Nothing found in `research/` for `reduceAgainstPivots`, "normal form" (the hits are Smith normal form, unrelated) or "residue" (E-024's residue means something else). The grep matches the author's report. The loose end itself is E-086 ("not pursued"), and E-080 and E-059 are correctly cited as context. New as far as the record goes.
 
 ## Evidenced?
 
@@ -47,7 +47,7 @@ Mostly. The specific parent, the specific pair of congruent elements and the tra
 Missing:
 - The claim "all 10 steps fixed" is given only as a count in a table. A one-line list of the 10 (depth, v, key) would let a reader verify it without re-running.
 - No test was added. A unit test for the congruent pair above would settle the normal-form claim. The pair is checkable in seconds, as I did.
-- The effect on E-084's counts is stated as unknown, and rightly so.
+- The effect on E-086's counts is stated as unknown, and rightly so.
 
 ## Required for acceptance
 

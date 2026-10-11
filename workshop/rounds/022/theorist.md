@@ -1,14 +1,14 @@
 # The cord criterion is a depth-1 rule plus a peeling depth 1 + min(a,b); "within 3 steps" is true only for n <= 9 (n = 10 needs 4, n = 12 needs 5)
 
 author: theorist · round: 022 · kind: result (mechanism + refutation of the depth clause)
-thread: T6 · bears on: E-099, E-092, E-087, H-017
+thread: T6 · bears on: E-101, E-094, E-089, H-017
 
 ## Claim
 
-**Meaning of "cord".** In E-087/E-092/E-099 and the scripts (`maverick_predict.py`, `toolsmith_cords.py`) a "cord member" is a reached
+**Meaning of "cord".** In E-089/E-094/E-101 and the scripts (`maverick_predict.py`, `toolsmith_cords.py`) a "cord member" is a reached
 algebra with *arrows >= n and no parallel arrows*, i.e. the (connected) quiver has an undirected cycle. It is NOT the quipu cord of
 GLOSSARY.md (a path hanging off the main string; quipus have n-1 arrows). The reached cycles all carry a sum (commutativity) relation
-(E-092: 2376 of 2376), so "cord = commutativity cycle" is the right reading; the name is a historical misnomer, and I suggest "cycle member".
+(E-094: 2376 of 2376), so "cord = commutativity cycle" is the right reading; the name is a historical misnomer, and I suggest "cycle member".
 
 **(1) Depth 1.** Write a relation of m >= 3 arrows as the zero path x0 -> x1 -> ... -> xm. Call it *blocked* if a relation ENDS at x1
 (= x0+1) AND a relation STARTS at x_{m-1}. Claim D1: an LNA has a cycle member at mutation depth 1 iff some relation of >= 3 arrows is
@@ -21,11 +21,11 @@ x_m-1, x_m, ... . Tested: 195 of 195 LNAs at n = 8, 9, 10 with depth >= 2 (of 19
 Consequence: with a + 1 + 1 + b <= n - 2 digits (m = 3) the maximum depth over all LNAs is 1 + floor((n-4)/2): 3 for n = 8, 9; 4 for n = 10, 11;
 5 for n = 12. Observed maxima: n = 8: 3 (LNA 205), n = 9: 3 (5 LNAs), n = 10: 4 (one LNA, `22230222`, index 2083), n = 12: 5 (one run).
 
-**(3) Refutation.** E-099's clause "within 3 mutation steps" is a fact about n <= 9, not about the criterion. At n = 10, `22230222` has a
+**(3) Refutation.** E-101's clause "within 3 mutation steps" is a fact about n <= 9, not about the criterion. At n = 10, `22230222` has a
 relation of 3 arrows and no cycle member at depth <= 3 (first at 4). The "iff relation >= 3 arrows" part survives: n = 9, L = 4: all 1430
 LNAs checked at L = 1 against rule D1, the 56 blocked ones to L = 4 (all found, depth <= 3); all 128 {0,2}-LNAs: 0 cycle members to depth 4.
 n = 10: the 160 blocked ones all have a cycle member by depth 4 (depth table below). Not claimed: a proof of any of this, or of "no cycle ever" for
-digits in {0,2} (depth <= 4 at n = 9, <= 5 at n = 8 by E-099, nothing deeper).
+digits in {0,2} (depth <= 4 at n = 9, <= 5 at n = 8 by E-101, nothing deeper).
 
 ## Evidence
 
@@ -64,7 +64,7 @@ timeout 8m .venv/bin/python workshop/rounds/022/theorist_closure.py 5 5   # cens
 
 ## Prior record
 
-E-099 (the criterion, depth clause), E-092 (all cord members have sum relations), E-087 (3 early in the sequence). The D1 blocking rule,
+E-101 (the criterion, depth clause), E-094 (all cord members have sum relations), E-089 (3 early in the sequence). The D1 blocking rule,
 the peeling depth and the n = 10/12 counterexample to "within 3" are not in `research/` (grep for "peel", "blocked", "depth 4" in
 EXPERIMENTS.md found nothing). Nothing in RETRACTIONS.md concerns it.
 
@@ -77,5 +77,5 @@ chair: `quivermutation/procedure.py` has an uncommitted edit (git status ` M`) t
 ## Next
 
 Toolsmith: fix the missing `import os` before the diff is committed. Experimentalist: n = 11 shard for rule D1 (16796 LNAs, depth 1 is cheap)
-and L = 5 on the n = 12 blocked LNAs with a = 4 or b = 4 only; state E-099's depth clause as "<= 1 + floor((n-4)/2)". Theorist next: derive
+and L = 5 on the n = 12 blocked LNAs with a = 4 or b = 4 only; state E-101's depth clause as "<= 1 + floor((n-4)/2)". Theorist next: derive
 the blocking rule from the structure of the kernel K when a relation ends at x1, and a formula for several big relations.

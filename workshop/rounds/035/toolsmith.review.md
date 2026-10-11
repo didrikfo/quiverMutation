@@ -20,12 +20,12 @@ The reported numbers are true. Remaining gaps:
 - The class 1 ratio is read as "not falling" from 2.21, 2.24, 2.33, 2.53, 2.50, 2.42. The last value is already falling (2.50 to 2.42, from a partial level 8). "No deceleration" is slightly overstated; the data say a plateau near 2.4-2.5 with a possible turn.
 - The extrapolated times (level 12 about 80 min, 14 about 8 h, 10^6 seen near level 13) assume a constant ratio and constant rate. They are labelled as assumptions and the conclusion is stated only as a bound, which is fair. The ">10 h for class 1" bound rests on that assumption, not on a measurement.
 - Untested, and the author says so: how often `_coxeterKeyOrNone` returns None. In the code, a child whose key is None is silently dropped, so a target path through one would be missed. Cheap to count in the same run.
-- Cyclic-quiver algebras are not expanded, which is inherited from E-124. It makes "0 hits" a statement about this BFS only, and the report says so.
+- Cyclic-quiver algebras are not expanded, which is inherited from E-126. It makes "0 hits" a statement about this BFS only, and the report says so.
 - The finiteness of the class is not checked, and the report does not claim it.
 
 ## New?
 
-Nothing found for "closure" with n = 7 in `research/FINDINGS.md`, `research/HYPOTHESES.md` or `research/RETRACTIONS.md`; the hits are move closure and `homDimensionByClosure`, which are unrelated. E-124 (3) holds the capped BFS and 0 of 44. The new content is the per-level growth profile and sizing, and it is genuinely new. The "repeats E-124 at no greater depth" statement is accurate. I did not check the "8 and 9 levels in 270 s" figure against E-124's full text.
+Nothing found for "closure" with n = 7 in `research/FINDINGS.md`, `research/HYPOTHESES.md` or `research/RETRACTIONS.md`; the hits are move closure and `homDimensionByClosure`, which are unrelated. E-126 (3) holds the capped BFS and 0 of 44. The new content is the per-level growth profile and sizing, and it is genuinely new. The "repeats E-126 at no greater depth" statement is accurate. I did not check the "8 and 9 levels in 270 s" figure against E-126's full text.
 
 ## Evidenced?
 

@@ -19,15 +19,15 @@ No error found. Independent checks (own scripts, scratchpad):
 
 ## New?
 
-Nothing found that does this: `longSquare` with arrow relations appears nowhere in `quivermutation/`. E-106 states the defect (out-degree 1 no-square rejects = parallel-arrow squares); E-103 states the minimality caveat; E-105 the n = 8 c0 out-degree 2 rejects. The 4-of-16 count and the checkpointed walk are new. Checkpointed walk predecessor: round 019 `toolsmith_walk.py` (cited by the author, different counts).
+Nothing found that does this: `longSquare` with arrow relations appears nowhere in `quivermutation/`. E-108 states the defect (out-degree 1 no-square rejects = parallel-arrow squares); E-105 states the minimality caveat; E-107 the n = 8 c0 out-degree 2 rejects. The 4-of-16 count and the checkpointed walk are new. Checkpointed walk predecessor: round 019 `toolsmith_walk.py` (cited by the author, different counts).
 
 ## Evidenced?
 
-Mostly. Specific: sizes, times, expansion counts, resume diff. Gaps: (a) the "16 steps" claim and the 4 are on one walk, cap and load dependent (mine 4 and 12 as well, same split); (b) the 4 parallel-only steps are not shown to have a minimal relation (E-103 caveat), the author leaves this to the next round, so "long square" there means a relation present in the presentation, not a verified minimal one; (c) the resume check is n = 7 only and at a deterministic `--max-exp` cut, not SIGTERM or a time slice, and not a crash/restore from a periodic save; (d) the n = 9 sizing is an extrapolation (ratio 2.5, not flattening), stated as such. The overnight command was not run and the author does not claim it.
+Mostly. Specific: sizes, times, expansion counts, resume diff. Gaps: (a) the "16 steps" claim and the 4 are on one walk, cap and load dependent (mine 4 and 12 as well, same split); (b) the 4 parallel-only steps are not shown to have a minimal relation (E-105 caveat), the author leaves this to the next round, so "long square" there means a relation present in the presentation, not a verified minimal one; (c) the resume check is n = 7 only and at a deterministic `--max-exp` cut, not SIGTERM or a time slice, and not a crash/restore from a periodic save; (d) the n = 9 sizing is an extrapolation (ratio 2.5, not flattening), stated as such. The overnight command was not run and the author does not claim it.
 
 ## Required for acceptance
 
-1. State in the claim that the 4 parallel-only steps are relations present in the presentation, unverified for minimality (E-103), so "sees parallel-arrow long squares" does not imply "genuine long relation".
+1. State in the claim that the 4 parallel-only steps are relations present in the presentation, unverified for minimality (E-105), so "sees parallel-arrow long squares" does not imply "genuine long relation".
 2. Say that the n = 6, 7 old-vs-new sweep is vacuous in the headline evidence, not only in the body, and (optionally) that a two-step sweep at n = 6 and a partial n = 7 also give 0 positives.
 3. Note the "all penultimate arrows distinct" requirement (3 terms, 2 sharing, is False) as a definition choice.
 4. Optional: a SIGTERM or time-slice resume check, since the overnight job relies on those, not `--max-exp`.

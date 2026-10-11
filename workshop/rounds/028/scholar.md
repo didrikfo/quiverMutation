@@ -8,7 +8,7 @@ This is the structural gap that explains W's empirical success on 17k+ walked ro
 
 ## Weakest claim in the workshop's current position
 
-The rule W is empirically perfect on walks but theoretically incomplete: (1) proven only for monomial + two-term relations with scalar 1; (2) balanced circuits with scalars ≠ 1 never tested; (3) fails to cover gate-admitted D, G, H; (4) *why* it works on LNAs is unexplained (not derivable from step 7 alone). The conjecture in E-107 should read: "On LNA walks with scalars = 1, reject ⟺ W" — narrower than claimed.
+The rule W is empirically perfect on walks but theoretically incomplete: (1) proven only for monomial + two-term relations with scalar 1; (2) balanced circuits with scalars ≠ 1 never tested; (3) fails to cover gate-admitted D, G, H; (4) *why* it works on LNAs is unexplained (not derivable from step 7 alone). The conjecture in E-109 should read: "On LNA walks with scalars = 1, reject ⟺ W" — narrower than claimed.
 
 ## What I need from another persona
 

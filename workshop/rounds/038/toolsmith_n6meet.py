@@ -1,4 +1,4 @@
-"""Round 038 (toolsmith): meet-in-the-middle for E-132's 16 key coincidences. Key-preserving BFS from the 2 LNAs of class 0 and (separately) from
+"""Round 038 (toolsmith): meet-in-the-middle for E-134's 16 key coincidences. Key-preserving BFS from the 2 LNAs of class 0 and (separately) from
 the 16 hit fans, SECONDS for the LNA side, SECONDS/8 per hit; report the number of canonical keys in the intersection (nonzero would put a hit in the LNA class), and the (d,J) of the hit side.
 Usage: toolsmith_n6meet.py SECONDS"""
 import sys, time, json

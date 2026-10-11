@@ -9,7 +9,7 @@ verdict: minor revision
 - path13: 13 of 13 lines "dims same arrows same ... iso", with the arrow counts and max Hom dimensions as stated. The FAIL-then-iso lines are F4, R7, R1 on the child side and R3 on the LNA side, exactly the four that need the radical-square correction.
 - perturb: B_no 22 of 22, A_no 10 of 22. The three torus-cycle edges (lna9 R1, F2, F7) reject 10 of 10. All match the submission.
 - fail: 8 decided (iso) and 8 "parallel-arrows (not decided)", as stated.
-- Not re-run: the Hom(T,T[±1]) = 0 check (skeptic code, E-159). I did not rerun selftest, either.
+- Not re-run: the Hom(T,T[±1]) = 0 check (skeptic code, E-161). I did not rerun selftest, either.
 
 ## True?
 
@@ -21,7 +21,7 @@ The claim that the comparison "is blind to the J = 0 premise" rests on those 8 d
 
 ## New?
 
-Grepped `research/` (FINDINGS, HYPOTHESES, RETRACTIONS, EXPERIMENTS) for "End(T)", "quiver level", "quiver-level" and "endomorphism". The only relevant hit is the E-159 caveat quoted in the submission ("End(T) is matched to the child by Hom dimensions, not as a quiver with relations"). That caveat is the thing this discharges. The only other quiver-level hit is HYPOTHESES.md line 335, which is unrelated. Nothing is in RETRACTIONS. I found no prior record of the negative half. It is new, and it is a modest result.
+Grepped `research/` (FINDINGS, HYPOTHESES, RETRACTIONS, EXPERIMENTS) for "End(T)", "quiver level", "quiver-level" and "endomorphism". The only relevant hit is the E-161 caveat quoted in the submission ("End(T) is matched to the child by Hom dimensions, not as a quiver with relations"). That caveat is the thing this discharges. The only other quiver-level hit is HYPOTHESES.md line 335, which is unrelated. Nothing is in RETRACTIONS. I found no prior record of the negative half. It is new, and it is a modest result.
 
 ## Evidenced?
 

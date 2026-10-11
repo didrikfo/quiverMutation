@@ -1,4 +1,4 @@
-"""Centre s and shortfall d of the 12 E-060 cores by n (13 census, 14 sample, 15, 16 files).
+"""Centre s and shortfall d of the 12 E-062 cores by n (13 census, 14 sample, 15, 16 files).
   .venv/bin/python workshop/rounds/004/experimentalist_shift.py FILE.jsonl ...
 Prints core n s d k=n-s pairs-flag; fit rule of round 002 (d = hi - s, |d| <= 6)."""
 import json, sys

@@ -1,4 +1,4 @@
-"""Per-end table of the n=11 K>=3 free-end failure (E-118). For the failing class (1305 LNAs): every deletable end
+"""Per-end table of the n=11 K>=3 free-end failure (E-120). For the failing class (1305 LNAs): every deletable end
 (free run K>=3), its side, K, core length L = last-first+1 (+ gap pattern), source orbit, image class.
 usage: python workshop/rounds/034/maverick_endtable.py"""
 import sys, collections

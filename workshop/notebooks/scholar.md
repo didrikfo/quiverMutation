@@ -16,5 +16,5 @@
 - If the chair applies the table, check the edited research/ lines read as proposed.
 - Read AI section 4 only if a question needs it (t-structures; not needed so far).
 - Settle E-364/E-419 convention (left/right) with the skeptic.
-- Test the Cartan-defect statement on E-131 rows; ask toolsmith for a socle-based (all-paths) gate on E-066 parent.
+- Test the Cartan-defect statement on E-133 rows; ask toolsmith for a socle-based (all-paths) gate on E-068 parent.
 - Lessons: a theorem number from memory is often right but the hypotheses are what to read; LaTeX numbering is one counter per section (use awk on environments); a paper's "in other words" lines hide hypotheses; do not copy "unread/UNVERIFIED" flags forward once a source is in hand.

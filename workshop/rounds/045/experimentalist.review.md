@@ -17,7 +17,7 @@ Gap: the "J" test is applied to the algebra actually mutated, which on the dual 
 
 ## New?
 
-Nothing in `research/` records a tilting-only or J = 0 replay of the F-041 n = 8 merges (grepped FINDINGS and HYPOTHESES for "tilting-only"; checked E-037, E-038, E-084, E-142, E-145). Closest records: E-084 (about 1.3e6 guard-admitted steps, none failing `tiltingPlus`, first rejection at distance 5-8) and E-142/E-137 (tilting-only meet at n = 6, a different question). The result is a direct consequence of E-084 at depth <= 4, as the author says. It is new as a recorded check, not as information.
+Nothing in `research/` records a tilting-only or J = 0 replay of the F-041 n = 8 merges (grepped FINDINGS and HYPOTHESES for "tilting-only"; checked E-037, E-038, E-086, E-144, E-147). Closest records: E-086 (about 1.3e6 guard-admitted steps, none failing `tiltingPlus`, first rejection at distance 5-8) and E-144/E-139 (tilting-only meet at n = 6, a different question). The result is a direct consequence of E-086 at depth <= 4, as the author says. It is new as a recorded check, not as information.
 
 ## Evidenced?
 
@@ -28,7 +28,7 @@ Yes for the n = 8 table: the 10 pairs, modes, edge counts, totals and the contro
 
 ## Scope
 
-The title is mostly right. It says "guarded depth-4 edges at n = 6, 7, 8 are all J = 0", which is the right narrowing: the claim stops at depth 4 and the author explicitly excludes depth 5-6 merges and E-145-type steps at distance >= 5. Two wording fixes:
+The title is mostly right. It says "guarded depth-4 edges at n = 6, 7, 8 are all J = 0", which is the right narrowing: the claim stops at depth 4 and the author explicitly excludes depth 5-6 merges and E-147-type steps at distance >= 5. Two wording fixes:
 
 - "n = 8 ... all of them" in the scope line holds only for the 10 pairs left open by `lm.ALL_MOVES` with `free=False, edges=True, doubles=True`, which is the F-041 definition. State that dependence.
 - "n = 6 (42/42), n = 7 (132/132)" is not "all LNAs" for the walk shape of `mergeReport`, which also runs on the dual and from non-LNA starts. The sweep is forward-only from LNAs.

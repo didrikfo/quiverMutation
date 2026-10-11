@@ -1,4 +1,4 @@
-"""Round 037 (skeptic): presentation-independent mirror test for the E-127 rows. T[(i,j,k)] = dim of e_iAe_j * e_jAe_k inside e_iAe_k
+"""Round 037 (skeptic): presentation-independent mirror test for the E-129 rows. T[(i,j,k)] = dim of e_iAe_j * e_jAe_k inside e_iAe_k
 (rank of reduced concatenations). Compare A and B under every quiver isomorphism (vertex relabelling), A vs its dual too.
 Usage: skeptic_mult.py skeptic_rows.pkl"""
 import sys, pickle, itertools

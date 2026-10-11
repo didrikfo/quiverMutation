@@ -18,8 +18,8 @@ I found no error. I read `symcheck2`: per-block unknown m x m matrix M plus rad^
 - n = 10: all 35 edges have maxdim 1, no parallel arrows, so the verdict reduces to dims and arrows plus a few scalar equations (6 edges' worth of "no equations"). Agreement is nearly forced there. The author says this.
 
 ## New?
-Extends E-165 (13 edges, 8/16 decided; the 8 undecided are exactly the parallel-arrow ones). E-166 scope line (EXPERIMENTS.md:35) already records the 44 paths, 26 c1 / 18 c2, 214 / 156 edges, and the 16 failing steps. Nothing in RETRACTIONS.md or HYPOTHESES.md on "End(T)". Genuinely new: the 8 parallel decisions, c2 (9 failing steps, 156 edges), and n = 10 (35 edges, E-167 had no End(T) test).
-Discrepancy: E-166 states Hom(T,T[-1]) != 0 for the 16 c1 failing steps only. The submission says "25 of 25" failing steps are blind to the premise, but nothing in the record shows Hom(T,T[-1]) != 0 for the 9 c2 failing steps. "Failing J != 0" for c2 is asserted, not cited.
+Extends E-167 (13 edges, 8/16 decided; the 8 undecided are exactly the parallel-arrow ones). E-168 scope line (EXPERIMENTS.md:35) already records the 44 paths, 26 c1 / 18 c2, 214 / 156 edges, and the 16 failing steps. Nothing in RETRACTIONS.md or HYPOTHESES.md on "End(T)". Genuinely new: the 8 parallel decisions, c2 (9 failing steps, 156 edges), and n = 10 (35 edges, E-169 had no End(T) test).
+Discrepancy: E-168 states Hom(T,T[-1]) != 0 for the 16 c1 failing steps only. The submission says "25 of 25" failing steps are blind to the premise, but nothing in the record shows Hom(T,T[-1]) != 0 for the 9 c2 failing steps. "Failing J != 0" for c2 is asserted, not cited.
 
 ## Evidenced?
 Mostly yes: counts per set, outputs named, determinism check on logged keys, stated commands run in about 1 minute. Missing: the 9 c2 steps' J != 0 evidence (above), and the per-edge ideal sizes are only in the output files.
@@ -28,7 +28,7 @@ Mostly yes: counts per set, outputs named, determinism check on logged keys, sta
 Title says "25 failing n = 7 steps ... 405 path edges" and "the comparison cannot test the J = 0 premise". The second half is correct for the 25 steps tested (it accepts a J != 0 algebra); it is an inference, not a theorem, so "cannot test" should read "did not discriminate at any of the 25 steps". The theorist lemma suggestion (End(T) = mutation algebra always) is a conjecture; the sample is n = 7 and n = 10 with one start.
 
 ## Required for acceptance
-1. Cite or compute Hom(T,T[-1]) != 0 for the 9 c2 failing steps (E-166's check, one command), or drop "25 of 25 J != 0" to "16 c1 + 9 c2 failing-by-key".
+1. Cite or compute Hom(T,T[-1]) != 0 for the 9 c2 failing steps (E-168's check, one command), or drop "25 of 25 J != 0" to "16 c1 + 9 c2 failing-by-key".
 2. Reword "cannot test" in the title to the observed "did not discriminate at 25 of 25 failing steps".
 3. State in Claim that `crels` completeness (generating set of I_c) and `child_info` dims are inputs, not outputs, of the test.
 4. [next round] A wrong-algebra control with equal dims and arrows and a parallel pair (for example a child with one relation altered, same Cartan), to show the matrix-valued path can reject.

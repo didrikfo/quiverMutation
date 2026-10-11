@@ -1,4 +1,4 @@
-"""Round 027 (experimentalist): test conjecture W (E-107) on a fresh guarded BFS walk, parallel-arrow rows included.
+"""Round 027 (experimentalist): test conjecture W (E-109) on a fresh guarded BFS walk, parallel-arrow rows included.
 Usage: experimentalist_w.py n class budget_sec [max_exp]   (walk as rounds/023/scholar_longsquare.py; counts are cap lower bounds)
 Per gate-admitted (algebra, v): K = J != 0 (kerdim), W for out-degree 2 (relations of relationsFrom, arrows keyed so parallel pairs are fine).
 Tally key: (outdeg capped 3, parallel-out (two out-arrows with same head), W, K). Mismatches are printed."""

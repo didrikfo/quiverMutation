@@ -1,4 +1,4 @@
-"""Round 053 (toolsmith), T10 item 1: for each of the 13 E-161 edges compute End(T) as a quiver with relations and compare with the next algebra.
+"""Round 053 (toolsmith), T10 item 1: for each of the 13 E-163 edges compute End(T) as a quiver with relations and compare with the next algebra.
 Usage (repo root):  .venv/bin/python workshop/rounds/053/toolsmith_endt_run.py [selftest|path13]     (path13 needs /tmp/tsm/c1.pkl from
   DEADLINE=520 timeout 10m .venv/bin/python -u workshop/rounds/050/toolsmith_collect.py 7 1 20000 /tmp/tsm/c1.pkl 100   (run twice))
 """

@@ -11,22 +11,22 @@ Re-ran slice 1 only (the author's invited check), fresh checkpoint in the scratc
 
 No counterexample found. Two things the author did not state:
 
-1. Tree-edge count does not reconcile with the distinct-algebra count. Tree edges + starts should equal distinct algebras. Full run: 63 205 + 18 = 63 223, reported 63 221 (off by 2). My slice: 36 984 + 18 = 37 002, reported 37 001 (off by 1). So the tree/merge split is off by a small amount, at least. Possible causes (start algebras that coincide, or a child counted "new" twice). The tilting tally (the claim) is unaffected, but the merge-edge figure 41 424 is not exact if the tree one is not. Compare E-094's unexplained +7.
+1. Tree-edge count does not reconcile with the distinct-algebra count. Tree edges + starts should equal distinct algebras. Full run: 63 205 + 18 = 63 223, reported 63 221 (off by 2). My slice: 36 984 + 18 = 37 002, reported 37 001 (off by 1). So the tree/merge split is off by a small amount, at least. Possible causes (start algebras that coincide, or a child counted "new" twice). The tilting tally (the claim) is unaffected, but the merge-edge figure 41 424 is not exact if the tree one is not. Compare E-096's unexplained +7.
 2. The taint bookkeeping is vacuous here: with 0 failing guarded edges there is nothing to taint. It adds no evidence beyond the edge table; "tainted nodes: 0" should not be offered as a separate finding.
 
 Not a flaw, but worth saying: the null is for key-kept edges, and the key guard is exactly what refuses the 2 failures, so "no merge path uses a non-tilting step" follows directly from "every kept edge is tilting". Fine.
 
 ## New?
 
-Mostly E-094 (same walk, same 24 316 / 63 221 / 2). E-149 (16 of 80 978 n = 7 failing key-keepers at parent depth 7-8) and E-152 are the relevant contrast. New: only the merge/tree split and the explicit 0 failing key-kept edges over the full depth-8 expansion. Note E-094's 'guard-tilt 89 189' was over the first 20 899 expansions; the author's 104 629 is the whole walk; no conflict. Modest novelty, correctly labelled by the author.
+Mostly E-096 (same walk, same 24 316 / 63 221 / 2). E-151 (16 of 80 978 n = 7 failing key-keepers at parent depth 7-8) and E-154 are the relevant contrast. New: only the merge/tree split and the explicit 0 failing key-kept edges over the full depth-8 expansion. Note E-096's 'guard-tilt 89 189' was over the first 20 899 expansions; the author's 104 629 is the whole walk; no conflict. Modest novelty, correctly labelled by the author.
 
 ## Evidenced?
 
-Mostly. The edge table, the scope and the refutation condition are specific. Missing: the output file's slice order (slice 2 first) is stated; the final-state tally was produced across a resume and only count-agreement with E-094 checks it (author says so). The tree/merge reconciliation above is absent.
+Mostly. The edge table, the scope and the refutation condition are specific. Missing: the output file's slice order (slice 2 first) is stated; the final-state tally was produced across a resume and only count-agreement with E-096 checks it (author says so). The tree/merge reconciliation above is absent.
 
 ## Scope
 
-Title and claim match what was checked (n = 8, class 2, depth 8, not closed). The "Consistency" paragraph says E-149's n = 8 showed none at 1 200 expansions; fine. The title's "no merge path uses a non-tilting step" is stronger than the tally: it is about the walk's edges, with first-reach taint, and the author caveats this. Narrowed wording: "no key-kept edge among the 104 629 generated in the depth-8 walk fails `tiltingPlus`".
+Title and claim match what was checked (n = 8, class 2, depth 8, not closed). The "Consistency" paragraph says E-151's n = 8 showed none at 1 200 expansions; fine. The title's "no merge path uses a non-tilting step" is stronger than the tally: it is about the walk's edges, with first-reach taint, and the author caveats this. Narrowed wording: "no key-kept edge among the 104 629 generated in the depth-8 walk fails `tiltingPlus`".
 
 ## Required for acceptance
 

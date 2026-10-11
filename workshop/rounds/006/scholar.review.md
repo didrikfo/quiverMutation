@@ -11,13 +11,13 @@ Both scripts re-run, 1.2 s for scholar_step7.py. Output matches the claims: pare
 
 The witness and the side check hold. Three soft spots.
 
-- Evidence 2 says "n = 10 is the first size with a commutative square feeding a vertex that still has one outgoing arrow". Nothing in the round checks this. E-057 covered only n <= 7 and never searched for the structure. "First" should be "the only size examined" or be tested. A one-arrow-out commutative-square-into-vertex quiver can be built at n = 5 or 6 and run through `tiltingPlus` directly.
-- Evidence 2 also says E-057's non-monomial parents "never showed it". That is correct, but a zero-rejection result is an absence of this configuration in the sample, not evidence of the mechanism. Stated as mechanism, it is a hypothesis.
+- Evidence 2 says "n = 10 is the first size with a commutative square feeding a vertex that still has one outgoing arrow". Nothing in the round checks this. E-059 covered only n <= 7 and never searched for the structure. "First" should be "the only size examined" or be tested. A one-arrow-out commutative-square-into-vertex quiver can be built at n = 5 or 6 and run through `tiltingPlus` directly.
+- Evidence 2 also says E-059's non-monomial parents "never showed it". That is correct, but a zero-rejection result is an absence of this configuration in the sample, not evidence of the mechanism. Stated as mechanism, it is a hypothesis.
 - Evidence 3 ("the repo performs the right mutation") is inferred from agreement at 8 steps on one path. The author flags this. One path does not establish convention, although the step-7 False/False flip is a good discriminator.
 
 ## New?
 
-Mostly not. E-055 (EXPERIMENTS.md:126) already records that step 7 fails Ladkani 2.3(c) and Cartan congruence. E-032 and F-038 record the key moving at step 7. E-057 is the n <= 7 non-monomial run. The literature note 1009.3370 already says to implement Thm 2.32. New in this round:
+Mostly not. E-057 (EXPERIMENTS.md:126) already records that step 7 fails Ladkani 2.3(c) and Cartan congruence. E-032 and F-038 record the key moving at step 7. E-059 is the n <= 7 non-monomial run. The literature note 1009.3370 already says to implement Thm 2.32. New in this round:
 
 - the explicit kernel element c and its location (8 -> 4);
 - the statement that AI 2.32(b), Ladkani 2.3(c) and `tiltingPlus` are one map (plausible, not proved here; the submission gives the formula but no derivation);
