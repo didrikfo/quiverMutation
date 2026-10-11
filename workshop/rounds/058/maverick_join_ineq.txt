@@ -4,3 +4,9 @@ J0 reach A 1325 reach B 588 iso meetings 0 shortest total None sec 39
 real	0m40.916s
 user	0m40.466s
 sys	0m0.268s
+pair 90000000 50505000 n 10 depth each side 5
+J0 reach A 4273 reach B 1823 iso meetings 0 shortest total None sec 140
+
+real	2m21.862s
+user	2m20.363s
+sys	0m0.276s

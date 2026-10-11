@@ -1,0 +1,30 @@
+CTRL 00000030 00000230 d=3
+pair 00000030 00000230 n 10 depth each side 3
+J0 reach A 351 reach B 247 iso meetings 13 shortest total 4 sec 9
+   fwd [7, 8, 8] back [-9] inverse-back [7]
+   fwd [7, 8] back [-9, -10] inverse-back [8, 7]
+   J!=0 steps on the A-side path 0  B-side 0
+CTRL 00000030 00000230 d=4
+pair 00000030 00000230 n 10 depth each side 4
+J0 reach A 1194 reach B 750 iso meetings 66 shortest total 4 sec 32
+   fwd [7, 7, 8, 8] back [] inverse-back []
+   fwd [7, 7, 8, 10] back [] inverse-back []
+   J!=0 steps on the A-side path 0  B-side 0
+CTRL 00000030 30000002 d=3
+pair 00000030 30000002 n 10 depth each side 3
+J0 reach A 351 reach B 271 iso meetings 0 shortest total None sec 9
+CTRL 00000030 30000002 d=4
+pair 00000030 30000002 n 10 depth each side 4
+J0 reach A 1194 reach B 871 iso meetings 0 shortest total None sec 35
+CTRL 00000030 20000030 d=3
+pair 00000030 20000030 n 10 depth each side 3
+J0 reach A 351 reach B 271 iso meetings 98 shortest total 1 sec 10
+   fwd [-2] back [] inverse-back []
+   fwd [] back [1] inverse-back [-2]
+   J!=0 steps on the A-side path 0  B-side 0
+CTRL 00000030 20000030 d=4
+pair 00000030 20000030 n 10 depth each side 4
+J0 reach A 1194 reach B 871 iso meetings 487 shortest total 1 sec 34
+   fwd [-2] back [] inverse-back []
+   fwd [] back [1] inverse-back [-2]
+   J!=0 steps on the A-side path 0  B-side 0

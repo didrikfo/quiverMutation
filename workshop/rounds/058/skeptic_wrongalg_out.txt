@@ -1,0 +1,4 @@
+('eqdim', 'truth=NOT', 'test=NO') 280
+('eqdim', 'truth=iso', 'test=iso') 168
+TOTAL variants 448
+DROP-ONE-RELATION (parallel-arrow steps): {("dim(KQ/I') > dim End(T)", 'test=iso'): 47}
