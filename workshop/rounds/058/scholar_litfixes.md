@@ -1,8 +1,8 @@
 # Ready-to-apply citation patches (E-171), round 058, scholar
 
-Each patch: file, exact OLD text (one or more whole lines, copied from the file as of HEAD 1eb46ea), exact NEW text. Source checked: `research/literature/sources/1009.3370v3-aihara-iyama-silting-mutation.tex` (AI) and `2509.12983v2-pavon-chz-criterion.tex` (CHZ). Nothing was fetched from arXiv: the LaTeX in the repo was enough. Numbers are LaTeX's (one counter per section). Patches 1-4 are in `research/literature/`; patch 5 (provenance only) and 6 (syntheses, a dated checkpoint, annotated rather than rewritten) are optional. Patches 2 and 4 carry the "no monomial" correction.
+Each patch: file, exact OLD text (one or more whole lines, copied from the file; re-verified in round 058 against HEAD c953a49 (all OLD blocks occur verbatim, once each)), exact NEW text. Source checked: `research/literature/sources/1009.3370v3-aihara-iyama-silting-mutation.tex` (AI) and `2509.12983v2-pavon-chz-criterion.tex` (CHZ). Nothing was fetched from arXiv: the LaTeX in the repo was enough. Numbers are LaTeX's (one counter per section). Patches 1-4 are in `research/literature/`; patch 5 (provenance only) and 6 (syntheses, a dated checkpoint, annotated rather than rewritten) are optional. Patches 2 and 4 carry the "no monomial" correction.
 
-Checks behind the wording (all by grep in the source): CHZ Cor 3.6 (label `cor:path-algebra`, line 1410) reads "Let Lambda = kQ/I be a path algebra with relations" -- the words "monomial" and "kA_n" do not occur in the file; "admissible ideal of relations" is in Example 3.4 (line 1299, label `ex:path-algebra`); Example 3.4 asserts that elements of soc P_i "are represented by tail-maximal paths" (line 1313-1315). AI Thm 2.32 (label `when silting is tilting`, line 982): M tilting; (a) D covariantly finite, mu^+ tilting iff each M has a left D-approximation f with Hom(D,f) injective; (b) dual. AI Prop 2.3 (line 375-380) is "Let T be an algebraic triangulated category. If T has a tilting object M, then T is triangle equivalent to K^b(proj End(M))", cited to Keller.
+Checks behind the wording (all by grep in the source): CHZ Cor 3.6 (label `cor:path-algebra`, line 1411) reads "Let Lambda = kQ/I be a path algebra with relations" -- the words "monomial" and "kA_n" do not occur in the file; "admissible ideal of relations" is in Example 3.4 (line 1299, label `ex:path-algebra`); Example 3.4 asserts that elements of soc P_i "are represented by tail-maximal paths" (line 1313-1315). AI Thm 2.32 (label `when silting is tilting`, line 982): M tilting; (a) D covariantly finite, mu^+ tilting iff each M has a left D-approximation f with Hom(D,f) injective; (b) dual. AI Prop 2.3 (line 375-380) is "Let T be an algebraic triangulated category. If T has a tilting object M, then T is triangle equivalent to K^b(proj End(M))", cited to Keller.
 
 ## Patch 1 -- `research/literature/README.md`, line 26 (the 1009.3370 row)
 
@@ -37,11 +37,13 @@ OLD:
 NEW:
 ```
   surviving negative-degree arrow is precisely the failure of the tilting
-  condition `Hom(T, T[<0]) = 0` (Aihara–Iyama Definition 2.1(b); their
-  Theorem 2.32(b) says that, for a mutation of a tilting object, this is
-  equivalent to injectivity of `Hom(g, D)`).
+  condition `Hom(T, T[<0]) = 0` (the part of Aihara–Iyama Definition 2.1(b)
+  beyond silting; their Theorem 2.32(a) (left mutation `mu^+`, injectivity of
+  `Hom(D, f)`) and 2.32(b) (right mutation `mu^-`, injectivity of `Hom(g, D)`)
+  say that, for a mutation of a tilting object, tilting is equivalent to that
+  injectivity).
 ```
-Reason: audit row 9. (The "precisely" identification of arrows with Hom(T,T[<0]) is Oppermann's dg-quiver statement and was not re-checked here: UNVERIFIED, no Oppermann source in `sources/`.)
+Reason: audit row 9; round 058 review: direction is 2.32(a) left / (b) right (the summary says "left mutation only", Oppermann), and `Hom(T,T[<0])` is the part of Def. 2.1(b) beyond silting, since 2.1(b) itself is `Hom(M,M[!=0]) = 0`. (The "precisely" identification of arrows with Hom(T,T[<0]) is Oppermann's dg-quiver statement and was not re-checked here: UNVERIFIED, no Oppermann source in `sources/`.)
 
 ## Patch 4 -- `research/literature/2509.12983-chz-criterion-derived-equivalences.md`, line 70
 
