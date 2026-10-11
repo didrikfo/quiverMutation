@@ -191,5 +191,14 @@ conference), through a pull request from a branch made off `main`:
 4. Run the fast tests, open the PR, list library changes separately for
    review, then resume the rounds.
 
+**Identifiers.** Other branches merged into `main` while `workshop` runs can
+take the same `E-`/`F-`/`H-` numbers. Checkpoint 1 hit this: `main` took E-053
+and E-054, the checkpoint renumbered the workshop's entries by two, and the same
+shift then had to be applied to the whole `workshop` branch before `main`
+would merge (commits 81a71f3, af06895; the rule is in 81a71f3's message: shift
+every `E-nnn` identifier, leave code names such as `--e078` alone). When a
+checkpoint renumbers, apply the identical renumbering to `workshop` at once,
+before the next round runs.
+
 Left out of `main`: submissions, reviews, persona notebooks and raw outputs
 (they stay on `workshop`; the proceedings and the E-entries say where).
