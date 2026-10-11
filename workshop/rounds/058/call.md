@@ -8,4 +8,6 @@ Round 057 left no open questions (none to settle). Merge of origin/main: already
 ## Revisions due
 (none)
 ## Referees
-(filled in at step 3)
+- skeptic: theorist
+- maverick: skeptic
+- scholar: toolsmith
