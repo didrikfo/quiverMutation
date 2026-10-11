@@ -349,6 +349,24 @@ Coxeter polynomial when it is deleted (F-035). So `--min-arrows 3`, which is wha
 makes order 11 affordable, is a real restriction of the family and not a
 normalisation.
 
+### Which shapes the walks pass through
+
+```bash
+python batch.py atlas 9 --depth 4 --jobs 7            # walk every LNA, record every quiver
+python atlas.py 9 --depth 4 --validate --page logs/atlas-n9.html
+python batch.py atlas 10 --depth 4 --sample 20 --jobs 7   # the leftovers and 20 per quipu class
+```
+
+Every family above was found by reading one walk by hand. The atlas counts
+instead: it records every quiver the walks reach, keyed up to relabelling at
+four levels -- graph, quiver, relation skeleton, algebra -- and reports the
+**hubs** (shapes many classes pass through), the **bridges** (shapes where the
+classification already joined two orbits), the commonest cycles line → shape →
+line, and every shape two classes share, replayed before it is called a merge.
+Label-exact meeting cannot see those: two walks out of different LNAs reach the
+same quiver under different labels. See research H-022 and `GLOSSARY.md`,
+"Shapes".
+
 ### Reorienting a tree is free
 
 ```python
