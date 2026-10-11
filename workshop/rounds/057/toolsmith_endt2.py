@@ -67,6 +67,60 @@ def symcheck2(TE, arrows, mode, carrows, crels, timeit=None):
     return 'iso (%d unknowns, %d equations consistent; %d parallel pairs)' % (len(syms), len(eqs) - 1, nm)
 
 
+import collections
+from fractions import Fraction
+
+def quotient_dims(arrows, rels):
+    """dim of K Q/I per vertex pair, Q acyclic; paths = tuples of arrows in composition order (arrow = (s,h,k))."""
+    out = collections.defaultdict(list)
+    for a in arrows: out[a[0]].append(a)
+    verts = sorted({a[0] for a in arrows} | {a[1] for a in arrows})
+    paths = collections.defaultdict(list)       # (s,t) -> list of paths
+    for v in verts: paths[(v, v)].append(())
+    frontier = [((a,), a[0], a[1]) for a in arrows]
+    L = 0
+    while frontier:
+        L += 1; assert L <= len(verts), 'cyclic quiver'
+        nxt = []
+        for p, s, t in frontier:
+            paths[(s, t)].append(p)
+            for a in out[t]: nxt.append((p + (a,), s, a[1]))
+        frontier = nxt
+    dims = {}
+    for (s, t), ps in list(paths.items()):
+        idx = {p: i for i, p in enumerate(ps)}; rows = []
+        for r in rels:
+            r_s = next(iter(r))[0][0]; r_t = next(iter(r))[-1][1]
+            for pre in paths.get((s, r_s), []):
+                for post in paths.get((r_t, t), []):
+                    row = {}
+                    for rp, cf in r.items():
+                        q = pre + tuple(rp) + post
+                        if q in idx: row[idx[q]] = row.get(idx[q], 0) + Fraction(cf)
+                    if row: rows.append(row)
+        # rank
+        piv = {}; rk = 0
+        for row in rows:
+            row = dict(row)
+            while row:
+                k = min(row)
+                if k in piv:
+                    f = row[k] / piv[k][k]
+                    for kk, vv in piv[k].items():
+                        row[kk] = row.get(kk, 0) - f * vv
+                        if row[kk] == 0: del row[kk]
+                else: piv[k] = row; rk += 1; break
+        dims[(s, t)] = len(ps) - rk
+    return dims
+
+
+def dimcheck(carrows, crels, d):
+    """Round 059 (E-177 request): dim K Q/I' from crels (linear algebra on all paths) vs the child's dimension matrix d (= dim End(T) pair by pair once 'dims' agrees).
+    Returns None if equal, else a message.  Catches a dropped relation (dim too big) and a spurious one (too small)."""
+    qd = quotient_dims(carrows, crels)
+    bad = {k: (qd.get(k, 0), d.get(k, 0)) for k in set(qd) | set(d) if qd.get(k, 0) != d.get(k, 0) and (k[0] != k[1] or qd.get(k, 0) != 1)}
+    return None if not bad else 'dim K Q/I\' = %d != dim End(T) = %d' % (sum(qd.values()), sum(d.values()))
+
 def compare2(a, v, c):
     TE = TiltEnd(a, v); dims, arrows, layers = endquiver(TE); V = TE.V
     A, d, carrows, crels = child_info(c); res = {}
@@ -78,7 +132,8 @@ def compare2(a, v, c):
     for (s, h, k) in carrows: cc[(s, h)] = cc.get((s, h), 0) + 1
     res['arrows'] = 'same' if ec == cc else ('opp' if ec == {(j, i): n for (i, j), n in cc.items()} else 'NO')
     res['n_arrows'] = (len(arrows), len(carrows)); res['par'] = max(cc.values()) if cc else 0; res['maxdim'] = max(dims.values())
-    res['verdict'] = 'NO (dims/arrows)' if 'NO' in (res['dims'], res['arrows']) or res['dims'] != res['arrows'] else symcheck2(TE, arrows, res['arrows'], carrows, crels)
+    res['dimcheck'] = dimcheck(carrows, crels, d)
+    res['verdict'] = 'NO (dim K Q/I\' != dim End(T))' if res['dimcheck'] else 'NO (dims/arrows)' if 'NO' in (res['dims'], res['arrows']) or res['dims'] != res['arrows'] else symcheck2(TE, arrows, res['arrows'], carrows, crels)
     return res
 
 

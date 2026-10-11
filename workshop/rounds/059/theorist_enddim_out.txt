@@ -1,0 +1,36 @@
+n=6
+252 ('SPLIT', 'D=-Hm: HHt', 'Hp==0', 'Hm==0', '', 'eqHt')
+168 ('SPLIT', 'D=-Hm: Ht', 'Hp==0', 'Hm!=0', '', 'eqHt')
+126 ('dual', 'J0', 'End=child(H^T only)', 'euler0', 'D=-Hm')
+84 ('dual', 'Jne0', 'End=child(H^T only)', 'euler!=0', 'D=-Hm')
+126 ('lna', 'J0', 'End=child(H^T only)', 'euler0', 'D=-Hm')
+84 ('lna', 'Jne0', 'End=child(H^T only)', 'euler!=0', 'D=-Hm')
+mismatches 0 []
+
+real	0m6.617s
+user	0m6.626s
+sys	0m0.168s
+n=7
+924 ('SPLIT', 'D=-Hm: HHt', 'Hp==0', 'Hm==0', '', 'eqHt')
+660 ('SPLIT', 'D=-Hm: Ht', 'Hp==0', 'Hm!=0', '', 'eqHt')
+462 ('dual', 'J0', 'End=child(H^T only)', 'euler0', 'D=-Hm')
+330 ('dual', 'Jne0', 'End=child(H^T only)', 'euler!=0', 'D=-Hm')
+462 ('lna', 'J0', 'End=child(H^T only)', 'euler0', 'D=-Hm')
+330 ('lna', 'Jne0', 'End=child(H^T only)', 'euler!=0', 'D=-Hm')
+mismatches 0 []
+
+real	0m27.860s
+user	0m27.534s
+sys	0m0.220s
+n=8
+3432 ('SPLIT', 'D=-Hm: HHt', 'Hp==0', 'Hm==0', '', 'eqHt')
+2574 ('SPLIT', 'D=-Hm: Ht', 'Hp==0', 'Hm!=0', '', 'eqHt')
+1716 ('dual', 'J0', 'End=child(H^T only)', 'euler0', 'D=-Hm')
+1287 ('dual', 'Jne0', 'End=child(H^T only)', 'euler!=0', 'D=-Hm')
+1716 ('lna', 'J0', 'End=child(H^T only)', 'euler0', 'D=-Hm')
+1287 ('lna', 'Jne0', 'End=child(H^T only)', 'euler!=0', 'D=-Hm')
+mismatches 0 []
+
+real	2m35.008s
+user	2m33.099s
+sys	0m0.247s

@@ -7,6 +7,15 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 059 -- 2026-10-11 -- ordinary
+Called theorist, toolsmith, experimentalist; referees skeptic, maverick, theorist: two minor revisions (answered, accepted narrowed), one accept.
+- **Theorist (accepted, narrowed, E-181):** dim End(T) = Cartan(rewrite) (one uniform transpose) at 8 152 loopless steps of all LNAs and duals n <= 8 (about 3 400 with J != 0) and 38 parallel-arrow steps. With Oppermann Thm 1.1, End(T) = H_0 and J lives in H_1, so End(T) comparisons cannot test J = 0: a reason for E-174's observation, conditional on one unproved identification (G2: step 7 = d of the degree-2 generators).
+- **Toolsmith (accepted, E-180):** `compare2` now asserts dim K Q/I' = dim End(T); the 25 true n = 7 children pass, and deleting any one relation is rejected in 125 of 125 cases (step 12 and class 2 included), where the iso test accepted all 125.
+- **Experimentalist (accepted, narrowed, E-182):** for all LNAs n <= 10 a right mutation is an LNA iff the arrow is uncovered from the left and r_v = 2; it slides a length-2 relation left. E-153's "exactly 2 per LNA" is an average (total 2 C_{n-1}; per LNA 0..9 at n = 10). 17 listed k = 3 cap-cut cells inert. Proof and the Catalan factorisation open.
+- Consequences: none for F-/H-/R- status (H-015 OPEN; T5's live item is now G2); E-153's title wording is superseded by E-182. No overnight run proposed.
+- Round 060 is a conference (ledger: T1/T2 closure proposals, H-015 wording).
+No questions for the human.
+
 ## Round 058 -- 2026-10-11 -- ordinary
 Three called (skeptic, maverick, scholar), three referees (theorist, skeptic, toolsmith): all minor revision, all answered and accepted.
 - **skeptic**: the quiver-level End(T) comparison of E-174 has power: on 7 parallel-arrow n = 7 c1 steps it rejects 280/280 equal-dimension killed-line variants and accepts 168/168 isomorphic ones. But dropping a relation is accepted 47/47: "iso" takes the relation set and dimension as inputs. Promoted **E-177**.

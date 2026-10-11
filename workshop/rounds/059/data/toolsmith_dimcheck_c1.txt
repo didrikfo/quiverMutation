@@ -1,0 +1,109 @@
+step 0 v 4 parallel [2] nrels 6 ok
+step 1 v 4 parallel [2] nrels 6 ok
+step 2 v 4 parallel [2] nrels 6 ok
+step 3 v 4 parallel [2] nrels 6 ok
+step 4 v 6 parallel [] nrels 4 ok
+step 5 v 7 parallel [] nrels 5 ok
+step 6 v 4 parallel [] nrels 5 ok
+step 7 v 4 parallel [] nrels 5 ok
+step 8 v 4 parallel [2] nrels 5 ok
+step 9 v 4 parallel [] nrels 5 ok
+step 10 v 4 parallel [2] nrels 5 ok
+step 11 v 5 parallel [2] nrels 6 ok
+step 12 v 4 parallel [2, 2] nrels 7 ok
+step 13 v 7 parallel [] nrels 5 ok
+step 14 v 7 parallel [] nrels 5 ok
+step 15 v 7 parallel [] nrels 5 ok
+CLS 1 steps 16
+('dropped', 'dim+1', 'dimcheck=reject', 'symcheck2 alone=iso') 45
+('dropped', 'dim+2', 'dimcheck=reject', 'symcheck2 alone=iso') 33
+('dropped', 'dim+3', 'dimcheck=reject', 'symcheck2 alone=iso') 7
+('dropped', 'dim+4', 'dimcheck=reject', 'symcheck2 alone=iso') 1
+('true child', 'dimcheck passes') 16
+rows (step, v, par, _, relidx, nrels, extra dim, dimcheck rejects, symcheck2 alone, s):
+(0, 4, 'par[2]', 'rel', 0, 6, 1, True, 'iso', 0.3)
+(0, 4, 'par[2]', 'rel', 1, 6, 2, True, 'iso', 0.0)
+(0, 4, 'par[2]', 'rel', 2, 6, 1, True, 'iso', 0.0)
+(0, 4, 'par[2]', 'rel', 3, 6, 1, True, 'iso', 0.0)
+(0, 4, 'par[2]', 'rel', 4, 6, 2, True, 'iso', 0.0)
+(0, 4, 'par[2]', 'rel', 5, 6, 2, True, 'iso', 0.0)
+(1, 4, 'par[2]', 'rel', 0, 6, 1, True, 'iso', 0.0)
+(1, 4, 'par[2]', 'rel', 1, 6, 2, True, 'iso', 0.0)
+(1, 4, 'par[2]', 'rel', 2, 6, 1, True, 'iso', 0.0)
+(1, 4, 'par[2]', 'rel', 3, 6, 1, True, 'iso', 0.0)
+(1, 4, 'par[2]', 'rel', 4, 6, 2, True, 'iso', 0.0)
+(1, 4, 'par[2]', 'rel', 5, 6, 2, True, 'iso', 0.0)
+(2, 4, 'par[2]', 'rel', 0, 6, 2, True, 'iso', 0.0)
+(2, 4, 'par[2]', 'rel', 1, 6, 2, True, 'iso', 0.0)
+(2, 4, 'par[2]', 'rel', 2, 6, 1, True, 'iso', 0.0)
+(2, 4, 'par[2]', 'rel', 3, 6, 1, True, 'iso', 0.0)
+(2, 4, 'par[2]', 'rel', 4, 6, 2, True, 'iso', 0.0)
+(2, 4, 'par[2]', 'rel', 5, 6, 1, True, 'iso', 0.0)
+(3, 4, 'par[2]', 'rel', 0, 6, 2, True, 'iso', 0.0)
+(3, 4, 'par[2]', 'rel', 1, 6, 2, True, 'iso', 0.0)
+(3, 4, 'par[2]', 'rel', 2, 6, 1, True, 'iso', 0.0)
+(3, 4, 'par[2]', 'rel', 3, 6, 1, True, 'iso', 0.0)
+(3, 4, 'par[2]', 'rel', 4, 6, 2, True, 'iso', 0.0)
+(3, 4, 'par[2]', 'rel', 5, 6, 1, True, 'iso', 0.0)
+(4, 6, 'par[]', 'rel', 0, 4, 2, True, 'iso', 0.0)
+(4, 6, 'par[]', 'rel', 1, 4, 4, True, 'iso', 0.0)
+(4, 6, 'par[]', 'rel', 2, 4, 2, True, 'iso', 0.0)
+(4, 6, 'par[]', 'rel', 3, 4, 1, True, 'iso', 0.0)
+(5, 7, 'par[]', 'rel', 0, 5, 1, True, 'iso', 0.6)
+(5, 7, 'par[]', 'rel', 1, 5, 2, True, 'iso', 0.1)
+(5, 7, 'par[]', 'rel', 2, 5, 1, True, 'iso', 0.5)
+(5, 7, 'par[]', 'rel', 3, 5, 1, True, 'iso', 0.0)
+(5, 7, 'par[]', 'rel', 4, 5, 1, True, 'iso', 1.0)
+(6, 4, 'par[]', 'rel', 0, 5, 3, True, 'iso', 0.0)
+(6, 4, 'par[]', 'rel', 1, 5, 3, True, 'iso', 0.0)
+(6, 4, 'par[]', 'rel', 2, 5, 1, True, 'iso', 0.0)
+(6, 4, 'par[]', 'rel', 3, 5, 1, True, 'iso', 0.0)
+(6, 4, 'par[]', 'rel', 4, 5, 1, True, 'iso', 0.0)
+(7, 4, 'par[]', 'rel', 0, 5, 1, True, 'iso', 0.0)
+(7, 4, 'par[]', 'rel', 1, 5, 3, True, 'iso', 0.0)
+(7, 4, 'par[]', 'rel', 2, 5, 3, True, 'iso', 0.0)
+(7, 4, 'par[]', 'rel', 3, 5, 1, True, 'iso', 0.0)
+(7, 4, 'par[]', 'rel', 4, 5, 1, True, 'iso', 0.0)
+(8, 4, 'par[2]', 'rel', 0, 5, 1, True, 'iso', 0.0)
+(8, 4, 'par[2]', 'rel', 1, 5, 2, True, 'iso', 0.0)
+(8, 4, 'par[2]', 'rel', 2, 5, 1, True, 'iso', 0.0)
+(8, 4, 'par[2]', 'rel', 3, 5, 2, True, 'iso', 0.0)
+(8, 4, 'par[2]', 'rel', 4, 5, 2, True, 'iso', 0.0)
+(9, 4, 'par[]', 'rel', 0, 5, 3, True, 'iso', 0.0)
+(9, 4, 'par[]', 'rel', 1, 5, 3, True, 'iso', 0.0)
+(9, 4, 'par[]', 'rel', 2, 5, 1, True, 'iso', 0.0)
+(9, 4, 'par[]', 'rel', 3, 5, 1, True, 'iso', 0.0)
+(9, 4, 'par[]', 'rel', 4, 5, 1, True, 'iso', 0.0)
+(10, 4, 'par[2]', 'rel', 0, 5, 1, True, 'iso', 0.0)
+(10, 4, 'par[2]', 'rel', 1, 5, 2, True, 'iso', 0.0)
+(10, 4, 'par[2]', 'rel', 2, 5, 1, True, 'iso', 0.0)
+(10, 4, 'par[2]', 'rel', 3, 5, 2, True, 'iso', 0.0)
+(10, 4, 'par[2]', 'rel', 4, 5, 2, True, 'iso', 0.0)
+(11, 5, 'par[2]', 'rel', 0, 6, 1, True, 'iso', 0.0)
+(11, 5, 'par[2]', 'rel', 1, 6, 2, True, 'iso', 0.0)
+(11, 5, 'par[2]', 'rel', 2, 6, 1, True, 'iso', 0.0)
+(11, 5, 'par[2]', 'rel', 3, 6, 1, True, 'iso', 0.0)
+(11, 5, 'par[2]', 'rel', 4, 6, 2, True, 'iso', 0.0)
+(11, 5, 'par[2]', 'rel', 5, 6, 2, True, 'iso', 0.0)
+(12, 4, 'par[2, 2]', 'rel', 0, 7, 2, True, 'iso', 0.1)
+(12, 4, 'par[2, 2]', 'rel', 1, 7, 2, True, 'iso', 0.1)
+(12, 4, 'par[2, 2]', 'rel', 2, 7, 2, True, 'iso', 0.1)
+(12, 4, 'par[2, 2]', 'rel', 3, 7, 2, True, 'iso', 0.0)
+(12, 4, 'par[2, 2]', 'rel', 4, 7, 2, True, 'iso', 0.0)
+(12, 4, 'par[2, 2]', 'rel', 5, 7, 3, True, 'iso', 0.0)
+(12, 4, 'par[2, 2]', 'rel', 6, 7, 2, True, 'iso', 0.0)
+(13, 7, 'par[]', 'rel', 0, 5, 1, True, 'iso', 0.5)
+(13, 7, 'par[]', 'rel', 1, 5, 2, True, 'iso', 0.1)
+(13, 7, 'par[]', 'rel', 2, 5, 1, True, 'iso', 0.5)
+(13, 7, 'par[]', 'rel', 3, 5, 1, True, 'iso', 0.0)
+(13, 7, 'par[]', 'rel', 4, 5, 1, True, 'iso', 0.6)
+(14, 7, 'par[]', 'rel', 0, 5, 2, True, 'iso', 0.1)
+(14, 7, 'par[]', 'rel', 1, 5, 1, True, 'iso', 0.7)
+(14, 7, 'par[]', 'rel', 2, 5, 1, True, 'iso', 0.6)
+(14, 7, 'par[]', 'rel', 3, 5, 1, True, 'iso', 0.0)
+(14, 7, 'par[]', 'rel', 4, 5, 1, True, 'iso', 0.7)
+(15, 7, 'par[]', 'rel', 0, 5, 2, True, 'iso', 0.1)
+(15, 7, 'par[]', 'rel', 1, 5, 1, True, 'iso', 0.7)
+(15, 7, 'par[]', 'rel', 2, 5, 1, True, 'iso', 0.5)
+(15, 7, 'par[]', 'rel', 3, 5, 1, True, 'iso', 0.0)
+(15, 7, 'par[]', 'rel', 4, 5, 1, True, 'iso', 0.5)

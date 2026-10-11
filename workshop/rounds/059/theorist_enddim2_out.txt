@@ -1,0 +1,5 @@
+depth 8 frontier 600 parents with parallel arrows 7
+20 ('J0', 'Hp1=0', 'End=child', 'D=-Hm', 'outdeg1')
+8 ('J0', 'Hp1=0', 'End=child', 'D=-Hm', 'outdeg>1')
+10 ('Jne0', 'Hp1=0', 'End=child', 'D=-Hm', 'outdeg1')
+mismatches 0

@@ -1,0 +1,9 @@
+fail c2 0 v 5 dims same arrows same (7, 7) maxpar 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0s
+fail c2 1 v 2 dims same arrows same (7, 7) maxpar 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0s
+fail c2 2 v 5 dims same arrows same (7, 7) maxpar 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0s
+fail c2 3 v 6 dims same arrows same (7, 7) maxpar 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0s
+fail c2 4 v 3 dims same arrows same (7, 7) maxpar 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0s
+fail c2 5 v 3 dims same arrows same (7, 7) maxpar 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0s
+fail c2 6 v 5 dims same arrows same (7, 7) maxpar 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0s
+fail c2 7 v 1 dims same arrows same (7, 7) maxpar 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0s
+fail c2 8 v 5 dims same arrows same (7, 7) maxpar 1 | iso (7 unknowns, 7 equations consistent; 0 parallel pairs) 0s

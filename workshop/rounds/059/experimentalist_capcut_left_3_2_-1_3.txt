@@ -1,0 +1,5 @@
+left k=3 m=2 g=-1 shared=1 base=2 reached=9 min=2 lowered=0 (124s)
+left k=3 m=2 g=0 shared=0 base=2 reached=11 min=2 lowered=0 (148s)
+left k=3 m=2 g=1 shared=0 base=2 reached=11 min=2 lowered=0 (145s)
+left k=3 m=2 g=2 shared=0 base=2 reached=12 min=2 lowered=0 (162s)
+left k=3 m=2 g=3 shared=0 base=2 reached=12 min=2 lowered=0 (170s)

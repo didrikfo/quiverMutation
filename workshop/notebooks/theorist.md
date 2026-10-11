@@ -1,19 +1,16 @@
-# Theorist notebook (rewritten round 057)
+# Theorist notebook (rewritten round 059)
 
 ## What I believe now
-- T10: generation of K^b(proj A) by the one-step complex T is PROVED per step (cone triangle P_v -> sum P_h -> T_v, loopless v); J != 0 is Hom(T,T[-1]) != 0 (silting, not tilting); Hom(T,T[1]) = 0 in 2145 steps. Residual gap: End(T) iso next algebra as algebras (E-167 only 13 edges), parallel arrows, class 2. Script rounds/054/theorist_gen.py (needs /tmp/tsm/c1.pkl, 519 s rebuild).
-- Counting tests (n summands, K0 det +-1) are vacuous here.
-- H-010 unproved, SUPPORTED. L1: one-step LNA-to-LNA mutations change relation starts only at v-2..v, exactly 2 per LNA (E-153), unexplained.
-- H-020 concerns the move set, not the class. H1 floating rules length independent: checked widths 6..8 at length >= w+5; untested widths 9..11, lengths > 14. H3 weakest.
-- 057 (breadth): T1 (k(c) rule): leave-one-out linear fits on 17 cores, best SSE 54, <= 6/17 exact -> no cheap rule; propose closing T1 (wording: no linear fit, 11 independent cores best SSE 48, <= 3/11 exact). T2: orbit of 333@0 and 333@(n-6) IS the 444 orbit (rowset equality n = 13..16); other 333 placements disjoint (n = 14). So E-067's "upper bound" holds only for the 33y rows, not the orbit.
-- Earlier (042): C_B = C' + E_vi; Q_2 = 1 iff c_2 = 0; s = -2 observed only. Bystander (045/046): margin 2, one bystander, k <= 3.
+- T10/T5 lemma (059): for loopless v, End_K(T) = H_0 of Oppermann's mutated dg quiver (1504.02617 Thm 1.1; hypotheses: nonneg dg quiver, no degree-0 loop at i; LaTeX fetched via arxiv e-print, works) = the repo rewrite, J = 0 or not. J lives in H_1 = Hom(T,T[-1]); so the End(T) check is blind to J by theorem (explains E-174). Tilting (J = 0) only gives formality / derived equivalence.
+- Weakest step G2: step 7 (kernel over paths out of i*) = d of the degree-2 generators out of i (overlap relations, Oppermann Ex. 4.2). Not proved. Only dimension evidence: Cartan(rewrite) = dim Hom_K(T_i,T_j) on 8 152 unguarded LNA steps n = 4..8 (3 400-odd J != 0), and R C R^T - Cartan = -dim Hom(T,T[-1]). Match is with the transpose of the round-050 Hom orientation, uniformly.
+- Parallel arrows: no new hypothesis in the lemma; equality is iso up to GL_m on each block; only 7 parallel parents / 38 steps reached by random walks (n = 7 depth 8). Cyclic quivers: Oppermann step 4 not in the repo; outside everything.
+- Earlier: generation per step (E-168); counting tests vacuous; H-010 supported, unproved; L1 two LNA-to-LNA mutations per LNA unexplained. T1: no linear fit for k(c) (propose closing); T2: 333@0 orbit = 444 orbit (E-176).
 
 ## What I tried
-- 057: theorist_kfit.py, theorist_same.py. 054: theorist_gen.py. 051: rulelen, ablate. 049: rulelen, orbits45, children, reverse. 046, 045, 042.
+- 059: theorist_enddim.py, theorist_enddim2.py. 057: kfit, same. 054: gen, loops. 051: rulelen, ablate. 049, 046, 045, 042.
 
 ## Next
-- T2 breakdown done n=14: 444 orbit has 2871 distinct words, only ~20 are 33y; propose closing T2 as 33y-rows statement. Run n=15,16 if wanted.
-- Proof of End(T) = next algebra (A acyclic, loopless v, J = 0): the real tilting premise.
-- Ablation rules=[] vs ALL on 3-relation cores n = 13, 14; H1 finish; H4 orbit map.
-- Old: prove L1; k-step window; two bystanders; 042 programme.
-- Blind spots: generation proof is per step; a chain also needs End(T_k) = A_{k+1}. Linear-fit failure in T1 does not show no rule exists; drift-based rule untried.
+- Prove G2 by hand on A5 with two overlapping relations (mutate at the start of the overlap); or ask scholar to compare Section 3 of the LaTeX with `procedure` step 7.
+- Dimension assertion on the parallel-arrow edges (n = 7 c1 failing steps, n = 10 E-169 paths) with the 059 script on the pickles (rebuild 519 s).
+- Old: T2 breakdown at n = 15, 16 if wanted; H1 finish; H4 orbit map; two bystanders; prove L1; ablation rules=[] vs ALL n = 13, 14.
+- Blind spots: a chain needs each parent to be an algebra, not the start's derived class; "End = child" is dimension-level in my runs, iso-level only in E-174.

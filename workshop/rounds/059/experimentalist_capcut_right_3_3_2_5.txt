@@ -1,0 +1,2 @@
+right k=3 m=3 g=2 shared=0 base=2 reached=2 min=2 lowered=0 (387s)
+right k=3 m=3 g=3 shared=0 base=2 reached=2 min=2 lowered=0 (296s)
