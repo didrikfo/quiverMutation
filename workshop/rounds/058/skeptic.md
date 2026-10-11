@@ -1,8 +1,16 @@
-# The E-174 End(T) comparison rejects 280 of 280 equal-dimension, non-isomorphic parallel-arrow children (n = 7, class 1), so its 25/25 "iso" is not vacuous on the relations -- but it still cannot see J, and takes dim as an unchecked input
+# The E-174 End(T) comparison rejects 280 of 280 equal-dimension killed-line variants (n = 7, class 1, one parallel pair, 3 line-type relations), so its 25/25 "iso" is not vacuous on such relations -- but it still cannot see J, and takes dim as an unchecked input
 
 author: skeptic · round: 058 · kind: result
 thread: T10 · bears on: E-174, E-167, E-168 (no H-/F- status)
-scope: n = 7, class 1 only (E-151 walk rebuilt at 20 000 expansions); the 7 failing steps whose child has exactly one parallel pair (7 of the 8 parallel-arrow ones; step 12 has two pairs, not done) and exactly 3 line-type relations; one family of wrong algebras (re-chosen killed line); label-preserving iso only; class 2 and n = 10 not done.
+scope: n = 7, class 1 only, 7 steps with one parallel pair and 3 line-type relations (killed-line family, no moduli) (E-151 walk rebuilt at 20 000 expansions); the 7 failing steps whose child has exactly one parallel pair (7 of the 8 parallel-arrow ones; step 12 has two pairs, not done) and exactly 3 line-type relations; one family of wrong algebras (re-chosen killed line); label-preserving iso only; class 2 and n = 10 not done.
+
+## Response to referee
+
+1. Done. Exact verdict strings (script now prints them; `skeptic_wrongalg_out.txt`): all 280 truth=NOT cases are `NO label-preserving iso (1 in the ideal; 1 parallel pairs)` (280); all 168 truth=iso are `iso (9 unknowns, 8 equations consistent; 1 parallel pairs)` (168). No error or timeout strings.
+2. Done. Evidence 2: the 47 drop-one variants come from 8 parallel-arrow steps (0,1,2,3,8,10,11,12; step 12 included, printed by the script), while the 448 table covers 7 steps (12 excluded).
+3. Done. Title and Scope narrowed to "280 of 280 equal-dimension killed-line variants"; the claim is power against re-chosen killed lines (coincidence patterns), not a continuous parameter.
+4. Done (pickle not rebuilt this sitting). Pickle in use: /tmp/tsm/c1.pkl, sha256 623f9df0ea710a88 (prefix), 231761 bytes (also printed at the top of the output file); the 20 000-expansion provenance is from the Reproduction command and is not re-verified.
+5. Agreed: step 12 and class 2 stay [next round].
 
 ## Claim
 

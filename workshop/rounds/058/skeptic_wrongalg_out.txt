@@ -1,4 +1,17 @@
+pickle sha256 623f9df0ea710a88 bytes 231761
+step 0 v 4 k 3 true pts [(1, 0), (0, 1), (-1, -1)]
+step 1 v 4 k 3 true pts [(1, 0), (0, 1), (1, 1)]
+step 2 v 4 k 3 true pts [(-1, -1), (1, 0), (0, 1)]
+step 3 v 4 k 3 true pts [(1, 1), (1, 0), (0, 1)]
+step 8 v 4 k 3 true pts [(1, 0), (1, 1), (0, 1)]
+step 10 v 4 k 3 true pts [(1, 0), (1, 1), (0, 1)]
+step 11 v 5 k 3 true pts [(1, 0), (0, 1), (-1, -1)]
 ('eqdim', 'truth=NOT', 'test=NO') 280
 ('eqdim', 'truth=iso', 'test=iso') 168
 TOTAL variants 448
+VERDICT STRINGS (truth, verdict):
+   ('truth=NOT', 'NO label-preserving iso (1 in the ideal; 1 parallel pairs)') 280
+   ('truth=iso', 'iso (9 unknowns, 8 equations consistent; 1 parallel pairs)') 168
+steps in table [0, 1, 2, 3, 8, 10, 11]
 DROP-ONE-RELATION (parallel-arrow steps): {("dim(KQ/I') > dim End(T)", 'test=iso'): 47}
+steps in drop-one [0, 1, 2, 3, 8, 10, 11, 12]

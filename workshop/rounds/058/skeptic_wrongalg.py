@@ -67,6 +67,8 @@ LINES = [(1, 0), (0, 1), (1, 1), (1, -1)]
 def pattern(fn): return tuple(next(j for j in range(len(fn)) if fn[j] == fn[i]) for i in range(len(fn)))   # coincidence pattern (projective points)
 def proj_eq(u, v): return u[0] * v[1] - u[1] * v[0] == 0
 
+import hashlib; print('pickle sha256', hashlib.sha256(open(PK,'rb').read()).hexdigest()[:16], 'bytes', len(open(PK,'rb').read()))
+verd = collections.Counter(); steps_tab = set(); steps_drop = set()
 recs = [r for r in pickle.load(open(PK, 'rb')) if r['kind'] == 'fail']
 table = collections.Counter(); detail = []
 for n_, r in enumerate(recs):
@@ -92,11 +94,14 @@ for n_, r in enumerate(recs):
         def pat(ps): return tuple(next(j for j in range(len(ps)) if proj_eq(ps[j], ps[i])) for i in range(len(ps)))
         truth = (pat(pts) == pat(true_pts))
         vd = symcheck2(TE, arrows, 'same', carrows, new)
+        verd[(('truth=NOT' if not truth else 'truth=iso'), vd)] += 1; steps_tab.add(n_)
         key = ('eqdim' if eqdim else 'DIMDIFF', 'truth=iso' if truth else 'truth=NOT', 'test=' + ('iso' if vd.startswith('iso') else 'NO'))
         table[key] += 1; detail.append((n_, v, len(L), choice, key))
     print('step', n_, 'v', v, 'k', len(L), 'true pts', true_pts, flush=True)
 for k in sorted(table): print(k, table[k])
 print('TOTAL variants', sum(table.values()))
+print('VERDICT STRINGS (truth, verdict):'); [print('  ', k, c) for k, c in sorted(verd.items())]
+print('steps in table', sorted(steps_tab))
 
 # Part 2: dimension is an unchecked input of symcheck2.  Drop the first line-type relation of each step: dim K Q/I' > dim End(T), yet symcheck2 says iso.
 dr = collections.Counter()
@@ -105,8 +110,11 @@ for n_, r in enumerate(recs):
     TE = TiltEnd(a, v); dims, arrows, layers = endquiver(TE); A, d, carrows, crels = child_info(c)
     cc = collections.Counter((s, h) for (s, h, k) in carrows)
     if not any(m > 1 for m in cc.values()): continue
+    steps_drop.add(n_)
     for i in range(len(crels)):
         new = crels[:i] + crels[i + 1:]; qd = quotient_dims(carrows, new)
         big = sum(qd.values()) > sum(d.values()); vd = symcheck2(TE, arrows, 'same', carrows, new)
         dr[('dim(KQ/I\') > dim End(T)' if big else 'dim equal', 'test=' + ('iso' if vd.startswith('iso') else 'NO'))] += 1
 print('DROP-ONE-RELATION (parallel-arrow steps):', dict(dr))
+
+print('steps in drop-one', sorted(steps_drop))
