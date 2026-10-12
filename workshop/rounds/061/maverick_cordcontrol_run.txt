@@ -1,0 +1,21 @@
+3033030 members 44 L=5 cords>=1: 18 42.1s
+   3033030 cords 3 rels 5 hit True neg True 77s
+   3033030 cords 3 rels 5 hit True neg True 112s
+   3033030 cords 2 rels 4 hit True neg True 168s
+table (pathlen,cords,rels):count
+(1, 1, 5) 4
+(2, 1, 3) 4
+(2, 2, 6) 2
+(3, 1, 3) 2
+(3, 1, 5) 2
+(3, 2, 4) 4
+(4, 1, 4) 2
+(4, 2, 4) 4
+(4, 2, 6) 2
+(5, 1, 3) 2
+(5, 1, 4) 2
+(5, 1, 5) 2
+(5, 2, 4) 8
+(5, 2, 5) 2
+(5, 3, 5) 2
+{'hit': 3, 'neg_ok': 3} total 168s

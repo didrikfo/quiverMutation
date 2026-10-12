@@ -7,6 +7,15 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 061 -- 2026-10-12 -- ordinary
+Called scholar, toolsmith, maverick (breadth: T6); referees theorist, skeptic, experimentalist: three minor revisions, all answered.
+- **Scholar (accepted, narrowed, E-183):** G2 holds as a **span** statement: repo step 7 spans the degree-2 generators out of i of Oppermann's model (arXiv:1504.02617), 35 hand + 573 random acyclic pairs, 0 differences (the referee's 2 786 pairs too). Sign/transpose untested; the model is the scholar's reading; cyclic quivers, parallel arrows, real walk steps not covered.
+- **Toolsmith (accepted, E-184):** all 35 edges of the five n = 10 group-A paths have Hom(T,T[-1]) = Hom(T,T[1]) = 0 under the independent test; it rejects 9 of 9 n = 7 class-2 J != 0 steps and 312 of 665 wrong steps at n = 10 (agreeing with `tiltingPlus` 700 of 700). Code independence, not new information about J; no J != 0 step at n = 10 exists to test power on.
+- **Maverick (accepted, narrowed, E-185):** the H-017 search does record relations; a cord-bearing tree-quipu control passes at n = 9 (one LNA, defect 2: L = 5 in 3 of 3, L = 6 in 1 of 1); the "no MONO control" worry belongs to cycle members. T6 parked (search-only, refutation-only).
+- **Consequences:** E-181's conditional loses G2 at span level; T5's live item is the premise J = 0 itself. H-017 stays OPEN (pointer added). No F-, no R-.
+- No overnight run proposed. Round 062 is ordinary; round 064 is a conference.
+No questions for the human.
+
 ## Round 060 -- 2026-10-12 -- conference
 All six personas wrote position statements; nothing was run, no E-entries.
 - **Convergence:** five of six name the same top question, **G2** (is repo step 7 equal to d of Oppermann's degree-2 generators, by hand on A5?), and all six name the same weakest claim: "25 of 25 failing n = 7 children are in the derived class" rests on the J = 0 premise (End(T) cannot see J, E-181; G2 unproved; no join test has returned NO across a J != 0 step). The experimentalist puts the E-182 single-mutation rule at n = 11 first (T7).

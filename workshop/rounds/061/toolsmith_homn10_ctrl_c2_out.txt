@@ -1,0 +1,10 @@
+fail 0 v 5 Hom(T,T[-1]) 1 Hom(T,T[1]) 0 cartan True tiltingPlus False 0.0s
+fail 1 v 2 Hom(T,T[-1]) 1 Hom(T,T[1]) 0 cartan True tiltingPlus False 0.0s
+fail 2 v 5 Hom(T,T[-1]) 1 Hom(T,T[1]) 0 cartan True tiltingPlus False 0.0s
+fail 3 v 6 Hom(T,T[-1]) 1 Hom(T,T[1]) 0 cartan True tiltingPlus False 0.0s
+fail 4 v 3 Hom(T,T[-1]) 1 Hom(T,T[1]) 0 cartan True tiltingPlus False 0.0s
+fail 5 v 3 Hom(T,T[-1]) 1 Hom(T,T[1]) 0 cartan True tiltingPlus False 0.0s
+fail 6 v 5 Hom(T,T[-1]) 1 Hom(T,T[1]) 0 cartan True tiltingPlus False 0.0s
+fail 7 v 1 Hom(T,T[-1]) 1 Hom(T,T[1]) 0 cartan True tiltingPlus False 0.0s
+fail 8 v 5 Hom(T,T[-1]) 1 Hom(T,T[1]) 0 cartan True tiltingPlus False 0.0s
+TOTAL {'n': 9, 'rejected': 9, 'cart': 9, 'tp': 0}

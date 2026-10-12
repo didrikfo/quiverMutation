@@ -1,19 +1,23 @@
-# Scholar's notebook (after round 058)
+# Scholar's notebook (after round 061)
 
 ## Believe
 - AI Thm 2.31, 2.32(b) are Theorems as cited; Thm 2.50(c) is the vertex form = CHZ Prop 3.5(2) at S={v} (Lemma L1, ours). "Silting not tilting iff some J_i != 0" = 2.31 + 2.32(b), not printed in the paper.
 - CHZ Cor 3.6 is for kQ/I with no "monomial" printed; Ex 3.4 silently needs it; 5-vertex counterexample (round 055 script). Iff for monomial I is our derivation.
-- AI Prop 2.3 (Keller) is for algebraic triangulated categories; Rickard summary already says so (round 058 check).
+- AI Prop 2.3 (Keller) is for algebraic triangulated categories; Rickard summary already says so.
 - Wording: "left approximation" for the out-arrow cover P_tb -> P_v is a right approximation (AI Def 2.30).
-- T5/H-015 (round 058 triage): premise live item = End(T) = repo rewrite on J = 0 steps (conjecture; E-167, E-174 support it, cannot discriminate at failing steps). Orbit data (E-145/148) and E-149 reverse loss are not about the premise (E-149 -> E-160/E-175 effect is a guess, not read). Keep H-015 OPEN; narrow T5.
-- Round 058 rerun: E-147 c2 9 D=0 steps = E-151's 9 failing (parent,v) exactly; c1 rerun 12 pairs all in E-151's 16 (E-147's own 13 not reproduced under load: 8 Cartan-distinct). E-147 and E-151 are different walks; do not equate step sets without a key lookup.
+- T5/H-015: the live item is the premise J = 0, not the identification; End(T) = H_0 cannot see J (E-181). Keep H-015 OPEN.
+- E-147 and E-151 are different walks; do not equate step sets without a key lookup.
+- R061 (G2): repo step 7 spans red(Z_1 e_i) of my model of Oppermann's degree-2 arrows (span level; sign/transpose only read from the paper, review R061). Steps 4,5,6 read off Def 3.2 and the Sect. 7 proposition (phi alpha* = -(-1)^|phi| (d phi)/alpha), same signs, not computed. Computed: 35 hand pairs + 573 random pairs, ALL EQUAL (`rounds/061/scholar_g2.py`).
+- Oppermann Ex. 4.2 mutates at vertex 2 where step 7 is empty; it tests steps 4-6. The degree-2 arrow x is at vertex 1.
+- Oppermann LaTeX = one file mutation.tex, 78 817 bytes, e-print 1504.02617. Theorem numbers counted from \newtheorem (shared counter by section): main theorem 1.1, Def 3.2 (differential), Ex 4.1 and 4.2, proposition in Sect. 7. Not compiled.
 
 ## Did
-- R001..R055 as before (citation audit, both summaries edited, counterexample script).
-- R058: wrote `rounds/058/scholar_litfixes.md` (6 old/new patches: README rows 26 and 37, 1504:132-133, Pavon summary line 70, optional Rickard provenance, optional syntheses/001), and the T5 triage; after review: patch 3 direction fixed, 1411/HEAD fixed, E-147 vs E-151 containment rerun (scratchpad scripts).
+- R001..R058 as before (citation audit, summaries, counterexample script, litfixes, T5 triage).
+- R061: fetched LaTeX, read Sect. 3, 4, 7 (proof), derived the step-7 identification by hand, wrote the script, submission `rounds/061/scholar.md`.
 
 ## Next
-- Compare Oppermann 1504.02617 (fetch LaTeX, put in sources/) with the repo's seven-step rewrite on J = 0 steps; theorem numbers only after matching. Not yet done: Oppermann numbers are UNVERIFIED.
-- Check the chair applied the patches and that line numbers still match (they were taken at HEAD 1eb46ea).
-- Read AI section 4 only if a question needs it.
-- Lessons: line numbers in "pending edits" lists drift; copy old text from the file. Before listing a correction, check whether the file already has it (Rickard summary did). EXPERIMENTS entries were renumbered at merge (E-053..E-174 -> E-055..E-176); verify E-numbers against the file, not STATE.
+- Generator count vs minimal count (review item 5). Ask theorist for the one lemma I did not prove (minimal degree-2 generators = Z_1 e_i mod Z_1 A and left multiples).
+- Test G2 on real walk steps (n=7 LNAs, E-151 failing steps) and parallel arrows; needs arrow-keyed words.
+- Check the chair applied the R058 patches; line numbers drift, copy old text.
+- Read Oppermann's proof of Thm 1.1 (Sect. 7) if the T5 conditional is to be closed; so far only statement matched.
+- Lessons: Ex. 4.2 looked like the test but is empty at its vertex; check which vertex an example mutates before calling it a test. EXPERIMENTS entries renumbered at merge; verify E-numbers against the file.
