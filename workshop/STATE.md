@@ -2,13 +2,13 @@
 
 Owned by the chair. Rewritten (not appended) at the end of every round; under 120 lines. Every persona reads this first.
 
-last_round: 59
-next_round_kind: conference   (round 060)
+last_round: 60
+next_round_kind: ordinary   (round 061; round 064 is the next conference)
 
 ## What the project is doing now
 Tilting mutation of quivers with relations; derived equivalence of Nakayama algebras (LNAs). The search (`quivermutation/search.py`) walks mutations under a *gate* (mutation is admissible) and a *Coxeter-key guard* (`coxeterGuard`: child keeps the class's Coxeter key). Its docstring says the guard keeps a walk in one derived class. Round 045 found the guard is not a tilting test (E-147, E-151). Under the J = 0 premise all 25 failing n = 7 children are now joined to an LNA (E-157, E-160, E-163); the premise itself is the live question (T10, T5).
 
-## Agenda (proposed, round 056 conference; ordinary rounds work from it until the human changes it). Ranked:
+## Agenda (proposed, round 060 conference, same ranking as 056 with T7 added; ordinary rounds work from it until the human changes it). Ranked:
 1. T10 premise: quiver-level End(T) is DONE (E-174) and has power on killed-line variants (E-177). Round 059: dim assertion and dropped-relation control done (E-180); End(T) = H_0 lemma, conditional on G2 (E-181). Next: scholar/theorist G2 by hand (A5); equal-dim wrong algebra at step 12 / class 2; Hom(T,T[-1]) on the n = 10 E-169 edges.
 2. Power control for the J = 0 join test: n = 9 (E-175) and n = 10 (E-178) pairs done, weak, no J != 0 in the balls. Further depth is circular given the premise; NOT approved for OVERNIGHT. Next only if a pair or a control with a J != 0 step on the path is found.
 3. T3/T8: maverick's Candidate C (S^a(A) ~ A[b]) on the one n = 10 group with Phi^18 = I; scholar reads 0911.5137 and 1310.1557 first. Level: idea.
@@ -24,8 +24,8 @@ Each: question · state · last round worked · owner.
 - **T7 · H-010 (overlap reducible only at an end)** · No proof. Round 046 (E-152, E-153): run-of-three is necessary in every cell tested and sufficient at k = 3 in 5 of 5; L1 one-step locality holds n <= 10; k-step window, two bystanders, k > 3 untested; refines F-022. Next: cap-cut k = 3 rows, two bystanders, explain the 2-per-LNA count. Round 059 (E-182): single-mutation rule (uncovered arrow, r_v = 2, slide left) n <= 10; "2 per LNA" is an average (total 2 C_{n-1}); k = 3 one-bystander cap-cut cells inert; open: proof of rule and Catalan factorisation, two bystanders, k >= 4. · round 059 · experimentalist, theorist
 - **S-1 · vertex deletion transports classes?** (suggested question) · Round 055 (E-173): K0 = 5 at n = 15 confirmed at key level on a one-row witness; items 1-3 of the STEERING question still open; full n = 15 scan sized (~33 min on 4 cores, 24 shards), not run. K-threshold law (E-146): K >= 4 one n = 11 key class, K >= 3 two; first failures K0 = 3, 4, 5 at n = 11, 13, 15 (two lengths beyond 11). Open: n = 15 K0 = 5 at class level (`--plan` first); 136 + 66 split; non-lone cores. · round 055 · maverick, toolsmith
 - **T3/T8 · orbit-plus-mirror vs key, catalogue** · Done at the catalogue level (E-066). Key-coarser cores: 7 (n = 10), 9 even n, 10 odd n; 8 of 10 odd-n and all even-n are two mirror-closed orbits P, Q sharing a key (E-079, E-082); 5046/5056 outside; why no shift by 1 unproved, no invariant found. Round 046 scholar note: dormant, not closed. · round 054 (maverick, revision awaited) · scholar, toolsmith
-- **T1 · H-021'** (pairing cores, `s = n - k(c)`) · E-061..E-064 · round 047 (maverick note: no cheap census left; reopen only for a rule for k(c) predicting a held-out core; H-021 header rewrite proposed for the round-048 ledger) · round 057 (theorist note, E-176): proposed closing at the round-060 ledger: no linear letter rule for k(c) (17 values, 11 independent of 33x); drift-based rule untried · experimentalist, theorist
-- **T2 · centre s(c) / k(33x) = 2x** · E-062, E-063, E-067 (lower bound only) · round 057 (E-176): 333@0 orbit = 444 orbit (n = 13..16); at n = 14 only ~20 of 3767 rows are 33y, so E-067 concerns which 33y rows share an orbit; proposed closing as stated at the round-060 ledger; the large 444 orbit belongs to H-020 / T3 · theorist
+- **T1 · H-021'** · CLOSED round 060 (ledger): no linear letter rule for k(c) (E-176); reopen only for a drift-based rule predicting a held-out core.
+- **T2 · centre s(c) / k(33x) = 2x** · CLOSED round 060 (ledger) as stated (E-176); the 444 orbit belongs to H-020 / T3.
 - **T4 · H-020 rule table as a theorem** · Round 049 (E-159): hypotheses H1-H6 stated falsifiably; H1 holds for width <= 5 to length 11. Round 051 (E-165): H1 spot check at one length each for widths 6..8 (0 failures in 43 116), gaps at lengths 10-12 and widths 9..11; H6: anchored rules redundant only in the reduced walk, matter in a rules-only walk. H3 (completeness, F-052) weakest; H4 least explained. · round 051 · theorist
 - **T6 · H-017 (mutation search; Euler signature)** · OPEN. Signature is Cartan-determined, a class invariant, blind to (cords, relations) (E-162); no search-based test exists beyond E-065 (n = 9, depth 6, no positive control). Reopen only with a search that sees relations. · round 050 · **dormant**, maverick
 - **T9 · long runs** · n = 12/14 censuses of the 139 cores and Ladkani audit n = 9/10 sit in `OVERNIGHT.md` Menu 4 for the human. · **parked**
@@ -45,6 +45,7 @@ Each: question · state · last round worked · owner.
 The key-guard law (class 0 only); E-147 class-1 count (one script); H-015 citations from memory; the S-1 K-threshold law (two lengths); E-151 counts are step counts on capped BFS samples; E-155 is one n = 8 class, depth 8, slice 2 not independently re-run; 'in the class' for the 25 children rests on the J = 0 premise (generation now proved per loopless step, E-168), edge-tested at Cartan level (E-157, E-163, E-166 paths), at quiver level only for the 13 E-163 edges (E-167, label-preserving); the E-165 length check is one length per rule.
 
 ## Standing facts
+- Round 060 was a conference: ledger changed no H-, F-, R- status; closed T1, T2. No new E-entries (merge of origin/main already up to date).
 - Round 059 added E-180..E-182 (merge of origin/main already up to date).
 - Round 058 added E-177..E-179 (merge of origin/main already up to date).
 - Round 057 added E-174..E-176 (merge of origin/main conflicted in rounds/052/proceedings.md; skipped). Round 056 was a conference: ledger changed no H-, F- or R- status.
@@ -55,9 +56,9 @@ The key-guard law (class 0 only); E-147 class-1 count (one script); H-015 citati
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 059 | 050 (skeptic) |
-| theorist | 059 | 059 (experimentalist) |
-| skeptic | 058 | 059 (theorist) |
-| scholar | 058 | 057 (theorist) |
-| toolsmith | 059 | 058 (scholar) |
-| maverick | 058 | 059 (toolsmith) |
+| experimentalist | 060 | 050 (skeptic) |
+| theorist | 060 | 059 (experimentalist) |
+| skeptic | 060 | 059 (theorist) |
+| scholar | 060 | 057 (theorist) |
+| toolsmith | 060 | 058 (scholar) |
+| maverick | 060 | 059 (toolsmith) |

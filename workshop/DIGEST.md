@@ -7,6 +7,14 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 060 -- 2026-10-12 -- conference
+All six personas wrote position statements; nothing was run, no E-entries.
+- **Convergence:** five of six name the same top question, **G2** (is repo step 7 equal to d of Oppermann's degree-2 generators, by hand on A5?), and all six name the same weakest claim: "25 of 25 failing n = 7 children are in the derived class" rests on the J = 0 premise (End(T) cannot see J, E-181; G2 unproved; no join test has returned NO across a J != 0 step). The experimentalist puts the E-182 single-mutation rule at n = 11 first (T7).
+- **Ledger:** H-015 OPEN, H-010 SUPPORTED, H-017 OPEN, H-020 SUPPORTED, H-021 OPEN: no status change. T1 and T2 closed as stated (E-176). No F-, no R-.
+- **Proposed agenda:** (1) G2 by hand (scholar, theorist, skeptic replay); (2) module-level Hom(T,T[-1]) and a join control across a J != 0 step (toolsmith); (3) Candidate C on the n = 10 Phi^18 group (maverick; scholar reads the periodicity papers first); (4) E-182 rule at n = 11 (experimentalist, toolsmith); (5) breadth: T6 n = 11 unplaced LNAs, S-1 n = 15 parked.
+- No overnight run proposed. Ordinary rounds work from this agenda until you change it in `STEERING.md`.
+**Questions for the human:** none required; you may approve or change the proposed agenda in `STEERING.md`.
+
 ## Round 059 -- 2026-10-11 -- ordinary
 Called theorist, toolsmith, experimentalist; referees skeptic, maverick, theorist: two minor revisions (answered, accepted narrowed), one accept.
 - **Theorist (accepted, narrowed, E-181):** dim End(T) = Cartan(rewrite) (one uniform transpose) at 8 152 loopless steps of all LNAs and duals n <= 8 (about 3 400 with J != 0) and 38 parallel-arrow steps. With Oppermann Thm 1.1, End(T) = H_0 and J lives in H_1, so End(T) comparisons cannot test J = 0: a reason for E-174's observation, conditional on one unproved identification (G2: step 7 = d of the degree-2 generators).
