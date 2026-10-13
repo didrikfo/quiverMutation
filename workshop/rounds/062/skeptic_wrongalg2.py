@@ -75,11 +75,24 @@ def no_parallel_longer(arrows):
     paths = paths_of(arrows)
     return all(len([p for p in paths[(a[0], a[1])] if len(p) >= 2]) == 0 for a in arrows)
 
+def no_parallel_arrows(arrows):
+    return len({(a[0], a[1]) for a in arrows}) == len(arrows) and all(a[0] != a[1] for a in arrows)
+
+def torus_iso_full(arrows, true_rels, var_rels):
+    """Full torus (not only mu_4). The true ideal = monomials + exactly ONE binomial c1*p + c2*q; the torus image of it is monomials +
+    c1*p + c2*lam*q with lam = t^q/t^p; every lam in GF(13)* is tried (a superset of what the torus reaches), so NOT here is a proof of NOT."""
+    bins = [r for r in true_rels if len(r) == 2]; assert len(bins) == 1, 'need exactly one binomial'
+    paths = paths_of(arrows); target = ideal_space(arrows, var_rels, paths); (p, c1), (q, c2) = list(bins[0].items())
+    for lam in range(1, P):
+        rels = [({p: c1, q: Fraction(c2) * lam} if r is bins[0] else r) for r in true_rels]
+        if ideal_space(arrows, rels, paths) == target: return True
+    return False
+
 def tally(verd, eqdim, truth, vd):
     return ('eqdim' if eqdim else 'DIMDIFF', 'truth=iso' if truth else 'truth=NOT', 'test=' + ('iso' if vd.startswith('iso') else 'NO'))
 
 recs = [r for r in pickle.load(open(PK, 'rb')) if r['kind'] == 'fail']
-byrank = collections.Counter(); table = collections.Counter(); strings = collections.Counter(); bad = []
+mu4 = collections.Counter(); byrank = collections.Counter(); table = collections.Counter(); strings = collections.Counter(); bad = []
 
 def run_variant(n_, TE, arrows, carrows, crels, d, new, truth, tag):
     qd = quotient_dims(carrows, new)
@@ -149,13 +162,14 @@ else:
         a = r['parentObj']; v = r['v']; c = reduction.reducePathAlgebra(mutation.quiverMutationAtVertex(a, v))
         TE = TiltEnd(a, v); dims, arrows, layers = endquiver(TE); A, d, carrows, crels = child_info(c)
         assert no_parallel_longer(carrows), 'arrow parallel to longer path'
+        assert no_parallel_arrows(carrows), 'two arrows share endpoints'   # needed for Aut = torus
         paths = paths_of(carrows); pool = []
         for (s, t), ps in paths.items():
             long = [p for p in ps if len(p) >= 2]
             for p in long: pool.append({p: Fraction(1)})
             for p, q in itertools.combinations(long, 2):
                 pool.append({p: Fraction(1), q: Fraction(-1)})
-        seen = set(); cnt = collections.Counter(); t0 = time.time()
+        seen2 = set(); cnt = collections.Counter(); t0 = time.time()
         for i in range(len(crels)):
             for rep in pool:
                 new = crels[:i] + [rep] + crels[i + 1:]
@@ -164,11 +178,13 @@ else:
                 new_s = ideal_space(carrows, new, paths); tag = (i, tuple(rep.items()))
                 qd = quotient_dims(carrows, new)
                 if not all(qd.get(k, 0) == d.get(k, 0) for k in set(qd) | set(d) if k[0] != k[1]): table[('DIMDIFF', 'skipped')] += 1; continue
-                truth = torus_iso(carrows, crels, new)
+                kk = tuple(sorted(new_s.items()))
+                if kk in seen2: continue
+                seen2.add(kk)
+                truth = torus_iso_full(carrows, crels, new); mu4[(truth, torus_iso(carrows, crels, new))] += 1
                 run_variant(n_, TE, arrows, carrows, crels, d, new, truth, tag); cnt[truth] += 1
         # two relations replaced at once (i < j), from the same pool; deduplicated by the resulting ideal
         if os.environ.get('PAIRS', '1') == '1':
-            seen2 = set()
             for i, j in itertools.combinations(range(len(crels)), 2):
                 for rep1 in pool:
                     for rep2 in pool:
@@ -179,16 +195,20 @@ else:
                         sp = ideal_space(carrows, new, paths); kk = tuple(sorted(sp.items()))
                         if kk in seen2: continue
                         seen2.add(kk)
-                        truth = torus_iso(carrows, crels, new)
+                        truth = torus_iso_full(carrows, crels, new); mu4[(truth, torus_iso(carrows, crels, new))] += 1
                         run_variant(n_, TE, arrows, carrows, crels, d, new, truth, ('pair', i, j)); cnt[('p', truth)] += 1
         # sign-flipped binomials (iso controls)
         for i, x in enumerate(crels):
             if len(x) == 2:
                 ks = list(x); new = crels[:i] + [{ks[0]: x[ks[0]], ks[1]: -x[ks[1]]}] + crels[i + 1:]
-                run_variant(n_, TE, arrows, carrows, crels, d, new, torus_iso(carrows, crels, new), ('flip', i)); cnt['flip'] += 1
+                kk = tuple(sorted(ideal_space(carrows, new, paths).items()))
+                if kk in seen2: continue
+                seen2.add(kk); tf = torus_iso_full(carrows, crels, new); mu4[(tf, torus_iso(carrows, crels, new))] += 1
+                run_variant(n_, TE, arrows, carrows, crels, d, new, tf, ('flip', i)); cnt['flip'] += 1
         print('step', n_, 'v', v, 'eq-dim variants truth iso/NOT', cnt[True], cnt[False], 'flips', cnt['flip'], 'pairs iso/NOT', cnt[('p', True)], cnt[('p', False)], '%.0fs' % (time.time() - t0), flush=True)
 print('CLS', CLS)
 for k, x in sorted(table.items(), key=str): print(k, x)
 print('equal-dim variants by (rank phi, point pattern):', dict(sorted(byrank.items(), key=str)))
 print('verdict strings (truth, test):', dict(strings))
+print('(full-torus truth, mu_4 truth) counts over distinct equal-dim ideals:', dict(mu4), ' [first ones dedup: singles, pairs, flips share one seen-set per step]')
 print('DISAGREEMENTS (full verdict vs truth):', len(bad)); [print('  ', b) for b in bad[:20]]
