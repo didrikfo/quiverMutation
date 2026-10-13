@@ -1,0 +1,16 @@
+step 0 v 5 eq-dim variants truth iso/NOT 0 2 flips 1 pairs iso/NOT 1 2 8s
+step 1 v 2 eq-dim variants truth iso/NOT 0 2 flips 1 pairs iso/NOT 1 2 9s
+step 2 v 5 eq-dim variants truth iso/NOT 1 2 flips 1 pairs iso/NOT 2 2 9s
+step 3 v 6 eq-dim variants truth iso/NOT 0 2 flips 1 pairs iso/NOT 1 2 10s
+step 4 v 3 eq-dim variants truth iso/NOT 1 2 flips 1 pairs iso/NOT 2 2 9s
+step 5 v 3 eq-dim variants truth iso/NOT 0 2 flips 1 pairs iso/NOT 1 2 8s
+step 6 v 5 eq-dim variants truth iso/NOT 0 2 flips 1 pairs iso/NOT 1 2 8s
+step 7 v 1 eq-dim variants truth iso/NOT 0 2 flips 1 pairs iso/NOT 1 2 8s
+step 8 v 5 eq-dim variants truth iso/NOT 1 2 flips 1 pairs iso/NOT 2 2 9s
+CLS 2
+('DIMDIFF', 'skipped') 9882
+('eqdim', 'truth=NOT', 'dimcheck=pass', 'symcheck2=NO') 36
+('eqdim', 'truth=iso', 'dimcheck=pass', 'symcheck2=iso') 24
+equal-dim variants by (rank phi, point pattern): {}
+verdict strings (truth, test): {('truth=NOT', 'NO label-preserving iso'): 36, ('truth=iso', 'iso'): 24}
+DISAGREEMENTS (full verdict vs truth): 0
