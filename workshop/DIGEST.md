@@ -7,6 +7,15 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 063 -- 2026-10-13 -- ordinary
+Called scholar, toolsmith, maverick (breadth: T3/T8); referees skeptic, experimentalist, theorist: two minor revisions (answered) and one accept.
+- **Scholar (accepted, narrowed, E-189):** Oppermann's Thm 1.1 (arXiv:1504.02617v1, LaTeX now in `sources/`) needs only "no degree-0 loop at i"; End(T) = H_0(kM), J in H_1, so J = 0 does NOT follow from the theorem, and parallel arrows and cycles are not excluded by it. What remains for T5 is G2 beyond span/acyclic and the left/right convention. The proof's cancellation step is a sketch; Sect. 8 unread.
+- **Toolsmith (accepted, E-191):** the `compare2` dimension assertion holds on all 370 n = 7 path edges (classes 1, 2) and 35 n = 10 edges, 0 failures; drop-one-relation control rejects 1 228 of 1 228 at n = 7. Closes E-186's open item; says nothing new about J.
+- **Maverick (accepted, E-190):** at n = 10 the Phi^18 group has two derived classes, not three (90000000 = kA_10/rad^9 is D_10, F-045 / Happel-Seidel): a correction of E-178's "3 candidates". Cartan level allows only S^9 ~ [b], b even. Candidate C is closed at n = 10 only: at n = 11 four periodic groups (535, 64, 24, 15) all have signature (2,0,9), so signature separates nothing there.
+- **Consequences:** E-178 / STATE wording corrected ("2 classes, 1 certified inequivalence"); J = 0 premise confirmed to lie outside Thm 1.1; H-015 stays OPEN. No F-, no R-.
+- No overnight run proposed. **Round 064 is a conference.**
+No questions for the human.
+
 ## Round 062 -- 2026-10-13 -- ordinary
 Called skeptic, theorist, experimentalist (breadth: T4); referees toolsmith, skeptic, theorist: three minor revisions, all answered.
 - **Skeptic (accepted, E-186):** the End(T) comparison rejects 1 392 of 1 392 equal-dimension wrong algebras at class 1 step 12 and 18 of 18 distinct ones at the 9 class-2 steps, accepts all 594 iso ones, 0 disagreements against independent truth (orbit counting; GF(13) torus search). Closes E-177's open cases; nothing about J.

@@ -6,6 +6,27 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-191 — The E-180 dimension assertion (dim K Q/I' = dim End(T) = child dimensions) holds on 370 n = 7 path edges (classes 1, 2 of the E-157/E-160/E-163 plan, 214 + 156) and 35 n = 10 E-169 edges: 0 failures, 0 unevaluable; drop-one-relation control rejects 1 228 of 1 228 at n = 7
+*2026-10-13* · **`timeout 10m .venv/bin/python -u workshop/rounds/063/toolsmith_dimedges.py n10`** (n = 7: `CLS=1 ... toolsmith_dimedges.py n7 0:26`, `CLS=2 ... n7 0:18`, pickles rebuilt with `rounds/050/toolsmith_collect.py`; control `toolsmith_dimedges_ctrl.py`; outputs `toolsmith_dimedges_c1.txt`, `_c2.txt`, `_n10.txt`) · *workshop round 063, toolsmith, refereed by experimentalist*
+
+Scope: dimension assertion only, on edges of the printed paths; the drop-one control was run at n = 7 only (not on the 35 n = 10 edges); equal-dimension wrong ideals on these edges not tested (E-186 does that at the failing steps only). Closes E-186's open item "assertion on the 370 path and n = 10 edges". Says nothing new about J (E-181). Referee re-ran all three sets and the control (833 + 395 rejected): accept, incremental over E-180/E-186.
+
+---
+
+## E-190 — n = 10, the one E-172 group (Phi^18 = I): at the Cartan level Candidate C allows only S^9 ~ [b], b even; the group has two derived classes, not three (90000000 = kA_10/rad^9 is D_10 and joins class 0); at n = 11, 638 periodic-Phi indefinite LNAs in four Coxeter groups all have signature (2,0,9), so C is not moot there
+*2026-10-13* · **`.venv/bin/python workshop/rounds/063/maverick_cartanC.py`** (about 2 s), **`timeout 10m .venv/bin/python workshop/rounds/063/maverick_n11periodic.py`** (about 40 s) · *workshop round 063, maverick, refereed by theorist*
+
+Scope: n = 10, representatives 00000030, 34504030, 50505000, 90000000, exact Cartan arithmetic; n = 11 a Coxeter-key/signature census over all 16 796 LNAs (groups of 535, 64, 24, 15; derived classes inside them not counted). Mostly a correction of wording, not a new equivalence: FINDINGS l. 595 counts the tame D_10 class as 321 = E-178's 320 rows + 90000000, and F-045 records "n = 10: 2 orbits into 1". Correction: E-178 and STATE's "3 candidates" should read "2 classes, 1 certified inequivalence" (D_10 vs {34504030, 50505000}, signature (0,0,10) vs (2,0,8)). New: the Cartan table (ord Phi = 18, Phi^a = -I only at a = 9), (a, b) = (9, even) with S^9 = [8] realised on D_10, and 90000000 ~ 00000030 as an equivalent pair the orbit-plus-mirror moves do not join (a long-path control for the join search). Candidate C is closed at n = 10 only. Not computed: S^a on complexes, whether the second class is fractionally CY.
+
+---
+
+## E-189 — Oppermann's Thm 1.1 (arXiv:1504.02617v1, `mutation.tex` l. 264) needs only "no degree-0 loop at i"; its proof gives REnd(T) ~ kM with M non-negatively graded, so End(T) = H_0(kM) and J lives in H_1; J = 0 does not follow from the theorem
+*2026-10-13* · reading, no script: `sed -n 264,266p` and `sed -n 895,1043p` of `research/literature/sources/1504.02617v1-oppermann-quivers-silting-mutation.tex` (sha256 prefix 7cdf284fbc3dcd97) · *workshop round 063, scholar, refereed by skeptic*
+
+Scope: a reading of Sect. 7 (lines 895-1043), not a re-proof; the cancellation step (Proposition l. 1027, proof 1032-1042) is a one-paragraph sketch, cited not re-proved; Sect. 8 unread; Sect. 7 items named by line (theorem numbers counted by hand). The hypothesis list duplicates the literature note l. 36-40 and E-181; new: the proof was read, non-negativity of M checked (referee re-derived), and arrows of Q of degree <= 2 suffice for H_0(kM) (scholar's derivation, not in the paper; not checked against E-183's generator count). Parallel arrows are not excluded by the theorem; Step 4 handles loops of degree >= 1, not cycles. What still separates the theorem from "End(T) = the repo's rewrite" is the identification G2 (E-183: span level, acyclic only) and the left/right convention.
+
+---
+
 ## E-188 — Floating H-020 rules of width 6 (86 rules, length 11), 7 (130, lengths 10, 11) and 8 (114, lengths 11, 12) pass `verifyMove` at the lengths E-165 skipped: 0 failures in 8 248 applications
 *2026-10-13* · **`timeout 10m .venv/bin/python workshop/rounds/062/experimentalist_gaps.py`** (`--plan` first; per-cell counts in the submission; the old `theorist_rulelen.py` silently drops these cells through its `L >= w+5` filter) · *workshop round 062, experimentalist, refereed by theorist*
 

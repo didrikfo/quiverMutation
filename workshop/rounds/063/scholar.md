@@ -1,0 +1,60 @@
+# Reading Oppermann's Thm 1.1: the hypotheses invoked are only "no degree-0 loop at i" (step 5 sketched); End(T) = H_0(kM) but not J = 0; identification with the repo's rewrite is still G2
+
+## Response to referee
+
+Verdict minor revision; all three required items done.
+1. Line numbers corrected against the refetched mutation.tex (rechecked this sitting): hypothesis 264, "none of these arrows is a loop" 321, Cone 900-901. Step 4 description corrected: it handles loops phi : i -> i of degree >= 1 (line 354); longer cycles go through Steps 2/3. Title, Claim (1) and Evidence item 1 changed accordingly.
+2. The hypothesis list duplicates `research/literature/1504.02617-quivers-for-silting-mutation.md` lines 36-40 ("no degree-0 loop at i. That is all.") and E-181. New content is only (i) the proof was read and non-negativity of M checked (referee re-derived it), and (ii) Q^(<=2) suffices for H_0. See Prior record.
+3. "No step breaks" softened to "the hypotheses invoked in Sect. 7 are only the loop condition; step 5 sketched; Sect. 8 unread". Title and Scope line narrowed to match.
+Not done: the check of (ii) against E-183's generator count (needs the repo generator code and a decision on keying; left to theorist); Sect. 8 not read (stays in notebook Next).
+
+author: scholar · round: 063 · kind: result
+thread: T10/T5 · bears on: H-015, E-181, E-183, E-168
+scope: reading, not a re-proof, of the proof in `mutation.tex` (arXiv:1504.02617, one file, 1173 lines, 78 817 bytes, sha256 prefix 7cdf284fbc3dcd97; refetched this round). No computation. Theorem numbers: 1.1 matched by `\numberwithin{theorem}{section}` (line 238); the Sect. 7 numbers are counted by hand (not compiled), so I name Sect. 7 items by line. Sect. 8 (d~^2 = 0) unread; Q^(<=2) derived by hand, not checked against E-183's count. Not covered: left vs right convention of the repo, G2 beyond E-183, non-acyclic steps.
+
+## Claim
+
+(1) The theorem is stated for left Aihara-Iyama mutation of a non-negatively graded dg quiver algebra (kQ,d) at a vertex i "with no loops of degree 0 attached to it" (Thm 1.1, line 264; repeated in Sect. 3 at lines 315 and 321). That is the only hypothesis on (Q,i) as far as I read. Parallel arrows and oriented cycles are not excluded: A is a set of arrows with parallel members allowed, and longer cycles through i are handled by the compositions into/out of i of Steps 2/3; Step 4 (line 354) handles only loops phi : i -> i in Q_1, which have degree >= 1 (arrows alpha phi beta^-1). So for the repo's steps the only hypothesis that can fail is a degree-0 loop at the mutated vertex; the repo's J = 0 steps are loop-free on the 370 printed edges and the 25 failing steps (E-168), and acyclic anyway.
+(2) The theorem gives REnd(T) quasi-isomorphic to (kM, d~) with M non-negatively graded (checked below), hence End(T) = H_0(kM) and Hom(T,T[-n]) = H_n(kM). J != 0 means H_1 != 0; the theorem is silent on it. So "End(T) = rewrite" does not need J = 0, and J = 0 does not follow from the theorem. This is the reading of E-181, now checked in the proof rather than from the statement.
+(3) What stands between the theorem and "End(T) = the repo's rewrite" is not a hypothesis of the theorem but an identification: H_0(kM) = kM_0/(d~ M_1) against the repo's steps 4-7. That is G2 (E-183), unchanged by this reading, except that I can say which part of Q it involves (below).
+
+What this does not claim: that the repo's step is Oppermann's left rather than his right mutation (the convention question of E-181's H^T is not settled by the paper); that G2 holds for cyclic quivers or parallel arrows; that the proof's last cancellation step is airtight (see Evidence, item 5).
+
+## Evidence
+
+Proof structure (Sect. 7, lines 895-1043), as I read it:
+1. T = P_i^* + sum_{j != i} P_j with P_i^* = Cone(P_i -> sum_{alpha in A} P_tail(alpha)), A = all degree-0 arrows starting at i (lines 900-901). The cone is the left AI mutation because this map is a left add(P_j, j != i)-approximation: a degree-0 map out of P_i to P_j, j != i, is a degree-0 path, which starts with a degree-0 arrow, hence with some alpha in A, and its target is not i. A degree-0 loop at i would be a degree-0 endomorphism of P_i that factors through no other P_j, which is exactly where the hypothesis is used (my reading; the paper does not spell this out, it only says "recall that we assume that none of these arrows is a loop", line 321).
+2. The semifree modules make End = REnd, so Gamma = End of the graded module with the matrix differential (lines 912-925) is the derived endomorphism ring. Generators and relations of Gamma are written down (lines 913-921). No acyclicity, no simple-arrow assumption.
+3. d(alpha_*) = -alpha-bar, d(M) = sum alpha^* alpha, and the Leibniz formula for d(phi-bar) (lines 926-930).
+4. Gamma_red (lines 991-1012, the "Theorem" of Sect. 7, with Lemma at 963) is a dg subalgebra and the inclusion is a quasi-isomorphism: the quotient is generated by words starting with alpha_* or alpha-bar and is acyclic since d alpha_* = -alpha-bar. Complete in the text.
+5. Last step (Proposition at 1027, proof at 1032-1042): kM is quasi-isomorphic to the quotient by the relations phi alpha^* = -(-1)^|phi| (d phi)/alpha, and alpha phi beta^* = ..., which are literally the relations of Gamma_red (lines 1017-1022). The proof is one paragraph: it observes d~(phi alpha^-1) = (-1)^||phi|| phi alpha^* - ... "up to terms phi' beta^-1 with phi' of strictly smaller degree", cancels, and says the second family is "similar". This is a filtration argument (degree-wise finite generators make it work) but it is sketched, and it is the weakest step of the proof. The differential-squares-to-zero check is Sect. 8 (`thm.is_diff`, line 1048, probably Thm 8.1, counted); I did not read it.
+
+Non-negativity of M (so that H_0 = End): ||phi|| = |phi| - chi(s) + chi(t). Arrows out of i of degree 0 are all in A (replaced by alpha^* of degree 0), the other arrows out of i have |phi| >= 1 so ||phi|| >= 0; arrows into i go up; composition arrows alpha phi have ||phi|| - 1 = |phi| >= 0 for phi into i; anti-compositions have ||phi|| + 1 >= 1. So M has no negative arrows and H_0(kM) = kM_0/(d~ M_1) (free algebra on arrows).
+
+Which part of Q matters for H_0 and for the J question: arrows of M of degree <= 1 come from arrows of Q of degree <= 2 only (a Q-arrow of degree 3 gives ||.|| >= 2 in M under all four steps). So the repo needs Q^(2) of Construction 2.2 (arrows, minimal relations, generators of H_1(kQ^(1)) out of i), not Q^(>=3); this is the same "step 7 = red(Z_1 e_i)" content as E-183 and explains why a finite computation suffices even for infinite global dimension. (Derived here; the paper does not say it.)
+Also: tilting needs H_n = 0 for all n >= 1; for a mutation of an algebra (2-term complex T over a degree-0 algebra) the n >= 2 groups vanish by degrees, so J = H_1 = Hom(T,T[-1]) is the whole obstruction (my deduction; consistent with E-168 and AI 2.31/2.32(b) as already cited).
+Convention check: a homological degree n element maps X_k -> Y_{k+n}, i.e. X -> Y[-n]; so H_n = Hom(T,T[-n]) and H_1 = Hom(T,T[-1]), as E-181 says.
+
+Remaining gaps for "End(T) = rewrite": (a) G2 for parallel arrows and cyclic quivers (E-183 acyclic, loopless, spans only; sign and generator count untested); (b) left/right and transpose convention of the repo's `procedure` against the paper's left mutation ("the dual is the same statement for the opposite quiver", line 266); (c) the sketched cancellation step 5 is cited, not re-proved; (d) Construction 2.2 assumes k algebraically closed (E-186 used GF(13)); the theorem itself only needs a field, but the passage "basic algebra = kQ/(R)" needs the quiver form.
+
+## Reproduction
+
+```
+mkdir X && cd X && curl -sL https://arxiv.org/e-print/1504.02617 -o x.src && gunzip -c x.src > mutation.tex
+sed -n 264,266p mutation.tex; sed -n 895,1043p mutation.tex     # a minute
+```
+No script. The e-print is a gzip of one file; only 78 817 bytes.
+
+## Prior record
+
+E-181 already says "conditional on Thm 1.1 (statement matched, proof and version not checked)" and that J lives in H_1. E-179/E-183 narrowed the live item to G2. E-168 has the loop hypothesis and its verification. New here: the proof was read; the hypothesis list is exactly {no degree-0 loop at i}; the hypotheses invoked in Sect. 7 are only the loop condition (step 5 is sketched, Sect. 8 unread); Q^(<=2) suffices for H_0. Not a retraction of anything; `research/RETRACTIONS.md` not affected. Chair: the file `mutation.tex` is worth committing to `research/literature/sources/` as `1504.02617v?-oppermann-quivers-silting-mutation.tex` since the record cites it by line (version number not read from the e-print; the arXiv listing would give it); your decision.
+
+## Code changed
+
+None.
+
+## Next
+
+- theorist: the one lemma still unproved (minimal degree-2 generators out of i = Z_1 e_i mod Z_1 A and left multiples), then G2 for parallel arrows by keying arrows (skeptic's c1 steps have 8 of 16 parents with parallel arrows).
+- skeptic: decide left vs right: run Oppermann's Example at line 403-437 (APR tilt, mutation at 1) through the repo's right and left mutation to see which matches; settles the H^T question of E-181.
+- Suggested wording for T5: "the J = 0 premise is not End(T) = rewrite (a theorem modulo G2, loop-free) but H_1(kM) = 0, tested only by Hom(T,T[-1]) (E-161, E-184)".
