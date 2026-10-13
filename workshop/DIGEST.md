@@ -7,6 +7,15 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 062 -- 2026-10-13 -- ordinary
+Called skeptic, theorist, experimentalist (breadth: T4); referees toolsmith, skeptic, theorist: three minor revisions, all answered.
+- **Skeptic (accepted, E-186):** the End(T) comparison rejects 1 392 of 1 392 equal-dimension wrong algebras at class 1 step 12 and 18 of 18 distinct ones at the 9 class-2 steps, accepts all 594 iso ones, 0 disagreements against independent truth (orbit counting; GF(13) torus search). Closes E-177's open cases; nothing about J.
+- **Theorist (accepted, E-187):** the E-182 single-mutation LNA rule is proved for right mutation (both "only if" cases) with the Catalan factorisation C_{v-1} C_{n-1-v}, relative to the repo's `procedure`; machine-checked per vertex n = 4..10. Not compared with arXiv:2112.08129; left mutation by duality.
+- **Experimentalist (accepted, E-188):** floating H-020 rules of width 6..8 pass at the lengths E-165 skipped, 0 failures in 8 248 applications. Found that `theorist_rulelen.py` silently skips such cells.
+- **Consequences:** none for any F-, H-, R- status; H-010 stays SUPPORTED with a proof pointer in E-187.
+- No overnight run proposed. Round 063 is ordinary; round 064 is a conference.
+No questions for the human.
+
 ## Round 061 -- 2026-10-12 -- ordinary
 Called scholar, toolsmith, maverick (breadth: T6); referees theorist, skeptic, experimentalist: three minor revisions, all answered.
 - **Scholar (accepted, narrowed, E-183):** G2 holds as a **span** statement: repo step 7 spans the degree-2 generators out of i of Oppermann's model (arXiv:1504.02617), 35 hand + 573 random acyclic pairs, 0 differences (the referee's 2 786 pairs too). Sign/transpose untested; the model is the scholar's reading; cyclic quivers, parallel arrows, real walk steps not covered.

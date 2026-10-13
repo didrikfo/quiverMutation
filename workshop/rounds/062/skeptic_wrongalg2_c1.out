@@ -1,49 +1,50 @@
 step 12 line rels [0, 2, 6] x [(1, 5, 0), (3, 5, 0), (6, 5, 0)] bilinear rels [3, 4, 5]
 true phi [[-1, 0], [0, 1]] true points [(0, 1), (-1, 0), (1, 1)]
-phi (-1, -1, -1, -1) rank 1 done, variants so far 64 table 64 0s
-phi (-1, -1, -1, 0) rank 2 done, variants so far 128 table 128 1s
+phi (-1, -1, -1, -1) rank 1 done, variants so far 64 table 64 1s
+phi (-1, -1, -1, 0) rank 2 done, variants so far 128 table 128 2s
 phi (-1, -1, -1, 1) rank 2 done, variants so far 192 table 192 3s
 phi (-1, -1, 0, -1) rank 2 done, variants so far 256 table 256 4s
-phi (-1, -1, 0, 0) rank 1 done, variants so far 320 table 320 4s
+phi (-1, -1, 0, 0) rank 1 done, variants so far 320 table 320 5s
 phi (-1, -1, 0, 1) rank 2 done, variants so far 384 table 384 6s
-phi (-1, -1, 1, -1) rank 2 done, variants so far 448 table 448 7s
-phi (-1, -1, 1, 0) rank 2 done, variants so far 512 table 512 8s
+phi (-1, -1, 1, -1) rank 2 done, variants so far 448 table 448 8s
+phi (-1, -1, 1, 0) rank 2 done, variants so far 512 table 512 9s
 phi (-1, -1, 1, 1) rank 1 done, variants so far 576 table 576 9s
-phi (-1, 0, -1, -1) rank 2 done, variants so far 640 table 640 10s
+phi (-1, 0, -1, -1) rank 2 done, variants so far 640 table 640 11s
 phi (-1, 0, -1, 0) rank 1 done, variants so far 704 table 704 11s
 phi (-1, 0, -1, 1) rank 2 done, variants so far 768 table 768 12s
-phi (-1, 0, 0, -1) rank 2 done, variants so far 832 table 832 13s
-phi (-1, 0, 0, 0) rank 1 done, variants so far 896 table 896 13s
-phi (-1, 0, 0, 1) rank 2 done, variants so far 960 table 960 14s
-phi (-1, 0, 1, -1) rank 2 done, variants so far 1024 table 1024 16s
-phi (-1, 0, 1, 0) rank 1 done, variants so far 1088 table 1088 16s
-phi (-1, 0, 1, 1) rank 2 done, variants so far 1152 table 1152 17s
-phi (-1, 1, -1, -1) rank 2 done, variants so far 1216 table 1216 18s
-phi (-1, 1, -1, 0) rank 2 done, variants so far 1280 table 1280 20s
-phi (-1, 1, -1, 1) rank 1 done, variants so far 1344 table 1344 20s
-phi (-1, 1, 0, -1) rank 2 done, variants so far 1408 table 1408 21s
-phi (-1, 1, 0, 0) rank 1 done, variants so far 1472 table 1472 22s
-phi (-1, 1, 0, 1) rank 2 done, variants so far 1536 table 1536 23s
-phi (-1, 1, 1, -1) rank 1 done, variants so far 1600 table 1600 23s
-phi (-1, 1, 1, 0) rank 2 done, variants so far 1664 table 1664 24s
-phi (-1, 1, 1, 1) rank 2 done, variants so far 1728 table 1728 26s
-phi (0, -1, -1, -1) rank 2 done, variants so far 1792 table 1792 27s
-phi (0, -1, -1, 0) rank 2 done, variants so far 1856 table 1856 28s
-phi (0, -1, -1, 1) rank 2 done, variants so far 1920 table 1920 29s
-phi (0, -1, 0, -1) rank 1 done, variants so far 1984 table 1984 29s
-phi (0, -1, 0, 0) rank 1 done, variants so far 2048 table 2048 30s
-phi (0, -1, 0, 1) rank 1 done, variants so far 2112 table 2112 30s
-phi (0, -1, 1, -1) rank 2 done, variants so far 2176 table 2176 31s
-phi (0, -1, 1, 0) rank 2 done, variants so far 2240 table 2240 33s
-phi (0, -1, 1, 1) rank 2 done, variants so far 2304 table 2304 34s
-phi (0, 0, -1, -1) rank 1 done, variants so far 2368 table 2368 34s
-phi (0, 0, -1, 0) rank 1 done, variants so far 2432 table 2432 35s
-phi (0, 0, -1, 1) rank 1 done, variants so far 2496 table 2496 35s
-phi (0, 0, 0, -1) rank 1 done, variants so far 2560 table 2560 35s
+phi (-1, 0, 0, -1) rank 2 done, variants so far 832 table 832 14s
+phi (-1, 0, 0, 0) rank 1 done, variants so far 896 table 896 14s
+phi (-1, 0, 0, 1) rank 2 done, variants so far 960 table 960 16s
+phi (-1, 0, 1, -1) rank 2 done, variants so far 1024 table 1024 17s
+phi (-1, 0, 1, 0) rank 1 done, variants so far 1088 table 1088 17s
+phi (-1, 0, 1, 1) rank 2 done, variants so far 1152 table 1152 19s
+phi (-1, 1, -1, -1) rank 2 done, variants so far 1216 table 1216 20s
+phi (-1, 1, -1, 0) rank 2 done, variants so far 1280 table 1280 21s
+phi (-1, 1, -1, 1) rank 1 done, variants so far 1344 table 1344 21s
+phi (-1, 1, 0, -1) rank 2 done, variants so far 1408 table 1408 23s
+phi (-1, 1, 0, 0) rank 1 done, variants so far 1472 table 1472 23s
+phi (-1, 1, 0, 1) rank 2 done, variants so far 1536 table 1536 24s
+phi (-1, 1, 1, -1) rank 1 done, variants so far 1600 table 1600 25s
+phi (-1, 1, 1, 0) rank 2 done, variants so far 1664 table 1664 26s
+phi (-1, 1, 1, 1) rank 2 done, variants so far 1728 table 1728 27s
+phi (0, -1, -1, -1) rank 2 done, variants so far 1792 table 1792 29s
+phi (0, -1, -1, 0) rank 2 done, variants so far 1856 table 1856 30s
+phi (0, -1, -1, 1) rank 2 done, variants so far 1920 table 1920 31s
+phi (0, -1, 0, -1) rank 1 done, variants so far 1984 table 1984 32s
+phi (0, -1, 0, 0) rank 1 done, variants so far 2048 table 2048 32s
+phi (0, -1, 0, 1) rank 1 done, variants so far 2112 table 2112 33s
+phi (0, -1, 1, -1) rank 2 done, variants so far 2176 table 2176 34s
+phi (0, -1, 1, 0) rank 2 done, variants so far 2240 table 2240 35s
+phi (0, -1, 1, 1) rank 2 done, variants so far 2304 table 2304 37s
+phi (0, 0, -1, -1) rank 1 done, variants so far 2368 table 2368 37s
+phi (0, 0, -1, 0) rank 1 done, variants so far 2432 table 2432 38s
+phi (0, 0, -1, 1) rank 1 done, variants so far 2496 table 2496 38s
+phi (0, 0, 0, -1) rank 1 done, variants so far 2560 table 2560 39s
 CLS 1
 ('DIMDIFF', 'skipped') 592
 ('eqdim', 'truth=NOT', 'dimcheck=pass', 'symcheck2=NO') 1392
 ('eqdim', 'truth=iso', 'dimcheck=pass', 'symcheck2=iso') 576
 equal-dim variants by (rank phi, point pattern): {(1, 'pattern (0, 0, 0)'): 48, (1, 'pattern (0, 0, 2)'): 96, (1, 'pattern (0, 1, 0)'): 96, (1, 'pattern (0, 1, 1)'): 96, (1, 'pattern (0, 1, 2)'): 96, (2, 'pattern (0, 0, 0)'): 96, (2, 'pattern (0, 0, 2)'): 288, (2, 'pattern (0, 1, 0)'): 288, (2, 'pattern (0, 1, 1)'): 288, (2, 'pattern (0, 1, 2)'): 576}
 verdict strings (truth, test): {('truth=NOT', 'NO label-preserving iso'): 1392, ('truth=iso', 'iso'): 576}
+(full-torus truth, mu_4 truth) counts over distinct equal-dim ideals: {}  [first ones dedup: singles, pairs, flips share one seen-set per step]
 DISAGREEMENTS (full verdict vs truth): 0

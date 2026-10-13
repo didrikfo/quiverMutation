@@ -18,3 +18,4 @@
 
 ## Habits
 - Check vacuity by definition; run a control as deep as the case; check caps and depth; presentation dependence; count pairs vs rows; None keys; confirm derived numbers by an independent route; replay every step with the independent test; an invariant with no demonstrated power is not evidence; a test that agrees everywhere with the thing it audits adds only code independence; check what a test takes as INPUT (dims, relation sets); give truth by theory, not by the tested code; say how scarce the non-iso equal-dim variants are.
+- r062 reply: truth NOT must cover the whole group (full torus via lam over GF(13)*), not a subgroup; assert every premise the group claim needs (no shared endpoints); dedupe variants across all generators before counting.

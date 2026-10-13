@@ -1,2 +1,17 @@
 step 0 v 5 eq-dim variants truth iso/NOT 0 2 flips 1 pairs iso/NOT 1 0 5s
 step 1 v 2 eq-dim variants truth iso/NOT 0 2 flips 1 pairs iso/NOT 1 0 4s
+step 2 v 5 eq-dim variants truth iso/NOT 1 2 flips 0 pairs iso/NOT 1 0 4s
+step 3 v 6 eq-dim variants truth iso/NOT 0 2 flips 1 pairs iso/NOT 1 0 4s
+step 4 v 3 eq-dim variants truth iso/NOT 1 2 flips 0 pairs iso/NOT 1 0 5s
+step 5 v 3 eq-dim variants truth iso/NOT 0 2 flips 1 pairs iso/NOT 1 0 5s
+step 6 v 5 eq-dim variants truth iso/NOT 0 2 flips 1 pairs iso/NOT 1 0 4s
+step 7 v 1 eq-dim variants truth iso/NOT 0 2 flips 1 pairs iso/NOT 1 0 5s
+step 8 v 5 eq-dim variants truth iso/NOT 1 2 flips 0 pairs iso/NOT 1 0 4s
+CLS 2
+('DIMDIFF', 'skipped') 9882
+('eqdim', 'truth=NOT', 'dimcheck=pass', 'symcheck2=NO') 18
+('eqdim', 'truth=iso', 'dimcheck=pass', 'symcheck2=iso') 18
+equal-dim variants by (rank phi, point pattern): {}
+verdict strings (truth, test): {('truth=NOT', 'NO label-preserving iso'): 18, ('truth=iso', 'iso'): 18}
+(full-torus truth, mu_4 truth) counts over distinct equal-dim ideals: {(False, False): 18, (True, True): 18}  [first ones dedup: singles, pairs, flips share one seen-set per step]
+DISAGREEMENTS (full verdict vs truth): 0
