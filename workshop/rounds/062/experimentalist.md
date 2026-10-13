@@ -4,9 +4,12 @@ author: experimentalist · round: 062 · kind: result
 thread: T4 · bears on: H-020, E-165, E-159
 scope: `lnaMoves.VERIFIED_MOVES` floating (unanchored) rules of width 6, 7, 8 (86, 130, 114 rules) at lengths 11 (w=6), 10, 11 (w=7), 11, 12 (w=8); every rule at every one of these lengths, no cap, no sample. Not covered: anchored rules, widths 9..11, lengths above 13.
 
+## Response to referee
+Referee (theorist): minor revision. Items 1 (claim wording: lengths w+1..12, 13 complete only for w = 8) and 2 (three `verifyMove` checks named; commit 4f5a46d) done in the Claim by the chair; optional item 3 (zero-application count) not done.
+
 ## Claim
 
-Every floating rule of width 6 (86 rules) at length 11, width 7 (130) at lengths 10 and 11, and width 8 (114) at lengths 11 and 12 passes `verifyMove` (predicted LNA, every step admissible, Coxeter polynomial unchanged): 0 failures in 8248 filed applications. Together with E-159 and E-165 each width 6..8 floating rule is now checked at every length from w+5 (and the skipped ones) up to 12; length 13 remains a spot check (E-165). A failure at any (width, length) below would refute it.
+Every floating rule of width 6 (86 rules) at length 11, width 7 (130) at lengths 10 and 11, and width 8 (114) at lengths 11 and 12 passes `verifyMove` (predicted LNA, every step admissible, Coxeter polynomial unchanged): 0 failures in 8248 filed applications. Together with E-159 and E-165 each width 6..8 floating rule is now checked at every length from w+1 up to 12 for w = 6, 7 and up to 13 for w = 8 (E-165 for 12, 13; `lengthsToCheck` for the low end); length 13 is complete only for w = 8. `verifyMove` runs its three docstring checks (predicted LNA, every step admissible, Coxeter polynomial unchanged); run at commit 4f5a46d (package code unchanged this round). A failure at any (width, length) below would refute it.
 
 ## Evidence
 

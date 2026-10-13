@@ -16,7 +16,9 @@ def allLNAs(n):
             if all(e[0] + e[1] < l[0] + l[1] for e, l in zip(rels, rels[1:])): rec(j + 1, cur)
             cur.pop()
     rec(0, []); return out
-bad = collections.Counter(); cnt = collections.Counter()
+bad = collections.Counter(); cnt = collections.Counter(); pv = collections.Counter()
+from math import comb
+cat = lambda k: comb(2 * k, k) // (k + 1)
 for n in range(int(sys.argv[1]), int(sys.argv[2]) + 1):
     for r in allLNAs(n):
         ends = {j + 1 + r[j] for j in range(n - 2) if r[j]}
@@ -31,6 +33,7 @@ for n in range(int(sys.argv[1]), int(sys.argv[2]) + 1):
             want = (v == n - 1 or rv == 2)
             cnt[n, 'gated', 'LNA' if new is not None else 'not'] += 1
             if (new is not None) != want: bad['lna', n] += 1
+            if new is not None: pv[n, v] += 1
             if new is not None:
                 img = list(r)
                 if v <= n - 2: img[v - 1] = 0
@@ -41,5 +44,9 @@ for n in range(int(sys.argv[1]), int(sys.argv[2]) + 1):
                 if rv == 0 and not (E == n - 1 and od == 2): bad['F0', n] += 1
                 if rv is not None and rv >= 3 and not (E == n and od == 2): bad['F3', n] += 1
                 if rv is None or rv == 2: bad['unexpected-fail', n] += 1
+for n in range(int(sys.argv[1]), int(sys.argv[2]) + 1):
+    for v in range(1, n):  # (C) per vertex: LNA results = C_{v-1} C_{n-1-v}
+        if pv[n, v] != cat(v - 1) * cat(n - 1 - v): bad['C', n] += 1
+    print('C per-vertex n =', n, [pv[n, v] for v in range(1, n)])
 for k in sorted(cnt): print(k, cnt[k])
 print("violations:", dict(bad) or "none")
