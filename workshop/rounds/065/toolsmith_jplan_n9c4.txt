@@ -1,0 +1,13 @@
+depth 1 expanded 16 next 66 nonmono parents 0 1s
+depth 2 expanded 82 next 220 nonmono parents 46 8s
+depth 3 expanded 302 next 652 nonmono parents 218 31s
+depth 4 expanded 954 next 1870 nonmono parents 790 97s
+depth 5 expanded 2824 next 5125 nonmono parents 2438 285s
+CHECKPOINT /tmp/claude-0/-home-user-quiverMutation/94130e03-705b-53ab-b831-17f883100875/scratchpad/n9c4.ckpt depth 6 pos 169 of 5125 expanded 2993
+n 9 class 4 key (1, 1, 0, 0, -2, -2, 0, 0, 1, 1) starts 16 distinct algebras 8410 closed False
+('EDGE', 'tilt', 'merge', 'parentClean') 6100
+('EDGE', 'tilt', 'tree', 'parentClean') 8394
+('guard', 'tilt') 14494
+REJECTIONS (gate-admitted, tiltingPlus False): 0
+FAILING GUARDED EDGES (depth, vertex, isMergeEdge, parentTainted, path):
+GATE+TILT BUT KEY MOVES: 0

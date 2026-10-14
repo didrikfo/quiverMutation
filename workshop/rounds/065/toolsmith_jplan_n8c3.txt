@@ -1,0 +1,21 @@
+depth 1 expanded 20 next 84 nonmono parents 0 0s
+depth 2 expanded 104 next 212 nonmono parents 16 3s
+depth 3 expanded 316 next 491 nonmono parents 90 12s
+depth 4 expanded 807 next 1111 nonmono parents 313 30s
+depth 5 expanded 1918 next 2652 nonmono parents 950 67s
+depth 6 expanded 4570 next 6503 nonmono parents 2682 159s
+depth 7 expanded 11073 next 16077 nonmono parents 7395 489s
+CHECKPOINT /tmp/claude-0/-home-user-quiverMutation/94130e03-705b-53ab-b831-17f883100875/scratchpad/n8c3.ckpt depth 8 pos 584 of 16077 expanded 11657
+n 8 class 3 key (1, 1, -1, -3, -4, -3, -1, 1, 1) starts 20 distinct algebras 28422 closed False
+('EDGE', 'tilt', 'merge', 'parentClean') 20173
+('EDGE', 'tilt', 'tree', 'parentClean') 28402
+('guard', 'tilt') 48575
+('noguard', 'NOTtilt') 8
+REJECTIONS (gate-admitted, tiltingPlus False): 8
+(6, [[[4, 2, 8, 3], [4, 6, 8, 3]], [[5, 4, 2, 8], [5, 4, 6, 8]], [[5, 4, 6]], [[6, 8, 3, 1]], [[7, 5, 4, 2]]], 8, False, (3, 8, 6, 8, 6, 3, 8))
+(6, [[[4, 2, 6, 3], [4, 8, 6, 3]], [[5, 4, 2, 6], [5, 4, 8, 6]], [[5, 4, 8]], [[7, 5, 4, 2]], [[8, 6, 3, 1]]], 6, False, (3, 8, 6, 8, 8, 3, 6))
+(6, [[[2, 4, 5, 7]], [[4, 5, 1]], [[4, 5, 1, 3], [4, 5, 7, 3]], [[5, 1, 3, 6], [5, 7, 3, 6]]], 3, False, (4, 1, 1, 3, 1, 6, 3))
+(6, [[[2, 4, 5, 7]], [[4, 5, 3]], [[4, 5, 3, 1], [4, 5, 7, 1]], [[5, 3, 1, 6], [5, 7, 1, 6]]], 1, False, (4, 1, 1, 3, 3, 6, 1))
+(6, [[[1, 3, 6, 8]], [[2, 4, 5, 7]], [[4, 5, 1]], [[4, 5, 1, 3], [4, 5, 7, 3]], [[5, 1, 3, 6], [5, 7, 3, 6]]], 3, False, (10, 1, 1, 3, 1, 6, 3))
+FAILING GUARDED EDGES (depth, vertex, isMergeEdge, parentTainted, path):
+GATE+TILT BUT KEY MOVES: 0

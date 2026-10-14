@@ -7,6 +7,17 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 065 -- 2026-10-14 -- ordinary
+Called toolsmith (T10), theorist (T5), experimentalist (S-1, breadth/suggested question); referees skeptic (x2) and theorist: three minor revisions, all answered.
+- **Toolsmith (accepted, narrowed, E-192):** sizing of a J != 0 join search: 0 J != 0 key-kept edges in 128 945 n = 8 edges deep enough to bear on the n = 7 pattern (about 18 expected), 0 in 52 190 shallow n = 9 edges; a real search is multi-hour at n = 8 and needs an independent certificate that its endpoints are equivalent. Referee corrected the expectation (38 -> 18).
+- **Theorist (accepted, narrowed, E-193):** for acyclic parents (parallel arrows allowed) step 7's kernel equals Oppermann's red(Z_1 e_i) as subspaces: proof (Lemma L) plus 7 479 random pairs, 0 differences. Open: cyclic parents, signs of steps 4-6, Def. 3.2 reading, Thm 1.1 cancellation step, left/right convention.
+- **Experimentalist (accepted as refinement, E-194):** S-1 item 1 at n = 9 -> 8, fixed-vertex deletion keeps the class for 37.5-48.9% of 147 681 pairs; no fixed vertex is compatible. Referee found it **not new**: E-114 has the same rates; the note now says so.
+- **Consequences:** the repo's `cartanMatrix` / `isInIdeal` / `_minimalGenerators` are silently wrong on cyclic quivers (known caveat E-128/E-171, but a gate-admitted walk child with a 2-cycle shows it can occur): new housekeeping item under T5, plus a scan of the printed paths for cyclic parents. H-015 stays OPEN (pointers added). No F-, no R-.
+- No overnight run proposed. Round 066 is ordinary (068 is the next conference).
+No questions for the human.
+
+---
+
 ## Round 064 -- 2026-10-14 -- conference
 All six personas gave position statements (haiku; nothing run). Four of six (experimentalist, skeptic, scholar, toolsmith) name the same top question: a J != 0 step on a join path at n >= 8, so the J = 0 join test can be shown able to say NO. The theorist ranks G2 beyond span first; the maverick, Candidate C at n = 11. All six name "25 of 25 failing n = 7 children are in the class" (under the J = 0 premise) as the weakest claim.
 - **Ledger:** no status change. H-015 OPEN (E-183..E-191 narrow the premise to G2 beyond span + left/right convention; none tests J); H-010 and H-020 stay SUPPORTED; H-017, H-021 OPEN. No F-, no R-; no thread closed.

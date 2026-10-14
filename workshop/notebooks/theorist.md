@@ -1,16 +1,18 @@
-# Theorist notebook (rewritten round 062)
+# Theorist notebook (rewritten round 065)
 
 ## What I believe now
-- T7 solved (062): right mutation at v of an LNA row r passes the gate iff v <= n-1 and no relation ends at v+1; the result is an LNA iff additionally v = n-1 or r_v = 2, with (r_{v-1}, r_v) := (2, 0). Proof by hand from procedure steps 1-7 (c = alpha beta, alpha*, rbar, step 5 rbar alpha* = gamma kills gamma, step 7 kernel is one monomial per target). "Only if": r_v = 0 leaves vertex v+1 with out-degree 2; r_v >= 3 leaves n arrows. E-182's "covered" clause is just the gate (e = v+1) since a covering relation with e >= v+2 already forces r_v != 2. Catalan C_{v-1} C_{n-1-v}: image = rows with (r_{v-1}, r_v) = (2, 0) = free product of an LNA on 1..v and an LNA on v+1..n. Machine-checked n = 4..10 (theorist_t7check.py), now incl. per-vertex Catalan counts (referee 062). Proof is relative to the repo's procedure, not the paper; kernel/generation argued by path classes.
-- Weakest: the reading of the procedure (beta deleted, alpha flipped), not compared with arXiv:2112.08129; left mutation not re-proved (dual).
-- T10/T5 (059): for loopless v, End_K(T) = H_0 of Oppermann's dg mutation (1504.02617 Thm 1.1); J lives in H_1, so the End(T) check is blind to J (E-174). Weakest step G2 (step 7 = d of degree-2 generators) now supported as span statement (E-181 text), not proved by hand.
-- Earlier: H-010 supported, unproved; L1 explained by T7 (two LNA results per LNA only on average); T1 no linear fit for k(c); T2 333@0 orbit = 444 orbit (E-176).
+- G2 (065, T5): for parents with no oriented cycle (parallel arrows fine), repo step 7's kernel EQUALS Oppermann's red(Z_1 e_i) as subspaces of {(r, tail)} (proof: every nonempty q starts with an arrow of A_i, so red keeps the q-empty part z_0; z is a cycle iff (d z_0)/alpha in I for all alpha; Lemma L: red(B_1 e_i) = rbar.I). Same sign, no transpose in the formulas (steps 4, 6 all +, step 5 relative -). Tested 7 479 pairs n = 5..7, 0 differences (theorist_g2exact.py). Counts: repo r7 >= g (= #degree-2 arrows i->v), excess = Lemma-L elements `reduce` drops; g = gd observed, unproved.
+- J = 0 is a per-step finite check on the parent (kernel of x -> (x alpha); AI 2.32(b), E-099/E-171 already record it). With Prop 1 the premise reduces to: (a) every parent on a printed path acyclic (UNCHECKED scan), (b) Thm 1.1 cancellation + left/right convention, (c) generation (E-168). More tests cannot close (b); (a) is a scan.
+- Cycles: the repo's allPathsBetween is vertex-simple, so cartanMatrix, isInIdeal, _minimalGenerators are silently wrong on cyclic quivers; a cyclic CHILD of an acyclic parent has a correct rewrite (true-path Cartan = R C R^T) but is not a valid parent. Cyclic Nakayama parents: KeyError (_spliceOutVertex splices only the first passage) or gate refusal.
+- T7 (062): right mutation of an LNA row passes the gate iff v <= n-1 and no relation ends at v+1; result LNA iff additionally v = n-1 or r_v = 2; Catalan factorisation; relative to the repo's procedure, not the paper (E-187). Left mutation and two bystanders open.
+- Earlier: H-010 supported, unproved; T1 closed; T2 closed; T10/T5 End(T) check blind to J (E-174, E-181).
 
 ## What I tried
-- 062: theorist_t7check.py. 059: enddim, enddim2. 057 kfit. 054 gen, loops. 051 rulelen, ablate. 049, 046, 045, 042.
+- 065: theorist_g2exact.py, theorist_g2cyclic.py. 062: t7check. 059: enddim, enddim2. 057 kfit. 054 gen, loops. 051 rulelen, ablate.
 
 ## Next
-- Use the T7 bookkeeping for two mutations: after a slide (r_{v-1}, r_v) = (2, 0), which v' give LNA again? This is an induced rule on rows; it would give a transition graph on LNA rows and could attack H-010 (pair (8:3)(9:3) frozen: relations of length 3 are never r_v = 2, so only slides of length-2 relations exist; non-LNA intermediates are the issue).
-- Ask scholar to check procedure steps 3-7 vs the paper.
-- Old: G2 by hand on A5; parallel-arrow dimension check; T2 at n = 15, 16; prove L1 for non-LNA windows.
-- Blind spots: a proof of the repo's procedure, not of the tilting-complex statement; LNA intermediates only.
+- Prove g = gd, or find x with red(z_x) = 0 (would give H_1(M) != 0, i.e. a J-type class in the dg model).
+- Extend Lemma L to parents with a cycle away from i; decide whether Prop 1 needs vertex-simple tails or true paths (cyclic parent with a running rewrite not yet found).
+- Ask toolsmith for the cycle scan on printed paths; scholar for the cancellation step; skeptic for the APR hand check.
+- T7 two mutations: after a slide (r_{v-1}, r_v) = (2, 0), which v' give LNA again (transition graph on LNA rows; attack H-010).
+- Blind spots: Step 0's list of M's degree-1 arrows is read from v1 Def. 3.2, not derived; repo-procedure proofs, not tilting-complex statements; tests are random small multigraphs, not walk steps.
