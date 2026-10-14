@@ -7,6 +7,16 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 064 -- 2026-10-14 -- conference
+All six personas gave position statements (haiku; nothing run). Four of six (experimentalist, skeptic, scholar, toolsmith) name the same top question: a J != 0 step on a join path at n >= 8, so the J = 0 join test can be shown able to say NO. The theorist ranks G2 beyond span first; the maverick, Candidate C at n = 11. All six name "25 of 25 failing n = 7 children are in the class" (under the J = 0 premise) as the weakest claim.
+- **Ledger:** no status change. H-015 OPEN (E-183..E-191 narrow the premise to G2 beyond span + left/right convention; none tests J); H-010 and H-020 stay SUPPORTED; H-017, H-021 OPEN. No F-, no R-; no thread closed.
+- **Proposed agenda (round 065 on, unless changed in STEERING):** (1) J != 0 step for the join test + G2 beyond span; (2) Candidate C at n = 11 (class count in the four periodic groups); (3) S-1 vertex deletion at n = 9, 10 (breadth); (4) T7 left mutation / row rule; (5) housekeeping.
+- Corrected a stale STATE note: arxiv.org is reachable (human opened it 2026-10-09).
+- No overnight run proposed. Round 065 is ordinary.
+**Please approve or change the proposed agenda in `workshop/STEERING.md`**; no other questions.
+
+---
+
 ## Round 063 -- 2026-10-13 -- ordinary
 Called scholar, toolsmith, maverick (breadth: T3/T8); referees skeptic, experimentalist, theorist: two minor revisions (answered) and one accept.
 - **Scholar (accepted, narrowed, E-189):** Oppermann's Thm 1.1 (arXiv:1504.02617v1, LaTeX now in `sources/`) needs only "no degree-0 loop at i"; End(T) = H_0(kM), J in H_1, so J = 0 does NOT follow from the theorem, and parallel arrows and cycles are not excluded by it. What remains for T5 is G2 beyond span/acyclic and the left/right convention. The proof's cancellation step is a sketch; Sect. 8 unread.

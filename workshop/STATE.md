@@ -2,18 +2,18 @@
 
 Owned by the chair. Rewritten (not appended) at the end of every round; under 120 lines. Every persona reads this first.
 
-last_round: 63
-next_round_kind: conference   (round 064)
+last_round: 64
+next_round_kind: ordinary   (round 065; 068 is the next conference)
 
 ## What the project is doing now
 Tilting mutation of quivers with relations; derived equivalence of Nakayama algebras (LNAs). The search (`quivermutation/search.py`) walks mutations under a *gate* (mutation is admissible) and a *Coxeter-key guard* (`coxeterGuard`: child keeps the class's Coxeter key). Its docstring says the guard keeps a walk in one derived class. Round 045 found the guard is not a tilting test (E-147, E-151). Under the J = 0 premise all 25 failing n = 7 children are now joined to an LNA (E-157, E-160, E-163); the premise itself is the live question (T10, T5).
 
-## Agenda (proposed, round 060 conference, same ranking as 056 with T7 added; ordinary rounds work from it until the human changes it). Ranked:
-1. T10 premise: quiver-level End(T) DONE (E-174), dim assertion (E-180), End(T) = H_0 (E-181). Round 061: G2 holds as a span statement (E-183); Hom(T,T[+-1]) = 0 on the 35 n = 10 E-169 edges (E-184). Round 062: equal-dim wrong algebras at step 12 / class 2 done (E-186). Next: a J != 0 step or pair at n >= 8 to give the join test power; Thm 1.1 of Oppermann (proof unread).
-2. Power control for the J = 0 join test: n = 9 (E-175) and n = 10 (E-178) pairs done, weak, no J != 0 in the balls. Further depth is circular given the premise; NOT approved for OVERNIGHT. Next only if a pair or a control with a J != 0 step on the path is found.
-3. T3/T8: Candidate C done at n = 10 (moot, E-190); next question: do the four n = 11 periodic groups (E-190) contain two or more derived candidates with equal signature? Level: idea.
-4. Breadth: T7 (E-182 rule PROVED, E-187; left mutation, k >= 3 windows, two bystanders remain) or T3/T8 (dormant, idle since 054; next breadth slot) or T4 (E-188 closes the width 6..8 gaps; widths 9..11 left). T6 parked (E-185).
-5. Housekeeping (round 060 ledger: close T1 and T2 as stated, proposals in E-176): citation fixes DONE (E-179); toolsmith docstring rewords and `canonicalKey` cap. S-1 n = 15 scan parked.
+## Agenda (proposed, round 064 conference; ordinary rounds work from it until the human changes it). Ranked:
+1. T10/T5, give the J = 0 join test a J != 0 step: toolsmith sizes (`--plan`) a ball search at n = 8/9 for a path between known-equivalent LNAs that uses a J != 0 edge, or states none exists; skeptic replays any hit. In parallel G2 beyond span (generator count, sign, transpose, parallel arrows, cycles; theorist, scholar), Oppermann Sect. 8 and cancellation step, left/right convention by hand on the APR example (skeptic). Every use of "25 of 25" carries "under the J = 0 premise".
+2. T3/T8 Candidate C at n = 11 (maverick, toolsmith): derived classes inside the four periodic groups (535, 64, 24, 15) with a finer invariant than signature; deletion to n = 10; scholar checks 0911.5137 / 1310.1557 first. Level: idea.
+3. S-1 vertex deletion at n = 9, 10 on known classes (experimentalist, toolsmith): counting, negative result welcome. Breadth slot.
+4. T7: left mutation by duality, induced rule on LNA rows (theorist), reading against arXiv:2112.08129 (scholar); T4 widths 9..11 at w+3..w+4 is a filler (experimentalist).
+5. Housekeeping: `compare2` / docstring rewords, `canonicalKey` cap; Smith form of C + C^T for F-010 vs E-154 (one line).
 Breadth rule: one slot per round to a dormant thread or a closure note.
 
 ## Open threads
@@ -46,6 +46,7 @@ Each: question · state · last round worked · owner.
 The key-guard law (class 0 only); E-147 class-1 count (one script); H-015 citations from memory; the S-1 K-threshold law (two lengths); E-151 counts are step counts on capped BFS samples; E-155 is one n = 8 class, depth 8, slice 2 not independently re-run; 'in the class' for the 25 children rests on the J = 0 premise (generation now proved per loopless step, E-168), edge-tested at Cartan level (E-157, E-163, E-166 paths), at quiver level only for the 13 E-163 edges (E-167, label-preserving); the E-165 length check is one length per rule.
 
 ## Standing facts
+- Round 064 was a conference: ledger changed no H-, F-, R- status, closed no thread; no new E-entries (merge of origin/main already up to date).
 - Round 063 added E-189..E-191 (merge of origin/main already up to date); the 1504.02617v1 LaTeX is in sources.
 - Round 062 added E-186..E-188 (merge of origin/main already up to date).
 - Round 061 added E-183..E-185 (merge of origin/main already up to date).
@@ -53,7 +54,7 @@ The key-guard law (class 0 only); E-147 class-1 count (one script); H-015 citati
 - Round 059 added E-180..E-182 (merge of origin/main already up to date).
 - Round 058 added E-177..E-179 (merge of origin/main already up to date).
 - Round 057 added E-174..E-176 (merge of origin/main conflicted in rounds/052/proceedings.md; skipped). Round 056 was a conference: ledger changed no H-, F- or R- status.
-- arxiv.org is blocked by the network policy (403); PDFs would need the human.
+- arxiv.org is reachable (opened by the human 2026-10-09; see STEERING standing permissions); the earlier '403' note was stale.
 - Round 055 added E-171..E-173 (E-172 supersedes E-170; HH closed by a theorem). Round 054 added E-168..E-170; the human supplied the LaTeX of 1009.3370 and 2509.12983 (citations verified in round 055). Round 053 added E-166, E-167. Round 052 was a conference: no change to any H-, F-, R- status (ledger in proceedings). Round 051 added E-163..E-165. Round 050 added E-160..E-162. Round 045 added E-150, E-151; H-015 OPEN. Round 046 added E-152..E-154; round 047 added E-155, E-156. Nothing in F- or R-.
 
 ## Rota
