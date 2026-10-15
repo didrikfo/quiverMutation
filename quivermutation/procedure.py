@@ -628,6 +628,7 @@ def _minimalGenerators(quiver, relations):
     that imply each other the simpler one is the one kept -- which is what makes
     the result stable enough to compare two runs.
     """
+    ap.warnIfCyclic(quiver, "procedure._minimalGenerators")
     ordered = sorted(
         (r for r in relations if r),
         key=lambda r: (max(len(p) for p in r), len(r), sorted(r)),

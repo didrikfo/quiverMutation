@@ -1,18 +1,18 @@
-# Experimentalist notebook (rewritten round 065)
+# Experimentalist notebook (rewritten round 067)
 
 ## What I now believe
-- S-1 item 1 at n = 9 -> 8 (round 065, all rows, derived classes): same vertex deleted from both members of a same-class pair keeps the class for 37.5% (i = 4, 6), 42.9% (5), 44.7% (3, 7), 48.9% (1, 2, 8, 9) of the 147 681 pairs; random baseline 17.6%. No vertex is class-compatible; but every pair has some (i, i') that agree (94.8% with i = i'). Free-stretch restriction not applied yet.
-- T4: floating H-020 rules of width 6..8 pass verifyMove at every length from the gaps E-165 skipped (round 062), 0 failures in 8248 applications. Widths 9..11, anchored rules, lengths > 13 unchecked.
-- T7 (round 059): right LNA mutation at v gives an LNA iff arrow v covered by no relation starting before v and r_v = 2 (or v = n-1). Exact n = 5..10. Proof open.
-- A single mutation never moves a relation of length >= 3, so H-010 must live in multi-step windows.
-- J = 0 join control at n = 9 does not test the premise.
+- S-1 items 1 and 2 at n = 9 -> 8 (derived classes): no fixed i, nor class-plus-position-plus-coverage rule, predicts the image class (best 66.5% cell share vs 57.6% for class alone). Only the E-114 free-stretch rule works: vertex at distance >= 3 from every relation (free end of >= 3) gives one image class for 6/6 classes; d >= 2 fails for P^(4)_(1,3). That is a rediscovery of E-114/E-146. Pairs with a d >= 3 vertex on both rows agree 797/797.
+- Coxeter key == class at n = 8 and 9 for every class tested: key changes iff class changes, so the key is no extra handle at this size.
+- Orbit, verdict, H-020 head/tail under deletion: untouched; they need n >= 12 (no head/tail at n = 9).
+- Earlier: T4 floating H-020 rules widths 6..8 pass verifyMove (0 failures in 8248); T7 right LNA mutation rule (round 059) exact n = 5..10, proof open; a single mutation never moves a relation of length >= 3.
+- E-194 (round 065): fixed deleted vertex keeps the class for 37.5-48.9% of same-class pairs (baseline 17.6%).
 
 ## What I tried
-- 065: `experimentalist_delcompat.py`; classifyLength(9) with the default 10-min cap stops at 21 classes (3450400 unmerged) -- needs `resume=True`, about 3 runs, 181 s for the last. n = 8 40 s.
-- 062: gap runs, 4 shards, 3 min total. 059: n = 10 costs 7 min.
-- Lessons: waits in the foreground hit the limit; use `until` loops in the background; delete JSON above 200 KB; a capped run is not a verdict.
+- 067: `experimentalist_deltable.py`, `_delsplit.py` (4 s each, off the cached 065 CSVs).
+- 065: `experimentalist_delcompat.py`; classifyLength(9) needs `resume=True`, ~3 runs; n = 8 40 s.
+- Lessons: grep EXPERIMENTS.md for E-114/E-146 BEFORE building; S-1 items 1-2 at n <= 10 are largely recorded. Foreground waits hit the limit; use background loops; delete JSON above 200 KB.
 
 ## What I would do next
-1. S-1 item 1 with the free-stretch filter (i far from every nonzero relation) and per-pair rules from relation data.
-2. S-1 item 2: table of source class vs image class per i at n = 9 (3 s extension of the script).
+1. S-1 item 2 for H-020 head/tail and orbit at n = 12 -> 11 on the lone-3 class (E-146, 2746 LNAs, one orbit): do K >= 3 strips preserve the head/tail?
+2. Test the d = 2 failure in P^(4)_(1,3): does the first relation's length decide a vs c (9 vs 17 rows seen)?
 3. Widths 9..11 at w+3..w+4 for T4; rule check at n = 11 (T7).

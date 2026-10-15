@@ -45,6 +45,7 @@ when it has, which is why `pathAlgebra.PathAlgebra` carries `arrowRels` and the
 procedure reads that in preference to `rels`.
 """
 
+import warnings
 from fractions import Fraction
 
 import networkx as nx
@@ -100,6 +101,32 @@ def isPath(quiver, path):
         if not quiver.has_edge(tail, head, key):
             return False
     return all(path[i][1] == path[i + 1][0] for i in range(len(path) - 1))
+
+
+class CyclicQuiverWarning(UserWarning):
+    """The quiver has an oriented cycle (or a loop), outside the setting these routines are proved in."""
+
+
+def hasOrientedCycle(quiver):
+    """Whether the quiver has a loop or an oriented cycle of any length."""
+    return not nx.is_directed_acyclic_graph(quiver)
+
+
+def warnIfCyclic(quiver, caller, stacklevel = 3):
+    """Warn (never raise) when `quiver` has an oriented cycle or a loop.
+
+    `allPathsBetween` is simple in the vertices, so on a cyclic quiver the paths
+    that revisit a vertex are not counted: a Cartan matrix, an ideal membership
+    or a minimal generating set can then be silently wrong (research E-193: the
+    seed 12, i = 3 child with the 2-cycle 3 <-> 5 has 20 nonzero cartanDiscrepancy
+    entries and `_minimalGenerators` keeps a redundant relation).  Oppermann's
+    Prop 1, which the step-7 check relies on, is for acyclic parents.
+    """
+    if hasOrientedCycle(quiver):
+        warnings.warn(
+            "{0}: the quiver has an oriented cycle or a loop; paths are simple in "
+            "the vertices here, so the result may be wrong (research E-193)".format(caller),
+            CyclicQuiverWarning, stacklevel = stacklevel)
 
 
 def allPathsBetween(quiver, sourceVertex, targetVertex):
@@ -316,6 +343,7 @@ def reduceAgainstPivots(comb, pivots):
 
 def isInIdeal(quiver, relations, comb):
     """Whether a combination of arrow paths is zero in the algebra."""
+    warnIfCyclic(quiver, "arrowPaths.isInIdeal")
     if not comb:
         return True
     if not isHomogeneous(comb):
@@ -453,6 +481,7 @@ def cartanMatrix(quiver, relations, exact = True):
     otherwise.  A bare `exact = False` is the cheap route unconditionally and is
     for measuring what it gets wrong, not for deciding anything.
     """
+    warnIfCyclic(quiver, "arrowPaths.cartanMatrix")
     if exact is None:
         exact = not isMonomial(relations)
     dimension = homDimension if exact else homDimensionByClosure

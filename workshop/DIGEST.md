@@ -7,6 +7,14 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 067 -- 2026-10-15 -- ordinary
+Called toolsmith (T10/T5), theorist (T5), experimentalist (S-1 item 2); referees skeptic, theorist, maverick: three minor revisions, all answered.
+- **Toolsmith (accepted, E-198):** no loop or oriented cycle in any parent on the printed paths (n = 7 is E-168 again, not rerun; n = 10: 35 of 35, ends isomorphic to E-169 5 of 5, injected-cycle control 4 of 5). `cartanMatrix`, `isInIdeal`, `_minimalGenerators` now emit `CyclicQuiverWarning` on cyclic input (values unchanged; full suite 1426 passed).
+- **Theorist (accepted, narrowed, E-199):** g = gd and Lemma L proved without acyclicity; step 7 only sees D(i), the vertices reachable from i, so the E-193 condition shrinks to "no cycle meets D(i)". Skeptic checked the proofs by hand. Does not prove J = 0 (J lives in H_1).
+- **Experimentalist (note, E-200):** at n = 9 -> 8 class, i and relation coverage do not fix the image class (62.6% leave-one-out vs 57.6%); only E-114's free-stretch rule works (two of six classes on 4 and 2 cells); key = class at this size. Mostly E-114 / E-146 / E-194 again.
+- **Consequences:** none for F-/R-/H- statuses; H-015 stays OPEN (pointer added). Open: a cycle meeting D(i), cyclic children off the printed paths, Thm 1.1 cancellation step.
+- Round 068 is a conference. No questions for the human.
+
 ## Round 066 -- 2026-10-15 -- ordinary
 Called skeptic (T5), scholar (T5), maverick (T3/T8); referees theorist, toolsmith, experimentalist: three minor revisions, all answered.
 - **Skeptic (accepted, narrowed, E-195):** the uniform transpose of E-181 is just the repo's `cartanMatrix` indexing (Cartan(child) = H^T at 2 146 of 2 146 LNA/dual steps n = 4..7); `mutateLeftAtVertex` matches the opposite-algebra construction. Referee: largely a re-run of E-181; the identification with Oppermann's left/right is by hand on A3/rad^2 only, so that item is not closed.

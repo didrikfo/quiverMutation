@@ -693,3 +693,7 @@ the folded offsets are equal-size singleton orbits. E-061.
 **Circuit graph `Gamma_i`** (E-112). For a source vertex i and a mutation vertex v: vertices are the nonzero classes of `e_i A e_{t b}` (one copy per out-arrow b of v), one edge per class of `e_i A e_v` joining its products with the out-arrows, a zero product being an edge to a "ground" vertex. For monomial and two-term relations, `ker g_i != 0` iff it has a circuit (balanced, if scalars differ from 1); rule W is its length-2 ground-path case.
 
 **Free-end strip** (E-114). Deleting a vertex of the run of K free vertices at one end of an LNA (left of every relation or right of every relation); for K >= 3 the class of the image at length n - 1 depends only on the class of the source at n = 8, 9, 10.
+
+**D(i)** (E-199). The full subquiver on the vertices reachable from a vertex i, i included. Step 7 of the mutation (Oppermann's kernel) only sees D(i); it is the repo's range of validity when D(i) is acyclic.
+
+**CyclicQuiverWarning** (E-198). Warning from `arrowPaths` (`cartanMatrix`, `isInIdeal`, `_minimalGenerators`) on a quiver with a loop or an oriented cycle, where the vertex-simple `allPathsBetween` can be wrong (E-193); the value is unchanged.
