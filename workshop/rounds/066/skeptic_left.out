@@ -1,0 +1,57 @@
+PART 1  A3/rad^2 (1->2->3, psi.phi = 0), mutateLeftAtVertex
+ v = 2  child arrows [(1, 3, 0), (2, 1, 0)] rels [{((2, 1, 0), (1, 3, 0)): 1}, {((1, 3, 0),): 1}]
+  H_B:
+    1  1  0
+    0  1  0
+    0  0  1
+  Cartan(left child):
+    1  1  0
+    0  1  0
+    0  0  1
+  Hom(T,T[+-1]) total 1 0  C == H_B: True  C == H_B^T: False
+ v = 3  child arrows [(1, 2, 0), (1, 3, 0), (3, 2, 0)] rels [{((1, 3, 0), (3, 2, 0)): 1, ((1, 2, 0),): -1}]
+  H_B:
+    1  0  0
+    1  1  1
+    1  0  1
+  Cartan(left child):
+    1  0  0
+    1  1  1
+    1  0  1
+  Hom(T,T[+-1]) total 0 0  C == H_B: True  C == H_B^T: False
+PART 2 N = 4
+   30 steps
+   0 H symmetric (no power)
+   30 C == H_B
+   0 C == H_B^T
+   10 Hom(T,T[+-1]) != 0
+   84 arrows
+   84 arrow i->j with H_B[i][j]=0 (same-index reading)
+   0 arrow i->j with H_B[j][i]=0 (arrows reversed back, expected reading)
+PART 2 N = 5
+   112 steps
+   0 H symmetric (no power)
+   112 C == H_B
+   0 C == H_B^T
+   42 Hom(T,T[+-1]) != 0
+   434 arrows
+   434 arrow i->j with H_B[i][j]=0 (same-index reading)
+   0 arrow i->j with H_B[j][i]=0 (arrows reversed back, expected reading)
+PART 2 N = 6
+   420 steps
+   0 H symmetric (no power)
+   420 C == H_B
+   0 C == H_B^T
+   168 Hom(T,T[+-1]) != 0
+   2076 arrows
+   2076 arrow i->j with H_B[i][j]=0 (same-index reading)
+   0 arrow i->j with H_B[j][i]=0 (arrows reversed back, expected reading)
+PART 2 N = 7
+   1584 steps
+   0 H symmetric (no power)
+   1584 C == H_B
+   0 C == H_B^T
+   660 Hom(T,T[+-1]) != 0
+   9504 arrows
+   9504 arrow i->j with H_B[i][j]=0 (same-index reading)
+   0 arrow i->j with H_B[j][i]=0 (arrows reversed back, expected reading)

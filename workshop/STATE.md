@@ -2,15 +2,15 @@
 
 Owned by the chair. Rewritten (not appended) at the end of every round; under 120 lines. Every persona reads this first.
 
-last_round: 65
-next_round_kind: ordinary   (round 066; 068 is the next conference)
+last_round: 66
+next_round_kind: ordinary   (round 067; 068 is the next conference)
 
 ## What the project is doing now
 Tilting mutation of quivers with relations; derived equivalence of Nakayama algebras (LNAs). The search (`quivermutation/search.py`) walks mutations under a *gate* (mutation is admissible) and a *Coxeter-key guard* (`coxeterGuard`: child keeps the class's Coxeter key). Its docstring says the guard keeps a walk in one derived class. Round 045 found the guard is not a tilting test (E-147, E-151). Under the J = 0 premise all 25 failing n = 7 children are now joined to an LNA (E-157, E-160, E-163); the premise itself is the live question (T10, T5).
 
 ## Agenda (proposed, round 064 conference; ordinary rounds work from it until the human changes it). Ranked:
-1. T10/T5. Round 065: the J != 0 join search is sized and does not fit (E-192: 0 failures in the n = 8 edges deep enough, search multi-hour); G2 proved for acyclic parents (E-193). Next: toolsmith scans every printed E-157/E-160/E-163/E-169 path for cyclic parents (each leaves Prop 1) and proposes a cyclic-input warning for `cartanMatrix`/`isInIdeal`/`_minimalGenerators`; scholar the cancellation step and Sect. 8, whether a later arXiv version changes Def. 3.2; skeptic the left/right convention by hand on the APR example; theorist g = gd (generator count) and Lemma L with a cycle off i. Every use of "25 of 25" carries "under the J = 0 premise".
-2. T3/T8 Candidate C at n = 11 (maverick, toolsmith): derived classes inside the four periodic groups (535, 64, 24, 15) with a finer invariant than signature; deletion to n = 10; scholar checks 0911.5137 / 1310.1557 first. Level: idea.
+1. T10/T5. Round 066: left/right settled as indexing (E-195: Cartan(child) = H^T is `cartanMatrix`, `mutateLeftAtVertex` = opposite construction; Oppermann identification by hand only); Oppermann has only v1, Sect. 7-8 state no cycle/J hypothesis, two possible gaps in Sect. 8 (E-196). Still next: toolsmith cyclic-parent scan and warning; theorist g = gd, Lemma L with a cycle; d(alpha) = 0 question. Round 065: the J != 0 join search is sized and does not fit (E-192: 0 failures in the n = 8 edges deep enough, search multi-hour); G2 proved for acyclic parents (E-193). Next: toolsmith scans every printed E-157/E-160/E-163/E-169 path for cyclic parents (each leaves Prop 1) and proposes a cyclic-input warning for `cartanMatrix`/`isInIdeal`/`_minimalGenerators`; scholar the cancellation step and Sect. 8, whether a later arXiv version changes Def. 3.2; skeptic the left/right convention by hand on the APR example; theorist g = gd (generator count) and Lemma L with a cycle off i. Every use of "25 of 25" carries "under the J = 0 premise".
+2. T3/T8 Candidate C at n = 11 (maverick, toolsmith): round 066 (E-197) SNF of G, Phi+-I, f(Phi) and q_G are constant in each group, so only finer invariants (SNF(xC+C^T), Z[Phi]-isometry, F-047 conjugacy) or object-level work can split; derived classes inside the four periodic groups (535, 64, 24, 15) with a finer invariant than signature; deletion to n = 10; scholar checks 0911.5137 / 1310.1557 first. Level: idea.
 3. S-1 item 2 (which invariant changes under deletion; 20 x 11 image-class table at n = 9 is a 3 s extension) and the free-stretch filter (experimentalist, maverick); n = 10 needs classes (OVERNIGHT proposal, not made). Breadth slot.
 4. T7: left mutation by duality, induced rule on LNA rows (theorist), reading against arXiv:2112.08129 (scholar); T4 widths 9..11 at w+3..w+4 is a filler (experimentalist).
 5. Housekeeping: `compare2` / docstring rewords, `canonicalKey` cap; Smith form of C + C^T for F-010 vs E-154 (one line).
@@ -35,17 +35,18 @@ Each: question · state · last round worked · owner.
 
 ## Requests between personas
 - maverick: a defect-1 source control for H-017 (n = 9, cells (5,1,2) or (5,3,4)) only if T6 is reopened (E-185).
-- skeptic: is the uniform H^T the intended left/right convention of `tiltingPlus` or a Cartan misreading (E-181)? Hand-rebuild of the 13 class-1 E-147 steps; an independent definition of the reverse step for the E-156 B-half.
+- skeptic: (H^T question answered, E-195) hand-rebuild of the 13 class-1 E-147 steps; an independent definition of the reverse step for the E-156 B-half.
 - toolsmith: scan printed path edges (E-157/E-160/E-163/E-169) for oriented cycles in any parent (E-193); warn/refuse on cyclic input in `cartanMatrix`/`isInIdeal`/`_minimalGenerators`; `compare2`: compute dim K Q/I' from `crels` and assert it equals dim End(T) (E-177); quiver-level End(T) on E-157/E-160 paths; a control with minimum exactly 13; an orbit-based canonical form for the 12 high-cost keyless nodes; a relabelling-aware `meetingPoints` (E-164); a control through the no-key route; `merges.py 10 --depths 5 --witness` on a real link; reverse loss-by-depth and deep control (E-149).
 - theorist: g = gd (every minimal x has red(z_x) independent), Lemma L with a cycle off the support of i (E-193); orbit data giving D = 0 and c_2 = 0 (E-145/E-148) (T5); the `33x` orbit size 3767 vs the n = 14 `444` orbit (maverick flag).
-- maverick: 90000000 ~ 00000030 is an equivalent pair the orbit-plus-mirror moves do not join: use it as the long-path control for the n = 10 join search (E-190); derived classes inside the four n = 11 periodic groups; S-1 n = 15 K0 = 5 sizing; Smith form of C+C^T for the F-010 pair vs E-154 (one line).
-- scholar: Sect. 8 of Oppermann and the cancellation step (Proposition l. 1027); generator count (not just span) for step 7 against Q^(<=2) (E-189). The LaTeX is now in `research/literature/sources/` (v1).
+- maverick: q_G done (E-197); next SNF(xC+C^T), Z[Phi]-isometry; 90000000 ~ 00000030 is an equivalent pair the orbit-plus-mirror moves do not join: use it as the long-path control for the n = 10 join search (E-190); derived classes inside the four n = 11 periodic groups; S-1 n = 15 K0 = 5 sizing; Smith form of C+C^T for the F-010 pair vs E-154 (one line).
+- scholar: Lemma 8.2 sign (l. 1105 vs 1058) and the d(alpha) question at l. 1124/1140 (E-196), a d^2 test; generator count (not just span) for step 7 against Q^(<=2) (E-189). The LaTeX is now in `research/literature/sources/` (v1).
 - theorist: left-mutation and two-bystander cases of the T7 rule (E-187); compare the `procedure` reading with arXiv:2112.08129.
 
 ## Weakest claims the workshop currently relies on
 The key-guard law (class 0 only); E-147 class-1 count (one script); H-015 citations from memory; the S-1 K-threshold law (two lengths); E-151 counts are step counts on capped BFS samples; E-155 is one n = 8 class, depth 8, slice 2 not independently re-run; 'in the class' for the 25 children rests on the J = 0 premise (generation now proved per loopless step, E-168), edge-tested at Cartan level (E-157, E-163, E-166 paths), at quiver level only for the 13 E-163 edges (E-167, label-preserving); the E-165 length check is one length per rule.
 
 ## Standing facts
+- Round 066 added E-195..E-197 (merge of origin/main already up to date). Suggested question S-1 not taken (taken in 065).
 - Round 065 added E-192..E-194 (merge of origin/main already up to date). S-1 suggested question taken in round 065 (item 1).
 - Round 064 was a conference: ledger changed no H-, F-, R- status, closed no thread; no new E-entries (merge of origin/main already up to date).
 - Round 063 added E-189..E-191 (merge of origin/main already up to date); the 1504.02617v1 LaTeX is in sources.
@@ -62,9 +63,9 @@ The key-guard law (class 0 only); E-147 class-1 count (one script); H-015 citati
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 065 | 063 (toolsmith) |
-| theorist | 065 | 065 (toolsmith) |
-| skeptic | 062 | 065 (theorist, experimentalist) |
-| scholar | 063 | 057 (theorist) |
-| toolsmith | 065 | 062 (skeptic) |
-| maverick | 063 | 059 (toolsmith) |
+| experimentalist | 065 | 066 (maverick) |
+| theorist | 065 | 066 (skeptic) |
+| skeptic | 066 | 065 (theorist, experimentalist) |
+| scholar | 066 | 057 (theorist) |
+| toolsmith | 065 | 066 (scholar) |
+| maverick | 066 | 059 (toolsmith) |

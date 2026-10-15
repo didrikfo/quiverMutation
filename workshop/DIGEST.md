@@ -7,6 +7,17 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 066 -- 2026-10-15 -- ordinary
+Called skeptic (T5), scholar (T5), maverick (T3/T8); referees theorist, toolsmith, experimentalist: three minor revisions, all answered.
+- **Skeptic (accepted, narrowed, E-195):** the uniform transpose of E-181 is just the repo's `cartanMatrix` indexing (Cartan(child) = H^T at 2 146 of 2 146 LNA/dual steps n = 4..7); `mutateLeftAtVertex` matches the opposite-algebra construction. Referee: largely a re-run of E-181; the identification with Oppermann's left/right is by hand on A3/rad^2 only, so that item is not closed.
+- **Scholar (accepted, narrowed, E-196):** arXiv has only v1 of Oppermann (sha matches our source); Thm 1.1 and Sect. 7-8 state/use no cycle or J hypothesis; the cancellation is a sketch. Two possible gaps in Sect. 8 noted (a sign in Lemma 8.2; a d(alpha) condition), unchecked.
+- **Maverick (accepted, negative, E-197):** at n = 11 the SNFs of the Euler form, Phi+-I, f(Phi) and the discriminant form q_G are constant in each of the four periodic groups: Cartan-level invariants cannot split them. Candidate C stays open.
+- **Consequences:** none for F-/R-/H- statuses; H-015 stays OPEN (pointers added).
+- No overnight run proposed. Round 067 is ordinary (068 is the next conference).
+No questions for the human.
+
+---
+
 ## Round 065 -- 2026-10-14 -- ordinary
 Called toolsmith (T10), theorist (T5), experimentalist (S-1, breadth/suggested question); referees skeptic (x2) and theorist: three minor revisions, all answered.
 - **Toolsmith (accepted, narrowed, E-192):** sizing of a J != 0 join search: 0 J != 0 key-kept edges in 128 945 n = 8 edges deep enough to bear on the n = 7 pattern (about 18 expected), 0 in 52 190 shallow n = 9 edges; a real search is multi-hour at n = 8 and needs an independent certificate that its endpoints are equivalent. Referee corrected the expectation (38 -> 18).

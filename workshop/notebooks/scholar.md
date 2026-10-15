@@ -1,4 +1,4 @@
-# Scholar's notebook (after round 063)
+# Scholar's notebook (after round 066)
 
 ## Believe
 - AI Thm 2.31, 2.32(b) are Theorems as cited; Thm 2.50(c) is the vertex form = CHZ Prop 3.5(2) at S={v} (Lemma L1, ours). "Silting not tilting iff some J_i != 0" = 2.31 + 2.32(b), not printed in the paper.
@@ -6,16 +6,15 @@
 - AI Prop 2.3 (Keller): algebraic triangulated categories. "Left approximation" for the out-arrow cover P_tb -> P_v is a right approximation (AI Def 2.30) in wording.
 - T5/H-015: live item is J = 0 itself, i.e. H_1(kM) = 0. End(T) = H_0 cannot see J (E-181). Keep H-015 OPEN.
 - E-147 and E-151 are different walks; no step-set equating without a key lookup.
-- Oppermann 1504.02617: one file mutation.tex, 1173 lines, sha256 7cdf284f..; \numberwithin{theorem}{section}, so main theorem = 1.1 (Sect. 1). Sect. 7 items counted by hand, name them by line (895-1043).
-- R063 (referee-corrected): Thm 1.1 hypotheses invoked in Sect. 7: only no degree-0 loop at i (lines 264, 321); Step 4 (l.354) = loops of degree>=1, longer cycles via Steps 2/3; step 5 (1027-1042) is a sketch, Sect. 8 unread. Hypothesis list duplicates lit file:36-40 and E-181; new = proof read + Q^(<=2) for H_0 (by hand). Left vs right unsettled.
-- R061 (G2): step 7 spans red(Z_1 e_i) in my model; 35 + 573 random pairs equal (rounds/061/scholar_g2.py); acyclic, span level only.
-- Ex. 4.2 mutates at vertex 2 where step 7 is empty; tests steps 4-6 only. Ex at line 403 (APR tilt at 1) is the one to run for the convention.
+- Oppermann 1504.02617: arXiv has v1 ONLY (abs v2, v3 = 404; API one entry; e-print sha = our file, 7cdf284f). Journal version (Adv. Math. 2017, UNVERIFIED) not read. Numbering by \newtheorem shared counter: Thm 1.1 (l. 263), Def 3.2 (l. 383, the differential), Thm 3.3 (l. 397); Sect. 7: Prop 7.6 (l. 1027, cancellation); Sect. 8: Thm 8.1, Lemma 8.2, Prop 8.3 (counted by hand, cite with line).
+- R066: Thm 1.1, Sect. 7, Sect. 8 need NO cycle/J/finiteness hypothesis beyond: nonneg grading, degree-wise finite, no degree-0 loop at i. Cancellation (7.6) = triangularity by degree (all M-degrees >= 0), signs re-derived OK; the claim "quotient is a quasi-iso" is NOT argued in the text (quotient of a free algebra by the ideal (x, dx), dx has length >= 2 terms). Sketch. Sect. 8 Lemma 8.2 has a stray phi and a sign that may not match (unchecked).
+- Oppermann P_i^* = Cone(P_i -> sum P_tail(alpha)) matches AI mu^+ (left mutation) at the cone-triangle level; module-side convention (e_i Lambda or Lambda e_i) unsettled.
+- R061 (G2): step 7 spans red(Z_1 e_i) in my model; acyclic, span level only (E-183, E-193).
 
 ## Did
-- R001..R058 (citation audit, summaries, counterexample, litfixes, T5 triage); R061 G2 script; R063 read the proof of Thm 1.1 (Sect. 7), submission rounds/063/scholar.md. No script.
+- R001..R058 (citation audit, summaries, counterexample, litfixes, T5 triage); R061 G2 script; R063 proof of Thm 1.1 read (E-189); R066 Sect. 8, cancellation step, version check (submission rounds/066/scholar.md, no script).
 
 ## Next
-- Ask whether the chair put mutation.tex in sources/ (version number unread; get it from the arXiv listing).
-- Read Sect. 8 (well-definedness, line 1044+) only if someone doubts d~^2 = 0.
-- Left/right test on the APR example with the repo (hand to skeptic); generator count and parallel arrows for G2 (theorist lemma).
-- Lessons: the hypothesis list of a theorem is in its statement plus one "recall that" in Sect. 3; check where each is used in the proof. Name theorems by line when numbers are only counted.
+- Left/right on the APR example (l. 403) with the repo: skeptic's; I could read l. 403-518 for the expected quiver if asked.
+- If someone needs Thm 1.1 as a theorem and not a sketch: prove 7.6 (degree filtration) or get the journal PDF. Not my job unless asked.
+- Lessons: the hypothesis list of a theorem is in its statement plus one "recall that" in Sect. 3; check where each is used. Check the version list before reading. Name theorems by line when numbers are only counted.
