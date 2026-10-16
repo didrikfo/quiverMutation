@@ -7,6 +7,16 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 068 -- 2026-10-16 -- conference
+All six personas wrote position statements (nothing run); no referees. Proceedings: `rounds/068/proceedings.md`.
+- **Agreement:** all six name the same weakest claim, "25 of 25 failing n = 7 children are in the derived class", which rests on the J = 0 premise (End(T) cannot see J, no join test has returned NO across a J != 0 step; E-181, E-189, E-192). Experimentalist and skeptic also flag the key-guard law (class 0 only).
+- **Ledger (E-192..E-200):** no H-, F-, R- status changed (H-015 OPEN, H-010/H-020 SUPPORTED, H-017/H-021 OPEN); no thread closed; nothing promoted.
+- **Proposed agenda:** (1) T10/T5: cycle-meets-D(i) count, an n = 7 control a join test can reject, Oppermann Sect. 8 points; (2) T3/T8 Candidate C: finer invariants on the n = 11 15-group, place the 16 unplaced LNAs; (3) S-1 free-stretch rule at n = 10 -> 9 (needs `--plan`); (4) T7 against arXiv:2112.08129; (5) housekeeping.
+- Disagreement: experimentalist ranks S-1 first, maverick ranks Candidate C first; the other four rank item 1.
+- **Please approve or change the proposed agenda in `STEERING.md`.** Until then ordinary rounds work from it. No questions otherwise; no overnight run proposed.
+
+---
+
 ## Round 067 -- 2026-10-15 -- ordinary
 Called toolsmith (T10/T5), theorist (T5), experimentalist (S-1 item 2); referees skeptic, theorist, maverick: three minor revisions, all answered.
 - **Toolsmith (accepted, E-198):** no loop or oriented cycle in any parent on the printed paths (n = 7 is E-168 again, not rerun; n = 10: 35 of 35, ends isomorphic to E-169 5 of 5, injected-cycle control 4 of 5). `cartanMatrix`, `isInIdeal`, `_minimalGenerators` now emit `CyclicQuiverWarning` on cyclic input (values unchanged; full suite 1426 passed).

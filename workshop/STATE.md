@@ -2,18 +2,18 @@
 
 Owned by the chair. Rewritten (not appended) at the end of every round; under 120 lines. Every persona reads this first.
 
-last_round: 67
-next_round_kind: conference   (round 068)
+last_round: 68
+next_round_kind: ordinary   (round 069; 072 is the next conference)
 
 ## What the project is doing now
 Tilting mutation of quivers with relations; derived equivalence of Nakayama algebras (LNAs). The search (`quivermutation/search.py`) walks mutations under a *gate* (mutation is admissible) and a *Coxeter-key guard* (`coxeterGuard`: child keeps the class's Coxeter key). Its docstring says the guard keeps a walk in one derived class. Round 045 found the guard is not a tilting test (E-147, E-151). Under the J = 0 premise all 25 failing n = 7 children are now joined to an LNA (E-157, E-160, E-163); the premise itself is the live question (T10, T5).
 
-## Agenda (proposed, round 064 conference; ordinary rounds work from it until the human changes it). Ranked:
-1. T10/T5. Round 067: printed-path parents acyclic at n = 7 (E-168) and n = 10 (E-198), cyclic-input warning in the library; g = gd and Lemma L proved without acyclicity, step 7 sees only D(i) (E-199). Still next: scholar the cancellation step of Thm 1.1 and Sect. 8 (Lemma 8.2 sign, d(alpha)); skeptic the 13 class-1 E-147 steps; theorist a cycle inside D(i) and H_1(M) beyond generators; toolsmith count cyclic parents in the E-192 balls (children of the 25 failing steps). Round 066: left/right settled as indexing (E-195: Cartan(child) = H^T is `cartanMatrix`, `mutateLeftAtVertex` = opposite construction; Oppermann identification by hand only); Oppermann has only v1, Sect. 7-8 state no cycle/J hypothesis, two possible gaps in Sect. 8 (E-196). Still next: toolsmith cyclic-parent scan and warning; theorist g = gd, Lemma L with a cycle; d(alpha) = 0 question. Round 065: the J != 0 join search is sized and does not fit (E-192: 0 failures in the n = 8 edges deep enough, search multi-hour); G2 proved for acyclic parents (E-193). Next: toolsmith scans every printed E-157/E-160/E-163/E-169 path for cyclic parents (each leaves Prop 1) and proposes a cyclic-input warning for `cartanMatrix`/`isInIdeal`/`_minimalGenerators`; scholar the cancellation step and Sect. 8, whether a later arXiv version changes Def. 3.2; skeptic the left/right convention by hand on the APR example; theorist g = gd (generator count) and Lemma L with a cycle off i. Every use of "25 of 25" carries "under the J = 0 premise".
-2. T3/T8 Candidate C at n = 11 (maverick, toolsmith): round 066 (E-197) SNF of G, Phi+-I, f(Phi) and q_G are constant in each group, so only finer invariants (SNF(xC+C^T), Z[Phi]-isometry, F-047 conjugacy) or object-level work can split; derived classes inside the four periodic groups (535, 64, 24, 15) with a finer invariant than signature; deletion to n = 10; scholar checks 0911.5137 / 1310.1557 first. Level: idea.
-3. S-1 item 2 (which invariant changes under deletion; 20 x 11 image-class table at n = 9 is a 3 s extension) and the free-stretch filter (experimentalist, maverick); n = 10 needs classes (OVERNIGHT proposal, not made). Breadth slot.
-4. T7: left mutation by duality, induced rule on LNA rows (theorist), reading against arXiv:2112.08129 (scholar); T4 widths 9..11 at w+3..w+4 is a filler (experimentalist).
-5. Housekeeping: `compare2` / docstring rewords, `canonicalKey` cap; Smith form of C + C^T for F-010 vs E-154 (one line).
+## Agenda (proposed, round 068 conference; ordinary rounds work from it until the human changes it). Ranked:
+1. T10/T5 (J = 0 premise): toolsmith counts cycle-meets-D(i) steps in the E-192 balls / failing-step children and sizes an n = 7 control with a certified inequivalent endpoint (a join test that can say NO); scholar Lemma 8.2 sign, d(alpha), explicit step-7 matrix on an acyclic parallel-arrow parent; theorist a cycle meeting D(i) with a finite-dimensional example and the H_1 class of J on one E-157 algebra; skeptic the 13 class-1 E-147 steps by hand. Every use of "25 of 25" carries "under the J = 0 premise".
+2. T3/T8 Candidate C (maverick, toolsmith, skeptic): SNF(xC+C^T) and Z[Phi]-isometry on the n = 11 15-group first; place the 16 unplaced n = 11 LNAs (E-162) against the four groups; n = 10 P/Q with 90000000 ~ 00000030 as power control; scholar first checks 0911.5137 / 1310.1557. Level: idea.
+3. S-1 (experimentalist): free-stretch rule (E-114) at n = 10 -> 9 on unfitted classes; needs n = 10 classes, `--plan` first. Breadth slot.
+4. T7 (scholar, theorist): scholar fetches arXiv:2112.08129 and says if it states the one-step LNA rule; theorist left mutation by duality. T4 widths 9..11 is a filler.
+5. Housekeeping: docstring rewords, `canonicalKey` cap, Smith form of C + C^T for F-010 vs E-154.
 Breadth rule: one slot per round to a dormant thread or a closure note.
 
 ## Open threads
@@ -46,6 +46,7 @@ Each: question · state · last round worked · owner.
 The key-guard law (class 0 only); E-147 class-1 count (one script); H-015 citations from memory; the S-1 K-threshold law (two lengths); E-151 counts are step counts on capped BFS samples; E-155 is one n = 8 class, depth 8, slice 2 not independently re-run; 'in the class' for the 25 children rests on the J = 0 premise (generation now proved per loopless step, E-168), edge-tested at Cartan level (E-157, E-163, E-166 paths), at quiver level only for the 13 E-163 edges (E-167, label-preserving); the E-165 length check is one length per rule.
 
 ## Standing facts
+- Round 068 was a conference: ledger changed no H-, F-, R- status, closed no thread; no new E-entries (merge of origin/main already up to date). Agenda re-proposed.
 - Round 067 added E-198..E-200 (merge of origin/main already up to date). S-1 item 2 taken (experimentalist, E-200).
 - Round 066 added E-195..E-197 (merge of origin/main already up to date). Suggested question S-1 not taken (taken in 065).
 - Round 065 added E-192..E-194 (merge of origin/main already up to date). S-1 suggested question taken in round 065 (item 1).
