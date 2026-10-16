@@ -1,0 +1,15 @@
+1 H1/H2 shape True strict True J {6: 1}
+2 H1/H2 shape True strict True J {2: 1}
+3 H1/H2 shape True strict True J {5: 1}
+4 H1/H2 shape True strict True J {3: 1}
+5 H1/H2 shape True strict True J {6: 1}
+6 H1/H2 shape True strict True J {6: 1}
+7 H1/H2 shape True strict True J {2: 1, 6: 1}
+8 H1/H2 shape True strict True J {6: 1}
+9 H1/H2 shape False strict None J {6: 1}
+10 H1/H2 shape True strict True J {1: 1}
+11 H1/H2 shape True strict True J {7: 1}
+12 H1/H2 shape True strict True J {4: 1}
+13 H1/H2 shape True strict True J {4: 1}
+first 13: H1/H2 shape 12 strict 12
+all D=0 Cartan steps in checkpoint: 89 shape 72

@@ -1,0 +1,68 @@
+class sizes [8, 12, 14, 58, 64, 108] using 1 seeds 12
+segment end: nexp 15582 queue 22262 distinct Cartan 47 distinct key 49 505s
+class sizes [8, 12, 14, 58, 64, 108] using 1 seeds 12
+resumed at nexp 15582
+segment end: nexp 20000 queue 28394 distinct Cartan 64 distinct key 72 157s
+walk: expansions 20000 stopped by cap True snapshots (distinct Cartan, distinct key, sec) {2500: (2, 2), 5000: (4, 4), 10000: (11, 12), 15000: (47, 49), 20000: (64, 72)}
+E-147 convention: distinct J!=0 steps 64 D==0: 10 of which key kept 10 tiltingPlus false 10 parent has parallel arrows 5
+E-151 convention: distinct (parent,v) key kept & tiltingPlus false: 16  D==0 among them: 16  parallel parents: 8
+all distinct (parent,v) J!=0: 72  key kept: 16  D==0 & kept: 16
+E147-D0 0 depth 7 v 4 J {6: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [(7, 4)] in E151 True dim 23 17
+E147-D0 1 depth 7 v 4 J {2: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [(1, 4)] in E151 True dim 23 17
+E147-D0 2 depth 8 v 6 J {5: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [] in E151 True dim 25 19
+E147-D0 3 depth 8 v 7 J {3: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [] in E151 True dim 25 19
+E147-D0 4 depth 8 v 4 J {6: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [] in E151 True dim 25 19
+E147-D0 5 depth 8 v 4 J {6: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [] in E151 True dim 25 19
+E147-D0 6 depth 8 v 4 J {2: 1, 6: 1} tp False D0 True kept True Hom(T,T[-1]) dim 2 Hom(T,T[1]) dim 0 parallel [(7, 4)] in E151 True dim 27 19
+E147-D0 7 depth 8 v 5 J {6: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [(7, 5)] in E151 True dim 23 17
+E147-D0 8 depth 8 v 4 J {6: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [(4, 7), (5, 4)] in E151 True dim 28 19
+E147-D0 9 depth 8 v 7 J {1: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [] in E151 True dim 25 19
+E151-set 0 depth 7 v 4 J {6: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [(7, 4)] in E151 True dim 23 17
+E151-set 1 depth 7 v 4 J {6: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [(7, 4)] in E151 True dim 23 17
+E151-set 2 depth 7 v 4 J {2: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [(1, 4)] in E151 True dim 23 17
+E151-set 3 depth 7 v 4 J {2: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [(1, 4)] in E151 True dim 23 17
+E151-set 4 depth 8 v 6 J {5: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [] in E151 True dim 25 19
+E151-set 5 depth 8 v 7 J {3: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [] in E151 True dim 25 19
+E151-set 6 depth 8 v 4 J {6: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [] in E151 True dim 25 19
+E151-set 7 depth 8 v 4 J {6: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [] in E151 True dim 25 19
+E151-set 8 depth 8 v 4 J {2: 1, 6: 1} tp False D0 True kept True Hom(T,T[-1]) dim 2 Hom(T,T[1]) dim 0 parallel [(7, 4)] in E151 True dim 27 19
+E151-set 9 depth 8 v 4 J {6: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [] in E151 True dim 25 19
+E151-set 10 depth 8 v 4 J {2: 1, 6: 1} tp False D0 True kept True Hom(T,T[-1]) dim 2 Hom(T,T[1]) dim 0 parallel [(7, 4)] in E151 True dim 27 19
+E151-set 11 depth 8 v 5 J {6: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [(7, 5)] in E151 True dim 23 17
+E151-set 12 depth 8 v 4 J {6: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [(4, 7), (5, 4)] in E151 True dim 28 19
+E151-set 13 depth 8 v 7 J {3: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [] in E151 True dim 25 19
+E151-set 14 depth 8 v 7 J {1: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [] in E151 True dim 25 19
+E151-set 15 depth 8 v 7 J {1: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [] in E151 True dim 25 19
+class sizes [8, 12, 14, 58, 64, 108] using 1 seeds 12
+resumed at nexp 20000
+segment end: nexp 20000 queue 28394 distinct Cartan 64 distinct key 72 7s
+walk: expansions 20000 stopped by cap True snapshots (distinct Cartan, distinct key, sec) {2500: (2, 2), 5000: (4, 4), 10000: (11, 12), 15000: (47, 49), 20000: (64, 72)}
+E-147 convention: distinct J!=0 steps 64 D==0: 10 of which key kept 10 tiltingPlus false 10 parent has parallel arrows 5
+E-151 convention: distinct (parent,v) key kept & tiltingPlus false: 16  D==0 among them: 16  parallel parents: 8
+all distinct (parent,v) J!=0: 72  key kept: 16  D==0 & kept: 16
+E147-D0 0 depth 7 v 4 J {6: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [(7, 4)] in E151 True dim 23 17
+E147-D0 1 depth 7 v 4 J {2: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [(1, 4)] in E151 True dim 23 17
+E147-D0 2 depth 8 v 6 J {5: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [] in E151 True dim 25 19
+E147-D0 3 depth 8 v 7 J {3: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [] in E151 True dim 25 19
+E147-D0 4 depth 8 v 4 J {6: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [] in E151 True dim 25 19
+E147-D0 5 depth 8 v 4 J {6: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [] in E151 True dim 25 19
+E147-D0 6 depth 8 v 4 J {2: 1, 6: 1} tp False D0 True kept True Hom(T,T[-1]) dim 2 Hom(T,T[1]) dim 0 parallel [(7, 4)] in E151 True dim 27 19
+E147-D0 7 depth 8 v 5 J {6: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [(7, 5)] in E151 True dim 23 17
+E147-D0 8 depth 8 v 4 J {6: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [(4, 7), (5, 4)] in E151 True dim 28 19
+E147-D0 9 depth 8 v 7 J {1: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [] in E151 True dim 25 19
+E151-set 0 depth 7 v 4 J {6: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [(7, 4)] in E151 True dim 23 17
+E151-set 1 depth 7 v 4 J {6: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [(7, 4)] in E151 True dim 23 17
+E151-set 2 depth 7 v 4 J {2: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [(1, 4)] in E151 True dim 23 17
+E151-set 3 depth 7 v 4 J {2: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [(1, 4)] in E151 True dim 23 17
+E151-set 4 depth 8 v 6 J {5: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [] in E151 True dim 25 19
+E151-set 5 depth 8 v 7 J {3: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [] in E151 True dim 25 19
+E151-set 6 depth 8 v 4 J {6: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [] in E151 True dim 25 19
+E151-set 7 depth 8 v 4 J {6: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [] in E151 True dim 25 19
+E151-set 8 depth 8 v 4 J {2: 1, 6: 1} tp False D0 True kept True Hom(T,T[-1]) dim 2 Hom(T,T[1]) dim 0 parallel [(7, 4)] in E151 True dim 27 19
+E151-set 9 depth 8 v 4 J {6: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [] in E151 True dim 25 19
+E151-set 10 depth 8 v 4 J {2: 1, 6: 1} tp False D0 True kept True Hom(T,T[-1]) dim 2 Hom(T,T[1]) dim 0 parallel [(7, 4)] in E151 True dim 27 19
+E151-set 11 depth 8 v 5 J {6: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [(7, 5)] in E151 True dim 23 17
+E151-set 12 depth 8 v 4 J {6: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [(4, 7), (5, 4)] in E151 True dim 28 19
+E151-set 13 depth 8 v 7 J {3: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [] in E151 True dim 25 19
+E151-set 14 depth 8 v 7 J {1: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [] in E151 True dim 25 19
+E151-set 15 depth 8 v 7 J {1: 1} tp False D0 True kept True Hom(T,T[-1]) dim 1 Hom(T,T[1]) dim 0 parallel [] in E151 True dim 25 19

@@ -1,0 +1,5 @@
+3345000 members 75 L=5 cords>=1 defect<=1: 3 Counter({(2, 3): 2, (1, 2): 1}) 58s
+   3345000 cords 2 rels 3 hit True neg True 186s
+   3345000 cords 2 rels 3 hit True neg True 347s
+   3345000 cords 1 rels 2 hit True neg True 517s
+{'hit': 3, 'neg_ok': 3} total 517s

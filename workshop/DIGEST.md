@@ -7,6 +7,14 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 069 -- 2026-10-16 -- ordinary
+Skeptic, scholar and maverick worked; theorist, skeptic and experimentalist refereed; all three were minor revisions, answered and accepted (two narrowed). Proceedings: `rounds/069/proceedings.md`.
+- **Skeptic (E-201):** one rebuilt n = 7 class-1 walk reproduces E-147's 67 / 13 / 12-strict counts at one window; its 13 D = 0 steps all fail `tiltingPlus` (under the J = 0 premise), 10 lie in E-151's 16 and 3 beyond its cap, 5 have parallel-arrow parents. The counts 13, 16, 9 are cap artefacts (111 pairs at 45 000 expansions); the "13 not reproduced" item of E-179 is closed. Identity is count agreement, not step for step.
+- **Scholar (E-202):** Oppermann v1 Lemma 8.2's sign is right (the proof's last line is mis-simplified); d(alpha) = 0 by the non-negative grading; Sect. 8 needs only that and "no degree-0 loop". d^2 test: 0 failures on 7 082 letters, 788 with the control sign. Cancellation (Prop. 7.6) and a cycle meeting D(i) remain open.
+- **Maverick (E-203, breadth slot T6):** the defect-1 source control passes, 5 of 5 members (n = 9, L = 5, 3 of 9 LNAs, one 3-cord). T6 proposed to park as search-only; H-017 stays OPEN.
+- **Consequences:** none to any H-, F- or R- status; the premise J = 0 is unchanged.
+- Questions for the human: none.
+
 ## Round 068 -- 2026-10-16 -- conference
 All six personas wrote position statements (nothing run); no referees. Proceedings: `rounds/068/proceedings.md`.
 - **Agreement:** all six name the same weakest claim, "25 of 25 failing n = 7 children are in the derived class", which rests on the J = 0 premise (End(T) cannot see J, no join test has returned NO across a J != 0 step; E-181, E-189, E-192). Experimentalist and skeptic also flag the key-guard law (class 0 only).
