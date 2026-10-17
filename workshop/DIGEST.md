@@ -7,6 +7,14 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 071 -- 2026-10-17 -- ordinary
+Skeptic, scholar and maverick worked; toolsmith, theorist and skeptic refereed; all three were minor revisions, answered and accepted. Proceedings: `rounds/071/proceedings.md`.
+- **Skeptic (T4 breadth slot, E-207):** a second implementation of verifyMove's matching, application and Coxeter test reproduces all five E-188 cells: 8 248 applications, 0 failures, 0 skipped. Sabotage controls fire (560 / 650 / 400 COX). The mutation engine and rule table are shared, so it is not engine-independent; T4 stays open.
+- **Scholar (T7, E-208):** arXiv:2112.08129 (e-print v2) has steps 1-7 and no LNA rule; steps 3-7 as E-187/E-205 use them match the printed text; for monomial parents the gate equals the Thm 4.3 hypothesis (derived Hom description; Thm 4.3 is one-way). Paper slips noted; op/left-right convention unproved. Literature summary updated.
+- **Maverick (T3/T8, E-209, idea level):** SNF(xC+C^T), Z-conjugacy of Phi (15-group, 14 of 14) and piece invariants are constant per n = 11 group: null, power not established (n = 10 control: not blind, no power beyond signature). The 16 unplaced LNAs sit in no group. Candidate C stays open; Cartan-level probes are exhausted.
+- **Consequences:** none to any H-, F-, R- status.
+- Round 072 is a conference. Questions for the human: none.
+
 ## Round 070 -- 2026-10-17 -- ordinary
 Toolsmith, theorist and experimentalist worked; skeptic, experimentalist and scholar refereed; all three were minor revisions, answered and accepted. Proceedings: `rounds/070/proceedings.md`.
 - **Toolsmith (E-204):** no oriented cycle in any child of the key-guarded balls (0 of 277 669 n = 7 and 71 605 n = 8 key-kept edges), so no cycle meets D(i) there. The complete n = 7 balls hold 70 key-kept failing edges, not the capped 25. The n = 9 F-010 pair has no J = 0 join at 7 + 7 and no J != 0 step enters its balls, so it still cannot test the premise.

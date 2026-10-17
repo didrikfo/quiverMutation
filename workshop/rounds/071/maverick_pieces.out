@@ -1,0 +1,15 @@
+groups [15, 24, 64, 535] 51s
+group 15: factors [t + 1, t**2 - t + 1, t**6 - t**5 + t**4 - t**3 + t**2 - t + 1]
+  distinct (rank, sig, det, theta) tuples over L_f: 1
+    15 members: ['(3, (3, 0), 168, ((6, 6), (8, 4)))', '(2, (2, 0), 3, ((2, 6), (6, 6), (8, 6)))', "(6, (4, 2), 7, ('indef/big', 7))"]
+group 24: factors [t + 1, t**2 + 1, t**4 - t**2 + 1, t**4 + 1]
+  distinct (rank, sig, det, theta) tuples over L_f: 1
+    24 members: ['(1, (1, 0), 8, ((8, 2),))', '(2, (2, 0), 16, ((4, 4), (8, 4)))', "(4, (2, 2), 1, ('indef/big', 1))", '(4, (4, 0), 16, ((2, 8), (4, 24), (6, 32), (8, 24)))']
+group 64: factors [t + 1, t**4 + 1, t**6 - t**3 + 1]
+  distinct (rank, sig, det, theta) tuples over L_f: 1
+    64 members: ['(1, (1, 0), 12, ())', '(4, (4, 0), 4, ((2, 24), (4, 24), (6, 96), (8, 24)))', "(6, (4, 2), 3, ('indef/big', 3))"]
+group 535: factors [t + 1, t**2 - t + 1, t**8 + t**7 - t**5 - t**4 - t**3 + t + 1]
+  distinct (rank, sig, det, theta) tuples over L_f: 1
+    535 members: ['(1, (1, 0), 6, ((6, 2),))', '(2, (2, 0), 75, ())', "(8, (6, 2), 25, ('indef/big', 25))"]
+cross-group disjoint (control): True
+total 60s

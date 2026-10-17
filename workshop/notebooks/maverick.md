@@ -1,24 +1,23 @@
 # Maverick's notebook
 
-## What I now believe (after round 069)
-- T6/H-017: defect-1 source control PASSES (r069, 3345000, L=5: 3/3 hit, 0/3 at L-1; cells (2,3),(2,3),(1,2)). With E-185 (defect 2, L=5,6) the search's positive controls are complete. I proposed closing T6 for the ledger; only the overnight depth-7 census (needs human approval) reopens it. Untested: (5,3,4) cell (3 cords), other LNAs' defect-1 members (3455000 has 3 of (2,3); 4444400 none).
-- T3/T8 Candidate C: moot at n = 10 only (E-190). At n = 11 four periodic-indefinite groups 535/64/24/15, all signature (2,0,9), ord Phi 30/72/24/42.
-- r066: inside each n=11 group SNF(G), SNF(Phi+-I), per-factor SNF(f(Phi)) take ONE value per group (535:(2), 64:(4), 24:(8), 15:(2,2,2)). Cartan-genus data cannot split; not a proof of one class per group. Untried: Z[Phi]-isometry class number (expect 1).
-- Real size of C at n = 11 = orbit+mirror classes per group: NOT yet counted.
-- n=10 Phi^18 group: 2 classes (D_10 incl. 90000000; {34504030 ~ 50505000}); signature separates. Repo Phi = -C^-T C, [S] = -Phi.
-- HH^* = k on LNAs (E-172). Power control r058: equivalent control joins at 4+4, ~3x per level.
-- r050: LNAs with quipu polynomial but other signature: 0 at n<=9, 2 at 10, 16 at 11 (UNPLACED).
+## What I now believe (after round 071)
+- T3/T8 Candidate C at n = 11 stays undecided, and Cartan-level probes are exhausted in the cheap range: SNF(xC+C^T) (x = -5..5; = SNF(xI - Phi^-1), a function of the Z[t]-module only), Z-conjugacy of Phi (14/14 explicit P in the 15-group), per-factor isometry class of (ker f(Phi^T), G) (rank, sig, det, theta): ONE value per group, all four groups (E-190 groups 535/64/24/15).
+- Convention: Phi = -C^-T C; G = C^-1 + C^-T is invariant under Phi^T (not Phi); C^-1 = (I-Phi)^-1 G, so Cartan congruence = Phi^T-equivariant isometry of G.
+- Real size of C: orbit+mirror classes (freeMoves.derivedOrbits free=True + mirrorRow): 15-group 9, 24-group 10, 64-group 25, 535-group 213. No orbit leaves its group.
+- The 16 unplaced n = 11 LNAs (E-162): one quipu key, signature (9,1,1), Phi not periodic: in none of the four groups.
+- Still true: n=10 Phi^18 group has 2 classes (E-190); HH^* = k (E-172); T6/H-017 controls complete (E-185, E-203), parked.
+- r058: equivalent control joins at 4+4, ~3x per level; r050: 16 unplaced at n = 11.
 
 ## What I tried
-- r069: maverick_defect1.py (defect-1 control, 517 s). r066: finer, factors. r063: cartanC, n11periodic. r061 cordcontrol; r058 group, ctrlpairs; r055; r054; r050; earlier.
+- r071: maverick_snfx, _orbits, _conj, _pieces, _place16 (all < 70 s). r069 defect-1 control; r066 finer/factors/qform; r063 cartanC, n11periodic; earlier cordcontrol, group, ctrlpairs.
 
 ## Watch for
-- grep research/ AND research/literature/ before announcing a dead end; check F-045/Happel-Seidel merges.
-- Controls: certified different-class AND equivalent control as long as the test; exercise the feature.
-- Say the unit (orbit, class, polynomial group). "cord" is overloaded (E-103).
-- phiOrd cap: use 200. Forward walk n=9 depth 5 costs 50-90 s per LNA; each back-search member ~150 s.
+- Wrong-transpose mistakes: check numerically which of Phi, Phi^T preserves G before building a lattice invariant. My first piece run used Phi and gave 9 values on the 15-group (count = 9 orbit classes: unexamined coincidence).
+- Power: no known inequivalent pair at n = 11 with equal key + signature + these invariants; a NO-capable control does not exist yet. n = 10 control 90000000 ~ 00000030 needs the indefinite filter dropped (D_10 G is definite).
+- grep research/ and research/literature/ before announcing a dead end; "cord" is overloaded (E-103); phiOrd cap 200.
 
 ## Next
-- Count orbit+mirror classes per n = 11 group (--plan first); then J=0 join tests on the smallest group (15).
-- Equivalence control for join search: 90000000 vs 00000030.
-- Overnight: forward census depth 7; 16 UNPLACED n = 11 LNAs.
+- Only non-Cartan separators can move C: J = 0 join between two of the 9 orbit+mirror classes of the 15-group (toolsmith; --plan first; n = 10 control first).
+- Optional: staged explicit isometry on the 15-group (definite pieces finite, glue, indefinite rank-6 piece via Z[zeta_7]-units) for an E-154-style P between different orbit classes; or ask a theorist for the class-number statement.
+- Examine whether the wrong-Phi tuple partition equals the orbit+mirror partition (cheap, may be a labelling invariant).
+- Overnight: forward census depth 7 (T6); S-1 n = 15 K0 = 5.

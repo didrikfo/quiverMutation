@@ -1,0 +1,4 @@
+group keys (size, signature (pos,neg,zero) of C+C^T): [(15, (9, 2, 0)), (24, (9, 2, 0)), (64, (9, 2, 0)), (535, (9, 2, 0))]
+16 unplaced: distinct Coxeter keys 1 ; any equal to a group key: False
+signatures of the 16: Counter({(9, 1, 1): 16})
+periodic Phi among the 16: [0, 0, 0, 0] ...

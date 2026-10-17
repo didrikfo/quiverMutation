@@ -1,0 +1,38 @@
+derivedOrbits 3712 orbits of 16796  8s
+group 15: orbit+mirror classes 9; members per class [2, 2, 2, 2, 2, 2, 1, 1, 1]; whole-class sizes [2, 2, 2, 2, 2, 2, 1, 1, 1]
+   rep 345040330 members in group 2 class size 2
+   rep 505040330 members in group 2 class size 2
+   rep 455504030 members in group 2 class size 2
+   rep 350504030 members in group 2 class size 2
+   rep 505050030 members in group 2 class size 2
+   rep 505055000 members in group 2 class size 2
+   rep 356050030 members in group 1 class size 1
+   rep 504045000 members in group 1 class size 1
+group 24: orbit+mirror classes 10; members per class [4, 4, 2, 2, 2, 2, 2, 2, 2, 2]; whole-class sizes [4, 4, 2, 2, 2, 2, 2, 2, 2, 2]
+   rep 440450000 members in group 4 class size 4
+   rep 405050000 members in group 4 class size 4
+   rep 606004030 members in group 2 class size 2
+   rep 404550030 members in group 2 class size 2
+   rep 450504400 members in group 2 class size 2
+   rep 566050400 members in group 2 class size 2
+   rep 403450400 members in group 2 class size 2
+   rep 555050400 members in group 2 class size 2
+group 64: orbit+mirror classes 25; members per class [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 2, 2]; whole-class sizes [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 2, 2]
+   rep 560040300 members in group 4 class size 4
+   rep 244044000 members in group 4 class size 4
+   rep 460504000 members in group 4 class size 4
+   rep 440504000 members in group 4 class size 4
+   rep 406004000 members in group 4 class size 4
+   rep 344034000 members in group 4 class size 4
+   rep 240404000 members in group 4 class size 4
+   rep 366050000 members in group 4 class size 4
+group 535: orbit+mirror classes 213; members per class [8, 8, 8, 4, 4, 4, 4, 4, 4, 4, 4, 4]; whole-class sizes [8, 8, 8, 4, 4, 4, 4, 4, 4, 4, 4, 4]
+   rep 250403300 members in group 8 class size 8
+   rep 255040300 members in group 8 class size 8
+   rep 250500300 members in group 8 class size 8
+   rep 334403300 members in group 4 class size 4
+   rep 450403300 members in group 4 class size 4
+   rep 350403300 members in group 4 class size 4
+   rep 605003300 members in group 4 class size 4
+   rep 555040300 members in group 4 class size 4
+total 62s
