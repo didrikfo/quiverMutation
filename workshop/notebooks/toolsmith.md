@@ -21,3 +21,10 @@
 - Added `CyclicQuiverWarning`/`hasOrientedCycle`/`warnIfCyclic` in `arrowPaths.py`, called in `cartanMatrix`, `arrowPaths.isInIdeal`, `procedure._minimalGenerators`; test `tests/test_cyclic_warning.py`. `relationAlgebra` (vertex model) unguarded. The search does meet cyclic quivers (test_cycles warns).
 - Believe: printed paths are in the acyclic setting; the live gap is cyclic children turned parents inside key-kept balls (uncounted).
 - Next: count cyclic parents in E-192 balls if asked; DEFAULT_CAP/docstring housekeeping; n = 8 c2 depth 9-10 only as OVERNIGHT.
+
+## Round 070 (T10/T5 item 1 again)
+- Believe: the key-guarded n = 7 balls (c1, c2, complete to parent depth 8) and n = 8 c0/c2 contain NO cyclic child (0 of 277 669 + 71 605 edges), so the cycle-meets-D(i) count is 0 there; every failing child is acyclic. `070/toolsmith_cyccount.py` (sharding `I/K` of the last level; prefix repeated per shard).
+- Believe: E-151/E-192 "16+9 = 25" is a CAPPED count; complete parent depth <= 8 gives 34 + 36 = 70 failing edges. "25 of 25 joined" is therefore a subset. Not yet distinct-by-canonicalKey.
+- At n = 7 an inequivalent control is key-forced (J = 0 steps never move the key: no ('noguard','tilt') in 10 balls), so it cannot test anything; live control is n = 9 F-010: J0 7+7 no join, ALL mode same reach sets (no J != 0 step), 333 s (43/121/333 s at depth 5/6/7, x2.8 per level; 8+8 ~ 16 min -> OVERNIGHT).
+- Lesson: before trusting a count in EXPERIMENTS, check whether the run was checkpointed/capped (deepreplay prints CHECKPOINT).
+- Next: distinct canonicalKey of the 70; join the ~45 not in E-157 with tiltpath; validate `cyclicVertices` by an injected cycle; F-010 8+8 proposal.

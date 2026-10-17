@@ -1,0 +1,18 @@
+depth 1 expanded 18 next 78 1s
+depth 2 expanded 96 next 194 3s
+depth 3 expanded 290 next 444 10s
+depth 4 expanded 734 next 1030 27s
+depth 5 expanded 1764 next 2344 68s
+depth 6 expanded 4108 next 5628 142s
+depth 7 expanded 9736 next 14580 338s
+depth 8 expanded 14941 next 13423 540s
+n 8 class 2 key (1, 1, -1, -4, -5, -4, -1, 1, 1) depth reached 8 budget-stopped True distinct nodes 37738
+cyclic-guard-tilt 0
+cyclic-noguard-FAIL 0
+edges 62204
+edges-raw-cyclic 0
+expanded 14941
+guard 62203
+noguard 1
+distinct cyclic key-kept nodes 0
+failing key-kept children 0 of which cyclic after reduce 0 cyclic before reduce 0

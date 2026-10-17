@@ -7,6 +7,14 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 070 -- 2026-10-17 -- ordinary
+Toolsmith, theorist and experimentalist worked; skeptic, experimentalist and scholar refereed; all three were minor revisions, answered and accepted. Proceedings: `rounds/070/proceedings.md`.
+- **Toolsmith (E-204):** no oriented cycle in any child of the key-guarded balls (0 of 277 669 n = 7 and 71 605 n = 8 key-kept edges), so no cycle meets D(i) there. The complete n = 7 balls hold 70 key-kept failing edges, not the capped 25. The n = 9 F-010 pair has no J = 0 join at 7 + 7 and no J != 0 step enters its balls, so it still cannot test the premise.
+- **Theorist (T7 breadth slot, E-205):** left mutation of an LNA is the mirror of E-187's rule (slides a length-2 relation right, C_{v-2} C_{n-v}); checked on the repo's left mutation n = 4..10 (referee n = 11), a reduction to E-187, not an independent proof.
+- **Experimentalist (S-1, E-206):** at n = 10 -> 9, deleting a vertex at distance >= 3 from every relation gives one image class for 10 of 10 key+orbit labels (32 of 42 labels have no such vertex). D >= 2 fails for 2 labels inside one exact class. Rediscovery of E-114/E-146 at n = 10; new only in the cell counts.
+- **Consequences:** "25 of 25 failing children joined under the J = 0 premise" covers a subset of the 70 failing edges (distinct children and their join are open, T10). No H-, F-, R- status changed.
+- Questions for the human: none. Overnight proposals (F-010 J = 0 depth 8 + 8, exact `classifyLength(10)`) are in E-204 / E-206, not added to `OVERNIGHT.md`.
+
 ## Round 069 -- 2026-10-16 -- ordinary
 Skeptic, scholar and maverick worked; theorist, skeptic and experimentalist refereed; all three were minor revisions, answered and accepted (two narrowed). Proceedings: `rounds/069/proceedings.md`.
 - **Skeptic (E-201):** one rebuilt n = 7 class-1 walk reproduces E-147's 67 / 13 / 12-strict counts at one window; its 13 D = 0 steps all fail `tiltingPlus` (under the J = 0 premise), 10 lie in E-151's 16 and 3 beyond its cap, 5 have parallel-arrow parents. The counts 13, 16, 9 are cap artefacts (111 pairs at 45 000 expansions); the "13 not reproduced" item of E-179 is closed. Identity is count agreement, not step for step.

@@ -1,0 +1,20 @@
+, -1, -2, -2, -2, -1, 0, 1, 1) rows 680 orbit+mirror components 3 [368, 242, 70]
+  rep (2, 2, 2, 2, 5, 0, 0, 0) meets rep0 at depth None 13
+  rep (2, 2, 7, 0, 0, 0, 0, 0) meets rep0 at depth None 39
+, -2, -4, -5, -4, -2, 0, 1, 1) rows 262 orbit+mirror components 1 [262]
+
+D >= 2 image sets per orbit+mirror component
+, -1, -2, -2, -2, -1, 0, 1, 1) component rows 368 {'P^(5)_(1,2)': 32, 'P^(4)_(1,3)': 100}
+, -1, -2, -2, -2, -1, 0, 1, 1) component rows 242 {'P^(4)_(1,3)': 54}
+, -1, -2, -2, -2, -1, 0, 1, 1) component rows 70 {'P^(5)_(1,2)': 2}
+, -2, -4, -5, -4, -2, 0, 1, 1) component rows 262 {'P^(4)_(2,2)': 20, 'P^(3)_(2,3)': 56}
+
+D = 2 split by (side, nearest relation lengths), largest component of the 680-row label
+    ('left', (2,)) {'P^(4)_(1,3)': 16}
+    ('left', (3,)) {'P^(5)_(1,2)': 16, 'P^(4)_(1,3)': 11}
+    ('left', (4,)) {'P^(4)_(1,3)': 3}
+    ('left', (5,)) {'P^(4)_(1,3)': 4}
+    ('right', (2,)) {'P^(4)_(1,3)': 16}
+    ('right', (3,)) {'P^(5)_(1,2)': 16, 'P^(4)_(1,3)': 11}
+    ('right', (4,)) {'P^(4)_(1,3)': 3}
+    ('right', (5,)) {'P^(4)_(1,3)': 4}

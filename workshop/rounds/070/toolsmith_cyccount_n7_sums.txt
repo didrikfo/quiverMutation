@@ -1,0 +1,4 @@
+n = 7, parent depth <= 8: sum of 4 depth-9 shards minus 3 x the depth-8 run (repeated prefix), per counter (computed from toolsmith_cyccount_n7c{1,2}_d9_s*.txt and toolsmith_cyccount_n7c{1,2}.txt)
+c1: expanded 29515 edges 122298 guard 122207 noguard 91 | x-guard-tilt 122173 x-guard-FAIL 34 x-noguard-tilt 0 x-noguard-FAIL 91 | cyclic-* 0
+c2: expanded 38428 edges 155596 guard 155462 noguard 134 | x-guard-tilt 155426 x-guard-FAIL 36 x-noguard-tilt 0 x-noguard-FAIL 134 | cyclic-* 0
+total: edges 277894 (all legal children) = guard 277669 (key-kept) + noguard 225 (key-moving); x-guard-FAIL 70; x-noguard-tilt 0 of 225

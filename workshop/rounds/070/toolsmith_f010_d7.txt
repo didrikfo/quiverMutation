@@ -1,0 +1,6 @@
+pair 3060000 3304000 n 9 depth each side 7
+J0 reach A 10526 reach B 5625 iso meetings 0 shortest total None sec 333
+
+real	5m33.899s
+user	5m31.702s
+sys	0m0.173s
