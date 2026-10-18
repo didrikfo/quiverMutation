@@ -7,6 +7,15 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 072 -- 2026-10-18 -- conference
+All six personas wrote position statements; nothing was run. Proceedings: `rounds/072/proceedings.md`.
+- **Positions:** theorist, skeptic, scholar and toolsmith name the same question: can the J = 0 join test say NO across a J != 0 step on a pair with an independent inequivalence certificate (or does the guard force D(i) acyclic)? Maverick: a non-Cartan test for the n = 11 15-group, with 90000000 ~ 00000030 as power control. Experimentalist: S-1 at n = 10 -> 9 with exact `classifyLength(10)` labels.
+- **Weakest claims named:** "25 of 25 failing n = 7 children are in the class" (conditional on J = 0; a subset of the 70 key-kept failing edges of E-204); key-guard law is class 0 only; n = 11 group counts as derived-class counts (Cartan nulls have no demonstrated power); S-1 table rests on key+orbit proxy labels.
+- **Ledger (E-201..E-209):** no H-, F- or R- status changed, no thread closed (H-015 OPEN, H-010 and H-020 SUPPORTED, H-017 and H-021 OPEN); no new E-entries; nothing promoted.
+- **Agenda (proposed):** 1 T10/T5 a join test that can say NO (toolsmith, theorist, scholar, skeptic); 2 T3/T8 Candidate C (maverick, toolsmith); 3 S-1 exact labels, `--plan` first (experimentalist); 4 T6 depth-5 defect test (breadth); 5 housekeeping.
+- **Decisions for the steering committee:** none needed; no overnight run proposed.
+- **Questions for the human:** none. **Approve or change the proposed agenda in `workshop/STEERING.md`;** until then ordinary rounds work from it.
+
 ## Round 071 -- 2026-10-17 -- ordinary
 Skeptic, scholar and maverick worked; toolsmith, theorist and skeptic refereed; all three were minor revisions, answered and accepted. Proceedings: `rounds/071/proceedings.md`.
 - **Skeptic (T4 breadth slot, E-207):** a second implementation of verifyMove's matching, application and Coxeter test reproduces all five E-188 cells: 8 248 applications, 0 failures, 0 skipped. Sabotage controls fire (560 / 650 / 400 COX). The mutation engine and rule table are shared, so it is not engine-independent; T4 stays open.
