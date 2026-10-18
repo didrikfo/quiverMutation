@@ -1,0 +1,69 @@
+== keymoving 7 2 8 590 0/4
+n 7 class 2 key (1, 1, 0, -2, -2, 0, 1, 1) depth reached 8 budget-stopped False distinct nodes 25332
+cyclic-guard-tilt 0
+cyclic-noguard-FAIL 0
+edges 37970
+edges-raw-cyclic 0
+expanded 9656
+guard 37956
+noguard 14
+x-guard-tilt 37956
+x-noguard-FAIL 14
+distinct cyclic key-kept nodes 0
+HOM TALLY
+('keykept', 'tiltingPlus', 'HomACC') 37956
+('keymoving', 'tpFALSE', 'HomREJ') 14
+== keymoving 7 2 8 590 1/4
+n 7 class 2 key (1, 1, 0, -2, -2, 0, 1, 1) depth reached 8 budget-stopped False distinct nodes 25332
+cyclic-guard-FAIL 0
+cyclic-guard-tilt 0
+cyclic-noguard-FAIL 0
+edges 37970
+edges-raw-cyclic 0
+expanded 9655
+guard 37955
+noguard 15
+x-guard-FAIL 4
+x-guard-tilt 37951
+x-noguard-FAIL 15
+distinct cyclic key-kept nodes 0
+HOM TALLY
+('keykept', 'tiltingPlus', 'HomACC') 37951
+('keykept', 'tpFALSE', 'HomREJ') 4
+('keymoving', 'tpFALSE', 'HomREJ') 15
+== keymoving 7 2 8 590 2/4
+n 7 class 2 key (1, 1, 0, -2, -2, 0, 1, 1) depth reached 8 budget-stopped False distinct nodes 25353
+cyclic-guard-FAIL 0
+cyclic-guard-tilt 0
+cyclic-noguard-FAIL 0
+edges 38002
+edges-raw-cyclic 0
+expanded 9655
+guard 37992
+noguard 10
+x-guard-FAIL 1
+x-guard-tilt 37991
+x-noguard-FAIL 10
+distinct cyclic key-kept nodes 0
+HOM TALLY
+('keykept', 'tiltingPlus', 'HomACC') 37991
+('keykept', 'tpFALSE', 'HomREJ') 1
+('keymoving', 'tpFALSE', 'HomREJ') 10
+== keymoving 7 2 8 590 3/4
+n 7 class 2 key (1, 1, 0, -2, -2, 0, 1, 1) depth reached 8 budget-stopped False distinct nodes 25362
+cyclic-guard-FAIL 0
+cyclic-guard-tilt 0
+cyclic-noguard-FAIL 0
+edges 37954
+edges-raw-cyclic 0
+expanded 9655
+guard 37941
+noguard 13
+x-guard-FAIL 1
+x-guard-tilt 37940
+x-noguard-FAIL 13
+distinct cyclic key-kept nodes 0
+HOM TALLY
+('keykept', 'tiltingPlus', 'HomACC') 37940
+('keykept', 'tpFALSE', 'HomREJ') 1
+('keymoving', 'tpFALSE', 'HomREJ') 13

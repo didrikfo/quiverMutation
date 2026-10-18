@@ -2,29 +2,22 @@
 
 ## Round 003-017
 - `orbitCensus`/`OrbitsTask` in `batch.py` (`--jobs`, `--plan`, `--summary`). Ledger unsafe with two concurrent processes on one file.
-- `rounds/006/toolsmith_orbitclass.py N`: n = 12 48 s ... n = 16 ~32 min.
-- Traps: long `sleep` chains blocked (use `timeout N bash -c 'until ...; do sleep 5; done'`, <= 100 s per call); `pkill -f` with a pattern in own command line kills own shell; `rm -f $VAR/*` blocked; > 3 jobs on 4 cores inflates timings; a call that times out/exits 144 leaves jobs running, check `ps`.
+- Traps: long `sleep` chains blocked (use `timeout N bash -c 'until ...; do sleep 5; done'`, <= 100 s per call); `pkill -f` with a pattern in own command line kills own shell; > 3 jobs on 4 cores inflates timings; a call that times out/exits 144 leaves jobs running, check `ps`.
 
-## Round 019-043
-- Walk/replay/longsquare/snfresolve scripts; `QM_CHECK_CARTAN=1` opt-in. Lessons: grep FINDINGS for a derived invariant before sizing; doubled-arrow parents need `procedure.toPathAlgebra`; "no hit" needs a positive control in the same family.
-- `043/toolsmith_revcontrol.py`: reverse control 12/12; 10.3% reverse edges lost (E-149).
-
-## Round 045-053 (T10)
-- 047 `merges.py --witness`; 049 meet-in-the-middle; 050/051 all 25 E-151 children joined under J = 0 (E-160, E-163). `canonicalKey` None for bundles > 720 relabelings; cap 5040 changes no verdict.
-
-## Rounds 055-065
-- S-1 sizing n = 13-15. End(T) iso at every step, J = 0 or not (E-174): only Hom(T,T[-1]) tests the premise. 065 (E-192): J != 0 join search at n = 8, 9 not reachable (0 hits in 181k edges; multi-hour).
+## Round 019-065 (short)
+- Walk/replay/tiltpath/snfresolve scripts; `QM_CHECK_CARTAN=1` opt-in. Lessons: grep FINDINGS/EXPERIMENTS for a derived invariant before sizing; doubled-arrow parents need `procedure.toPathAlgebra`; "no hit" needs a positive control in the same family. `canonicalKey` None for bundles > 720 relabelings; cap 5040 changes no verdict. End(T) iso at every step, J = 0 or not (E-174): only Hom(T,T[-1]) tests the premise.
 - Open housekeeping: DEFAULT_CAP 5040 + docstring rewords; relabelling-aware `meetingPoints` (E-164).
 
-## Round 067 (T10/T5 item 1: cyclic parents)
-- LESSON: grep EXPERIMENTS for the property before scanning. E-168 (054) had already scanned all 44 n = 7 paths (370 edges) for loops AND oriented cycles: 0. STATE/E-193 kept listing it as open. I only added n = 10 E-169 (35 edges, 0) via `067/toolsmith_cycscan.py`.
-- Added `CyclicQuiverWarning`/`hasOrientedCycle`/`warnIfCyclic` in `arrowPaths.py`, called in `cartanMatrix`, `arrowPaths.isInIdeal`, `procedure._minimalGenerators`; test `tests/test_cyclic_warning.py`. `relationAlgebra` (vertex model) unguarded. The search does meet cyclic quivers (test_cycles warns).
-- Believe: printed paths are in the acyclic setting; the live gap is cyclic children turned parents inside key-kept balls (uncounted).
-- Next: count cyclic parents in E-192 balls if asked; DEFAULT_CAP/docstring housekeeping; n = 8 c2 depth 9-10 only as OVERNIGHT.
+## Round 067-070 (T10/T5 item 1)
+- E-168 had already scanned n = 7 paths for cycles; E-198 added n = 10 and `CyclicQuiverWarning`. 070: key-guarded n = 7 balls (c1, c2 depth 8) and n = 8 c0/c2 hold no cyclic child; 70 key-kept failing edges (34 + 36), not the capped 25 (E-204).
+- Lesson: check whether a count in EXPERIMENTS was capped/checkpointed.
 
-## Round 070 (T10/T5 item 1 again)
-- Believe: the key-guarded n = 7 balls (c1, c2, complete to parent depth 8) and n = 8 c0/c2 contain NO cyclic child (0 of 277 669 + 71 605 edges), so the cycle-meets-D(i) count is 0 there; every failing child is acyclic. `070/toolsmith_cyccount.py` (sharding `I/K` of the last level; prefix repeated per shard).
-- Believe: E-151/E-192 "16+9 = 25" is a CAPPED count; complete parent depth <= 8 gives 34 + 36 = 70 failing edges. "25 of 25 joined" is therefore a subset. Not yet distinct-by-canonicalKey.
-- At n = 7 an inequivalent control is key-forced (J = 0 steps never move the key: no ('noguard','tilt') in 10 balls), so it cannot test anything; live control is n = 9 F-010: J0 7+7 no join, ALL mode same reach sets (no J != 0 step), 333 s (43/121/333 s at depth 5/6/7, x2.8 per level; 8+8 ~ 16 min -> OVERNIGHT).
-- Lesson: before trusting a count in EXPERIMENTS, check whether the run was checkpointed/capped (deepreplay prints CHECKPOINT).
-- Next: distinct canonicalKey of the 70; join the ~45 not in E-157 with tiltpath; validate `cyclicVertices` by an injected cycle; F-010 8+8 proposal.
+## Round 073 (T10/T5 item 1: certificate for one J != 0 step)
+- Believe: at n = 7 class 2, 8 of 9 E-151 failing steps have parent ~ child (Hom-verified F/R chains to seed LNAs; the two seeds are equal, isomorphic, or joined by <= 5 edges). Record 6 has no child path. Class 1 and the other 28 class-2 E-204 edges not done. `073/toolsmith_certificate.py` (modes chain, corrupt, edges, seedlinkiso, f010), needs `049/toolsmith_collect.py 7 2 20000 pkl 100` (311 s).
+- Believe: `canonicalKey` is a LABELLED key: isomorphic seeds (04000 and its relation dual, 4 more pairs in class 2) have different keys, so labelled meets can miss. Parent and child of a step may reach different seeds; E-157's "joined to an LNA" did not say which.
+- Believe: no NO-test has demonstrated power at n = 7: key-equal inequivalent pairs do not exist there; cross-key rejection is forced by the Coxeter polynomial. Hom test: 0 disagreements over ~150k verdicts, key-moving 52/52 rejected (shards overlap). Cartan-level invariants (SNF of C, C+C^T, C-C^T, signature) equal for the F-010 pair, so no power there either.
+- Round 073 review: NO-power wording narrowed (1 Hom rejection in 195 corruptions; rest legality/iso). `parallel-at-meet` False at all 16 meets. Overnight script `073/toolsmith_f010_overnight.py --budget-hours`.
+- Live NO control: n = 9 F-010 with iso meets: 4 + 4 no meet (116 s), 5 + 5 YES control 507 s, NO control exceeds 10 min (OVERNIGHT proposal).
+- Tried and dropped: n = 7 key-moving steps from tilting-closed neighbourhoods (0 of ~800); they only occur deep in the ball.
+- Next: collect the remaining 28 class-2 and 34 class-1 edges (collector caps at 20 000 expansions; a depth-8 complete collector is 8x slower); make iso-meet the default in `meetingPoints`; F-010 5 + 5 overnight.
+- Traps: shards of `keymoving` repeat levels 1-7, so per-shard tallies must not be summed; shell loops over many runs hit the 120 s foreground limit and go to background (use files).

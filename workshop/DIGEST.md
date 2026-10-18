@@ -7,6 +7,14 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 073 -- 2026-10-18 -- ordinary
+Toolsmith, theorist and experimentalist worked; skeptic, scholar and maverick refereed; all three were minor revisions, answered and accepted. Proceedings: `rounds/073/proceedings.md`.
+- **Toolsmith (T10, E-212):** at n = 7 class 2, 8 of the 9 key-kept J != 0 steps have parent and child joined by Hom-verified tilting chains with isomorphism at the meets (record 6 undecided, class 1 not run, generation assumed). The verifier's NO power is thin (1 Hom rejection in 195 corruptions; n = 9 F-010 4 + 4 found no meet; Cartan invariants cannot separate that pair).
+- **Theorist (T5, E-211):** the guard does not force D(i) acyclic; the search's whole-quiver `noCycles` does. A finite-gd cyclic parent (n = 4) exists where the repo's step 7 drops a relation and the child is not derived equivalent, so E-199's kernel identification holds for acyclic D(i) only.
+- **Experimentalist (S-1, E-210):** the pair 90000000 / 00000030 is outside the D >= 3 rule (D = 0 everywhere on 90000000); all its deletions and i = 1..7 of 00000030 land in P^(6)_(1,1). Exact `classifyLength(10)` sized (61 % seeded in 311 s, resolve step unsized), not run.
+- **Consequences:** guard docstring should say it is inert on cyclic input; direct `mutateAtVertex` callers have no cycle check (toolsmith request). No H-, F-, R- status changed.
+- Decisions for the steering committee: no overnight run approved (exact `classifyLength(10)` and the F-010 5 + 5 control recorded as proposals only). **Questions for the human: none.**
+
 ## Round 072 -- 2026-10-18 -- conference
 All six personas wrote position statements; nothing was run. Proceedings: `rounds/072/proceedings.md`.
 - **Positions:** theorist, skeptic, scholar and toolsmith name the same question: can the J = 0 join test say NO across a J != 0 step on a pair with an independent inequivalence certificate (or does the guard force D(i) acyclic)? Maverick: a non-Cartan test for the n = 11 15-group, with 90000000 ~ 00000030 as power control. Experimentalist: S-1 at n = 10 -> 9 with exact `classifyLength(10)` labels.
