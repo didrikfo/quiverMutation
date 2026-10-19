@@ -34,36 +34,63 @@ def shortVectors(H, B):
     rec(r - 1, B + 1e-7)
     return [np.array(v, dtype=np.int64) for v in out]
 
-def Wmat(M, v, n):
-    cols = [v.astype(object)]
-    for _ in range(n - 1): cols.append(M.astype(object) @ cols[-1])
-    return Matrix(np.array(cols, dtype=object).T.tolist())
+def orbitCols(M, vs, n):
+    """greedily pick columns M^a v_i (a ascending, round robin) until rank n; return list of (i, a) and the matrix (object)."""
+    cols = []; idx = []; rk = 0
+    cur = [v.astype(object) for v in vs]
+    for a in range(n):
+        for i in range(len(vs)):
+            trial = cols + [cur[i]]
+            if np.linalg.matrix_rank(np.array(trial, dtype=float)) > rk:
+                cols = trial; idx.append((i, a)); rk += 1
+        cur = [M.astype(object) @ c for c in cur]
+        if rk == n: break
+    return idx, (Matrix(np.array(cols, dtype=object).T.tolist()) if rk == n else None)
 
-def isometry(Ga, Ma, Gb, Mb, cap=2_000_000):
+def cols_for(M, us, idx):
+    out = []
+    for (i, a) in idx:
+        w = us[i].astype(object)
+        for _ in range(a): w = M.astype(object) @ w
+        out.append(w)
+    return Matrix(np.array(out, dtype=object).T.tolist())
+
+def isometry(Ga, Ma, Gb, Mb, cap=300000, kmax=4):
+    """Pick generators v_1..v_k of least norm until the M-orbits span Q^n; enumerate images u_i level by level (norm AND all
+    G(v_i, M^c v_j) = G(u_i, M^c u_j) pruned); P = W(u) W(v)^-1. Exhaustive => NO is a proof of non-isometry (within GL_n(Z) equivariant)."""
     n = Ga.shape[0]
     if np.linalg.eigvalsh(Ga.astype(float)).min() < 1e-9: return "SKIP-indef", None, 0
-    if sorted(np.linalg.eigvalsh(Ga.astype(float)).round(6)) != sorted(np.linalg.eigvalsh(Gb.astype(float)).round(6)) and False: pass
-    # cyclic v of least norm: scan short vectors of Ga by norm
-    best = None
-    for B in (2, 4, 6, 8, 12):
-        for v in sorted(shortVectors(Ga, B), key=lambda z: int(z @ Ga @ z)):
-            if not v.any(): continue
-            Wf = np.array([np.linalg.matrix_power(Ma.astype(float), k) @ v for k in range(n)]).T
-            if abs(np.linalg.det(Wf)) < 1e-6: continue
-            W = Wmat(Ma, v, n)
-            if W.det() != 0: best = (v, W); break
-        if best: break
-    if best is None: return "SKIP-nocyc", None, 0
-    v, W = best; q = int(v @ Ga @ v); Winv = W.inv()
-    cands = [u for u in shortVectors(Gb, q) if int(u @ Gb @ u) == q]
-    if len(cands) > cap: return "SKIP-big", None, len(cands)
-    Ga_m = Matrix(Ga.tolist()); Gb_m = Matrix(Gb.tolist()); Ma_m = Matrix(Ma.tolist()); Mb_m = Matrix(Mb.tolist())
-    for u in cands:
-        P = Wmat(Mb, u, n) * Winv
-        if any(x.q != 1 for x in P): continue
-        if abs(P.det()) != 1: continue
-        if P.T * Gb_m * P == Ga_m and P * Ma_m == Mb_m * P: return "YES", P, len(cands)
-    return "NO", None, len(cands)
+    Mp = [np.linalg.matrix_power(Ma, c) for c in range(n)]; Mq = [np.linalg.matrix_power(Mb, c) for c in range(n)]
+    def span(ws): return np.linalg.matrix_rank(np.array([Mp[c] @ w for w in ws for c in range(n)], dtype=float)) if ws else 0
+    vs = []
+    for v in sorted([v for v in shortVectors(Ga, 16 if n <= 4 else 4) if v.any()], key=lambda z: int(z @ Ga @ z)):
+        if span(vs + [v]) > span(vs): vs = vs + [v]
+        if span(vs) == n: break
+    if span(vs) < n or len(vs) > kmax: return "SKIP-gens", None, 0
+    idx, W = orbitCols(Ma, vs, n)
+    Winv = W.inv()
+    Bmax = max(int(v @ Ga @ v) for v in vs)
+    byNorm = collections.defaultdict(list)
+    for u in shortVectors(Gb, Bmax):
+        if u.any(): byNorm[int(u @ Gb @ u)].append(u)
+    nodes = [0]; found = [None]
+    def rec(k, us):
+        if found[0] is not None or nodes[0] > cap: return
+        if k == len(vs):
+            P = cols_for(Mb, us, idx) * Winv
+            if any(x.q != 1 for x in P) or abs(P.det()) != 1: return
+            Ga_m = Matrix(Ga.tolist()); Gb_m = Matrix(Gb.tolist())
+            if P.T * Gb_m * P == Ga_m and P * Matrix(Ma.tolist()) == Matrix(Mb.tolist()) * P: found[0] = P
+            return
+        q = int(vs[k] @ Ga @ vs[k])
+        for u in byNorm[q]:
+            nodes[0] += 1
+            ok = all(int(vs[k] @ Ga @ Mp[c] @ vs[j]) == int(u @ Gb @ Mq[c] @ us[j]) and int(vs[j] @ Ga @ Mp[c] @ vs[k]) == int(us[j] @ Gb @ Mq[c] @ u)
+                     for j in range(k) for c in range(n)) and all(int(vs[k] @ Ga @ Mp[c] @ vs[k]) == int(u @ Gb @ Mq[c] @ u) for c in range(n))
+            if ok: rec(k + 1, us + [u])
+    rec(0, [])
+    if found[0] is not None: return "YES", found[0], nodes[0]
+    return ("INCONCLUSIVE-cap" if nodes[0] > cap else "NO"), None, nodes[0]
 
 if __name__ == "__main__":
     N = int(sys.argv[1]) if len(sys.argv) > 1 else 10

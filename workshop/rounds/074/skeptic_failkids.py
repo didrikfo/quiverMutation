@@ -24,7 +24,8 @@ for s in classes[base]:
     cur.append(s)
 import os
 T = Counter(); fails = []; t0 = time.time(); stop = False; d0 = 0
-CK = OUT + '.frontier'   # checkpoint: frontier before the last level (+ failures of earlier levels); written once, read by every shard
+import re
+CK = re.sub(r'_s\d+\.pkl', '_s0.pkl', OUT) + '.frontier'   # one checkpoint per class: frontier before the last level; written by shard 0, read by the others
 if os.path.exists(CK):
     T, fails, cur, seen = pickle.load(open(CK, 'rb')); d0 = depth - 1
     if SH[0] != 0: T = Counter(); fails = []
