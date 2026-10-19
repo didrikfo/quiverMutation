@@ -1,12 +1,23 @@
-# Staged Cartan-congruence test, definite stage only: control 90000000 ~ 00000030 gets an explicit P; 15 of 15 members of the n = 11 15-group pass on the two definite pieces (idea; the indefinite rank-6 piece and the glue are not run)
+# Staged Cartan-congruence test, definite stage only: control 90000000 ~ 00000030 gets an explicit P (Cartan congruence checked directly); 15 of 15 members of the n = 11 15-group pass on the two definite pieces (idea; NO power unestablished; the indefinite rank-6 piece and the glue are not run)
 
 author: maverick · round: 074 · kind: tool + null
 thread: T3/T8 (Candidate C) · bears on: E-190, E-209, E-178 (no hypothesis status touched)
-scope: n = 10 definite LNAs with periodic Phi (577 definite, groups 256 and 321) and the n = 11 15-group, definite pieces only (ranks 3 and 2 of 3 + 2 + 6); idea level; nothing about derived equivalence is proved
+scope: n = 10 definite LNAs with periodic Phi (577 definite, groups 256 and 321; 575 = 320 + 255 members tested against their group rep) and the n = 11 15-group, definite pieces only (ranks 3 and 2 of 3 + 2 + 6); idea level; nothing about derived equivalence is proved. The NO branch has NOT been shown to separate any two Cartan lattices of equal key and signature (none exists in the searched range), so "575 of 575 YES" is a null of unestablished power, not evidence for "one class".
+
+## Response to referee
+
+New script `maverick_controls.py` (parts 1, 2, 3; whole run 63 s). Verdict was minor revision; all four required items answered.
+
+1. P convention and direct Cartan check: DONE. The code returns P with P^T G_b P = G_a and P M_a = M_b P. The Cartan relation in this convention is **P C_a P^T = C_b** (i.e. Q = P^T gives Q^T C_a Q = C_b); the line in "Plan" below, "P^T C_b P = C_a", had the direction reversed and is corrected here. Part 1 of the script checks `P C_a P^T == C_b` on every YES of the n = 10 survey (member vs rep): 575 of 575 hold, and in all 575 the other direction `P^T C_b P == C_a` fails, confirming the transpose convention. So the isometry-to-Cartan-congruence step is verified exactly on all YES outputs of the n = 10 survey (not yet added to pieces15, where only the definite pieces, not C, are in play).
+2. (G, -M) NO control: DONE as a runnable command (`maverick_controls.py 2`): NO after 180 nodes. Labelled artificial and non-Cartan: -M is not the transpose Coxeter matrix of any Cartan matrix. It shows the search can fail, nothing more.
+3. Scope: DONE (see Scope line and title). Attempted a real NO-power control (part 3): at n = 4..9, all definite LNAs grouped by (Coxeter key, det G), each member vs the first: 3, 12, 38, 112, 259, 271 pairs, all YES, zero NO (and each YES passes the direct Cartan check). So there is no pair of definite Cartan data of equal key and det in n <= 9 for the test to separate; the real-NO control cannot be built from this sample. Power beyond key/signature remains undemonstrated.
+4. Stage 2 stays marked unverified (class-number argument from memory; not to be cited as established in FINDINGS-bound text). Added: the generator count and bounds are in the code (kmax = 4, norm bound 4 for n > 4, node cap 300000, never hit); the survey records P and checks it exactly via isometry().
+
+Also narrowed: "a NO at any stage is a proof of derived inequivalence" holds for a NO on the full lattice, and also for a NO on any single Phi-invariant piece (the pieces are canonical sublattices); a YES on pieces says nothing about the glue or the full lattice. Not done: the pieces15 rerun with direct Cartan check (pieces are not Cartan matrices; N/A), and any indefinite stage (out of this sitting).
 
 ## Plan (what the stages are, and what each can say)
 
-Convention (E-209): G = C^-1 + C^-T is invariant under M = Phi^T. Cartan congruence P^T C_b P = C_a is equivalent to an M-equivariant isometry P: (Z^n, G_a, M_a) -> (Z^n, G_b, M_b) (since C^-1 = (I-Phi)^-1 G). A derived equivalence forces such a P (Cartan matrices of derived-equivalent algebras are congruent), so a NO at any stage is a proof of derived inequivalence; a YES is only "not separated".
+Convention (E-209): G = C^-1 + C^-T is invariant under M = Phi^T. Cartan congruence is equivalent to an M-equivariant isometry P: (Z^n, G_a, M_a) -> (Z^n, G_b, M_b) (since C^-1 = (I-Phi)^-1 G); code convention: P C_a P^T = C_b (Q = P^T gives Q^T C_a Q = C_b). A derived equivalence forces such a P (Cartan matrices of derived-equivalent algebras are congruent), so a NO on the full lattice (or on a canonical Phi-invariant piece) is a proof of derived inequivalence; a YES is only "not separated".
 
 - Stage 0 (done, E-197, E-209): SNF, q_G, per-factor (rank, sig, det, theta), Z-conjugacy of Phi (15-group). All null.
 - Stage 1 (this round, exact): definite lattices. Pick generators v_1..v_k of least norm whose M-orbits span Q^n; every equivariant isometry sends v_i to a vector u_i of equal norm and equal G(v_i, M^c v_j); enumerate all such tuples (Fincke-Pohst), set P = W(u) W(v)^-1, test integrality, det +-1, P^T G_b P = G_a, P M_a = M_b P in exact arithmetic. Exhaustive, so NO is a proof (within the node cap; the script reports INCONCLUSIVE-cap otherwise).
@@ -41,7 +52,9 @@ timeout 10m .venv/bin/python workshop/rounds/074/maverick_survey10.py 10        
 timeout 10m .venv/bin/python workshop/rounds/074/maverick_negctl.py             # 2 s
 timeout 10m .venv/bin/python workshop/rounds/074/maverick_pieces15.py           # 56 s
 ```
--M control: `isometry(G, M, G, -M)` with `data((9,0,0,0,0,0,0,0),10)` returns NO.
+```
+timeout 10m .venv/bin/python workshop/rounds/074/maverick_controls.py   # parts: direct Cartan check, (G,-M) NO control, n<=9 NO search; 63 s
+```
 
 ## Prior record
 

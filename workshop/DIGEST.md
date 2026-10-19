@@ -7,6 +7,15 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 074 -- 2026-10-19 -- ordinary
+Skeptic, scholar and maverick worked; theorist, skeptic and toolsmith refereed; all three were minor revisions, answered and accepted (narrowed). Proceedings: `rounds/074/proceedings.md`.
+- **Skeptic (T10, E-213):** the 70 key-kept failing edges of the complete n = 7 balls (classes 1, 2, depth <= 8) are 60 `canonicalKey`s but only 12 presentation classes; 8 contain the 25 children joined in E-157/E-163/E-212, **4 (14 edges, parents at depth 8) are in no recorded join** and none is the opposite of a joined class. Under the J = 0 premise; class 1 window by position only.
+- **Scholar (T5, E-214):** Prop. 7.6 / Thm 1.1 of arXiv:1504.02617v1 assume only non-negative grading and no degree-0 loop at i: they cover acyclic D(i) and do not exclude the E-211 cyclic example (a defect of the repo's step 7). End(T) = H_0(kM) needs no cancellation but the unchecked Gamma_red = N; the cancellation's dg step is still a sketch.
+- **Maverick (T3/T8, E-215, idea):** definite stage of a Cartan-congruence test: explicit P for 90000000 ~ 00000030, 575/575 definite n = 10 members, 15/15 definite pieces of the n = 11 15-group pass. No real NO control exists for n <= 9, so it has no demonstrated power beyond signature; indefinite piece and glue not run.
+- **Promoted:** E-213, E-214, E-215. No H-, F-, R- status changed. No overnight run.
+- **Consequences:** "25 of 25 joined" now reads 8 of 12 presentation classes of the 70; T10 gets a task: J = 0 join of the 4 unjoined classes (toolsmith).
+- Questions for the human: none. Next round 075 ordinary; 076 is a conference.
+
 ## Round 073 -- 2026-10-18 -- ordinary
 Toolsmith, theorist and experimentalist worked; skeptic, scholar and maverick refereed; all three were minor revisions, answered and accepted. Proceedings: `rounds/073/proceedings.md`.
 - **Toolsmith (T10, E-212):** at n = 7 class 2, 8 of the 9 key-kept J != 0 steps have parent and child joined by Hom-verified tilting chains with isomorphism at the meets (record 6 undecided, class 1 not run, generation assumed). The verifier's NO power is thin (1 Hom rejection in 195 corruptions; n = 9 F-010 4 + 4 found no meet; Cartan invariants cannot separate that pair).
