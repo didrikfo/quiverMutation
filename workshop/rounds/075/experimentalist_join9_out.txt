@@ -1,0 +1,39 @@
+
+== n = 9: 8000000 vs 0000030   mirror: 8000000 3000000
+ free=0 orbit(a): 1 rows, closed, n in [9], mirror-closed True, has a/mirror a/b/mirror b: True True False False (0.1s)
+    rows ['8000000']
+ free=0 orbit(b): 144 rows, closed, n in [9], mirror-closed True, has a/mirror a/b/mirror b: False False True True (0.1s)
+ free=0 movesJoin(a,b)=None movesJoin(a,mirror b)=None
+ free=1 orbit(a): 1 rows, closed, n in [9], mirror-closed True, has a/mirror a/b/mirror b: True True False False (0.0s)
+    rows ['8000000']
+ free=1 orbit(b): 144 rows, closed, n in [9], mirror-closed True, has a/mirror a/b/mirror b: False False True True (0.1s)
+ free=1 movesJoin(a,b)=None movesJoin(a,mirror b)=None
+ partition free=0 edges=0 doubles=0: 380 orbits, 209 with mirror; same orbit False, orbit+mirror False; sizes 1, 119; largest 291
+ partition free=0 edges=1 doubles=1: 74 orbits, 46 with mirror; same orbit False, orbit+mirror False; sizes 1, 144; largest 377
+ partition free=1 edges=1 doubles=1: 48 orbits, 31 with mirror; same orbit False, orbit+mirror False; sizes 1, 144; largest 377
+
+== n = 10: 80000000 vs 00000300   mirror: 08000000 03000000
+ free=0 orbit(a): 1121 rows, closed, n in [10], mirror-closed True, has a/mirror a/b/mirror b: True True True True (0.5s)
+ free=0 orbit(b): 1 rows, closed, n in [10], mirror-closed False, has a/mirror a/b/mirror b: False False True False (0.0s)
+    rows ['00000300']
+ free=0 movesJoin(a,b)=00000300 movesJoin(a,mirror b)=03000000
+ free=1 orbit(a): 1122 rows, closed, n in [10], mirror-closed True, has a/mirror a/b/mirror b: True True True True (0.5s)
+ free=1 orbit(b): 1 rows, closed, n in [10], mirror-closed False, has a/mirror a/b/mirror b: False False True False (0.0s)
+    rows ['00000300']
+ free=1 movesJoin(a,b)=00000300 movesJoin(a,mirror b)=03000000
+ partition free=0 edges=0 doubles=0: 2149 orbits, 1124 with mirror; same orbit False, orbit+mirror False; sizes 3, 597; largest 597
+ partition free=0 edges=1 doubles=1: 204 orbits, 121 with mirror; same orbit True, orbit+mirror True; sizes 1121, 1121; largest 1121
+ partition free=1 edges=1 doubles=1: 113 orbits, 71 with mirror; same orbit True, orbit+mirror True; sizes 1125, 1125; largest 1125
+
+== n = 10: 90000000 vs 00000030   mirror: 90000000 30000000
+ free=0 orbit(a): 1 rows, closed, n in [10], mirror-closed True, has a/mirror a/b/mirror b: True True False False (0.0s)
+    rows ['90000000']
+ free=0 orbit(b): 320 rows, closed, n in [10], mirror-closed True, has a/mirror a/b/mirror b: False False True True (0.2s)
+ free=0 movesJoin(a,b)=None movesJoin(a,mirror b)=None
+ free=1 orbit(a): 1 rows, closed, n in [10], mirror-closed True, has a/mirror a/b/mirror b: True True False False (0.0s)
+    rows ['90000000']
+ free=1 orbit(b): 320 rows, closed, n in [10], mirror-closed True, has a/mirror a/b/mirror b: False False True True (0.2s)
+ free=1 movesJoin(a,b)=None movesJoin(a,mirror b)=None
+ partition free=0 edges=0 doubles=0: 2149 orbits, 1124 with mirror; same orbit False, orbit+mirror False; sizes 1, 252; largest 597
+ partition free=0 edges=1 doubles=1: 204 orbits, 121 with mirror; same orbit False, orbit+mirror False; sizes 1, 320; largest 1121
+ partition free=1 edges=1 doubles=1: 113 orbits, 71 with mirror; same orbit False, orbit+mirror False; sizes 1, 320; largest 1125

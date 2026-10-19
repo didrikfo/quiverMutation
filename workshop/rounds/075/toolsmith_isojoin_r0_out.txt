@@ -1,0 +1,4 @@
+rep 0 class 1 v 7 parent key class ok True child True
+target ball (labelled keys) levels [12, 88, 320, 954, 3086] hash buckets 970 complete True 56s
+child ISO-HIT total 2 (alg side 0 + target side 2) levels [1, 6] uncapped 0s
+parent ISO-HIT total 6 (alg side 2 + target side 4) levels [1, 7, 38] uncapped 1s

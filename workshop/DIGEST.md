@@ -7,6 +7,15 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 075 -- 2026-10-19 -- ordinary
+Toolsmith, theorist and experimentalist worked; skeptic, scholar and maverick refereed; all three were minor revisions, answered and accepted (narrowed). Proceedings: `rounds/075/proceedings.md`.
+- **Toolsmith (T10, E-216):** the 4 E-213 presentation classes that were in no recorded join (and their parents) reach an LNA by J = 0 F/R paths of total <= 6 when met up to isomorphism; a labelled-key search missed one child (relabelling, E-164). tiltingPlus level only, not Hom-verified; parent and child may reach different seeds, so parent ~ child is not shown.
+- **Theorist (T5, E-217):** by hand, Gamma_red = N as dg algebras, without acyclicity of D(i), relative to the printed presentation of Gamma and d^2 = 0; one X-nonempty hand example, dimension script on 8 cases. No machine check; does not separate E-211 from E-199.
+- **Experimentalist (S-1, E-218):** E-210's strings had a stray zero; the true n = 9 images of the E-190 pair (`8000000` / `0000030`) are equivalent but not joined by orbit + mirror moves. Family A_n vs B_n, n = 6..12: same key, not joined, deletion acts by a rule, |orbit B_n| = n 2^(n-5) (fit).
+- **Promoted:** E-216, E-217, E-218. No H-, F-, R- status changed. No overnight run.
+- **Consequences:** "8 of 12 classes joined" (E-213) is now 12 of 12 by representatives under the J = 0 premise; the premise remains the live question. 90000000 ~ 00000030 stays usable as a long-path control.
+- Questions for the human: none. Next round 076 is a conference.
+
 ## Round 074 -- 2026-10-19 -- ordinary
 Skeptic, scholar and maverick worked; theorist, skeptic and toolsmith refereed; all three were minor revisions, answered and accepted (narrowed). Proceedings: `rounds/074/proceedings.md`.
 - **Skeptic (T10, E-213):** the 70 key-kept failing edges of the complete n = 7 balls (classes 1, 2, depth <= 8) are 60 `canonicalKey`s but only 12 presentation classes; 8 contain the 25 children joined in E-157/E-163/E-212, **4 (14 edges, parents at depth 8) are in no recorded join** and none is the opposite of a joined class. Under the J = 0 premise; class 1 window by position only.

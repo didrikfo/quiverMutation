@@ -1,0 +1,5 @@
+rep 3 class 2 v 7 parent key class ok True child True
+step v=7: gate True perI {3: 1} tiltingPlus False
+target ball: seeds 14 levels [14, 104, 426, 1492, 5172, 18244] keys 25452 capped False 0s
+child HIT total 9 (alg side 4 + target side 5) levels [1, 6, 25, 86, 293] uncapped 4s
+parent HIT total 8 (alg side 3 + target side 5) levels [1, 7, 37, 192] uncapped 2s

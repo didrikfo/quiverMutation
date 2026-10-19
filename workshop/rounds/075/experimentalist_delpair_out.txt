@@ -1,0 +1,32 @@
+n | key(A)=key(B) | key id | orbit A | orbit B | joined by orbit+mirror
+ 5 | True | 0 | 6 closed | 5 closed | True  (0.1s)
+ 6 | True | 1 | 1 closed | 12 closed | False  (0.0s)
+ 7 | True | 2 | 1 closed | 28 closed | False  (0.0s)
+ 8 | True | 3 | 1 closed | 64 closed | False  (0.1s)
+ 9 | True | 4 | 1 closed | 144 closed | False  (0.2s)
+10 | True | 5 | 1 closed | 320 closed | False  (0.5s)
+11 | True | 6 | 1 closed | 704 closed | False  (1.4s)
+12 | True | 7 | 1 closed | 1536 closed | False  (3.6s)
+
+Deletions: n, source, i, image row, image key == key(A_{n-1}) / key(B_{n-1}), image orbit size
+n= 6 A i=1..6 -> 400  key=A_{n-1}:True key=B_{n-1}:True orbit 6
+n= 6 B i=1..3 -> 030  key=A_{n-1}:True key=B_{n-1}:True orbit 5
+n= 6 B i=4..6 -> 002  key=A_{n-1}:False key=B_{n-1}:False orbit 8
+n= 7 A i=1..7 -> 5000  key=A_{n-1}:True key=B_{n-1}:True orbit 1
+n= 7 B i=1..4 -> 0030  key=A_{n-1}:True key=B_{n-1}:True orbit 12
+n= 7 B i=5..7 -> 0002  key=A_{n-1}:False key=B_{n-1}:False orbit 16
+n= 8 A i=1..8 -> 60000  key=A_{n-1}:True key=B_{n-1}:True orbit 1
+n= 8 B i=1..5 -> 00030  key=A_{n-1}:True key=B_{n-1}:True orbit 28
+n= 8 B i=6..8 -> 00002  key=A_{n-1}:False key=B_{n-1}:False orbit 32
+n= 9 A i=1..9 -> 700000  key=A_{n-1}:True key=B_{n-1}:True orbit 1
+n= 9 B i=1..6 -> 000030  key=A_{n-1}:True key=B_{n-1}:True orbit 64
+n= 9 B i=7..9 -> 000002  key=A_{n-1}:False key=B_{n-1}:False orbit 64
+n=10 A i=1..10 -> 8000000  key=A_{n-1}:True key=B_{n-1}:True orbit 1
+n=10 B i=1..7 -> 0000030  key=A_{n-1}:True key=B_{n-1}:True orbit 144
+n=10 B i=8..10 -> 0000002  key=A_{n-1}:False key=B_{n-1}:False orbit 128
+n=11 A i=1..11 -> 90000000  key=A_{n-1}:True key=B_{n-1}:True orbit 1
+n=11 B i=1..8 -> 00000030  key=A_{n-1}:True key=B_{n-1}:True orbit 320
+n=11 B i=9..11 -> 00000002  key=A_{n-1}:False key=B_{n-1}:False orbit 256
+n=12 A i=1..12 -> 1000000000  key=A_{n-1}:True key=B_{n-1}:True orbit 1
+n=12 B i=1..9 -> 000000030  key=A_{n-1}:True key=B_{n-1}:True orbit 704
+n=12 B i=10..12 -> 000000002  key=A_{n-1}:False key=B_{n-1}:False orbit 512
