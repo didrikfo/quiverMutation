@@ -1,12 +1,20 @@
-# The 70 key-kept failing edges of the complete n = 7 balls have 60 distinct canonicalKeys but only 12 distinct children up to relabelling, and 4 of the 12 are not among the 25 children E-157/E-160/E-163 joined
+# n = 7, key classes 1 and 2, parent depth <= 8: the 70 key-kept failing edges have 60 distinct canonicalKeys but only 12 distinct children up to relabelling, and 4 of the 12 contain no E-151 window child (also none is the opposite of any of the 12)
 
 author: skeptic · round: 074 · kind: result
 thread: T10 · bears on: H-015 (key guard), E-204, E-157, E-163, E-212
-scope: n = 7, key classes 1 and 2 only; parent depth <= 8 (complete, no shard stopped by its budget); children compared as presentations (quiver with relations), not as derived-equivalence classes; "joined" = joined under the J = 0 premise (E-157/E-160/E-163); the E-151 window is reconstructed by position, class 1 not re-run through `toolsmith_collect.py`.
+scope: n = 7, key classes 1 and 2 only; parent depth <= 8 (complete, no shard stopped by its budget); children compared as presentations (quiver with relations), with and without taking opposite algebras, not as derived-equivalence classes; "joined" = joined under the J = 0 premise (E-157/E-160/E-163); the E-151 window is reconstructed by position; class 1 was NOT re-run through `toolsmith_collect.py` (exceeds 10 min), so the class-1 window membership rests on positional reconstruction plus agreement of counts (16, 10 keys) with E-157.
+
+## Response to referee
+
+1. Op/dual (required 1): done, `skeptic_ctrl.py` (output `skeptic_ctrl_out.txt`). For each of the 4 new classes I took the opposite presentation (arrows reversed, paths reversed, same coefficients) and tested it against the representatives of all 12 classes with the structure-graph isomorphism (sign-blind, then sign-aware where blind matched): 0 matches, so none of the 4 is the op of a window class (nor of another new class, nor self-dual). Sanity: op(op(X)) = X for all 12 reps. As a side fact no window rep is the op of another window rep either. The 4 / 14 counts stand; the claim now says so.
+2. Iso-test controls (required 2): done, same script. Positive: 22 children (up to 3 per window class, 8 classes) each given 3 random relabellings (vertex permutation, permutation of parallel arrow keys, random +-1 sign gauge on arrows, shuffled relation and term order): 66 of 66 recognised in their own class by the blind test and by the sign-aware test; and 0 matches of any relabelled class rep against the other 11 classes. Negative: the 13 pairs of classes with equal (arrow, relation) counts are all separated by exact isomorphism (0 isomorphic, 0 even with equal WL hash). A weaker control I tried, flipping one term sign of a multi-term relation, separated 0 of 12 reps under the sign-aware test: that is not evidence either way (arrow rescaling can absorb such a flip), so I do not use it. Limit: the control exercises the test on presentations as stored, not the BFS pipeline, whose merging of 31 copies is the other evidence.
+3. Title: now carries "n = 7, key classes 1 and 2, parent depth <= 8"; and the wording says "contain no E-151 window child (as isomorphism classes of presentations)".
+4. Class 1 through `toolsmith_collect.py`: not done this sitting (exceeds 10 min, killed twice). Stated in the Scope line: class 1 window membership rests on positional reconstruction.
+5. Gap 4 (loose wording): "over-counts by a factor of 5" is the average 60 / 12, not per class; class sizes (16, 10, 10, 6, 6, 6, 4, 4, 2, 2, 2, 2 edges) are as in the table. Gap 3 and the BFS rebuild: unchanged, the reviewer trusted the pickles.
 
 ## Claim
 
-E-204's 70 key-kept `tiltingPlus`-false edges (34 class 1, 36 class 2; rebuilt here, same 34 and 36 as E-204) give 70 children with 60 distinct `canonicalKey`s (24 in class 1, 36 in class 2, none `None`) but only **12 distinct children when vertex and arrow labels are forgotten** (7 in class 1, 5 in class 2, none shared between classes). Every one of the 12 classes holds several labelled keys, so `canonicalKey` over-counts by a factor of 5; the labelled count (60) is not a count of different algebras. The 25 children of E-151/E-154 (the ones E-157, E-160, E-163 joined; 19 labelled keys, 10 + 9) fall into 8 of the 12 classes. **4 classes (14 of the 70 edges: 4 + 2 + 6 + 2, all with parent depth 8) contain no E-151 child**, so no recorded join covers them. Under the labelled key it reads 41 of 60 keys outside the E-151 keys, but 27 of those (14 belong to the new classes, 14 distinct keys) are relabelled copies of joined classes; the iso count is the honest one. Not claimed: that the 4 classes are, or are not, derived equivalent to their parents or to an LNA (no join was searched); "isomorphic" below is isomorphism of presentations, which makes the joined classes' joins transfer by relabelling but proves nothing about the 4. Refuted if a structure-preserving isomorphism exists between a new class and a window child that my test missed (my test would only err toward splitting if it had a bug, see Evidence).
+E-204's 70 key-kept `tiltingPlus`-false edges (34 class 1, 36 class 2; rebuilt here, same 34 and 36 as E-204) give 70 children with 60 distinct `canonicalKey`s (24 in class 1, 36 in class 2, none `None`) but only **12 distinct children when vertex and arrow labels are forgotten** (7 in class 1, 5 in class 2, none shared between classes). Every one of the 12 classes holds several labelled keys, so `canonicalKey` over-counts by a factor of 5; the labelled count (60) is not a count of different algebras. The 25 children of E-151/E-154 (the ones E-157, E-160, E-163 joined; 19 labelled keys, 10 + 9) fall into 8 of the 12 classes. **4 classes (14 of the 70 edges: 4 + 2 + 6 + 2, all with parent depth 8) contain no E-151 child**, and none of the 4 is the opposite algebra of any of the 12 classes (so none is joined by duality either), so no recorded join covers them. Under the labelled key it reads 41 of 60 keys outside the E-151 keys, but 27 of those (14 belong to the new classes, 14 distinct keys) are relabelled copies of joined classes; the iso count is the honest one. Not claimed: that the 4 classes are, or are not, derived equivalent to their parents or to an LNA (no join was searched); "isomorphic" below is isomorphism of presentations, which makes the joined classes' joins transfer by relabelling but proves nothing about the 4. Refuted if a structure-preserving isomorphism exists between a new class and a window child that my test missed (my test would only err toward splitting if it had a bug, see Evidence).
 
 ## Evidence
 
@@ -33,6 +41,7 @@ timeout 10m .venv/bin/python -W ignore workshop/rounds/074/skeptic_failkids.py 7
 timeout 10m .venv/bin/python -W ignore workshop/rounds/074/skeptic_failkids.py 7 C 9 590 S/4 DIR/cC_sS.pkl   # S = 1, 2, 3 after the frontier exists (100 to 200 s each; run 6 together on 4 cores)
 timeout 10m .venv/bin/python -W ignore workshop/rounds/049/toolsmith_collect.py 7 2 20000 DIR/e151_c2.pkl 100   # class 2 only; class 1 exceeds 10 min
 timeout 10m .venv/bin/python -W ignore workshop/rounds/074/skeptic_failkids_an.py DIR   # about 2 min; output skeptic_failkids_an_out.txt
+timeout 10m .venv/bin/python -W ignore workshop/rounds/074/skeptic_ctrl.py DIR   # op comparison and iso controls, under a minute; needs an_summary.pkl; output skeptic_ctrl_out.txt
 .venv/bin/python -W ignore workshop/rounds/074/skeptic_failkids_hand.py DIR    # seconds; output skeptic_failkids_hand_out.txt
 ```
 DIR = /tmp/claude-0/sk74 here (pickles not committed; the checkpoint pickles are tens of MB).
@@ -43,10 +52,10 @@ E-204 counted 70 edges and states they are not distinct children; E-192 counted 
 
 ## Code changed
 
-None in `quivermutation/`. New scripts in `workshop/rounds/074/`: `skeptic_failkids.py`, `skeptic_failkids_an.py`, `skeptic_failkids_hand.py` (+ the two `_out.txt`). No tests touched.
+None in `quivermutation/`. New scripts in `workshop/rounds/074/`: `skeptic_failkids.py`, `skeptic_failkids_an.py`, `skeptic_failkids_hand.py`, `skeptic_ctrl.py` (+ the `_out.txt` files). No tests touched.
 
 ## Next
 
 - toolsmith: the J = 0 join (F/R chains with the E-212 Hom test and isomorphism at the meets) of the 4 new classes and of their parents (depth 8); class 1 first (rep.: child arrows 2->4, 3->2, 4->5, 4->6, 1->7, 5->1, 6->1, v = 7 of the parent printed in `skeptic_failkids_an_out.txt`). A miss is a bound, not an exit.
-- Whether the 4 classes are duals (op) of window classes is untested (I compared presentations, not their opposites); one more WL test would settle it.
+- The 4 classes are not duals (op) of any of the 12 classes (round 074 response, `skeptic_ctrl.py`).
 - The same count at n = 8 is unavailable (E-192: 0 key-kept J != 0 edges there).

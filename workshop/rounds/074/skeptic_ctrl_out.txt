@@ -1,0 +1,17 @@
+classes 12 window 8 new 4
+== op comparison: op(new rep) vs class reps
+ new class 4 edges 4 arrows/rels 7 5 -> op matches (blind, signed): none
+ new class 9 edges 2 arrows/rels 7 4 -> op matches (blind, signed): none
+ new class 10 edges 6 arrows/rels 7 3 -> op matches (blind, signed): none
+ new class 11 edges 2 arrows/rels 7 5 -> op matches (blind, signed): none
+total op matches of new reps against all 12 reps: 0
+== op sanity: op(op(X)) == X, and op of each window rep vs each window rep (self-duality / window duality, informational)
+ op op ok: True
+ window rep pairs matched by op: []
+== positive control: random vertex+arrow-key relabelling, sign gauge, relation/term shuffles of window children
+ relabelled copies recognised in own class (blind and signed): 66 of 66
+ also each tested copy vs. all OTHER 11 class reps (should be 0 matches): 0
+== negative control: sign change that is NOT a gauge
+ reps with a multi-term relation, sign-flipped one term: 12 ; blind-iso True but signed-iso False: 0
+== negative control: pairs of different classes with same (arrows, relations) counts separated by exact iso
+ pairs 13 isomorphic among them: 0 ; of those pairs, same WL hash: 0
