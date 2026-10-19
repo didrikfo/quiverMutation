@@ -1,0 +1,47 @@
+class 1 shards stopped by budget [False, False, False, False] raw fail records 34 distinct (parent key,v) edges 34 parent keys None 0
+class 2 shards stopped by budget [False, False, False, False] raw fail records 36 distinct (parent key,v) edges 36 parent keys None 0
+total failing edges 70 by class {1: 34, 2: 36}
+child canonicalKey None: 0
+distinct child canonicalKeys (non-None) 60 + None children 0
+ per class: {1: 24, 2: 36}
+distinct children up to vertex relabelling + arrow relabelling (sign-blind structure iso): 12
+  class 1 edges 34 iso classes 7
+  class 2 edges 36 iso classes 5
+cross-class iso merges: 0
+iso classes with >1 distinct canonicalKey (relabelled copies): 12
+iso-class sizes (edges): [16, 10, 10, 6, 6, 6, 4, 4, 2, 2, 2, 2]
+children with a multi-term relation (sign blind caveat): 70 of 70
+child dims: arrows Counter({7: 58, 8: 12}) parallel-arrow children 12
+class 1 edges inside the 20000-expansion window: 16 (E-157: 16) ; distinct (parent key, v): 16
+class 2 edges inside the 20000-expansion window: 9 (E-157: 9) ; distinct (parent key, v): 9
+E-151-window edges 25 distinct child keys 19 None 0
+E-151-window children, structure iso classes: 8
+collect.py class 2: failing records 9 distinct child keys 9 ; equal to my window keys for class 2: True
+all-70 iso classes 12 ; containing an E-151-window edge: 8 ; with NO window edge (new): 4
+by canonicalKey: keys outside window keys: 41 ; new edges with None key: 0
+  NEW iso class: class 1 edges 4 parent depth [8] child arrows 7 rels 5 
+  NEW iso class: class 2 edges 2 parent depth [8] child arrows 7 rels 4 
+  NEW iso class: class 2 edges 6 parent depth [8] child arrows 7 rels 3 
+  NEW iso class: class 2 edges 2 parent depth [8] child arrows 7 rels 5 
+sign-aware check: members not gauge-isomorphic to the first of their class: 0 ; undecided (iso enumeration cap): 0
+NEW class rep: cls 1 v 7 
+   parent arrows [(2, 4, 0), (3, 2, 0), (4, 5, 0), (4, 6, 0), (5, 7, 0), (6, 7, 0), (7, 1, 0)]
+      rels [{((2, 4, 0), (4, 5, 0), (5, 7, 0)): 1}, {((2, 4, 0), (4, 6, 0), (6, 7, 0)): 1, ((2, 4, 0), (4, 5, 0), (5, 7, 0)): -1}, {((3, 2, 0), (2, 4, 0), (4, 6, 0)): -1}, {((4, 6, 0), (6, 7, 0), (7, 1, 0)): 1, ((4, 5, 0), (5, 7, 0), (7, 1, 0)): -1}] 
+   child  arrows [(1, 7, 0), (2, 4, 0), (3, 2, 0), (4, 5, 0), (4, 6, 0), (5, 1, 0), (6, 1, 0)]
+      rels [{((2, 4, 0), (4, 5, 0), (5, 1, 0)): 1}, {((3, 2, 0), (2, 4, 0), (4, 6, 0)): -1}, {((4, 6, 0), (6, 1, 0)): 1, ((4, 5, 0), (5, 1, 0)): -1}, {((5, 1, 0), (1, 7, 0)): 1}, {((6, 1, 0), (1, 7, 0)): 1}]
+NEW class rep: cls 2 v 3 
+   parent arrows [(1, 4, 0), (3, 2, 0), (4, 3, 0), (6, 1, 0), (6, 7, 0), (7, 3, 0), (7, 5, 0)]
+      rels [{((6, 7, 0), (7, 3, 0), (3, 2, 0)): 1, ((6, 1, 0), (1, 4, 0), (4, 3, 0), (3, 2, 0)): 1}, {((6, 7, 0), (7, 5, 0)): 1}] 
+   child  arrows [(1, 4, 0), (2, 3, 0), (4, 2, 0), (6, 1, 0), (6, 7, 0), (7, 2, 0), (7, 5, 0)]
+      rels [{((4, 2, 0), (2, 3, 0)): 1}, {((6, 7, 0), (7, 2, 0)): 1, ((6, 1, 0), (1, 4, 0), (4, 2, 0)): 1}, {((6, 7, 0), (7, 5, 0)): 1}, {((7, 2, 0), (2, 3, 0)): 1}]
+NEW class rep: cls 2 v 6 
+   parent arrows [(1, 7, 0), (3, 1, 0), (3, 4, 0), (4, 5, 0), (5, 6, 0), (6, 2, 0), (7, 6, 0)]
+      rels [{((3, 4, 0), (4, 5, 0), (5, 6, 0), (6, 2, 0)): -1, ((3, 1, 0), (1, 7, 0), (7, 6, 0), (6, 2, 0)): 1}] 
+   child  arrows [(1, 7, 0), (2, 6, 0), (3, 1, 0), (3, 4, 0), (4, 5, 0), (5, 2, 0), (7, 2, 0)]
+      rels [{((3, 4, 0), (4, 5, 0), (5, 2, 0)): -1, ((3, 1, 0), (1, 7, 0), (7, 2, 0)): 1}, {((5, 2, 0), (2, 6, 0)): 1}, {((7, 2, 0), (2, 6, 0)): 1}]
+NEW class rep: cls 2 v 7 
+   parent arrows [(1, 5, 0), (2, 7, 0), (3, 2, 0), (3, 5, 0), (4, 2, 0), (5, 7, 0), (7, 6, 0)]
+      rels [{((1, 5, 0), (5, 7, 0)): 1}, {((3, 2, 0), (2, 7, 0), (7, 6, 0)): 1, ((3, 5, 0), (5, 7, 0), (7, 6, 0)): 1}, {((4, 2, 0), (2, 7, 0)): 1}] 
+   child  arrows [(1, 5, 0), (2, 6, 0), (3, 2, 0), (3, 5, 0), (4, 2, 0), (5, 6, 0), (6, 7, 0)]
+      rels [{((1, 5, 0), (5, 6, 0)): 1}, {((2, 6, 0), (6, 7, 0)): 1}, {((3, 2, 0), (2, 6, 0)): 1, ((3, 5, 0), (5, 6, 0)): 1}, {((4, 2, 0), (2, 6, 0)): 1}, {((5, 6, 0), (6, 7, 0)): 1}]
+new-class edges 14 distinct canonicalKeys among them 14 ; keys outside window keys that belong to joined classes: 27

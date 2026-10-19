@@ -1,0 +1,49 @@
+parent depth 8 v 6
+parent arrows [(1, 7, 0), (3, 1, 0), (3, 4, 0), (4, 5, 0), (5, 6, 0), (6, 2, 0), (7, 6, 0)]
+parent dim 25 Cartan (row i, col j = #paths i~>j mod I):
+[[1 1 0 0 0 1 1]
+ [0 1 0 0 0 0 0]
+ [1 1 1 1 1 2 1]
+ [0 1 0 1 1 1 0]
+ [0 1 0 0 1 1 0]
+ [0 1 0 0 0 1 0]
+ [0 1 0 0 0 1 1]]
+parent Coxeter polynomial (x - 1)**2*(x + 1)*(x**2 + x + 1)**2
+child arrows [(1, 7, 0), (2, 6, 0), (3, 1, 0), (3, 4, 0), (4, 5, 0), (5, 2, 0), (7, 2, 0)]
+child dim 19 Cartan (row i, col j = #paths i~>j mod I):
+[[1 1 0 0 0 0 1]
+ [0 1 0 0 0 1 0]
+ [1 1 1 1 1 0 1]
+ [0 1 0 1 1 0 0]
+ [0 1 0 0 1 0 0]
+ [0 0 0 0 0 1 0]
+ [0 1 0 0 0 0 1]]
+child Coxeter polynomial (x - 1)**2*(x + 1)*(x**2 + x + 1)**2
+V [1, 2, 3, 4, 5, 6, 7]
+dim Hom(T_i,T_j[-1]) (row i, col j):
+[[0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0]
+ [0 0 0 0 0 1 0]
+ [0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0]]
+dim Hom(T_i,T_j[0]) (row i, col j):
+[[1 1 0 0 0 0 1]
+ [0 1 0 0 0 1 0]
+ [1 1 1 1 1 0 1]
+ [0 1 0 1 1 0 0]
+ [0 1 0 0 1 0 0]
+ [0 0 0 0 0 1 0]
+ [0 1 0 0 0 0 1]]
+dim Hom(T_i,T_j[1]) (row i, col j):
+[[0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0]]
+End(T) Cartan (m = 0 table) equals the child Cartan: True
+Hom(T,T[-1]) nonzero entries (i, j, dim): [(3, 6, 1)]
+Hom(T,T[+1]) nonzero entries: []
