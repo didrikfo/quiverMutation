@@ -6,6 +6,30 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-221 — H-017 defect-1 control, n = 9, depth 5: 12 more members of four left-over LNAs return their source at depth 5 and not 4 (19 of 19 over 7 of 9 outside LNAs with E-203 and the referee's two runs); the controls test walk invertibility only
+*2026-10-20* · **`LO=0 timeout 10m .venv/bin/python workshop/rounds/077/maverick_defect1_rest.py 9 5 5 1 2 4550400 --run`** (506 s; same for 5040330, 5050030, 5504030; `LO=1 ... 3505000 --run`, 383 s) · *workshop round 077, maverick, refereed by experimentalist (minor revision, response done)*
+
+Scope: n = 9; monomial tree quipus from the forward walk (depth 5), cords >= 1, recorded path length 5, defect <= 1, Coxeter guard on; 12 of 33 listed members run (first 1-3 per LNA, not random), plus the referee's 2 (5040330 idx 2, 3505000 idx 3; not re-run by the author); 4444400 has no member with cords >= 1 and 3033030 is the defect-2 E-185 control. Nothing at n >= 10, depth >= 6, defect <= 0; (3,4) cell thin (2 members).
+Result: hit 12/12, neg_ok 12/12; 17/17 with E-203, 19/19 with the referee's. The controls can fail only through an invertibility bug: they add cell coverage, not detection power for a defect <= 0 member. Label: no counterexample at depth 5, n = 9. T6 recommended to park (no more breadth slots) at the round-080 ledger; a scheduling decision, not a finding.
+
+---
+
+## E-220 — J = 0 => derived equivalence of the child to the parent factors into three links (AI Thm 2.32(b), Rickard, repo step 7); the named gap is "repo steps 1-7 = End(T)" (proved for acyclic D(i), E-199); E-211 has J = 0 on the repo's side and still fails (monomial, three cases; arXiv:1504.02617v1 and 1009.3370v3 only)
+*2026-10-20* · **`.venv/bin/python workshop/rounds/077/scholar_jcheck.py`** (under 1 s) · *workshop round 077, scholar, refereed by skeptic (minor revision, response done)*
+
+Scope: v1 of 1504.02617 and v3 of 1009.3370 (sources/); monomial parents, three cases (E-211, A_3/rad^2 at v = 1 and 2). Mostly consolidation of E-214/E-217/E-211. Not done: module/composition conventions traced line by line; Rickard Thm 6.4 not re-read (kept "per the repo's note").
+Result: (a) J_j = 0 for all j != v iff the Okuyama-Rickard mutation T at v is tilting (AI Thm 2.32(b), 2.50(c) vertex form), a citation for the abstract T; (b) tilting => End(T) derived equivalent (Rickard); (c) repo child = End(T) is the gap: End(T) = H_0(kM) (Oppermann Thm 1.1/7.5, Gamma_red = N, E-217), kM = repo child proved for acyclic D(i) (E-199). Prop. 7.6 (l. 1027) is not needed for H_0 or tilting-ness, only to identify kM with Gamma_red and read H_{>=1}. E-211: J_j = 0 (j = 2, 3, 4), T tilting, End(T) ~ parent, yet the repo's step 7 drops rbar.b.c: the failure is step 7, not J, not the literature. Caveat: by name Oppermann's "left" is AI's mu^+ while the repo's J is the mu^- criterion (2.50(c)); the printed A_3 example matches J's side, the dual count J^dual (1,0,0 / (1,0) / (0,1)) says not tilting in all three, so the side match rests on one example and is flagged, not proved.
+
+---
+
+## E-219 — n = 9, 3060000 vs 3304000 (F-010, same key, inequivalent): no meet at 5 + 5 or 6 + 6 under key-kept J = 0 F/R moves; the search joins equivalents on the 3060000 side only, the 3304000 control (F-047 naming) fails to 6 + 8; the J != 0 filter rejects 0.6% of candidates
+*2026-10-20* · **`timeout 10m .venv/bin/python -W ignore workshop/rounds/077/skeptic_f010join.py side A 3060000 6 540 $D/ck_A.pkl`** (then `side B 3304000 6 540 ...`, `meet ...`; full command list in `workshop/rounds/077/skeptic.md`; resumable, several commands per ball) · *workshop round 077, skeptic, refereed by theorist (minor revision, response done)*
+
+Scope: n = 9 only; moves = the E-212 `moves` (gate, J = 0, `tiltingPlus`, legality, key kept); meets up to isomorphism (WL hash then networkx iso); depth <= 6 per side (<= 8 for the 2400230 control); one random-walk control, two same-profile-orbit controls. The 3304000 / 2400230 equivalence is by F-047 naming only (not certified).
+Result: balls 1, 13, 83, 386, 1 584, 6 354, 26 353 (3060000) and 1, 11, 64, 282, 1 088, 4 046, 15 401 (3304000); 0 WL-hash coincidences at 5 + 5 and 6 + 6, so no meet, as the inequivalence predicts. Power is one-sided: 3060000 joins its own 10-step walk end and its same-profile orbit 6000030 at 4 + 5 (Hom-verified, iso meets); 3304000 does not join 2400230 at 5 + 5, 6 + 7, 6 + 8 (move-set gap, chain longer than 14, or naming error: not separated). So a NO for a pair with an end in the 3304000 class has no demonstrated power. A NO shows no J = 0 key-kept chain of <= 6 + 6; it does not show inequivalence (Happel + F-010/F-047) and says nothing about longer chains. New count: J != 0 candidates are rejected in the balls (99 of 16 573 for 3060000, 69 of 10 564 for 3304000, 99 of 16 441 for 6000030, 0 of 2 965 for 2400230, expansions to depth 5), so the earlier phrase "no J != 0 step enters the balls" (E-175, E-204) needs its meaning checked: here they are rejected candidates, none walked. 7 + 7 (about 1 hour) not run.
+
+---
+
 ## E-218 — n = 6..12, A_n = kA_n/rad^(n-1) vs B_n (one 3-arrow end relation): same Coxeter key, not joined by orbit + mirror moves (union-find n = 9, 10; forward orbits n = 6..8, 11, 12); equivalent only at n = 9, 10; vertex deletion maps the pair by a rule; corrects the E-210 strings (one zero too many)
 *2026-10-19* · **`timeout 10m .venv/bin/python workshop/rounds/075/experimentalist_join9.py`**, **`.../experimentalist_delpair.py`** (about 18 s and 16 s; output `workshop/rounds/075/experimentalist_delpair_out.txt`) · *workshop round 075, experimentalist, refereed by maverick (minor revision, answered)*
 

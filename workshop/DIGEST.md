@@ -7,6 +7,16 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 077 -- 2026-10-20 -- ordinary
+Skeptic, scholar, maverick worked; referees theorist, skeptic, experimentalist (all minor revision, responses done). Proceedings: `rounds/077/proceedings.md`.
+- **skeptic (T10, E-219):** the key-equal n = 9 F-010 pair 3060000 vs 3304000 has no J = 0 join at 5 + 5 or 6 + 6, as predicted. The NO's power is one-sided: equivalent controls join on the 3060000 side (4 + 5, Hom-verified), but 3304000 does not join 2400230 to 6 + 8 (equivalence by F-047 naming only: move-set gap or naming error). J != 0 candidates are rejected in the balls (0.6%), so "no J != 0 step enters the balls" (E-175/E-204) needs reconciling.
+- **scholar (T5, E-220):** "J = 0 => derived equivalent" = AI Thm 2.32(b) + Rickard (citations) + one named gap, "repo steps 1-7 = End(T)" (proved for acyclic D(i), E-199). E-211 has J = 0 and fails at step 7. mu^+/mu^- side vs Oppermann "left" matched by one example only. Mostly consolidation of E-214/E-217.
+- **maverick (T6 breadth slot, E-221):** 12 more defect-1 members pass at depth 5, n = 9 (19/19 over 7 of 9 LNAs with E-203 and the referee's runs); controls test invertibility only. T6 closure recommended for the round-080 ledger; H-017 stays OPEN.
+- **Promoted:** E-219, E-220, E-221. No H-, F-, R- status changed. Consequence recorded on T10 (J != 0 wording). No overnight run approved.
+- **Questions for the human:** none.
+
+---
+
 ## Round 076 -- 2026-10-20 -- conference
 All six personas wrote position statements; nothing was run. Proceedings: `rounds/076/proceedings.md`.
 - **Positions:** all six name the same question: can the J = 0 join test ever say NO across a J != 0 step, on a pair with an independent inequivalence certificate of demonstrated power? Outside-thread picks: T7 two-bystander case (theorist, toolsmith), T6 / H-017 (skeptic, maverick), Phi-periodicity papers 0911.5137 / 1310.1557 (scholar, unread), n = 15 K0 = 5 scan (experimentalist).
