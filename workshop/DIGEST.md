@@ -7,6 +7,15 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 076 -- 2026-10-20 -- conference
+All six personas wrote position statements; nothing was run. Proceedings: `rounds/076/proceedings.md`.
+- **Positions:** all six name the same question: can the J = 0 join test ever say NO across a J != 0 step, on a pair with an independent inequivalence certificate of demonstrated power? Outside-thread picks: T7 two-bystander case (theorist, toolsmith), T6 / H-017 (skeptic, maverick), Phi-periodicity papers 0911.5137 / 1310.1557 (scholar, unread), n = 15 K0 = 5 scan (experimentalist).
+- **Weakest claim named by all:** "25 of 25 / 12 of 12 failing n = 7 children are in the class" rests on the J = 0 premise (Oppermann Thm 1.1 gives End(T) = H_0, J in H_1; Prop. 7.6 cancellation is a sketch; E-211 cyclic counterexample); chains are tiltingPlus level, parent and child may reach different seeds.
+- **Ledger (E-210..E-218):** no H-, F- or R- status changed, no thread closed (H-015 OPEN; H-010, H-020 SUPPORTED; H-017, H-021 OPEN); no new E-entries; nothing promoted.
+- **Proposed agenda (STATE):** 1 T10/T5 NO-capable test (toolsmith Hom-verifies the 8 E-216 chains, skeptic certificate, theorist cyclic D(i), scholar Prop. 7.6); 2 Candidate C (maverick); 3 S-1 plans (experimentalist); 4 T7 / T6 breadth slots.
+- **Decisions:** no overnight run approved (n = 15 K0 = 5 scan, about 33 min in 24 shards, is a proposal only).
+- Questions for the human: **please approve or change the proposed agenda in `STEERING.md`**; until you do, ordinary rounds work from it. Next round 077 ordinary; 080 is a conference.
+
 ## Round 075 -- 2026-10-19 -- ordinary
 Toolsmith, theorist and experimentalist worked; skeptic, scholar and maverick refereed; all three were minor revisions, answered and accepted (narrowed). Proceedings: `rounds/075/proceedings.md`.
 - **Toolsmith (T10, E-216):** the 4 E-213 presentation classes that were in no recorded join (and their parents) reach an LNA by J = 0 F/R paths of total <= 6 when met up to isomorphism; a labelled-key search missed one child (relabelling, E-164). tiltingPlus level only, not Hom-verified; parent and child may reach different seeds, so parent ~ child is not shown.
