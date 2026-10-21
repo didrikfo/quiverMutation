@@ -7,6 +7,14 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 079 -- 2026-10-21 -- ordinary
+Called: skeptic (T10), scholar (T5), maverick (T4, breadth slot). S-1 not taken (taken in 078). Merge of origin/main: up to date.
+- **skeptic** (E-226): n = 9 pair 3060000 vs 3304000, no key-kept J = 0 meet at 5 + 5 -- a repeat of E-219's NO; new YES controls on the 3304000 side only (total <= 6; total-2 rows are trivial). 2400230 vs 3304000 still unexplained. The J = 0 premise is not probed (no J != 0 step walked).
+- **scholar** (E-227): Prop. 7.6 of 1504.02617v1 has no hypothesis beyond Thm 1.1's and no printed overlap step; the shape remark is not an Anick/Groebner hypothesis; inertness unproved. Mostly a rediscovery of E-214, E-220.
+- **maverick** (E-225): H-020's H1 at widths 9..11: 54 floating rules pass `verifyMove` at lengths w+1..14, 0 failures in 1 692 applications; L = 15 partial; same engine; w11 L14 thin (90 applications).
+- All three: minor revision, response done, accepted narrowed. No H-, F-, R- status changed; no code change; no overnight run approved.
+- Questions for the human: none. Round 080 is a conference (T6 closure to be decided in its ledger).
+
 ## Round 078 -- 2026-10-21 -- ordinary
 Toolsmith, theorist, experimentalist worked; referees skeptic, scholar, theorist (all minor revision, responses done). Proceedings: `rounds/078/proceedings.md`.
 - **toolsmith (T10, E-222):** the 8 E-216 chains now have recorded move lists and all verify by the Hom test (32 edges, 8 of 8, iso at the meets; generation assumed, verifier power thin). Child and parent end at the same seed in 3 of 4 reps; rep 2 does not (seeds 1 vs 8), link open. `mutateAtVertex` now raises `CyclicDescendantsError` when D(i) is cyclic (`allowCyclic=True` overrides); kept; two recorded scripts patched, outputs identical.

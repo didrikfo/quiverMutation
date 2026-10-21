@@ -6,6 +6,30 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-227 — Prop. 7.6 of Oppermann (arXiv:1504.02617v1): printed statement has no hypothesis beyond Thm 1.1's and no "leading words never overlap" step; the two printed words have no combinatorial overlap, which is not an Anick/Gröbner hypothesis; dg inertness of the cancellation not proved (reading of v1 only; rediscovery of E-214, E-220)
+*2026-10-21* · **`sed -n 1023,1045p research/literature/sources/1504.02617v1-oppermann-quivers-silting-mutation.tex`** (reading; no script) · *workshop round 079, scholar, refereed by theorist (minor revision, response done)*
+
+Scope: v1 only (journal version not seen, UNVERIFIED); the unnumbered proposition l. 1027-1033 is "7.6" by counting (as E-214, E-196). The claim is about the printed statement and the repo's step set (the recorded 44 paths of E-168, or steps passing the `mutateAtVertex` refusal of E-222), not every cyclic parent or direct caller.
+Result: the proof (l. 1034-1041) is a degree filtration and a cancellation of the pairs phi alpha^{-1}; nothing on cycles, finite dimension, J or parallel arrows; hypotheses are those of Thm 1.1 (l. 263-264) and Setup (l. 283). `grep -i "overlap|leading|inert|Anick|Gröbner"` returns only l. 1041 (the English word "leading"). The generators phi, alpha phi, alpha^* are distinct arrow families (Steps 1-4, l. 283-365); every printed leading word is (non-star)(star), so the two words cannot overlap as words. Without a well-founded order putting each leading word above its rest this is not an Anick/Gröbner hypothesis and says nothing about inertness. Mostly already recorded (E-214, E-196, E-220, E-189); new: the paper never mentions overlaps, and the shape remark.
+
+---
+
+## E-226 — n = 9 F-010 pair 3060000 vs 3304000: no key-kept J = 0 meet at depth 5 + 5 (REPEAT of E-219's NO); new YES controls on the 3304000 side only, at total <= 6
+*2026-10-21* · **`timeout 10m .venv/bin/python -u -W ignore workshop/rounds/079/skeptic_f010join.py side x 3304000 5 540 <ckpt>`**, then `meet` on two checkpoints (full command list in `rounds/079/skeptic.md`, 160-320 s per side) · *workshop round 079, skeptic, refereed by toolsmith (minor revision, response done)*
+
+Scope: n = 9, one inequivalent pair; E-212 `moves` (gate, J = 0 `tiltingPlus`, key kept), depth <= 5 per side; meets up to isomorphism. 3060000-side control is E-219's 6000030 (total 9), not rerun. J != 0 steps are only rejected, never walked, so the test cannot probe the J = 0 premise. Controls share the move set with the test.
+Result: 3060000's ball (6 354 algebras) meets none of the balls of 3304000 (4 046), 3004000 (6 804), 3024000 (1 987) or two 8-step walk ends (11 172, 5 220). 3304000 meets its `lnaMoves` orbit-mates 3004000 and 3024000 at total 2 (trivial distance) and the walk ends at total 4-6 (Hom-verified, iso meets); so power on the 3304000 side is demonstrated to distance <= 6 only. 2400230 vs 3304000 (6 + 8, no meet) stays unexplained: that F-047 lists them as separate orbits is an inference from naming, not a certificate. Read with E-219, not replacing it. "7 + 7 not needed" holds only for power at distance <= 6 on the 3304000 side. `3004000` already appears as a second-quipu root in earlier guard-level walks; the Hom-verified join inside the J = 0 move set is the new part.
+
+---
+
+## E-225 — H-020 H1 (floating rules) for widths 9..11: 54 rules pass `verifyMove` at every length w+1..14, 0 failures in 1 692 applications; length 15 partial (killed at the 10-minute limit), 0 failures in the part that ran
+*2026-10-21* · **`for w in 9 10 11; do for L in 10 11 12 13 14; do [ $L -gt $w ] && timeout 9m .venv/bin/python workshop/rounds/079/maverick_wide.py $L $w | tail -1; done; done`** (cells L <= 13 under 80 s; L = 14: 280 / 239 / 202 s) · *workshop round 079, maverick, refereed by toolsmith (minor revision, response done)*
+
+Scope: floating `VERIFIED_MOVES` only, widths 9, 10, 11 (18 rules each); every rule at every L with w < L <= 14. Anchored rules, lengths >= 16, the L = 15 remainder and engine independence not covered (same `verifyMove` code as E-159, E-165, E-188, E-207); widths 4..8 not re-checked. New cells beyond E-165's w+1..w+2: w9 at 12..14, w10 at 13..14, w11 at 14. Weakest cell: w11 at L = 14, 90 applications over 18 rules.
+Result: 0 failures; applications per cell (L = 14): 756 (w9), 252 (w10), 90 (w11). The referee reproduced every cell L <= 13 and w11 L = 14; the w9 and w10 L = 14 cells were not independently re-run. L = 15 partial counts (w9 660, w10 378, w11 224 applications, 0 failures) are not cells. No change to H-020's status.
+
+---
+
 ## E-224 — n = 10: no shared `canonicalKey` between J = 0 F/R balls of radius 5 around 90000000 and radius 4 around 00000030 (MISS, a bound only; the pair is equivalent, E-190); same-machinery positive control HIT 5 of 5; n = 15 K0 = 5 scan sized: 24 shards fit under 10 min only with an n = 14 key table
 *2026-10-21* · **`timeout 10m .venv/bin/python workshop/rounds/078/experimentalist_join10.py run 5 4 30000`** (6 m 49 s; control `experimentalist_join10_ctrl.py ctrl 1`; plan `experimentalist_shardplan15.py plan 400`) · *workshop round 078, experimentalist, refereed by theorist (minor revision, response done)*
 

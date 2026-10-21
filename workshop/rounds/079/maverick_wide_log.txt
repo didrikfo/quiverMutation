@@ -1,0 +1,25 @@
+DONE length 14 width 10 slice 0::1 rules 18 confirmed 252 failures 0 (239s)
+DONE length 14 width 11 slice 0::1 rules 18 confirmed 90 failures 0 (202s)
+DONE length 14 width 9 slice 0::1 rules 18 confirmed 756 failures 0 (280s)
+DONE length 10 width 9 slice 0::1 rules 18 confirmed 18 failures 0 (1s)
+DONE length 11 width 9 slice 0::1 rules 18 confirmed 36 failures 0 (3s)
+DONE length 12 width 9 slice 0::1 rules 18 confirmed 90 failures 0 (14s)
+DONE length 13 width 9 slice 0::1 rules 18 confirmed 252 failures 0 (70s)
+DONE length 11 width 10 slice 0::1 rules 18 confirmed 18 failures 0 (3s)
+DONE length 12 width 10 slice 0::1 rules 18 confirmed 36 failures 0 (11s)
+DONE length 13 width 10 slice 0::1 rules 18 confirmed 90 failures 0 (54s)
+DONE length 12 width 11 slice 0::1 rules 18 confirmed 18 failures 0 (8s)
+DONE length 13 width 11 slice 0::1 rules 18 confirmed 36 failures 0 (40s)
+# L15 partial (killed by timeout 9m), last progress line per shard: shard rule_index apps failures time
+L15w10s0.txt 2 126 0 414s
+L15w10s1.txt 2 126 0 418s
+L15w10s2.txt
+L15w10s3.txt 2 126 0 420s
+L15w11s0.txt 3 56 0 496s
+L15w11s1.txt 3 56 0 494s
+L15w11s2.txt 3 56 0 501s
+L15w11s3.txt 3 56 0 491s
+L15w9s0.txt 2 396 0 531s
+L15w9s1.txt
+L15w9s2.txt
+L15w9s3.txt 1 264 0 353s
