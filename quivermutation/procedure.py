@@ -254,8 +254,19 @@ def cartanDiscrepancy(quiver, relations, vertex, newQuiver, newRelations):
              for j in range(size)] for i in range(size)]
 
 
-def mutateAtVertex(quiver, relations, vertex, checkCartan = None):
+class CyclicDescendantsError(ValueError):
+    """D(vertex) has an oriented cycle: step 7 is not valid there (research E-211)."""
+
+
+def mutateAtVertex(quiver, relations, vertex, checkCartan = None, allowCyclic = False):
     """Steps 1 to 7 at `vertex`, returning (new quiver, new relations).
+
+    Refuses (`CyclicDescendantsError`) when the full subquiver D(vertex) on the
+    vertices reachable from `vertex` has an oriented cycle or a loop: step 7
+    only offers vertex-simple tails there and drops relations, and the child is
+    then not derived equivalent to the parent (research E-211, n = 4 monomial
+    example).  A cycle elsewhere in the quiver is not refused.  `allowCyclic =
+    True` restores the old behaviour (the result is then unproved).
 
     `checkCartan` (default: environment variable QM_CHECK_CARTAN set to 1)
     raises `CartanCongruenceError` when the result's Cartan matrix is not
@@ -266,6 +277,12 @@ def mutateAtVertex(quiver, relations, vertex, checkCartan = None):
     `isMutable` is that, and applying the rewrite without it gives a quiver that
     is not derived equivalent (R-005).
     """
+    if not allowCyclic:
+        below = nx.descendants(quiver, vertex) | {vertex}
+        if ap.hasOrientedCycle(quiver.subgraph(below)):
+            raise CyclicDescendantsError(
+                "D({0}) has an oriented cycle or a loop; step 7 is not valid there "
+                "(research E-211); pass allowCyclic=True to override".format(vertex))
     outArrows = ap.arrowsOutOf(quiver, vertex)
     inArrows = ap.arrowsInto(quiver, vertex)
     outRelations = [r for r in relations if ap.source(r) == vertex]

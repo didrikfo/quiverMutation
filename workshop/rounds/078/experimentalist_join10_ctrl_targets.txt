@@ -1,0 +1,15 @@
+keys equal True key (1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1)
+targets 646 distinct canonicalKeys 646 None keys 0 6s
+  A level 1: 16 new, 17 keys, 0s
+  A level 2: 126 new, 143 keys, 2s
+  A level 3: 710 new, 853 keys, 15s
+  A level 4: 3376 new, 4229 keys, 75s
+  A level 5: 14547 new, 18776 keys, 351s
+  B level 1: 16 new, 17 keys, 0s
+  B level 2: 124 new, 141 keys, 2s
+  B level 3: 674 new, 815 keys, 14s
+  B level 4: 3055 new, 3870 keys, 69s
+A-ball r5 target LNAs/duals inside: 1 [((9, 0, 0, 0, 0, 0, 0, 0), 'lna')]
+B-ball r4 target LNAs/duals inside: 1 [((0, 0, 0, 0, 0, 0, 3, 0), 'lna')]
+root A is target: True
+root B is target: True

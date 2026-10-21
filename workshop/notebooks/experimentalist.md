@@ -1,20 +1,20 @@
-# Experimentalist notebook (rewritten round 075)
+# Experimentalist notebook (rewritten round 078)
 
 ## What I now believe
-- Row convention (bit me in 073): an n-vertex LNA is an n - 2 entry row (`allRelationLengths(n)`, `lines.className`); E-210 wrote the n = 9 images of the E-190 pair as 80000000 / 00000300 (8 digits = n = 10). The n = 9 pair is 8000000 / 0000030. Check digit count against n before trusting a name.
-- 075: E-190 phenomenon holds at n = 9 and the whole family A_n = rad^(n-1), B_n = 3-relation on the last four vertices, n = 6..12: same key, A_n has no move (orbit 1), B_n orbit n*2^(n-5), never joined (joined only at n = 5). Deletion: A_n -> A_{n-1}; B_n -> B_{n-1} for i <= n-3, hereditary 0..02 otherwise. Join/non-join is preserved, orbit size follows a recurrence. Class equality only exact at n = 9, 10.
-- Free-stretch rule (E-114/E-146/E-200/E-206): D >= 3 from every relation support gives one image class (n = 9 -> 8 6/6, n = 10 -> 9 10/10). Mostly vacuous (32 of 42 n = 10 labels have no D >= 3 cell). The E-190 pair is outside its domain.
-- Exact classifyLength(10): seed places 61.0 % (311 s); main pass unsized (<= ~3 h arithmetic, resolve step unknown). classify.py has --budget-hours, exits 2 on budget. Proposal sits in 073 submission.
-- Coxeter key == class at n = 8, 9; no fixed i or class+i+coverage rule predicts the image (E-194, E-200). T4 widths 6..8 pass; T7 right LNA rule exact n = 5..10.
+- Row convention: an n-vertex LNA is an n - 2 entry row; `nk.LinearNakayamaAlgebra(n, list(row))` builds it (`fromRelationString` wants the table's 'a;b|c' form, not digits). Check digit count against n.
+- 075: A_n = rad^(n-1) vs B_n (3-relation on last four vertices), n = 6..12: same key, A_n has no move, B_n orbit n*2^(n-5), never joined by orbit + mirror except n = 5. Free-stretch rule (D >= 3) mostly vacuous; E-190 pair is outside it.
+- 078: tilting-only J = 0 F/R join of 90000000 / 00000030 at n = 10: MISS at radius 5 + 4 (18 776 + 3 870 keys, 6m49s). Ball growth x4.3 per level, 23 ms/key; 16 moves at each root; no key-changing or J != 0 step ever occurred. 6 + 6 ~ 50 CPU-min. A miss is a bound (labelled canonicalKey, E-164 effect).
+- 078: n = 15 scan: key 2.06 ms/row (3.8 min per 24th), each deletion key 2.1 ms (62 min per shard if 15 taken per row). Layout: n = 14 key table in 4 jobs, then 24 shards with lookups. `allRelationLengths(15)` tuple takes 16 s, then free. Class level (orbit labels) unsized.
+- Coxeter key == class at n = 8, 9; no fixed i or class+i+coverage rule predicts the image (E-194, E-200). Exact classifyLength(10): seed 61 % in 311 s, main pass unsized.
 
 ## What I tried
-- 075: `rounds/075/experimentalist_join9.py` (orbitReport, movesJoin, derivedOrbits + mirrorRow), `experimentalist_delpair.py` (family n = 5..12, 10 s).
-- 073: `experimentalist_pair.py`, `experimentalist_plan10.py`. 070: `_free10.py`, `_free10_d2.py`, `_pool.py`. 067: `_deltable.py`, `_delsplit.py`. 065: `_delcompat.py`.
-- Lessons: grep EXPERIMENTS.md first; mirror for rows of another n must use len(row)+2 (edge moves can change n in an orbit); forward orbit absent != not equivalent; background jobs piped through tail show nothing until the end.
+- 078: `rounds/078/experimentalist_join10.py` (plan / run DA DB CAP; execs rounds/049 tiltpath moves), `experimentalist_shardplan15.py` (plan / shard k K). Gotcha: the exec'd tiltpath source overwrites a variable named ARGV; and a 10-min `run 5 5` is killed (needs ~11 min).
+- 075: `experimentalist_join9.py`, `_delpair.py`. 073: `_pair.py`, `_plan10.py`. 070: `_free10*.py`. 067/065: deletion tables.
+- Lessons: grep EXPERIMENTS.md first; mirror needs len(row)+2; forward orbit absent != not equivalent; piping through tail hides progress, tee to a file.
 
 ## What I would do next
-1. Overnight --run loop for exact classifyLength(10), then redo free10 on exact labels (check the --run path on n = 8 first).
-2. S-1 item 3: an LNA with a long core equivalent to a quipu/almost-separate LNA, delete outside the core; the A_n/B_n family has no core, so it says nothing.
-3. S-1 item 2 for H-020 head/tail at n = 12 -> 11 on the lone-3 class (E-146).
-4. A join search for `8000000` ~ `0000030` (moveless vs mobile row) as the long-path control; ask toolsmith.
-5. n = 11 -> 10 with the D >= 3 filter (size first).
+1. Check whether the radius-5 A-ball reaches any LNA of the key class (646 targets): is the hereditary side even approached? Cheap.
+2. Pickle the balls and do (6,4) / (5,5) in separate commands; overnight (6,6) with iso meets.
+3. Size `derivedOrbits(14)` on one shard for class-level S-1; then run Stage A/B if approved.
+4. S-1 item 3 (long core equivalent to quipu LNA) and item 2 (H-020 head/tail at n = 12 -> 11).
+5. Exact classifyLength(10) overnight, then redo free10 on exact labels.

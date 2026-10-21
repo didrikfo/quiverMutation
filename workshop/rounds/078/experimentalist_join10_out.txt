@@ -1,0 +1,12 @@
+keys equal True key (1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1)
+  A level 1: 16 new, 17 keys, 0s
+  A level 2: 126 new, 143 keys, 1s
+  A level 3: 710 new, 853 keys, 12s
+  A level 4: 3376 new, 4229 keys, 70s
+  A level 5: 14547 new, 18776 keys, 340s
+  B level 1: 16 new, 17 keys, 0s
+  B level 2: 124 new, 141 keys, 2s
+  B level 3: 674 new, 815 keys, 12s
+  B level 4: 3055 new, 3870 keys, 68s
+A levels [1, 16, 126, 710, 3376, 14547] B levels [1, 16, 124, 674, 3055] shared keys 0
+MISS (bound for depth 5 + 4 cap 30000 )

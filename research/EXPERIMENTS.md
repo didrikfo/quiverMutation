@@ -6,6 +6,28 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-224 — n = 10: no shared `canonicalKey` between J = 0 F/R balls of radius 5 around 90000000 and radius 4 around 00000030 (MISS, a bound only; the pair is equivalent, E-190); same-machinery positive control HIT 5 of 5; n = 15 K0 = 5 scan sized: 24 shards fit under 10 min only with an n = 14 key table
+*2026-10-21* · **`timeout 10m .venv/bin/python workshop/rounds/078/experimentalist_join10.py run 5 4 30000`** (6 m 49 s; control `experimentalist_join10_ctrl.py ctrl 1`; plan `experimentalist_shardplan15.py plan 400`) · *workshop round 078, experimentalist, refereed by theorist (minor revision, response done)*
+
+Scope: n = 10, one pair; rounds/049 J = 0 F/R moves, not Hom-verified at n = 10; labelled `canonicalKey` (can hide an iso-level meet, E-164); cap 30 000 not reached; balls 18 776 and 3 870 keys, each holding only its own root of the 646 target-class algebras. Control walks are built from the same moves, so they test the join, not completeness of the move set. Ball growth x4.3 per level (about 50 CPU-min for 6 + 6, about 4 h per side for 7 + 7). Shard plan: key alone 3.8 min per shard of 24; with 15 deletion keys per row 62 min per shard, so Stage A (4 jobs, n = 14 key table) then Stage B (24 jobs, about 4 min each) then merge; key level only (E-173 scope), nothing of the scan run.
+
+---
+
+## E-223 — Does the Coxeter-key guard force D(i) acyclic? No (E-211 rerun); inside `mutationSearchDepthFirst` step 7 is applied only at nodes with no oriented cycle (search.py l. 420 `noCycles`), so E-199 covers the search; direct callers are unguarded
+*2026-10-21* · **`.venv/bin/python -W ignore workshop/rounds/078/theorist_cycD_rerun.py`** (2 s) · *workshop round 078, theorist, refereed by scholar (minor revision, response done)*
+
+Scope: one n = 4 monomial example (E-211, rerun) and a reading of search.py l. 362-470; unguarded call sites listed (mutation.py l. 41, 49, 105, 141; pathAlgebra.py l. 151; procedure.py l. 669, 671, 697), not analysed. Rediscovery of E-211 plus the one-line argument: the `noCycles` test is on the node mutated, and the only call in search.py is at l. 437 inside it. The guard's key is None on cyclic input and None is let through, so it never inspects D(i).
+
+---
+
+## E-222 — n = 7, key classes 1 and 2: the 8 E-216 chains (4 unjoined presentation classes, child and parent) have recorded F/R move lists, 32 edges, all Hom-verified (Hom(T,T[±1]) = 0, Hom dims = Cartan) with sign-aware isomorphism at every meet; child and parent end at the same seed in 3 of 4 reps; `mutateAtVertex` now refuses a cyclic D(i)
+*2026-10-21* · **`for R in 0 1 2 3; do timeout 10m .venv/bin/python -W ignore workshop/rounds/078/toolsmith_chains.py $R 4 5; done`** (about 110 s for four) · *workshop round 078, toolsmith, refereed by skeptic (minor revision, response done)*
+
+Scope: n = 7; one representative per E-213 presentation class (class 1 once, class 2 three times), child and parent = 8 algebras, not the 14 edges; target ball depth 4, algebra ball depth 5; generation of K^b(proj) by T assumed (E-168). Verifier = E-212 `horn` (power thin: 1 Hom rejection in 195 corruptions); a pass is Hom-consistent, not a proof.
+Result: totals as E-216 (2, 2, 2, 3 / 6, 6, 5, 6); 8 of 8 chains verify, 0 fail. Seed ends (index in `classes[base]`): rep 0 child 1 / parent 1; rep 1 8 / 8; rep 2 child 1 / parent 8 (different seeds, link open); rep 3 1 / 1. Code: `procedure.mutateAtVertex` (and the left and multi-vertex callers) raises `CyclicDescendantsError` when D(i) has an oriented cycle or loop, `allowCyclic=True` restores the old behaviour; tests in `tests/test_cyclic_warning.py`; non-slow suite 1429 passed. Recorded scripts `rounds/073/theorist_cycD.py` and `rounds/065/theorist_g2cyclic.py` now pass `allowCyclic=True` (outputs byte-identical to the pre-guard code); 5 other direct-caller scripts needing arguments were not run. Consequence: E-216's "not Hom-verified" is now Hom-verified for its 8 chains; "25 of 25 / 70 edges joined" still rests on the J = 0 premise and the rep 2 seed link is open.
+
+---
+
 ## E-221 — H-017 defect-1 control, n = 9, depth 5: 12 more members of four left-over LNAs return their source at depth 5 and not 4 (19 of 19 over 7 of 9 outside LNAs with E-203 and the referee's two runs); the controls test walk invertibility only
 *2026-10-20* · **`LO=0 timeout 10m .venv/bin/python workshop/rounds/077/maverick_defect1_rest.py 9 5 5 1 2 4550400 --run`** (506 s; same for 5040330, 5050030, 5504030; `LO=1 ... 3505000 --run`, 383 s) · *workshop round 077, maverick, refereed by experimentalist (minor revision, response done)*
 

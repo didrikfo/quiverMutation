@@ -1,0 +1,45 @@
+keys equal True key (1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1)
+walk L=6 trial 0 end key == root key: False
+  A level 1: 16 new, 17 keys, 0s
+  A level 2: 126 new, 143 keys, 2s
+  A level 3: 710 new, 853 keys, 16s
+  X level 1: 12 new, 13 keys, 0s
+  X level 2: 85 new, 98 keys, 1s
+  X level 3: 468 new, 566 keys, 6s
+CTRL L=6 (3+3) trial 0: shared 27 HIT depth 4
+walk L=6 trial 1 end key == root key: False
+  A level 1: 16 new, 17 keys, 0s
+  A level 2: 126 new, 143 keys, 1s
+  A level 3: 710 new, 853 keys, 12s
+  X level 1: 10 new, 11 keys, 0s
+  X level 2: 69 new, 80 keys, 1s
+  X level 3: 390 new, 470 keys, 5s
+CTRL L=6 (3+3) trial 1: shared 68 HIT depth 4
+walk L=6 trial 2 end key == root key: False
+  A level 1: 16 new, 17 keys, 0s
+  A level 2: 126 new, 143 keys, 1s
+  A level 3: 710 new, 853 keys, 12s
+  X level 1: 12 new, 13 keys, 0s
+  X level 2: 85 new, 98 keys, 1s
+  X level 3: 479 new, 577 keys, 7s
+CTRL L=6 (3+3) trial 2: shared 5 HIT depth 6
+walk L=8 trial 0 end key == root key: False
+  A level 1: 16 new, 17 keys, 0s
+  A level 2: 126 new, 143 keys, 1s
+  A level 3: 710 new, 853 keys, 13s
+  A level 4: 3376 new, 4229 keys, 75s
+  X level 1: 11 new, 12 keys, 0s
+  X level 2: 71 new, 83 keys, 1s
+  X level 3: 381 new, 464 keys, 4s
+  X level 4: 1831 new, 2295 keys, 25s
+CTRL L=8 (4+4) trial 0: shared 47 HIT depth 6
+walk L=8 trial 1 end key == root key: False
+  A level 1: 16 new, 17 keys, 0s
+  A level 2: 126 new, 143 keys, 1s
+  A level 3: 710 new, 853 keys, 12s
+  A level 4: 3376 new, 4229 keys, 74s
+  X level 1: 10 new, 11 keys, 0s
+  X level 2: 61 new, 72 keys, 1s
+  X level 3: 296 new, 368 keys, 6s
+  X level 4: 1299 new, 1667 keys, 31s
+CTRL L=8 (4+4) trial 1: shared 19 HIT depth 8

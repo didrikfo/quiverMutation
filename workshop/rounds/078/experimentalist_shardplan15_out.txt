@@ -1,0 +1,5 @@
+enum 200000 rows 18.29s; skip to a shard start costs <= 244.5s
+full enumeration pass 0.2s, 401 sampled rows
+key 2.42 ms/row
+all deletions: 15.0 images/row, 31.68 ms/row (key of every image at n-1)
+full scan key + all deletion keys: 91202 CPU-s; 24 shards: 63.3 min each; 111435 rows/shard

@@ -49,7 +49,7 @@ if __name__ == "__main__":
     key = {n: (t, h, 0) for n, (t, h) in A.items()}
     rels = [ap.combination([(tuple(key[x] for x in r), 1)]) for r in R]
     print("gate (vertex-simple, repo):", pr.isMutable(Q, rels, 1))
-    Q2, R2 = pr.mutateAtVertex(Q, rels, 1)
+    Q2, R2 = pr.mutateAtVertex(Q, rels, 1, allowCyclic=True)  # r078: E-211 guard refuses cyclic D(1); old behaviour requested
     print("repo child arrows:", sorted(Q2.edges(keys=True)))
     print("repo child relations:")
     for r in R2: print("   ", r)

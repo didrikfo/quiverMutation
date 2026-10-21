@@ -86,7 +86,7 @@ Q = nx.MultiDiGraph()
 for t, h, k in E:
     Q.add_edge(t, h, key=k)
 rels = [ap.combination(r.items()) for r in rv]
-nq, nr = pr.mutateAtVertex(Q, rels, 3)
+nq, nr = pr.mutateAtVertex(Q, rels, 3, allowCyclic=True)  # r078: guard (E-211) bypassed, old behaviour
 P = np.array(ap.cartanMatrix(Q, rels, exact=True))
 repoDisc = np.array(pr.cartanDiscrepancy(Q, rels, 3, nq, nr))
 true8 = np.array(trueCartan(nq, nr, 8)).T
@@ -116,7 +116,7 @@ for n, lens in [(3, {1: 4, 2: 4, 3: 4}), (4, {1: 3, 2: 3, 3: 3, 4: 3}), (4, {1: 
     for i in range(1, n + 1):
         ok = pr.isMutable(G, rl, i)
         try:
-            pr.mutateAtVertex(G, rl, i)
+            pr.mutateAtVertex(G, rl, i, allowCyclic=True)  # r078: guard (E-211) bypassed, old behaviour
             tally["gate admits, rewrite runs" if ok else "gate refuses"] += 1
         except KeyError:
             tally["KeyError"] += 1

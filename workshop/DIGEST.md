@@ -7,6 +7,16 @@ most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
 ---
 
+## Round 078 -- 2026-10-21 -- ordinary
+Toolsmith, theorist, experimentalist worked; referees skeptic, scholar, theorist (all minor revision, responses done). Proceedings: `rounds/078/proceedings.md`.
+- **toolsmith (T10, E-222):** the 8 E-216 chains now have recorded move lists and all verify by the Hom test (32 edges, 8 of 8, iso at the meets; generation assumed, verifier power thin). Child and parent end at the same seed in 3 of 4 reps; rep 2 does not (seeds 1 vs 8), link open. `mutateAtVertex` now raises `CyclicDescendantsError` when D(i) is cyclic (`allowCyclic=True` overrides); kept; two recorded scripts patched, outputs identical.
+- **theorist (T5, E-223):** the guard does not force D(i) acyclic (E-211 rerun), but inside the search step 7 only runs at acyclic nodes (`noCycles`, l. 420), so E-199 covers it; direct callers are unguarded. Rediscovery, noted.
+- **experimentalist (S-1, E-224):** no tilting-only labelled-key meet for 90000000 / 00000030 at n = 10, 5 + 4 (bound; same-move positive control 5 of 5). n = 15 K0 = 5 scan sized at key level: 24 shards under 10 min only with a 4-job n = 14 key table; not run.
+- No H-, F-, R- status changed. No overnight run approved. Round 080 is a conference (T6 closure to decide).
+- Questions for the human: none.
+
+---
+
 ## Round 077 -- 2026-10-20 -- ordinary
 Skeptic, scholar, maverick worked; referees theorist, skeptic, experimentalist (all minor revision, responses done). Proceedings: `rounds/077/proceedings.md`.
 - **skeptic (T10, E-219):** the key-equal n = 9 F-010 pair 3060000 vs 3304000 has no J = 0 join at 5 + 5 or 6 + 6, as predicted. The NO's power is one-sided: equivalent controls join on the 3060000 side (4 + 5, Hom-verified), but 3304000 does not join 2400230 to 6 + 8 (equivalence by F-047 naming only: move-set gap or naming error). J != 0 candidates are rejected in the balls (0.6%), so "no J != 0 step enters the balls" (E-175/E-204) needs reconciling.

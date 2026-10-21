@@ -1,0 +1,6 @@
+rep 0 class 1 v 7 parent key class ok True child True
+rep 0 class 1 target ball keys 4460 94s
+child rep 0 moves(alg->meet) - | moves(seed->meet) F7 F5 | seed key in ball | seed index 1 of 12
+child rep 0 edges 2 hom-detail  || F7 F5 | all-edges-pass True | meet signedIso True E-212 iso True VERIFIED
+parent rep 0 moves(alg->meet) F4 F7 | moves(seed->meet) F7 F5 F7 F5 | seed key in ball | seed index 1 of 12
+parent rep 0 edges 6 hom-detail F4 F7 || F7 F5 F7 F5 | all-edges-pass True | meet signedIso True E-212 iso True VERIFIED
