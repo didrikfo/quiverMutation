@@ -1,0 +1,12 @@
+rep 2 class 2 v 6 parent key class ok True child True
+seeds 14 rep 2
+seed keys [(0, True), (1, True), (2, True)] seed1 key==seed8 key False
+  depth 1 new 8
+  depth 2 new 30
+  depth 3 new 90
+ball seed1 129 1s
+  depth 1 new 8
+  depth 2 new 36
+  depth 3 new 147
+ball seed8 192 3s
+MEET total 4 seed1 moves F6 | seed8 moves R5 R5 R6 | hom F6 || R5 R5 R6 | edges-pass True signedIso True E-212 iso True VERIFIED

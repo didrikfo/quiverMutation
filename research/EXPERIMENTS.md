@@ -6,6 +6,30 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-230 — T7 / H-010 at k = 3, margin 2, pair (8:3)(9:3), two bystanders (m <= 3, starts 6..12): 14 of 16 admissible cells (plus 2 vacuous, reaching 0 and 1 LNA) stay at overlap 2; a run-of-three bystander plus a second bystander lowers to 0 in 6 of 6 controls (2 touching the run); H-010 stays SUPPORTED (capped sample, no proof)
+*2026-10-22* · **`.venv/bin/python workshop/rounds/081/theorist_twoby.py`** (also `theorist_twoby_rest.py`, `theorist_twoby_ctrl.py`, `theorist_twoby_ctrl2.py`; about 100 s per cell) · *workshop round 081, theorist, refereed by scholar (minor revision, response done)*
+
+Scope: pair (8:3)(9:3) only, bystanders (t:m), m in {2,3}, t in 6..12, each sharing <= 1 arrow with the pair; sequences of <= 3 mutations at vertices within 2 of the pattern (`lnaMoves.localMutationSequences`, as E-152). Not covered: k >= 4, margin > 2, m = 4, other pair shapes, two bystanders forming a run with the pair jointly, any proof.
+Result: no admissible placement reaches an LNA of maximum overlap < 2; the 3 cells where the bystanders touch each other also stay at 2. Two cells are vacuous ((6,3)(11,3) reached 0 LNAs lowered, (6,3)(12,3) reached 1), so the count is 14 real tests. Controls with a run-of-three bystander (7,3) or (10,3) plus a second bystander reach overlap 0 in 6 of 6 (4 far: 8 lowering LNAs each; touching: (7,3)+(5,3) 3 of 4 LNAs, (10,3)+(12,2) 6 of 12). This fills the "nothing for two bystanders" gap of E-152 at this one cell. The tables and counts are in `theorist.md`; the referee re-ran two cells and matched.
+
+---
+
+## E-229 — n = 9 F-010 pair 3060000 vs 3304000: E-219's 0.6% "J != 0" candidates (99 of 16 573 and 69 of 10 564 gate candidates, balls to depth 5) split by key: 3304000 all 69 move the key, 3060000 has one key-kept `perI`-flagged J != 0 step (parent depth 4); the older "no J != 0 step enters the balls" is not shown compatible; 7 + 7 sized at an estimated 2 h, not run
+*2026-10-22* · **`timeout 10m .venv/bin/python -u -W ignore workshop/rounds/081/experimentalist_jkey.py 3060000 5 560`** (and `... 3304000 5 520`; 3-4 min each unloaded) · *workshop round 081, experimentalist, refereed by skeptic (minor revision, response done)*
+
+Scope: n = 9, two roots, E-212 `moves`; "J != 0" means the `perI` flag at the gate, not a Hom test (the kept step also passes `tiltingPlus`-J, so whether it is a real J != 0 step is open); one event cannot give a rate. The J = 0 NO of E-219/E-226 is unchanged (the kept child is not in the J = 0 ball).
+Result: counts reproduce E-219 exactly and the skeptic's rerun. First `perI` candidate at parent depth 3 (3060000: 8, all moved), 91 at depth 4 (1 kept); 3304000: 6 at depth 3, 63 at depth 4, none kept. E-204's n = 9 sentence (line 180, depth-7 reach sets of J = 0 vs gate + key identical) may use another move set: compatibility unchecked. Driver `experimentalist_join97.py` takes `--budget-hours` (tested at 0 only); the times (about 0.7-0.9 h per larger ball, meet 0.5-1 h unsized) are estimates. Open: Hom-test the kept step.
+
+---
+
+## E-228 — n = 7, key class 2: seeds 1 and 8 of `classes[base]` joined by a 4-edge J = 0 chain (F6 | R5 R5 R6, pieces Hom-consistent, meet by the necessary sign-aware iso test); the 11-edge E-222 rep 2 chain replayed in one process; record 6 of E-212 pieces verified separately; the Hom+Cartan test alone showed no NO power on 26 key-kept corruptions (the meet iso rejected all 26)
+*2026-10-22* · **`timeout 10m .venv/bin/python -W ignore workshop/rounds/081/toolsmith_seedlink.py 2 3 3`** (also `toolsmith_rec6.py`, `toolsmith_chain11.py`; collect step `workshop/rounds/049/toolsmith_collect.py 7 2 20000 /tmp/ts73/c2.pkl 100`, about 410 s) · *workshop round 081, toolsmith, refereed by skeptic (minor revision, response done)*
+
+Scope: n = 7, class 2 only; balls of depth 3 from each of two seeds (not the whole class); J = 0 premise plus generation (E-168) assumed; each edge checked seed -> end (one process, no composed vertex map); class 1 and other seed pairs not run.
+Result: the seed-to-seed link left open by E-222 (rep 2, seeds 1 vs 8) and by E-212 (record 6) exists, so under the premise all four E-222 reps have parent ~ child by explicit chains and class 2 is 9 of 9 at the E-212 level; the old miss was the labelled `canonicalKey` meet (E-164 effect, pooled balls hid the link). Hom(T,T[+-1]) = 0 and dim Hom = Cartan on every edge, but swapping one move gave 52 corruptions, 26 NOSTEP, 0 Hom+Cartan rejections, 26 failing the meet iso: "Hom-verified" is a consistency check here, not evidence of the premise.
+
+---
+
 ## E-227 — Prop. 7.6 of Oppermann (arXiv:1504.02617v1): printed statement has no hypothesis beyond Thm 1.1's and no "leading words never overlap" step; the two printed words have no combinatorial overlap, which is not an Anick/Gröbner hypothesis; dg inertness of the cancellation not proved (reading of v1 only; rediscovery of E-214, E-220)
 *2026-10-21* · **`sed -n 1023,1045p research/literature/sources/1504.02617v1-oppermann-quivers-silting-mutation.tex`** (reading; no script) · *workshop round 079, scholar, refereed by theorist (minor revision, response done)*
 

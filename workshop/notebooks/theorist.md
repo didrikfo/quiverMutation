@@ -1,19 +1,19 @@
-# Theorist notebook (rewritten round 078)
+# Theorist notebook (rewritten round 081)
 
 ## What I believe now
-- G2/step 7 (065, 067): with TRUE paths, (A) g = gd always, (B) red(B_1 e_i) = rbar.I and K = {z_0: (d z_0)/a in I all a} always (math). The repo's kernel = (B) iff every tail p is vertex-simple, in particular when D(i) is acyclic (E-199).
-- 073/078: the guard does NOT force D(i) acyclic (None key on cyclic quivers is let through; guard off for cyclic start). Cycle meeting D(i): n = 4 monomial, i = 1, repo drops rbar.b.c (E-211, rerun 078, reproduces). But inside search.py mutation happens only under `depth > 0 and noCycles` (l. 420, whole-node test), so every mutated parent of a guarded walk from an LNA is acyclic: E-199 covers the search. Only direct callers of mutateAtVertex are exposed. Thread question closed.
-- 075: Gamma_red = N as dg algebras under Thm 1.1's hypotheses (hand, relative to the printed Gamma presentation, d^2 = 0 on M). End(T) = H_0(kM) = Thm 7.5 + this + E-214 B.
-- J = 0 is not implied by g = gd (lives in H_1(M)). Premise rests on per-step J_i = 0 check, Thm 1.1 (E-189), left/right convention (E-195), generation (E-168).
-- A_3/rad^2 at i = 2 is silting not tilting (H_1(kM) != 0).
-- T7: right (062) and left (070) mutation of an LNA row proved relative to the repo's procedure, n = 4..10. Open: two bystanders, k>=4. H-010 supported, unproved.
+- G2/step 7 (065, 067): with TRUE paths, (A) g = gd always, (B) red(B_1 e_i) = rbar.I and K = {z_0: (d z_0)/a in I all a} always (math). Repo's kernel = (B) iff every tail p is vertex-simple, e.g. D(i) acyclic (E-199).
+- 073/078: guard does not force D(i) acyclic; E-211 is the cyclic counterexample for direct mutateAtVertex callers; search.py only mutates acyclic parents, so E-199 covers the search. Closed.
+- 075: Gamma_red = N as dg algebras under Thm 1.1 (hand, relative to printed presentation). J = 0 not implied by g = gd. A_3/rad^2 at i = 2 is silting not tilting.
+- T7: single-mutation LNA rule proved for right (062, E-187) and left (070, E-205) relative to the repo's procedure, n = 4..10. H-010 SUPPORTED, unproved.
+- 081 (T7, two bystanders, k = 3, margin 2, pair (8:3)(9:3)): 16/16 admissible cells with both bystanders sharing <= 1 arrow (m <= 3, t 6..12) stay at overlap 2, incl. 3 chained cells; 4/4 controls with a run of three plus a second bystander reach 0. Weak cells: (6,3)(11,3) and (6,3)(12,3) reach 0 and 1 LNAs.
 
 ## What I tried
-- 078: reread E-211/search.py, reran theorist_cycD.py (rediscovery, no new math). 075: Gamma_red = N. 073: cycD. 070: leftcheck. 067: cycoff, cycup. 065: g2exact, g2cyclic. 062: t7check.
+- 081: theorist_twoby.py (+_rest, _ctrl). ~100 s per k = 3 cell, which kills larger sweeps.
+- 078: cycD rerun; 075 Gamma_red; 073; 070 left check; 067; 065; 062.
 
 ## Next
-- Machine check of Theta/H_0 on tiny algebras with X non-empty (explicit complexes of projectives vs H_0(kM)).
-- Corrected-child step 7 (true tails) on random monomial cyclic algebras; decide H_1(kM) for E-211's corrected child.
-- Possible small fix: refuse/raise in mutateAtVertex when a tail path is non-vertex-simple (needs chair decision).
-- T7 two-bystander window.
-- Blind spots: proofs are about the repo's procedure or a printed presentation, not tilting complexes; one example is not a rate. Grep research/ for the assignment text before working: this round's question was already answered by E-211.
+- Two pair-sharing bystanders on opposite sides ((7,3)+(10,3)), and m = 4, t outside 6..12.
+- k = 4 needs a faster localMutationSequences or an OVERNIGHT job; propose ~20 cells.
+- Find why a run of three lowers (mechanism), via the E-187 gate rule applied to a 3-step sequence.
+- Machine check of Theta/H_0 on tiny algebras; corrected-child step 7 on random cyclic monomial algebras.
+- Blind spots: proofs are relative to the repo's procedure; capped enumerations are not laws. Grep research/ for the assignment first.

@@ -1,0 +1,5 @@
+rep rec6 class 2 target ball keys 7208 91s
+child rep rec6 moves(alg->meet) - | moves(seed->meet) F7 F6 | seed key in ball | seed index 1 of 14
+child rep rec6 edges 2 hom-detail  || F7 F6 | all-edges-pass True | meet signedIso True E-212 iso True VERIFIED
+parent rep rec6 moves(alg->meet) F1 F2 | moves(seed->meet) F1 F1 R6 R7 | seed key in ball | seed index 8 of 14
+parent rep rec6 edges 6 hom-detail F1 F2 || F1 F1 R6 R7 | all-edges-pass True | meet signedIso True E-212 iso True VERIFIED

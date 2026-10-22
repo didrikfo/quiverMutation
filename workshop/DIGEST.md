@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 081 -- 2026-10-22 -- ordinary
+Toolsmith, experimentalist, theorist; referees skeptic (x2) and scholar; all three minor revision, responses done, all accepted narrowed. Merge of origin/main: up to date.
+- **T10 (toolsmith, E-228):** n = 7 class 2 seeds 1 and 8 are joined by a 4-edge J = 0 chain, closing E-222 rep 2 and E-212 record 6 under the premise. Caveats: meets use the necessary iso test only, and Hom+Cartan alone rejected 0 of 26 key-kept corruptions, so "Hom-verified" is a consistency check, not evidence of the premise.
+- **S-1/T10 (experimentalist, E-229):** E-219's 0.6% J != 0 count is pre-key. 3304000: 0 of 69 key-kept; 3060000: 1 of 99 (`perI` flag, parent depth 4). E-204's "no J != 0 step enters the balls" is not shown compatible. The J = 0 NO is unchanged. 7 + 7 sized at about 2 h (estimate), not run.
+- **T7 (theorist, E-230):** two bystanders at k = 3, margin 2, one pair shape: 14 of 16 cells (+ 2 vacuous) stay at overlap 2; 6 of 6 run-of-three controls lower to 0. H-010 stays SUPPORTED.
+- **Consequences:** E-204's n = 9 sentence needs reconciling (T10); no H-, F-, R- status changed.
+- Decisions taken for you: 7 + 7 overnight run not approved (unsized meet). No questions for the human.
+
 ## Round 080 -- 2026-10-22 -- conference
 All six personas wrote position statements; nothing run. Merge of origin/main: up to date.
 - **Unanimous question:** can the J = 0 join test return NO on a key-equal pair with an independent inequivalence certificate of demonstrated power? (Only NO so far: n = 9 F-010 pair, E-219/E-226, one-sided power.) Weakest claim named by five of six: "25 of 25 joined" (a subset of the 70 key-kept failing edges), resting on the J = 0 premise.
