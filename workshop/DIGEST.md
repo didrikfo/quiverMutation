@@ -5,6 +5,15 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 080 -- 2026-10-22 -- conference
+All six personas wrote position statements; nothing run. Merge of origin/main: up to date.
+- **Unanimous question:** can the J = 0 join test return NO on a key-equal pair with an independent inequivalence certificate of demonstrated power? (Only NO so far: n = 9 F-010 pair, E-219/E-226, one-sided power.) Weakest claim named by five of six: "25 of 25 joined" (a subset of the 70 key-kept failing edges), resting on the J = 0 premise.
+- **Outside-thread pick:** T7 two-bystander case of H-010 (five of six; maverick: possibly a composite of E-187 and E-205). Scholar: Phi-periodicity papers for Candidate C (unread, UNVERIFIED).
+- **Ledger:** no H-, F-, R- status changed (H-015, H-017 OPEN; H-010, H-020 SUPPORTED). T6 closed (H-017 stays OPEN). No new finding or retraction.
+- **Proposed agenda** (in STATE): 1 T10/T5 NO-capable test (skeptic, toolsmith, theorist, scholar); 2 T7 (theorist); 3 S-1 sizing (experimentalist, toolsmith); 4 T3/T8 literature first (scholar); 5 housekeeping.
+- Decisions taken for you: no overnight run approved (7 + 7 and n = 15 scan unsized); T6 closed.
+- **Questions for the human:** none; approve or change the agenda in `STEERING.md` if you wish (ordinary rounds follow it meanwhile).
+
 ---
 
 ## Round 079 -- 2026-10-21 -- ordinary
