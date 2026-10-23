@@ -1,0 +1,20 @@
+completed depth 3 sizes(cumulative) [1, 14, 104, 598] in-progress level 4: 0/494
+== 1932
+complete depths 3 5 ball sizes 598 6354 WL-bucket iso tests 1 meet total 8 4s
+path [('F', 9), ('R', 1), ('R', 3)] || [('F', 1), ('F', 7), ('F', 6), ('F', 5), ('F', 4)] Hom-verified True meet iso True
+completed depth 3 sizes(cumulative) [1, 13, 93, 531] in-progress level 4: 0/438 
+== 1970
+complete depths 3 5 ball sizes 531 6354 WL-bucket iso tests 1 meet total 8 4s
+path [('R', 1), ('R', 1), ('R', 3)] || [('F', 1), ('F', 7), ('F', 6), ('F', 5), ('F', 4)] Hom-verified True meet iso True
+completed depth 3 sizes(cumulative) [1, 13, 93, 531] in-progress level 4: 0/438 
+== 2003
+complete depths 3 5 ball sizes 531 6354 WL-bucket iso tests 1 meet total 8 3s
+path [('R', 3), ('R', 1), ('R', 3)] || [('F', 1), ('F', 7), ('F', 6), ('F', 5), ('F', 4)] Hom-verified True meet iso True
+completed depth 3 sizes(cumulative) [1, 14, 106, 639] in-progress level 4: 0/533
+== 4551
+complete depths 3 5 ball sizes 639 6354 WL-bucket iso tests 1 meet total 8 4s
+path [('R', 1), ('F', 9), ('R', 3)] || [('F', 1), ('F', 7), ('F', 6), ('F', 5), ('F', 4)] Hom-verified True meet iso True
+completed depth 3 sizes(cumulative) [1, 14, 103, 579] in-progress level 4: 0/476
+== 4722
+complete depths 3 5 ball sizes 579 6354 WL-bucket iso tests 1 meet total 7 4s
+path [('R', 3), ('R', 8)] || [('F', 1), ('F', 7), ('F', 6), ('F', 5), ('F', 4)] Hom-verified True meet iso True
