@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 083 -- 2026-10-23 -- ordinary
+Toolsmith, theorist, experimentalist worked; referees skeptic, experimentalist, theorist; toolsmith accept, the other two minor revision with responses done. Merge of origin/main: up to date.
+- **toolsmith (T10, E-234):** 10 key-kept `perI` J != 0 steps among 4 770 depth-5 parents of the 3060000 ball (0.21%); all fail `tiltingPlus`, all children join the class by J = 0 moves (total 7-8, iso meet). Referee reran everything. 3304000, depth 6 and distinctness of the 10 children open.
+- **theorist (T5, E-235):** the Prop. 7.6 cancellation holds for any non-negatively graded parent with no loop at i of any degree; D(i) acyclicity is not needed. A proof modulo the cited Anick lemma and the printed-degree fact, about 16k letters machine-checked; not fully rigorous, loops of degree >= 1 at i not covered.
+- **experimentalist (S-1, E-236):** `derivedOrbits(14)` 319 s / 467 MB measured, (15) predicted about 20 min (not run); key-level K-threshold law reproduced (n = 13 (4,5) K0 = 5), orbit level undecided (orbit is not class).
+- **Consequences:** E-204's "no J != 0 step enters the balls" is false at depth 5 in this ball (premise not contradicted); E-199's acyclic-D(i) condition is superseded for cancellation. No H-, F-, R- status changed.
+- Decisions taken for you: no overnight run approved (n = 15 scan is a proposal that fits 10-minute commands). No questions. Round 084 is a conference.
+
 ## Round 082 -- 2026-10-23 -- ordinary
 Skeptic, scholar, maverick worked; referees scholar, theorist, experimentalist; all three minor revision, responses done, all accepted narrowed. Merge of origin/main: up to date.
 - **skeptic (T10, E-233):** the one key-kept `perI` step of E-229 is a real J != 0 step (fails `tiltingPlus`; Hom(T,T[-1]) = 3), correcting E-229's wording; its child joins 3060000 by J = 0 moves at total 7 (iso meet). One event, parents of depth <= 4; it lands in the class, so it is not a premise test. E-204's n = 9 sentence is compatible (pure F / R walks, code reading only).

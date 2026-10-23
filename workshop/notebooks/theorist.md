@@ -16,3 +16,4 @@
 - Remaining links to "repo child = End(T)": d^2 = 0 beyond numerics, W1/W2, Thm 7.5.
 - T7: two pair-sharing bystanders on opposite sides, m = 4; k = 4 needs OVERNIGHT job; mechanism for a run of three.
 - Blind spots: proofs are relative to the printed presentation; a toy check is not a check of the real kM; capped enumerations are not laws.
+- R083 response: title narrowed (proof modulo cited Lemma A + printed-degree fact); added theorist_omega.py (omega-monotonicity 15 966 letters, 0 violations; two-phi/two-alpha toy, 377 cells to weight 15, H(K)=0). Open: derive ||.|| decrease line by line; theorem number for Lemma A (scholar).
