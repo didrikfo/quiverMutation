@@ -1,0 +1,4 @@
+Part A, no loop at i (loops/cycles elsewhere, cycles through i allowed): {'letters': 4249, 'bad_s': 0, 'bad_shape': 0, 'bad_sq': 0, 'theta': 412, 'deg2': 0}
+Part A, control with loops at i allowed: {'letters': 14403, 'bad_s': 0, 'bad_shape': 0, 'bad_sq': 0, 'theta': 379, 'deg2': 0, 'loopletters': 10206, 'loop_theta': 9120, 'loop_d1_differs_from_noloop_shape': 6968}
+Part B (bad, cells checked, kernel words): (0, 755, 17998)
+Part B control, theta not killed (expect nonzero H(K)): True

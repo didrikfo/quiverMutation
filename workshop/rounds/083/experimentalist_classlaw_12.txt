@@ -1,0 +1,32 @@
+n 12 scan 108s key classes of lone 3: {(0, 8): 3837, (1, 7): 7057, (2, 6): 3378, (3, 5): 2746, (4,): 1266}
+derivedOrbits(11) 113s
+key class lone-3 at h in [0, 8] rows 3837
+  ends K >= 2 : ends 640 image orbits 105 image keys 2 
+  ends K >= 3 : ends 224 image orbits 1 image keys 1 
+  ends K >= 4 : ends 96 image orbits 1 image keys 1 
+  ends K >= 5 : ends 40 image orbits 1 image keys 1 
+  ends K >= 6 : ends 16 image orbits 1 image keys 1 
+  ends K >= 7 : ends 6 image orbits 1 image keys 1 
+key class lone-3 at h in [1, 7] rows 7057
+  ends K >= 2 : ends 1572 image orbits 195 image keys 1 
+  ends K >= 3 : ends 550 image orbits 23 image keys 1 
+  ends K >= 4 : ends 186 image orbits 1 image keys 1 
+  ends K >= 5 : ends 62 image orbits 1 image keys 1 
+  ends K >= 6 : ends 20 image orbits 1 image keys 1 
+  ends K >= 7 : ends 6 image orbits 1 image keys 1 
+key class lone-3 at h in [2, 6] rows 3378
+  ends K >= 2 : ends 956 image orbits 80 image keys 2 
+  ends K >= 3 : ends 316 image orbits 21 image keys 1 
+  ends K >= 4 : ends 110 image orbits 1 image keys 1 
+  ends K >= 5 : ends 34 image orbits 1 image keys 1 
+  ends K >= 6 : ends 10 image orbits 1 image keys 1 
+key class lone-3 at h in [3, 5] rows 2746
+  ends K >= 2 : ends 746 image orbits 97 image keys 2 
+  ends K >= 3 : ends 262 image orbits 17 image keys 2 
+  ends K >= 4 : ends 60 image orbits 3 image keys 1 
+  ends K >= 5 : ends 18 image orbits 3 image keys 1 
+key class lone-3 at h in [4] rows 1266
+  ends K >= 2 : ends 354 image orbits 73 image keys 1 
+  ends K >= 3 : ends 110 image orbits 5 image keys 1 
+  ends K >= 4 : ends 34 image orbits 3 image keys 1 
+done 120s

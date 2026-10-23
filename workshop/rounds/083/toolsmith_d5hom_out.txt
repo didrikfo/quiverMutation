@@ -1,0 +1,80 @@
+== 1275
+step R 8 perI {5: 1, 6: 1} tiltingPlus False
+S -1 Hom(T,T[-1]) total 2 entries [(5, 8, 1), (6, 8, 1)] | Hom(T,T[1]) total 0 []
+   End(T) dims == Cartan(child)^T True  == Cartan(child) False
+S 0 Hom(T,T[-1]) total 0 entries [] | Hom(T,T[1]) total 1 [(2, 8, 1)]
+   End(T) dims == Cartan(child)^T False  == Cartan(child) False
+Coxeter key parent == child True
+Cartan det parent/child 1 1
+== 1433
+step R 8 perI {4: 1, 6: 1} tiltingPlus False
+S -1 Hom(T,T[-1]) total 2 entries [(4, 8, 1), (6, 8, 1)] | Hom(T,T[1]) total 0 []
+   End(T) dims == Cartan(child)^T True  == Cartan(child) False
+S 0 Hom(T,T[-1]) total 0 entries [] | Hom(T,T[1]) total 1 [(2, 8, 1)]
+   End(T) dims == Cartan(child)^T False  == Cartan(child) False
+Coxeter key parent == child True
+Cartan det parent/child 1 1
+== 1746
+step R 8 perI {4: 1, 6: 1} tiltingPlus False
+S -1 Hom(T,T[-1]) total 2 entries [(4, 8, 1), (6, 8, 1)] | Hom(T,T[1]) total 0 []
+   End(T) dims == Cartan(child)^T True  == Cartan(child) False
+S 0 Hom(T,T[-1]) total 0 entries [] | Hom(T,T[1]) total 1 [(2, 8, 1)]
+   End(T) dims == Cartan(child)^T False  == Cartan(child) False
+Coxeter key parent == child True
+Cartan det parent/child 1 1
+== 1818
+step R 8 perI {4: 1, 5: 1} tiltingPlus False
+S -1 Hom(T,T[-1]) total 2 entries [(4, 8, 1), (5, 8, 1)] | Hom(T,T[1]) total 0 []
+   End(T) dims == Cartan(child)^T True  == Cartan(child) False
+S 0 Hom(T,T[-1]) total 0 entries [] | Hom(T,T[1]) total 1 [(2, 8, 1)]
+   End(T) dims == Cartan(child)^T False  == Cartan(child) False
+Coxeter key parent == child True
+Cartan det parent/child 1 1
+== 1915
+step R 9 perI {4: 1, 5: 1, 6: 1} tiltingPlus False
+S -1 Hom(T,T[-1]) total 3 entries [(4, 9, 1), (5, 9, 1), (6, 9, 1)] | Hom(T,T[1]) total 0 []
+   End(T) dims == Cartan(child)^T True  == Cartan(child) False
+S 0 Hom(T,T[-1]) total 0 entries [] | Hom(T,T[1]) total 1 [(2, 9, 1)]
+   End(T) dims == Cartan(child)^T False  == Cartan(child) False
+Coxeter key parent == child True
+Cartan det parent/child 1 1
+== 1932
+step R 8 perI {4: 1, 5: 1, 6: 1} tiltingPlus False
+S -1 Hom(T,T[-1]) total 3 entries [(4, 8, 1), (5, 8, 1), (6, 8, 1)] | Hom(T,T[1]) total 0 []
+   End(T) dims == Cartan(child)^T True  == Cartan(child) False
+S 0 Hom(T,T[-1]) total 0 entries [] | Hom(T,T[1]) total 1 [(2, 8, 1)]
+   End(T) dims == Cartan(child)^T False  == Cartan(child) False
+Coxeter key parent == child True
+Cartan det parent/child 1 1
+== 1970
+step R 8 perI {1: 1, 4: 1, 5: 1, 6: 1} tiltingPlus False
+S -1 Hom(T,T[-1]) total 4 entries [(1, 8, 1), (4, 8, 1), (5, 8, 1), (6, 8, 1)] | Hom(T,T[1]) total 0 []
+   End(T) dims == Cartan(child)^T True  == Cartan(child) False
+S 0 Hom(T,T[-1]) total 0 entries [] | Hom(T,T[1]) total 1 [(2, 8, 1)]
+   End(T) dims == Cartan(child)^T False  == Cartan(child) False
+Coxeter key parent == child True
+Cartan det parent/child 1 1
+== 2003
+step R 8 perI {3: 1, 4: 1, 5: 1, 6: 1} tiltingPlus False
+S -1 Hom(T,T[-1]) total 4 entries [(3, 8, 1), (4, 8, 1), (5, 8, 1), (6, 8, 1)] | Hom(T,T[1]) total 0 []
+   End(T) dims == Cartan(child)^T True  == Cartan(child) False
+S 0 Hom(T,T[-1]) total 0 entries [] | Hom(T,T[1]) total 1 [(2, 8, 1)]
+   End(T) dims == Cartan(child)^T False  == Cartan(child) False
+Coxeter key parent == child True
+Cartan det parent/child 1 1
+== 4551
+step R 8 perI {4: 1, 5: 1, 6: 1} tiltingPlus False
+S -1 Hom(T,T[-1]) total 3 entries [(4, 8, 1), (5, 8, 1), (6, 8, 1)] | Hom(T,T[1]) total 0 []
+   End(T) dims == Cartan(child)^T True  == Cartan(child) False
+S 0 Hom(T,T[-1]) total 0 entries [] | Hom(T,T[1]) total 1 [(2, 8, 1)]
+   End(T) dims == Cartan(child)^T False  == Cartan(child) False
+Coxeter key parent == child True
+Cartan det parent/child 1 1
+== 4722
+step R 1 perI {4: 1, 5: 1, 6: 1} tiltingPlus False
+S -1 Hom(T,T[-1]) total 3 entries [(4, 1, 1), (5, 1, 1), (6, 1, 1)] | Hom(T,T[1]) total 0 []
+   End(T) dims == Cartan(child)^T True  == Cartan(child) False
+S 0 Hom(T,T[-1]) total 0 entries [] | Hom(T,T[1]) total 1 [(2, 1, 1)]
+   End(T) dims == Cartan(child)^T False  == Cartan(child) False
+Coxeter key parent == child True
+Cartan det parent/child 1 1

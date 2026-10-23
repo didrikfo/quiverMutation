@@ -1,19 +1,18 @@
-# Theorist notebook (rewritten round 081)
+# Theorist notebook (rewritten round 083)
 
 ## What I believe now
-- G2/step 7 (065, 067): with TRUE paths, (A) g = gd always, (B) red(B_1 e_i) = rbar.I and K = {z_0: (d z_0)/a in I all a} always (math). Repo's kernel = (B) iff every tail p is vertex-simple, e.g. D(i) acyclic (E-199).
-- 073/078: guard does not force D(i) acyclic; E-211 is the cyclic counterexample for direct mutateAtVertex callers; search.py only mutates acyclic parents, so E-199 covers the search. Closed.
-- 075: Gamma_red = N as dg algebras under Thm 1.1 (hand, relative to printed presentation). J = 0 not implied by g = gd. A_3/rad^2 at i = 2 is silting not tilting.
-- T7: single-mutation LNA rule proved for right (062, E-187) and left (070, E-205) relative to the repo's procedure, n = 4..10. H-010 SUPPORTED, unproved.
-- 081 (T7, two bystanders, k = 3, margin 2, pair (8:3)(9:3)): 16/16 admissible cells with both bystanders sharing <= 1 arrow (m <= 3, t 6..12) stay at overlap 2, incl. 3 chained cells; 4/4 controls with a run of three plus a second bystander reach 0. Weak cells: (6,3)(11,3) and (6,3)(12,3) reach 0 and 1 LNAs.
+- 083 (T5): Prop. 7.6 cancellation (kM -> N quasi-iso) is PROVED by hand under: non-negative grading + no loop at i of ANY degree. Not needed: D(i) acyclic, finite dimension, J. Proof: omega = ||w|| + #stars filtration makes gr d = d_1 (d_1 psi = sum a* (a psi), d_1(phi a^-1) = +-phi a*); second filtration by W-count reduces to Anick/Morse Lemma A (monomials x a*, U and Y disjoint). Weakest step: acyclicity of the Morse matching (cited). Machine: Part A shape of d on 4 249 letters, Part B toy exact ranks to weight 12 (workshop/rounds/083/theorist_starfilt.py).
+- Every `noCycles` parent in search.py satisfies the hypothesis: Q^(inf) of an acyclic parent has all arrows s->t with s<t, so no loops. E-211 also satisfies it: cancellation fine, step 7 of the repo is the failure.
+- OPEN: loops of degree >= 1 at i (Step 4): d_1 is not monomial (6968 of 10206 loop letters differ). Not reached by the search.
+- Older: G2/step 7 (065, 067): repo kernel = Oppermann's iff tails vertex-simple, e.g. D(i) acyclic (E-199). 073/078: guard does not force D(i) acyclic; E-211 counterexample; search only mutates acyclic parents. 075: Gamma_red = N by hand (E-217). T7: single-mutation LNA rule proved for right (E-187) and left (E-205); H-010 supported, unproved; 081 two-bystander data (16/16 admissible cells stay at overlap 2, controls reach 0).
 
 ## What I tried
-- 081: theorist_twoby.py (+_rest, _ctrl). ~100 s per k = 3 cell, which kills larger sweeps.
-- 078: cycD rerun; 075 Gamma_red; 073; 070 left check; 067; 065; 062.
+- 083: read Constr/Def 3.2 and Sect. 7 LaTeX, found d = d_0 + d_1 by star count, wrote theorist_starfilt.py reusing 069's executable Def. 3.2.
+- 081: theorist_twoby.py; 078: cycD; 075: Gamma_red; 073; 070; 067; 065; 062.
 
 ## Next
-- Two pair-sharing bystanders on opposite sides ((7,3)+(10,3)), and m = 4, t outside 6..12.
-- k = 4 needs a faster localMutationSequences or an OVERNIGHT job; propose ~20 cells.
-- Find why a run of three lowers (mechanism), via the E-187 gate rule applied to a 3-step sequence.
-- Machine check of Theta/H_0 on tiny algebras; corrected-child step 7 on random cyclic monomial algebras.
-- Blind spots: proofs are relative to the repo's procedure; capped enumerations are not laws. Grep research/ for the assignment first.
+- Step 4 loops at i: try loop-count filtration / matrix form (psi, theta1, c, theta2).
+- A real-parent machine check of kM -> N (needs products with signs); scholar to vet Lemma A and the journal version.
+- Remaining links to "repo child = End(T)": d^2 = 0 beyond numerics, W1/W2, Thm 7.5.
+- T7: two pair-sharing bystanders on opposite sides, m = 4; k = 4 needs OVERNIGHT job; mechanism for a run of three.
+- Blind spots: proofs are relative to the printed presentation; a toy check is not a check of the real kM; capped enumerations are not laws.

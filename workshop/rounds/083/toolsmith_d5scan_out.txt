@@ -1,0 +1,13 @@
+KEPT index 1275 path [('F', 1), ('F', 4), ('R', 9), ('R', 8), ('R', 8)] R 8 parent
+KEPT index 1433 path [('F', 1), ('F', 5), ('R', 9), ('R', 8), ('R', 8)] R 8 parent
+RANGE 0 1600 {'nodes': 1600, 'J:moved': 272, 'J:kept': 2} 40s
+KEPT index 1746 path [('F', 1), ('R', 5), ('R', 9), ('R', 8), ('R', 8)] R 8 parent
+KEPT index 1818 path [('F', 1), ('R', 6), ('R', 9), ('R', 8), ('R', 8)] R 8 parent
+KEPT index 1915 path [('F', 1), ('R', 8), ('R', 9), ('F', 8), ('R', 9)] R 9 parent
+KEPT index 1932 path [('F', 1), ('R', 8), ('R', 9), ('R', 9), ('R', 8)] R 8 parent
+KEPT index 1970 path [('F', 1), ('R', 9), ('F', 1), ('R', 8), ('R', 8)] R 8 parent
+KEPT index 2003 path [('F', 1), ('R', 9), ('F', 3), ('R', 8), ('R', 8)] R 8 parent
+RANGE 1600 3200 {'nodes': 1600, 'J:moved': 261, 'J:kept': 6} 32s
+KEPT index 4551 path [('R', 8), ('R', 9), ('R', 9), ('F', 1), ('R', 8)] R 8 parent
+KEPT index 4722 path [('R', 9), ('R', 8), ('R', 8), ('F', 1), ('F', 8)] R 1 parent
+RANGE 3200 4770 {'nodes': 1570, 'J:moved': 97, 'J:kept': 2} 38s

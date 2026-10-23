@@ -1,0 +1,2 @@
+n 13 rows 208012 orbits 52257 largest [8688, 4354, 3328, 2826, 2826, 2080] singletons 25724 82s peakRSS 226 MB
+n 14 rows 742900 orbits 188093 largest [18720, 12316, 7194, 7194, 7168, 4288] singletons 91144 319s peakRSS 467 MB

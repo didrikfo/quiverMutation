@@ -1,0 +1,2 @@
+n 12 rows 58786 enum 0.2s sampled 3094 moves/row 1.5 loop body 0.359 ms/row -> 21 s
+n 13 rows 208012 enum 0.9s sampled 3015 moves/row 1.3 loop body 0.387 ms/row -> 81 s
