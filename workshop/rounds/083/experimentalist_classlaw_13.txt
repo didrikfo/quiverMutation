@@ -1,0 +1,36 @@
+n 13 scan 450s key classes of lone 3: {(0, 9): 3329, (1, 8): 16439, (2, 7): 7459, (3, 6): 5835, (4, 5): 5023}
+ext orbits at n-1: 751 plain 14274
+derivedOrbits(12) 507s
+key class lone-3 at h in [0, 9] rows 3329
+  ends K >= 2 : ends 1152 image orbits 1 image keys 1 ext orbits 1
+  ends K >= 3 : ends 512 image orbits 1 image keys 1 ext orbits 1
+  ends K >= 4 : ends 224 image orbits 1 image keys 1 ext orbits 1
+  ends K >= 5 : ends 96 image orbits 1 image keys 1 ext orbits 1
+  ends K >= 6 : ends 40 image orbits 1 image keys 1 ext orbits 1
+  ends K >= 7 : ends 16 image orbits 1 image keys 1 ext orbits 1
+key class lone-3 at h in [1, 8] rows 16439
+  ends K >= 2 : ends 4174 image orbits 590 image keys 1 ext orbits 1
+  ends K >= 3 : ends 1572 image orbits 214 image keys 1 ext orbits 1
+  ends K >= 4 : ends 550 image orbits 23 image keys 1 ext orbits 1
+  ends K >= 5 : ends 186 image orbits 1 image keys 1 ext orbits 1
+  ends K >= 6 : ends 62 image orbits 1 image keys 1 ext orbits 1
+  ends K >= 7 : ends 20 image orbits 1 image keys 1 ext orbits 1
+key class lone-3 at h in [2, 7] rows 7459
+  ends K >= 2 : ends 2300 image orbits 168 image keys 2 ext orbits 3
+  ends K >= 3 : ends 826 image orbits 93 image keys 1 ext orbits 2
+  ends K >= 4 : ends 316 image orbits 23 image keys 1 ext orbits 2
+  ends K >= 5 : ends 110 image orbits 3 image keys 1 ext orbits 2
+  ends K >= 6 : ends 34 image orbits 3 image keys 1 ext orbits 2
+  ends K >= 7 : ends 10 image orbits 3 image keys 1 ext orbits 2
+key class lone-3 at h in [3, 6] rows 5835
+  ends K >= 2 : ends 1760 image orbits 192 image keys 2 ext orbits 3
+  ends K >= 3 : ends 668 image orbits 96 image keys 2 ext orbits 3
+  ends K >= 4 : ends 196 image orbits 15 image keys 1 ext orbits 1
+  ends K >= 5 : ends 60 image orbits 3 image keys 1 ext orbits 1
+  ends K >= 6 : ends 18 image orbits 3 image keys 1 ext orbits 1
+key class lone-3 at h in [4, 5] rows 5023
+  ends K >= 2 : ends 1576 image orbits 299 image keys 2 ext orbits 3
+  ends K >= 3 : ends 562 image orbits 82 image keys 2 ext orbits 3
+  ends K >= 4 : ends 176 image orbits 7 image keys 2 ext orbits 3
+  ends K >= 5 : ends 34 image orbits 2 image keys 1 ext orbits 2
+done 527s

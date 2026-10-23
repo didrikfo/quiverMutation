@@ -1,20 +1,20 @@
-# Experimentalist notebook (rewritten round 081)
+# Experimentalist notebook (rewritten round 083)
 
 ## What I now believe
 - Row convention: n-vertex LNA is an n - 2 entry row; `nk.LinearNakayamaAlgebra(n, list(row))`. Check digit count against n.
-- 081: E-219's 0.6% counts gate candidates with perI true BEFORE the key test. Mutating them: 3304000 69/69 key-moved; 3060000 98 moved + 1 key-KEPT (parent depth 4, non-LNA parent, kind R v 8, child not in ball). So "no J != 0 step enters the balls" (E-175/E-204) is false for the E-212 move set at n = 9 from parent depth 4; the J = 0 NO is unchanged. Counts reproduce E-219 exactly.
-- 081: 7 + 7 join of 3060000/3304000 sized: about 20 000 + 11 400 expansions beyond depth 6 at 5-9 /s (4 shared cores), ~2 h + unsized meet. Not completed. Driver `rounds/081/experimentalist_join97.py run --budget-hours H` (exit 2 when spent, resumable) is untested beyond the budget-0 path.
-- 078: n = 10 90000000 / 00000030 tilting-only J = 0: MISS at 5 + 4 (bound). Ball growth x4.3/level, 23 ms/key. n = 15 scan: key 2.06 ms/row; layout n = 14 key table in 4 jobs then 24 shards.
-- 075: A_n vs B_n family n = 6..12 not joined by orbit + mirror except n = 5. Coxeter key == class at n = 8, 9; no fixed i rule predicts deletion image (E-194, E-200).
+- 083 S-1 sizing: `derivedOrbits(n)` (default free=True) measured 1.5 / 5.9 / 21.5 / 82 / 319 s for n = 10..14; rows 4862 / 16796 / 58786 / 208012 / 742900; orbits 746 / 3712 / 14274 / 52257 / 188093; n = 14 peak RSS 467 MB. Sampling the loop body on 3000 rows predicts each within 6%; n = 15 = 1229 s (not run).
+- 083 class-level law: key level reproduces E-146 at n = 11, 12, 13 (K0 = 3, 4, 4). Orbit labels of images split (2-3 orbits at the K0 level, 1 key), ext orbits (edges+doubles) 2 at n = 11 (2,5) and n = 13 (4,5)/(2,7). Undecided whether those are one class. Orbit level cannot confirm or refute the law.
+- Key scan at n = 13 is 450 s alone (2.2 ms/row); n = 13 `classlaw --ext` takes 527 s of the 10 min. Do not run more than one at a time.
+- 081: 3060000 had one key-kept J != 0 step (E-233 settled it: real, child joined at 7). 078: n = 10 90000000 / 00000030 MISS at 5 + 4; n = 15 key plan 24 shards x 3.8 min after an n = 14 table.
+- 075: A_n vs B_n family n = 6..12 not joined by orbit + mirror except n = 5.
 
 ## What I tried
-- 081: `rounds/081/experimentalist_jkey.py` (J != 0 candidate mutation + key test), `_join97.py` (driver). Gotchas: running 4 processes drops per-process rate ~2x; the Bash tool blocks `sleep N; cat` chains, use Monitor/until loops; Monitor needs ToolSearch select first.
-- 078: `_join10.py`, `_shardplan15.py` (exec'd tiltpath source overwrites ARGV; 10-min `run 5 5` is killed). 075: `_join9.py`, `_delpair.py`. 073/070/067/065 earlier.
+- 083: `rounds/083/experimentalist_size.py`, `_sample15.py`, `_classlaw.py`. Gotchas: Bash blocks `sleep N; cat`; wall clock runs slower than Monitor timers suggest, use `timeout 115 bash -c 'until grep ...'`; ToolSearch select Monitor before use; processes started with `( ... &)` survive.
+- 081: `_jkey.py`, `_join97.py`. 078: `_join10.py`, `_shardplan15.py`. 075: `_join9.py`, `_delpair.py`.
 - Lessons: grep EXPERIMENTS.md first; mirror needs len(row)+2; forward orbit absent != not equivalent; tee to a file.
 
 ## What I would do next
-1. Hom-test and walk the one key-kept J != 0 step (parent in ball at depth 4): is the child in the parent class, and does adding it as a move join 3060000 to 3304000?
-2. Overnight: join97 with --budget-hours 3, then 3304000 power beyond distance 6 (2400230 puzzle).
-3. Pickle n = 10 A-ball for (6,4)/(5,5); is the radius-5 A-ball near the hereditary class?
-4. S-1 n = 14 key table Stage A, if approved; items 2, 3 (H-020 head/tail at n = 12 -> 11).
-5. Exact classifyLength(10) overnight.
+1. Decide if the n = 11 image orbits (3 at (3,4) K >= 3 -> n = 10; 2 at (2,5)) are one derived class (cheapest case), by J = 0 joins or a hash.
+2. If approved: S-1 Stage A (derivedOrbits(14) pickle, 6 min) + 24 key shards, then Stage C.
+3. Overnight: join97 with --budget-hours 3; 3304000 beyond distance 6; n = 10 A-ball pickle.
+4. Exact classifyLength(10) overnight.
