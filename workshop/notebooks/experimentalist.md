@@ -18,3 +18,4 @@
 2. If approved: S-1 Stage A (derivedOrbits(14) pickle, 6 min) + 24 key shards, then Stage C.
 3. Overnight: join97 with --budget-hours 3; 3304000 beyond distance 6; n = 10 A-ball pickle.
 4. Exact classifyLength(10) overnight.
+- 083 response: n = 13 (4,5) K0 = 5 (E-141), n = 11 two of four classes multi-orbit at K>=3; orbit != class (F-046); n = 15 figures are predictions. Read class thresholds from the txt files, not memory.

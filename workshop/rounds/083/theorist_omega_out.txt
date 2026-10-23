@@ -1,0 +1,3 @@
+Part C seeds 5000..: {'parents': 1500, 'letters': 15966, 'neg_norm': 0, 'up': 0, 'eq_nonstar': 0, 'star_terms': 7400, 'multiA': 1137, 'theta': 1474, 'W': 0}
+Part D two phi two alpha (bad, cells, words): (0, 377, 64608)
+Part D control theta not killed (bad cells): 360
