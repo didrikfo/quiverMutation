@@ -1,0 +1,13 @@
+rep0 key 334504030 YES gens 4 Hnorm_bound(Bmax) 2.4583 nodes 138 cap 2000000 cap_hit False sha256(P) 20cc3dc30d48ee4cf682914a062ccb1431e750b35ceba8a94be1c448119ba28b
+P_0 = [[0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0], [0, -1, 1, 0, -1, -1, 1, 1, -1, -1, 1], [0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0], [0, 1, -1, -1, 1, 1, -1, 0, -1, 1, -1], [0, 1, -1, -1, 1, 1, -1, -1, 0, 1, -1], [-1, 1, 0, -1, 1, 0, 0, 0, -1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 1, -1, 0, 0, -1, 1, 0, -1], [0, -1, 1, 1, -1, -1, 1, -1, 1, -1, 0], [1, 0, -1, 1, 0, 0, 0, -1, 1, 0, -1], [0, 0, 0, -1, 1, 0, 1, 0, -1, 0, 0]]
+rep1 key 334505000 YES gens 4 Hnorm_bound(Bmax) 2.4583 nodes 138 cap 2000000 cap_hit False sha256(P) f5335613f1c6e9cd8b9769320875217b93ddb5b6571c13af87734bdcc4111c07
+P_1 = [[0, -1, 1, 0, -1, -1, 1, 1, -1, -1, 1], [0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0], [0, 1, -1, -1, 1, 1, -1, 0, -1, 1, -1], [-1, 1, 0, -1, 1, 0, 0, 0, -1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0], [0, 0, 0, 1, -1, 0, 0, -1, 1, 0, -1], [0, -1, 1, 1, -1, -1, 1, -1, 1, -1, 0], [0, 0, -1, 1, 0, 0, 0, -1, 1, 0, -1], [1, 0, -2, 1, 0, 1, -1, -2, 2, 1, -2], [1, 0, -1, 1, 0, 0, 0, -1, 1, 0, -1], [0, 0, 0, -1, 1, 0, 1, 0, -1, 0, 0]]
+rep2 key 345550400 YES gens 4 Hnorm_bound(Bmax) 2.4583 nodes 138 cap 2000000 cap_hit False sha256(P) 6482bcec945bf2e3ca27be0f8cbe2f60b048f03cdbca56a3e84dfa560ee4034a
+rep3 key 345050030 YES gens 4 Hnorm_bound(Bmax) 2.4583 nodes 138 cap 2000000 cap_hit False sha256(P) 041cfa429f032682e34208f8deb3e359b9849fffa87e8c181900c4ee761e1d74
+rep4 key 356050030 YES gens 4 Hnorm_bound(Bmax) 2.4583 nodes 138 cap 2000000 cap_hit False sha256(P) aaed3e3ef5507485b53212be90d3dddda57e9108d0f7fbaa819f3cc24ead4d4c
+rep5 key 350505000 YES gens 4 Hnorm_bound(Bmax) 2.4583 nodes 138 cap 2000000 cap_hit False sha256(P) 7ef195daacff2ea74a9db17437d21215364457e7a6c004ea938d7722fdea0032
+rep6 key 550505000 YES gens 4 Hnorm_bound(Bmax) 2.4583 nodes 138 cap 2000000 cap_hit False sha256(P) 6ba75586810b78d6b3c06db1387b09806e22a91e29a3f97aefff686e9133c2df
+rep7 key 504045000 YES gens 4 Hnorm_bound(Bmax) 2.4583 nodes 138 cap 2000000 cap_hit False sha256(P) 5a3c925ad13294a87b623e3b892aeaaabd9304d679fbbaa2d13a089e98c59815
+rep8 key 506005000 YES gens 4 Hnorm_bound(Bmax) 2.4583 nodes 138 cap 2000000 cap_hit False sha256(P) d14ba3e525c21ecb5b0e93d46590e5a184bfdd9b07fdf341b92eb92e95065f78
+sha256(all nine P, concatenated repr) 4726231cf258bcc8f5590261e414aa9dc4609b9abeb1a45d57503beda8679781
+rep0 = 334504030

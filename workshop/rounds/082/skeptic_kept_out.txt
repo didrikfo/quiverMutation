@@ -1,0 +1,48 @@
+level 0 ball 13 0s
+level 1 ball 83 1s
+level 2 ball 386 7s
+level 3 ball 1584 36s
+KEPT parent depth 4 R 8 parent rels [[((2, 8, 0), (8, 1, 0), (1, 4, 0)), ((2, 8, 0), (8, 3, 0), (3, 4, 0))], [((8, 1, 0), (1, 4, 0), (4, 5, 0), (5, 6, 0), (6, 7, 0)), ((8, 3, 0), (3, 4, 0), (4, 5, 0), (5, 6, 0), (6, 7, 0))], [((8, 1, 0), (1, 9, 0)), ((8, 3, 0), (3, 9, 0))]]
+level 4 ball 6354 158s
+parent depth 4 path from root [('F', 1), ('R', 9), ('R', 8), ('R', 8)]
+parent relations [[((2, 8, 0), (8, 1, 0), (1, 4, 0)), ((2, 8, 0), (8, 3, 0), (3, 4, 0))], [((8, 1, 0), (1, 4, 0), (4, 5, 0), (5, 6, 0), (6, 7, 0)), ((8, 3, 0), (3, 4, 0), (4, 5, 0), (5, 6, 0), (6, 7, 0))], [((8, 1, 0), (1, 9, 0)), ((8, 3, 0), (3, 9, 0))]] quiver arrows [(1, 4), (1, 9), (2, 8), (3, 4), (3, 9), (4, 5), (5, 6), (6, 7), (8, 1), (8, 3)]
+step R 8 perI {4: 1, 5: 1, 6: 1} tiltingPlus False
+child relations [[((8, 2, 0), (2, 1, 0))], [((8, 2, 0), (2, 3, 0))], [((2, 1, 0), (1, 4, 0)), ((2, 3, 0), (3, 4, 0))], [((2, 1, 0), (1, 9, 0)), ((2, 3, 0), (3, 9, 0))]]
+S -1 Hom(T,T[-1]) total 3 entries [(4, 8, 1), (5, 8, 1), (6, 8, 1)] | Hom(T,T[1]) total 0 []
+   End(T) dims == Cartan(child)^T True  == Cartan(child) False
+S 0 Hom(T,T[-1]) total 0 entries [] | Hom(T,T[1]) total 1 [(2, 8, 1)]
+   End(T) dims == Cartan(child)^T False  == Cartan(child) False
+   H0
+ [[1 1 0 0 0 0 0 0 0]
+ [0 1 0 0 0 0 0 0 0]
+ [0 1 1 0 0 0 0 0 0]
+ [1 1 1 1 0 0 0 1 0]
+ [1 1 1 1 1 0 0 1 0]
+ [1 1 1 1 1 1 0 1 0]
+ [1 1 1 1 1 1 1 0 0]
+ [0 0 0 0 0 0 0 1 0]
+ [1 1 1 0 0 0 0 0 1]] 
+   C
+ [[1 0 0 1 1 1 1 0 1]
+ [1 1 1 1 1 1 1 0 1]
+ [0 0 1 1 1 1 1 0 1]
+ [0 0 0 1 1 1 1 0 0]
+ [0 0 0 0 1 1 1 0 0]
+ [0 0 0 0 0 1 1 0 0]
+ [0 0 0 0 0 0 1 0 0]
+ [0 1 0 0 0 0 0 1 0]
+ [0 0 0 0 0 0 0 0 1]]
+Coxeter key parent == child True
+Cartan det parent/child 1 1
+== side C (child) ==
+completed depth 5 sizes(cumulative) [1, 14, 103, 579, 2901, 13982] in-progress level 6: 0/11081 expanded, 0 new expansions 2901 None-key children dropped 0 secs 308 move counts (gate/J!=0/tiltingPlus-fail/key-moved/kept) {'gate': 32353, 'J': 759, 'tp': 0, 'key': 0, 'ok': 31594}
+== side R ==
+completed depth 5 sizes(cumulative) [1, 13, 83, 386, 1584, 6354] in-progress level 6: 0/4770 expanded, 0 new expansions 1584 None-key children dropped 0 secs 140 move counts (gate/J!=0/tiltingPlus-fail/key-moved/kept) {'gate': 16573, 'J': 99, 'tp': 0, 'key': 0, 'ok': 16474}
+== side Q (3304000) ==
+completed depth 5 sizes(cumulative) [1, 11, 64, 282, 1088, 4046] in-progress level 6: 0/2958 expanded, 0 new expansions 1088 None-key children dropped 0 secs 110 move counts (gate/J!=0/tiltingPlus-fail/key-moved/kept) {'gate': 10564, 'J': 69, 'tp': 0, 'key': 0, 'ok': 10495}
+== side P (parent, depth 4 done) ==
+completed depth 4 sizes(cumulative) [1, 14, 116, 808, 5242] in-progress level 5: 2461/4434 expanded, 16045 new expansions 3269 None-key children dropped 13 secs 570 move counts (gate/J!=0/tiltingPlus-fail/key-moved/kept) {'gate': 41890, 'J': 2218, 'tp': 0, 'key': 0, 'ok': 39672}
+== meets (skeptic_join.py meet) ==
+C vs R: complete depths 5 5 ball sizes 13982 6354 WL-bucket iso tests 1 meet total 7 9s; path [('R', 1), ('R', 3)] || [('F', 1), ('F', 7), ('F', 6), ('F', 5), ('F', 4)] Hom-verified True meet iso True
+C vs P: complete depths 5 4 ball sizes 13982 5242 WL-bucket iso tests 1 meet total 6 12s; path [('F', 8), ('F', 8)] || [('F', 8), ('R', 7), ('R', 6), ('R', 5)] Hom-verified True meet iso True
+C vs Q: complete depths 5 5 ball sizes 13982 4046 WL-bucket iso tests 0 meet total None 8s

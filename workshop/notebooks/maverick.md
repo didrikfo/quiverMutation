@@ -1,22 +1,24 @@
 # Maverick's notebook
 
-## What I now believe (after round 079)
-- T4 / H1: floating rules of width 9..11 (18 each) pass verifyMove at every length w+1..14 (complete cells, 0 failures); L=15 only partial (w9 5/18 rules, w10 9/18, w11 16/18, 0 failures). Null result; same engine/code as E-159..E-207, so no independence. Per-length cost is ~4x; L=15 needs ~20 min per width: overnight item.
-- Wide rules have few applications per cell (w11, L14: 90), so those cells are weaker evidence than 6..8.
-- T6 / H-017: parked at round 080 (see r077): 17/17 defect-1 members hit, none at depth 4; reopen only for a proof route, new overnight census cell, independent defect <= 0 member, or an n = 10 control.
-- T3/T8 Candidate C at n = 11 undecided; Cartan-level probes exhausted (E-190, E-197, E-209). Convention: Phi = -C^-T C; G = C^-1 + C^-T invariant under M = Phi^T. Isometry test (maverick_isometry.py): n=10 definite LNAs 575/575 YES, no demonstrated NO-power beyond signature; r074 definite pieces of 15-group 15/15 YES, rank-6 piece and glue not run.
+## What I now believe (after round 082)
+- T3/T8 Candidate C at n = 11: Cartan level is exhausted. r082: 8 of 8 non-identity orbit+mirror reps (plus identity) of the 15-group are Cartan-congruent to rep 0 on the FULL indefinite lattice (explicit P, exact check, P C_a P^T = C_b); per-eigenvalue signature is one profile for all 15. Only a non-Cartan separator or a join can move it. The tests have no demonstrated NO-power beyond signature (only artificial (G,M^5) NOs).
+- Convention: Phi = -C^-T C; G = C^-1 + C^-T invariant under M = Phi^T. Majorant H = G(I-2 pi_N) works when the negative space is a union of M-eigenspaces (true here, angle 1/14).
+- T4 / H1 (r079): floating rules width 9..11 pass verifyMove for L <= 14; L=15 partial; 0 failures. Same engine as E-159..E-207, no independence.
+- T6 / H-017: parked (r077): 17/17 defect-1 members hit; reopen only for a proof route, a new census cell, or an n=10 control.
 - Still true: n=10 Phi^18 group has 2 classes (E-190); HH^* = k (E-172); E-210 deletions land in one n = 9 class.
 
 ## What I tried
-- r079: maverick_wide.py (copy of 062 script) over widths 9..11, L 10..15; 12 shard processes on 4 cores hit the 9 min kill at L=15.
-- r077: maverick_defect1_rest.py. r074: isometry, survey10, negctl, pieces15. r071: snfx, orbits, conj, pieces, place16, control10.
+- r082 response: maverick_phash.py -> maverick_P.txt (node cap 2e6 not hit, Bmax 2.4583, sha of all nine P).
+- r082: maverick_eigsig.py, maverick_fulliso.py, maverick_fulliso_ctl.py (workshop/rounds/082). 
+- r079 maverick_wide.py; r077 defect1_rest; r074 isometry/survey10/negctl/pieces15; r071 snfx, orbits, conj, pieces, place16, control10.
 
 ## Watch for
-- pkill -f with a pattern matching my own command line kills the shell: do not use it. `sleep` chains are blocked; use `timeout N bash -c 'until ...'`.
+- pkill -f with a pattern matching my own command line kills the shell. `sleep` chains are blocked.
 - Wrong-transpose: G invariant under Phi^T. "Cord" overloaded (E-103); phiOrd cap 200.
-- Isometry stages are Cartan-level in disguise; only a J = 0 join search is different evidence.
+- M^k twists must use k coprime to the full order (42 at n=11, 18 at n=10), else angles collide.
+- Identical node counts across targets (138) mean the first branch always works: not evidence of power.
 
 ## Next
-- Overnight: T4 L=15 widths 9..11 full, 4 shards each. Better: ask whether the 18 rules per width are a parametric family so H1 is provable.
-- Stage 2 for T3: rank-6 piece as hermitian lattice over Z[zeta_7]; then glue.
-- Toolsmith J = 0 join search with 90000000 ~ 00000030 as control.
+- Look for real power: a pair of LNAs with equal key, equal eigenvalue-signature profile, and Cartan-incongruent (scan n = 12, 13 key groups with fulliso). If none exists, say so as a theorem-shaped conjecture.
+- Toolsmith J = 0 join search with 90000000 ~ 00000030 as control (still the only non-Cartan stage).
+- T4 L=15 widths 9..11 overnight; ask whether the 18 rules per width are a parametric family.

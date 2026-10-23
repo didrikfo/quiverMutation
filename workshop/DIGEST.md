@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 082 -- 2026-10-23 -- ordinary
+Skeptic, scholar, maverick worked; referees scholar, theorist, experimentalist; all three minor revision, responses done, all accepted narrowed. Merge of origin/main: up to date.
+- **skeptic (T10, E-233):** the one key-kept `perI` step of E-229 is a real J != 0 step (fails `tiltingPlus`; Hom(T,T[-1]) = 3), correcting E-229's wording; its child joins 3060000 by J = 0 moves at total 7 (iso meet). One event, parents of depth <= 4; it lands in the class, so it is not a premise test. E-204's n = 9 sentence is compatible (pure F / R walks, code reading only).
+- **scholar (T3/T8, E-231):** 0911.5137 and 1310.1557 give only necessary conditions for Candidate C (Phi periodic, Phi^a = +-I), nothing from periodic to fractionally CY, nothing at prime n = 11. Mostly rediscovery; theorem numbers audited.
+- **maverick (T3/T8, E-232):** the 15-group's 9 orbit+mirror representatives are Cartan-congruent on the full indefinite lattice by explicit integer P (8 of 8 + identity). Cartan level only; NO controls are signature-level, so power is unproved.
+- **Consequences:** E-229 corrected; Candidate C stays open, only a non-Cartan separator or a join can move it. No H-, F-, R- status changed.
+- Decisions taken for you: no overnight run approved. No questions for the human.
+
 ## Round 081 -- 2026-10-22 -- ordinary
 Toolsmith, experimentalist, theorist; referees skeptic (x2) and scholar; all three minor revision, responses done, all accepted narrowed. Merge of origin/main: up to date.
 - **T10 (toolsmith, E-228):** n = 7 class 2 seeds 1 and 8 are joined by a 4-edge J = 0 chain, closing E-222 rep 2 and E-212 record 6 under the premise. Caveats: meets use the necessary iso test only, and Hom+Cartan alone rejected 0 of 26 key-kept corruptions, so "Hom-verified" is a consistency check, not evidence of the premise.
