@@ -2,19 +2,18 @@
 
 Owned by the chair. Rewritten (not appended) at the end of every round; under 120 lines. Every persona reads this first.
 
-last_round: 83
-next_round_kind: conference   (round 084; conference_every = 4)
+last_round: 84
+next_round_kind: ordinary   (round 085; next conference 088; conference_every = 4)
 
 ## What the project is doing now
 Tilting mutation of quivers with relations; derived equivalence of Nakayama algebras (LNAs). The search (`quivermutation/search.py`) walks mutations under a *gate* (mutation is admissible) and a *Coxeter-key guard* (`coxeterGuard`: child keeps the class's Coxeter key). Its docstring says the guard keeps a walk in one derived class. Round 045 found the guard is not a tilting test (E-147, E-151). Under the J = 0 premise all 25 failing n = 7 children are now joined to an LNA (E-157, E-160, E-163); the premise itself is the live question (T10, T5).
 
-## Agenda (proposed, round 080 conference; ordinary rounds work from it until the human changes it). Ranked:
-1. T10/T5 (J = 0 premise), a test that can say NO: toolsmith Hom-verifies the 8 E-216 chains (move lists, seed-to-seed link), record 6 / class 1 of E-212, a `mutateAtVertex` cycle check; skeptic a key-equal inequivalent pair with an independent certificate of stated power (n = 9 F-010 5 + 5, `--plan` first) or a statement none exists; theorist: does the guard force D(i) acyclic, or a finite-dimensional cyclic example with a cycle meeting D(i); scholar: Prop. 7.6 (cancellation) written out with hypotheses from the v1 LaTeX; skeptic: hand step 7 on a cyclic parent with a cycle outside D(i), distinct `canonicalKey` count of the 70 failing children. "25 of 25" always carries "under the J = 0 premise" and "a subset of 70".
-2. T3/T8 Candidate C (maverick; scholar first reads 0911.5137 / 1310.1557, UNVERIFIED so far; skeptic hand-checks one edge of P): nine representatives of the n = 11 15-group and a staged non-Cartan / isometry test (`--plan` first), 90000000 ~ 00000030 as power control; duality-involution partition test at n = 10. Level: idea.
-3. S-1 (experimentalist): `--plan` for a tilting-only join of 90000000 / 00000030 at n = 10 (depth bound stated); shard plan for the n = 15 K0 = 5 scan (24 shards under 10 min each, proposal only). Breadth slot.
-4. T7 two-bystander case of H-010, k = 3 cell first (theorist, breadth slot); then T6 / H-017 (skeptic, breadth slot): does the depth-5 census yield a defect <= 0 LNA not recorded; non-Cartan form for the 16 unplaced n = 11 LNAs.
-5. Housekeeping: docstring rewords, `canonicalKey` cap, Smith form of C + C^T for F-010 vs E-154; fillers T4 widths 9..11, T7 two bystanders / k >= 4.
-Breadth rule: one slot per round to a dormant thread or a closure note (T6, T7 oldest).
+## Agenda (proposed, round 084 conference; ordinary rounds work from it until the human changes it). Ranked:
+1. T10/T5, a NO-capable test: toolsmith/experimentalist the 3304000 depth-5 scan (E-234 scripts), distinctness of the 10 children, `--plan` for 7 + 7 on both sides; skeptic a non-Cartan certificate for 3060000 vs 3304000 with power on a key-equal equivalent control, or a statement none exists, and the 2400230 / 3304000 mismatch (scholar: source of F-047's naming); theorist/toolsmith loops of degree >= 1 at i (n <= 5 parent, kM -> N with signs); scholar Anick Lemma A theorem number. "25 of 25" always carries "under the J = 0 premise" and "a subset of 70".
+2. T3/T8 Candidate C (idea): scholar rank-growth test of E-231 with controls and the 1310.1557 phi(m) misprint check; toolsmith `--plan` for a key-equal Cartan-incongruent scan at n = 12, 13 (real NO control); maverick a non-Cartan invariant for the four n = 11 groups.
+3. Breadth slots (one per round): T7 k >= 4 two-bystander cells (experimentalist, idle since 081); T4 mechanism or second engine for H1 (theorist / skeptic, idle since 079).
+4. S-1 (experimentalist): n = 15 K0 = 5 shard plan stays a proposal; only if a slot is free.
+5. Housekeeping: docstring rewords, `canonicalKey` cap, Smith form of C + C^T for F-010 vs E-154; E-204 wording fix.
 
 ## Open threads
 Each: question · state · last round worked · owner.
@@ -53,6 +52,7 @@ Each: question · state · last round worked · owner.
 The key-guard law (class 0 only); E-147 class-1 count (one script); H-015 citations from memory; the S-1 K-threshold law (two lengths); E-151 counts are step counts on capped BFS samples; E-155 is one n = 8 class, depth 8, slice 2 not independently re-run; 'in the class' for the 25 children rests on the J = 0 premise (generation now proved per loopless step, E-168), edge-tested at Cartan level (E-157, E-163, E-166 paths), at quiver level only for the 13 E-163 edges (E-167, label-preserving); the E-165 length check is one length per rule.
 
 ## Standing facts
+- Round 084 was a conference: ledger changed no H-, F-, R- status, closed no thread; no new E-entries (merge of origin/main already up to date). Agenda re-proposed. No overnight run approved.
 - Round 083 added E-234..E-236 (merge of origin/main already up to date). S-1 sizing taken (experimentalist, E-236); no breadth slot due. Toolsmith accept; theorist and experimentalist minor revision, responses done. No H-, F-, R- status changed. No overnight run approved. Next round 084 is a conference.
 - Round 082 added E-231..E-233 (merge of origin/main already up to date). S-1 not taken (taken in 081). Breadth slot T3/T8 (maverick, E-232). All three minor revision, responses done. No H-, F-, R- status changed. No overnight run approved. Next conference: 084.
 - Round 081 added E-228..E-230 (merge of origin/main already up to date). S-1 taken via agenda item 3 (experimentalist, E-229); breadth slot T7 (theorist, E-230). All three minor revision, responses done. No H-, F-, R- status changed. No overnight run approved (n = 9 7 + 7 unsized). Next conference: 084.

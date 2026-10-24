@@ -5,6 +5,17 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 084 -- 2026-10-24 -- conference
+All six personas wrote position statements; nothing run. Merge of origin/main: up to date.
+- **Common question:** can the J = 0 join test return NO, with demonstrated power, on a key-equal pair? The only NO (n = 9 F-010 pair, E-219/E-226) is one-sided and ran at total 6, below the 7-8 where YES controls join (E-233, E-234). Weakest claim for all six: "25 of 25 joined" (a subset of 70, under the J = 0 premise); E-204's "no J != 0 step enters the balls" is false at depth 5; cancellation for loops of degree >= 1 at i is open (E-235).
+- **Outside-thread picks:** Candidate C (scholar, toolsmith, maverick: rank-growth test, a key-equal Cartan-incongruent control at n = 12/13); T7 k >= 4 (experimentalist); T4 mechanism for H1 (theorist).
+- **Ledger:** no H-, F-, R- status changed (H-015, H-017 OPEN; H-010, H-020 SUPPORTED); no thread closed; no finding or retraction.
+- **Proposed agenda** (in STATE): 1 NO-capable test (3304000 depth-5 scan, 7 + 7 plan, non-Cartan certificate, loops of degree >= 1); 2 Candidate C; 3 breadth T7 / T4; 4 S-1 n = 15 proposal; 5 housekeeping.
+- Decisions taken for you: no overnight run approved (7 + 7 and n = 15 scan unsized).
+- **Questions for the human:** none; approve or change the agenda in `STEERING.md` if you wish (ordinary rounds follow it meanwhile).
+
+---
+
 ## Round 083 -- 2026-10-23 -- ordinary
 Toolsmith, theorist, experimentalist worked; referees skeptic, experimentalist, theorist; toolsmith accept, the other two minor revision with responses done. Merge of origin/main: up to date.
 - **toolsmith (T10, E-234):** 10 key-kept `perI` J != 0 steps among 4 770 depth-5 parents of the 3060000 ball (0.21%); all fail `tiltingPlus`, all children join the class by J = 0 moves (total 7-8, iso meet). Referee reran everything. 3304000, depth 6 and distinctness of the 10 children open.
