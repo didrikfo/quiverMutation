@@ -1,0 +1,7 @@
+files ['k1275.pkl', 'k1433.pkl', 'k1746.pkl', 'k1818.pkl', 'k1915.pkl', 'k1932.pkl', 'k1970.pkl', 'k2003.pkl', 'k4551.pkl', 'k4722.pkl', 'k3304_2026.pkl', 'skeptic_kept.pkl']
+WL hashes distinct: 9 of 12
+iso classes of children (up to vertex relabelling): [['k1275.pkl'], ['k1433.pkl'], ['k1746.pkl'], ['k1818.pkl'], ['k1915.pkl', 'k4722.pkl', 'skeptic_kept.pkl'], ['k1932.pkl'], ['k1970.pkl', 'k2003.pkl'], ['k4551.pkl'], ['k3304_2026.pkl']]
+number of classes 9
+quiver arrow counts [10, 10, 10, 10, 10, 9, 9, 9, 9, 10, 10, 10] relations [6, 5, 5, 5, 4, 2, 2, 2, 3, 4, 4, 4]
+parents iso classes too:
+parent classes 9

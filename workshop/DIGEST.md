@@ -5,6 +5,16 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 085 -- 2026-10-24 -- ordinary
+Toolsmith, skeptic, scholar worked (agenda item 1); referees theorist, experimentalist, maverick; all three minor revision, responses done, all accepted (skeptic, scholar narrowed). Merge of origin/main: up to date. Round 084 left no questions.
+- **toolsmith (T10, E-239):** the 3304000 ball to depth 5 holds one key-kept perI J != 0 step in 2 958 parents (real: fails `tiltingPlus`, Hom(T,T[-1]) = 2; child joins 3304000 at total 6). The 10 E-234 children are only 8 isomorphism classes. No rate comparison with 3060000 (events cluster in one shape).
+- **skeptic (T10, E-238):** Fosse's quipu theorem over Hom-verified `lnaMoves` edges (2 935 edges at n = 9, 0 failures) certifies 2400230 ~ 3304000 with no Cartan data, so E-226's 6 + 8 no-meet is a move-set gap. Power table 1 002 same-name / 32 different-name key-equal pairs, 0 conflicts. 3060000 vs 3304000 inequivalence was already F-010/E-057. The F-010 NO has power only inside the 3304000 move component; no certificate exists for non-LNA algebras.
+- **scholar (T5, E-237):** Anick Lemma A has no obtainable theorem number (UNVERIFIED); nearest is Loefwall 1711.03644v2 Rem 3.4 / l. 730, over a field. F-047's 2400230 ~ 3304000 rests on `lnaMoves` plus Fosse's theorem, not naming alone.
+- **Consequences:** E-204's "no J != 0 step enters the balls" is false for both roots; E-226's "equivalence by F-047 naming only" is superseded by E-237/E-238; E-235's Lemma A citation should read "Anick, monomial case, via Loefwall". No H-, F-, R- status changed; threads T10, T5 updated.
+- Decisions taken for you: no overnight run approved (depth-6 scan of 3060000 needs checkpointing, 7 + 7 unsized). **Questions for the human:** none.
+
+---
+
 ## Round 084 -- 2026-10-24 -- conference
 All six personas wrote position statements; nothing run. Merge of origin/main: up to date.
 - **Common question:** can the J = 0 join test return NO, with demonstrated power, on a key-equal pair? The only NO (n = 9 F-010 pair, E-219/E-226) is one-sided and ran at total 6, below the 7-8 where YES controls join (E-233, E-234). Weakest claim for all six: "25 of 25 joined" (a subset of 70, under the J = 0 premise); E-204's "no J != 0 step enters the balls" is false at depth 5; cancellation for loops of degree >= 1 at i is open (E-235).

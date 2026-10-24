@@ -1,0 +1,9 @@
+rows 1430 orbits (components) 380 covered 1430
+orbits with two different theorem names (soundness failures): 0  unnamed orbits: 208
+key-equal orbit pairs: same name (equivalent) 1002  different name (inequivalent) 32  unnamed 7149
+3060000 orbit 267 size 1 names {((1, 0, 1), (1, 4)): ['3060000']}
+3304000 orbit 207 size 7 names {((1, 1, 2), (1, 2)): ['3024000', '3004000', '3004002']}
+2400230 orbit 147 size 1 names {((1, 1, 2), (1, 2)): ['2400230']}
+3004000 orbit 207 size 7 ...
+6000030 orbit 334 size 1 names {((1, 0, 1), (1, 4)): ['6000030']}
+(5m18s; copied from the terminal)

@@ -1,0 +1,7 @@
+rows 429 orbits (components) 69 covered 429
+orbits with two different theorem names (soundness failures): 0  unnamed orbits: 10
+key-equal orbit pairs: same name (equivalent) 165  different name (inequivalent) 0  unnamed 73
+
+real	1m1.336s
+user	1m1.072s
+sys	0m0.131s

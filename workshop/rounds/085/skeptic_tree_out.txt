@@ -1,0 +1,9 @@
+nodes 9 9 edges 8 8
+degree sequences [1, 1, 1, 1, 2, 2, 2, 3, 3] [1, 1, 1, 1, 2, 2, 2, 3, 3]
+canonicalTreeForm DIFFERENT
+   (((()())())((()))) 
+   (((()()))(())(()))
+adjacencySpectrumPolynomial equal
+   lambda**9 - 8*lambda**7 + 19*lambda**5 - 14*lambda**3 + 2*lambda 
+   lambda**9 - 8*lambda**7 + 19*lambda**5 - 14*lambda**3 + 2*lambda
+networkx is_isomorphic (undirected): False

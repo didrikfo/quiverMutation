@@ -1,0 +1,14 @@
+component of 3304000: ['3004000', '3004002', '3024000', '3034400', '3040400', '3044030', '3304000'] 7
+3034400 -> 3024000 seq [4, 4] Hom-verified True predicted class reached True
+3034400 -> 3044030 seq [-8, -8] Hom-verified True predicted class reached True
+3040400 -> 3034400 seq [5, 5] Hom-verified True predicted class reached True
+3044030 -> 3004002 seq [-8, -8] Hom-verified True predicted class reached True
+3044030 -> 3034400 seq [4, 4] Hom-verified True predicted class reached True
+3044030 -> 3004000 seq [-8, -8, -9] Hom-verified True predicted class reached True
+3304000 -> 3024000 seq [-4, -2] Hom-verified True predicted class reached True
+3304000 -> 3004000 seq [1, 1] Hom-verified True predicted class reached True
+edges 8 failing 0
+
+real	0m1.848s
+user	0m2.105s
+sys	0m0.112s
