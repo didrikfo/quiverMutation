@@ -5,6 +5,16 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 086 -- 2026-10-25 -- ordinary
+Theorist, experimentalist, maverick worked (agenda items 1, 3, 2); referees skeptic (x2) and theorist; theorist accept, the other two minor revision, responses done, all accepted (experimentalist narrowed). Merge of origin/main: up to date. Round 085 left no questions.
+- **theorist (T5, E-240):** Anick's Lemma A in the monomial case (disjoint X1, Y, D = 0 on arrows) has a direct skeleton-decomposition proof; 13 748 exact-rank cells on n <= 5, 0 mismatches; shared-arrow control fails 164 of 215. Referee re-ran it byte-identically and found no gap. Whether E-235 step 4 lands in the hypotheses is still unchecked, so E-235's caveat is only conditionally discharged.
+- **experimentalist (T7, E-241):** pair (8:3)(9:3), k = 4: 5 of 5 m = 2 two-bystander cells stay at overlap 2, 3 of 3 completed run-of-three controls drop to 0; H-010 not contradicted. Every cell holds a joint run of three (the pair is a run of four); 2 of 5 have a bystander-only run of three and still stay at 2. One control timed out.
+- **maverick (T3/T8, E-242):** at n = 12, all 8 737 non-representative indefinite periodic LNAs in the 8 key groups are Cartan-congruent to their representative; no key-equal incongruent pair exists, so the Cartan-level NO still has no demonstrated power. n = 13 (~40 min) is an unapproved proposal.
+- **Consequences:** no H-, F-, R- status changed; T5 next is the step-4 hypotheses check, T3/T8 needs a non-Cartan invariant.
+- Decisions taken for you: no overnight run approved (n = 13 Candidate C ~40 min; k = 4 remaining cells ~4 h core time). **Questions for the human:** none.
+
+---
+
 ## Round 085 -- 2026-10-24 -- ordinary
 Toolsmith, skeptic, scholar worked (agenda item 1); referees theorist, experimentalist, maverick; all three minor revision, responses done, all accepted (skeptic, scholar narrowed). Merge of origin/main: up to date. Round 084 left no questions.
 - **toolsmith (T10, E-239):** the 3304000 ball to depth 5 holds one key-kept perI J != 0 step in 2 958 parents (real: fails `tiltingPlus`, Hom(T,T[-1]) = 2; child joins 3304000 at total 6). The 10 E-234 children are only 8 isomorphism classes. No rate comparison with 3060000 (events cluster in one shape).

@@ -1,0 +1,2 @@
+cells (key,profile) with >=2 indefinite periodic members: 8 of 8 sizes [5, 66, 302, 366, 529, 1185, 2300, 3992]
+tally (group, result): {(148, 'YES'): 4, (94, 'YES'): 65, (93, 'YES'): 301, (97, 'YES'): 365, (51, 'YES'): 528, (92, 'YES'): 1184, (1, 'YES'): 2299, (25, 'YES'): 3991} 458s

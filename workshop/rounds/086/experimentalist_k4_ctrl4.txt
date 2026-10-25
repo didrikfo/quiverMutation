@@ -1,0 +1,3 @@
+steps 4 margin 2 cells 2
+b1 b2 base reached min lowered secs
+(6, 4) (12, 2) 2 27 0 6 511.4

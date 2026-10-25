@@ -1,0 +1,7 @@
+n=1: instances=60 (x,y) pairs=173 cells=2214 mismatches=0 overlapping-sites=0
+n=2: instances=60 (x,y) pairs=89 cells=3951 mismatches=0 overlapping-sites=0
+n=3: instances=60 (x,y) pairs=65 cells=4043 mismatches=0 overlapping-sites=0
+n=4: instances=60 (x,y) pairs=43 cells=2261 mismatches=0 overlapping-sites=0
+n=5: instances=60 (x,y) pairs=30 cells=1279 mismatches=0 overlapping-sites=0
+TOTAL instances, cells, mismatches, overlaps: [300, 13748, 0, 0]
+CONTROL (X1 and Y share an arrow): instances=215, with mismatch or D-leaves-cell=164, with overlapping sites=164

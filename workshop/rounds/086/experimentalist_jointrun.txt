@@ -1,0 +1,9 @@
+cell | bystander-only arrows, longest run | bystanders+pair longest run | bystander-only run>=3 | any 3 consecutive covered arrows containing a non-pair arrow (joint)
+((11, 2), (12, 2)) | B [11, 12, 13] longest 3 | B+pair longest 6 | bystanders-alone run3 (union of their arrows): True | joint run3 using a bystander arrow: True
+((6, 2), (7, 2)) | B [6, 7, 8] longest 3 | B+pair longest 6 | bystanders-alone run3 (union of their arrows): True | joint run3 using a bystander arrow: True
+((7, 2), (11, 2)) | B [7, 8, 11, 12] longest 2 | B+pair longest 6 | bystanders-alone run3 (union of their arrows): False | joint run3 using a bystander arrow: True
+((6, 2), (11, 2)) | B [6, 7, 11, 12] longest 2 | B+pair longest 7 | bystanders-alone run3 (union of their arrows): False | joint run3 using a bystander arrow: True
+((7, 2), (12, 2)) | B [7, 8, 12, 13] longest 2 | B+pair longest 7 | bystanders-alone run3 (union of their arrows): False | joint run3 using a bystander arrow: True
+((7, 3), (12, 2)) | B [7, 8, 9, 12, 13] longest 3 | B+pair longest 7 | bystanders-alone run3 (union of their arrows): True | joint run3 using a bystander arrow: True
+((10, 3), (5, 2)) | B [5, 6, 10, 11, 12] longest 3 | B+pair longest 5 | bystanders-alone run3 (union of their arrows): True | joint run3 using a bystander arrow: True
+((6, 4), (12, 2)) | B [6, 7, 8, 9, 12, 13] longest 4 | B+pair longest 8 | bystanders-alone run3 (union of their arrows): True | joint run3 using a bystander arrow: True

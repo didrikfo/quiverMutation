@@ -1,0 +1,25 @@
+cells (key,profile) with >=2 indefinite periodic members: 8 of 8 sizes [5, 66, 302, 366, 529, 1185, 2300, 3992]
+group 148 3345040330 -> 3505040330 YES gens 5 nodes 318 0s
+group 148 3345040330 -> 3345050030 YES gens 5 nodes 318 0s
+group 148 3345040330 -> 3455504030 YES gens 5 nodes 318 0s
+group 94 2334504030 -> 5506005000 YES gens 3 nodes 252 0s
+group 94 2334504030 -> 3566050030 YES gens 3 nodes 252 0s
+group 94 2334504030 -> 5050404030 YES gens 3 nodes 252 0s
+group 93 2334404400 -> 4045600030 YES gens 3 nodes 156 0s
+group 93 2334404400 -> 3560505000 YES gens 3 nodes 156 0s
+group 93 2334404400 -> 5606055000 YES gens 3 nodes 156 0s
+group 97 2335600000 -> 4555550030 YES gens 4 nodes 178 0s
+group 97 2335600000 -> 3444450002 YES gens 4 nodes 178 0s
+group 97 2335600000 -> 4044045000 YES gens 4 nodes 178 0s
+group 51 2233440400 -> 5800000400 YES gens 3 nodes 256 0s
+group 51 2233440400 -> 3440350030 YES gens 3 nodes 256 0s
+group 51 2233440400 -> 0234504002 YES gens 3 nodes 256 0s
+group 92 2334403300 -> 4050660000 YES gens 1 nodes 40 0s
+group 92 2334403300 -> 3555504002 YES gens 1 nodes 40 0s
+group 92 2334403300 -> 5045504002 YES gens 1 nodes 40 0s
+group 1 2233440330 -> 5504440002 YES gens 2 nodes 44 0s
+group 1 2233440330 -> 3457000002 YES gens 2 nodes 44 0s
+group 1 2233440330 -> 5050055000 YES gens 2 nodes 44 0s
+group 25 2223344000 -> 3440403330 YES gens 1 nodes 42 0s
+group 25 2223344000 -> 0045000022 YES gens 1 nodes 42 0s
+group 25 2223344000 -> 2405040000 YES gens 1 nodes 42 0s
