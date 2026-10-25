@@ -17,3 +17,9 @@
 - Tools: `085/toolsmith_d5scan.py` now takes env KEYROOT, DEPTH (key base was hard-coded); keys of 3060000 and 3304000 asserted equal. Builds: 3304000 depth 5 116 s, 3060000 131-170 s; scan ~35 s per 1500 parents. `toolsmith_distinct.py` = pairwise iso of children from `d5pkl` pickles.
 - Traps: `pgrep -f` in a monitor matches its own shell, loops never end; sandbox wall-clock and my sense of time disagree, poll with a bash `until` under 115 s.
 - Next: depth-6 scan (3304000 build ~8 min, borderline; 3060000 needs checkpointing: propose for OVERNIGHT); skeptic recheck of index 2026; is a J != 0 step ever followed by a second one (J != 0 child as parent)? a NO-capable certificate remains the real gap, these steps never test the premise since their joins are J = 0.
+
+## Round 087
+- Believe: 3304000 ball depth 6 (15 401 nodes, 11 355 parents): 6 key-kept perI J != 0 steps (indices 4606, 8063, 8170, 8196, 8427, 11123), all real (Hom(T,T[-1]) != 0, tiltingPlus False), 3 child iso classes ({4606}, {8063,8427,11123}, {8170,8196}; the last has 9 arrows / 2 relations), one rep per class joins 3304000 at 8, 6, 7 by J = 0 moves. Rate 6/11 355 (0.053%) vs 1/2 958 at depth 5.
+- Tool: `087/toolsmith_d6scan.py` (`--plan`, resumable `build` with checkpoint every 300 expansions, `--budget-hours` exit 2, `scan` with resume index). Real timings: depth-6 build 8.2 + 2.7 min (my model said 6 total, slower: sizing by nodes undercounts later-node cost), scan 11 355 parents ~6 min total. 3060000 depth 6 not run (est. 12 min build, 2 commands + 3 scan commands), no OVERNIGHT needed.
+- Traps: `| tail` hides KEPT lines; send scan output to files. Budget stop in the middle of a shard: rerun from the printed resume index.
+- Next: scan the children of the six steps as parents (second J != 0 step?), 3060000 depth 6, skeptic recheck of 4606/8170. NO-capable certificate still the real gap.

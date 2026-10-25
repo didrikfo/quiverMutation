@@ -1,0 +1,13 @@
+k=1: total rank 27  max 5  max deg-span 5  biggest resolved complex 789  masked violations 1483
+k=2: total rank 47  max 7  max deg-span 5  biggest resolved complex 1682  masked violations 12605
+k=3: total rank 62  max 11  max deg-span 5  biggest resolved complex 2837  masked violations 30913
+k=4: total rank 82  max 12  max deg-span 5  biggest resolved complex 3978  masked violations 57775
+k=5: total rank 100  max 14  max deg-span 5  biggest resolved complex 4276  masked violations 107556
+k=6: total rank 124  max 18  max deg-span 5  biggest resolved complex 5498  masked violations 196288
+k=7: total rank 137  max 18  max deg-span 5  biggest resolved complex 7180  masked violations 358277
+k=8: total rank 156  max 22  max deg-span 6  biggest resolved complex 7180  masked violations 414015
+k=9: total rank 179  max 24  max deg-span 6  biggest resolved complex 7924  masked violations 507037
+k=10: total rank 194  max 27  max deg-span 6  biggest resolved complex 9137  masked violations 1171772
+k=11: total rank 215  max 28  max deg-span 6  biggest resolved complex 10192  masked violations 2212664
+k=12: total rank 235  max 31  max deg-span 6  biggest resolved complex 10926  masked violations 4430156
+k=13: total rank 259  max 35  max deg-span 6  biggest resolved complex 11775  masked violations 5003011

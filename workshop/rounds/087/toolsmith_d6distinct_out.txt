@@ -1,0 +1,11 @@
+files ['k4606.pkl', 'k8063.pkl', 'k8170.pkl', 'k8196.pkl', 'k8427.pkl', 'k11123.pkl', 'skeptic_kept.pkl']
+WL hashes distinct: 4 of 7
+iso classes of children (up to vertex relabelling): [['k4606.pkl'], ['k8063.pkl', 'k8427.pkl', 'k11123.pkl'], ['k8170.pkl', 'k8196.pkl'], ['skeptic_kept.pkl']]
+number of classes 4
+quiver arrow counts [10, 10, 9, 9, 10, 10, 10] relations [4, 4, 2, 2, 4, 4, 4]
+parents iso classes too:
+parent classes 4
+
+real	0m2.010s
+user	0m1.901s
+sys	0m0.172s

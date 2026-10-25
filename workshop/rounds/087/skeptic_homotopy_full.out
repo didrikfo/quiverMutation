@@ -1,0 +1,151 @@
+CMD 10 5 run 0 -1
+MODE run L 10 W 5 OP 0 SIGN -1 rules 24 apps 1008 {'OK': 1008} time 16s max|k| needed 2
+CMD 10 5 run 1 1
+MODE run L 10 W 5 OP 1 SIGN 1 rules 24 apps 1008 {'OK': 1008} time 15s max|k| needed 2
+CMD 10 5 ctl_after 0 -1
+MODE ctl_after L 10 W 5 OP 0 SIGN -1 rules 24 apps 1008 {'DIM': 1008} time 13s max|k| needed 2
+  ex DIM (((0, 2), (1, 3)), ((0, 3), (1, 3), (2, 3)), (-5, -5), (0, 0, 0, 0, 2, 3, 0, 0), 5, 'DIM (10,8) got 1 want 0')
+  ex DIM (((0, 2), (1, 3)), ((0, 3), (1, 3), (2, 3)), (-5, -5), (0, 0, 0, 2, 3, 0, 0, 0), 4, 'DIM (9,7) got 1 want 0')
+  ex DIM (((0, 2), (1, 3)), ((0, 3), (1, 3), (2, 3)), (-5, -5), (0, 0, 2, 0, 2, 3, 0, 0), 5, 'DIM (10,8) got 1 want 0')
+CMD 10 5 ctl_seq 0 -1
+MODE ctl_seq L 10 W 5 OP 0 SIGN -1 rules 24 apps 1008 {'NOTTILTING': 826, 'NOTLINE': 84, 'DIM': 98} time 7s max|k| needed 2
+  ex NOTTILTING (((0, 2), (1, 3)), ((0, 3), (1, 3), (2, 3)), (-5, -5), (0, 0, 0, 0, 2, 3, 0, 0), 5, 'NOTTILTING Hom(T9,T10[-1])!=0')
+  ex NOTTILTING (((0, 2), (1, 3)), ((0, 3), (1, 3), (2, 3)), (-5, -5), (0, 0, 0, 2, 3, 0, 0, 0), 4, 'NOTTILTING Hom(T8,T9[-1])!=0')
+  ex NOTTILTING (((0, 2), (1, 3)), ((0, 3), (1, 3), (2, 3)), (-5, -5), (0, 0, 2, 0, 2, 3, 0, 0), 5, 'NOTTILTING Hom(T9,T10[-1])!=0')
+  ex NOTLINE (((0, 2), (1, 3), (2, 3)), ((0, 3), (1, 3), (3, 2)), (-5, -3), (0, 0, 0, 0, 2, 3, 3, 0), 5, 'NOTLINE quiver arrows=[(2, 1), (3, 2), (4, 3), (5, 4), (6, 5), (7, 6), (7, 8), (9, 10), (10, 7)]')
+  ex NOTLINE (((0, 2), (1, 3), (2, 3)), ((0, 3), (1, 3), (3, 2)), (-5, -3), (0, 0, 2, 0, 2, 3, 3, 0), 5, 'NOTLINE quiver arrows=[(2, 1), (3, 2), (4, 3), (5, 4), (6, 5), (7, 6), (7, 8), (9, 10), (10, 7)]')
+  ex NOTLINE (((0, 2), (1, 3), (2, 3)), ((0, 3), (1, 3), (3, 2)), (-5, -3), (0, 2, 0, 0, 2, 3, 3, 0), 5, 'NOTLINE quiver arrows=[(2, 1), (3, 2), (4, 3), (5, 4), (6, 5), (7, 6), (7, 8), (9, 10), (10, 7)]')
+  ex DIM (((0, 3), (1, 3), (2, 3)), ((1, 3), (3, 2)), (-5, -5), (0, 0, 0, 0, 3, 3, 3, 0), 5, 'DIM (9,6) got 1 want 0')
+  ex DIM (((0, 3), (1, 3), (2, 3)), ((1, 3), (3, 2)), (-5, -5), (0, 0, 0, 3, 3, 3, 0, 0), 4, 'DIM (8,5) got 1 want 0')
+  ex DIM (((0, 3), (1, 3), (2, 3)), ((1, 3), (3, 2)), (-5, -5), (0, 0, 2, 0, 3, 3, 3, 0), 5, 'DIM (9,6) got 1 want 0')
+CMD 10 5 ctl_cox 0 -1
+MODE ctl_cox L 10 W 5 OP 0 SIGN -1 rules 24 apps 1008 {'DIM': 1008} time 24s max|k| needed 2
+  ex DIM (((0, 2), (1, 3)), ((0, 3), (1, 3), (2, 3)), (-5, -5), (0, 0, 0, 0, 2, 3, 0, 0), 5, 'DIM (5,1) got 1 want 0')
+  ex DIM (((0, 2), (1, 3)), ((0, 3), (1, 3), (2, 3)), (-5, -5), (0, 0, 0, 2, 3, 0, 0, 0), 4, 'DIM (4,1) got 1 want 0')
+  ex DIM (((0, 2), (1, 3)), ((0, 3), (1, 3), (2, 3)), (-5, -5), (0, 0, 2, 0, 2, 3, 0, 0), 5, 'DIM (5,2) got 0 want 1')
+CMD 11 5 run 0 -1
+MODE run L 11 W 5 OP 0 SIGN -1 rules 24 apps 3168 {'OK': 3168} time 60s max|k| needed 2
+CMD 10 4 run 0 -1
+MODE run L 10 W 4 OP 0 SIGN -1 rules 4 apps 528 {'OK': 528} time 7s max|k| needed 2
+CMD 11 4 run 0 -1
+MODE run L 11 W 4 OP 0 SIGN -1 rules 4 apps 1716 {'OK': 1716} time 29s max|k| needed 2
+CMD 6 3 calib 0 -1
+MODE calib L 6 W 3 OP 0 SIGN -1 rules 2 apps 10 {'OK': 10} time 0s max|k| needed 1
+CMD 6 3 calib 1 1
+MODE calib L 6 W 3 OP 1 SIGN 1 rules 2 apps 10 {'OK': 10} time 0s max|k| needed 1
+CMD 6 3 calib 0 1
+MODE calib L 6 W 3 OP 0 SIGN 1 rules 2 apps 10 {'DIM': 4, 'NOTLINE': 6} time 0s max|k| needed 1
+  ex DIM (((0, 2),), ((1, 2),), (-3,), (0, 0, 2, 0), 3, 'DIM (5,1) got 0 want 1')
+  ex DIM (((0, 2),), ((1, 2),), (-3,), (2, 0, 2, 0), 3, 'DIM (5,2) got 0 want 1')
+  ex DIM (((1, 2),), ((0, 2),), (2,), (0, 2, 0, 0), 1, 'DIM (4,2) got 0 want 1')
+  ex NOTLINE (((0, 2),), ((1, 2),), (-3,), (0, 2, 0, 0), 2, 'NOTLINE quiver arrows=[(2, 1), (3, 2), (4, 5), (5, 3), (6, 5)]')
+  ex NOTLINE (((0, 2),), ((1, 2),), (-3,), (2, 0, 0, 0), 1, 'NOTLINE quiver arrows=[(2, 1), (3, 4), (4, 2), (5, 4), (6, 5)]')
+  ex NOTLINE (((0, 2),), ((1, 2),), (-3,), (2, 0, 0, 2), 1, 'NOTLINE quiver arrows=[(2, 1), (3, 4), (4, 2), (5, 4), (6, 5)]')
+CMD 6 3 calib 1 -1
+MODE calib L 6 W 3 OP 1 SIGN -1 rules 2 apps 10 {'DIM': 4, 'NOTLINE': 6} time 0s max|k| needed 1
+  ex DIM (((0, 2),), ((1, 2),), (-3,), (0, 0, 2, 0), 3, 'DIM (1,5) got 0 want 1')
+  ex DIM (((0, 2),), ((1, 2),), (-3,), (2, 0, 2, 0), 3, 'DIM (2,5) got 0 want 1')
+  ex DIM (((1, 2),), ((0, 2),), (2,), (0, 2, 0, 0), 1, 'DIM (2,4) got 0 want 1')
+  ex NOTLINE (((0, 2),), ((1, 2),), (-3,), (0, 2, 0, 0), 2, 'NOTLINE quiver arrows=[(1, 2), (2, 3), (3, 5), (5, 4), (5, 6)]')
+  ex NOTLINE (((0, 2),), ((1, 2),), (-3,), (2, 0, 0, 0), 1, 'NOTLINE quiver arrows=[(1, 2), (2, 4), (4, 3), (4, 5), (5, 6)]')
+  ex NOTLINE (((0, 2),), ((1, 2),), (-3,), (2, 0, 0, 2), 1, 'NOTLINE quiver arrows=[(1, 2), (2, 4), (4, 3), (4, 5), (5, 6)]')
+CMD 7 3 calib 0 -1
+MODE calib L 7 W 3 OP 0 SIGN -1 rules 2 apps 28 {'OK': 28} time 0s max|k| needed 1
+CMD 7 3 calib 1 1
+MODE calib L 7 W 3 OP 1 SIGN 1 rules 2 apps 28 {'OK': 28} time 0s max|k| needed 1
+CMD 7 3 calib 0 1
+MODE calib L 7 W 3 OP 0 SIGN 1 rules 2 apps 28 {'DIM': 10, 'NOTLINE': 18} time 0s max|k| needed 1
+  ex DIM (((0, 2),), ((1, 2),), (-3,), (0, 0, 0, 2, 0), 4, 'DIM (6,1) got 0 want 1')
+  ex DIM (((0, 2),), ((1, 2),), (-3,), (0, 2, 0, 2, 0), 4, 'DIM (6,3) got 0 want 1')
+  ex DIM (((0, 2),), ((1, 2),), (-3,), (2, 0, 0, 2, 0), 4, 'DIM (6,2) got 0 want 1')
+  ex NOTLINE (((0, 2),), ((1, 2),), (-3,), (0, 0, 2, 0, 0), 3, 'NOTLINE quiver arrows=[(2, 1), (3, 2), (4, 3), (5, 6), (6, 4), (7, 6)]')
+  ex NOTLINE (((0, 2),), ((1, 2),), (-3,), (0, 2, 0, 0, 0), 2, 'NOTLINE quiver arrows=[(2, 1), (3, 2), (4, 5), (5, 3), (6, 5), (7, 6)]')
+  ex NOTLINE (((0, 2),), ((1, 2),), (-3,), (0, 2, 0, 0, 2), 2, 'NOTLINE quiver arrows=[(2, 1), (3, 2), (4, 5), (5, 3), (6, 5), (7, 6)]')
+CMD 7 3 calib 1 -1
+MODE calib L 7 W 3 OP 1 SIGN -1 rules 2 apps 28 {'DIM': 10, 'NOTLINE': 18} time 0s max|k| needed 1
+  ex DIM (((0, 2),), ((1, 2),), (-3,), (0, 0, 0, 2, 0), 4, 'DIM (1,6) got 0 want 1')
+  ex DIM (((0, 2),), ((1, 2),), (-3,), (0, 2, 0, 2, 0), 4, 'DIM (3,6) got 0 want 1')
+  ex DIM (((0, 2),), ((1, 2),), (-3,), (2, 0, 0, 2, 0), 4, 'DIM (2,6) got 0 want 1')
+  ex NOTLINE (((0, 2),), ((1, 2),), (-3,), (0, 0, 2, 0, 0), 3, 'NOTLINE quiver arrows=[(1, 2), (2, 3), (3, 4), (4, 6), (6, 5), (6, 7)]')
+  ex NOTLINE (((0, 2),), ((1, 2),), (-3,), (0, 2, 0, 0, 0), 2, 'NOTLINE quiver arrows=[(1, 2), (2, 3), (3, 5), (5, 4), (5, 6), (6, 7)]')
+  ex NOTLINE (((0, 2),), ((1, 2),), (-3,), (0, 2, 0, 0, 2), 2, 'NOTLINE quiver arrows=[(1, 2), (2, 3), (3, 5), (5, 4), (5, 6), (6, 7)]')
+CMD 8 3 calib 0 -1
+MODE calib L 8 W 3 OP 0 SIGN -1 rules 2 apps 84 {'OK': 84} time 1s max|k| needed 1
+CMD 8 3 calib 1 1
+MODE calib L 8 W 3 OP 1 SIGN 1 rules 2 apps 84 {'OK': 84} time 1s max|k| needed 1
+CMD 8 3 calib 0 1
+MODE calib L 8 W 3 OP 0 SIGN 1 rules 2 apps 84 {'DIM': 28, 'NOTLINE': 56} time 0s max|k| needed 1
+  ex DIM (((0, 2),), ((1, 2),), (-3,), (0, 0, 0, 0, 2, 0), 5, 'DIM (7,1) got 0 want 1')
+  ex DIM (((0, 2),), ((1, 2),), (-3,), (0, 0, 2, 0, 2, 0), 5, 'DIM (7,4) got 0 want 1')
+  ex DIM (((0, 2),), ((1, 2),), (-3,), (0, 2, 0, 0, 2, 0), 5, 'DIM (7,3) got 0 want 1')
+  ex NOTLINE (((0, 2),), ((1, 2),), (-3,), (0, 0, 0, 2, 0, 0), 4, 'NOTLINE quiver arrows=[(2, 1), (3, 2), (4, 3), (5, 4), (6, 7), (7, 5), (8, 7)]')
+  ex NOTLINE (((0, 2),), ((1, 2),), (-3,), (0, 0, 2, 0, 0, 0), 3, 'NOTLINE quiver arrows=[(2, 1), (3, 2), (4, 3), (5, 6), (6, 4), (7, 6), (8, 7)]')
+  ex NOTLINE (((0, 2),), ((1, 2),), (-3,), (0, 0, 2, 0, 0, 2), 3, 'NOTLINE quiver arrows=[(2, 1), (3, 2), (4, 3), (5, 6), (6, 4), (7, 6), (8, 7)]')
+CMD 8 3 calib 1 -1
+MODE calib L 8 W 3 OP 1 SIGN -1 rules 2 apps 84 {'DIM': 28, 'NOTLINE': 56} time 0s max|k| needed 1
+  ex DIM (((0, 2),), ((1, 2),), (-3,), (0, 0, 0, 0, 2, 0), 5, 'DIM (1,7) got 0 want 1')
+  ex DIM (((0, 2),), ((1, 2),), (-3,), (0, 0, 2, 0, 2, 0), 5, 'DIM (4,7) got 0 want 1')
+  ex DIM (((0, 2),), ((1, 2),), (-3,), (0, 2, 0, 0, 2, 0), 5, 'DIM (3,7) got 0 want 1')
+  ex NOTLINE (((0, 2),), ((1, 2),), (-3,), (0, 0, 0, 2, 0, 0), 4, 'NOTLINE quiver arrows=[(1, 2), (2, 3), (3, 4), (4, 5), (5, 7), (7, 6), (7, 8)]')
+  ex NOTLINE (((0, 2),), ((1, 2),), (-3,), (0, 0, 2, 0, 0, 0), 3, 'NOTLINE quiver arrows=[(1, 2), (2, 3), (3, 4), (4, 6), (6, 5), (6, 7), (7, 8)]')
+  ex NOTLINE (((0, 2),), ((1, 2),), (-3,), (0, 0, 2, 0, 0, 2), 3, 'NOTLINE quiver arrows=[(1, 2), (2, 3), (3, 4), (4, 6), (6, 5), (6, 7), (7, 8)]')
+CMD 6 4 calib 0 -1
+MODE calib L 6 W 4 OP 0 SIGN -1 rules 4 apps 8 {'OK': 8} time 0s max|k| needed 2
+CMD 6 4 calib 1 1
+MODE calib L 6 W 4 OP 1 SIGN 1 rules 4 apps 8 {'OK': 8} time 0s max|k| needed 2
+CMD 6 4 calib 0 1
+MODE calib L 6 W 4 OP 0 SIGN 1 rules 4 apps 8 {'NOTLINE': 4, 'NOTTILTING': 4} time 0s max|k| needed 2
+  ex NOTLINE (((0, 2),), ((2, 2),), (-3, -4), (0, 2, 0, 0), 2, 'NOTLINE quiver arrows=[(2, 1), (3, 2), (5, 4), (5, 6), (6, 3)]')
+  ex NOTLINE (((0, 2),), ((2, 2),), (-3, -4), (2, 0, 0, 0), 1, 'NOTLINE quiver arrows=[(2, 1), (4, 3), (4, 5), (5, 2), (6, 5)]')
+  ex NOTLINE (((2, 2),), ((0, 2),), (3, 2), (0, 0, 0, 2), 2, 'NOTLINE quiver arrows=[(2, 1), (2, 3), (4, 3), (5, 2), (6, 5)]')
+  ex NOTTILTING (((1, 2), (2, 2)), ((0, 2), (1, 2)), (2, 2), (0, 0, 2, 2), 2, 'NOTTILTING Hom(T2,T3[-1])!=0')
+  ex NOTTILTING (((1, 2), (2, 2)), ((0, 2), (1, 2)), (2, 2), (0, 2, 2, 0), 1, 'NOTTILTING Hom(T1,T2[-1])!=0')
+  ex NOTTILTING (((0, 2), (1, 2)), ((1, 2), (2, 2)), (-4, -4), (0, 2, 2, 0), 2, 'NOTTILTING Hom(T5,T6[-1])!=0')
+CMD 6 4 calib 1 -1
+MODE calib L 6 W 4 OP 1 SIGN -1 rules 4 apps 8 {'NOTLINE': 4, 'NOTTILTING': 4} time 0s max|k| needed 2
+  ex NOTLINE (((0, 2),), ((2, 2),), (-3, -4), (0, 2, 0, 0), 2, 'NOTLINE quiver arrows=[(1, 2), (2, 3), (3, 6), (4, 5), (6, 5)]')
+  ex NOTLINE (((0, 2),), ((2, 2),), (-3, -4), (2, 0, 0, 0), 1, 'NOTLINE quiver arrows=[(1, 2), (2, 5), (3, 4), (5, 4), (5, 6)]')
+  ex NOTLINE (((2, 2),), ((0, 2),), (3, 2), (0, 0, 0, 2), 2, 'NOTLINE quiver arrows=[(1, 2), (2, 5), (3, 2), (3, 4), (5, 6)]')
+  ex NOTTILTING (((1, 2), (2, 2)), ((0, 2), (1, 2)), (2, 2), (0, 0, 2, 2), 2, 'NOTTILTING Hom(T3,T2[-1])!=0')
+  ex NOTTILTING (((1, 2), (2, 2)), ((0, 2), (1, 2)), (2, 2), (0, 2, 2, 0), 1, 'NOTTILTING Hom(T2,T1[-1])!=0')
+  ex NOTTILTING (((0, 2), (1, 2)), ((1, 2), (2, 2)), (-4, -4), (0, 2, 2, 0), 2, 'NOTTILTING Hom(T6,T5[-1])!=0')
+CMD 7 4 calib 0 -1
+MODE calib L 7 W 4 OP 0 SIGN -1 rules 4 apps 20 {'OK': 20} time 0s max|k| needed 2
+CMD 7 4 calib 1 1
+MODE calib L 7 W 4 OP 1 SIGN 1 rules 4 apps 20 {'OK': 20} time 0s max|k| needed 2
+CMD 7 4 calib 0 1
+MODE calib L 7 W 4 OP 0 SIGN 1 rules 4 apps 20 {'NOTLINE': 10, 'NOTTILTING': 10} time 0s max|k| needed 2
+  ex NOTLINE (((0, 2),), ((2, 2),), (-3, -4), (0, 0, 2, 0, 0), 3, 'NOTLINE quiver arrows=[(2, 1), (3, 2), (4, 3), (6, 5), (6, 7), (7, 4)]')
+  ex NOTLINE (((0, 2),), ((2, 2),), (-3, -4), (0, 2, 0, 0, 0), 2, 'NOTLINE quiver arrows=[(2, 1), (3, 2), (5, 4), (5, 6), (6, 3), (7, 6)]')
+  ex NOTLINE (((0, 2),), ((2, 2),), (-3, -4), (2, 0, 0, 0, 0), 1, 'NOTLINE quiver arrows=[(2, 1), (4, 3), (4, 5), (5, 2), (6, 5), (7, 6)]')
+  ex NOTTILTING (((1, 2), (2, 2)), ((0, 2), (1, 2)), (2, 2), (0, 0, 0, 2, 2), 3, 'NOTTILTING Hom(T3,T4[-1])!=0')
+  ex NOTTILTING (((1, 2), (2, 2)), ((0, 2), (1, 2)), (2, 2), (0, 0, 2, 2, 0), 2, 'NOTTILTING Hom(T2,T3[-1])!=0')
+  ex NOTTILTING (((1, 2), (2, 2)), ((0, 2), (1, 2)), (2, 2), (0, 2, 2, 0, 0), 1, 'NOTTILTING Hom(T1,T2[-1])!=0')
+CMD 7 4 calib 1 -1
+MODE calib L 7 W 4 OP 1 SIGN -1 rules 4 apps 20 {'NOTLINE': 10, 'NOTTILTING': 10} time 0s max|k| needed 2
+  ex NOTLINE (((0, 2),), ((2, 2),), (-3, -4), (0, 0, 2, 0, 0), 3, 'NOTLINE quiver arrows=[(1, 2), (2, 3), (3, 4), (4, 7), (5, 6), (7, 6)]')
+  ex NOTLINE (((0, 2),), ((2, 2),), (-3, -4), (0, 2, 0, 0, 0), 2, 'NOTLINE quiver arrows=[(1, 2), (2, 3), (3, 6), (4, 5), (6, 5), (6, 7)]')
+  ex NOTLINE (((0, 2),), ((2, 2),), (-3, -4), (2, 0, 0, 0, 0), 1, 'NOTLINE quiver arrows=[(1, 2), (2, 5), (3, 4), (5, 4), (5, 6), (6, 7)]')
+  ex NOTTILTING (((1, 2), (2, 2)), ((0, 2), (1, 2)), (2, 2), (0, 0, 0, 2, 2), 3, 'NOTTILTING Hom(T4,T3[-1])!=0')
+  ex NOTTILTING (((1, 2), (2, 2)), ((0, 2), (1, 2)), (2, 2), (0, 0, 2, 2, 0), 2, 'NOTTILTING Hom(T3,T2[-1])!=0')
+  ex NOTTILTING (((1, 2), (2, 2)), ((0, 2), (1, 2)), (2, 2), (0, 2, 2, 0, 0), 1, 'NOTTILTING Hom(T2,T1[-1])!=0')
+CMD 8 4 calib 0 -1
+MODE calib L 8 W 4 OP 0 SIGN -1 rules 4 apps 56 {'OK': 56} time 0s max|k| needed 2
+CMD 8 4 calib 1 1
+MODE calib L 8 W 4 OP 1 SIGN 1 rules 4 apps 56 {'OK': 56} time 0s max|k| needed 2
+CMD 8 4 calib 0 1
+MODE calib L 8 W 4 OP 0 SIGN 1 rules 4 apps 56 {'NOTLINE': 28, 'NOTTILTING': 28} time 0s max|k| needed 2
+  ex NOTLINE (((0, 2),), ((2, 2),), (-3, -4), (0, 0, 0, 2, 0, 0), 4, 'NOTLINE quiver arrows=[(2, 1), (3, 2), (4, 3), (5, 4), (7, 6), (7, 8), (8, 5)]')
+  ex NOTLINE (((0, 2),), ((2, 2),), (-3, -4), (0, 0, 2, 0, 0, 0), 3, 'NOTLINE quiver arrows=[(2, 1), (3, 2), (4, 3), (6, 5), (6, 7), (7, 4), (8, 7)]')
+  ex NOTLINE (((0, 2),), ((2, 2),), (-3, -4), (0, 2, 0, 0, 0, 0), 2, 'NOTLINE quiver arrows=[(2, 1), (3, 2), (5, 4), (5, 6), (6, 3), (7, 6), (8, 7)]')
+  ex NOTTILTING (((1, 2), (2, 2)), ((0, 2), (1, 2)), (2, 2), (0, 0, 0, 0, 2, 2), 4, 'NOTTILTING Hom(T4,T5[-1])!=0')
+  ex NOTTILTING (((1, 2), (2, 2)), ((0, 2), (1, 2)), (2, 2), (0, 0, 0, 2, 2, 0), 3, 'NOTTILTING Hom(T3,T4[-1])!=0')
+  ex NOTTILTING (((1, 2), (2, 2)), ((0, 2), (1, 2)), (2, 2), (0, 0, 2, 2, 0, 0), 2, 'NOTTILTING Hom(T2,T3[-1])!=0')
+CMD 8 4 calib 1 -1
+MODE calib L 8 W 4 OP 1 SIGN -1 rules 4 apps 56 {'NOTLINE': 28, 'NOTTILTING': 28} time 0s max|k| needed 2
+  ex NOTLINE (((0, 2),), ((2, 2),), (-3, -4), (0, 0, 0, 2, 0, 0), 4, 'NOTLINE quiver arrows=[(1, 2), (2, 3), (3, 4), (4, 5), (5, 8), (6, 7), (8, 7)]')
+  ex NOTLINE (((0, 2),), ((2, 2),), (-3, -4), (0, 0, 2, 0, 0, 0), 3, 'NOTLINE quiver arrows=[(1, 2), (2, 3), (3, 4), (4, 7), (5, 6), (7, 6), (7, 8)]')
+  ex NOTLINE (((0, 2),), ((2, 2),), (-3, -4), (0, 2, 0, 0, 0, 0), 2, 'NOTLINE quiver arrows=[(1, 2), (2, 3), (3, 6), (4, 5), (6, 5), (6, 7), (7, 8)]')
+  ex NOTTILTING (((1, 2), (2, 2)), ((0, 2), (1, 2)), (2, 2), (0, 0, 0, 0, 2, 2), 4, 'NOTTILTING Hom(T5,T4[-1])!=0')
+  ex NOTTILTING (((1, 2), (2, 2)), ((0, 2), (1, 2)), (2, 2), (0, 0, 0, 2, 2, 0), 3, 'NOTTILTING Hom(T4,T3[-1])!=0')
+  ex NOTTILTING (((1, 2), (2, 2)), ((0, 2), (1, 2)), (2, 2), (0, 0, 2, 2, 0, 0), 2, 'NOTTILTING Hom(T3,T2[-1])!=0')

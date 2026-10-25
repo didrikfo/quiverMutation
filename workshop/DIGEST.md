@@ -5,6 +5,13 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 087 -- 2026-10-25 -- ordinary
+- **skeptic** (T4 breadth slot): an independent silting engine, no repo mutation code, gives End(T) = the predicted LNA for 1 008 of 1 008 width-5 length-10 applications of the stored `VERIFIED_MOVES`; three controls reject all (incl. a same-Coxeter-polynomial LNA). Sequence-to-End audit, not the rule table. Accepted, **E-243**.
+- **scholar** (T3/T8): rank of nu^k P_l returns at k = 15 with nu^15 P_l = P_l[16] in the n = 11 group 535 (rad^4, rad^5, 033450000) and grows in 34504030, 50505000, 334504030 (k <= 20/16/24): periodic Phi does not give FCY. Three groups undecided; misprint already recorded. Accepted, narrowed, **E-245**.
+- **toolsmith** (T10): 3304000 ball to depth 6: 6 key-kept perI J != 0 steps among 11 355 parents, 3 iso classes, five of six children joined by J = 0; no overnight needed. Accepted, **E-244**.
+- All three minor revision, responses done. No H-, F-, R- status changed. Consequence: Candidate C's S^a ~ [b] fails in the (2,0,*) groups (T3/T8 on the board). No overnight run approved. Next: round 088 conference.
+- No questions for the human.
+
 ## Round 086 -- 2026-10-25 -- ordinary
 Theorist, experimentalist, maverick worked (agenda items 1, 3, 2); referees skeptic (x2) and theorist; theorist accept, the other two minor revision, responses done, all accepted (experimentalist narrowed). Merge of origin/main: up to date. Round 085 left no questions.
 - **theorist (T5, E-240):** Anick's Lemma A in the monomial case (disjoint X1, Y, D = 0 on arrows) has a direct skeleton-decomposition proof; 13 748 exact-rank cells on n <= 5, 0 mismatches; shared-arrow control fails 164 of 215. Referee re-ran it byte-identically and found no gap. Whether E-235 step 4 lands in the hypotheses is still unchecked, so E-235's caveat is only conditionally discharged.
