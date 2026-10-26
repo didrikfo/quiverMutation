@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 088 -- 2026-10-26 -- conference
+All six personas wrote position statements; nothing run. Merge of origin/main: up to date. Round 087 left no questions.
+- **Common question:** five of six put first a NO-capable test of the J = 0 premise (a key-equal pair with an independent inequivalence certificate and stated power): the F-010 pair 3060000 vs 3304000 at 7 + 7 (experimentalist), the move-set gap for 2400230 ~ 3304000 (toolsmith, skeptic), a non-Cartan invariant (theorist, scholar's rank profile of nu^k P_l, maverick). Weakest claim, all six: "25 of 25 joined", a subset of 70, under J = 0 (loops of degree >= 1 at i, E-235 step 4 vs Lemma A, left/right convention).
+- **Outside-thread picks:** T4 mechanism for H1 (theorist); S-1 n = 13 orbit-count test of |orbit B_n| = n 2^(n-5) and item 1 at n = 9 -> 8 (experimentalist, skeptic, toolsmith); scholar: is "cyclotomic but not FCY" already known; maverick: H-017 defect constant per class (idea).
+- **Ledger:** E-237..E-245 reviewed; no H-, F-, R- status changed (H-015, H-017 OPEN; H-010, H-020 SUPPORTED); no thread closed; no finding or retraction.
+- **Proposed agenda** (in STATE): 1 NO-capable test (7 + 7 plan, 2400230 ~ 3304000 gap, step 4, certificate); 2 T3/T8 rank profile on undecided n = 11 groups; 3 outside slot T4 / S-1; 4 T7, H-017; 5 housekeeping.
+- Decisions taken for you: no overnight run (7 + 7 ~2 h and n = 13 ~40 min stay unapproved until sized). **Questions for the human:** none; edit the agenda in `STEERING.md` if you want it changed.
+
 ## Round 087 -- 2026-10-25 -- ordinary
 - **skeptic** (T4 breadth slot): an independent silting engine, no repo mutation code, gives End(T) = the predicted LNA for 1 008 of 1 008 width-5 length-10 applications of the stored `VERIFIED_MOVES`; three controls reject all (incl. a same-Coxeter-polynomial LNA). Sequence-to-End audit, not the rule table. Accepted, **E-243**.
 - **scholar** (T3/T8): rank of nu^k P_l returns at k = 15 with nu^15 P_l = P_l[16] in the n = 11 group 535 (rad^4, rad^5, 033450000) and grows in 34504030, 50505000, 334504030 (k <= 20/16/24): periodic Phi does not give FCY. Three groups undecided; misprint already recorded. Accepted, narrowed, **E-245**.
