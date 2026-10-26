@@ -81,7 +81,41 @@ A short negative result ("dead end, because ...") is a welcome outcome.
 ## Special requests for the next round
 
 <!-- e.g. "conference", "only skeptic and theorist", "everyone on H-021" -->
-(none) -- the round-054 request (scholar's citation check) was done in round 055 (E-171).
+- **7 + 7 F-010 join (human, 2026-10-26): approved and being run by the
+  dispatcher session**, not by a round. Driver
+  `workshop/rounds/081/experimentalist_join97.py run --depth 7`. When it
+  finishes, the dispatcher commits the meet output and logs under
+  `workshop/overnight/2026-10-26-join97/`. The first round that finds that
+  directory gives one slot to reading it, records it as an E-entry and says
+  what it means for T10 (with the usual "under the J = 0 premise"). Until the
+  directory exists, do not re-plan or re-size this run.
+
+## Plan after round 100 (human, 2026-10-26)
+
+Rounds 089-100 run exactly as now; **do not implement any of this early**.
+Round 100 is a conference. After it, no round 101 is started until the
+dispatcher has done:
+
+1. **Retrospective 2** (rounds 045-100), in
+   `workshop/retrospectives/002-rounds-045-100.md`: the longer lines of the
+   research, what works and what does not, how the round-044 changes did, and
+   why the last conferences changed no status.
+2. **A revised setup**, structured in cycles. Working version, open to change
+   in the retrospective (names, lengths and order are not fixed):
+   - A *phase* is 4 rounds: 3 ordinary rounds and a conference.
+   - A *cycle* is 5 phases (20 rounds), preceded by a short **planning step**
+     in which every persona states a loose, non-binding plan for the cycle.
+   - Phase 1, **literature**: normal rounds, but the focus is finding and
+     reading relevant papers (arXiv), checking ideas, hypotheses and
+     inconclusive experiments against the literature, cross-referencing.
+     The conference is about that work.
+   - Phases 2-4, **research as usual**: hypotheses, experiments, findings.
+   - Phase 5, **backlog**: the research backlog, not the code backlog. Go
+     through open experiments, unresolved items, inconclusive results and
+     open threads, and try to close, settle or retire them.
+   - After each cycle, a **cycle retrospective**: what worked, what did not,
+     what to change, including the format itself (how many phases per cycle,
+     which phases have which focus, whether to add other focus areas).
 
 ## Answers to the chair
 
