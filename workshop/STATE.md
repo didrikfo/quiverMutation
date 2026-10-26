@@ -2,8 +2,8 @@
 
 Owned by the chair. Rewritten (not appended) at the end of every round; under 120 lines. Every persona reads this first.
 
-last_round: 88
-next_round_kind: ordinary   (round 089; next conference 092; conference_every = 4)
+last_round: 89
+next_round_kind: ordinary   (round 090; next conference 092; conference_every = 4)
 
 ## What the project is doing now
 Tilting mutation of quivers with relations; derived equivalence of Nakayama algebras (LNAs). The search (`quivermutation/search.py`) walks mutations under a *gate* (mutation is admissible) and a *Coxeter-key guard* (`coxeterGuard`: child keeps the class's Coxeter key). Its docstring says the guard keeps a walk in one derived class. Round 045 found the guard is not a tilting test (E-147, E-151). Under the J = 0 premise all 25 failing n = 7 children are now joined to an LNA (E-157, E-160, E-163); the premise itself is the live question (T10, T5).
@@ -30,7 +30,7 @@ Each: question · state · last round worked · owner.
 - **T9 · long runs** · n = 12/14 censuses of the 139 cores and Ladkani audit n = 9/10 sit in `OVERNIGHT.md` Menu 4 for the human. · **parked**
 
 ## Awaiting revision
-(none)
+- theorist: answer the review of `workshop/rounds/089/theorist.md` (`theorist.review.md`, major revision): narrow the scope (loops of M iff loops of Q at i; relation arrows of degree 1 give loops elsewhere), add the omega counterexample and a relation-arrow variant of Parts A/B, check the 25 parents are acyclic with relations (name the command), retitle, correct the E-216 remark. (T10/T5)
 
 ## Requests between personas
 - experimentalist: (80000000 vs 00000300 done, E-218: strings corrected to 8000000 / 0000030, not joined); S-1 items 2, 3 beyond the A_n/B_n family; other relation placements at n = 9; 90000000 ~ 00000030 as the join-search control.
@@ -52,6 +52,7 @@ Each: question · state · last round worked · owner.
 The key-guard law (class 0 only); E-147 class-1 count (one script); H-015 citations from memory; the S-1 K-threshold law (two lengths); E-151 counts are step counts on capped BFS samples; E-155 is one n = 8 class, depth 8, slice 2 not independently re-run; 'in the class' for the 25 children rests on the J = 0 premise (generation now proved per loopless step, E-168), edge-tested at Cartan level (E-157, E-163, E-166 paths), at quiver level only for the 13 E-163 edges (E-167, label-preserving); the E-165 length check is one length per rule.
 
 ## Standing facts
+- Round 089 added E-246..E-248 (merge of origin/main already up to date). S-1 taken via agenda item 3 (experimentalist, E-247: |orbit(B_n)| = n 2^(n-5) holds n = 13..16); maverick accept (E-246: the three undecided periodic groups are non-FCY on projectives, so T3/T8 item 2 is done; next sweep all periodic groups at n = 11, 12 with `maverick_bimod.py`); theorist major revision (E-248: skeptic's counterexample with a degree-1 relation arrow; revision due in 090). No H-, F-, R- status changed. No overnight run approved. Next conference 092.
 - Round 088 was a conference: ledger changed no H-, F-, R- status, closed no thread; no new E-entries (merge of origin/main already up to date). All six put the NO-capable J = 0 test first. Agenda re-proposed. No overnight run approved. Next conference 092.
 - Round 087 added E-243..E-245 (merge of origin/main already up to date). S-1 not taken. Breadth slot T4 (skeptic, E-243). Skeptic, scholar, toolsmith all minor revision, responses done, all accepted (scholar narrowed: three groups undecided, misprint dropped as already recorded). No H-, F-, R- status changed. No overnight run approved. Next round 088 is a conference.
 - Round 086 added E-240..E-242 (merge of origin/main already up to date). S-1 not taken. No breadth slot due (T4 079, T7 taken as agenda item). Theorist accept; experimentalist, maverick minor revision, responses done, all accepted (experimentalist narrowed). No H-, F-, R- status changed. No overnight run approved. Next conference 088.
@@ -91,9 +92,9 @@ The key-guard law (class 0 only); E-147 class-1 count (one script); H-015 citati
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 086 | 087 (toolsmith) |
-| theorist | 086 | 087 (skeptic) |
-| skeptic | 087 | 087 (scholar) |
-| scholar | 087 | 082 (skeptic) |
-| toolsmith | 087 | 079 (maverick, skeptic) |
-| maverick | 086 | 085 (scholar) |
+| experimentalist | 089 | 087 (toolsmith) |
+| theorist | 089 | 087 (skeptic) |
+| skeptic | 087 | 089 (theorist) |
+| scholar | 087 | 089 (maverick) |
+| toolsmith | 087 | 089 (experimentalist) |
+| maverick | 089 | 085 (scholar) |

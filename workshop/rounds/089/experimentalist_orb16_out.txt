@@ -1,0 +1,11 @@
+6 orbitA 1 closed orbitB 12 closed pred 12 A in orbit(B)+mirror False mirrorclosed True 0.0s
+7 orbitA 1 closed orbitB 28 closed pred 28 A in orbit(B)+mirror False mirrorclosed True 0.0s
+8 orbitA 1 closed orbitB 64 closed pred 64 A in orbit(B)+mirror False mirrorclosed True 0.0s
+9 orbitA 1 closed orbitB 144 closed pred 144 A in orbit(B)+mirror False mirrorclosed True 0.1s
+10 orbitA 1 closed orbitB 320 closed pred 320 A in orbit(B)+mirror False mirrorclosed True 0.2s
+11 orbitA 1 closed orbitB 704 closed pred 704 A in orbit(B)+mirror False mirrorclosed True 0.4s
+12 orbitA 1 closed orbitB 1536 closed pred 1536 A in orbit(B)+mirror False mirrorclosed True 1.0s
+13 orbitA 1 closed orbitB 3328 closed pred 3328 A in orbit(B)+mirror False mirrorclosed True 2.7s
+14 orbitA 1 closed orbitB 7168 closed pred 7168 A in orbit(B)+mirror False mirrorclosed True 5.6s
+15 orbitA 1 closed orbitB 15360 closed pred 15360 A in orbit(B)+mirror False mirrorclosed True 13.9s
+16 orbitA 1 closed orbitB 32768 closed pred 32768 A in orbit(B)+mirror False mirrorclosed True 33.6s

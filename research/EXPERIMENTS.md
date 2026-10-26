@@ -6,6 +6,27 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-248 — T10/T5, quiver-level classification of the loops of one Oppermann mutation step M of a graded quiver Q at i (Steps 1-4 of arXiv:1504.02617v1): a loop of M at i exists iff Q has one at i, with the same degree; for Q in degree 0 no loop of degree >= 1 after one step (consequences 2-4 of the submission), but a relation arrow omega of degree 1 parallel to a degree-0 arrow out of i gives a degree-1 loop at another vertex after one step; the closing of E-235's "loops of degree >= 1 at i" case for the 25 acyclic parents is NOT yet established (revision due)
+*2026-10-26* · **`timeout 10m .venv/bin/python workshop/rounds/089/theorist_loopreach.py`** (about 3 s) · *workshop round 089, theorist, refereed by skeptic (major revision; not promoted as a finding)*
+
+Scope: quiver level only (the differential is not tracked); Part A 2 574 random one-step mutations of ungraded parents (n 2..5, cycles, parallel arrows, degrees 0..2) with 0 loops outside the hand classification (a)-(d) (1 434, 1 223, 146, 138); Part B iterated dg mutation of acyclic ungraded parents, depth <= 3 (21 915 nodes, 676 with a loop, all degree 1) and depth <= 4 (400 parents, 16 698 nodes, 1 404 with a loop); smallest iterated example A_3 (1 <- 0 -> 2) mutated at 1, 0, 2, 0. The skeptic reproduced all counts. Parents were never given degree-1 relation arrows (Construction `const.usual_algebra`, l. 291): the sample cannot test the non-hereditary case, and the skeptic's one-step counterexample (0 -> 1 -> 2 with the zero relation, omega: 0 -> 2 of degree 1, mutate at 0) gives a degree-1 loop at vertex 2. What survives: a loop at i needs a loop in Q at i; relation arrows are loops at i only for cyclic relations, so for acyclic parents-with-relations there is no loop at i. Required before E-235's case can be called closed: the 25 parents are acyclic as quivers with relations (named check), a relation-arrow variant of Parts A/B, the retitle, and the correction that E-216's refusal is a check on the Gabriel quiver of H_0, not on the dg quiver. Round 090 revision.
+
+---
+
+## E-247 — S-1, |orbit(B_n)| = n 2^(n-5) holds at n = 13..16 as well (forward orbit under orbit + mirror moves, closed, mirror-closed, n = 6..16); A_n not in B_n's orbit (trivial: A_n has no move)
+*2026-10-26* · **`timeout 10m .venv/bin/python workshop/rounds/089/experimentalist_orb13.py 16`** (about 70 s; n <= 15 about 25 s, output `workshop/rounds/089/experimentalist_orb13_out.txt`, n = 16 `experimentalist_orb16_out.txt`) · *workshop round 089, experimentalist, refereed by toolsmith (minor revision, answered)*
+
+Scope: n = 6..16 (rows 6..12 reproduce E-218); orbit sizes 3 328, 7 168, 15 360, 32 768 at n = 13..16, each equal to the prediction and to the recurrence a_n = 2 a_{n-1} + 2^(n-5); all orbits closed (limit 200 000 not reached) and mirror-closed. A fit to 11 lengths, unproved. The non-joining of A_n and B_n is trivial (A_n has no move) and says nothing about derived equivalence of A_n and B_n (known only at n = 9, 10). Refuted by any n >= 17 with a different count (n = 17 predicted 69 632, not run). Extends E-218.
+
+---
+
+## E-246 — T3/T8 Candidate C, nu^k P_l has more than n summands for every k <= 254, 74, 218 in the periodic groups of 45050400, 050404400, 040404000 (Phi-orders 84, 24, 72): S^a is not [b] on projectives for any a up to those bounds, including 1, 2, 3 times the Phi-order (objects only, GF(2^31-1))
+*2026-10-26* · **`timeout 10m .venv/bin/python workshop/rounds/089/maverick_bimod.py 45050400 254`** (65 s; `040404000 218` 40 s, `050404400 74` 6 s; Serre check `maverick_check.py 45050400 12`; series in `workshop/rounds/089/maverick_rk_*.out`) · *workshop round 089, maverick, refereed by scholar (accept)*
+
+Scope: three representatives (n = 10, 11, 11 as the submission counts vertices; E-245 calls all three n = 11 groups); objects nu^k P_l only, exact over one prime, finite K (larger a is extrapolation); the method is nu X = X tensor Q with Q the minimal projective bimodule resolution of D(Lambda), validated against E-245's series (34504030, 50505000, 334504030, 444444400, 555555000, 30302, D_10) and by a Serre-duality check, 0 mismatches over k <= 12 (referee re-ran 45050400 only). Min R_k (k >= 1) = 27, 30, 27 against n; R_{ma} = c m + e for m = 1..3 is observed, not proved. Decides the three groups E-245 left undecided: all six periodic indefinite groups tested other than D_10 and the 535 group are not FCY on projectives. Optional gaps: no second prime; the bar-method agreement (about 150 values) not itemised.
+
+---
+
 ## E-245 — T3/T8 Candidate C, serre-functor rank growth on projectives: in the n = 11 group 535 (kA_11/rad^4, kA_11/rad^5, 033450000) nu^15 P_l = P_l[16] for every l; in 34504030 (k <= 20), 50505000 (k <= 16) and 334504030 (k <= 24), all Phi^a = -I with signature (2,0,*), nu^k P_l has more than n summands for every k tested, so S^a is not [b] on projectives; objects only, 45050400, 050404400, 040404000 undecided
 *2026-10-25* · **`timeout 10m .venv/bin/python workshop/rounds/087/scholar_rankgrowth.py`** (arguments and the other commands in `workshop/rounds/087/scholar.md`, Reproduction; Serre-duality cross-check `scholar_serre_check.py`, global dimensions `scholar_gldim.py`, certificates saved as `scholar_cert_*.out`) · *workshop round 087, scholar, refereed by skeptic (minor revision, response done)*
 

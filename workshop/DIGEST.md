@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 089 -- 2026-10-26 -- ordinary
+Called: theorist (T10/T5, loops of degree >= 1), maverick (T3/T8, n = 11 undecided groups), experimentalist (S-1, E-218 fit at n = 13). Merge of origin/main: already up to date.
+- **maverick** (accept, scholar): 45050400, 050404400, 040404000 have R_k > n for every k up to 254, 74, 218, so S^a is not [b] on projectives there (1, 2, 3 times the Phi-order); a cheap exact bimodule-resolution method replaces the bar resolution. Promoted **E-246**. Six periodic indefinite groups tested are now non-FCY; only the 535 group is FCY.
+- **experimentalist** (minor revision, answered, accepted): |orbit(B_n)| = n 2^(n-5) holds for n = 13..16 (3328, 7168, 15360, 32768), orbits closed; A_n not in the orbit (trivial). Promoted **E-247**; still an unproved fit, n = 17 predicted 69632.
+- **theorist** (major revision, skeptic): classification of loops after one Oppermann step is right, but "no loop of degree >= 1" fails for parents with degree-1 relation arrows (counterexample verified). For acyclic parents there is still no loop at i. Recorded as **E-248**, not a finding; E-235's open case stays open until the revision (round 090).
+- Consequences: no H-, F-, R- status changed; T3/T8 item 2 done, sweep of all periodic groups next.
+- Questions for the human: none. No overnight run.
+
 ## Round 088 -- 2026-10-26 -- conference
 All six personas wrote position statements; nothing run. Merge of origin/main: up to date. Round 087 left no questions.
 - **Common question:** five of six put first a NO-capable test of the J = 0 premise (a key-equal pair with an independent inequivalence certificate and stated power): the F-010 pair 3060000 vs 3304000 at 7 + 7 (experimentalist), the move-set gap for 2400230 ~ 3304000 (toolsmith, skeptic), a non-Cartan invariant (theorist, scholar's rank profile of nu^k P_l, maverick). Weakest claim, all six: "25 of 25 joined", a subset of 70, under J = 0 (loops of degree >= 1 at i, E-235 step 4 vs Lemma A, left/right convention).
