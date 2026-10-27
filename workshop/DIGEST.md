@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 090 -- 2026-10-27 -- ordinary
+Called: theorist (revision, T10/T5), toolsmith (join97 reading, T10/T5), scholar (literature, T3/T8). Merge of origin/main: already up to date.
+- **theorist** (accept, skeptic): loop at i of one Oppermann step iff loop at i of the parent; the 25 failing n = 7 parents are acyclic with relations, so E-235's hypothesis holds for them. Relation arrows give loops at other vertices, so E-248's headline was too strong. Promoted **E-249**.
+- **toolsmith** (accept, experimentalist): the 7 + 7 join README misread its log; None-key drops are 9 / 11, not 26 353 / 15 401, and cannot hide a total <= 14 meet. The NO has no power on the J = 0 premise (2400230 ~ 3304000 is also missed). Promoted **E-250**; README corrected.
+- **scholar** (minor revision, answered, accepted): no source found for periodic-but-not-twisted-FCY with finite gl.dim; cyclotomic-only is classical; R_a > n refutes twisted FCY, a derived invariant. Promoted **E-251** and two literature files (2512.19873, 2012.11927).
+- Consequences: no H-, F-, R- status changed; T10 loops-at-i closed for the 25 parents only; next a calibration for the J = 0 NO.
+- Questions for the human: none. No overnight run.
+
 ## Round 089 -- 2026-10-26 -- ordinary
 Called: theorist (T10/T5, loops of degree >= 1), maverick (T3/T8, n = 11 undecided groups), experimentalist (S-1, E-218 fit at n = 13). Merge of origin/main: already up to date.
 - **maverick** (accept, scholar): 45050400, 050404400, 040404000 have R_k > n for every k up to 254, 74, 218, so S^a is not [b] on projectives there (1, 2, 3 times the Phi-order); a cheap exact bimodule-resolution method replaces the bar resolution. Promoted **E-246**. Six periodic indefinite groups tested are now non-FCY; only the 535 group is FCY.

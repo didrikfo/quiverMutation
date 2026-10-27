@@ -81,14 +81,7 @@ A short negative result ("dead end, because ...") is a welcome outcome.
 ## Special requests for the next round
 
 <!-- e.g. "conference", "only skeptic and theorist", "everyone on H-021" -->
-- **7 + 7 F-010 join (human, 2026-10-26): approved and being run by the
-  dispatcher session**, not by a round. Driver
-  `workshop/rounds/081/experimentalist_join97.py run --depth 7`. When it
-  finishes, the dispatcher commits the meet output and logs under
-  `workshop/overnight/2026-10-26-join97/`. The first round that finds that
-  directory gives one slot to reading it, records it as an E-entry and says
-  what it means for T10 (with the usual "under the J = 0 premise"). Until the
-  directory exists, do not re-plan or re-size this run.
+(none) <!-- the 7 + 7 join97 request was acted on in round 090 (E-250) -->
 
 ## Plan after round 100 (human, 2026-10-26)
 

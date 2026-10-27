@@ -1,0 +1,2 @@
+class 1 failing parents 16 | Gabriel quiver with oriented cycle or loop: 0 | loop edges: 0 | relations total 57 with equal endpoints (omega a loop): 0 | parents without relations: 0
+class 2 failing parents 9 | Gabriel quiver with oriented cycle or loop: 0 | loop edges: 0 | relations total 21 with equal endpoints (omega a loop): 0 | parents without relations: 0

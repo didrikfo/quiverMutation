@@ -1,0 +1,6 @@
+referee counterexample (0->1->2, 0->2, relation 0->1->2, omega 0->2 deg 1), mutate at 0: [(('i', 'w', 'c'), 2, 2, 1)]
+same without the arrow c (A_3 / rad^2 alone, Oppermann l. 296-307), mutate at 0: []  at 1: []  at 2: []
+A one step, 2000 parents -> 9020 steps: loops at i: 0; steps with a loop anywhere: 681 (1330 loops, degrees {1: 1018, 2: 312}); loop set != prediction "pairs (omega out of i, alpha in A, same target)": 0
+B iterated depth <= 3: nodes 5707, nodes with a loop 1048 (by depth [(1, 25), (2, 171), (3, 852)]), steps blocked by a degree-0 loop at i: 27, legal steps at a vertex with a loop of degree >= 1 (E-235 open case): 187
+A one step, 2000 parents -> 9020 steps: loops at i: 0; steps with a loop anywhere: 681 (1330 loops, degrees {1: 1018, 2: 312}); loop set != prediction "pairs (omega out of i, alpha in A, same target)": 0
+B iterated depth <= 2: nodes 1706, nodes with a loop 196 (by depth [(1, 25), (2, 171)]), steps blocked by a degree-0 loop at i: 0, legal steps at a vertex with a loop of degree >= 1 (E-235 open case): 27

@@ -1,0 +1,30 @@
+/tmp/claude-0/-home-user-quiverMutation/61ae55b4-f248-525f-bc74-a4acc5de8006/scratchpad/nA_0.pkl parents 5000 / 5000 children 54396 None 2
+/tmp/claude-0/-home-user-quiverMutation/61ae55b4-f248-525f-bc74-a4acc5de8006/scratchpad/nA_1.pkl parents 5000 / 5000 children 54498 None 2
+/tmp/claude-0/-home-user-quiverMutation/61ae55b4-f248-525f-bc74-a4acc5de8006/scratchpad/nA_2.pkl parents 5000 / 5000 children 54323 None 5
+/tmp/claude-0/-home-user-quiverMutation/61ae55b4-f248-525f-bc74-a4acc5de8006/scratchpad/nA_3.pkl parents 4999 / 4999 children 54385 None 0
+/tmp/claude-0/-home-user-quiverMutation/61ae55b4-f248-525f-bc74-a4acc5de8006/scratchpad/nB_0.pkl parents 2839 / 2839 children 28175 None 4
+/tmp/claude-0/-home-user-quiverMutation/61ae55b4-f248-525f-bc74-a4acc5de8006/scratchpad/nB_1.pkl parents 2839 / 2839 children 28089 None 2
+/tmp/claude-0/-home-user-quiverMutation/61ae55b4-f248-525f-bc74-a4acc5de8006/scratchpad/nB_2.pkl parents 2839 / 2839 children 28100 None 0
+/tmp/claude-0/-home-user-quiverMutation/61ae55b4-f248-525f-bc74-a4acc5de8006/scratchpad/nB_3.pkl parents 2838 / 2838 children 28076 None 5
+A None-key children 9 iso classes 8
+  class size 1 bundles [2, 2, 3, 3, 4] arrows 21 dim-free; parents [864] moves [('F', 9)]
+  class size 1 bundles [2, 2, 2, 3, 4] arrows 18 dim-free; parents [864] moves [('R', 4)]
+  class size 2 bundles [2, 2, 2, 3, 3, 4] arrows 21 dim-free; parents [1993, 5137] moves [('F', 9), ('F', 9)]
+  class size 1 bundles [2, 2, 2, 3, 4] arrows 18 dim-free; parents [694] moves [('F', 9)]
+  class size 1 bundles [2, 3, 3, 4] arrows 20 dim-free; parents [694] moves [('R', 4)]
+  class size 1 bundles [2, 2, 2, 2, 3, 3, 4] arrows 21 dim-free; parents [19114] moves [('F', 9)]
+  class size 1 bundles [2, 2, 3, 3, 4] arrows 19 dim-free; parents [19858] moves [('R', 5)]
+  class size 1 bundles [2, 2, 2, 3, 3, 4] arrows 19 dim-free; parents [19890] moves [('R', 5)]
+B None-key children 11 iso classes 11
+  class size 1 bundles [2, 2, 6] arrows 16 dim-free; parents [4736] moves [('F', 6)]
+  class size 1 bundles [2, 2, 2, 3, 4, 6] arrows 23 dim-free; parents [4736] moves [('R', 9)]
+  class size 1 bundles [2, 2, 3, 3, 3] arrows 17 dim-free; parents [10744] moves [('F', 2)]
+  class size 1 bundles [2, 2, 3, 3, 3] arrows 17 dim-free; parents [10880] moves [('F', 2)]
+  class size 1 bundles [2, 2, 6] arrows 16 dim-free; parents [4737] moves [('F', 5)]
+  class size 1 bundles [3, 4, 6] arrows 21 dim-free; parents [4737] moves [('R', 5)]
+  class size 1 bundles [2, 3, 3, 4] arrows 18 dim-free; parents [4739] moves [('F', 6)]
+  class size 1 bundles [2, 3, 3, 4] arrows 18 dim-free; parents [4739] moves [('F', 8)]
+  class size 1 bundles [2, 2, 4, 4] arrows 17 dim-free; parents [4739] moves [('R', 8)]
+  class size 1 bundles [3, 4, 4] arrows 20 dim-free; parents [4835] moves [('R', 7)]
+  class size 1 bundles [2, 2, 2, 3, 4] arrows 19 dim-free; parents [4839] moves [('R', 5)]
+A-class vs B-class isomorphic pairs (meets at total 14 the run could not see): []

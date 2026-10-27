@@ -14,6 +14,8 @@ however far from our subject the rest of it is.
 | [2112.08129](2112.08129-combinatorial-tilting-mutation.md) — A combinatorial procedure for tilting mutation | The mutation rule the whole codebase implements; the admissibility condition |
 | [2305.06642](2305.06642-quipu-quivers-nakayama.md) — Quipu quivers and Nakayama algebras with almost separate relations | The quipu ↔ LNA correspondence; the class-preserving operations; the n ≤ 8 table |
 | [2310.08346](2310.08346-non-piecewise-hereditary-nakayama.md) — Non-piecewise hereditary Nakayama algebras | Criteria certifying an LNA is in no quipu class; the vertex-deletion corollary |
+| [2512.19873](2512.19873-serre-cyclotomic-algebras.md) — Pfeifer, Serre cyclotomic algebras | FCY = order 1; order l gives (Phi^2n - 1)^l = 0 |
+| [2012.11927](2012.11927-periodic-trivial-extensions-fcy.md) — Chan-Darpo-Iyama-Marczinzik, periodic trivial extensions and FCY | T(A) periodic iff gl.dim finite and FCY; twisted version derived-invariant |
 
 **Added by the sweep of 2026-09-18/19** (E-040), whose question was: what does the
 literature give us for **merging** classes of LNAs?
