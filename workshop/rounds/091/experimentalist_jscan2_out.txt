@@ -1,0 +1,13 @@
+key 2400230 True
+key 3060000 True
+key 3304000 True
+depth 0 nodes 1 parents_flagged 0 steps 0 kept 0
+depth 1 nodes 8 parents_flagged 0 steps 0 kept 0
+depth 2 nodes 31 parents_flagged 0 steps 0 kept 0
+depth 3 nodes 90 parents_flagged 0 steps 0 kept 0
+depth 4 nodes 239 parents_flagged 0 steps 0 kept 0
+depth 5 nodes 632 parents_flagged 0 steps 0 kept 0
+depth 6 nodes 1690 parents_flagged 3 steps 6 kept 0
+depth 7 nodes 4570 parents_flagged 47 steps 79 kept 0
+depth 8 nodes 12949 parents_flagged 348 steps 570 kept 1
+total flagged parents 398 steps 655

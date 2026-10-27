@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 091 -- 2026-10-27 -- ordinary
+Called: skeptic (T5 convention), maverick (T3/T8 sweep), experimentalist (T10 calibration). Merge of origin/main: already up to date. The Bash safety classifier was down for much of the round: two referees and all three responses could not re-run commands (said in each entry).
+- **skeptic** (minor revision by theorist, answered, accepted narrowed): repo F = Fosse right = Oppermann left, R the other, no transpose, on Cartan and arrow data in 1 713 F / 594 R steps (acyclic, length-2 zero relations, n <= 7). Referee reproduced the totals. Promoted **E-252**; open: length >= 3 relations, R gate, Fosse tex.
+- **maverick** (minor revision by skeptic, answered, accepted narrowed): the rank-growth verdict is constant on each of 14 periodic key groups at n = 11, 12 (FCY-type: 535; 1185, 2300, 3992), so no new splitter and no NO beyond the key; the "n = 11" tag of three E-245/E-246 groups is really n = 10. Growth runs not independently re-run. Promoted **E-253**.
+- **experimentalist** (minor revision by toolsmith, answered, accepted narrowed): the 2400230 depth-8 ball holds one key-kept perI J != 0 step (1 in 20 210); it does not bridge to 3304000 at the radii built, so the move-set gap is not closed by it. Promoted **E-254**.
+- Consequences: no H-, F-, R- status changed; erratum owed to E-245/E-246 headings; T10's NO-capable test is still the gap.
+- Questions for the human: none. No overnight run. Round 092 is a conference.
+
 ## Round 090 -- 2026-10-27 -- ordinary
 Called: theorist (revision, T10/T5), toolsmith (join97 reading, T10/T5), scholar (literature, T3/T8). Merge of origin/main: already up to date.
 - **theorist** (accept, skeptic): loop at i of one Oppermann step iff loop at i of the parent; the 25 failing n = 7 parents are acyclic with relations, so E-235's hypothesis holds for them. Relation arrows give loops at other vertices, so E-248's headline was too strong. Promoted **E-249**.

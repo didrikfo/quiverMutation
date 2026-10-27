@@ -1,18 +1,18 @@
-# Experimentalist notebook (rewritten round 089)
+# Experimentalist notebook (rewritten round 091)
 
 ## What I now believe
 - Row convention: n-vertex LNA is an n - 2 entry row; `nk.LinearNakayamaAlgebra(n, list(row))`. Check digit count against n.
-- 089 (S-1): |orbit(B_n)| = n 2^(n-5) holds n = 6..16 (3328 at 13, 7168 at 14, 15360 at 15, 32768 at 16 in 34 s), closed, mirror-closed, A_n not in it. Whole job 25 s via `rounds/089/experimentalist_orb13.py`. Fit still unproved; n = 17 predicted 69632.
-- 086 T7: pair (8:3)(9:3) + two bystanders (m = 2) stay at overlap 2 at k = 4 margin 2; controls lower to 0. Cost ~4.5x per extra step (175-530 s per cell; m >= 3 and (10,4) exceed 10 min).
-- 083 sizing: `derivedOrbits(n)` 1.5 / 5.9 / 21.5 / 82 / 319 s for n = 10..14; n = 15 predicted 1229 s (not run). Key scan at n = 13 is 450 s alone.
-- 083 class level: key level reproduces E-146 at n = 11..13; orbit != class (F-046).
-- 081: 3060000 key-kept J != 0 step real (E-233). 078: n = 10 90000000 / 00000030 MISS at 5 + 4. 075: A_n vs B_n not joined n = 6..12 (now ..16 by orbit).
+- 091 (T10 calibration): 2400230 ball (E-212 moves) sizes 1, 9, 40, 130, 369, 1001, 2691, 7261, 20210 (depth 0..8; 3304000 is ~4x larger at depth 5). 1 key-kept perI step in 20210 parents (depth 8, child joins its own ball at 9). (Flags only from depth 6: 3, 47, 348; key(2400230)=key(3060000)=key(3304000)=base.) No bridge to 3304000 among explored radii: C(4) vs R(5) none, A(6) vs R(5) none. Recorded J != 0 children lie in their roots' J = 0 components, so adding them cannot bridge; only 8427 and unscanned exits could.
+- 089 (S-1): |orbit(B_n)| = n 2^(n-5) for n = 6..16; n = 17 predicted 69632. Job 25 s via `rounds/089/experimentalist_orb13.py`.
+- 086 T7: (8:3)(9:3) + 2 bystanders stay at overlap 2 at k = 4; cost ~4.5x per step (175-530 s per cell).
+- 083: `derivedOrbits(n)` 1.5 / 5.9 / 21.5 / 82 / 319 s n = 10..14; key scan n = 13 450 s.
+- 081: 3060000 J != 0 step real (E-233). 078: n = 10 90000000 / 00000030 MISS at 5 + 4.
 
 ## What I tried
-- 089: `orb13`. 086: `k4`. 083: `_size`, `_sample15`, `_classlaw`. 081: `_jkey`, `_join97`. 078: `_join10`, `_shardplan15`. 075: `_join9`, `_delpair`.
-- Gotchas: `( ... &)` processes survive and write to a file; poll with `timeout 118 bash -c 'until grep ...'`; a 10 min timeout kills silently, so a missing row is a timeout, not a verdict; pgrep -f counts itself. orbitReport is fast (seconds at n = 15); orbit counts are cheap, derived-class work is the expensive part.
+- 091: `jscan` (scan whole ball for kept perI), joins via 082/skeptic_join.py side/meet. 089: `orb13`. 086: `k4`. 083: `_size`, `_classlaw`. 081: `_jkey`, `_join97`. 078: `_join10`. 075: `_join9`.
+- Gotchas: no pickles of earlier balls are in the repo (they live in /tmp), so every ball is rebuilt; `build` with DEPTH env and `--budget-hours 0.14` exits 0 when budget spent (read the log, rerun); piping through tail hides progress, use a file; the auto-mode classifier sometimes fails transiently, retry once; a 10 min timeout kills silently, so a missing row is not a verdict; pgrep -f counts itself.
 
 ## What I would do next
-1. Overnight: 12 remaining m = 2 E-230 cells at k = 4 plus (10,4)(5,2), 4 jobs, no timeout; then k = 5 on the cheapest cell.
-2. Other relation placements of B_n (3-arrow relation not at the end): orbit counts are cheap, test the formula's dependence.
-3. Decide if the n = 11 image orbits are one derived class; S-1 Stage A (derivedOrbits(14) pickle, 6 min) + 24 key shards if approved.
+1. Overnight: 2400230 ball depth 9-10 + jscan; 8427 join; meet 2400230(8) vs 3304000(6).
+2. Other relation placements of B_n (orbit counts are cheap).
+3. S-1 Stage A (derivedOrbits(14) pickle, 6 min) + 24 key shards if approved; 12 m = 2 E-230 cells at k = 4.

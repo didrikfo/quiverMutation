@@ -1,0 +1,7 @@
+member 2233440330 first k=11 sigma_is_id=True sigma_is_perm=True shifts=[-12] sigma=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+member 3345045000 first k=11 sigma_is_id=True sigma_is_perm=True shifts=[-12] sigma=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+member 4445550002 first k=11 sigma_is_id=True sigma_is_perm=True shifts=[-12] sigma=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+member 5506050000 first k=11 sigma_is_id=True sigma_is_perm=True shifts=[-12] sigma=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+member 7706600400 first k=11 sigma_is_id=True sigma_is_perm=True shifts=[-12] sigma=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+member 0060050030 first k=11 sigma_is_id=True sigma_is_perm=True shifts=[-12] sigma=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+SUMMARY n=12 group 6 (size 2300, order/sign (11, -1)): (first k, sigma=id, sigma perm, common shift) -> count: {(11, True, True, True): 6}

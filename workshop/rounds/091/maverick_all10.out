@@ -1,0 +1,2 @@
+GROUP 0 members run 1 of 1 order/sign (84, 1) n=10 K=44: {('nonFCY', 'grows'): 1} min-over-members of min_k R_k = 27 1s
+GROUP 1 members run 2 of 2 order/sign (9, -1) n=10 K=44: {('nonFCY', 'grows'): 2} min-over-members of min_k R_k = 26 1s

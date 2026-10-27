@@ -1,0 +1,7 @@
+== meet ckC ckR
+complete depths 4 5 ball sizes 2692 4046 WL-bucket iso tests 0 meet total None 3s
+== meet ckC ckA
+complete depths 4 6 ball sizes 2692 2691 WL-bucket iso tests 1 meet total 9 2s
+path [('F', 3), ('F', 7), ('F', 9)] || [('F', 1), ('R', 4), ('R', 5), ('R', 9), ('R', 7), ('R', 9)] Hom-verified True meet iso True
+== meet ckR ckA
+complete depths 5 6 ball sizes 4046 2691 WL-bucket iso tests 0 meet total None 3s

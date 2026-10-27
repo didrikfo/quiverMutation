@@ -1,0 +1,9 @@
+member 233440330 first k=15 sigma_is_id=True sigma_is_perm=True shifts=[-16] sigma=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+member 334555000 first k=15 sigma_is_id=True sigma_is_perm=True shifts=[-16] sigma=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+member 356050002 first k=15 sigma_is_id=True sigma_is_perm=True shifts=[-16] sigma=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+member 455550000 first k=15 sigma_is_id=True sigma_is_perm=True shifts=[-16] sigma=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+member 404660000 first k=15 sigma_is_id=True sigma_is_perm=True shifts=[-16] sigma=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+member 504034400 first k=15 sigma_is_id=True sigma_is_perm=True shifts=[-16] sigma=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+member 600403400 first k=15 sigma_is_id=True sigma_is_perm=True shifts=[-16] sigma=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+member 060050030 first k=15 sigma_is_id=True sigma_is_perm=True shifts=[-16] sigma=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+SUMMARY n=11 group 3 (size 535, order/sign (15, -1)): (first k, sigma=id, sigma perm, common shift) -> count: {(15, True, True, True): 8}

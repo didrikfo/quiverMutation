@@ -1,0 +1,19 @@
+281 F Oppermann-literal (A^op, his left): tilting True ; child = End (no op) True ; child = End^T reading False
+25 F Oppermann-literal (A^op, his left): tilting True ; child = End (no op) True ; child = End^T reading True
+57 F cases: gate False, T_R tilting False
+306 F cases: gate True, T_R tilting True
+57 F not tilting/err
+306 F power case (T_R,T_L data differ): matches OTHER T (N=M^T,G=A^T): False
+306 F power case: own True
+281 F tilting: child cyclic=False ; own T: G=A^T True ; N=M^T True
+25 F tilting: child cyclic=True ; own T: G=A^T True ; N=M^T None
+306 F tilting: other reading (child=End(T), no transpose) matches: False
+83 R Oppermann-literal (A^op, his right): tilting True ; child = End (no op) True ; child = End^T reading False
+3 R Oppermann-literal (A^op, his right): tilting True ; child = End (no op) True ; child = End^T reading True
+277 R not tilting/err
+86 R power case (T_R,T_L data differ): matches OTHER T (N=M^T,G=A^T): False
+86 R power case: own True
+83 R tilting: child cyclic=False ; own T: G=A^T True ; N=M^T True
+3 R tilting: child cyclic=True ; own T: G=A^T True ; N=M^T None
+86 R tilting: other reading (child=End(T), no transpose) matches: False
+failures to match own: []

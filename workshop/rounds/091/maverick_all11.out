@@ -1,0 +1,5 @@
+n=11, K=48, `maverick_all.py 11 48 <group>` (all 638 members; first run, before the CAP argument was added)
+GROUP 0 size 15 order/sign (21, -1) n=11 K=48: {('nonFCY', 'grows'): 15} min-over-members of min_k R_k = 27 13s
+GROUP 1 size 24 order/sign (24, 1) n=11 K=48: {('nonFCY', 'grows'): 24} min-over-members of min_k R_k = 27 36s
+GROUP 2 size 64 order/sign (72, 1) n=11 K=48: {('nonFCY', 'grows'): 64} min-over-members of min_k R_k = 25 58s
+GROUP 3 size 535 order/sign (15, -1) n=11 K=48: {('FCY', 'flat'): 476, ('FCY', 'grows'): 59} min-over-members of min_k R_k = 11 44s

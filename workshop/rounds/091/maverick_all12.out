@@ -1,0 +1,9 @@
+n=12, K=44, `maverick_all.py 12 44 <group> [CAP]` (groups by size order, 0 = 5 members ... 7 = 3992). Lines below are the verbatim contents of the run logs, concatenated in this order: /tmp/mav/all12_0.out, f1234.out, f5.out, f6.out, f7.out (no line retyped; group 0's log predates the "members run" wording in the print). The re-run of group 0 requested by the referee was blocked in this sitting by the Bash classifier ("no verdict").
+GROUP 0 size 5 order/sign (15, -1) n=12 K=44: {('nonFCY', 'grows'): 5} min-over-members of min_k R_k = 30 18s
+GROUP 1 members run 66 of 66 order/sign (12, 1) n=12 K=44: {('nonFCY', 'grows'): 66} min-over-members of min_k R_k = 29 64s
+GROUP 2 members run 66 of 302 order/sign (36, 1) n=12 K=44: {('nonFCY', 'grows'): 66} min-over-members of min_k R_k = 29 108s
+GROUP 3 members run 66 of 366 order/sign (56, 1) n=12 K=44: {('nonFCY', 'grows'): 66} min-over-members of min_k R_k = 28 47s
+GROUP 4 members run 66 of 529 order/sign (45, -1) n=12 K=44: {('nonFCY', 'grows'): 66} min-over-members of min_k R_k = 27 64s
+GROUP 5 members run 1185 of 1185 order/sign (20, 1) n=12 K=44: {('FCY', 'grows'): 699, ('FCY', 'flat'): 486} min-over-members of min_k R_k = 12 149s
+GROUP 6 members run 2300 of 2300 order/sign (11, -1) n=12 K=44: {('FCY', 'flat'): 2300} min-over-members of min_k R_k = 12 262s
+GROUP 7 members run 800 of 3992 order/sign (21, -1) n=12 K=44: {('FCY', 'flat'): 797, ('FCY', 'grows'): 3} min-over-members of min_k R_k = 12 130s

@@ -1,0 +1,2 @@
+KEPT j0 depth 8 path [('F', 1), ('F', 1), ('F', 2), ('F', 3), ('R', 9), ('R', 7), ('R', 9), ('F', 3)] F 3
+{'nodes_d0': 1, 'nodes_d1': 8, 'nodes_d2': 31, 'nodes_d3': 90, 'nodes_d4': 239, 'nodes_d5': 632, 'nodes_d6': 1690, 'J:moved': 654, 'nodes_d7': 4570, 'nodes_d8': 12949, 'J:kept': 1}
