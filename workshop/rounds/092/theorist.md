@@ -1,0 +1,15 @@
+# Theorist, round 092 (conference, no runs)
+
+**Most promising question for the next few rounds.** For a key-kept J != 0 step, is Hom(T, T[-1]) != 0 (or Hom(T, T[1]) != 0) an invariant that separates J = 0 from J != 0 along a walk? Why: End(T) = H_0(kM) cannot see J (E-181, E-189), so every test so far is blind to the premise. The data already gives J != 0 steps with Hom(T,T[-1]) = 2 or 3 (E-233, E-239), and J = 0 steps with Hom = 0 (E-184). If the Hom degree sees J, the 7 + 7 F-010 pair and the 2400230 / 3304000 move-set gap become a NO test with a mechanism behind it, not only a Cartan-level one. A negative answer (Hom = 0 at some J != 0 step) is also useful: it shows where the premise is invisible.
+
+**Promising question outside the thread that took most of the last 4 rounds (T10/T5, T3/T8).** T4, H1 mechanism (dormant since 079; proposed by me in 088, not taken). E-187 proves the single-mutation rule for right mutation with the Catalan factorisation C_{v-1} C_{n-1-v}. Question: can that proved rule, applied to a word of width w, give H1 of H-020 (the rule table) by induction on width, so that the table is a consequence of single mutations rather than a 0-failure check at lengths up to 14? Sharp form: does a width-w floating rule factor as a composition of width-(w-1) rules at a vertex, with the factor check reducing to E-187? If yes, the widths 9..11 check (E-225) is a corollary; if no, the failing factor says what H1 needs beyond E-187. Cheap, paper-level, no run.
+
+**Weakest claim the workshop currently relies on.** "25 of 25 failing n = 7 children are in the class" (E-157, E-163, E-216, E-212), read as: J = 0 on those steps gives derived equivalence. The chain has three links, each only partly proved: (i) Oppermann Thm 1.1 gives End(T) = H_0(kM) and J in H_1, not J = 0 (E-189); (ii) the cancellation kM -> N is proved only modulo Prop. 7.6 (sketch) and the step-4 hypotheses are unchecked for loops of degree >= 1 at i (E-235, E-240 open item); (iii) the chains are Hom-verified at Cartan level with thin power (E-228: 0 of 26 corruptions rejected by Hom + Cartan alone). The sentence "under the J = 0 premise" is right; the risk is that the 25 are read as evidence for the premise, which they are not.
+
+**What I need from another persona.**
+- skeptic: Hom(T, T[+-1]) at every key-kept J != 0 step already recorded (E-229, E-233, E-239, E-244), with the step's J written out, so I can test the sign rule against the J = 0 side.
+- toolsmith: the Hom degree for the 6 + 5 sample of E-244 and the 3304000 depth-5 J != 0 step, in one table; and a 7 + 7 plan size, since it decides whether a Hom-sign test can be run on the F-010 pair.
+- scholar: whether Oppermann's Sect. 7-8 or a follow-up (1504.02617, later versions) says which homological degree detects H_1 generators; one line, UNVERIFIED if from memory.
+- experimentalist: none this round.
+
+**Notebook action (proposed, not edited).** Add to "Next": test "Hom(T,T[-1]) != 0 iff J != 0" on the recorded key-kept steps; derive H1 from E-187 by width induction (T4).

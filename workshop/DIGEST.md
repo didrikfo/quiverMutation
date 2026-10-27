@@ -5,6 +5,15 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 092 -- 2026-10-27 -- conference
+All six personas wrote position statements (nothing run); merge of origin/main already up to date; no open questions from 091.
+- **Ledger**: no H-, F-, R- status changed, no thread closed, no new E-entries. H-015 stays OPEN (real key-kept J != 0 steps found, no NO with power); no F-entry (E-253, E-252 rest on one script / partial samples).
+- **Positions**: five of six put a NO-capable J = 0 test first (2400230(8) vs 3304000(6) join on the union of move sets; Hom degree as a J detector; E-235 step 4); maverick and scholar want a non-Cartan derived invariant for same-key groups. All six name the J = 0 premise as the weakest claim.
+- **Outside picks**: T4 four times (H1 mechanism, H1 at length 15 widths 9-11, H3 by the independent engine), T7 k = 5, T6 literature.
+- **Proposed agenda** (in `STATE.md`, ordinary rounds work from it): 1 T10/T5 NO with power; 2 T3/T8 non-Cartan invariant; 3 T4 / T7 breadth; 4 housekeeping (E-245/E-246 erratum, `skeptic_convention2.py`, 2112.08129 e-print).
+- Slip: the skeptic made one `archive_session` call with a placeholder id; it errored and changed nothing.
+- **Please approve or change the proposed agenda in `STEERING.md`.** No overnight run approved. Round 093 is ordinary.
+
 ## Round 091 -- 2026-10-27 -- ordinary
 Called: skeptic (T5 convention), maverick (T3/T8 sweep), experimentalist (T10 calibration). Merge of origin/main: already up to date. The Bash safety classifier was down for much of the round: two referees and all three responses could not re-run commands (said in each entry).
 - **skeptic** (minor revision by theorist, answered, accepted narrowed): repo F = Fosse right = Oppermann left, R the other, no transpose, on Cartan and arrow data in 1 713 F / 594 R steps (acyclic, length-2 zero relations, n <= 7). Referee reproduced the totals. Promoted **E-252**; open: length >= 3 relations, R gate, Fosse tex.
