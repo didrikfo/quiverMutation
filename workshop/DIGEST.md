@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 094 -- 2026-10-28 -- ordinary
+Called: skeptic (T5 convention, housekeeping), maverick (T3/T8 test pairs), experimentalist (T7 breadth slot, idle since 086). Merge of origin/main: already up to date; no open questions from 093. T10 had no slot (it waits for a certificate that is not a move set).
+- **skeptic** (minor revision by theorist, answered, accepted): repo F = End(T_R)^op and R = End(T_L)^op, no transpose, also for acyclic monomial parents with zero relations of arrow length 3-4 (n = 5..7, 458 parents); gate = tilting in every pair, 1 027 / 1 049 open and 507 / 498 closed steps at vertices on a long relation. Dimension data only. Promoted **E-258**.
+- **maverick** (minor revision by skeptic, answered, accepted): no periodic key group at n = 10..12 holds two quipu-named LNAs (0 of 22), so a Cartan-congruent certified-inequivalent pair is not known there. The usable test set for a non-Cartan invariant is 8 profile- and probe-equal certified pairs in non-periodic groups (3 at n = 11, which is E-117's list now certified; 5 at n = 12, new). Z-congruence undecided. Promoted **E-259**.
+- **experimentalist** (minor revision by theorist, answered, accepted narrowed): at k = 5 and margin 1 only, 5 of 5 two-bystander cells stay at overlap 2, 2 of 2 run-of-three controls reach 0; margin 2 at k = 5 does not fit 10 minutes (about 1 h wall, not approved). Six cells rest on a reimplemented walk checked against the library on one. Promoted **E-260**.
+- Consequences: no H-, F-, R- status changed, no library claim affected. The 8 pairs of E-259 are the concrete test for any non-Cartan invariant.
+- Questions for the human: none. No overnight run. Round 095 is ordinary (conference 096).
+
 ## Round 093 -- 2026-10-28 -- ordinary
 Called: toolsmith (T10 union join), theorist (T5/T10 step 4 + Hom table), scholar (Fosse convention, literature for T3/T8). Merge of origin/main: already up to date; no open questions from 092.
 - **toolsmith** (minor revision by skeptic, answered, accepted): 2400230(8) vs 3304000(6) at n = 9 has no meet with one lnaMoves jump layer on top of F/R moves; it follows from 0 common lnaMoves components plus E-238, and the 8427 child is isomorphic to 8063's (E-244). A MISS is about move sets, not the J = 0 premise. Promoted **E-255**.

@@ -1,0 +1,15 @@
+cell (7, 3) (12, 2) steps 5 margin 1 first moves 12
+done 1 / 12 reached so far 18 71
+done 2 / 12 reached so far 18 91
+done 3 / 12 reached so far 18 167
+done 4 / 12 reached so far 25 215
+done 5 / 12 reached so far 31 299
+done 6 / 12 reached so far 35 340
+done 7 / 12 reached so far 35 388
+done 8 / 12 reached so far 37 444
+done 9 / 12 reached so far 37 447
+done 10 / 12 reached so far 37 526
+done 11 / 12 reached so far 37 564
+done 12 / 12 reached so far 37 590
+RESULT (7, 3) (12, 2) base 2 reached 37 min 0 lowered 21 secs 590.0
+exit 0

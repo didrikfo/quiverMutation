@@ -1,0 +1,13 @@
+cell (6, 2) (7, 2) steps 5 margin 1 first moves 10
+done 1 / 10 reached so far 13 37
+done 2 / 10 reached so far 13 47
+done 3 / 10 reached so far 13 73
+done 4 / 10 reached so far 24 115
+done 5 / 10 reached so far 24 132
+done 6 / 10 reached so far 24 164
+done 7 / 10 reached so far 28 190
+done 8 / 10 reached so far 31 228
+done 9 / 10 reached so far 31 234
+done 10 / 10 reached so far 31 256
+RESULT (6, 2) (7, 2) base 2 reached 31 min 2 lowered 0 secs 255.6
+exit 0

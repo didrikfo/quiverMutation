@@ -1,0 +1,41 @@
+219 F ADJ              MATCH True
+59 F ADJ              gate=False tilting=False
+219 F ADJ              gate=True  tilting=True 
+445 F ON               MATCH True
+205 F ON               gate=False tilting=False
+445 F ON               gate=True  tilting=True 
+171 F ON by parent max vertex-length 4: gate=False tilting=False
+369 F ON by parent max vertex-length 4: gate=True tilting=True
+32 F ON by parent max vertex-length 5: gate=False tilting=False
+73 F ON by parent max vertex-length 5: gate=True tilting=True
+2 F ON by parent max vertex-length 6: gate=False tilting=False
+3 F ON by parent max vertex-length 6: gate=True tilting=True
+28 F far(long parent) MATCH True
+2 F far(long parent) gate=False tilting=False
+28 F far(long parent) gate=True  tilting=True 
+3297 F no long rel      MATCH True
+717 F no long rel      gate=False tilting=False
+3297 F no long rel      gate=True  tilting=True 
+227 R ADJ              MATCH True
+55 R ADJ              gate=False tilting=False
+227 R ADJ              gate=True  tilting=True 
+439 R ON               MATCH True
+211 R ON               gate=False tilting=False
+439 R ON               gate=True  tilting=True 
+174 R ON by parent max vertex-length 4: gate=False tilting=False
+367 R ON by parent max vertex-length 4: gate=True tilting=True
+36 R ON by parent max vertex-length 5: gate=False tilting=False
+68 R ON by parent max vertex-length 5: gate=True tilting=True
+1 R ON by parent max vertex-length 6: gate=False tilting=False
+4 R ON by parent max vertex-length 6: gate=True tilting=True
+26 R far(long parent) MATCH True
+2 R far(long parent) gate=False tilting=False
+26 R far(long parent) gate=True  tilting=True 
+3248 R no long rel      MATCH True
+750 R no long rel      gate=False tilting=False
+3248 R no long rel      gate=True  tilting=True 
+mismatches: []
+
+real	3m4.131s
+user	1m58.994s
+sys	0m0.462s

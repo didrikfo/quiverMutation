@@ -6,6 +6,33 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-260 — T7 / H-010, pair (8:3)(9:3), k = 5, margin 1 only (not margin 2): in 5 of 5 sampled m = 2 two-bystander cells no LNA with overlap below 2 is reached inside the margin-1 window; 2 of 2 completed run-of-three controls reach 0 (21 of 37 and 25 of 46 reached LNAs); H-010 not contradicted (capped to one pair shape)
+*2026-10-28* · **`timeout 10m .venv/bin/python workshop/rounds/094/experimentalist_k5par.py 5 1 "11,2:12,2" --jobs 4`** (156 s; the other cells 2-10 min each, commands in `workshop/rounds/094/experimentalist.md`) · *workshop round 094, experimentalist, refereed by theorist (minor revision, answered)*
+
+Scope: pair (8:3)(9:3) only; k = 5; margin 1; 5 of the 18 E-230 m = 2 cells ((11,2)(12,2), (6,2)(7,2), (7,2)(11,2), (6,2)(11,2), (7,2)(12,2)) and controls (7,3)(12,2), (10,3)(5,2). Full enumeration inside the window. `experimentalist_k5par.py` is a first-move-split reimplementation of `localMutationSequences`, checked against the serial library walk at k = 3, 4 (margin 2) and k = 5 margin 1 for (11,2)(12,2) only (31 = 31); the other six cells rest on it. In only 2 of the 5 cells do the bystanders alone form a run of three. Margin 1 loses 2 of 23 LNAs at k = 4 in (11,2)(12,2) (21 vs E-241's 23, none lower). Margin 2 at k = 5 (790-2400 s per cell estimated), (6,4)(12,2) (timeout) and (10,4)(5,2) did not complete: a cost verdict, not a result.
+Result: reached LNAs 31, 31, 38, 57, 57 for the five cells, min overlap 2 each; controls reach 0. Extends E-241 along k.
+Open: margin 2 at k = 5 (about 1 h wall on 4 cores, an `OVERNIGHT.md` proposal, not approved); a faster `localMutationSequences` for k = 6; a proof that lowering needs a run of three.
+
+---
+
+## E-259 — T3/T8, n = 10, 11, 12: no periodic key group holds two quipu-named LNAs (0 of 22), so the record certifies one inequivalent pair in a periodic group (the n = 10 pair of E-178 / E-190) and no pair known to be Cartan-congruent; the certified-inequivalent pairs that remain are in non-periodic key groups, 8 of them profile- and SNF-probe-equal (3 at n = 11, which is E-117's list with quipu certification added; 5 at n = 12, new)
+*2026-10-28* · **`timeout 10m .venv/bin/python workshop/rounds/094/maverick_quipupairs.py N` (N = 10, 11; 12 about 2.5 min), `maverick_quipuprofile.py N` (N = 9..12), `maverick_quipucartan.py N` (N = 9..12)** · *workshop round 094, maverick, refereed by skeptic (minor revision, answered)*
+
+Scope: only LNAs with almost separate relations get a quipu name (Ladkani / 2305.06642 `quipuForAlmostSeparateLNA`); "periodic" = some member has Phi^a = +-I with a <= 200, definite groups included; profile tests use up to 3 members per quipu, probes 2; Cartan congruence is decided for no pair; n = 9 calibration is one pair.
+Result: key groups with >= 2 quipus: n = 9: 1, n = 10: 2, n = 11: 4, n = 12: 13 (matches the F-010 table); periodic groups with >= 2 quipus: 0 of 5, 7, 10. F-047 profile separates n = 10 2 of 2, n = 11 1 of 4, n = 12 8 of 13 groups. Profile-congruent certified pairs (the test for any non-Cartan invariant): n = 11 key sizes 242, 282, 36 (det 1, signature (10,1), SNF(xC+C^T) x = -5..5 equal), n = 12 key sizes 372, 754, 54, 140, 54 (det 1, signature (11,1), probes equal). The probes are weaker than the profile (n = 9 F-010 pair). The explanation that a tree algebra with periodic Phi is Dynkin is not proved or cited; the count does not use it.
+Open: decide Z-congruence of C for one such pair (E-232 machinery needs periodic Phi); pairs with overlapping relations are unnamed.
+
+---
+
+## E-258 — T5, F/R side convention for acyclic MONOMIAL parents with zero relations of arrow length 3-4 (n = 5, 6, 7; 458 parents; seeds 0..2999 / 0..2999 / 0..1499): repo F child = End(T_R)^op and R child = End(T_L)^op on labelled Cartan and arrow data, the other side never; gate = tilting of the matching side in every pair (about 16 400 per side), including 1 027 F / 1 049 R gate-open and 507 / 498 gate-closed steps at vertices on a long relation (capped sample; dimension data only)
+*2026-10-28* · **`for a in "5 3000" "6 3000" "7 1500"; do set -- $a; timeout 10m .venv/bin/python -W ignore workshop/rounds/091/skeptic_convention2.py sweep $1 $2; done`; per-vertex counts: `workshop/rounds/094/skeptic_conv2_local.py` (outputs `skeptic_conv2_local_n{5,6,7}.out`)** · *workshop round 094, skeptic, refereed by theorist (minor revision, answered)*
+
+Scope: acyclic monomial parents, simple arrows a -> b with a < b, minimal zero relations of arrow length >= 2; relations of arrow length 3: 417 parents, 4: 40, 5: one parent (n = 7, an anecdote). Match is on the labelled Cartan matrix and Gabriel arrow counts only, not multiplication. A vertex is "on" a long relation if it lies on its vertex sequence, obstructing or not. Non-monomial, parallel-arrow and cyclic parents are not covered; E-080 is the known non-monomial place where gate and tilting differ.
+Result: extends E-252 from length-2 relations to arrow length 3-4: 0 mismatches, 0 crashes, the other side differs in every tilting step. Gate-open/closed at vertices on a long relation: F 1 027/507, R 1 049/498; at adjacent vertices F 457/98, R 438/91. The R gate, unrun in E-252, agrees with T_L tilting. The first count of 1 522 F / 1 529 R steps was per parent, not per step (referee). Fosse's side is quoted in E-257; "repo F = Fosse right" remains the dimension-level reading.
+Open: multiplication in the child (relations, not dimensions); non-monomial, parallel-arrow, cyclic parents; arrow length >= 5.
+
+---
+
 ## E-257 — T5/T3/T8, literature: Fosse's 2112.08129v2 convention sentences quoted (right = cocone of a minimal right approximation of P_i, paths right to left, End^op; no mu^+ / mu^-); none found among the title/abstract matches of 27 arXiv queries: a derived invariant of Nakayama algebras beyond the Cartan data that separates key-equal periodic groups (negative, search-bounded)
 *2026-10-28* · **`workshop/rounds/093/scholar.md` (Reproduction; no script; v2 e-print committed as `research/literature/sources/2112.08129v2-fosse-combinatorial-tilting-mutation.tex`)** · *workshop round 093, scholar, refereed by maverick (minor revision, answered)*
 

@@ -1,0 +1,26 @@
+3989 F opp-literal (his left): End True
+3989 F power (T_R,T_L differ): other-side match False
+2686 F tilting: cyclic=False G=A^T True N=M^T True ; long-rel parent False
+495 F tilting: cyclic=False G=A^T True N=M^T True ; long-rel parent True
+611 F tilting: cyclic=True G=A^T True N=M^T None ; long-rel parent False
+197 F tilting: cyclic=True G=A^T True N=M^T None ; long-rel parent True
+983 F: gate False, T_R tilting False
+3989 F: gate True, T_R tilting True
+3940 R opp-literal (his right): End True
+3940 R power: other-side match False
+2641 R tilting: cyclic=False G=A^T True N=M^T True ; long-rel parent False
+478 R tilting: cyclic=False G=A^T True N=M^T True ; long-rel parent True
+607 R tilting: cyclic=True G=A^T True N=M^T None ; long-rel parent False
+214 R tilting: cyclic=True G=A^T True N=M^T None ; long-rel parent True
+1018 R: gate False, T_L tilting False
+3940 R: gate True, T_L tilting True
+170 parents with max zero-rel vertex-length 0
+681 parents with max zero-rel vertex-length 3
+160 parents with max zero-rel vertex-length 4
+23 parents with max zero-rel vertex-length 5
+1 parents with max zero-rel vertex-length 6
+failures to match own: []
+
+real	2m2.351s
+user	2m1.068s
+sys	0m0.136s
