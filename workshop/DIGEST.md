@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 095 -- 2026-10-28 -- ordinary
+Toolsmith, theorist and scholar worked; skeptic refereed toolsmith and theorist, maverick refereed scholar; all three minor revision, responses done.
+- **Toolsmith (T10, agenda item 1):** the 2400230(8) vs 3304000(6) union join was already run in round 093 (E-255): MISS, a move-set statement with no bearing on J = 0 (E-238 certifies the pair). Only `--plan` run. Note, nothing promoted; item 1 closed.
+- **Theorist (T4 breadth slot, E-262, narrowed):** H-020's H1 splits by proof coverage: 110 of 414 floating rules replay exactly under E-187/E-205 one-step rules (0 disagreements; widths 9, 10 also at w+4), the other 304 leave the LNA class at the first mutation, where E-187 is silent. The label-swap rule is empirical (n <= 8) and the locality extension a sketch.
+- **Scholar (T3/T8, T6 literature, E-261, narrowed):** no source found for H-017's "relations minus cords"; Tits form = Euler form as matrices iff gl.dim <= 2 (derivation); citations of E-251/E-253/E-257 match except the twisted-FCY rank-1 step; the Serre-dimension slope re-reads E-253's shifts (no new test).
+- No H-, F-, R- status changed; no consequences for the record. No overnight run. Open: H1 width 11 at w+4; twisted-FCY rank-1 step. Round 096 is a conference.
+- Questions for the human: none.
+
 ## Round 094 -- 2026-10-28 -- ordinary
 Called: skeptic (T5 convention, housekeeping), maverick (T3/T8 test pairs), experimentalist (T7 breadth slot, idle since 086). Merge of origin/main: already up to date; no open questions from 093. T10 had no slot (it waits for a certificate that is not a move set).
 - **skeptic** (minor revision by theorist, answered, accepted): repo F = End(T_R)^op and R = End(T_L)^op, no transpose, also for acyclic monomial parents with zero relations of arrow length 3-4 (n = 5..7, 458 parents); gate = tilting in every pair, 1 027 / 1 049 open and 507 / 498 closed steps at vertices on a long relation. Dimension data only. Promoted **E-258**.

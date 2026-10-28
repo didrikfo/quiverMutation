@@ -1,21 +1,20 @@
-# Theorist notebook (rewritten round 093)
+# Theorist notebook (rewritten round 095)
 
 ## What I believe now
-- 093 (T5): CONDITIONAL on the omega-reduction of E-235 (granted, not proved): d_1 (the star==1 part, not the full D; the parent's star-0 terms are removed only by the omega-reduction) lands in Lemma A of E-240: W-graded d_1 = D_theta, D_theta(theta_{phi,a}) = +-phi a*, D = 0 on all other letters (psi's d_1 drops W-count and dies in gr_G), X1 = U_i, Y = stars, disjoint, theta for every pair U_i x A. Checked on 600 graded parents (arrow degrees 0..2) / 6 347 letters (theorist_step4.py, theorist_graded.py), 0 failures; sign (-1)^deg(phi) 572/572. Only failure mode: a loop at i (second term in d_1 theta). Remaining unproved inputs of E-235: "d lowers ||.|| by 1" (step 2), d^2 = 0 beyond E-202, Thm 7.5.
-- 093 (T10): Hom(T,T[-1]) at S = -1 equals sum J_i (E-128 L2) so it is J != 0 restated (E-161: "Ladkani's criterion restated"). Replayed values (3, 2, 2 at the J != 0 steps; 17 J = 0 prefix steps give 0) are an identity, not a finding; only E-254 (2 / 0, 1 / 1) is new. At S = 0 it is nonzero at J = 0 steps too, so a detector must name S = -1. It cannot be a NO: it speaks about the one-step T, not about whether the child is derived equivalent. A NO needs an invariant of the child (non-Cartan, E-253 line) or a statement about all tilting complexes.
-- 090: loops of M (Oppermann Steps 1-4): (a) loop of Q, (b) alpha.phi from a 2-cycle, (c) phi.alpha^-1 with phi parallel to alpha, (d) Step 4. Parents kQ0/(R) carry a degree-1 relation arrow omega, so (c) loops at v != i occur; the 25 failing n = 7 parents have acyclic Gabriel quiver, no loop at i, so E-235 applies to them.
-- 086: Lemma A (monomial, X1 and Y disjoint) proved; 13 748 cells. 083: Prop. 7.6 cancellation by hand if non-negative grading + no loop at i.
-- Older: repo step-7 kernel = Oppermann's iff D(i) acyclic (E-199); Gamma_red = N (E-217); LNA single-mutation rule proved (E-187, E-205). E-216's refusal is on the Gabriel quiver of H_0.
+- 095 (T4): H1's mechanism splits the 414 floating rules into class A (110 rules; every step gated and an LNA, so E-187/E-205 alone replay the rule: 0 disagreements at lengths w+1..w+3, and up to 13/11/11/12 for w<=5/6/7/8) and class B (304 rules; first step leaves the LNA class, E-187 silent). For A, H1 at all lengths follows from locality: the replay reads only the window pattern, r_{s+w}, and end distances, so lengths w+1..w+4 suffice (item 3, image at r_{s-1}, is covered only by replay). Engine keeps labels: right at p swaps positions p,p+1; left p-1,p (empirical, n<=8). Row model = engine on 9 396 cases.
+- 093 (T5): CONDITIONAL on omega-reduction of E-235: d_1 lands in Lemma A of E-240 (600 graded parents, 0 failures). Remaining unproved inputs of E-235: "d lowers ||.|| by 1", d^2 = 0 beyond E-202, Thm 7.5. Only failure mode: a loop at i.
+- 093 (T10): Hom(T,T[-1]) at S=-1 is sum J_i (E-128 L2), a restatement of J != 0; a detector must name S=-1 and cannot be a NO.
+- 090: loops of M (Oppermann Steps 1-4): four sources; the 25 failing n=7 parents have acyclic Gabriel quiver, no loop at i.
+- Older: repo step-7 kernel = Oppermann's iff D(i) acyclic (E-199); Gamma_red = N (E-217); LNA single-mutation rule proved (E-187, E-205).
 
 ## What I tried
-- 093: step-4 hypothesis check (script + proof); Hom table by path replay (E-233, E-239 reproduced; E-254 new: 2 at S = -1). E-234 / E-244 not replayed (pickles).
-- 090: relation-arrow Parts A/B, 25-parents check. 089, 086, 083, earlier twoby, cycD, Gamma_red, 073-062.
-- Lessons: read the construction of the input before sampling it (090). Before proposing a "detector", grep for the identity that makes it tautological (093: E-128 was already there).
+- 095 response: class A now also checked at w+4 for w=6,7,9,10 (0 failures, no rule changes A/B). Title now 'supported by replay'; label-swap rule flagged empirical in the Claim.
+- 095: row-model replay of all 414 floating rules; first run gave 392 spurious gate failures until I noticed the engine relabels vertices after a mutation. Lesson: sequences name labels, not positions.
+- 093: step-4 hypothesis check; Hom table. 090, 089, 086, 083 and earlier (see git history of this file).
+- Lessons: read the construction of the input before sampling it. grep for the identity that makes a "detector" tautological. Check that an abstract model reproduces the engine on multi-step sequences, not only single steps.
 
 ## Next
-- Derive "d lowers ||.|| by 1" line by line from Def. 3.2; d^2 = 0; Thm 7.5.
-- Check (c) loops at v != i are essential in a minimal model and that H_0(kM) = End(T) is unaffected.
-- Apply Lemma A to gr_G of the real kM of a parent with n <= 5 (signed products).
-- T4 (breadth slot): mechanism of H1 from E-187.
-- T7: two pair-sharing bystanders, k = 4 needs OVERNIGHT.
-- Blind spots: proofs relative to printed v1; Ext-arrows of acyclic algebras being non-loops used without source check; capped enumerations are not laws; paths-to-a-parent are not a sample of J = 0 steps.
+- T4: one-step rule for LNA-with-one-extra-arrow (middle states of class B); smallest: 14 width-5 B rules. If local, H1 is a theorem for all rules.
+- T4: class A width 11 at w+4 (w=9, 10 done in R095 response, split A/B stable at w+4 for w=6,7,9,10; w=11 exceeds 10 min, run per rule); proof of the label-swap rule from procedure step 7.
+- T5: derive "d lowers ||.|| by 1" from Def. 3.2; d^2 = 0; Thm 7.5; apply Lemma A to gr_G of a real kM (n <= 5).
+- Blind spots: proofs relative to printed v1; capped enumerations are not laws; the locality argument is a sketch, items 1-3 not machine-proved beyond replay.
