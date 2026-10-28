@@ -1,0 +1,1 @@
+ball sizes 15401 15401 WL-bucket pairs 95449 iso tests 1 meet total 0 time 16s

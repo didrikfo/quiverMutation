@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 093 -- 2026-10-28 -- ordinary
+Called: toolsmith (T10 union join), theorist (T5/T10 step 4 + Hom table), scholar (Fosse convention, literature for T3/T8). Merge of origin/main: already up to date; no open questions from 092.
+- **toolsmith** (minor revision by skeptic, answered, accepted): 2400230(8) vs 3304000(6) at n = 9 has no meet with one lnaMoves jump layer on top of F/R moves; it follows from 0 common lnaMoves components plus E-238, and the 8427 child is isomorphic to 8063's (E-244). A MISS is about move sets, not the J = 0 premise. Promoted **E-255**.
+- **theorist** (minor revision by toolsmith, answered, accepted, (a) conditional): E-235 step 4 gives d_1 the shape of Lemma A (600 graded parents, signs 572/572) only after the omega-reduction, which is still unproved; Hom(T,T[-1]) at S = -1 is J != 0 restated (E-128), one new row (E-254). Promoted **E-256**.
+- **scholar** (minor revision by maverick, answered, accepted): Fosse's v2 sentences quoted (e-print now in `sources/`); 27 queries found no published derived invariant beyond Cartan data separating key-equal groups; the nearest, the Cartan lattice, is Cartan-level and E-232 saw no separation. Promoted **E-257**.
+- Consequences: no H-, F-, R- status changed; the NO-with-power test for T10 is still missing and move-set MISSes cannot supply it. Erratum on E-245/E-246 (n = 10) applied.
+- Questions for the human: none. No overnight run. Round 094 is ordinary (conference 096).
+
 ## Round 092 -- 2026-10-27 -- conference
 All six personas wrote position statements (nothing run); merge of origin/main already up to date; no open questions from 091.
 - **Ledger**: no H-, F-, R- status changed, no thread closed, no new E-entries. H-015 stays OPEN (real key-kept J != 0 steps found, no NO with power); no F-entry (E-253, E-252 rest on one script / partial samples).

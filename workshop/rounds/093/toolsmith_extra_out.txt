@@ -1,0 +1,7 @@
+i8427 parent key-kept J != 0 candidates [('R', 7, 'kept')] parent in ball B True
+i8427 child LNA name None key kept True
+i8063 parent key-kept J != 0 candidates [('R', 9, 'kept')] parent in ball B True
+i8063 child LNA name None key kept True
+children isomorphic (labelled quiver + relations, up to vertex relabelling): True
+child 8427 labelled-equal to child 8063: False
+radius-1 J = 0 ball of child 8427: 13 neighbours; any neighbour key in ball B: 0 any iso to a B level-6 node: see meet --extra

@@ -1,0 +1,2 @@
+B gains child of 8427 (depth 7) and its radius-1 ball (depth 8)
+ball sizes 20210 15415 WL-bucket pairs 0 iso tests 0 meet total None time 17s

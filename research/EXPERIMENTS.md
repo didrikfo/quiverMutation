@@ -6,6 +6,30 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-257 — T5/T3/T8, literature: Fosse's 2112.08129v2 convention sentences quoted (right = cocone of a minimal right approximation of P_i, paths right to left, End^op; no mu^+ / mu^-); none found among the title/abstract matches of 27 arXiv queries: a derived invariant of Nakayama algebras beyond the Cartan data that separates key-equal periodic groups (negative, search-bounded)
+*2026-10-28* · **`workshop/rounds/093/scholar.md` (Reproduction; no script; v2 e-print committed as `research/literature/sources/2112.08129v2-fosse-combinatorial-tilting-mutation.tex`)** · *workshop round 093, scholar, refereed by maverick (minor revision, answered)*
+
+Scope: Part 1 the v2 e-print (sha256 of the `.src` d5b2f668...6c6d, equal to E-208's; of the committed `.tex` d4dce41e23c5...fffaf17). Part 2: 27 arXiv API title/abstract queries (2026-10-28), 2606.15595v1 and 2607.10913v1 read in source; MathSciNet, full-text search not available.
+Result: (1) Fosse's own sentences fix "right" mutation (l. 84, 91-94, 375, 137-138); the identification "repo F = Fosse right" of E-252 remains the project's dimension-level reading, not a statement of the paper. (2) The nearest candidate for a separator of same-key groups is the integral Cartan lattice (Z-congruence of C, GL_n(Z)-conjugacy of Phi), which is Cartan-level, posed as open in 2606.15595 `q:lattice`, and tested by E-209 / E-232 (no separation, n = 11 15-group). The enriched Hochschild calculus of 2606.15595 gives for an LNA only the class of Phi over k (the scholar's inference, UNVERIFIED; for periodic Phi that is the Coxeter polynomial, already in the key). Most of Part 2 repeats E-251; Avella-Alaminos-Geiss is closed by R-008. Not claimed: that no such invariant exists.
+
+---
+
+## E-256 — T5/T10, (a) CONDITIONAL on the omega-reduction of E-235: d_1 of Oppermann's Def. 3.2 has the shape of Lemma A of E-240 on 600 random graded parents with no loop at i (6 347 letters, 572 theta terms, signs exact); (b) Hom(T,T[-1]) at S = -1 is J != 0 restated (E-128), one new row (E-254)
+*2026-10-28* · **`.venv/bin/python workshop/rounds/093/theorist_step4.py`, `theorist_graded.py 600`, `theorist_homtable.py` (outputs `*_out.txt`)** · *workshop round 093, theorist, refereed by toolsmith (minor revision, answered)*
+
+Scope: (a) star == 1 part d_1 only, arrow degrees 0..2, no loop at i; not gr_G of the full D (the 2 354 star-0 terms of the parent's d are removed only by the omega-reduction); the omega-reduction and "d lowers ||.|| by 1" are granted from printed degrees, not proved; loops at i and d^2 = 0 open. (b) n = 9, three replayed paths (E-233, E-239, E-254), 17 J = 0 steps (path prefixes, not a control) and 3 J != 0 steps; E-234 and E-244 not replayed.
+Result: (a) d_1(theta_{phi,alpha}) = (-1)^deg(phi) phi alpha^* on 572 of 572 thetas (132 with deg(phi) = 1), theta set = U_i x A, X1 and Y disjoint: 0 failures in H1-H4. So E-235 step 4 lands in the hypotheses of Lemma A of E-240, conditional on the omega-reduction. (b) At S = -1 Hom[-1] total = sum J_i (3, 2, 2 at E-233, E-239, E-254) and Hom[1] = 0, both zero at the 17 J = 0 steps; this is E-128 / E-161, so a detector of J != 0 by construction and no NO for the J = 0 premise; the only new datum is E-254's row (2 / 0 at S = -1, 1 / 1 at S = 0).
+
+---
+
+## E-255 — T10, n = 9, 2400230 (radius 8) vs 3304000 (radius 6): no meet with one `lnaMoves` jump layer (jumps from LNA nodes only) on top of J = 0 F/R moves; implied by the component census (0 common components) and E-238; E-244 index 8427's child is isomorphic to 8063's child (MISS, no information on the J = 0 premise)
+*2026-10-28* · **commands in `workshop/rounds/093/toolsmith.md` (Reproduction): `workshop/rounds/093/toolsmith_unionjoin.py` on the `workshop/rounds/087/toolsmith_d6scan.py` balls (the depth-8 build needs a rerun after exit 2)** · *workshop round 093, toolsmith, refereed by skeptic (minor revision, answered)*
+
+Scope: n = 9; balls of 20 210 (2400230, depth 8) and 15 401 (3304000, depth 6); one jump layer, over-approximated; J != 0 only through the 8427 child; iso meets up to relabelling (WL hash 3 iterations then networkx). Builds reproduce the recorded sizes; the referee reproduced counts, 0 common components, 0 WL pairs and the B-B control.
+Result: 160 LNA nodes in the 2400230 ball (9 classes) and 68 in the 3304000 ball touch 3 + 3 `lnaMoves` components with none in common; 2400230 is an isolated `lnaMoves` vertex; the F/R meet A(8) against B(6) has 0 WL pairs (repeats E-226 / E-254 at larger radius); the child of E-244 index 8427 is isomorphic to the child of 8063, which E-244 joined at total 6, so it is no new bridge. A MISS here cannot be a NO: 2400230 ~ 3304000 is certified (E-238); it measures the move set.
+
+---
+
 ## E-254 — T10, n = 9, 2400230 ball to depth 8 (20 210 nodes) scanned for key-kept `perI` J != 0 steps: one (parent depth 8), its child joins the 2400230 ball and has no meet with the 3304000 radius-5 ball; the 2400230 radius-6 ball has no meet with it either (5 + 6): the calibration does not close the move-set gap of E-238 (null, partial coverage)
 *2026-10-27* · **commands in `workshop/rounds/091/experimentalist.md` (Reproduction): `workshop/rounds/091/experimentalist_jscan.py` on the depth-8 pickle of `workshop/rounds/087/toolsmith_d6scan.py build 2400230`, then `workshop/rounds/082/skeptic_join.py side|meet`; outputs `experimentalist_jscan_out.txt`, `experimentalist_jscan2_out.txt`, `experimentalist_meets_out.txt`** · *workshop round 091, experimentalist, refereed by toolsmith (minor revision, answered)*
 
@@ -70,6 +94,7 @@ Scope: n = 6..16 (rows 6..12 reproduce E-218); orbit sizes 3 328, 7 168, 15 360,
 
 ## E-246 — T3/T8 Candidate C, nu^k P_l has more than n summands for every k <= 254, 74, 218 in the periodic groups of 45050400, 050404400, 040404000 (Phi-orders 84, 24, 72): S^a is not [b] on projectives for any a up to those bounds, including 1, 2, 3 times the Phi-order (objects only, GF(2^31-1))
 *2026-10-26* · **`timeout 10m .venv/bin/python workshop/rounds/089/maverick_bimod.py 45050400 254`** (65 s; `040404000 218` 40 s, `050404400 74` 6 s; Serre check `maverick_check.py 45050400 12`; series in `workshop/rounds/089/maverick_rk_*.out`) · *workshop round 089, maverick, refereed by scholar (accept)*
+*Erratum (workshop round 093):* the groups of 34504030, 50505000 and 45050400 are at n = 10, not n = 11 as in this heading (E-253, maverick).
 
 Scope: three representatives (n = 10, 11, 11 as the submission counts vertices; E-245 calls all three n = 11 groups); objects nu^k P_l only, exact over one prime, finite K (larger a is extrapolation); the method is nu X = X tensor Q with Q the minimal projective bimodule resolution of D(Lambda), validated against E-245's series (34504030, 50505000, 334504030, 444444400, 555555000, 30302, D_10) and by a Serre-duality check, 0 mismatches over k <= 12 (referee re-ran 45050400 only). Min R_k (k >= 1) = 27, 30, 27 against n; R_{ma} = c m + e for m = 1..3 is observed, not proved. Decides the three groups E-245 left undecided: all six periodic indefinite groups tested other than D_10 and the 535 group are not FCY on projectives. Optional gaps: no second prime; the bar-method agreement (about 150 values) not itemised.
 
@@ -77,6 +102,7 @@ Scope: three representatives (n = 10, 11, 11 as the submission counts vertices; 
 
 ## E-245 — T3/T8 Candidate C, serre-functor rank growth on projectives: in the n = 11 group 535 (kA_11/rad^4, kA_11/rad^5, 033450000) nu^15 P_l = P_l[16] for every l; in 34504030 (k <= 20), 50505000 (k <= 16) and 334504030 (k <= 24), all Phi^a = -I with signature (2,0,*), nu^k P_l has more than n summands for every k tested, so S^a is not [b] on projectives; objects only, 45050400, 050404400, 040404000 undecided
 *2026-10-25* · **`timeout 10m .venv/bin/python workshop/rounds/087/scholar_rankgrowth.py`** (arguments and the other commands in `workshop/rounds/087/scholar.md`, Reproduction; Serre-duality cross-check `scholar_serre_check.py`, global dimensions `scholar_gldim.py`, certificates saved as `scholar_cert_*.out`) · *workshop round 087, scholar, refereed by skeptic (minor revision, response done)*
+*Erratum (workshop round 093):* the groups of 34504030, 50505000 and 45050400 are at n = 10, not n = 11 as in this heading (E-253, maverick).
 
 Scope: n = 10 and 11; K = 7..24 applications of nu over GF(2^31-1); objects nu^k P_l only, not functors; growth read from at most 24 terms, extrapolation beyond is not claimed. Controls: 30302 (non-periodic, grows by about 1.6 per step), 90000000 / 00000030 (derived D_10, returns to 10 at k = 9). The 535-group result is positive on projectives only (functor-level isomorphism not checked); the rad^5 and 033450000 certificate outputs are the stored outputs of the original runs. Independent check by the referee: Serre-duality cohomology test, 0 mismatches for 34504030 (k <= 6), 50505000 (k <= 6), 334504030 (k <= 4), 30302 (k <= 5), 555555000 (k <= 3).
 

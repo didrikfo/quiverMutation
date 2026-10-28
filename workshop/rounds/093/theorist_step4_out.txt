@@ -1,0 +1,1 @@
+{'parents': 600, 'letters': 6347, 'theta': 572, 'H1_bad': 0, 'H2_bad': 0, 'H3_bad': 0, 'H4_bad': 0, 'psi': 1187, 'psi_terms': 2347, 'spectators_d1_nonzero_nonpsi': 0, 'multiA': 453, 'noncomposable_pairs': 0}

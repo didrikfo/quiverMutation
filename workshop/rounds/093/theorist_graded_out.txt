@@ -1,0 +1,13 @@
+arrow degrees (all arrows of the 600 parents): {0: 3303, 1: 1141, 2: 181}
+letter degrees: {0: 3211, 1: 2548, 2: 527, 3: 61}
+max arrow degree per parent: {0: 12, 1: 429, 2: 159}
+theta letters 572  deg(phi) over thetas: {0: 440, 1: 132}
+d_1 theta != (-1)^deg(phi) phi a* exactly (sign included): 0
+delta-0 (gr_G) part of the FULL D != expected (theta: that monomial; others: 0): 1295
+terms (kind, nstar, Wcount change) = ('other', 0, 0) 1435
+terms (kind, nstar, Wcount change) = ('other', 0, 1) 11
+terms (kind, nstar, Wcount change) = ('psi', 0, 0) 333
+terms (kind, nstar, Wcount change) = ('psi', 1, -1) 2347
+terms (kind, nstar, Wcount change) = ('theta', 0, 0) 497
+terms (kind, nstar, Wcount change) = ('theta', 0, 1) 78
+terms (kind, nstar, Wcount change) = ('theta', 1, 0) 572
