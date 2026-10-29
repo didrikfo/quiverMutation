@@ -1,0 +1,4 @@
+piece x + 1 rank 2 det 24 24 sig (2, 0) (2, 0) q iso: True
+piece x**2 + 1 rank 2 det 196 196 sig (2, 0) (2, 0) q iso: True
+piece x**8 - x**7 - 2*x**6 - x**5 + x**4 - x**3 - 2*x**2 - x + 1 rank 8 det -735 -735 sig (7, 1) (7, 1) q iso: True
+piece x**2 + 2*x + 1 rank 2 det 24 24 sig (2, 0) (2, 0) q iso: True

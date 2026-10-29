@@ -697,3 +697,5 @@ the folded offsets are equal-size singleton orbits. E-061.
 **D(i)** (E-199). The full subquiver on the vertices reachable from a vertex i, i included. Step 7 of the mutation (Oppermann's kernel) only sees D(i); it is the repo's range of validity when D(i) is acyclic.
 
 **CyclicQuiverWarning** (E-198). Warning from `arrowPaths` (`cartanMatrix`, `isInIdeal`, `_minimalGenerators`) on a quiver with a loop or an oriented cycle, where the vertex-simple `allPathsBetween` can be wrong (E-193); the value is unchanged.
+
+**q_S, discriminant form of C + C^T** (E-265). For the Cartan matrix C of an LNA, S = C + C^T (even, diagonal 2); q_S is the finite quadratic form x -> x^T S x mod 2 on A = S^-1 Z^n / Z^n, |A| = |det S|. It is invariant under C -> P^T C P (P in GL_n(Z)), so a difference in q_S shows two Cartan matrices are not Z-congruent. It separates 7 of the 8 pairs of E-259 that the det, signature and SNF(xC + C^T) probes could not.

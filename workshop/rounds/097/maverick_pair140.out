@@ -1,0 +1,8 @@
+(x + 1)**2*(x**2 + 1)*(x**8 - x**7 - 2*x**6 - x**5 + x**4 - x**3 - 2*x**2 - x + 1) det C 1 det S -40 |1-Phi| det -40
+(x + 1)**2*(x**2 + 1)*(x**8 - x**7 - 2*x**6 - x**5 + x**4 - x**3 - 2*x**2 - x + 1) det C 1 det S -40 |1-Phi| det -40
+module-iso random search: (False, 14, 4)
+commutant rank 14
+p 2 elements tried 65 max rank mod p 12 (invertible exists)
+p 3 elements tried 1 max rank mod p 12 (invertible exists)
+p 5 elements tried 8 max rank mod p 12 (invertible exists)
+p 7 elements tried 1 max rank mod p 12 (invertible exists)

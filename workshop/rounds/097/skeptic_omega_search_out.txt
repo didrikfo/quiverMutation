@@ -1,0 +1,13 @@
+361 ('n=4', 'H', 'nopat', 'min', 'acyclic child')
+361 ('n=4', 'H', 'nopat', 'min', 'acyclic child', 'End=child', 'J=0')
+1 ('n=4', 'H', 'nopat', 'min', 'cyclic child')
+1402 ('n=5', 'H', 'nopat', 'min', 'acyclic child')
+1402 ('n=5', 'H', 'nopat', 'min', 'acyclic child', 'End=child', 'J=0')
+7 ('n=5', 'H', 'nopat', 'min', 'cyclic child')
+3303 ('n=6', 'H', 'nopat', 'min', 'acyclic child')
+3303 ('n=6', 'H', 'nopat', 'min', 'acyclic child', 'End=child', 'J=0')
+62 ('n=6', 'H', 'nopat', 'min', 'cyclic child')
+150 n=4 parents
+150 n=5 parents
+150 n=6 parents
+bad: 0

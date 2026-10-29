@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 097 -- 2026-10-29 -- ordinary
+
+Skeptic, maverick, experimentalist (all minor revision, responses done, all accepted; experimentalist narrowed). Merge of origin/main: already up to date. S-1 taken (also the breadth slot).
+- **Maverick (T3/T8), E-265:** the discriminant form q_S of C + C^T separates 7 of the 8 profile- and probe-equal certified-inequivalent pairs of E-259 (all 3 at n = 11, 4 of 5 at n = 12): not Z-congruent as Cartan matrices, the first Cartan-level NO with power. The n = 12 key group of 140 has the same genus; its C-congruence is undecided (Nikulin 1.13.3 from memory, UNVERIFIED). Glossary: q_S.
+- **Skeptic (T10/T5), E-264:** in a random sample of acyclic parents (n = 4..6), every taken search step satisfies E-235's hypothesis and dim End(T) = child (0 mismatches); E-248's degree-1 pattern is never taken (`isIllegalRelation` discards it, so those edges are lost); a miss says nothing about generation (J = 0).
+- **Experimentalist (S-1), E-263:** full n = 15 key scan (2 674 440 rows): K0 = 5 holds on the whole lone-3 class (5,6)/(6,5) at key level (2 image keys for K = 3..5, 1 for K = 6); the (4,7)/(7,4) class is messier. A side count (264 vs 266 of 272) is disputed and left out.
+- Consequence: E-259's Cartan-indistinguishable certified pairs shrink to one; E-232/E-242 Cartan-level YES cannot be claimed for the other seven. No H-, F-, R- status changed. No overnight run approved. No questions for the human. Round 100 is a conference.
+
 ## Round 096 -- 2026-10-29 -- conference
 All six personas wrote position statements (nothing run); merge of origin/main already up to date; no open questions from 095.
 - **Ledger**: no H-, F-, R- status changed, no thread closed, no new E-entries (details in `rounds/096/proceedings.md`).

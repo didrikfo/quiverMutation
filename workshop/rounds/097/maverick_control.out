@@ -1,0 +1,10 @@
+(2, 2, 2, 2, 2, 3, 0, 3, 0) random congruence: True det P 1
+ perm: True
+(2, 2, 4, 0, 0, 2, 2, 3, 0) random congruence: True det P 1
+ perm: True
+a vs b False b vs a False
+order 20 gens 3 q-value histogram [((1, 0), 1), ((2, 0), 1), ((4, 0), 2), ((5, 0), 4), ((10, 0), 4), ((20, 0), 8)]
+order 20 gens 2 q-value histogram [((1, 0), 1), ((2, 0), 1), ((4, 0), 2), ((5, 0), 4), ((10, 0), 4), ((20, 0), 8)]
+--- independent look: multiset of (order, x^T S x mod 2) over all elements
+[((1, Fraction(0, 1)), 1), ((2, Fraction(1, 1)), 1), ((4, Fraction(5, 4)), 2), ((5, Fraction(4, 5)), 2), ((5, Fraction(6, 5)), 2), ((10, Fraction(1, 5)), 2), ((10, Fraction(9, 5)), 2), ((20, Fraction(1, 20)), 4), ((20, Fraction(9, 20)), 4)]
+[((1, Fraction(0, 1)), 1), ((2, Fraction(1, 1)), 1), ((4, Fraction(1, 4)), 2), ((5, Fraction(2, 5)), 2), ((5, Fraction(8, 5)), 2), ((10, Fraction(3, 5)), 2), ((10, Fraction(7, 5)), 2), ((20, Fraction(13, 20)), 4), ((20, Fraction(37, 20)), 4)]

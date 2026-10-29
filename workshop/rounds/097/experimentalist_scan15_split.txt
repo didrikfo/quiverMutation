@@ -1,0 +1,13 @@
+('head', 5, 0, False) 70
+('head', 5, 0, True) 1
+('head', 5, 1, False) 63
+('head', 5, 1, True) 2
+('head', 6, 0, False) 32
+('head', 6, 0, True) 1
+('tail', 5, 0, False) 70
+('tail', 5, 0, True) 1
+('tail', 5, 1, False) 63
+('tail', 5, 1, True) 2
+('tail', 6, 0, False) 32
+('tail', 6, 0, True) 1
+examples {('tail', 5, 0): '3370000000000', ('head', 5, 1): '0000030220000', ('tail', 6, 0): '2022030000000', ('head', 6, 0): '0000003002000', ('tail', 5, 1): '2200203000000', ('head', 5, 0): '0000060003300'}

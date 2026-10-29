@@ -1,0 +1,4 @@
+N 10 key groups 40 groups split by (det, sig, q_S multiset) 3
+  size 323 classes 2 class sizes [321, 2]
+  size 176 classes 2 class sizes [142, 34]
+  size 45 classes 2 class sizes [25, 20]

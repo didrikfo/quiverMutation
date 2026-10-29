@@ -1,0 +1,64 @@
+GROUP size 242 quipus [((1, 0, 1), (1, 6)), ((1, 2, 2), (1, 3))] |det S| [20] sig [(10, 1)]
+   within (2, 2, 2, 2, 2, 3, 0, 3, 0) (2, 2, 2, 2, 0, 3, 0, 3, 0) genus-equal(q_S iso)
+   within (2, 2, 2, 2, 2, 3, 0, 3, 0) (2, 2, 2, 0, 2, 3, 0, 3, 0) genus-equal(q_S iso)
+   ACROSS (2, 2, 2, 2, 2, 3, 0, 3, 0) (2, 2, 4, 0, 0, 2, 2, 3, 0) GENUS DIFFERS: no isometry of finite quadratic forms
+   ACROSS (2, 2, 2, 2, 2, 3, 0, 3, 0) (2, 2, 4, 0, 0, 2, 0, 3, 0) GENUS DIFFERS: no isometry of finite quadratic forms
+   ACROSS (2, 2, 2, 2, 2, 3, 0, 3, 0) (2, 2, 4, 0, 0, 0, 2, 3, 0) GENUS DIFFERS: no isometry of finite quadratic forms
+   within (2, 2, 2, 2, 0, 3, 0, 3, 0) (2, 2, 2, 0, 2, 3, 0, 3, 0) genus-equal(q_S iso)
+   ACROSS (2, 2, 2, 2, 0, 3, 0, 3, 0) (2, 2, 4, 0, 0, 2, 2, 3, 0) GENUS DIFFERS: no isometry of finite quadratic forms
+   ACROSS (2, 2, 2, 2, 0, 3, 0, 3, 0) (2, 2, 4, 0, 0, 2, 0, 3, 0) GENUS DIFFERS: no isometry of finite quadratic forms
+   ACROSS (2, 2, 2, 2, 0, 3, 0, 3, 0) (2, 2, 4, 0, 0, 0, 2, 3, 0) GENUS DIFFERS: no isometry of finite quadratic forms
+   ACROSS (2, 2, 2, 0, 2, 3, 0, 3, 0) (2, 2, 4, 0, 0, 2, 2, 3, 0) GENUS DIFFERS: no isometry of finite quadratic forms
+   ACROSS (2, 2, 2, 0, 2, 3, 0, 3, 0) (2, 2, 4, 0, 0, 2, 0, 3, 0) GENUS DIFFERS: no isometry of finite quadratic forms
+   ACROSS (2, 2, 2, 0, 2, 3, 0, 3, 0) (2, 2, 4, 0, 0, 0, 2, 3, 0) GENUS DIFFERS: no isometry of finite quadratic forms
+   within (2, 2, 4, 0, 0, 2, 2, 3, 0) (2, 2, 4, 0, 0, 2, 0, 3, 0) genus-equal(q_S iso)
+   within (2, 2, 4, 0, 0, 2, 2, 3, 0) (2, 2, 4, 0, 0, 0, 2, 3, 0) genus-equal(q_S iso)
+   within (2, 2, 4, 0, 0, 2, 0, 3, 0) (2, 2, 4, 0, 0, 0, 2, 3, 0) genus-equal(q_S iso)
+GROUP size 282 quipus [((1, 0, 1), (2, 5)), ((1, 1, 2), (2, 3))] |det S| [32] sig [(10, 1)]
+   within (2, 2, 2, 2, 3, 0, 3, 0, 0) (2, 2, 2, 2, 3, 0, 3, 0, 2) genus-equal(q_S iso)
+   within (2, 2, 2, 2, 3, 0, 3, 0, 0) (2, 2, 2, 2, 3, 0, 4, 0, 0) genus-equal(q_S iso)
+   ACROSS (2, 2, 2, 2, 3, 0, 3, 0, 0) (2, 2, 4, 0, 0, 2, 3, 0, 0) GENUS DIFFERS: no isometry of finite quadratic forms
+   ACROSS (2, 2, 2, 2, 3, 0, 3, 0, 0) (2, 2, 4, 0, 0, 2, 3, 0, 2) GENUS DIFFERS: no isometry of finite quadratic forms
+   ACROSS (2, 2, 2, 2, 3, 0, 3, 0, 0) (2, 2, 4, 0, 0, 2, 4, 0, 0) GENUS DIFFERS: no isometry of finite quadratic forms
+   within (2, 2, 2, 2, 3, 0, 3, 0, 2) (2, 2, 2, 2, 3, 0, 4, 0, 0) genus-equal(q_S iso)
+   ACROSS (2, 2, 2, 2, 3, 0, 3, 0, 2) (2, 2, 4, 0, 0, 2, 3, 0, 0) GENUS DIFFERS: no isometry of finite quadratic forms
+   ACROSS (2, 2, 2, 2, 3, 0, 3, 0, 2) (2, 2, 4, 0, 0, 2, 3, 0, 2) GENUS DIFFERS: no isometry of finite quadratic forms
+   ACROSS (2, 2, 2, 2, 3, 0, 3, 0, 2) (2, 2, 4, 0, 0, 2, 4, 0, 0) GENUS DIFFERS: no isometry of finite quadratic forms
+   ACROSS (2, 2, 2, 2, 3, 0, 4, 0, 0) (2, 2, 4, 0, 0, 2, 3, 0, 0) GENUS DIFFERS: no isometry of finite quadratic forms
+   ACROSS (2, 2, 2, 2, 3, 0, 4, 0, 0) (2, 2, 4, 0, 0, 2, 3, 0, 2) GENUS DIFFERS: no isometry of finite quadratic forms
+   ACROSS (2, 2, 2, 2, 3, 0, 4, 0, 0) (2, 2, 4, 0, 0, 2, 4, 0, 0) GENUS DIFFERS: no isometry of finite quadratic forms
+   within (2, 2, 4, 0, 0, 2, 3, 0, 0) (2, 2, 4, 0, 0, 2, 3, 0, 2) genus-equal(q_S iso)
+   within (2, 2, 4, 0, 0, 2, 3, 0, 0) (2, 2, 4, 0, 0, 2, 4, 0, 0) genus-equal(q_S iso)
+   within (2, 2, 4, 0, 0, 2, 3, 0, 2) (2, 2, 4, 0, 0, 2, 4, 0, 0) genus-equal(q_S iso)
+GROUP size 36 quipus [((1, 0, 0, 1), (1, 1, 4)), ((1, 0, 1, 1), (2, 2, 1))] |det S| [52] sig [(10, 1)]
+   within (2, 2, 2, 3, 0, 3, 0, 3, 0) (2, 2, 0, 3, 0, 3, 0, 3, 0) genus-equal(q_S iso)
+   within (2, 2, 2, 3, 0, 3, 0, 3, 0) (2, 0, 2, 3, 0, 3, 0, 3, 0) genus-equal(q_S iso)
+   ACROSS (2, 2, 2, 3, 0, 3, 0, 3, 0) (2, 3, 0, 4, 0, 0, 2, 3, 0) GENUS DIFFERS: no isometry of finite quadratic forms
+   ACROSS (2, 2, 2, 3, 0, 3, 0, 3, 0) (2, 3, 0, 4, 0, 0, 0, 3, 0) GENUS DIFFERS: no isometry of finite quadratic forms
+   ACROSS (2, 2, 2, 3, 0, 3, 0, 3, 0) (3, 0, 2, 4, 0, 0, 3, 0, 0) GENUS DIFFERS: no isometry of finite quadratic forms
+   within (2, 2, 0, 3, 0, 3, 0, 3, 0) (2, 0, 2, 3, 0, 3, 0, 3, 0) genus-equal(q_S iso)
+   ACROSS (2, 2, 0, 3, 0, 3, 0, 3, 0) (2, 3, 0, 4, 0, 0, 2, 3, 0) GENUS DIFFERS: no isometry of finite quadratic forms
+   ACROSS (2, 2, 0, 3, 0, 3, 0, 3, 0) (2, 3, 0, 4, 0, 0, 0, 3, 0) GENUS DIFFERS: no isometry of finite quadratic forms
+   ACROSS (2, 2, 0, 3, 0, 3, 0, 3, 0) (3, 0, 2, 4, 0, 0, 3, 0, 0) GENUS DIFFERS: no isometry of finite quadratic forms
+   ACROSS (2, 0, 2, 3, 0, 3, 0, 3, 0) (2, 3, 0, 4, 0, 0, 2, 3, 0) GENUS DIFFERS: no isometry of finite quadratic forms
+   ACROSS (2, 0, 2, 3, 0, 3, 0, 3, 0) (2, 3, 0, 4, 0, 0, 0, 3, 0) GENUS DIFFERS: no isometry of finite quadratic forms
+   ACROSS (2, 0, 2, 3, 0, 3, 0, 3, 0) (3, 0, 2, 4, 0, 0, 3, 0, 0) GENUS DIFFERS: no isometry of finite quadratic forms
+   within (2, 3, 0, 4, 0, 0, 2, 3, 0) (2, 3, 0, 4, 0, 0, 0, 3, 0) genus-equal(q_S iso)
+   within (2, 3, 0, 4, 0, 0, 2, 3, 0) (3, 0, 2, 4, 0, 0, 3, 0, 0) genus-equal(q_S iso)
+   within (2, 3, 0, 4, 0, 0, 0, 3, 0) (3, 0, 2, 4, 0, 0, 3, 0, 0) genus-equal(q_S iso)
+GROUP size 50 quipus [((1, 0, 1, 1), (1, 1, 3)), ((1, 0, 2, 1), (1, 2, 1))] |det S| [32] sig [(10, 1)]
+   within (2, 2, 3, 0, 2, 3, 0, 3, 0) (2, 2, 3, 0, 0, 3, 0, 3, 0) genus-equal(q_S iso)
+   within (2, 2, 3, 0, 2, 3, 0, 3, 0) (2, 0, 3, 0, 2, 3, 0, 3, 0) genus-equal(q_S iso)
+   ACROSS (2, 2, 3, 0, 2, 3, 0, 3, 0) (3, 0, 2, 2, 4, 0, 0, 3, 0) GENUS DIFFERS: no isometry of finite quadratic forms
+   ACROSS (2, 2, 3, 0, 2, 3, 0, 3, 0) (3, 0, 2, 0, 4, 0, 0, 3, 0) GENUS DIFFERS: no isometry of finite quadratic forms
+   ACROSS (2, 2, 3, 0, 2, 3, 0, 3, 0) (3, 0, 4, 0, 0, 2, 2, 3, 0) GENUS DIFFERS: no isometry of finite quadratic forms
+   within (2, 2, 3, 0, 0, 3, 0, 3, 0) (2, 0, 3, 0, 2, 3, 0, 3, 0) genus-equal(q_S iso)
+   ACROSS (2, 2, 3, 0, 0, 3, 0, 3, 0) (3, 0, 2, 2, 4, 0, 0, 3, 0) GENUS DIFFERS: no isometry of finite quadratic forms
+   ACROSS (2, 2, 3, 0, 0, 3, 0, 3, 0) (3, 0, 2, 0, 4, 0, 0, 3, 0) GENUS DIFFERS: no isometry of finite quadratic forms
+   ACROSS (2, 2, 3, 0, 0, 3, 0, 3, 0) (3, 0, 4, 0, 0, 2, 2, 3, 0) GENUS DIFFERS: no isometry of finite quadratic forms
+   ACROSS (2, 0, 3, 0, 2, 3, 0, 3, 0) (3, 0, 2, 2, 4, 0, 0, 3, 0) GENUS DIFFERS: no isometry of finite quadratic forms
+   ACROSS (2, 0, 3, 0, 2, 3, 0, 3, 0) (3, 0, 2, 0, 4, 0, 0, 3, 0) GENUS DIFFERS: no isometry of finite quadratic forms
+   ACROSS (2, 0, 3, 0, 2, 3, 0, 3, 0) (3, 0, 4, 0, 0, 2, 2, 3, 0) GENUS DIFFERS: no isometry of finite quadratic forms
+   within (3, 0, 2, 2, 4, 0, 0, 3, 0) (3, 0, 2, 0, 4, 0, 0, 3, 0) genus-equal(q_S iso)
+   within (3, 0, 2, 2, 4, 0, 0, 3, 0) (3, 0, 4, 0, 0, 2, 2, 3, 0) genus-equal(q_S iso)
+   within (3, 0, 2, 0, 4, 0, 0, 3, 0) (3, 0, 4, 0, 0, 2, 2, 3, 0) genus-equal(q_S iso)

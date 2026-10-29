@@ -1,0 +1,22 @@
+=== key class of lone 3 at h = 5 size 18328 lone in class [5, 6]
+ K 3 {0: 972, 1: 824}
+ K 4 {0: 444, 1: 272}
+ K 5 {0: 142, 1: 130}
+ K 6 {0: 66}
+ K >=7 {}
+ removeVertex returned None (skipped): {}
+ image keys for K>=3: 2
+ image keys for K>=4: 2
+ image keys for K>=5: 2
+ image keys for K>=6: 1
+=== key class of lone 3 at h = 4 size 21045 lone in class [4, 7]
+ K 3 {0: 1322, 1: 510, 2: 2, 3: 10, 8: 1, 9: 2, 10: 1, 11: 1}
+ K 4 {0: 570, 1: 256, 2: 1, 5: 8}
+ K 5 {0: 244, 5: 8}
+ K 6 {0: 76, 3: 8}
+ K >=7 {0: 35, 1: 9, 2: 32, 4: 3, 6: 2, 7: 10, 8: 6, 9: 4, 10: 5, 12: 1}
+ removeVertex returned None (skipped): {(4, 3): 1}
+ image keys for K>=3: 13
+ image keys for K>=4: 12
+ image keys for K>=5: 12
+ image keys for K>=6: 11
