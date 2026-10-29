@@ -6,6 +6,32 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-268 — T10, n = 9, one pair: the 8 key-kept J != 0 edges (E-254, E-244, E-239), taken as undirected moves with radius-1 balls of their children, give no meet of 2400230 (F/R depth 8) and 3304000 (depth 6); the test is nearly vacuous and says nothing about the J = 0 premise
+*2026-10-29* · **`timeout 10m .venv/bin/python workshop/rounds/098/toolsmith_j98.py` (stages in the script's docstring; output `workshop/rounds/098/toolsmith_j98_out.txt`)** · *workshop round 098, toolsmith, refereed by experimentalist (minor revision, answered)*
+
+Scope: only these 8 edges as undirected moves (assumption, not derived), F/R balls A8 (20 210 nodes, rebuilt) and B6 (15 401), plus radius-1 balls of the 8 children (+14 on the A side, +94 on the B side); n = 9. The A depth < 8 and B depth-6 scans are E-254's and E-244's, not rerun (the 6 kept parents and the depth-5 scan of 2 958 parents were replayed).
+Result: 0 Weisfeiler-Lehman bucket pairs, 0 isomorphism tests, no meet. All 8 children are non-LNA, so the lnaMoves layer adds nothing. Control: 4 of 7 B children are iso to a node of the plain depth-6 B ball at depth 6, the other 3 lie beyond it (E-244 joined them at 7-8). The result follows from E-254/E-255 plus component membership: only the A child's 14 nodes could have produced a hit. A meet would have meant a missing J != 0 move; a no-meet leaves the J = 0 premise untouched. No overnight run proposed (the only extension, 2400230 at depth 9-10, is hours at about 1 kept step per 20 000 parents).
+Consequence: the E-238 / E-255 move-set gap is not closed by the recorded J != 0 edges. T10's next item is a certificate for a non-LNA pair that is not a move set, or closure for the ledger.
+
+---
+
+## E-267 — T3/T8: Nikulin Prop. 1.13.3 ("class = genus") not found in 28 arXiv e-prints (E-265's citation stays UNVERIFIED); Thm 1.14.2 and Cor. 1.13.4 are what other authors cite for "unique in its genus", and its hypotheses hold for the n = 12 key group of 140; the shift slope b/a is constant on the 26 logged members of 4 FCY-type groups (re-read of E-253)
+*2026-10-29* · **`.venv/bin/python workshop/rounds/098/scholar_slope.py` (parity and order checks print PASS/FAIL)** · *workshop round 098, scholar, refereed by maverick (minor revision, answered)*
+
+Scope: arXiv e-prints only (Nikulin's 1979 paper is not on arXiv; "not found" means not found in these 28, listed in `workshop/rounds/098/scholar.md`); none quotes the text of 1.13.3, 1.13.2 or 1.14.2, only cites them (e.g. 2202.08030 l. 863: Cor. 1.13.4 for uniqueness of an even lattice of signature (2,10); 1902.00229 Lemma and 2103.07324 l. 353: Thm 1.14.2, with a rank-versus-length condition). For the 140 pair `workshop/rounds/097/maverick_pair140.out` gives det S = -40, rank 12, diag S = 2 > 0, so S is indefinite and the cited hypotheses hold, with the theorem's own wording unread. Slope: round-091 logs only (26 members; 535 at n = 11, 1185/2300/3992 at n = 12), a statement about nu^a P_l on logged members; the 4 non-FCY groups are untested; (-1)^(a+b) and a = order match the logged field in 4 of 4 groups.
+Result: E-265's "class = genus (Nikulin 1.13.3)" is not upgraded; do not cite 1.14.2 in E-265 until its statement is quoted from a source. The slope is already in E-253 / E-261 (rediscovery, nothing new).
+
+---
+
+## E-266 — T4 / H-020 H1, correction to E-262, widths 3..11, lengths w+1..w+3: for 298 of the 304 class-B rules the first mutation leaves the LNA class, for 6 (widths 6 and 7) it leaves at step 2; at width 5, lengths 6..8, the first-step split is r_v = 2 (A, 80 of 80 matches) versus r_v >= 3 (B, 112 of 112)
+*2026-10-29* · **`.venv/bin/python workshop/rounds/098/theorist_b5.py`, `theorist_b5_classify.py`, `theorist_b_all.py`, `theorist_exceptions.py` (the last 2 to 10 min)** · *workshop round 098, theorist, refereed by skeptic (minor revision, answered)*
+
+Scope: width-5 detail at lengths 6..8 (24 floating rules, 14 B, 10 A, every match); first-step table over 414 rules at lengths w+1..w+2 (408 of 414); the 6 exceptions and the 298 / 6 split re-run at w+1..w+3 (E-262's range). Criterion fixed beforehand: E-187/E-205's verdict on the first mutation equals the engine's at every match. Class B is defined by a step leaving the LNA class, so the result is largely definitional; the content is the exceptions and the r_v reason.
+Result: HIT on width 5 (112 of 112 B matches: gated, not an LNA, r_v = 3 for 13 rules and 4 for the rule (0,3),(1,4) -> (0,4),(2,3); r_v constant per rule). The 6 exceptions (width 6: 2, width 7: 4; 48 matches) have an LNA first step at r_v = 2 and leave at step 2 at a vertex with r_v = 3: no new exception at w+3, no mixed rule. None of the 14 B rules replays, and E-187 says nothing after the first step. The r_v characterisation beyond width 5 and the middle algebras' Gabriel quivers are not done.
+Consequence: E-262's headline "for the 304 class-B rules the first mutation leaves the LNA class" is true for 298 and false for 6 (corrected in place in E-262). H1's status is unchanged.
+
+---
+
 ## E-265 — T3/T8, n = 11, 12: the discriminant quadratic form q_S of S = C + C^T separates 7 of the 8 profile- and probe-equal certified-inequivalent pairs of E-259 (all 3 at n = 11, 4 of 5 at n = 12), so those pairs are not Z-congruent as Cartan matrices; the eighth (n = 12, key group of 140) has the same genus and its C-congruence is undecided
 *2026-10-29* · **`timeout 10m .venv/bin/python workshop/rounds/097/maverick_cartanZ.py 11 3` and `... 12 3`, `maverick_genusscan.py N` (N = 9..12), `maverick_control.py`, `maverick_pair140.py`, `maverick_pieces.py`** · *workshop round 097, maverick, refereed by skeptic (minor revision, answered)*
 
@@ -36,6 +62,7 @@ Result, class (5,6) (n = 14 image key 0 / 1): K = 3: 972 / 824; K = 4: 444 / 272
 *2026-10-28* · **`.venv/bin/python workshop/rounds/095/theorist_rowmodel.py` and `workshop/rounds/095/theorist_w4.py WIDTH` (commands and outputs in `workshop/rounds/095/theorist.md`)** · *workshop round 095, theorist, refereed by skeptic (minor revision, answered)*
 
 Scope: all 414 floating rules, widths 3..11. Row model checked against the repo engine on 9 396 cases (n = 4..8, every v, both directions, 0 violations). Class A (A/B counts by width: w=3: 2 A, 4: 4, 5: 10, 6: 30, 7: 32, 8: 20, 9: 6, 10: 4, 11: 2). Replay lengths: w+1..w+3 all widths; w+4 for widths 6, 7, 9, 10 (A/B split unchanged, no mixed rule; width 9: 84 matches, width 10: 56, all agree); up to 13, 11, 11, 12 for widths <= 5, 6, 7, 8. Width 11 at w+4 not finished in 10 minutes (next round, per rule).
+Correction (round 098, E-266): the title's "for the 304 class-B rules the first mutation leaves the LNA class" holds for 298; for 6 (widths 6, 7) the first step is an LNA and the class is left at step 2.
 Result: a split of H-020's H1 by proof coverage, not by truth: class A is supported by the replay, which needs the vertex-label swap rule (a right mutation at position p swaps labels p, p+1; left p-1, p), read off the engine (1 049 results, n <= 8), not proved; the extension to all lengths rests on a locality sketch whose third step is unproved. Class B needs a one-step rule for Nakayama-like algebras with a vertex of out-degree 2 or one extra arrow. H1's status is unchanged (no change to any H-020 line).
 
 ---

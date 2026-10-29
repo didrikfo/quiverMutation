@@ -1,0 +1,32 @@
+=== jedges ===
+A parent key in ball: True depth 8
+A kept J != 0 step F 3 LNA None
+B 8063 kept R 9 LNA None
+B 8170 kept R 7 LNA None
+B 8196 kept R 7 LNA None
+B 8427 kept R 7 LNA None
+B 11123 kept R 2 LNA None
+B 4606 kept R 7 LNA None
+B depth-5 kept R 7 LNA None
+depth-5 B parents scanned 2958 time 84s
+exit 0
+=== meet ===
+extras: A 14 B 94
+lnaMoves components of the roots equal? False
+extra LNA nodes by side and lnaMoves component: {}
+/home/user/quiverMutation/.venv/lib/python3.11/site-packages/networkx/utils/backends.py:551: UserWarning: The hashes produced for directed graphs changed in version v3.5 due to a bugfix to track in and out edges separately (see documentation).
+  return self.orig_func(*args, **kwargs)
+ball sizes 20224 15495 WL-bucket pairs 0 iso tests 0 meet None time 20s
+exit 0
+=== control ===
+/home/user/quiverMutation/.venv/lib/python3.11/site-packages/networkx/utils/backends.py:551: UserWarning: The hashes produced for directed graphs changed in version v3.5 due to a bugfix to track in and out edges separately (see documentation).
+  return self.orig_func(*args, **kwargs)
+A E254 child iso to a node of its own plain ball: None
+B E244_8063 child iso to a node of its own plain ball: 6
+B E244_8170 child iso to a node of its own plain ball: None
+B E244_8196 child iso to a node of its own plain ball: None
+B E244_8427 child iso to a node of its own plain ball: 6
+B E244_11123 child iso to a node of its own plain ball: 6
+B E244_4606 child iso to a node of its own plain ball: None
+B d5 child iso to a node of its own plain ball: 6
+exit 0

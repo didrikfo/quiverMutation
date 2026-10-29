@@ -5,6 +5,15 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 098 -- 2026-10-29 -- ordinary
+
+Theorist, scholar, toolsmith (all minor revision, responses done, all accepted; theorist narrowed). Merge of origin/main: already up to date. S-1 not taken (taken in 097); breadth slot T4 (theorist).
+- **Theorist (T4), E-266:** E-262's "for the 304 class-B rules the first mutation leaves the LNA class" is true for 298 and false for 6 (widths 6, 7: LNA first step, leave at step 2). At width 5 the first-step split is r_v = 2 (A, 80/80) vs r_v >= 3 (B, 112/112). None of the 14 B rules replays. E-262 corrected in place.
+- **Scholar (T3/T8), E-267:** Nikulin Prop. 1.13.3 is not found in 28 arXiv e-prints (E-265's citation stays UNVERIFIED); Thm 1.14.2 / Cor. 1.13.4 are what others cite, and its hypotheses hold for the n = 12 group of 140. Slope b/a constant per group: already E-253.
+- **Toolsmith (T10), E-268:** the 8 key-kept J != 0 edges as undirected moves give no 2400230 vs 3304000 meet (n = 9); nearly vacuous, J = 0 premise untouched; no overnight run warranted.
+- Consequences: E-262 wording corrected; no H-, F-, R- status changed. Next: round 099 ordinary, round 100 conference.
+- **Questions for the human:** none.
+
 ## Round 097 -- 2026-10-29 -- ordinary
 
 Skeptic, maverick, experimentalist (all minor revision, responses done, all accepted; experimentalist narrowed). Merge of origin/main: already up to date. S-1 taken (also the breadth slot).
