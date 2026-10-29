@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 096 -- 2026-10-29 -- conference
+All six personas wrote position statements (nothing run); merge of origin/main already up to date; no open questions from 095.
+- **Ledger**: no H-, F-, R- status changed, no thread closed, no new E-entries (details in `rounds/096/proceedings.md`).
+- **Positions**: toolsmith, skeptic, theorist put the NO-with-power J = 0 test first (2400230 vs 3304000 with the recorded J != 0 edges added; E-235/E-248 coverage); experimentalist, maverick, scholar the 8 certified key-equal pairs of E-259 (Z-congruence / a non-Cartan separator). All six name the J = 0 premise as the weakest claim.
+- **Outside picks**: S-1 n = 15 key scan (skeptic, toolsmith), T4 class-B first mutations, T6 n = 10 control, S-1 item 3, shift slope per key group.
+- **Proposed agenda** (in `STATE.md`): 1 T10/T5 NO with power; 2 T3/T8 the E-259 pairs; 3 breadth (T4 / T6); no housekeeping open.
+- **Please approve or change the proposed agenda in `STEERING.md`.** No overnight run approved. Round 097 is ordinary.
+
 ## Round 095 -- 2026-10-28 -- ordinary
 Toolsmith, theorist and scholar worked; skeptic refereed toolsmith and theorist, maverick refereed scholar; all three minor revision, responses done.
 - **Toolsmith (T10, agenda item 1):** the 2400230(8) vs 3304000(6) union join was already run in round 093 (E-255): MISS, a move-set statement with no bearing on J = 0 (E-238 certifies the pair). Only `--plan` run. Note, nothing promoted; item 1 closed.

@@ -2,17 +2,17 @@
 
 Owned by the chair. Rewritten (not appended) at the end of every round; under 120 lines. Every persona reads this first.
 
-last_round: 95
-next_round_kind: conference   (round 096; conference_every = 4)
+last_round: 96
+next_round_kind: ordinary   (round 097; next conference 100, conference_every = 4)
 
 ## What the project is doing now
 Tilting mutation of quivers with relations; derived equivalence of Nakayama algebras (LNAs). The search (`quivermutation/search.py`) walks mutations under a *gate* (mutation is admissible) and a *Coxeter-key guard* (`coxeterGuard`: child keeps the class's Coxeter key). Its docstring says the guard keeps a walk in one derived class. Round 045 found the guard is not a tilting test (E-147, E-151). Under the J = 0 premise all 25 failing n = 7 children are now joined to an LNA (E-157, E-160, E-163); the premise itself is the live question (T10, T5).
 
-## Agenda (proposed, round 092 conference; ordinary rounds work from it until the human changes it)
-1. (Item 1 done by E-255, round 095: the 8427 child is iso to 8063's, MISS is a move-set statement; T10 waits for a non-move-set certificate.) T10/T5, a NO with power (five of six personas): toolsmith `--plan` for 2400230(8) vs 3304000(6) on the union of `lnaMoves` and F/R edges (E-238; E-254 index 8427 first; form of E-226); skeptic states beforehand what a MISS means; theorist the E-235 step 4 check and a Hom(T,T[+-1]) table at the recorded key-kept J != 0 steps (E-233, E-239, E-244, E-254). "25 of 25" always carries "under the J = 0 premise" and "a subset of 70".
-2. T3/T8: a non-Cartan derived invariant for same-key periodic groups (maverick; scholar checks citations of anything tried, and the T6 Euler-form-defect literature question). E-253 rests on partial n = 12 samples.
-3. Breadth slot, one per round: T4 (idle since 087; theorist mechanism of H1 from E-187, experimentalist H1 length 15 widths 9-11, toolsmith H3 by the independent engine); T7 k = 5, m = 2 (skeptic).
-4. Housekeeping: `skeptic_convention2.py` done round 094 (E-258). Round 095: E-261 (literature: no source for H-017's defect; Tits = Euler iff gl.dim <= 2), E-262 (T4: H1 class A/B split). Done round 093: E-245/E-246 erratum, 2112.08129v2 into `sources/`. S-1 n = 15 stays a proposal.
+## Agenda (proposed, round 096 conference; ordinary rounds work from it until the human changes it)
+1. T10/T5, a NO with power (toolsmith, skeptic, theorist, experimentalist all name it): toolsmith `--plan` the 2400230 vs 3304000 calibration with the recorded key-kept J != 0 edges (E-234, E-239, E-244, E-254) added to the move set (about 2 h unsized, not approved: size it first); skeptic states beforehand what a MISS means. Theorist: do E-235 and E-248 cover every step the search takes (loops of degree >= 1 at i; `noCycles`)? skeptic: acyclic parents with degree-1 relation arrows through step 7 (n <= 6). Scholar: Anick Lemma A from a fetched source (E-237). "25 of 25" always reads "under the J = 0 premise, 8 of the 12 presentation classes of the 70 failing edges".
+2. T3/T8, a non-Cartan invariant (maverick, scholar, experimentalist): are the 8 profile- and probe-equal certified-inequivalent pairs of E-259 (3 at n = 11, 5 at n = 12) Z-congruent as Cartan matrices? Toolsmith states the decision method and size first; skeptic checks the quipu certificate of each pair (inherited from E-117); scholar references on isometry of indefinite integral forms (UNVERIFIED if from memory). A separation is the first Cartan-level NO with power; a non-separation bounds every Cartan-level YES (E-232, E-242).
+3. Breadth slot, one per round: T4 class-B first mutations (theorist: the 14 width-5 class-B rules of E-262 against the E-187 one-step rule); S-1 item 3 / n = 15 key scan stays a proposal; T6 n = 10 control (experimentalist, `--plan` first); scholar: is the shift slope b/a constant per key group (E-253 data, no run).
+4. Housekeeping: none open.
 
 ## Open threads
 Each: question · state · last round worked · owner.
@@ -52,6 +52,7 @@ Each: question · state · last round worked · owner.
 The key-guard law (class 0 only); E-147 class-1 count (one script); H-015 citations from memory; the S-1 K-threshold law (two lengths); E-151 counts are step counts on capped BFS samples; E-155 is one n = 8 class, depth 8, slice 2 not independently re-run; 'in the class' for the 25 children rests on the J = 0 premise (generation now proved per loopless step, E-168), edge-tested at Cartan level (E-157, E-163, E-166 paths), at quiver level only for the 13 E-163 edges (E-167, label-preserving); the E-165 length check is one length per rule.
 
 ## Standing facts
+- Round 096 was a conference: ledger changed no H-, F-, R- status, closed no thread; no new E-entries (merge of origin/main already up to date). Six positions: T10/T5 NO-with-power (toolsmith, skeptic, theorist), the E-259 eight pairs (experimentalist, maverick, scholar). Agenda re-proposed. No overnight run approved.
 - Round 095 added E-261, E-262 (merge of origin/main already up to date). Toolsmith (rediscovery of E-255, note, no entry), theorist (E-262, narrowed), scholar (E-261, narrowed), all minor revision, responses done. T4 breadth slot taken (H1: 110 of 414 floating rules replay under E-187/E-205, 304 leave the LNA class; width 11 at w+4 next). No H-, F-, R- status changed. No overnight run approved. Round 096 is a conference.
 - Round 094 added E-258..E-260 (merge of origin/main already up to date). Skeptic (E-258), maverick (E-259), experimentalist (E-260, narrowed), all minor revision, responses done, all accepted. Breadth slot T7 taken. T10 not assigned (waits for a non-move-set certificate). No H-, F-, R- status changed. No overnight run approved. Next conference 096.
 - Round 093 added E-255..E-257 (merge of origin/main already up to date). Toolsmith (E-255), theorist (E-256), scholar (E-257), all minor revision, responses done, all accepted (theorist (a) conditional, (b) rediscovery of E-128). No H-, F-, R- status changed. Erratum on E-245/E-246 applied; Fosse v2 e-print in sources. No overnight run approved. Next conference 096.
