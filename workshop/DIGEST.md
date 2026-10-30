@@ -5,6 +5,15 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 100 -- 2026-10-30 -- conference
+All six personas wrote position statements (nothing run); merge of origin/main already up to date; no open questions from 099.
+- **Ledger**: no H-, F-, R- status changed, no new E-entries, no thread closed; T6 (H-017) reopened narrowly for a saved-data tabulation (details in `rounds/100/proceedings.md`).
+- **Positions**: maverick, toolsmith, skeptic, scholar, experimentalist each want a NO with demonstrated power, either on the J = 0 join (3060000 vs 3304000 at 7 + 7 with a YES control, about 2 h, unsized; or the three n = 11 q_S-separated pairs) or on the Z-congruence test itself (run it on the 1 002 n = 9 certified-equivalent pairs: one failure voids the 9 NO answers of E-265 / E-269). Theorist: a one-step rule for the 14 width-5 class-B rules (T4).
+- **Weakest claim**: five name the J = 0 premise ("25 of 25" is 8 of 12 classes of 70 edges; Lemma A monomial only, number UNVERIFIED; loops of degree >= 1 at i open); maverick names the step "derived equivalence => Z-congruence with Phi-equivariance" behind E-269 (no source matched).
+- **Outside picks**: four of six chose H-017 defect constant per key class at n = 9; also T4, T7 stepped chain.
+- **Proposed agenda** (in `STATE.md`): 1 T3/T8 power control; 2 T10/T5 NO with power; 3 breadth (H-017 defect per class, T4, T7); 4 none.
+- Questions for the human: none; please approve or change the proposed agenda in `STEERING.md`. No overnight run approved. **Per your plan, no round 101 is started until the retrospective (rounds 045-100) and revised setup are done.**
+
 ## Round 099 -- 2026-10-30 -- ordinary
 
 Skeptic, maverick, experimentalist (skeptic and experimentalist minor revision, responses done, accepted; experimentalist narrowed; maverick accept). Merge of origin/main: already up to date. No questions open from 098.
