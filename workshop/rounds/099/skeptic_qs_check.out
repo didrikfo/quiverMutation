@@ -1,0 +1,6 @@
+orders 4 4
+q values A: ['0', '1/2', '1', '1/2']
+q values B: ['0', '1', '1/2', '1/2']
+group isomorphisms preserving q: 2
+q values C (34504030): ['0', '3/2', '3/2', '1'] orders 4
+q-preserving isos A -> C (34504030): 0

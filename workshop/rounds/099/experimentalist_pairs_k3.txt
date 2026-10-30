@@ -1,0 +1,13 @@
+pair ((8, 4), (10, 4)) steps 3 margin 2 cells 8
+((8, 4), (10, 4)) (7, 2) (13, 2) base 2 reached 13 min 2 lowered 0 secs 47.2
+((8, 4), (10, 4)) (14, 2) (15, 2) base 2 reached 10 min 2 lowered 0 secs 84.1
+((8, 4), (10, 4)) (7, 2) (15, 2) base 2 reached 17 min 2 lowered 0 secs 104.1
+((8, 4), (10, 4)) (6, 2) (14, 2) base 2 reached 18 min 2 lowered 0 secs 120.0
+((8, 4), (10, 4)) (7, 3) (14, 2) base 2 reached 9 min 2 lowered 0 secs 101.9
+((8, 4), (10, 4)) (6, 2) (15, 2) base 2 reached 20 min 2 lowered 0 secs 168.0
+((8, 4), (10, 4)) (12, 3) (15, 2) base 2 reached 10 min 2 lowered 0 secs 105.2
+((8, 4), (10, 4)) (12, 3) (5, 2) base 2 reached 9 min 2 lowered 0 secs 130.7
+
+real	3m55.708s
+user	13m12.532s
+sys	0m0.783s

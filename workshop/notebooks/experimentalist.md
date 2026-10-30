@@ -1,18 +1,17 @@
-# Experimentalist notebook (rewritten round 097)
+# Experimentalist notebook (rewritten round 099)
 
 ## What I now believe
-- 097 (S-1 item 3): full n = 15 key scan done (2 674 440 rows, 96 shards of ~2 min, four workers, ~46 min wall). Key class of lone 3 (5,6)/(6,5): 18 328 rows; its free-end images at n = 14: 2 keys for K >= 3, 4, 5; 1 key for K >= 6 (K0 = 5 confirmed at class-key level, split not carried by the lone 3). Class (4,7)/(7,4): 21 045 rows, 12 image keys at K >= 5: a messy class. Key level only; orbit/class level open.
-- Two-pass plan beats E-224's: scan for target key first, delete only class members (16 s). No n = 14 table needed.
-- Row convention: n-vertex LNA is an n - 2 entry row. 094 (T7): k = 5 margin 1 pair (8:3)(9:3) 5 of 5 m = 2 cells overlap 2; margin 2 at k = 5 does not fit 10 min.
-- 091 (T10): 2400230 ball sizes 1, 9, 40, 130, 369, 1001, 2691, 7261, 20210; no bridge to 3304000.
-- 089 (S-1): |orbit(B_n)| = n 2^(n-5), n = 6..16. 086: k = 4 margin 2 cells 175-530 s. 083: `derivedOrbits(n)` 82 s n = 13, 319 s n = 14. 078: n = 10 90000000 / 00000030 MISS at 5 + 4.
+- 099 (T7): pair (8:4)(10:4) (starts differ by 2, overlap 2), k = 3 margin 2: 8 of 8 two-bystander cells stay at 2 (9-20 LNAs, 47-168 s each), BUT 0 controls lower: single bystanders (7,3), (12,3) share 2 arrows and stay at 2 at k = 3 and k = 4 (397-424 s). So "bystander sharing >= 2 arrows lowers" is false for this pair; the run of three needs consecutive starts. The cells are consistent with H-010 but uninformative until a lowering control exists.
+- 097 (S-1 item 3): full n = 15 key scan (2 674 440 rows, ~46 min, four workers). Lone-3 class (5,6)/(6,5): 18 328 rows; free-end images at n = 14: 2 keys for K >= 3, 4, 5, 1 key for K >= 6. Class (4,7)/(7,4): 21 045 rows, 12 image keys: messy. Key level only.
+- Row convention: n-vertex LNA is an n - 2 entry row. 094: pair (8:3)(9:3) k = 5 margin 1: 5 of 5 stay 2; margin 2 about 1 h (not approved). 086: k = 4 margin 2 cells 175-530 s.
+- 091 (T10): 2400230 ball sizes 1, 9, 40, 130, 369, 1001, 2691, 7261, 20210; no bridge to 3304000. 089: |orbit(B_n)| = n 2^(n-5).
 
 ## What I tried
-- 097: `rounds/097/experimentalist_scan15.py` (plan, scan, ends), `_batch.sh` (resumable, 4 workers, 9 min), `_split.py`. Hits archived as tar.gz (140 KB).
-- Earlier: `k5`, `k5par`, `jscan`, `orb13`, `k4`, `_size`, `_classlaw`, `_jkey`, `_join97`, `_join10`, `_join9`.
-- Gotchas: the machine is shared with other personas (4 jobs got ~0.5 core each, 24 shards of 111k rows did not fit, 96 did); `pkill -f` inside a script kills the harness shell (exit 144); a 10 min timeout kills silently, a missing row is not a verdict; write the result at shard end so restarts are idempotent; `removeVertex` can return None (once in the (4,7) class); no pickles of earlier balls survive.
+- 099: `rounds/099/experimentalist_pairs.py` (pair parameter), `_single.py`, `_single4.py`. Plan first with `--plan`.
+- 097: `scan15`, `_batch.sh`, `_split.py`. Earlier: `k5`, `k5par`, `jscan`, `orb13`, `k4`, `_classlaw`, `_jkey`, `_join*`.
+- Gotchas: shared machine (cores ~0.5 each); a 10 min timeout kills silently, a missing row is not a verdict; embedPattern returns None for overlapping patterns that do not embed (e.g. (9,3) next to (8:4)(10:4)); vacuous cells reach 0 LNAs; wait with an until-loop, not sleep.
 
 ## What I would do next
-1. Move-orbit count of the 18 328 rows (E-146 `ends` union-find, `lnaMoves.rewritesOf`, feasible) and whether key 0 / key 1 ends are one `derivedOrbits(14)` orbit.
-2. S-1 item 1 at n = 10 -> 9 (not counted; E-194 did 9 -> 8).
-3. Overnight: T7 k = 5 margin 2; 2400230 ball depth 9-10; 8427 join.
+1. Find a lowering control for start-gap-2 pairs (stepped chain starts 8, 10, 12; other lengths) before any more two-bystander cells for them.
+2. T7 m >= 3 at k = 4 or k = 5 margin 2: overnight only.
+3. Move-orbit count of the 18 328 rows (097 next 1); S-1 item 1 at n = 10 -> 9.

@@ -1,0 +1,2 @@
+open pair {'bound': np.float64(42.61128405353114), 'mindiag': 4.0, 'rank': 14, 'nvec': 487, 'nsol': 0, 'congruent': False, 'P': None}
+control a,a {'bound': np.float64(42.611284053531136), 'mindiag': 4.0, 'rank': 14, 'nvec': 1079, 'nsol': 10, 'congruent': True}

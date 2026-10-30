@@ -1,0 +1,3 @@
+(9, 2) None
+(9, 3) None
+(9, 4) base 3 reached 4 min 2 lowered 2 secs 30.0

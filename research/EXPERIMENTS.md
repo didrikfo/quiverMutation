@@ -6,6 +6,29 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-271 — T7 / H-010, new pair shape (8:4)(10:4), k = 3, margin 2 (+ four k = 4 controls): 9 of 9 two-bystander cells stay at overlap 2 (7 to 20 LNAs each), but 0 of 4 informative single-bystander controls lowers it, so the cells are consistent with H-010 and could not have failed
+*2026-10-30* · **`timeout 10m .venv/bin/python workshop/rounds/099/experimentalist_pairs.py 3 2 "8,4:10,4" "7,2:13,2;14,2:15,2;7,2:15,2;6,2:14,2;6,2:15,2;7,3:14,2;12,3:5,2;12,3:15,2" --jobs 4` (3 m 56 s; further commands in `workshop/rounds/099/experimentalist.md`)** · *workshop round 099, experimentalist, refereed by scholar (minor revision, answered; stepped-chain control not done)*
+
+Scope: ONE pair shape (8:4)(10:4) (base overlap 2), k = 3, margin 2: 6 m = 2 cells plus 3 cells with an m = 3 bystander sharing 2 arrows; controls: 6 single-bystander cells at k = 3 and 4 at k = 4, of which only 4 are informative ((7,3), (12,3) at k = 3 and k = 4; the rest reach 0 LNAs, do not embed, or have base overlap 3). A start at 9 gives base 3 or does not embed (3 cells, 30 s). Capped sample, no proof.
+
+Result: no cell reaches an LNA with overlap below 2, but the E-230 / E-241 contrast (bystanders alone stay at 2, a run of three goes to 0) cannot be reproduced for this pair: no tested control lowers it. The stepped chain (starts 8, 10, 12) is untested. H-010 is not contradicted and not supported by this shape; E-029 and the isolated-pair restriction of H-010 (HYPOTHESES.md l. 1023) are the prior record.
+
+## E-270 — T3/T8, n = 10, one key group (323 rows): q_S of C + C^T has no power beyond signature on the Phi^18 group; 90000000 and 00000030 (equivalent, E-190) have isomorphic q_S, a MISS for the refutation test
+*2026-10-30* · **`timeout 10m .venv/bin/python workshop/rounds/099/skeptic_qs_periodic.py` (16 s); independent brute-force check `workshop/rounds/099/skeptic_qs_check.py` (< 1 s)** · *workshop round 099, skeptic, refereed by theorist (minor revision, answered)*
+
+Scope: n = 10, the single Phi^18 key group; exact Cartan arithmetic; the 321 / 2 partition is a det and signature partition (both det 4; signature (10,0) vs (8,2)), with `disc_iso` called only inside the signature-equal class. Says nothing about n >= 11 or the 140 group.
+
+Result: pre-registered refutation test (q_S non-isomorphic for an equivalent pair) is a MISS: q_S(90000000) ~ q_S(00000030), explicit isometry; the discriminant group has order 4, so the form is fixed by signature mod 8 (Milgram) and the test has almost no power. The group splits into 321 rows (D_10, E-190) and 2 rows (34504030, 50505000, equivalent by E-178's 7-step move), the same split signature gives. Recorded joins for the 321: E-178 has 320 rows in one orbit under the moves; 90000000 is identified with D_10 by E-190 and is not joined by moves (E-190, E-224). E-265's invariant survives, untested at n = 10 in any real sense; the agenda item stands for n >= 11.
+
+## E-269 — T3/T8, n = 12, key group of 140 (36 + 40 members, two quipus): the certified-inequivalent pair is NOT Z-congruent as Cartan matrices (9 of 9 cross pairs; 6 of 6 within-quipu pairs are), by an exhaustive search of the rank-14 Phi-commutant lattice
+*2026-10-30* · **`timeout 10m .venv/bin/python workshop/rounds/099/maverick_iso140.py 30` (5 s); `... maverick_iso140.py table 3` (85 s); `maverick_ctl.py`, `maverick_transp.py`, `maverick_setup.py` (each about 5 s)** · *workshop round 099, maverick, refereed by skeptic (accept)*
+
+Scope: n = 12, the key group of 140 only: the open pair of E-265 plus up to 3 members per quipu (15 pairs; the 9 cross pairs run at slack 0.5 only). Search bound is a floating-point majorant, not interval arithmetic; the referee re-derived it independently, checked the identity numerically on R = Phi^k, and ran slack 60 (23 818 lattice vectors, 0 isometries; slack 100 overflows the 300 000-vector cap). Not claimed: that S_a, S_b are non-isometric (same genus).
+
+Reduction: C = S(1 - Phi^-1)^-1 with S = C + C^T, Phi = -C^-T C, so P C_a P^T = C_b iff R = P^T lies in the commutant {R Phi_b = Phi_a R} (rank 14) and R^T S_a R = S_b. S has signature (11,1), the hyperbolic plane is the Salem eigenplane of the degree-8 factor, so the isometries commuting with Phi are a finite set times Phi^Z; `qfminim` lists every commutant vector up to the bound 13.11 (slack 30: 42.6) and each is tested in exact integers. Controls: P = I, a random elementary Q (found), the 6 within-quipu pairs (found, 2 or 4 solutions each). The transposed test C_a vs C_b^T is also NO, but it is the same question here since C_a ~ C_a^T (redundant, not independent). Controls pass only with about 1.1 of room at the default bound (identity has norm 12), supplied by the slack 30 / 60 runs.
+
+Consequence: E-259's list of Cartan-indistinguishable certified pairs is empty at n = 11, 12 (q_S: 7 of 8, this: the eighth). Finiteness is specific to signature (n - 1, 1) with one Salem pair.
+
 ## E-268 — T10, n = 9, one pair: the 8 key-kept J != 0 edges (E-254, E-244, E-239), taken as undirected moves with radius-1 balls of their children, give no meet of 2400230 (F/R depth 8) and 3304000 (depth 6); the test is nearly vacuous and says nothing about the J = 0 premise
 *2026-10-29* · **`timeout 10m .venv/bin/python workshop/rounds/098/toolsmith_j98.py` (stages in the script's docstring; output `workshop/rounds/098/toolsmith_j98_out.txt`)** · *workshop round 098, toolsmith, refereed by experimentalist (minor revision, answered)*
 
@@ -32,7 +55,7 @@ Consequence: E-262's headline "for the 304 class-B rules the first mutation leav
 
 ---
 
-## E-265 — T3/T8, n = 11, 12: the discriminant quadratic form q_S of S = C + C^T separates 7 of the 8 profile- and probe-equal certified-inequivalent pairs of E-259 (all 3 at n = 11, 4 of 5 at n = 12), so those pairs are not Z-congruent as Cartan matrices; the eighth (n = 12, key group of 140) has the same genus and its C-congruence is undecided
+## E-265 — (eighth pair decided by E-269) T3/T8, n = 11, 12: the discriminant quadratic form q_S of S = C + C^T separates 7 of the 8 profile- and probe-equal certified-inequivalent pairs of E-259 (all 3 at n = 11, 4 of 5 at n = 12), so those pairs are not Z-congruent as Cartan matrices; the eighth (n = 12, key group of 140) has the same genus and its C-congruence is undecided
 *2026-10-29* · **`timeout 10m .venv/bin/python workshop/rounds/097/maverick_cartanZ.py 11 3` and `... 12 3`, `maverick_genusscan.py N` (N = 9..12), `maverick_control.py`, `maverick_pair140.py`, `maverick_pieces.py`** · *workshop round 097, maverick, refereed by skeptic (minor revision, answered)*
 
 Scope: n = 11 (3 pairs, plus the key group of 50, outside E-259's eight) and n = 12 (5 pairs), up to 3 members per quipu, every cross pair compared; whole-key-table scan n = 9..12 for |det S| <= 4000. The NO is for Z-congruence of the Cartan matrices (q_S is invariant under S -> P^T S P); it is a NO for derived equivalence only for finite global dimension (Happel/Rickard), not shown for these LNAs, and those pairs are already quipu-certified inequivalent. For the 140 pair only "same genus" is shown: Z-congruence of S would follow from class = genus (Nikulin 1.13.3, cited from memory, UNVERIFIED); C-congruence (which also needs P Phi_a = Phi_b P) is decided for no pair.

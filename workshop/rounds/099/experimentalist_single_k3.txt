@@ -1,0 +1,7 @@
+cells 6 [(6, 4), (7, 3), (7, 4), (12, 2), (12, 3), (12, 4)]
+(12, 2) None
+(7, 4) base 3 reached 2 min 3 lowered 0 secs 40.8
+(7, 3) base 2 reached 2 min 2 lowered 0 secs 46.0
+(12, 3) base 2 reached 2 min 2 lowered 0 secs 50.7
+(6, 4) base 2 reached 0 min None lowered 0 secs 65.4
+(12, 4) base 2 reached 0 min None lowered 0 secs 66.3

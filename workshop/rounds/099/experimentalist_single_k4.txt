@@ -1,0 +1,4 @@
+(7, 3) base 2 reached 6 min 2 lowered 0 secs 397.3
+(12, 3) base 2 reached 6 min 2 lowered 0 secs 423.6
+(6, 3) base 2 reached 0 min None lowered 0 secs 490.6
+(13, 3) base 2 reached 0 min None lowered 0 secs 516.0

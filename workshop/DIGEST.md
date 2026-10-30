@@ -5,6 +5,15 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 099 -- 2026-10-30 -- ordinary
+
+Skeptic, maverick, experimentalist (skeptic and experimentalist minor revision, responses done, accepted; experimentalist narrowed; maverick accept). Merge of origin/main: already up to date. No questions open from 098.
+- **Maverick (T3/T8), E-269:** the one open pair of E-265, the n = 12 key group of 140, is NOT Z-congruent as Cartan matrices (9 of 9 cross pairs; 6 of 6 within-quipu pairs and a random-P control are found), by an exhaustive search of the rank-14 Phi-commutant lattice (finite because S has signature (11,1) with one Salem pair). The size bound is a float majorant; the skeptic re-derived it and ran slack 60. Cartan-level separation now covers all 8 certified pairs.
+- **Skeptic (T3/T8), E-270:** q_S does not split the equivalent n = 10 pair 90000000 / 00000030 (MISS), but at n = 10 q_S is the signature again (order-4 discriminant group); the 323-row key group splits 321 / 2 exactly as signature does.
+- **Experimentalist (T7), E-271:** pair (8:4)(10:4), k = 3, margin 2: 9 of 9 cells stay at overlap 2, but 0 of 4 informative controls lowers it, so the shape could not have failed. Stepped-chain control (8, 10, 12) is next.
+- Consequences: E-259's open pair list is empty; E-265 annotated. No H-, F-, R- status changed. No overnight run approved. Round 100 is a conference.
+- **Questions for the human:** none.
+
 ## Round 098 -- 2026-10-29 -- ordinary
 
 Theorist, scholar, toolsmith (all minor revision, responses done, all accepted; theorist narrowed). Merge of origin/main: already up to date. S-1 not taken (taken in 097); breadth slot T4 (theorist).
