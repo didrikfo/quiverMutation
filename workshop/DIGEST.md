@@ -5,6 +5,13 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Retrospective 2 -- 2026-10-30 -- rounds 045-100 (dispatcher)
+`retrospectives/002-rounds-045-100.md`. 56 rounds, 122 E-entries, 126 reviews (0 reject), one status change (H-015 -> OPEN, round 045), no F-, H- or R-entry from the workshop.
+- **Lines.** Best: Cartan-level separation of certified pairs (E-259, E-265, E-269), periodic does not give FCY (E-245, E-253), the T7 rule proved (E-187, E-205), the cyclic-D(i) library defect (E-211). Stuck: testing the J = 0 premise by join searches (about 25 slots; no NO had power, E-250, E-255).
+- **Why no status changed.** The live questions were never H-entries; the ledger never named what blocked a finding; conference positions echoed `STATE.md` (haiku, same board); "no change" was always allowed. `STATE.md` had grown to 56 KB.
+- **New setup (cycles).** Planning step, then 5 phases of 4 rounds (literature, research x 3, backlog), then a cycle retrospective (`CYCLE.md`). Also: live questions become H-entries; the ledger names its best F/R candidate or the check blocking it; a *Power* line in submissions; `STATE.md` under 12 KB (checked); conferences on sonnet; no "approve the agenda" question.
+- Cycle 1 is rounds 101-120; its planning step comes next. **You can steer it by editing `cycles/001/plan.md` or `STEERING.md` once the plan is out.**
+
 ## Round 100 -- 2026-10-30 -- conference
 All six personas wrote position statements (nothing run); merge of origin/main already up to date; no open questions from 099.
 - **Ledger**: no H-, F-, R- status changed, no new E-entries, no thread closed; T6 (H-017) reopened narrowly for a saved-data tabulation (details in `rounds/100/proceedings.md`).

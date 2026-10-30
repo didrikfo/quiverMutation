@@ -38,14 +38,42 @@ round** (step 3.5) before anything is promoted; a submission that needs a
 major revision comes up again at the next round. Every fourth round is a
 **conference** instead: no new work, each persona gives a short position
 ("what I now think is most promising, and why", plus one question outside the
-dominant thread); the chair keeps the **ledger** (turns the last rounds'
-E-entries into hypothesis status changes, findings and retractions) and
-proposes an agenda for you to approve in `STEERING.md`.
+dominant thread, and the result closest to a finding); the chair keeps the
+**ledger** (turns the phase's E-entries into hypothesis status changes,
+findings and retractions, or names the one check that blocks each) and sets
+the agenda.
+
+### Cycles and phases
+
+Since round 101 the rounds are grouped into **cycles** ([`CYCLE.md`](CYCLE.md)):
+
+```
+planning ── literature ── research ── research ── research ── backlog ── retrospective
+ step       phase 1       phase 2     phase 3     phase 4     phase 5    of the cycle
+            (3 rounds + a conference each: 20 rounds)
+```
+
+* **Planning step** (a session of its own): every persona writes a loose plan
+  for the cycle; the chair merges them into `cycles/CCC/plan.md`, and writes
+  every question the cycle will work on as an H-entry. **This is the best
+  place for you to steer**: edit `plan.md` or `STEERING.md`.
+* **Literature phase**: finding and reading papers, checking hypotheses,
+  inconclusive experiments and unverified citations against them.
+* **Research phases**: rounds as above.
+* **Backlog phase**: the research backlog. Open items, inconclusive results,
+  unverified citations and pending consequences are settled, retired or
+  turned into new hypotheses.
+* **Cycle retrospective** (by the dispatcher session): what worked, and
+  changes to the format itself (number and order of phases, other focuses).
+
+The phase list and lengths are in `config.yaml` under `cycle:`.
 
 Retrospectives of the process itself (not the mathematics) are in
-[`retrospectives/`](retrospectives/); the first, after round 044, explains the
-rules added then (same-round response, scope in titles, ledger, breadth slot,
-consequences for the record, fewer questions for you).
+[`retrospectives/`](retrospectives/): the first, after round 044, explains the
+same-round response, scope in titles, the ledger, the breadth slot,
+consequences for the record and fewer questions for you; the second, after
+round 100, the cycles, H-entries for live questions, the *Power* line, the
+byte limit on `STATE.md` and the ledger's named candidates.
 
 The personas are in [`personas/`](personas/). Each keeps a short
 **notebook** in [`notebooks/`](notebooks/) that it rewrites every round it works;
@@ -57,7 +85,9 @@ that is its memory between rounds, and nothing else carries over.
 |---|---|---|
 | [`STEERING.md`](STEERING.md) | **you** | direction, priorities, things to avoid, the pause switch |
 | [`DIGEST.md`](DIGEST.md) | chair | one short entry per round, newest first -- **read this when you come back** |
-| [`STATE.md`](STATE.md) | chair | the board: round counter, open threads, pending revisions, the rota |
+| [`STATE.md`](STATE.md) | chair | the board: round counter, cycle and phase, open threads, pending revisions, the rota (under 12 KB) |
+| [`CYCLE.md`](CYCLE.md) | you | cycles, phases, the planning step, the backlog phase, the cycle retrospective |
+| `cycles/CCC/` | chair | the cycle's `plan.md` and personas' plans, `phase-P.md` summaries, `backlog.md`, `retrospective.md` |
 | [`config.yaml`](config.yaml) | you | roster, how many work per round, models, time limits |
 | [`ROUND.md`](ROUND.md) | you | the procedure a round follows |
 | `personas/*.md` | you | who the researchers are |
@@ -80,11 +110,14 @@ putting it on a schedule.
 **On a schedule.** A Routine that starts a fresh session on each firing does
 *not* get the repository attached, and could not push (found on the first
 attempt, 2026-09-29). So the schedule is two-stage: a Routine fires a short
-turn into a **dispatcher** session every 12 hours (or, in back-to-back mode,
-the dispatcher re-arms itself with a one-shot check every 15-30 minutes and
-starts the next round as soon as the last one has pushed), and the dispatcher starts
-the round with `create_session`, giving it the repository as its source and
-`workshop` as its outcome branch, which is what lets it push:
+turn into a **dispatcher** session every 8 hours (it has been 12 and 2; in
+back-to-back mode the dispatcher re-arms itself with a one-shot check every
+15-30 minutes), and the dispatcher starts the round with `create_session`,
+giving it the repository as its source and `workshop` as its outcome branch,
+which is what lets it push. The dispatcher reads `next_round_kind` in
+`STATE.md`: for `planning` it starts a planning session (title "Workshop
+cycle CCC planning", the planning prompt below); for `retrospective` it
+writes the cycle retrospective itself and starts nothing:
 
 ```
 create_session(
@@ -102,6 +135,18 @@ a round while one is still running. A round is one session, so the schedule is
 the token budget. Pause it by disabling the Routine, or more cheaply by
 setting `status: paused` in `STEERING.md` (the round then reads one file and
 stops).
+
+### Planning prompt
+
+```
+Run the planning step of the research workshop's next cycle in this
+repository. Make sure you are on the workshop branch (git checkout -B
+workshop origin/workshop). Then read workshop/CYCLE.md, section "Planning
+step", and follow it exactly, as the chair. At the end push to the workshop
+branch (git push -u origin HEAD:workshop). If a push is refused, end your
+turn with the exact error. Do not open a pull request. End with the
+DIGEST.md entry you wrote.
+```
 
 ### Round prompt
 

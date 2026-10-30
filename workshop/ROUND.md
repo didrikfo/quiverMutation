@@ -5,6 +5,11 @@ yourself this round: you set the questions, brief the personas, assign
 referees, decide, and write up. Follow the steps in order. Paths are relative
 to the repository root.
 
+Rounds are grouped into cycles of five phases (literature, research x 3,
+backlog), each of three ordinary rounds and a conference; `workshop/CYCLE.md`
+has the cycle procedure, the planning step and what each phase's focus
+changes. This file says where a round uses it.
+
 Keep your own reading small. You need `workshop/STEERING.md`,
 `workshop/config.yaml`, `workshop/STATE.md`, the top of `workshop/DIGEST.md`,
 and whatever the round's submissions and reviews are. For `research/*.md`, use
@@ -25,9 +30,15 @@ and whatever the round's submissions and reviews are. For `research/*.md`, use
 3. Read `workshop/STEERING.md`. **If it says `status: paused`, stop here**: do
    not commit anything, and end your turn with one line saying the workshop is
    paused.
-4. Read `workshop/config.yaml` and `workshop/STATE.md`. This round's number is
-   `last_round + 1`, written with three digits (`001`). Make
-   `workshop/rounds/NNN/`.
+4. Read `workshop/config.yaml` and `workshop/STATE.md`. **If `STATE.md` says
+   `next_round_kind: planning`**, this session runs the planning step of
+   `workshop/CYCLE.md` instead of a round; **if it says `retrospective`**,
+   stop without committing and end your turn with one line saying the cycle
+   retrospective is due (the dispatcher does it). Otherwise this round's
+   number is `last_round + 1`, written with three digits (`001`). Make
+   `workshop/rounds/NNN/`. Work out its cycle, phase and focus
+   (`CYCLE.md`, *Where a round is in its cycle*) and say them in the first
+   line of `call.md`.
 5. **Settle the open questions of the last round.** Read the *Questions for
    the steering committee* at the end of the previous round's
    `proceedings.md`, and *Answers to the chair* in `STEERING.md`.
@@ -44,8 +55,9 @@ and whatever the round's submissions and reviews are. For `research/*.md`, use
      overturning.
    Never stop and wait for an answer: the rounds run unattended.
 6. The round is a **conference** if `STEERING.md` asks for one, or if its
-   number is a multiple of `conference_every` (whatever `STATE.md`'s
-   `next_round_kind` says). Otherwise it is **ordinary**.
+   number is a multiple of `conference_every` (the last round of its phase,
+   whatever `STATE.md`'s `next_round_kind` says). Otherwise it is
+   **ordinary**.
    A conference skips to [Conference rounds](#conference-rounds).
 
 ## 1. Call
@@ -66,6 +78,10 @@ kind: ordinary
 
 How to choose:
 
+* **Phase focus.** In a **literature** or **backlog** phase, the call follows
+  that focus as `CYCLE.md` describes (and, in the first round of a backlog
+  phase, the backlog list is written first); the breadth and
+  suggested-question rules below apply in **research** phases only.
 * **Revisions first.** Anyone in *Awaiting revision* on the board is called, and
   their assignment is the revision. A revision counts towards
   `researchers_per_round`.
@@ -91,6 +107,9 @@ How to choose:
   that proposes closing it (with the reason) for the next conference's
   ledger. Pick the thread idle longest. This slot does not displace a
   revision.
+* **Blocking checks next.** A check that the last conference's ledger named
+  as blocking an F- or R-entry gets a slot in the next ordinary round,
+  after revisions.
 * **Independent checks pay.** When the agenda's main claim rests on one
   script, an assignment to rebuild it independently (other code, by hand, or
   another method) is a good use of a slot.
@@ -146,7 +165,11 @@ Wait until all of them have finished before going on.
 > in the *Scope* line honestly: a law seen on a capped sample, on one class,
 > or at one n, must say so in its title too ("... at n = 7, class 0, walks
 > capped at 150 s"). Do not commit raw outputs over 200 KB: summarise them
-> in the submission and keep the script that regenerates them. Then
+> in the submission and keep the script that regenerates them. Fill in the
+> *Power* line: if your test can say NO (no join, no separation, no
+> failure), name the control on which it does say NO where NO is the truth
+> (or catches a planted error), with the outcome; if there is none, write
+> "none" and put "(no power)" in the title. Then
 > **rewrite** your notebook `workshop/notebooks/<id>.md` (at most
 > <max_notebook_lines> lines): what you now believe, what you tried, what you
 > would do next. It is your only memory between rounds.
@@ -188,7 +211,8 @@ Brief all referees at once, in parallel as in step 2, with
 >   EXPERIMENTS, literature/) for the claim and its key terms. If it is
 >   already recorded, cite the identifier.
 > - **Evidenced**: is what was checked, over what range, stated specifically
->   enough that it would not need to be re-run to be believed?
+>   enough that it would not need to be re-run to be believed? Does the
+>   *Power* line hold: would the method have said NO here if NO were true?
 >
 > Be exact and brief. Disagreement is the point of review; politeness is not.
 > Same rules as the authors: `.venv/bin/python`, no command longer than
@@ -268,15 +292,20 @@ Then write, in this order:
    question, say which option you recommend: if the human has not answered
    by the next round, that round's chair takes it (step 0). Also list the
    **Decisions taken for the steering committee** from step 0, if any.
-2. `workshop/STATE.md` -- rewrite it: `last_round: NNN`; `next_round_kind`
-   (`conference` if the next round number is a multiple of
-   `conference_every`, else `ordinary`); open threads updated; *Awaiting
-   revision*; requests between personas from the submissions; the rota. Under
-   120 lines. It must make sense to someone who has read nothing else.
-   **Rewrite it, do not append**: no "Round NNN updates" sections; each
-   thread is one current entry (question, state, last round worked, owner);
-   a thread with no assignment for 8 or more rounds is marked `dormant`;
-   requests that were answered or are older than 8 rounds are removed.
+2. `workshop/STATE.md` -- rewrite it: `last_round: NNN`; `cycle`, `phase`,
+   `focus` of the next round; `next_round_kind` (`conference` if the next
+   round is its phase's last, `retrospective` if this round was the last of
+   its cycle, else `ordinary`); open threads updated; *Awaiting revision*;
+   requests between personas from the submissions; the rota. It must make
+   sense to someone who has read nothing else. **Rewrite it, do not append**:
+   no "Round NNN updates" sections; each thread is one current entry of at
+   most `max_thread_chars` characters (question, its H-entry, current state
+   in one or two sentences with the latest identifiers, last round worked,
+   owner) -- the history of a thread is in its E-entries and the cycle's
+   `phase-P.md`, not here; a thread with no assignment for 8 or more rounds
+   is marked `dormant`; requests that were answered or are older than 8
+   rounds are removed; *Standing facts* covers the current phase only. The
+   whole file stays under `max_state_bytes` (step 5 checks it).
 3. `workshop/DIGEST.md` -- a new entry at the top, at most
    `max_digest_entry_lines` lines: `## Round NNN -- <date> -- <kind>`, then
    what was claimed and by whom, what survived, what was promoted (with
@@ -299,6 +328,8 @@ Then write, in this order:
 git add -A workshop research GLOSSARY.md NOTES.md OVERNIGHT.md quivermutation tests *.py
 git status --short        # check nothing unexpected (no logs, no outputs)
 find workshop/rounds/NNN -size +200k   # must print nothing: summarise or drop raw data
+test $(wc -c < workshop/STATE.md) -le 12000 || echo "STATE.md too long: rewrite it shorter"
+awk 'length > 700' workshop/STATE.md   # must print nothing: a thread entry is too long
 git commit -m "Workshop round NNN: <one line>"
 git push -u origin HEAD:workshop
 ```
@@ -322,18 +353,25 @@ No new research. The point is to step back and agree what is worth doing.
 2. Brief every persona in parallel, `model: <models.conference>`:
 
    > You are **<Name>**; your persona is in `workshop/personas/<id>.md`. This
-   > is a conference round of the workshop: no new work. Read your notebook
-   > `workshop/notebooks/<id>.md`, `workshop/STATE.md`, and the last
-   > <conference_every> entries of `workshop/DIGEST.md`, and the *Suggested
-   > questions* in `workshop/STEERING.md` (optional; propose one only if you
-   > think it is worth it). Write
-   > `workshop/rounds/NNN/<id>.md`, at most 30 lines: **what you think is the
-   > single most promising question** for the next few rounds and why; **one
-   > promising question outside the thread that got most of the last
-   > <conference_every> rounds** (a dormant thread, an open hypothesis, or a
-   > new line); **the weakest claim** the workshop currently relies on; **what
-   > you need** from another persona. Do not run anything and do not edit
-   > other files. Reply with your most promising question in one line.
+   > is the conference of phase P (focus: <focus>) of cycle CCC: no new work.
+   > Read, in this order: your notebook `workshop/notebooks/<id>.md`; your own
+   > submissions and reviews of this phase (`workshop/rounds/<the phase's
+   > rounds>/<id>*.md`); the E-entries this phase added that bear on your
+   > threads (grep `research/EXPERIMENTS.md`); then `workshop/STATE.md`, the
+   > cycle plan `workshop/cycles/CCC/plan.md`, and the *Suggested questions*
+   > in `workshop/STEERING.md` (optional). Form your view from the evidence
+   > before you read the board. Write `workshop/rounds/NNN/<id>.md`, at most
+   > 30 lines: **what you think is the single most promising question** for
+   > the next phase and why; **one promising question outside the thread
+   > that got most of this phase** (a dormant thread, an open hypothesis, or
+   > a new line); **the weakest claim** the workshop currently relies on;
+   > **the result of this phase closest to a finding**, and what one check
+   > it still needs; **what you need** from another persona. <For a
+   > literature phase: also what the literature changed for your thread and
+   > what phase 2 should not do because it is published. For a backlog
+   > phase: which backlog items you consider settled, retired or still
+   > open.> Do not run anything and do not edit other files. Reply with your
+   > most promising question in one line.
 
 3. **Ledger.** Before the agenda, take stock of what the workshop now knows.
    List the E-entries added since the last conference (`grep -n "^## E-"
@@ -346,21 +384,32 @@ No new research. The point is to step back and agree what is worth doing.
      independent checks, stated scope): write the F-entry;
    * a belief the workshop or the record held that fell: write the R-entry;
    * a thread that should close (settled, or not worth more rounds): close it.
+   **Name the best candidates.** Whatever else the ledger decides, it names
+   the strongest F-entry candidate and the strongest R-entry candidate since
+   the last conference (the personas' "closest to a finding" lines help).
+   For each: write the entry, or name the **one check that blocks it**; that
+   check becomes an assignment in the next ordinary round (step 1). A
+   ledger with no change is allowed only with the blocking checks named.
+   A question the workshop is working on that has no H-entry gets one now.
    Write this under `## Ledger` in `proceedings.md`, one line per decision
-   with identifiers. A ledger with no change is allowed, but must say why
-   for each hypothesis touched. Then commit these `research/` edits with the
-   round.
+   with identifiers. Then commit these `research/` edits with the round.
+   In the conference of a **backlog** phase, the ledger covers the whole
+   cycle and the backlog list (`CYCLE.md`, *Backlog*).
 4. Write the rest of `proceedings.md` as a **proposed agenda**: three to five
    threads, ranked, each with who should work on it and the first question
    to ask. At least one item comes from outside the thread that took most of
-   the last <conference_every> rounds (the personas each named one). Note
-   where personas disagree.
-5. In `STATE.md`, set the proposed agenda as the open threads, marked
-   `(proposed, round NNN)`, and `next_round_kind: ordinary`. In the digest
-   entry, ask the human in bold to approve or change the agenda in
-   `STEERING.md`. Until they do, ordinary rounds work from the proposed
-   agenda.
-6. Commit and push as in step 5.
+   the phase (the personas each named one). Note where personas disagree.
+   The agenda is for the next phase: if that is a literature or backlog
+   phase, shape the items to its focus.
+5. Write the phase summary `workshop/cycles/CCC/phase-P.md` (`CYCLE.md`,
+   *Phase summary*) and move the phase's history out of `STATE.md` into it.
+6. In `STATE.md`, set the agenda as the open threads, marked
+   `(agenda, round NNN)`, with `phase`/`focus` of the next round and
+   `next_round_kind` (`ordinary`, or `retrospective` after the last
+   conference of a cycle). The agenda is the chair's; do not ask the human
+   to approve it (they change it in `STEERING.md` or the cycle plan when
+   they want to).
+7. Commit and push as in step 5.
 
 ## Special rounds
 

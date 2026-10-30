@@ -1,8 +1,12 @@
 # <Title: the claim, as a sentence>
 
-author: <persona id> · round: <NNN> · kind: <result | negative | conjecture | proof | tool | proposal | rediscovery>
+author: <persona id> · round: <NNN> · kind: <result | negative | conjecture | proof | tool | proposal | rediscovery | literature | backlog>
 thread: <thread id from STATE.md, or "new"> · bears on: <H-nnn, F-nnn, ...>
 scope: <n range · classes · caps on depth, time or sample · what was not covered>
+power: <for a test that can say NO (no join, no separation, no failure): the control on which this method does say NO
+       where NO is known to be true, or does catch a planted error, with its outcome; or "none" -- then the title
+       says "(no power)". For a proof or literature submission: "n/a">
+backlog: <phase 5 only: the backlog items taken, each marked settled | retired | converted | narrowed only>
 
 ## Claim
 

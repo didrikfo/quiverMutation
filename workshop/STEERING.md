@@ -83,32 +83,14 @@ A short negative result ("dead end, because ...") is a welcome outcome.
 <!-- e.g. "conference", "only skeptic and theorist", "everyone on H-021" -->
 (none) <!-- the 7 + 7 join97 request was acted on in round 090 (E-250) -->
 
-## Plan after round 100 (human, 2026-10-26)
+## Plan after round 100 (human, 2026-10-26) -- done 2026-10-30
 
-Rounds 089-100 run exactly as now; **do not implement any of this early**.
-Round 100 is a conference. After it, no round 101 is started until the
-dispatcher has done:
-
-1. **Retrospective 2** (rounds 045-100), in
-   `workshop/retrospectives/002-rounds-045-100.md`: the longer lines of the
-   research, what works and what does not, how the round-044 changes did, and
-   why the last conferences changed no status.
-2. **A revised setup**, structured in cycles. Working version, open to change
-   in the retrospective (names, lengths and order are not fixed):
-   - A *phase* is 4 rounds: 3 ordinary rounds and a conference.
-   - A *cycle* is 5 phases (20 rounds), preceded by a short **planning step**
-     in which every persona states a loose, non-binding plan for the cycle.
-   - Phase 1, **literature**: normal rounds, but the focus is finding and
-     reading relevant papers (arXiv), checking ideas, hypotheses and
-     inconclusive experiments against the literature, cross-referencing.
-     The conference is about that work.
-   - Phases 2-4, **research as usual**: hypotheses, experiments, findings.
-   - Phase 5, **backlog**: the research backlog, not the code backlog. Go
-     through open experiments, unresolved items, inconclusive results and
-     open threads, and try to close, settle or retire them.
-   - After each cycle, a **cycle retrospective**: what worked, what did not,
-     what to change, including the format itself (how many phases per cycle,
-     which phases have which focus, whether to add other focus areas).
+Retrospective 2 is `workshop/retrospectives/002-rounds-045-100.md`. The
+revised setup (cycles of a planning step, five phases of four rounds --
+literature, research x 3, backlog -- and a cycle retrospective) is in
+`workshop/CYCLE.md`, `ROUND.md`, `config.yaml` (`cycle:`), the templates and
+`README.md`. Cycle 1 is rounds 101-120 and starts with its planning step.
+The format stays open to change at each cycle retrospective.
 
 ## Answers to the chair
 
