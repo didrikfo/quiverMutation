@@ -6,6 +6,34 @@ it. Status is one of `OPEN`, `SUPPORTED`, `CONFIRMED → F-nnn`, `REFUTED → R-
 
 ---
 
+## H-026 — The vertex-deletion K-threshold is a law: K0 = (n - 1)/2 - 2 for the lone-3 class
+*2026-10-30* · **OPEN** *(workshop cycle 001 planning)*
+
+At key level, deleting a vertex from a long free stretch next to a lone 3 stabilises once the kept stretch has K >= K0, and K0 = 3, 4, 5 at n = 11, 13, 15 (E-146, E-263; the free-stretch D >= 3 rule, E-206; |orbit B_n| = n 2^(n-5) to n = 16, E-247, unproved). **Falsifiable:** K0 = 6 at n = 17, or a lone-3 row at n = 11..15 whose threshold differs. It rests on three lengths at key level only; a fourth length or a derivation settles it. Thread S-1.
+
+---
+
+## H-025 — Phi periodic does not imply fractionally Calabi-Yau for LNAs
+*2026-10-30* · **SUPPORTED** *(E-245, E-246, E-253: rank growth of nu^k P in several groups, verdict constant on every group swept at n = 10, 11, 12; not stated in the literature, E-251; workshop cycle 001 planning)*
+
+For a Nakayama algebra of finite global dimension, a periodic Coxeter transformation Phi does not force Phi^m = shift. **Falsifiable:** one swept group whose nu^k P stays bounded for every k although Phi is periodic gives the counter-direction. **Would settle it:** a published statement of either direction (phase 1), or a proof that the rank growth is exact for a whole family.
+
+---
+
+## H-024 — Derived equivalent LNAs have Phi-equivariantly Z-congruent Cartan forms
+*2026-10-30* · **OPEN** *(workshop cycle 001 planning; the necessity step behind E-265, E-269, no source matched, E-267)*
+
+If A and B are derived equivalent, there is P in GL_n(Z) with P^T C_B P = C_A (or the symmetrised C + C^T) and P Phi_A = Phi_B P. Every Cartan-level NO of the workshop (the 9 NO answers of E-265 and E-269, via q_S and the Phi-commutant search) uses this as its necessity step; E-269's bound is a floating-point majorant. **Falsifiable:** one certified-equivalent pair (the 1 002 same-name n = 9 pairs of E-238, the 6 n = 12 within-quipu pairs) on which the E-269 test finds no P. **Would settle it:** a theorem number matched in the source or a proof from the Grothendieck-group isometry induced by a derived equivalence, plus the power control above.
+
+---
+
+## H-023 — Every gate-admitted J = 0 mutation step is a derived equivalence
+*2026-10-30* · **OPEN** *(workshop cycle 001 planning; the premise of T5 and under H-015)*
+
+If the gate admits a step with J = 0 (acyclic D(i), no loops of degree >= 1 at i, omega-reduced), the mutated algebra is derived equivalent to its parent. Proved so far: cancellation (E-235), Lemma A directly (E-240), step-7 kernel = Oppermann's for acyclic D(i) (E-199), F/R convention (E-252, E-258); the library refuses cyclic D(i) (E-211, E-222). **Falsifiable:** a gate-admitted J = 0 step whose child has a different derived invariant (Cartan form, Phi, Hochschild data). **Open joints:** E-235 step 4 against Lemma A's hypotheses after omega-reduction (E-256), loops of degree >= 1 at i. Join searches cannot test it (E-250, E-255, E-268). If it holds, H-015 reduces to J != 0 steps.
+
+---
+
 ## H-022 — The walks pass through a small set of shapes, and the ones two classes share are merges
 *2026-09-24, written before the first census* · **SUPPORTED** *(checks 2–4 held at every length; check 1's "no short side of three" clause refuted, its "commonest and majority short side is two" dominance clause held; one new merge -- E-054, F-054. The hub half, "a small number of shapes carries most of the walks", was not measured: no share of walks through the top shapes was computed, and the densest hubs at `n = 8` and 9 are single-class, reached from one class only, which if anything cuts against the hub idea)*
 

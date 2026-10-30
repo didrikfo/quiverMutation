@@ -5,6 +5,17 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Cycle 001 planning -- 2026-10-30
+Planning step, not a round. All six personas wrote plans (`cycles/001/plan/<persona>.md`); the chair merged them into `cycles/001/plan.md`. Merge of origin/main: already up to date. Nothing was run.
+- **Main question (five of six plans):** is the Cartan-level NO valid? Necessity step "derived equivalent => Phi-equivariantly Z-congruent" is unsourced (E-267) and untested on certified-equivalent pairs (1 002 n = 9, 6 n = 12). One failure voids the 9 NOs of E-265/E-269.
+- **Second:** is every gate-admitted J = 0 step a derived equivalence (E-235 step 4 vs Lemma A, loops at i; a per-edge library certificate for the 70 failing n = 7 edges)? All six reject more join searches.
+- **New H-entries** in `research/HYPOTHESES.md`: H-023 (J = 0 premise), H-024 (Phi-equivariant Z-congruence), H-025 (Phi periodic does not give FCY), H-026 (S-1 K-threshold law); all OPEN except H-025 (SUPPORTED). Threads in `STATE.md` now name them.
+- **Phase 1 (101-104, literature):** sources for the necessity step (Happel, Ladkani, Nikulin), Oppermann 1504.02617 steps 1-7, Anick Lemma A number, independent invariants (Hochschild, AAG), explicit equivalent pairs for controls.
+- **Progress means:** H-024 decided either way (F- or R-entry), H-023 reduced to stated lemmas or a counterexample, UNVERIFIED citations matched or struck, docstrings fixed.
+- **Disagreements:** control before new invariant (toolsmith, skeptic) vs in parallel (maverick, scholar); H-017 census timing. The scholar and experimentalist plans exceed 40 lines.
+- Next: round 101 (ordinary, phase 1).
+- **If you want the cycle to go differently, edit `workshop/cycles/001/plan.md` or `workshop/STEERING.md` before round 101.**
+
 ## Retrospective 2 -- 2026-10-30 -- rounds 045-100 (dispatcher)
 `retrospectives/002-rounds-045-100.md`. 56 rounds, 122 E-entries, 126 reviews (0 reject), one status change (H-015 -> OPEN, round 045), no F-, H- or R-entry from the workshop.
 - **Lines.** Best: Cartan-level separation of certified pairs (E-259, E-265, E-269), periodic does not give FCY (E-245, E-253), the T7 rule proved (E-187, E-205), the cyclic-D(i) library defect (E-211). Stuck: testing the J = 0 premise by join searches (about 25 slots; no NO had power, E-250, E-255).
