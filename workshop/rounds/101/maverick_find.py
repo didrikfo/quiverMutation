@@ -2,7 +2,7 @@
 usage: timeout 10m .venv/bin/python -W ignore workshop/rounds/101/maverick_find.py"""
 import sys, collections, itertools; sys.path.insert(0, "workshop/rounds/097")
 from maverick_cartanZ import *
-for n in (10, 11):
+for n in tuple(int(a) for a in sys.argv[1:]) or (10, 11):
     keys = ct.lnaKeys(n); groups = collections.defaultdict(list)
     for rl, kk in keys.items(): groups[kk].append(rl)
     print(n, "groups", len(groups), "strings", len(keys), flush=True)

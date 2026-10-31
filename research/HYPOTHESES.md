@@ -21,7 +21,7 @@ For a Nakayama algebra of finite global dimension, a periodic Coxeter transforma
 ---
 
 ## H-024 — Derived equivalent LNAs have Phi-equivariantly Z-congruent Cartan forms
-*2026-10-30* · **OPEN** *(workshop cycle 001 planning; the necessity step behind E-265, E-269, no source matched, E-267)*
+*2026-10-30* · **SUPPORTED** *(necessity step sourced: Ladkani math/0610685 Cor. 3.13, Lemma 3.14, E-272, E-274; E-269 YES on 3 literature pairs, mixed-digit pairs and small-lam NO untested)*
 
 If A and B are derived equivalent, there is P in GL_n(Z) with P^T C_B P = C_A (or the symmetrised C + C^T) and P Phi_A = Phi_B P. Every Cartan-level NO of the workshop (the 9 NO answers of E-265 and E-269, via q_S and the Phi-commutant search) uses this as its necessity step; E-269's bound is a floating-point majorant. **Falsifiable:** one certified-equivalent pair (the 1 002 same-name n = 9 pairs of E-238, the 6 n = 12 within-quipu pairs) on which the E-269 test finds no P. **Would settle it:** a theorem number matched in the source or a proof from the Grothendieck-group isometry induced by a derived equivalence, plus the power control above.
 
@@ -30,7 +30,7 @@ If A and B are derived equivalent, there is P in GL_n(Z) with P^T C_B P = C_A (o
 ## H-023 — Every gate-admitted J = 0 mutation step is a derived equivalence
 *2026-10-30* · **OPEN** *(workshop cycle 001 planning; the premise of T5 and under H-015)*
 
-If the gate admits a step with J = 0 (acyclic D(i), no loops of degree >= 1 at i, omega-reduced), the mutated algebra is derived equivalent to its parent. Proved so far: cancellation (E-235), Lemma A directly (E-240), step-7 kernel = Oppermann's for acyclic D(i) (E-199), F/R convention (E-252, E-258); the library refuses cyclic D(i) (E-211, E-222). **Falsifiable:** a gate-admitted J = 0 step whose child has a different derived invariant (Cartan form, Phi, Hochschild data). **Open joints:** E-235 step 4 against Lemma A's hypotheses after omega-reduction (E-256), loops of degree >= 1 at i. Join searches cannot test it (E-250, E-255, E-268). If it holds, H-015 reduces to J != 0 steps.
+If the gate admits a step with J = 0 (acyclic D(i), no loops of degree >= 1 at i, omega-reduced), the mutated algebra is derived equivalent to its parent. Proved so far: cancellation (E-235), Lemma A directly (E-240), step-7 kernel = Oppermann's for acyclic D(i) (E-199), F/R convention (E-252, E-258); the library refuses cyclic D(i) (E-211, E-222). **Falsifiable:** a gate-admitted J = 0 step whose child has a different derived invariant (Cartan form, Phi, Hochschild data). **Open joints:** E-235 step 4 against Lemma A's hypotheses after omega-reduction (E-256), loops of degree >= 1 at i (Oppermann's theorem allows them, needs a unitriangular cancellation, E-273). Join searches cannot test it (E-250, E-255, E-268). If it holds, H-015 reduces to J != 0 steps.
 
 ---
 

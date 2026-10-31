@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 101 -- 2026-10-31 -- ordinary (cycle 1, phase 1: literature)
+Scholar, theorist, maverick (all minor revision, responses done; maverick accepted narrowed). Merge of origin/main: already up to date. No questions open from 100.
+- **Scholar, E-272:** "derived equivalent => Z-congruent Cartan matrices" is published (Ladkani math/0610685 Cor. 3.13; math/0702060 for general algebras). Phi-equivariance is in the proof of Lemma 3.14 (same P). Nikulin "class = genus" is Cor. 1.13.3, secondary source only.
+- **Theorist, E-273:** Oppermann 1504.02617v1 has no "Lemma A" and requires only "no loop of degree 0 at i", so loops of degree >= 1 and cyclic D(i) are inside his theorem (cancellation then unitriangular). Anick numbers (Thm 3.1, 3.2, Forre 2.6) are secondary via Gartner.
+- **Maverick, E-274:** HH*, q-Cartan det and unimodular class give no second NO on LNAs; 10 literature pairs (radical powers, n = 9..12) pass, E-269 says YES on 3. NO below lam 1.5 untestable at n <= 12 (lowest certified-inequivalent pair has lam 1.661).
+- **Status change:** H-024 OPEN -> SUPPORTED (necessity step sourced). Not CONFIRMED: no mixed-digit positive control, float bound. H-023's loops joint is a gap of our Lemma A, not of Oppermann.
+- Questions for the human: none. No overnight run. Next: round 102 (phase 1, literature).
+
 ## Cycle 001 planning -- 2026-10-30
 Planning step, not a round. All six personas wrote plans (`cycles/001/plan/<persona>.md`); the chair merged them into `cycles/001/plan.md`. Merge of origin/main: already up to date. Nothing was run.
 - **Main question (five of six plans):** is the Cartan-level NO valid? Necessity step "derived equivalent => Phi-equivariantly Z-congruent" is unsourced (E-267) and untested on certified-equivalent pairs (1 002 n = 9, 6 n = 12). One failure voids the 9 NOs of E-265/E-269.
