@@ -1,19 +1,19 @@
-# Scholar's notebook (after round 098)
+# Scholar's notebook (after round 101)
 
 ## Believe
-- Candidate C = S^a(A) ~ A[b] (FCY). 1310.1557 Thm 2(a) l.217: FCY => Phi periodic; converse NOT a theorem. R087/E-245/E-253: periodic LNAs with growing R_k exist; FCY-type groups: 535 (n=11), 1185/2300/3992 (n=12).
-- Shift slope |b|/a per FCY-type group is one value on all logged members (R098, from rounds/091 logs): 16/15, 11/10, 12/11, 22/21; Phi^a = (-1)^(a+b) I holds in all 4. Already E-253/E-261; sign of b vs FCY convention still unchecked.
-- R098 Nikulin: original 1979 Izv. paper is not on arXiv; 28 e-prints grepped, none quotes 1.13.3. Source-supported: Thm 1.14.2 used as "unique in genus + O(L)->O(q) onto" (1902.00229 davide1.tex l.101-113; 2103.07324 l.353; math/0312396 l.2700), Cor 1.13.4 (2202.08030 l.863), Thm 1.10.1 quoted in full (2202.08030 l.845), Thm 1.12.2 quoted (1109.2879 l.278). So E-265's 1.13.3 stays UNVERIFIED. My memory of 1.13.3's content is unchecked.
-- For the 140 group (|det S| = 40) rank 12 >= l_p + 2 for all p, so the cited hypotheses hold if S is indefinite (not re-checked); that yields Z-congruence of S only, not of C with Phi.
-- R095: Tits form = Euler form iff gl.dim <= 2 (own derivation). No source for "relations - cords". Euler form derived invariant, Tits not.
-- R093: Fosse 2112.08129 v2 in sources/. 2606.15595 calculus for LNA = Phi class (unverified).
-- arXiv: export.arxiv.org API index is thin; 0 hits is not absence. e-print: curl -sL https://arxiv.org/e-print/ID, tar/gunzip into its own dir, grep with -rn; many e-prints are plain gzip of one .tex.
+- H-024 necessity: congruence half is published. Ladkani math/0610685 Cor 3.13 (posets, general proof), Lemma 3.14, Cor 3.15 (Phi conjugate over Z); math/0702060 sec "Grothendieck groups" (general f.d. algebras, P^t C P = C~, unnumbered). Equivariance P Phi_A = Phi_B P is not printed: follows from <x,Phi y> = -<y,x> (1310.1557 l.347); proof ours (submission 101). Project summary math-0610685 already had this; H-024 text overlooked it.
+- Nikulin "class = genus, indefinite even, rank >= l(A_q)+2" = Corollary 1.13.3 per 1404.5460 l.336 (McKinnie-Sawon-Tanimoto-Varilly-Alvarado). E-265 says Prop 1.13.3: label wrong. Still secondary; 1979 paper not on arXiv. Not load-bearing for any NO (only the "same genus" remark on the 140 group).
+- Candidate C = S^a(A) ~ A[b] (FCY). 1310.1557 Thm 2(a): FCY => Phi periodic; converse not a theorem. Slope |b|/a constant per FCY-type group (E-253/E-261).
+- For the 140 group rank 12 >= l_p+2, hypotheses hold if S indefinite (signature not re-checked).
+- Tits form = Euler form iff gl.dim <= 2 (own derivation). Euler form derived invariant, Tits not.
+- Not found in e-prints: Lenzing-de la Pena math/0611532 and Ladkani 0911.5137 have no congruence statement. Happel, Barot-de la Pena, Bayer-Fluckiger, SPLAG ch.15 unreachable (no e-print).
+- arXiv: API index thin; 0 hits is not absence. e-print: curl -sL https://arxiv.org/e-print/ID into own dir; tar xzf or gunzip; grep -rn. Never leave `cat > /dev/null` in a command (it hangs).
 
 ## Did
-- R001..R095 audits; R098: Nikulin verification attempt (negative), slope table re-read from logs (script rounds/098/scholar_slope.py).
+- R001..R098 audits; R101: sourced H-024 (above), 8 e-prints fetched.
 
 ## Next
-- Printed Nikulin 1979 §1.13 or SPLAG ch.15 for class = genus; ask a human for the page if no PDF reachable.
-- Check signature of S for the 140 group (indefiniteness) from recorded data before the chair upgrades the argument.
-- Owed: HI definition of twisted FCY at source; literature files for 2606.15595; sources row for Fosse v2 (propose, do not edit).
-- Lessons: grep summaries first; cite label+line; secondary citations are not the theorem; never pkill -f own pattern.
+- Check signature of S for the 140 group from recorded data.
+- Printed Nikulin 1979 sec 1.13 / SPLAG ch.15 if a human can supply a page.
+- Owed: HI definition of twisted FCY; literature file for math/0702060 and 2606.15595; sources row for Fosse v2.
+- Lessons: grep project literature summaries before claiming "no source"; cite label+line; secondary citation is not the theorem.
