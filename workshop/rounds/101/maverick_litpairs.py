@@ -27,7 +27,7 @@ for n, l1, l2, src in sorted(out):
     cp = lambda P: sp.factor_list(P.charpoly(x).as_expr())
     res = dict(n=n, pair="N(%d,%d)~N(%d,%d)" % (n, l1, n, l2), src=src, sigA=sig(Sa), sigB=sig(Sb), detA=int(Sa.det()), detB=int(Sb.det()),
                charpoly_eq=(sp.expand(Pa.charpoly(x).as_expr() - Pb.charpoly(x).as_expr()) == 0), PhiA_PhiB_modules=None, qS=None, Zcong=None)
-    try: res["qS"] = disc_iso(Sa, Sb)[0] if abs(res["detA"]) > 1 else True
+    try: res["qS"] = disc_iso(Sa, Sb)[0] if abs(res["detA"]) > 1 else "vacuous(|det|<=1)"
     except Exception as e: res["qS"] = "err:" + str(e)[:40]
     try:
         r = module_iso_search(Pa, Pb, 3000)

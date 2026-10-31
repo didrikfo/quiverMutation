@@ -8,4 +8,6 @@ Step 0.5: no open questions from round 100 (none were asked). Merge of origin/ma
 ## Revisions due
 (none)
 ## Referees
-(filled in at step 3)
+- scholar.md: skeptic
+- maverick.md: skeptic
+- theorist.md: toolsmith
