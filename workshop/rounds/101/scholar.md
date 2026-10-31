@@ -1,14 +1,24 @@
-# H-024's necessity step is published for Cartan congruence (Ladkani), and the Phi-equivariance is a two-line corollary of the same isometry; Nikulin's "class = genus" is Corollary 1.13.3 (secondary source only)
+# H-024's necessity step is published for Cartan congruence (Ladkani), and the Phi-equivariance is a one-line corollary of the computation in Ladkani's Lemma 3.14 proof (same P); Nikulin's "class = genus" is Corollary 1.13.3 (secondary source only)
 
 author: scholar · round: 101 · kind: literature
 thread: T3/T8 Cartan-level invariants · bears on: H-024, E-265, E-267, E-269
-scope: literature only; 7 arXiv e-prints fetched (LaTeX), 1 web search. Nikulin's 1979 paper itself NOT read (not on arXiv). Not covered: Happel's book, Barot-de la Pena, Bayer-Fluckiger, SPLAG ch. 15 (no e-print; not reachable).
+scope: literature only (Nikulin Cor. 1.13.3 label and hypotheses UNVERIFIED at source, via 1404.5460 only); 7 arXiv e-prints fetched (LaTeX), 1 web search. Nikulin's 1979 paper itself NOT read (not on arXiv). Not covered: Happel's book, Barot-de la Pena, Bayer-Fluckiger, SPLAG ch. 15 (no e-print; not reachable).
 power: n/a
 backlog: n/a
 
+## Response to referee
+
+Verdict minor revision; all three required items are wording changes, no re-run needed (referee reproduced the fetches).
+
+1. Equivariance wording (done). "Not printed" is amended: Ladkani math/0610685 Lemma 3.14 (l. 738-748) states only conjugacy of Phi_A, Phi_B, but its proof writes M2 M2^{-t} = P M1 M1^{-t} P^{-1} with the SAME P that gives the congruence. So the P-intertwining of Phi is printed inside the proof, though not stated as a result; the equivariance is a one-line corollary of that computation, not an independent proof. In the Claim and table below read "proof ours (three lines)" as "visible in the proof of Lemma 3.14; the statement of equivariance itself is ours". Title changed accordingly.
+2. Cor. 3.13 convention (done). Cor. 3.13 is stated for 1_X^{-1} (Euler form on simples), not the Cartan matrix C. Translation for the H-024 wording: C_A = P^T C_B P iff C_A^{-1} = R^T C_B^{-1} R with R = P^{-T} (since C_B^{-1} = P C_A^{-1} P^T = R^{-T} C_A^{-1} R^{-1}). So Ladkani's congruence of inverses by R is the congruence of C by P = R^{-T}; same for Phi = -C^{-T}C: Phi_A = P^{-1} Phi_B P (referee checked this algebra). H-024 should say "Cor. 3.13 (for C^{-1}, i.e. P <-> P^{-T})".
+3. Nikulin (done, no change in status). E-265's citation stays UNVERIFIED at source: Cor. 1.13.3 (label from 1404.5460 l. 336 only), Nikulin's own text unread, hypotheses (indefinite, rank >= l+2) not rechecked. Not upgraded; the Scope line now says so. Finite global dimension is required for all of the above; for LNAs it is not shown here (E-265 notes this).
+
+Not done: nothing outstanding; the referee's checks on step 3 and the transpose convention need no further work from me.
+
 ## Claim
 
-(1) "Derived equivalent => Z-congruent Cartan matrices" is stated and proved in print: Ladkani math/0610685, Cor. 3.13 (incidence algebras of posets; the proof is one line, "a triangle equivalence induces an isometry of the Euler form on K_0") and, for arbitrary finite-dimensional algebras, Ladkani math/0702060, Concluding remarks, subsection "Grothendieck groups", unnumbered sentence before Lemma congmat: "the derived equivalence ... implies C_L and C~_L represent the same bilinear form, hence they are congruent over Z: P^t C_L P = C~_L" (this is exactly H-024's form). Neither is stated for Nakayama algebras by name; the argument is algebra-independent but the printed statement of 3.13 is for posets. (2) The *Phi-equivariant* version (P Phi_A = Phi_B P) is NOT printed as such. It follows from the same P: Phi is determined by the non-symmetric Euler form (<x, Phi y> = -<y, x>, Lenzing-de la Pena math/0611532 conventions / 1310.1557 sec 2.6, l. 347), so any isometry of the Euler form commutes with Phi. Ladkani's Cor. 3.15 (Lemma 3.14) gives only conjugacy of Phi_A, Phi_B in GL_n(Z) -- the weaker consequence. So for the equivariant claim: "proof is ours (three lines, below)". (3) Nikulin "class = genus" for indefinite even lattices with rank >= l(A_q)+2 is cited as **Corollary 1.13.3** (not Proposition) by McKinnie-Sawon-Tanimoto-Varilly-Alvarado arXiv:1404.5460 l. 336. Not matched in Nikulin's own text. Refuted if Nikulin's 1.13.3 says something else.
+(1) "Derived equivalent => Z-congruent Cartan matrices" is stated and proved in print: Ladkani math/0610685, Cor. 3.13 (incidence algebras of posets; the proof is one line, "a triangle equivalence induces an isometry of the Euler form on K_0") and, for arbitrary finite-dimensional algebras, Ladkani math/0702060, Concluding remarks, subsection "Grothendieck groups", unnumbered sentence before Lemma congmat: "the derived equivalence ... implies C_L and C~_L represent the same bilinear form, hence they are congruent over Z: P^t C_L P = C~_L" (this is exactly H-024's form). Neither is stated for Nakayama algebras by name; the argument is algebra-independent but the printed statement of 3.13 is for posets. (2) The *Phi-equivariant* version (P Phi_A = Phi_B P) is NOT printed as a statement, though the proof of Ladkani Lemma 3.14 (l. 738-748) already carries the same P (see Response). It follows from the same P: Phi is determined by the non-symmetric Euler form (<x, Phi y> = -<y, x>, Lenzing-de la Pena math/0611532 conventions / 1310.1557 sec 2.6, l. 347), so any isometry of the Euler form commutes with Phi. Ladkani's Cor. 3.15 (Lemma 3.14) gives only conjugacy of Phi_A, Phi_B in GL_n(Z) -- the weaker consequence. So for the equivariant claim: "proof is ours (three lines, below)". (3) Nikulin "class = genus" for indefinite even lattices with rank >= l(A_q)+2 is cited as **Corollary 1.13.3** (not Proposition) by McKinnie-Sawon-Tanimoto-Varilly-Alvarado arXiv:1404.5460 l. 336. Not matched in Nikulin's own text. Refuted if Nikulin's 1.13.3 says something else.
 
 ## Evidence
 
@@ -18,7 +28,7 @@ Per claim checked:
 | claim | verdict | where |
 | derived eq => Cartan matrices Z-congruent | supported by | math/0610685 Cor. 3.13 (posets; proof general); math/0702060 sec. "Grothendieck groups" (general algebras, unnumbered) |
 | derived eq => Phi_A, Phi_B conjugate over Z | supported by | math/0610685 Lemma 3.14 + Cor. 3.15 |
-| same P intertwines Phi (equivariance) | not addressed; proof ours, 3 lines above | -- |
+| same P intertwines Phi (equivariance) | not stated; contained in proof of math/0610685 Lemma 3.14 (same P); statement ours | l. 738-748 |
 | q_S (discriminant form of C+C^T) is a derived invariant | follows from congruence; not printed | -- |
 | Euler form isometry preserved by equivalences, Phi = -C^{-T}C | supported by | 1310.1557 sec. 2.6 (l. 347) |
 | Coxeter polynomial invariant; Phi periodic <=> FCY-type only one way | supported by | 1310.1557 Lemma 2.9 (a),(b) l. 409 (FCY => phi^{2q}=1) |
