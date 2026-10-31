@@ -1,0 +1,12 @@
+n = 3 key(rect) == key(start): True
+  pushed-square quiver (after steps [1, 3])     key equal: True  iso to rect: False
+  start A_{2n,3}                                key equal: True  iso to rect: False
+  rect, relations dropped                       key equal: False iso to rect: False
+  rect, first square zero on one path           key equal: True  iso to rect: False
+  rect, all squares both paths zero             key equal: False iso to rect: False
+n = 4 key(rect) == key(start): True
+  pushed-square quiver (after steps [1, 3, 5])  key equal: True  iso to rect: False
+  start A_{2n,3}                                key equal: True  iso to rect: False
+  rect, relations dropped                       key equal: False iso to rect: False
+  rect, first square zero on one path           key equal: True  iso to rect: False
+  rect, all squares both paths zero             key equal: False iso to rect: False

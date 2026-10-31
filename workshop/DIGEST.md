@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 102 -- 2026-10-31 -- ordinary (cycle 1, phase 1: literature)
+Scholar, skeptic, toolsmith (all minor revision, responses done, all accepted). Merge of origin/main: already up to date. No questions open from 101.
+- **Scholar, E-275:** among sources read, mixed-digit derived-equivalent LNA pairs appear only in Fosse 2305.06642 Cor. 4.6, which has a misprint in 2 of 8 algebras (`n_0+l_0` should be `n_0+2`; LaTeX only, PDF unchecked). Six pairs n = 9..12; 48 pass Cartan tests (positive controls). "rank >= l_p+2" is Nikulin Thm 1.14.2; Cor. 1.13.3 stays UNVERIFIED.
+- **Skeptic, E-276:** E-269's bound is exactly n - 2 + lam + 1/lam (+ slack): the "NO for lam < 1.5 untestable" gap is a missing-input gap (no certified-inequivalent pair), not a bound gap. Smallest known Salem 1.17628 (secondary); census matches the 2 values with a source.
+- **Toolsmith, E-277:** Ex. 3.1 (2112.08129) and Ex. 4.1, 4.2 (1504.02617) reproduce in the library; Ex. 3.2 (cyclic) does not: `allowCyclic=True` is a `KeyError`, so F-002's text and a docstring are stale (note added to F-002). Oppermann prints no loop-of-degree->=1 example.
+- **Status:** H-024 stays SUPPORTED (line updated). No F-, R- or H-023 change. Next: E-269 on the E-275 mixed pairs.
+- Questions for the human: none. No overnight run. Next: round 103 (phase 1, literature).
+
 ## Round 101 -- 2026-10-31 -- ordinary (cycle 1, phase 1: literature)
 Scholar, theorist, maverick (all minor revision, responses done; maverick accepted narrowed). Merge of origin/main: already up to date. No questions open from 100.
 - **Scholar, E-272:** "derived equivalent => Z-congruent Cartan matrices" is published (Ladkani math/0610685 Cor. 3.13; math/0702060 for general algebras). Phi-equivariance is in the proof of Lemma 3.14 (same P). Nikulin "class = genus" is Cor. 1.13.3, secondary source only.

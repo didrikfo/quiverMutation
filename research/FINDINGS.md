@@ -2991,6 +2991,8 @@ Pinned as a strict xfail in `tests/test_mutation_procedure.py`. The LNA search
 never reaches it, since it stops descending at the first cycle, so no published
 result depends on it.
 
+*Update (workshop round 102, E-277):* the first paragraph is stale: with `allowCyclic=True` the current code raises `KeyError: (0, (2, 1, 0))` (procedure.py l. 221) rather than adding a loop, and the default is the `CyclicDescendantsError` refusal (E-211, E-222).
+
 ---
 
 ## F-001 — A NetworkX change had silently broken every Coxeter polynomial
