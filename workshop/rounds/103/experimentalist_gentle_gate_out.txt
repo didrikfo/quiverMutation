@@ -1,0 +1,7 @@
+3 {'rowsxverts': 6, 'R~B': 6, 'L~A': 6, 'R~A': 2, 'L~B': 2, 'R_pass': 3, 'L_pass': 3}
+4 {'rowsxverts': 16, 'R~B': 16, 'L~A': 16, 'R~A': 8, 'L~B': 8, 'R_pass': 8, 'L_pass': 8}
+5 {'rowsxverts': 40, 'R~B': 40, 'L~A': 40, 'R~A': 24, 'L~B': 24, 'R_pass': 20, 'L_pass': 20}
+6 {'rowsxverts': 96, 'R~B': 96, 'L~A': 96, 'R~A': 64, 'L~B': 64, 'R_pass': 48, 'L_pass': 48}
+7 {'rowsxverts': 224, 'R~B': 224, 'L~A': 224, 'R~A': 160, 'L~B': 160, 'R_pass': 112, 'L_pass': 112}
+8 {'rowsxverts': 512, 'R~B': 512, 'L~A': 512, 'R~A': 384, 'L~B': 384, 'R_pass': 256, 'L_pass': 256}
+9 {'rowsxverts': 1152, 'R~B': 1152, 'L~A': 1152, 'R~A': 896, 'L~B': 896, 'R_pass': 576, 'L_pass': 576}

@@ -1,17 +1,16 @@
-# Experimentalist notebook (rewritten round 099)
+# Experimentalist notebook (rewritten round 103)
 
 ## What I now believe
-- 099 (T7): pair (8:4)(10:4) (starts differ by 2, overlap 2), k = 3 margin 2: 8 of 8 two-bystander cells stay at 2 (9-20 LNAs, 47-168 s each), BUT 0 controls lower: single bystanders (7,3), (12,3) share 2 arrows and stay at 2 at k = 3 and k = 4 (397-424 s). So "bystander sharing >= 2 arrows lowers" is false for this pair; the run of three needs consecutive starts. The cells are consistent with H-010 but uninformative until a lowering control exists.
-- 097 (S-1 item 3): full n = 15 key scan (2 674 440 rows, ~46 min, four workers). Lone-3 class (5,6)/(6,5): 18 328 rows; free-end images at n = 14: 2 keys for K >= 3, 4, 5, 1 key for K >= 6. Class (4,7)/(7,4): 21 045 rows, 12 image keys: messy. Key level only.
-- Row convention: n-vertex LNA is an n - 2 entry row. 094: pair (8:3)(9:3) k = 5 margin 1: 5 of 5 stay 2; margin 2 about 1 h (not approved). 086: k = 4 margin 2 cells 175-530 s.
-- 091 (T10): 2400230 ball sizes 1, 9, 40, 130, 369, 1001, 2691, 7261, 20210; no bridge to 3304000. 089: |orbit(B_n)| = n 2^(n-5).
+- 103 literature (T7, S-1): arXiv search finds NO source for the Catalan factorisation, the K-threshold law K0 = 3, 4, 5, or |orbit B_n| = n 2^(n-5): "not addressed" (arXiv title/abstract search, 5 sources opened; OEIS unreachable, HTTPS 403). Adjacent: LNAs <-> Dyck paths (2602.04571 Prop. 2.1, number by my count), Catalan counts (1910.01494).
+- Gate part of the single-mutation rule is independently published for gentle LNAs: Deng-Geng-Liu 2609.39536 Thm 4.2(3) / 7.1 (numbers from LaTeX counters, PDF unchecked). Repo gate = paper criterion on all 3 168 gentle cells n = 3..9 (paper = repo LEFT gate; mirror = RIGHT gate; crossed controls fail). Nothing published for r_v >= 3.
+- Fosse 2305.06642 Cor. 4.6 (r = 0, n_0 = n-3, l = 3) gives A_n ~ B_n for all n >= 5, so E-218/E-247 "equivalent known only at n = 9, 10" is too weak; orbit(B_n) is a proper subset of the derived class (A_n missing). Orbit at n = 6..8 hits only table class D_n (2 of its 3 shapes). Chair to correct wording.
+- Older: 099 pair (8:4)(10:4) has no lowering control (T7 uninformative there); 097 n = 15 key scan (S-1 item 3 key level); row convention: n-vertex LNA is an n - 2 entry row, entry i = relation of that many arrows starting at vertex i+1.
 
 ## What I tried
-- 099: `rounds/099/experimentalist_pairs.py` (pair parameter), `_single.py`, `_single4.py`. Plan first with `--plan`.
-- 097: `scan15`, `_batch.sh`, `_split.py`. Earlier: `k5`, `k5par`, `jscan`, `orb13`, `k4`, `_classlaw`, `_jkey`, `_join*`.
-- Gotchas: shared machine (cores ~0.5 each); a 10 min timeout kills silently, a missing row is not a verdict; embedPattern returns None for overlapping patterns that do not embed (e.g. (9,3) next to (8:4)(10:4)); vacuous cells reach 0 LNAs; wait with an until-loop, not sleep.
+- 103: `rounds/103/experimentalist_arxivq.py` (14 queries), `_arxivabs.py` (abstracts and id lookups), `_gentle_gate.py`, `_fosse_check.py`. arXiv API rate-limits (429): space calls 6 s, retry.
+- Earlier rounds: 099 `_pairs/_single/_single4`; 097 `scan15`; 089 `orb13`; see those rounds.
 
 ## What I would do next
-1. Find a lowering control for start-gap-2 pairs (stepped chain starts 8, 10, 12; other lengths) before any more two-bystander cells for them.
-2. T7 m >= 3 at k = 4 or k = 5 margin 2: overnight only.
-3. Move-orbit count of the 18 328 rows (097 next 1); S-1 item 1 at n = 10 -> 9.
+1. Scholar: PDF-verify the three "my count" theorem numbers; OEIS lookup of 12, 28, 64, 144, 320, 704 (blocked here).
+2. Extend the gate check to rows with a length-3 relation using Ladkani 1001.4765 Prop 2.3(c) (library) as the source.
+3. T7: lowering control for start-gap-2 pairs (stepped chain 8, 10, 12) before more two-bystander cells; S-1: is A_n reached from B_n by any tilting mutation at n = 6 (outside the move set)?

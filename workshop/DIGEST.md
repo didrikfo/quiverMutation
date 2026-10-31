@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 103 -- 2026-10-31 -- ordinary (cycle 1, phase 1: literature)
+Scholar, theorist, experimentalist (all minor revision, responses done; scholar accepted narrowed). Merge of origin/main: already up to date. No questions open from 102.
+- **Scholar, E-278:** Anick Th. 3.1/3.2 and Forre Th. 2.6 recur in Efrat 2604.25789v1, a second but secondary source (not shown independent of Gartner): UNVERIFIED stays. For J != 0 steps no source read (Aihara-Iyama, Chan-Koenig-Liu, Dugas) addresses derived equivalence of End(T).
+- **Theorist, E-279:** a loop of degree >= 1 at i forces i onto an oriented cycle (independent Ext check, 341 random parents, 0 violations), so library steps never reach Step 4; Oppermann, Aihara-Iyama and Keller have no loop hypothesis. What fails is our Lemma A for loop letters, not the source.
+- **Experimentalist, E-280:** no arXiv source found for the Catalan factorisation, K-threshold law or n 2^(n-5) (title/abstract search only; OEIS unreachable). Gate part published for gentle LNAs (Deng-Geng-Liu, 3 168 cells agree). A_n ~ B_n for every n >= 5 (Fosse Cor. 4.6) but A_n is not in B_n's move orbit (n = 6..17): "known only at n = 9, 10" in E-218/E-247 is superseded.
+- **Promoted:** E-278, E-279, E-280; literature note 2609.39536; H-023 and H-026 text updated. No finding or status change. Next: round 104, conference (phase 1).
+- Questions for the human: none. No overnight run.
+
 ## Round 102 -- 2026-10-31 -- ordinary (cycle 1, phase 1: literature)
 Scholar, skeptic, toolsmith (all minor revision, responses done, all accepted). Merge of origin/main: already up to date. No questions open from 101.
 - **Scholar, E-275:** among sources read, mixed-digit derived-equivalent LNA pairs appear only in Fosse 2305.06642 Cor. 4.6, which has a misprint in 2 of 8 algebras (`n_0+l_0` should be `n_0+2`; LaTeX only, PDF unchecked). Six pairs n = 9..12; 48 pass Cartan tests (positive controls). "rank >= l_p+2" is Nikulin Thm 1.14.2; Cor. 1.13.3 stays UNVERIFIED.

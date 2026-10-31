@@ -9,7 +9,7 @@ it. Status is one of `OPEN`, `SUPPORTED`, `CONFIRMED → F-nnn`, `REFUTED → R-
 ## H-026 — The vertex-deletion K-threshold is a law: K0 = (n - 1)/2 - 2 for the lone-3 class
 *2026-10-30* · **OPEN** *(workshop cycle 001 planning)*
 
-At key level, deleting a vertex from a long free stretch next to a lone 3 stabilises once the kept stretch has K >= K0, and K0 = 3, 4, 5 at n = 11, 13, 15 (E-146, E-263; the free-stretch D >= 3 rule, E-206; |orbit B_n| = n 2^(n-5) to n = 16, E-247, unproved). **Falsifiable:** K0 = 6 at n = 17, or a lone-3 row at n = 11..15 whose threshold differs. It rests on three lengths at key level only; a fourth length or a derivation settles it. Thread S-1.
+At key level, deleting a vertex from a long free stretch next to a lone 3 stabilises once the kept stretch has K >= K0, and K0 = 3, 4, 5 at n = 11, 13, 15 (E-146, E-263; the free-stretch D >= 3 rule, E-206; |orbit B_n| = n 2^(n-5) to n = 16, E-247, unproved; note E-280: orbit(B_n) is a move-orbit size, not the class). **Falsifiable:** K0 = 6 at n = 17, or a lone-3 row at n = 11..15 whose threshold differs. It rests on three lengths at key level only; a fourth length or a derivation settles it. Thread S-1.
 
 ---
 
@@ -30,7 +30,7 @@ If A and B are derived equivalent, there is P in GL_n(Z) with P^T C_B P = C_A (o
 ## H-023 — Every gate-admitted J = 0 mutation step is a derived equivalence
 *2026-10-30* · **OPEN** *(workshop cycle 001 planning; the premise of T5 and under H-015)*
 
-If the gate admits a step with J = 0 (acyclic D(i), no loops of degree >= 1 at i, omega-reduced), the mutated algebra is derived equivalent to its parent. Proved so far: cancellation (E-235), Lemma A directly (E-240), step-7 kernel = Oppermann's for acyclic D(i) (E-199), F/R convention (E-252, E-258); the library refuses cyclic D(i) (E-211, E-222). **Falsifiable:** a gate-admitted J = 0 step whose child has a different derived invariant (Cartan form, Phi, Hochschild data). **Open joints:** E-235 step 4 against Lemma A's hypotheses after omega-reduction (E-256), loops of degree >= 1 at i (Oppermann's theorem allows them, needs a unitriangular cancellation, E-273). Join searches cannot test it (E-250, E-255, E-268). If it holds, H-015 reduces to J != 0 steps.
+If the gate admits a step with J = 0 (acyclic D(i), no loops of degree >= 1 at i, omega-reduced), the mutated algebra is derived equivalent to its parent. Proved so far: cancellation (E-235), Lemma A directly (E-240), step-7 kernel = Oppermann's for acyclic D(i) (E-199), F/R convention (E-252, E-258); the library refuses cyclic D(i) (E-211, E-222); a loop of degree >= 1 at i forces i onto a cycle, so library steps never meet one (E-279). **Falsifiable:** a gate-admitted J = 0 step whose child has a different derived invariant (Cartan form, Phi, Hochschild data). **Open joints:** E-235 step 4 against Lemma A's hypotheses after omega-reduction (E-256), loops of degree >= 1 at i (Oppermann's theorem allows them, needs a unitriangular cancellation, E-273). Join searches cannot test it (E-250, E-255, E-268). If it holds, H-015 reduces to J != 0 steps.
 
 ---
 
