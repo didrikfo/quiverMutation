@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 106 -- 2026-11-01 -- ordinary (cycle 1, phase 2: research)
+Theorist, scholar, skeptic (all minor revision, responses done, all accepted). Merge of origin/main: already up to date. No questions open from 105.
+- **Theorist, E-284 (H-023 loop case):** in ten hand-sized dg models with loops of degree 1-3 at i the Prop. 7.6 cancellation kM -> N is a quasi-isomorphism (weight <= 12/9), with closed near-miss controls that say NO. A computation, not a proof; Lemma A's monomial premise is false for loop letters. Degree-0 loops not testable.
+- **Scholar, E-285:** every theorem number cited at E-275/E-280 matches the LaTeX; the Cor. 4.6 misprint is real (as printed 3 676 inadmissible, corrected 0 failures). A_n ~ B_n computed n = 4..12, general n by the theorems.
+- **Skeptic, E-286 (T4):** the B rules' first step adds one arrow at widths 5, 6, 7; the relation-count fit that works at width 5 (14/14) fails at widths 6, 7. H3/H4 not closable on this.
+- **Promoted:** E-284, E-285, E-286; **R-014** (E-218's title "equivalent only at n = 9, 10" retracted); H-023, H-027 status notes. No finding.
+- Questions for the human: none. No overnight run. Next: round 107 (phase 2), H-027 multi-step plus a dormant thread.
+
 ## Round 105 -- 2026-11-01 -- ordinary (cycle 1, phase 2: research)
 Maverick, toolsmith, experimentalist (all minor revision, responses done, all accepted). Merge of origin/main: already up to date. No questions open from 104.
 - **Maverick, E-281 (H-024 control):** E-269 finds the Z-congruence P for all 6 E-275 mixed-digit pairs (pre-registered YES), still NO on 4 of 4 inequivalent cross pairs. Referee caught that the six pairs have lam 2.24..2.63, so they do not test the l.16 fix; it is now tested on 11 low-lam within-quipu pairs (YES only). NO power at lam < 1.5 untested.

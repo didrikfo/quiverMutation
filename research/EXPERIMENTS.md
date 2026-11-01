@@ -6,6 +6,27 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-284 — T5 / H-023, loop case: in ten hand-sized dg models with loops of degree 1, 2 or 3 at the mutation vertex (plus a no-loop control) the cancellation kM -> N of Prop. 7.6 is a quasi-isomorphism through weight 12 (M1-M6) or 9 (M7, M7b, M8A, M8B); a computation, not a proof; Lemma A's monomial premise is false in these models
+*2026-11-01* · **`timeout 10m .venv/bin/python workshop/rounds/106/theorist_loopfilt.py` (35 s), `.venv/bin/python workshop/rounds/106/theorist_loopfilt2.py` (about 1 min)** · *workshop round 106, theorist, refereed by skeptic (minor revision, answered)*
+
+Scope: ten explicit loop parents (M1-M5, M3b, M7, M7b, M8A, M8B) plus the no-loop control M6, one mutation vertex each, homogeneous weight <= 12 (M1-M6) or <= 9 (M7, M7b, M8A, M8B), every (source, target, degree) cell, exact linear algebra mod 1000003. Loops of degree 1 (also two at i) and degree 3; the sign set `last = -1` (`last = +1` fails d^2 = 0, so it is not a dg structure). Degree-0 loops are not testable (negative weight, infinite truncation); a d(phi) with no A-path term not tried.
+
+Result: in every model d^2 = 0, the Theta ideal I is closed and H(I) = 0 in every cell, so kM -> N cancels as Prop. 7.6 needs. Controls that say NO: a closed ideal of the star letters has H != 0 in 7 cells; the closed near-miss "I plus the star letter a*" (M1, weight <= 9) has H != 0 in 5 cells; the flipped-sign variant C1 is not a dg ideal (399 non-closed cells), kept as a closure check only. Three other near-misses gave H = 0 and are not discriminating. Lemma A's monomial premise is false here: d(f a^-1) contains the bare generator b. So the statement holds on these models while our proof route does not. Consequence: H-023's loop joint is "partial YES by computation"; the degree-0 loop case and a proof stay open.
+
+## E-285 — Literature, H-027 / H-024: every theorem number cited at E-275/E-280 matches the LaTeX (Fosse 2305.06642 v1 Thm 4.2, Cor 4.3, Thm 4.5, Cor 4.6; 2602.04571 v1 Prop 2.3; 2609.39536 v2 Thm 4.2, 7.2); the Cor. 4.6 right-column misprint is real (rows 3, 4 print n_0 + l_0 where n_0 + 2 is forced; as printed 3 676 inadmissible, corrected 0 failures); A_n ~ B_n computed n = 4..12, general n >= 5 by the cited theorems
+*2026-11-01* · **`.venv/bin/python -I workshop/rounds/106/scholar_cor46.py` (about 3 s); `.venv/bin/python -I workshop/rounds/106/scholar_thmnumbers.py FILE.tex 4.6 4.8`** · *workshop round 106, scholar, refereed by experimentalist (minor revision, answered)*
+
+Scope: LaTeX e-prints only (2305.06642 v1, 2602.04571 v1, 2609.39536 v2), PDFs not opened, no journal version sought. The A_n ~ B_n equivalence is computed (quipu isomorphism by Thm 4.2) for n = 4..12; every n >= 5 rests on Thm 4.2, Lemma 4.4 and Thm 4.5 as cited, not re-read beyond Fosse. The misprint check uses 2 253 random admissible inputs per row, independent of the engine behind E-275.
+
+Result: numbers and statements match; planted numbers 4.8, 4.9 find nothing (the check can say NO), the as-printed Cor. 4.6 is caught. E-218's title "equivalent only at n = 9, 10" is superseded (R-014); E-247 only inherits its scope. The referee reproduced the script exactly.
+
+## E-286 — T4 / H-020, width-5 class-B rules (E-266): the first step adds exactly one arrow (112 of 112 matches at width 5, 162 of 162 at width 6, 94 of 94 at width 7); the relation-count delta of the middle algebra is constant per rule at width 5 ((1,1) for 8 rules, (1,2) for 6) and fits 14/14 by "added window relations - 1", but that rule fails at widths 6 and 7; no width-independent one-step relation rule
+*2026-11-01* · **`.venv/bin/python workshop/rounds/106/skeptic_midrule2.py`, `.../skeptic_midrule3.py` (about 2 s each)** · *workshop round 106, skeptic, refereed by theorist (minor revision, answered)*
+
+Scope: the 14 notLNA rules among the 24 floating width-5 rules of E-266 (8 matches each), then widths 6 (54 rules, lengths 7, 8) and 7 (length 8); relation count from the engine, with an independent minimal-relation count dim I - dim(JI+IJ) equal in 112 of 112 cases; whether the engine's relations generate the true ideal is unchecked. The window-pattern rule was found after seeing the data and tested out of sample.
+
+Result: width 6 gives 84 hits and 78 misses of 162, width 7 gives 12 hits and 82 misses of 94, so the width-5 fit is not a law. Controls with seen rows: the rule-keyed table 70/0 on length 8, the same with 2 rules' deltas swapped 60/10 (rejected), the (k) and constant baselines 40/30 (rejected). Consequence: H-020's H3 (completeness) and H4 (mechanism) are not closable on the B rules; T4's last item is "narrowed only".
+
 ## E-281 — H-024 control, n = 9..12: the E-269 Z-congruence search finds P for all 6 mixed-digit derived-equivalent pairs of E-275 (lam 2.24..2.63), still NO on 4 of 4 certified-inequivalent cross pairs of the n = 12 group of 140, and YES on 11 within-quipu pairs at lam 1.18..1.46 with the lam > 1 fix (one pair per group, n <= 11)
 *2026-11-01* · **`timeout 10m .venv/bin/python -W ignore workshop/rounds/105/maverick_mixed.py mixed` (about 3 min), `... ctl` (about 40 s), `workshop/rounds/105/maverick_lowlam.py test` (about 2 min)** · *workshop round 105, maverick, refereed by skeptic (minor revision, answered)*
 
@@ -514,6 +535,7 @@ Result: balls 1, 13, 83, 386, 1 584, 6 354, 26 353 (3060000) and 1, 11, 64, 282,
 ---
 
 ## E-218 — n = 6..12, A_n = kA_n/rad^(n-1) vs B_n (one 3-arrow end relation): same Coxeter key, not joined by orbit + mirror moves (union-find n = 9, 10; forward orbits n = 6..8, 11, 12); equivalent only at n = 9, 10; vertex deletion maps the pair by a rule; corrects the E-210 strings (one zero too many)
+*Title claim "equivalent only at n = 9, 10" retracted -> R-014 (workshop round 106).*
 *2026-10-19* · **`timeout 10m .venv/bin/python workshop/rounds/075/experimentalist_join9.py`**, **`.../experimentalist_delpair.py`** (about 18 s and 16 s; output `workshop/rounds/075/experimentalist_delpair_out.txt`) · *workshop round 075, experimentalist, refereed by maverick (minor revision, answered)*
 
 Scope: the one family above, n = 6..12 (n = 5 listed). Equivalence of A_n and B_n is known only at n = 9 (round-065 cache, class P^(6)_(1,1), read through E-210's keys) and n = 10 (E-190); at the other n the pair is "same key, not joined". Joined/not joined is a statement about the orbit + mirror moves (and the free move), not about derived equivalence; at n = 11, 12 only forward orbits were walked. Row convention: an n-vertex LNA has an n - 2 entry row. A_n has the single longest relation, so it has no move and "not joined" is nearly tautological; the content is the B_n side.

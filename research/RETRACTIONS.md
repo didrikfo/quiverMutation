@@ -6,6 +6,13 @@ does not. See [`README.md`](README.md).
 
 ---
 
+## R-014 — "A_n and B_n are derived equivalent only at n = 9, 10" (E-218 title)
+*retracted 2026-11-01* · corrected by Fosse arXiv:2305.06642 Cor. 4.6, Thm 4.2/4.5 (LaTeX read, E-280, E-285) -> E-285
+
+E-218's title said "equivalent only at n = 9, 10", for A_n = kA_n/rad^(n-1) against B_n (one 3-arrow end relation), n = 6..12. Its Scope sentence said "known only at n = 9 ... and n = 10", a statement about what the workshop knew; the title reads as a claim of inequivalence elsewhere.
+
+**False as a claim.** A_n ~ B_n for every n >= 5 (Fosse Cor. 4.6; quipu isomorphism computed n = 4..12, E-285), though A_n is not joined to B_n by the orbit + mirror moves (E-218, E-247, E-280). What survives of E-218 is "same Coxeter key, not joined by moves" and the orbit counts. E-247 only inherits E-218's scope and has no such sentence.
+
 ## R-013 — "A quiver with parallel arrows is a limitation of the model, and harmless"
 *retracted 2026-09-18* · corrected by `arrowPaths` and the arrow-indexed procedure → F-039
 
