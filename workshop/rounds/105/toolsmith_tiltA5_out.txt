@@ -1,0 +1,38 @@
+n = 5  A row (4, 0, 0)  B row (0, 3, 0)  det Cartan A 1 B 1
+== CONTROLS ==
+A3 hereditary k 1 hom0 True det True (Hom[-1],Hom[1] mass 0,0) gate admits
+A3 hereditary k 2 hom0 True det True (Hom[-1],Hom[1] mass 0,0) gate admits
+LNA 4 (2,0) k 1 hom0 True det True (Hom[-1],Hom[1] mass 0,0) gate admits
+LNA 4 (2,0) k 2 hom0 False det True (Hom[-1],Hom[1] mass 1,0) gate REFUSES
+LNA 4 (2,0) k 3 hom0 True det True (Hom[-1],Hom[1] mass 0,0) gate admits
+B6 k 1 hom0 True det True (Hom[-1],Hom[1] mass 0,0) gate admits
+B6 k 2 hom0 True det True (Hom[-1],Hom[1] mass 0,0) gate admits
+B6 k 3 hom0 True det True (Hom[-1],Hom[1] mass 0,0) gate admits
+B6 k 4 hom0 False det True (Hom[-1],Hom[1] mass 2,0) gate REFUSES
+-- planted error: A3 hereditary, P_1 stays in degree 0 but P_2 moved to degree 1 (T = P_1 + P_2[-1] + P_3: not tilting)
+   nonzero Hom(T,T[+-1]) entries: 2
+-- planted error 2: T = P_1 + P_1 + P_3 (repeated summand, count wrong / det 0)
+   det H = 0  vs det Cartan 1
+== B6 -> A6: every vertex, right and left ==
+right k 1 hom0 True det True tilting True mass (0, 0) Cartan(End T) == Cartan(A6) up to perm/transp: False | gate admits
+     H rows [[1, 0, 0, 0, 0], [1, 1, 1, 1, 0], [0, 0, 1, 1, 1], [0, 0, 0, 1, 1], [0, 0, 0, 0, 1]]
+right k 2 hom0 True det True tilting True mass (0, 0) Cartan(End T) == Cartan(A6) up to perm/transp: False | gate admits
+     H rows [[1, 0, 1, 1, 0], [0, 1, 0, 0, 1], [0, 1, 1, 1, 1], [0, 0, 0, 1, 1], [0, 0, 0, 0, 1]]
+right k 3 hom0 True det True tilting True mass (0, 0) Cartan(End T) == Cartan(A6) up to perm/transp: False | gate admits
+     H rows [[1, 1, 0, 1, 0], [0, 1, 0, 1, 0], [0, 0, 1, 0, 0], [0, 0, 1, 1, 1], [0, 0, 0, 0, 1]]
+right k 4 hom0 False det True tilting False mass (2, 0) Cartan(End T) == Cartan(A6) up to perm/transp: False | gate REFUSES
+     H rows [[1, 1, 1, 0, 0], [0, 1, 1, 0, 0], [0, 0, 1, 0, 1], [0, 0, 0, 1, 0], [0, 0, 0, 1, 1]]
+right k 5 no out-arrows (T_k = P_k[?]) skipped
+left k 1 no out-arrows (T_k = P_k[?]) skipped
+left  k 2 hom0 True det True tilting True mass (0, 0) Cartan(End T) == Cartan(A6) up to perm/transp: False | gate admits
+     H rows [[1, 1, 0, 0, 0], [0, 1, 0, 0, 0], [1, 0, 1, 0, 0], [1, 0, 1, 1, 0], [0, 0, 1, 1, 1]]
+left  k 3 hom0 False det True tilting False mass (1, 0) Cartan(End T) == Cartan(A6) up to perm/transp: False | gate REFUSES
+     H rows [[1, 0, 0, 0, 0], [1, 1, 1, 0, 0], [0, 0, 1, 0, 0], [1, 1, 0, 1, 0], [0, 0, 0, 1, 1]]
+left  k 4 hom0 True det True tilting True mass (0, 0) Cartan(End T) == Cartan(A6) up to perm/transp: False | gate admits
+     H rows [[1, 0, 0, 0, 0], [1, 1, 0, 0, 0], [1, 1, 1, 1, 0], [0, 0, 0, 1, 0], [0, 0, 1, 0, 1]]
+left  k 5 hom0 True det True tilting True mass (0, 0) Cartan(End T) == Cartan(A6) up to perm/transp: False | gate admits
+     H rows [[1, 0, 0, 0, 0], [1, 1, 0, 0, 0], [1, 1, 1, 0, 0], [1, 1, 1, 1, 1], [1, 1, 0, 0, 1]]
+== AGREEMENT with the gate over all LNAs, right steps, n = 4, 5, 6 (power: both verdicts occur) ==
+n 4 (gate admits, indep tilting) : count {(True, True): 10, (False, False): 5}
+n 5 (gate admits, indep tilting) : count {(True, True): 35, (False, False): 21}
+n 6 (gate admits, indep tilting) : count {(True, True): 126, (False, False): 84}

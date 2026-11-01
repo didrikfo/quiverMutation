@@ -13,7 +13,7 @@ pari.allocatemem(3 * 10 ** 9)
 npf = lambda M: np.array(M.tolist(), dtype=float)
 def pq(S, P):
     w, V = np.linalg.eig(P)
-    i = [k for k in range(N) if abs(w[k].imag) < 1e-9 and w[k].real > 1.5][0]; j = [k for k in range(N) if abs(w[k].imag) < 1e-9 and abs(w[k].real - 1 / w[i].real) < 1e-9][0]
+    i = [k for k in range(N) if abs(w[k].imag) < 1e-9 and w[k].real > 1 + 1e-6][0]; j = [k for k in range(N) if abs(w[k].imag) < 1e-9 and abs(w[k].real - 1 / w[i].real) < 1e-9][0]
     p, q = V[:, i].real, V[:, j].real; c = p @ S @ q
     return p, q / c, w[i].real
 def major(S, p, q):
@@ -27,7 +27,9 @@ def test(a, b, slack=0.5, SC=10 ** 6, verbose=False):
     Ha, Hb = major(Sa_f, pa, qa), major(Sb_f, pb, qb); Hbi = np.linalg.inv(Hb)
     base = np.trace(Hbi @ Sb_f)
     ts = np.exp(np.linspace(-0.5 * np.log(lam), 0.5 * np.log(lam), 2001))
-    BOUND = base + max((t * qb - pb / t) @ Sb_f @ Hbi @ Sb_f @ (t * qb - pb / t) for t in ts) + slack
+    BOUND_num = base + max((t * qb - pb / t) @ Sb_f @ Hbi @ Sb_f @ (t * qb - pb / t) for t in ts) + slack
+    BOUND = N - 2 + lam + 1 / lam + slack   # closed form (E-276); equals BOUND_num up to rounding
+    assert abs(BOUND - BOUND_num) < 1e-6 * BOUND, (BOUND, BOUND_num)
     n = N; m = n * n
     A = sp.kronecker_product(sp.eye(n), Pb.T) - sp.kronecker_product(Pa, sp.eye(n))   # row-major vec: vec(R Pb - Pa R)
     K = pari.matkerint(pari.matrix(m, m, [int(v) for v in A])); k = int(pari.matsize(K)[1])

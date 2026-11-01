@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 105 -- 2026-11-01 -- ordinary (cycle 1, phase 2: research)
+Maverick, toolsmith, experimentalist (all minor revision, responses done, all accepted). Merge of origin/main: already up to date. No questions open from 104.
+- **Maverick, E-281 (H-024 control):** E-269 finds the Z-congruence P for all 6 E-275 mixed-digit pairs (pre-registered YES), still NO on 4 of 4 inequivalent cross pairs. Referee caught that the six pairs have lam 2.24..2.63, so they do not test the l.16 fix; it is now tested on 11 low-lam within-quipu pairs (YES only). NO power at lam < 1.5 untested.
+- **Toolsmith, E-282 (H-027 / T10):** an independent Hom(T,T[m]) test (the E-161 test) finds no vertex-local one-step exchange of B_5 or B_6 with A_n's Cartan matrix; 7 of the 8 key-kept J != 0 edges are silting, not tilting. H-027 stays OPEN (one step, vertex-local only).
+- **Experimentalist, E-283 (T6 / H-017):** the defect is not constant per key class at n = 9 depth 5 (1..4 with cords >= 1; 61 of 645 members cord-free); only 2 key classes occur, so the shuffle control has no power.
+- **Promoted:** E-281, E-282, E-283; H-024, H-027, H-017 status lines. No finding or retraction. Dropped this round: H-023 (theorist), scholar PDF checks (next round).
+- Questions for the human: none. No overnight run. Next: round 106 (phase 2).
+
 ## Round 104 -- 2026-11-01 -- conference (cycle 1, phase 1: literature)
 All six personas wrote positions (nothing run). Merge of origin/main: already up to date. No questions open from 103.
 - **Convergence:** four of six name the same open point: A_n ~ B_n for n >= 5 (Fosse Cor. 4.6) but A_n is outside the E-187 move-orbit (E-280), so is it reached by another tilting mutation? New **H-027** (OPEN). Three want the E-269 Cartan search run on the six E-275 mixed-digit pairs, the first control that could fail.

@@ -1,0 +1,7 @@
+A_E254 F 3 J True gate True | hom0 False mass (2, 0) det True H==Cartan(child)^T True H==Cartan(child) False 0s
+B_E244_8063 R 9 J True gate True | hom0 False mass (2, 0) det True H==Cartan(child)^T True H==Cartan(child) False 0s
+B_E244_8170 R 7 J True gate True | hom0 False mass (4, 0) det True H==Cartan(child)^T True H==Cartan(child) False 0s
+B_E244_8196 R 7 J True gate True | hom0 False mass (4, 0) det True H==Cartan(child)^T True H==Cartan(child) False 0s
+B_E244_8427 R 7 J True gate True | hom0 False mass (2, 0) det True H==Cartan(child)^T True H==Cartan(child) False 0s
+B_E244_11123 R 2 J True gate True | hom0 False mass (2, 0) det True H==Cartan(child)^T True H==Cartan(child) False 0s
+B_E244_4606 R 7 J True gate True | hom0 False mass (2, 0) det True H==Cartan(child)^T True H==Cartan(child) False 0s
