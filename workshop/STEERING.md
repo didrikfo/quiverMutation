@@ -81,7 +81,7 @@ A short negative result ("dead end, because ...") is a welcome outcome.
 ## Special requests for the next round
 
 <!-- e.g. "conference", "only skeptic and theorist", "everyone on H-021" -->
-(none) <!-- the 7 + 7 join97 request was acted on in round 090 (E-250) -->
+(none)
 
 ## Plan after round 100 (human, 2026-10-26) -- done 2026-10-30
 

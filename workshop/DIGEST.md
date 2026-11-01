@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 104 -- 2026-11-01 -- conference (cycle 1, phase 1: literature)
+All six personas wrote positions (nothing run). Merge of origin/main: already up to date. No questions open from 103.
+- **Convergence:** four of six name the same open point: A_n ~ B_n for n >= 5 (Fosse Cor. 4.6) but A_n is outside the E-187 move-orbit (E-280), so is it reached by another tilting mutation? New **H-027** (OPEN). Three want the E-269 Cartan search run on the six E-275 mixed-digit pairs, the first control that could fail.
+- **Weakest claims named:** the J = 0 premise (Lemma A for loop letters, Anick numbers secondary), and the safety of the 9 Cartan-level NOs (Nikulin 1.13.3 unverified; E-269 float threshold).
+- **Ledger:** no F- or R-entry. F-candidate H-024 (blocked on E-269 on the mixed pairs); R-candidate "known only at n = 9, 10" (blocked on the Fosse Cor. 4.6 PDF check). H-024 stays SUPPORTED; no thread closed.
+- **Phase 2 agenda (rounds 105-108):** H-024 control; H-027 / T10 tilting test independent of the move set; H-023 loop case; T6 census as breadth; scholar PDF checks. Summary: `cycles/001/phase-1.md`.
+- Questions for the human: none. No overnight run.
+
 ## Round 103 -- 2026-10-31 -- ordinary (cycle 1, phase 1: literature)
 Scholar, theorist, experimentalist (all minor revision, responses done; scholar accepted narrowed). Merge of origin/main: already up to date. No questions open from 102.
 - **Scholar, E-278:** Anick Th. 3.1/3.2 and Forre Th. 2.6 recur in Efrat 2604.25789v1, a second but secondary source (not shown independent of Gartner): UNVERIFIED stays. For J != 0 steps no source read (Aihara-Iyama, Chan-Koenig-Liu, Dugas) addresses derived equivalence of End(T).

@@ -6,6 +6,13 @@ it. Status is one of `OPEN`, `SUPPORTED`, `CONFIRMED → F-nnn`, `REFUTED → R-
 
 ---
 
+## H-027 — A_n is reached from B_n by a tilting mutation outside the E-187 moves
+*2026-11-01* · **OPEN** *(workshop round 104 ledger; T10/T7, S-1 item 3)*
+
+A_n and B_n are derived equivalent for every n >= 5 (Fosse 2305.06642 Cor. 4.6, LaTeX read, E-280) but A_n is not in the E-187 move-orbit of B_n for n = 6..17 (E-247, E-280). **Claim:** some tilting mutation not among the E-187 moves (a J != 0 silting-and-tilting step, or an APR-type step the moves omit) joins B_n to A_n, so the orbit n 2^(n-5) is a move-orbit and not the class. **Falsifiable:** an exhaustive search at n = 5 or 6, with a tilting test independent of the move set (Hom(T, T[k]) = 0 for k != 0), finds no such step. **Would settle it:** the step, or the exhaustive negative; the n >= 18 closure (moves invertible and mirror-closed) is not re-proved. Open until round 105+.
+
+---
+
 ## H-026 — The vertex-deletion K-threshold is a law: K0 = (n - 1)/2 - 2 for the lone-3 class
 *2026-10-30* · **OPEN** *(workshop cycle 001 planning)*
 
