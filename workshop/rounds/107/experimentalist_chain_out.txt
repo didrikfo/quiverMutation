@@ -1,0 +1,29 @@
+# outputs of experimentalist_chain.py (tab-free copy of console output)
+## 3 2 "8,3:9,3:10,3;8,4:10,4:12,4;8,3:10,3:12,3;8,4:10,4:12,3"
+((8, 3), (9, 3), (10, 3)) base 2 reached 6 min 0 lowered 4 secs 22.9
+((8, 3), (10, 3), (12, 3)) base 1 reached 0 min None lowered 0 secs 41.3
+((8, 4), (10, 4), (12, 3)) base 2 reached 2 min 2 lowered 0 secs 55.6
+((8, 4), (10, 4), (12, 4)) base 2 reached 0 min None lowered 0 secs 77.8
+## 3 1 "8,4:10,4:11,4;8,4:9,4:11,4;8,3:9,3:11,3;8,3:10,3:11,3;8,4:10,4:11,3;8,4:10,4:11,5;8,3:9,3:10,3:12,3;8,4:10,4:12,4:13,4"
+((8, 3), (10, 3), (11, 3)) base 2 reached 1 min 2 lowered 0 secs 23.5
+((8, 4), (10, 4), (11, 3)) None
+((8, 3), (9, 3), (11, 3)) base 2 reached 1 min 2 lowered 0 secs 25.9
+((8, 4), (9, 4), (11, 4)) base 3 reached 2 min 3 lowered 0 secs 35.0
+((8, 4), (10, 4), (11, 4)) base 3 reached 2 min 3 lowered 0 secs 35.2
+((8, 3), (9, 3), (10, 3), (12, 3)) base 2 reached 4 min 0 lowered 3 secs 20.3
+((8, 4), (10, 4), (11, 5)) base 3 reached 1 min 4 lowered 0 secs 35.3
+((8, 4), (10, 4), (12, 4), (13, 4)) base 3 reached 2 min 3 lowered 0 secs 49.9
+## 3 1 "8,4:9,4:10,4;8,4:9,4:10,3;8,5:9,5:10,5;8,4:10,4:12,4;8,3:10,3:12,3;8,5:10,5:12,5;8,4:10,4:12,3;8,4:10,4:12,2"
+((8, 4), (9, 4), (10, 3)) None
+((8, 4), (9, 4), (10, 4)) base 3 reached 4 min 2 lowered 2 secs 22.2
+((8, 3), (10, 3), (12, 3)) base 1 reached 0 min None lowered 0 secs 26.1
+((8, 5), (9, 5), (10, 5)) base 4 reached 4 min 3 lowered 2 secs 57.9
+((8, 4), (10, 4), (12, 2)) None
+((8, 4), (10, 4), (12, 4)) base 2 reached 0 min None lowered 0 secs 91.7
+((8, 4), (10, 4), (12, 3)) base 2 reached 2 min 2 lowered 0 secs 68.3
+((8, 5), (10, 5), (12, 5)) base 3 reached 0 min None lowered 0 secs 93.9
+## 4 1 "8,4:10,4:12,4;8,3:10,3:12,3;8,4:10,4:12,3;8,4:10,4:12,5"  (~10 min wall)
+((8, 3), (10, 3), (12, 3)) base 1 reached 0 min None lowered 0 secs 179.1
+((8, 4), (10, 4), (12, 3)) base 2 reached 6 min 2 lowered 0 secs 305.5
+((8, 4), (10, 4), (12, 4)) base 2 reached 0 min None lowered 0 secs 434.3
+((8, 4), (10, 4), (12, 5)) base 2 reached 0 min None lowered 0 secs 587.2

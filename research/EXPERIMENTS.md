@@ -6,6 +6,20 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-288 — T7 / H-010, stepped-chain control: no lowering control found for a start-gap-2 pair at k <= 4, margin <= 2 (5 non-vacuous gap-2 patterns, none below base; 4 vacuous), so the (8:4)(10:4) two-bystander shape stays uninformative and k = 6 was not run (no power)
+*2026-11-02* · **`timeout 10m .venv/bin/python workshop/rounds/107/experimentalist_chain.py` (key cells about 73 s; output `experimentalist_chain_out.txt`)** · *workshop round 107, experimentalist, refereed by theorist (minor revision, answered)*
+
+Scope: stepped chains of start-gap 2 (8, 10, 12) at lengths 3-5, k <= 4, margin <= 2; 18 patterns listed, 3 not evaluated, 4 run-of-three controls, 11 evaluated: 4 vacuous (reach no LNA), 5 non-vacuous gap-2 (4 base -> base, one (8,4)(10,4)(11,5) goes 3 -> 4, above base), 2 near-runs with a gap-1 start. Counted by pattern, not by cell. Consecutive-start runs do lower overlap (2 -> 0, 3 -> 2, 4 -> 3), so the harness can say YES.
+
+Result: no gap-2 pair lowered. This is "uninformative", not "negative": E-230/E-241/E-260/E-271's "overlap stays 2" still has no control that can fail. The overnight proposal (k = 5 margin 1, hours) is not approved. No conjecture logged.
+
+## E-287 — H-027 / T10, n = 5 and 6: A_n is reached from B_n by 3 (n = 5) / 4 (n = 6) single-summand exchanges of rigid K0-unimodular complexes, End(T) = A_n verified as a thin-triangular algebra for every hit (7 of 7, 9 of 9); none at depth <= 2 (n = 5), <= 3 (n = 6); generation UNVERIFIED
+*2026-11-02* · **`timeout 10m .venv/bin/python workshop/rounds/107/toolsmith_cones.py 6` (35 s), then `.../toolsmith_tiltsearch.py 6 5 7 3` (15 s); n = 5: `toolsmith_cones.py 5`, `toolsmith_tiltsearch.py 5 4 7 8`** · *workshop round 107, toolsmith, refereed by skeptic (minor revision, answered)*
+
+Scope: all single-summand exchanges (any indecomposable replacing one summand, not only vertex-local arrow cones, not only LNA End) among the 20 (n = 5) / 30 (n = 6) exceptional objects of D^b(B_n) (the D_n roots, closed under cones), shifts <= 7 (used <= 3, <= 4), depth <= 4 (n = 5), <= 5 (n = 6). Tilting test = round-050 chain-map `homdim`, independent of the move set: Hom(T,T[m]) = 0 for m != 0, n summands, unimodular K0. Generation (Bruning) is cited from memory, UNVERIFIED, so the hits are "rigid, n summands, K0-unimodular complexes with End = A_n". Exchanges are not checked to be silting-order mutations (say "tilting exchange"). The algebra check is thin-triangular (Cartan match, permutation, consecutive-arrow composites), not a full isomorphism of quivers with relations. n >= 7 not run; the repo's gate is not used.
+
+Result: first hit at depth 3 (n = 5: 2 hits, 5 more at depth 4) and depth 4 (n = 6: 2 hits, 7 more at depth 5); 1745 complexes reached at n = 6. Controls: depth 1 gives E-282's 8 vertex-local exchanges plus 2 non-vertex-local, the two silting-only ones absent; 2654 of 2664 (n = 6) candidate pairs rejected as non-tilting. Consequence: H-027 is answered YES for multi-step exchanges at n = 5, 6 (E-282: one-step vertex-local NO). Consistent with E-280: the paths leave the gate-limited LNA moves (intermediate End not checked to be LNAs); it does not show the E-187 gate wrong.
+
 ## E-284 — T5 / H-023, loop case: in ten hand-sized dg models with loops of degree 1, 2 or 3 at the mutation vertex (plus a no-loop control) the cancellation kM -> N of Prop. 7.6 is a quasi-isomorphism through weight 12 (M1-M6) or 9 (M7, M7b, M8A, M8B); a computation, not a proof; Lemma A's monomial premise is false in these models
 *2026-11-01* · **`timeout 10m .venv/bin/python workshop/rounds/106/theorist_loopfilt.py` (35 s), `.venv/bin/python workshop/rounds/106/theorist_loopfilt2.py` (about 1 min)** · *workshop round 106, theorist, refereed by skeptic (minor revision, answered)*
 

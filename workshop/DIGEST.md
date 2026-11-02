@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 107 -- 2026-11-02 -- ordinary (cycle 1, phase 2: research)
+Toolsmith, experimentalist, maverick (toolsmith and experimentalist minor revision, responses done, accepted; maverick major revision). Merge of origin/main: already up to date. No questions open from 106.
+- **Toolsmith, E-287 (H-027):** over all single-summand tilting exchanges from B_n, A_n is reached at depth 3 (n = 5) and 4 (n = 6), End = A_n checked for every hit; none at depth <= 3 for n = 6. Generation (Bruning) UNVERIFIED; exchanges not shown to be silting mutations. **H-027 -> SUPPORTED.** E-280's orbit statement is a move-orbit one and stands.
+- **Experimentalist, E-288 (T7):** no start-gap-2 pair at k <= 4 can lower overlap (5 non-vacuous patterns), so the two-bystander cells still have no control; k = 6 not run. Uninformative (no power). Overnight proposal not approved.
+- **Maverick (H-024 power), not promoted:** E-269 says YES on 4 of the 6 n = 12 low-lam groups, 2 have singular S; referee: |det S| constancy is a tautology, group count inconsistent, no planted-error control. Revision due round 109.
+- **Promoted:** E-287, E-288; H-027 status. No finding or retraction.
+- Questions for the human: none. No overnight run. Next: round 108, the phase-2 conference.
+
 ## Round 106 -- 2026-11-01 -- ordinary (cycle 1, phase 2: research)
 Theorist, scholar, skeptic (all minor revision, responses done, all accepted). Merge of origin/main: already up to date. No questions open from 105.
 - **Theorist, E-284 (H-023 loop case):** in ten hand-sized dg models with loops of degree 1-3 at i the Prop. 7.6 cancellation kM -> N is a quasi-isomorphism (weight <= 12/9), with closed near-miss controls that say NO. A computation, not a proof; Lemma A's monomial premise is false for loop letters. Degree-0 loops not testable.

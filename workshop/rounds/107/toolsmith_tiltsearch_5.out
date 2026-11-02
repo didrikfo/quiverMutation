@@ -1,0 +1,39 @@
+n 5 objects up to shift 20 Hom tables 0s
+depth 0 : 1 node; End T0 Cartan == A_n? False
+depth 1 : 8 new tilting complexes (cumulative 9); Cartan(End T) ~ Cartan(A_5): 0   [0s]
+depth 2 : 34 new tilting complexes (cumulative 43); Cartan(End T) ~ Cartan(A_5): 0   [0s]
+depth 3 : 99 new tilting complexes (cumulative 142); Cartan(End T) ~ Cartan(A_5): 2   [0s]
+depth 4 : 189 new tilting complexes (cumulative 331); Cartan(End T) ~ Cartan(A_5): 5   [1s]
+first hits:
+ depth 3 X2[1] + X5[1] + X7[0] + X8[0] + X12[0]  path (replaced -> new): [((4, 0), (5, 1)), ((0, 0), (2, 1)), ((10, 0), (8, 0))]
+   H = [[1, 1, 0, 0, 1], [0, 1, 0, 0, 1], [1, 1, 1, 0, 1], [1, 1, 1, 1, 0], [0, 0, 0, 0, 1]]
+ depth 3 X2[1] + X5[1] + X7[0] + X11[1] + X12[0]  path (replaced -> new): [((4, 0), (5, 1)), ((0, 0), (2, 1)), ((10, 0), (11, 1))]
+   H = [[1, 1, 0, 1, 1], [0, 1, 0, 1, 1], [1, 1, 1, 0, 1], [0, 0, 0, 1, 0], [0, 0, 0, 1, 1]]
+ depth 4 X2[1] + X5[1] + X7[0] + X8[0] + X17[0]  path (replaced -> new): [((4, 0), (5, 1)), ((0, 0), (2, 1)), ((12, 0), (17, 0)), ((10, 0), (8, 0))]
+   H = [[1, 1, 0, 0, 0], [0, 1, 0, 0, 0], [1, 1, 1, 0, 0], [1, 1, 1, 1, 0], [1, 0, 1, 1, 1]]
+ depth 4 X2[1] + X5[1] + X11[1] + X12[0] + X14[2]  path (replaced -> new): [((4, 0), (5, 1)), ((0, 0), (2, 1)), ((7, 0), (14, 2)), ((10, 0), (11, 1))]
+   H = [[1, 1, 1, 1, 0], [0, 1, 1, 1, 1], [0, 0, 1, 0, 1], [0, 0, 1, 1, 1], [0, 0, 0, 0, 1]]
+== one-step neighbours of B_5 (all, not only vertex-local), tilting by construction ==
+ replace (4, 0) -> (1, 0) class [1, -1, 0, 0, 0] Cartan~A_n False
+ replace (4, 0) -> (5, 1) class [0, -1, 1, 0, 0] Cartan~A_n False
+ replace (4, 0) -> (16, 2) class [0, 1, -1, 0, 1] Cartan~A_n False
+ replace (0, 0) -> (1, 1) class [-1, 1, 0, 0, 0] Cartan~A_n False
+ replace (12, 0) -> (11, 0) class [0, 0, 0, 1, -1] Cartan~A_n False
+ replace (12, 0) -> (17, 0) class [0, 1, 0, -1, 1] Cartan~A_n False
+ replace (7, 0) -> (8, 1) class [0, 0, -1, 1, 0] Cartan~A_n False
+ replace (10, 0) -> (8, 0) class [0, 0, 1, -1, 0] Cartan~A_n False
+planted/non-tilting control: 1467 of 1475 (exceptional y, removed summand) pairs from B_5 are rejected as non-tilting
+== algebra check on hits: End(T) ~ A_n as algebra (composites of consecutive arrow maps nonzero in homotopy classes) ==
+ depth 3 X2[1] + X5[1] + X7[0] + X8[0] + X12[0] -> True perm (4, 1, 0, 2, 3) transposed False composites nonzero [True, True]
+ depth 3 X2[1] + X5[1] + X7[0] + X11[1] + X12[0] -> True perm (3, 4, 1, 0, 2) transposed False composites nonzero [True, True]
+ depth 4 X2[1] + X5[1] + X7[0] + X8[0] + X17[0] -> True perm (1, 0, 2, 3, 4) transposed False composites nonzero [True, True]
+ depth 4 X2[1] + X5[1] + X11[1] + X12[0] + X14[2] -> True perm (4, 2, 3, 1, 0) transposed False composites nonzero [True, True]
+ depth 4 X5[1] + X11[1] + X12[0] + X14[2] + X17[2] -> True perm (4, 3, 1, 2, 0) transposed False composites nonzero [True, True]
+ depth 4 X2[1] + X7[0] + X8[0] + X14[0] + X17[0] -> True perm (0, 1, 2, 4, 3) transposed False composites nonzero [True, True]
+ depth 4 X7[0] + X8[0] + X11[-1] + X14[0] + X17[0] -> True perm (0, 1, 4, 3, 2) transposed False composites nonzero [True, True]
+max |shift| among 331 nodes: 3 (window 7 )
+== controls for the algebra check ==
+  A_5, n-2 arrows (must be NONZERO) : composite of 3 consecutive arrows nonzero = True
+  A_5, n-1 arrows (must VANISH) : composite of 4 consecutive arrows nonzero = False
+  B_5, 2 arrows (must be NONZERO) : composite of 2 consecutive arrows nonzero = True
+  B_5 (3-arrow relation: composite of 3 consecutive arrows must vanish) : composite of 3 consecutive arrows nonzero = False

@@ -1,28 +1,23 @@
 # Maverick's notebook
 
-## What I now believe (after round 105)
-- r105: E-269's exhaustive Z-congruence search (iso140 test) says YES on all 6 E-275 mixed-digit pairs (n = 9..12, slack 0.5 and 30), as pre-registered; NO on 4 of 4 sampled cross pairs of the 140 group. Fix: l.16 threshold `> 1 + 1e-6`, BOUND closed form n-2+lam+1/lam+slack. H-024 necessity step not contradicted; the 9 Cartan NOs stand. No NO control exists at lam < 1.5 (no certified inequivalent pair n <= 12), so the lowered threshold has only been run on YES cases. I did not print lam for the mixed pairs.
-- r101 (literature): necessity step of H-024: Ladkani math/0610685 Cor. 3.13 + Lemma 3.14 + Cor. 3.15 (by count), posets; extension to finite global dimension is ours. Bessenrodt-Holm Thm 2.2 weaker. Nikulin 1.13.3 unsourced, not needed for NOs.
-- No independent second invariant for LNAs (HH* = k, q-Cartan det = 1); E-259 pairs have an independent NO from the quipu theorem.
-- 10 radical-power literature pairs n = 9..12 pass all Cartan tests; E-269 YES on the 3 with signature (n-1,1).
-- r099: key group of 140 pair at n = 12 not Z-congruent (E-269); r097: q_S separates 7 of 8 pairs. Convention Phi = -C^-T C, n = len + 2.
+## What I now believe (after round 107)
+- E-269 Z-congruence search (iso140 + E-276 closed-form bound) says YES on within-quipu pairs in the 4 testable n = 12 low-lam groups (lam 1.2612, 1.3836, 1.4250, 1.4886; slack 0.5 and 30). The other 2 of the "6" are NOT testable: S = C+C^T singular (the "lam 1.000136" group is a Jordan block at 1, not Salem; the 47-group has Salem 1.4013 but null S).
+- No certified-inequivalent pair at lam < 1.5 in n = 8..12 samples: in every group (lam<1.5, S nonsingular) all sampled members share |det S|, SNF and q_S; each group has one quipu. NO power at lam < 1.5 is unavailable by Cartan invariants. Planted-error control (perturb C, expect NO) not yet run -- cheapest way to give the search a NO at low lam.
+- Earlier: r105 six mixed pairs YES (lam 2.24..2.63), 4/4 cross NO at n = 12 group of 140; necessity step Ladkani math/0610685 Cor 3.13/Lemma 3.14/Cor 3.15 (by count). No independent second invariant for LNAs (HH* = k, q-Cartan det 1).
+- Convention Phi = -C^-T C, n = len + 2; digit strings are relLengths.
 
 ## What I tried
-- r105: rounds/105/maverick_mixed.py (mixed | ctl); edited rounds/099/maverick_iso140.py.
-- r101: maverick_litpairs.py, maverick_litiso.py (now superseded by the fix). r099: iso140, _ctl, _transp, _setup. r097/094/091/089: cartanZ, genusscan, quipupairs.
-- ALWAYS run a within-class control with nontrivial P before trusting a NO. qfminim returns 2 x vectors; pari.allocatemem(3e9).
+- r107: rounds/107/maverick_n12low.py, maverick_nopair.py.
+- r105: maverick_mixed.py, maverick_lowlam.py; r099: iso140 (+_ctl, _transp, _setup); r097/094/091/089: cartanZ, genusscan, quipupairs.
+- ALWAYS run a within-class control with nontrivial P before trusting a NO. A within-quipu YES at low lam is weak (2-11 short vectors).
 
 ## Watch for
 - Venv loses cypari/python-flint after resets: `uv pip install --python .venv/bin/python numpy sympy networkx polars cypari python-flint`.
-- No LaTeX engine: theorem numbers by counting environments; say "by count".
-- Labels: n = len + 2. Digit strings in E-275 are relLengths (n-2 digits).
-- Slack 0.5 leaves ~1 of room; trust YES at slack 30.
+- No LaTeX engine: theorem numbers by counting. Print lam and check S nonsingular before claiming anything per group.
+- Long combined runs hit the 2-min tool limit: run one group at a time.
 
 ## Next
-- Sweep the other 42 Cartan-passing mixed algebras (orbit members) through the same test.
-- Two-Salem-pair (signature (n-2,2)) pairs: N(12,5)~N(12,4) etc. need a different method (not finite isometry set).
-- A lam < 1.5 NO control: search n = 13..15 for equal-Phi, equal-genus inequivalent pairs.
-- Z[Phi]-class invariant vs q_S as cheap second invariant.
-
-## r105 answer to referee
-- My claim "lam < 1.5 for the n = 9..12 mixed pairs" was false (lam 2.24..2.63); always print lam before saying anything about it. Added maverick_lowlam.py: fixed l.16 gives YES on 11 within-quipu pairs at lam 1.18..1.46 (n = 8..11); old threshold IndexError there. n = 12 low-lam and any NO at lam < 1.5 still open.
+- Planted-error control at lam < 1.5: perturb C_b by an entry that changes Phi-commutant structure and check NO (honest power test, not a derived-equivalence NO).
+- Extend E-269 to singular S (quotient by radical) for the 47-group (Salem 1.4013).
+- Two-Salem-pair cases N(12,5)~N(12,4) need a different method.
+- Sweep the other mixed algebras through the test.
