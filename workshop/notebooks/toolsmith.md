@@ -1,24 +1,22 @@
 # Toolsmith notebook
 
 ## Rounds 003-102 (short)
-- `orbitCensus`/`OrbitsTask` in `batch.py` (`--jobs`, `--plan`, `--summary`); ledger unsafe with two processes on one file. Traps: foreground sleeps <= 115 s, `pkill -f` kills own shell (happened again r107), > 3 jobs on 4 cores inflates timings, check `ps` after a timeout.
-- Lessons: grep FINDINGS/EXPERIMENTS before sizing; "no hit" needs a positive control; `canonicalKey` is LABELLED (E-164); meet up to sign-aware iso. Hom+Cartan has no NO power for iso, the iso meet is the check.
-- T10 n = 9 (E-234..E-268): key-kept J != 0 steps exist; join searches cannot test the J = 0 premise.
-- Round 102: worked examples through gate/J/key guard (`rounds/102/toolsmith_litex.py`); Fosse Ex. 3.2 cyclic refused. Oppermann LEFT = repo RIGHT.
-- Tools: `087/toolsmith_d6scan.py`, `098/toolsmith_j98.py`, `102/toolsmith_litex.py`. Scripts exec preludes; `background &` fires task notice at once.
+- `orbitCensus`/`OrbitsTask` in `batch.py` (`--jobs`, `--plan`, `--summary`); ledger unsafe with two processes on one file. Traps: foreground sleeps <= 115 s, `pkill -f` kills own shell, > 3 jobs on 4 cores inflates timings, check `ps` after a timeout.
+- Lessons: grep FINDINGS/EXPERIMENTS before sizing; "no hit" needs a positive control; `canonicalKey` is LABELLED (E-164); Hom+Cartan has no NO power for iso, the iso meet is the check.
+- T10 n = 9 (E-234..E-268): key-kept J != 0 steps exist; join searches cannot test the J = 0 premise. Tools: `087/toolsmith_d6scan.py`, `098/toolsmith_j98.py`, `102/toolsmith_litex.py` (worked examples through gate/J/key).
 
-## Round 105 (E-282)
-- `rounds/050/skeptic_tilt.py` (`Alg`, `homdim`, `stepTest`) is the independent chain-map Hom test; `105/toolsmith_tiltA6.py` = one-step B_6 test (8 tilting, 2 silting-only, no A_6 Cartan). J != 0 n=9 edges are silting, not tilting.
-- Trap: left step = right step on `a.opposite()`; `repoChild` must use `isMutable`.
+## Rounds 105-107 (E-282, E-287)
+- "A_n" = Nakayama rad^(n-1)=0, "B_n" = lone 3-arrow relation; both derived equivalent to kD_n (n(n-1) exceptional objects up to shift). `107/toolsmith_cones.py` finds them all by cone closure (n=7: 2m38s); `107/toolsmith_tiltsearch.py` BFS over tilting exchanges (Hom table once).
+- `050/skeptic_tilt.py` is the independent chain-map Hom test. Left step = right step on the opposite algebra. Coupled |shift| filter bug: complements per summand should be 2.
 
-## Round 107 (H-027 multi-step)
-- "A_n" = Nakayama rad^(n-1)=0, "B_n" = lone 3-arrow relation; both derived equivalent to kD_n (Euler form has n(n-1) roots: 20, 30), NOT type A.
-- All indecomposables of K^b(proj B_n) up to shift = n(n-1); brute-force thin complexes miss 7 / 12; closing under cones of chain maps (`107/toolsmith_cones.py`, minimise by Gaussian elimination) finds all in seconds. Exceptional test (End=k, no self-ext) = indecomposable.
-- `107/toolsmith_tiltsearch.py`: Hom table h[r][s][j] once, then tilting-exchange BFS is pure table lookup (n=6 depth 5: 1745 nodes, 15 s). Result: A_n reached at depth 3 (n=5) / 4 (n=6), End T = A_n verified by composites of arrow maps (homotopy-class test with controls). One-step: 8 vertex-local (= E-282) + 2 non-local at n=6.
-- Bug caught: a coupled |shift| filter in compat() gave 6 complements for an almost complete T (should be 2); the count of complements per summand is a good sanity check. Believe: generation = rigid + n summands + det +-1 (Bruning, UNVERIFIED).
-- Belief: E-280's "A_n not in orbit(B_n)" is a statement about gate-limited LNA moves, not about tilting reachability.
+## Round 109 (H-027 path audit)
+- Believe: on every shortest B_n -> A_n tilting path (n=5,6,7; depth 3,4,5; 4/5/6 paths, 12/20/30 steps) the repo gate admits, the reduced mutation equals End(T'), the Coxeter key is kept. No refusal anywhere. Intermediates are NOT LNAs (commutative square or two in-arrows), so the gate is run outside E-187's proved scope and still agrees.
+- So E-280's orbit(B_n) not containing A_n is about the LNA-only move set, not gate/key refusing tilting steps. Depth-to-first-hit 3,4,5 (one more per n, 3 points).
+- Tool: `109/toolsmith_pathaudit.py n depth` (presentation of thin End(T), LNA/gentle test, both mutation sides, gate, match, key); control = one-step B_n table (gate refuses 4 of 12 cells at n=6; admitted 8 = E-282).
+- Trap: `toolsmith_cones.py 7` writes its json into rounds/107 (I moved it to 109). A background command with a 10-min timeout finished in 2m38; check before waiting.
+- Weak points: match is by labelled Cartan matrix, not full iso; key guard never refused so it has no NO control in this run; signs of commutativity relations only checked as +-1.
 
 ## Next
-- n = 7, 8, 9 same machinery (42..72 objects); depth-to-first-hit vs n; shifts window check.
-- Describe End of each intermediate T on the depth-4 path (LNA? which step does the gate refuse?) with a theorist; compare with Fosse's explicit T.
-- Verify exchange = Aihara-Iyama mutation (silting order) before it enters a finding.
+- Key-refusal control on the same pipeline (an E-268 J != 0 step); canonicalKey-level match.
+- n = 8 (cones > 10 min?): size with the n=7 timing (brute force 126 s, cones 2m38 for 42 objects) and propose OVERNIGHT if needed.
+- Verify exchange = Aihara-Iyama mutation, and Bruning generation, before a finding.

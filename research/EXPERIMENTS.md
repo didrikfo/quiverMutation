@@ -6,6 +6,28 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-291 — H-024 / T3/T8, n = 12 low-lam (lam < 1.5): E-269 returns YES on the 4 testable within-quipu pairs (2 of the 6 groups have singular S, outside E-269); a planted-error control on one group (lam 1.4886) found no NO, so power at lam < 1.5 is not demonstrated (no power)
+*2026-11-02* · **`timeout 10m .venv/bin/python -W ignore workshop/rounds/107/maverick_n12low.py 0.5 0 1 2 3 4 5`; `.venv/bin/python -W ignore workshop/rounds/107/maverick_nopair.py 3 8 12` (about 3 min; 3 members per group); planted control `workshop/rounds/109/maverick_planted.py`, `maverick_planted2.py` (about 4 min)** · *workshop round 109, maverick, refereed by skeptic (minor revision, answered)*
+
+Scope: n = 12, the 6 lnaKeys groups with lam < 1.5; one within-quipu pair plus a self pair per group, slack 0.5. 15 groups with lam < 1.5 over n = 8..12 (1+2+4+4+4; listed in `rounds/109/maverick.md`). Planted control on group 5 only.
+
+Result: E-269 is YES on the 4 testable pairs. |det S| is fixed by the key (S = C(1 - Phi^-1)), so it is no evidence of homogeneity; only SNF(S) and q_S are compared, on sampled members, and they agree within each group. Planted control: of the single- and two-entry +-1 perturbations of C, 8 + 149 stay in E-269's domain and all 157 are exactly Z-congruent to C (YES, so not errors); the rest leave the domain and are rejected by the test's asserts. No NO was produced, so "rigid low-lam classes" and "test too permissive" are not separated. "No certified inequivalent pair at lam < 1.5" is E-276 restated. Next: a pair inequivalent by construction inside the domain with an independent certificate (same charpoly and |det S|, different q_S; or different Z[Phi]-module class, class number first). H-024 stays SUPPORTED, its NO side untested.
+
+## E-290 — H-023 / T5, loop case: for the single loop model M1 (degree-1 relation loop f at i, d f = ab) the cancellation kM -> N of Prop. 7.6 is proved by change of generators plus Kunneth, and the mutation T = P_j + cone(P_i -> P_j) has Hom(T,T[m]) = 0 for m != 0 and the Cartan matrix of A; M2, M4, M5 not covered
+*2026-11-02* · **`.venv/bin/python workshop/rounds/109/theorist_dtheta.py`, `theorist_m1free.py` (under 1 s), `theorist_m1hom.py`** · *workshop round 109, theorist, refereed by experimentalist (minor revision, answered)*
+
+Scope: one algebra, M1 = kQ/(ab) with a degree-1 loop letter; Hom computed for m = -3..3; nothing for degree-0 loops (excluded by Oppermann).
+
+Result: all three hypotheses of Lemma A fail for a loop letter f at i: (i) d_1 theta is not a single quadratic monomial (linear term b-bar), (ii) X1, Y and the Theta letters are not disjoint, (iii) D != 0 on a spectator letter. Replacing generators (b-bar = pi_1 - theta_2 v + v f-bar, c = vu - pi_2, triangular) gives T(V) = T(f-bar,u,v) * T(E) with E contractible, so I is acyclic by Kunneth and H^0(N) = A. The 52-cell check (weight <= 12, 0 mismatches; a planted extra survivor gives 14 of 33 mismatches) tests only the dimension count of stage 1. Hom control: Hom(T,T[m]) = 0 for m != 0, Cartan [[1,1],[1,2]] = A's; 4 of 6 wrong cone placements give nonzero Hom, so the test says NO. T generates (P_i = cone(P_j -> X)[-1] in thick(T)). End(T) = A is by hand, not machine-compared (the repo refuses this cyclic D(i)). UNVERIFIED: N ~ A in all degrees (Anick-type), Anick/Forre numbers, journal version of Oppermann's Def. 3.2 signs. Prior: E-284, E-279 (failed monomial premise, M1 to weight 12).
+
+## E-289 — H-027 / T10, n = 5, 6, 7: along every shortest E-287 tilting path B_n -> A_n (4, 5, 6 paths; 12, 20, 30 steps) the E-187 gate `mutationIsPossibleAtVertex` admits the matching-side step and its reduced result equals End(T') (canonicalKey, 62 of 62), although the intermediate End(T) are not LNAs; nothing is claimed about the Coxeter-key guard
+*2026-11-02* · **`timeout 10m .venv/bin/python workshop/rounds/109/toolsmith_pathaudit.py 6` (and 5, 7; n = 7 cones 2m38s, audit 35 s), `.venv/bin/python workshop/rounds/109/toolsmith_relcheck.py 6`** · *workshop round 109, toolsmith, refereed by scholar (minor revision, answered)*
+
+Scope: n = 5, 6, 7; shifts <= 7; first-depth A_n hits (depth 3, 4, 5), shortest paths only; generation (Bruning) UNVERIFIED; labelled presentations, thin triangular End(T).
+
+Result: only B_n and A_n are LNAs along the paths; the intermediate End(T) are not (a commutative square, or two arrows into one vertex), none gentle. At all 62 steps exactly one side (right at 9/16/25, left at 3/4/5) is gate-admitted and reproduces End(T') (identity reading, not the dual). Of 124 (step, side) cells: 62 matching, 38 gate-True with a non-matching result (35 left, 3 right), 24 gate-False; so the gate is not a test of "this neighbour is tilting". Control: at B_6 the gate refuses 4 of 12 cells and admits E-282's 8 (B_5: 6 of 10; B_7: 9 of 12). The key-kept column (62 of 62) is implied by derived equivalence and is not evidence about the guard; no key-refusal control was run. n = 7: no A_7 at depth <= 4, first hits at depth 5. Consequence: the R-candidate "a key-guarded walk stays in one class" is not touched; it still needs a key-refusal control (a J != 0 step).
+
+
 ## E-288 — T7 / H-010, stepped-chain control: no lowering control found for a start-gap-2 pair at k <= 4, margin <= 2 (5 non-vacuous gap-2 patterns, none below base; 4 vacuous), so the (8:4)(10:4) two-bystander shape stays uninformative and k = 6 was not run (no power)
 *2026-11-02* · **`timeout 10m .venv/bin/python workshop/rounds/107/experimentalist_chain.py` (key cells about 73 s; output `experimentalist_chain_out.txt`)** · *workshop round 107, experimentalist, refereed by theorist (minor revision, answered)*
 

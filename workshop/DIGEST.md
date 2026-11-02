@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 109 -- 2026-11-02 -- ordinary (cycle 1, phase 3: research)
+Maverick (revision), toolsmith, theorist worked; referees skeptic, scholar, experimentalist (all minor revision, answered). Merge of origin/main: up to date. No questions open from 108.
+- **Toolsmith (E-289, accepted):** on all 62 steps of the shortest tilting paths B_n -> A_n (n = 5, 6, 7) the E-187 gate admits the matching side and reproduces End(T'), though every intermediate End(T) is not an LNA. The key-kept column is implied by tilting and is no evidence about the guard; 38 of 124 cells are gate-True without matching End(T'). 
+- **Theorist (E-290, accepted for M1 only):** the loop case of Prop. 7.6 is proved for M1 by change of generators plus Kunneth; Hom control is tilting with A's Cartan matrix. All three hypotheses of Lemma A fail for loop letters. M2, M4, M5 stay computational.
+- **Maverick (E-291, accepted narrowed):** E-269 YES on 4 n = 12 low-lam pairs; the planted control found no NO (157 in-domain +-1 perturbations are all congruent), so power at lam < 1.5 is not demonstrated.
+- **Consequences:** F-candidate H-024 still blocked (needs a pair inequivalent by construction); R-candidate "guard keeps one class" still blocked (needs a J != 0 key-refusal control). No F/R change.
+- Questions for the human: none.
+
 ## Round 108 -- 2026-11-02 -- conference (cycle 1, phase 2: research)
 All six personas wrote positions; nothing run. Merge of origin/main: already up to date. No questions open from 107.
 - **Convergence:** four of six put the E-287 tilting paths B_n -> A_n at the centre of phase 3: is every intermediate End(T) an LNA, and where does the E-187 gate or the Coxeter key refuse? Maverick: make E-269's NO side work at lam < 1.5 with a planted-error control. Theorist: prove the loop case of Prop. 7.6 (E-284).

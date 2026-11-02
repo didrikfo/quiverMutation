@@ -1,0 +1,108 @@
+depth 1 new 10 A_n hits 0
+depth 2 new 53 A_n hits 0
+depth 3 new 189 A_n hits 0
+depth 4 new 503 A_n hits 2
+CONTROL: one-step vertex mutations of B_6 in the repo (gate / equals a tilting neighbour End / key kept)
+ End(B_n): ('LNA non-gentle', "arrows [(0, 1), (1, 2), (2, 3), (3, 4), (4, 5)] rels [['3456']]")
+  vertex 1 right: gate True | tilting exchanges at this slot: 1 | repo result = End of one of them: True | key kept (matched) [True]
+  vertex 1 left: gate False | tilting exchanges at this slot: 1 | repo result = End of one of them: False | key kept (matched) []
+  vertex 2 right: gate True | tilting exchanges at this slot: 2 | repo result = End of one of them: True | key kept (matched) [True]
+  vertex 2 left: gate True | tilting exchanges at this slot: 2 | repo result = End of one of them: True | key kept (matched) [True]
+  vertex 3 right: gate True | tilting exchanges at this slot: 3 | repo result = End of one of them: True | key kept (matched) [True]
+  vertex 3 left: gate True | tilting exchanges at this slot: 3 | repo result = End of one of them: True | key kept (matched) [True]
+  vertex 4 right: gate True | tilting exchanges at this slot: 1 | repo result = End of one of them: True | key kept (matched) [True]
+  vertex 4 left: gate False | tilting exchanges at this slot: 1 | repo result = End of one of them: False | key kept (matched) []
+  vertex 5 right: gate False | tilting exchanges at this slot: 1 | repo result = End of one of them: False | key kept (matched) []
+  vertex 5 left: gate True | tilting exchanges at this slot: 1 | repo result = End of one of them: True | key kept (matched) [True]
+  vertex 6 right: gate False | tilting exchanges at this slot: 2 | repo result = End of one of them: False | key kept (matched) []
+  vertex 6 left: gate True | tilting exchanges at this slot: 2 | repo result = End of one of them: True | key kept (matched) [True]
+=== PATH to hit [(3, 1), (7, 1), (10, 1), (12, 0), (13, 0), (17, 0)]
+ T_0 End(T): LNA non-gentle | arrows [(0, 1), (1, 2), (2, 3), (3, 4), (4, 5)] rels [['3456']]
+   exchange slot 2 (vertex 3): (9, 0) -> (10, 1), tilting True
+     ('conv0', 'right', True, True, True, None)
+     ('conv0', 'left', True, False, True, None)
+ T_1 End(T): not a line (6 arrows, max out 2 in 2) | arrows [(0, 1), (1, 3), (2, 5), (3, 2), (3, 4), (4, 5)] rels [['243'], ['2456'], ['436', '456']]
+   exchange slot 1 (vertex 2): (5, 0) -> (7, 1), tilting True
+     ('conv0', 'right', True, True, True, None)
+     ('conv0', 'left', True, False, True, None)
+ T_2 End(T): not a line (6 arrows, max out 2 in 2) | arrows [(0, 3), (1, 2), (2, 5), (3, 1), (3, 4), (4, 5)] rels [['142'], ['1456'], ['4236', '456']]
+   exchange slot 0 (vertex 1): (0, 0) -> (3, 1), tilting True
+     ('conv0', 'right', True, True, True, None)
+     ('conv0', 'left', False, None, None, None)
+ T_3 End(T): not a line (6 arrows, max out 2 in 2) | arrows [(0, 1), (1, 2), (2, 5), (3, 0), (3, 4), (4, 5)] rels [['41236', '456']]
+   exchange slot 4 (vertex 5): (15, 0) -> (13, 0), tilting True
+     ('conv0', 'right', True, False, True, None)
+     ('conv0', 'left', True, True, True, None)
+ final End(T): LNA non-gentle arrows [(0, 1), (1, 2), (2, 5), (3, 0), (4, 3)] rels [['541236']]
+=== PATH to hit [(3, 1), (7, 1), (10, 1), (12, 0), (13, 0), (17, 0)]
+ T_0 End(T): LNA non-gentle | arrows [(0, 1), (1, 2), (2, 3), (3, 4), (4, 5)] rels [['3456']]
+   exchange slot 2 (vertex 3): (9, 0) -> (10, 1), tilting True
+     ('conv0', 'right', True, True, True, None)
+     ('conv0', 'left', True, False, True, None)
+ T_1 End(T): not a line (6 arrows, max out 2 in 2) | arrows [(0, 1), (1, 3), (2, 5), (3, 2), (3, 4), (4, 5)] rels [['243'], ['2456'], ['436', '456']]
+   exchange slot 1 (vertex 2): (5, 0) -> (7, 1), tilting True
+     ('conv0', 'right', True, True, True, None)
+     ('conv0', 'left', True, False, True, None)
+ T_2 End(T): not a line (6 arrows, max out 2 in 2) | arrows [(0, 3), (1, 2), (2, 5), (3, 1), (3, 4), (4, 5)] rels [['142'], ['1456'], ['4236', '456']]
+   exchange slot 4 (vertex 5): (15, 0) -> (13, 0), tilting True
+     ('conv0', 'right', False, None, None, None)
+     ('conv0', 'left', True, True, True, None)
+ T_3 End(T): not a line (5 arrows, max out 1 in 2) | arrows [(0, 3), (1, 2), (2, 5), (3, 1), (4, 3)] rels [['142'], ['54236']]
+   exchange slot 0 (vertex 1): (0, 0) -> (3, 1), tilting True
+     ('conv0', 'right', True, True, True, None)
+     ('conv0', 'left', False, None, None, None)
+ final End(T): LNA non-gentle arrows [(0, 1), (1, 2), (2, 5), (3, 0), (4, 3)] rels [['541236']]
+=== PATH to hit [(3, 1), (7, 1), (10, 1), (12, 0), (13, 0), (17, 0)]
+ T_0 End(T): LNA non-gentle | arrows [(0, 1), (1, 2), (2, 3), (3, 4), (4, 5)] rels [['3456']]
+   exchange slot 2 (vertex 3): (9, 0) -> (10, 1), tilting True
+     ('conv0', 'right', True, True, True, None)
+     ('conv0', 'left', True, False, True, None)
+ T_1 End(T): not a line (6 arrows, max out 2 in 2) | arrows [(0, 1), (1, 3), (2, 5), (3, 2), (3, 4), (4, 5)] rels [['243'], ['2456'], ['436', '456']]
+   exchange slot 4 (vertex 5): (15, 0) -> (13, 0), tilting True
+     ('conv0', 'right', False, None, None, None)
+     ('conv0', 'left', True, True, True, None)
+ T_2 End(T): not a line (5 arrows, max out 1 in 2) | arrows [(0, 1), (1, 3), (2, 5), (3, 2), (4, 3)] rels [['243'], ['5436']]
+   exchange slot 1 (vertex 2): (5, 0) -> (7, 1), tilting True
+     ('conv0', 'right', True, True, True, None)
+     ('conv0', 'left', True, False, True, None)
+ T_3 End(T): not a line (5 arrows, max out 1 in 2) | arrows [(0, 3), (1, 2), (2, 5), (3, 1), (4, 3)] rels [['142'], ['54236']]
+   exchange slot 0 (vertex 1): (0, 0) -> (3, 1), tilting True
+     ('conv0', 'right', True, True, True, None)
+     ('conv0', 'left', False, None, None, None)
+ final End(T): LNA non-gentle arrows [(0, 1), (1, 2), (2, 5), (3, 0), (4, 3)] rels [['541236']]
+=== PATH to hit [(3, 1), (7, 1), (10, 1), (12, 0), (13, 0), (17, 0)]
+ T_0 End(T): LNA non-gentle | arrows [(0, 1), (1, 2), (2, 3), (3, 4), (4, 5)] rels [['3456']]
+   exchange slot 4 (vertex 5): (15, 0) -> (13, 0), tilting True
+     ('conv0', 'right', False, None, None, None)
+     ('conv0', 'left', True, True, True, None)
+ T_1 End(T): not a line (5 arrows, max out 1 in 2) | arrows [(0, 1), (1, 2), (2, 3), (3, 5), (4, 3)] rels [['346'], ['546']]
+   exchange slot 2 (vertex 3): (9, 0) -> (10, 1), tilting True
+     ('conv0', 'right', True, True, True, None)
+     ('conv0', 'left', True, False, True, None)
+ T_2 End(T): not a line (5 arrows, max out 1 in 2) | arrows [(0, 1), (1, 3), (2, 5), (3, 2), (4, 3)] rels [['243'], ['5436']]
+   exchange slot 1 (vertex 2): (5, 0) -> (7, 1), tilting True
+     ('conv0', 'right', True, True, True, None)
+     ('conv0', 'left', True, False, True, None)
+ T_3 End(T): not a line (5 arrows, max out 1 in 2) | arrows [(0, 3), (1, 2), (2, 5), (3, 1), (4, 3)] rels [['142'], ['54236']]
+   exchange slot 0 (vertex 1): (0, 0) -> (3, 1), tilting True
+     ('conv0', 'right', True, True, True, None)
+     ('conv0', 'left', False, None, None, None)
+ final End(T): LNA non-gentle arrows [(0, 1), (1, 2), (2, 5), (3, 0), (4, 3)] rels [['541236']]
+=== PATH to hit [(3, 1), (7, 1), (10, 1), (12, 0), (16, 1), (17, 0)]
+ T_0 End(T): LNA non-gentle | arrows [(0, 1), (1, 2), (2, 3), (3, 4), (4, 5)] rels [['3456']]
+   exchange slot 2 (vertex 3): (9, 0) -> (10, 1), tilting True
+     ('conv0', 'right', True, True, True, None)
+     ('conv0', 'left', True, False, True, None)
+ T_1 End(T): not a line (6 arrows, max out 2 in 2) | arrows [(0, 1), (1, 3), (2, 5), (3, 2), (3, 4), (4, 5)] rels [['243'], ['2456'], ['436', '456']]
+   exchange slot 1 (vertex 2): (5, 0) -> (7, 1), tilting True
+     ('conv0', 'right', True, True, True, None)
+     ('conv0', 'left', True, False, True, None)
+ T_2 End(T): not a line (6 arrows, max out 2 in 2) | arrows [(0, 3), (1, 2), (2, 5), (3, 1), (3, 4), (4, 5)] rels [['142'], ['1456'], ['4236', '456']]
+   exchange slot 0 (vertex 1): (0, 0) -> (3, 1), tilting True
+     ('conv0', 'right', True, True, True, None)
+     ('conv0', 'left', False, None, None, None)
+ T_3 End(T): not a line (6 arrows, max out 2 in 2) | arrows [(0, 1), (1, 2), (2, 5), (3, 0), (3, 4), (4, 5)] rels [['41236', '456']]
+   exchange slot 4 (vertex 5): (15, 0) -> (16, 1), tilting True
+     ('conv0', 'right', True, True, True, None)
+     ('conv0', 'left', True, False, True, None)
+ final End(T): LNA non-gentle arrows [(0, 1), (1, 2), (2, 5), (3, 0), (5, 4)] rels [['412365']]
