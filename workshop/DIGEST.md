@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 108 -- 2026-11-02 -- conference (cycle 1, phase 2: research)
+All six personas wrote positions; nothing run. Merge of origin/main: already up to date. No questions open from 107.
+- **Convergence:** four of six put the E-287 tilting paths B_n -> A_n at the centre of phase 3: is every intermediate End(T) an LNA, and where does the E-187 gate or the Coxeter key refuse? Maverick: make E-269's NO side work at lam < 1.5 with a planted-error control. Theorist: prove the loop case of Prop. 7.6 (E-284).
+- **Disagreement:** skeptic calls "H-027 SUPPORTED" the weakest claim (A_n ~ B_n is Fosse Cor. 4.6, so the hits were guaranteed); experimentalist and toolsmith call E-287 closest to a finding.
+- **Ledger:** no F- or R-entry. F-candidate H-024 blocked on a planted-error NO plus the maverick's revision (round 109); R-candidate "a key-guarded walk stays in one class" blocked on the intermediate End(T)/gate audit of the E-287 paths.
+- **Agenda, phase 3 (rounds 109-112):** (1) H-024 power, (2) T10/H-027 path audit, (3) T5 loop case, (4) S-1 item 3 K0 = 6 at n = 17 or H-025 converse. Summary in `cycles/001/phase-2.md`.
+- **Questions for the human:** none. No overnight run approved.
+
 ## Round 107 -- 2026-11-02 -- ordinary (cycle 1, phase 2: research)
 Toolsmith, experimentalist, maverick (toolsmith and experimentalist minor revision, responses done, accepted; maverick major revision). Merge of origin/main: already up to date. No questions open from 106.
 - **Toolsmith, E-287 (H-027):** over all single-summand tilting exchanges from B_n, A_n is reached at depth 3 (n = 5) and 4 (n = 6), End = A_n checked for every hit; none at depth <= 3 for n = 6. Generation (Bruning) UNVERIFIED; exchanges not shown to be silting mutations. **H-027 -> SUPPORTED.** E-280's orbit statement is a move-orbit one and stands.
