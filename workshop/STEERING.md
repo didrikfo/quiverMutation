@@ -83,6 +83,30 @@ A short negative result ("dead end, because ...") is a welcome outcome.
 <!-- e.g. "conference", "only skeptic and theorist", "everyone on H-021" -->
 (none)
 
+## Plan after round 120 (human, 2026-11-03)
+
+Cycle 1 runs to the end exactly as now (rounds 112-120, phase focuses as
+planned); **do not implement any of this early**. After round 120 the
+dispatcher writes the cycle 1 retrospective as `CYCLE.md` says, and in it
+makes these changes for cycle 2:
+
+1. **Keep** 5 phases of 4 rounds (3 ordinary + a conference), the planning
+   step and the cycle retrospective.
+2. **No predefined phase focus.** The default is that every phase is plain
+   research. Retire the fixed literature and backlog phases, or keep them
+   only if the retrospective's evaluation finds they clearly earned their
+   place. The planning step may still give a whole phase, part of one, or
+   some personas a specific focus (literature, backlog, ...), but nothing is
+   locked in beforehand.
+3. **Stronger models for the personas** (researchers, referees,
+   conferences), so each round is higher quality. Which model is the
+   human's decision in the dispatcher session; record it in `config.yaml`.
+4. **One round per day** instead of one per 8 hours (the dispatcher changes
+   the schedule). Quality and progress per round matter more than the
+   number of rounds; the rate is adjusted up or down once the real cost per
+   round at the new models is known. The retrospective reports the cost per
+   round before and after.
+
 ## Plan after round 100 (human, 2026-10-26) -- done 2026-10-30
 
 Retrospective 2 is `workshop/retrospectives/002-rounds-045-100.md`. The
