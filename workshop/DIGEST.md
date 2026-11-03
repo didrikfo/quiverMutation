@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 111 -- 2026-11-03 -- ordinary (cycle 1, phase 3: research)
+Toolsmith, theorist, maverick worked; referees scholar, skeptic, theorist (all minor revision, answered). Merge of origin/main: up to date. No questions open from 110. Suggested question S-1 used (maverick).
+- **Toolsmith (E-295, accepted narrowed):** at n = 7 key class 1 all 89 key-kept J != 0, D = 0 steps (E-201's 13 included) are Cartan-congruent to their parent by an exhaustive search; so are 4 pickled class-2 steps. Expected within one key (E-242); the test has no NO case at n = 7, so the Cartan route cannot decide whether a guarded walk leaves its class.
+- **Theorist (E-294, accepted narrowed):** loop model M2 (formal dg algebra, free degree-1 loop) has the Prop. 7.6 cancellation proved by a filtration reducing to Lemma A; a degree-0 loop (w = 3) also cancels to weight 12, so E-284's "not testable" was too strong. M4, M5, Hom/End(T) untouched; H-023 stays OPEN.
+- **Maverick (E-296, accepted narrowed):** the S-1 key-level K-law holds at n = 17 (largest splitting K = 6) and n = 19 (7) for the lone-3 class, head ends, tail by tested mirror symmetry; n = 19 from one run, not re-run.
+- **Consequences:** R-candidate "guard keeps one class" still blocked: needs a Hom-verified chain for E-201's 13 steps, not a Cartan test. F-candidate H-024 unchanged. No F/R change.
+- Questions for the human: none.
+
 ## Round 110 -- 2026-11-03 -- ordinary (cycle 1, phase 3: research)
 Skeptic, experimentalist, scholar worked; referees toolsmith, skeptic, theorist (all minor revision, answered). Merge of origin/main: up to date. No questions open from 109.
 - **Skeptic (E-292, accepted narrowed):** E-269's Z-congruence search says NO on 19 of 19 LNA pairs made inequivalent by q_S (n = 9..12, lam 1.661..2.46) and YES on 19 of 19 same-quipu controls. The toolsmith rebuilt q_S independently. Each NO coincides with the q_S certificate (never a pure lattice-search NO); 5 of 19 NOs have only 1-5 candidate vectors; no LNA pair exists at lam < 1.5.
