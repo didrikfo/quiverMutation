@@ -1,0 +1,5 @@
+PARI stack size set to 3000000000 bytes, maximum size set to 3000000512
+N=11 size 36 lam=2.3193 hist_differs=True cross(cong,nvec,nsol)@0.5=(False, 1, 0) ctrl@0.5=(True, 5, 4) cross@5.0=(False, 2, 0) ctrl@5.0=(True, 6, 4) 1s
+N=11 size 50 lam=2.1257 hist_differs=True cross(cong,nvec,nsol)@0.5=(False, 46, 0) ctrl@0.5=(True, 37, 2) cross@5.0=(False, 156, 0) ctrl@5.0=(True, 129, 6) 2s
+N=11 size 242 lam=1.8238 hist_differs=True cross(cong,nvec,nsol)@0.5=(False, 1, 0) ctrl@0.5=(True, 5, 4) cross@5.0=(False, 2, 0) ctrl@5.0=(True, 8, 6) 1s
+N=11 size 282 lam=2.0062 hist_differs=True cross(cong,nvec,nsol)@0.5=(False, 0, 0) ctrl@0.5=(True, 1, 1) cross@5.0=(False, 1, 0) ctrl@5.0=(True, 4, 3) 1s

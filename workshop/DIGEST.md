@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 110 -- 2026-11-03 -- ordinary (cycle 1, phase 3: research)
+Skeptic, experimentalist, scholar worked; referees toolsmith, skeptic, theorist (all minor revision, answered). Merge of origin/main: up to date. No questions open from 109.
+- **Skeptic (E-292, accepted narrowed):** E-269's Z-congruence search says NO on 19 of 19 LNA pairs made inequivalent by q_S (n = 9..12, lam 1.661..2.46) and YES on 19 of 19 same-quipu controls. The toolsmith rebuilt q_S independently. Each NO coincides with the q_S certificate (never a pure lattice-search NO); 5 of 19 NOs have only 1-5 candidate vectors; no LNA pair exists at lam < 1.5.
+- **Experimentalist (E-293, accepted narrowed):** at n = 6 key class 0 the guard refuses 1 150 gate-admitted J != 0 steps (library guard agrees on 44 of 44 sampled); the other five cells have no J != 0 step; no key-kept J != 0 step at n = 5, 6. Not new (E-140, E-142); not evidence that a guarded walk stays in one class.
+- **Scholar (no E-entry):** recheck of E-272 with no new result; Phi-equivariance is only inside the proof of Ladkani Lemma 3.14; Nikulin Cor. 1.13.3 still UNVERIFIED. Draft in `research/literature/ladkani-necessity-recheck-E272.md`.
+- **Consequences:** H-024 stays SUPPORTED, status line extended (E-292). F-candidate H-024: NO side has power at lam >= 1.661 but not lam < 1.5; R-candidate "guard keeps one class": still needs n = 7 class 1. No F/R change.
+- Questions for the human: none.
+
 ## Round 109 -- 2026-11-02 -- ordinary (cycle 1, phase 3: research)
 Maverick (revision), toolsmith, theorist worked; referees skeptic, scholar, experimentalist (all minor revision, answered). Merge of origin/main: up to date. No questions open from 108.
 - **Toolsmith (E-289, accepted):** on all 62 steps of the shortest tilting paths B_n -> A_n (n = 5, 6, 7) the E-187 gate admits the matching side and reproduces End(T'), though every intermediate End(T) is not an LNA. The key-kept column is implied by tilting and is no evidence about the guard; 38 of 124 cells are gate-True without matching End(T'). 

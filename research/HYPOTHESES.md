@@ -28,7 +28,7 @@ For a Nakayama algebra of finite global dimension, a periodic Coxeter transforma
 ---
 
 ## H-024 — Derived equivalent LNAs have Phi-equivariantly Z-congruent Cartan forms
-*2026-10-30* · **SUPPORTED** *(necessity step sourced: Ladkani math/0610685 Cor. 3.13, Lemma 3.14, E-272, E-274; E-269 YES on 3 literature pairs; E-275 supplies mixed-digit pairs, E-276 shows the bound is closed-form; E-281: E-269 YES on the 6 mixed pairs and on 11 low-lam within-quipu pairs; NO at lam < 1.5 untested)*
+*2026-10-30* · **SUPPORTED** *(necessity step sourced: Ladkani math/0610685 Cor. 3.13, Lemma 3.14, E-272, E-274; E-269 YES on 3 literature pairs; E-275 supplies mixed-digit pairs, E-276 shows the bound is closed-form; E-281: E-269 YES on the 6 mixed pairs and on 11 low-lam within-quipu pairs; E-292: NO on 19 of 19 q_S-separated pairs, lam >= 1.661; NO at lam < 1.5 untested)*
 
 If A and B are derived equivalent, there is P in GL_n(Z) with P^T C_B P = C_A (or the symmetrised C + C^T) and P Phi_A = Phi_B P. Every Cartan-level NO of the workshop (the 9 NO answers of E-265 and E-269, via q_S and the Phi-commutant search) uses this as its necessity step; E-269's bound is a floating-point majorant. **Falsifiable:** one certified-equivalent pair (the 1 002 same-name n = 9 pairs of E-238, the 6 n = 12 within-quipu pairs) on which the E-269 test finds no P. **Would settle it:** a theorem number matched in the source or a proof from the Grothendieck-group isometry induced by a derived equivalence, plus the power control above.
 

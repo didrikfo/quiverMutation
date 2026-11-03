@@ -2,7 +2,7 @@
 
 Owned by the chair. Rewritten (not appended) at the end of every round, under 12 000 bytes, each thread entry under 600 characters; history lives in the E-entries and `cycles/CCC/phase-P.md`. Every persona reads this first.
 
-last_round: 109
+last_round: 110
 cycle: 1 (rounds 101-120; CYCLE.md; plan in cycles/001/plan.md)
 phase: 3
 focus: research (rounds 109-112; conference 112; phase summaries in cycles/001/phase-1.md, phase-2.md)
@@ -17,9 +17,9 @@ See `cycles/001/plan.md`: H-024 and H-023 lead. Phase 1 (literature) done. Phase
 ## Open threads
 Each: question · H-entry · state · last worked · owner.
 
-- **T10 · guard audit** (agenda 2) · H-015 · Can a key-guarded walk leave a derived class through a J != 0 step? Round 109 (E-289): on all 62 steps of the n = 5..7 E-287 paths the gate admits the matching side through non-LNA End(T); the key column is implied by tilting, no key-refusal control yet; 38 of 124 cells are gate-True but not End(T') (gate is no tilting test). Needs a J != 0 key-refusal control and a closure/certificate. · 109 · toolsmith
+- **T10 · guard audit** (agenda 2) · H-015 · Can a key-guarded walk leave a derived class through a J != 0 step? E-289: gate admits the matching side on all 62 steps of the n = 5..7 E-287 paths. E-293 (round 110): n = 6 class 0 refuses 1 150 J != 0 steps by key (library guard agrees, 44 of 44); no key-kept J != 0 step at n = 5, 6. The only place a walk could leave a class is n = 7 class 1 (13 steps, E-201) / record 6 of class 2 (E-212). · 110 · experimentalist
 - **T5 · J = 0 premise** (agenda 3) · H-023 · Is every gate-admitted J = 0 step a derived equivalence? Cancellation proved (E-235); loop case: M1 proved by change of generators + Kunneth, Hom control tilting (E-290); Lemma A's three hypotheses fail for loop letters; M2, M4, M5 (shared/product pivots) and degree-0 loops open; N ~ A in all degrees, Anick numbers UNVERIFIED. · 109 · theorist
-- **T3/T8 · Cartan-level invariants** (agenda 1) · H-024 (SUPPORTED; also H-025) · Necessity sourced (E-272); mixed-digit positive controls pass (E-275, E-281); E-269 bound closed-form (E-276). Round 109 (E-291): YES on 4 n = 12 low-lam pairs, planted +-1 control gave no NO (157 congruent): power at lam < 1.5 not demonstrated. Open: a pair inequivalent by construction (different q_S or Z[Phi]-class), Nikulin 1.13.3 unverified. · 109 · maverick, skeptic
+- **T3/T8 · Cartan-level invariants** (agenda 1) · H-024 (SUPPORTED; also H-025) · Necessity sourced (E-272; round 110 recheck, Phi-equivariance only inside the proof of Ladkani Lemma 3.14). E-292: NO on 19 of 19 q_S-separated pairs (lam >= 1.661), YES on 19 controls; NO is never pure lattice search. Open: lam < 1.5 NO (no LNA pair exists there, E-276), Z[Phi]-class route, Nikulin 1.13.3 unverified. · 110 · skeptic
 - **T7 · H-010** · H-010 · Single-mutation rule and Catalan factorisation proved relative to `procedure` (E-187, E-205). Two-bystander cells at k = 3..5 stay at overlap 2 (E-230, E-241, E-260), but no start-gap-2 pair at k <= 4 can lower, so they have no control (E-288, no power). Gate part published for gentle LNAs only (E-280). Open: a gap-2 shape that can lower, k >= 6. · 107 · experimentalist
 - **T4 · H-020 rule table** · H-020 · H1 holds to widths 9-11, lengths <= 14 (E-225), independent engines (E-207, E-243). Class-B rules: 298 of 304 leave the LNA class at step 1, 6 at step 2 (E-266); first step adds one arrow at widths 5-7, but no width-independent relation-count rule (E-286). H3/H4 not closed; last item "narrowed only". · 106 · skeptic
 - **H-027 · A_n vs B_n reachability** (agenda 2) · H-027 (SUPPORTED) · A_n ~ B_n (Fosse Cor. 4.6) but A_n not in orbit(B_n) (E-280). Tilting exchanges reach A_n from B_n at depth 3, 4, 5 (n = 5, 6, 7; E-287, E-289); intermediate End(T) not LNAs, each step gate-admitted; generation (Bruning) UNVERIFIED; not shown to be silting mutations. · 109 · toolsmith
@@ -59,15 +59,16 @@ Each: question · H-entry · state · last worked · owner.
 - The 7 + 7 n = 9 F-010 J = 0 join was run once by the dispatcher (E-250: no meet, no power).
 - arXiv is reachable (STEERING, standing permissions).
 
+- Round 110: E-292 (NO side has power at lam >= 1.661), E-293 (key refusals at n = 6 class 0). No F/R change.
 - Round 109: E-289 (paths pass the gate; key column no evidence), E-290 (M1 loop case), E-291 (power not demonstrated at lam < 1.5). No F/R change.
 
 ## Rota
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 107 | 109 (theorist) |
-| theorist | 109 | 107 (experimentalist) |
-| skeptic | 106 | 109 (maverick) |
-| scholar | 106 | 109 (toolsmith) |
-| toolsmith | 109 | 103 (theorist) |
+| experimentalist | 110 | 109 (theorist) |
+| theorist | 109 | 110 (scholar) |
+| skeptic | 110 | 110 (experimentalist) |
+| scholar | 110 | 109 (toolsmith) |
+| toolsmith | 109 | 110 (skeptic) |
 | maverick | 109 | 103 (scholar) |

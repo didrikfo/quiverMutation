@@ -1,0 +1,10 @@
+# Draft literature note: Z-congruence of Cartan/Euler forms as a necessary condition (for promotion by the chair)
+
+*Promoted from workshop round 110 (scholar, refereed by theorist, minor revision, answered). Recheck of E-272; no new result.*
+
+Sources read (LaTeX, round 110): Ladkani, arXiv:math/0610685 v1 (only version; JPAA 212 (2008) 435-451, numbering of the journal version not checked) and math/0702060 v3.
+
+- math/0610685 v1, Prop. 3.11: Euler form on simples of kX has matrix 1_X^-1 (Moebius function). Def. 3.12: M_1, M_2 congruent over R if M_2 = P M_1 P^t. Cor. 3.13: X ~ Y implies 1_X, 1_Y congruent over Z (proof: equivalence induces an isometry [F] of K_0 for the Euler form; uses nothing about posets; l. 755-757 also calls 1 1^-t, up to sign, the Coxeter matrix = K_0 image of the Serre functor). Lemma 3.14: congruent M_1, M_2 give conjugate M_1 M_1^-t, M_2 M_2^-t, proof with the same P: M_2 M_2^-t = P (M_1 M_1^-t) P^-1. Cor. 3.15: similar over Z, Q, F_p. Example 4.20: two posets with Q-equivalent, not Z-equivalent forms.
+- math/0702060 v3, subsection "Grothendieck groups" (unnumbered): l. 1195-1198: for algebras of finite global dimension, derived equivalence gives P^t C P = C~ over Z (stated there, not ours), with an explicit P for triangular matrix algebras. Applying this to LNAs needs LNAs to have finite global dimension (unchecked here). Only the equivariance read off Lemma 3.14's proof is ours.
+- Not a statement in either source: "P Phi_A = Phi_B P" as a stated theorem; it is read off the proof of Lemma 3.14.
+- Nikulin, "Integral symmetric bilinear forms and some of their applications", Izv. 1979: Thm 1.14.2 (matched in secondaries, E-275); Cor. 1.13.3 "class = genus" is cited from 1404.5460 l. 336 only. UNVERIFIED; not on arXiv.

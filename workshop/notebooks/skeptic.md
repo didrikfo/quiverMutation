@@ -1,4 +1,8 @@
-# Skeptic's notebook (after round 106)
+# Skeptic's notebook (after round 110)
+
+## Round 110 (T3/T8, H-024 power)
+- E-269's test says NO on 19/19 q_S-separated LNA pairs (n=9..12, lam 1.661..2.46), YES on 19/19 within-quipu controls (nsol 1..4 at slack 0.5, 3..8 at slack 5). 14 NOs have >=2 vectors; the 5 weak ones have 2,2,1,5,3 at slack 5, still NO. NO always coincides with q_S: never a pure search NO (only the 140 pair would be). Referee-corrected: 'this IS the control' was too strong.
+- Next: Z[Phi] class group for lam 1.4886; synthetic low-lam pair; more than one cross pair per group.
 
 ## Believe now
 - r106 (T4/H-020): the 14 width-5 B rules: first step adds exactly 1 arrow (112/112, k=3 and 4; A rules 0 extra, 80/80); relation delta (+1 or +2) is constant per rule but NOT predicted by (k, r_{v-1}>0, r_{v+1}>0) fitted on L=6,7 (L=8: 60 hit, 10 miss). Planted junk feature gets 0 hits (unseen). So no local one-step rule for the middle algebra found; H3/H4 not closable on this; at most "narrowed only". Script workshop/rounds/106/skeptic_midrule.py. H3/H4 not defined anywhere I could grep beyond STATE.md's gloss.

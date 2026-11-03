@@ -1,0 +1,13 @@
+N=12 group size 37 lam=2.4596 |detS|=84 a=(2, 2, 3, 0, 3, 0, 3, 0, 0, 0) b=(2, 4, 0, 0, 4, 0, 0, 2, 3, 0) hist_differs=True disc_iso=False E269_congruent=(False, 4, 0, 14) within_ctrl=True 1s
+N=12 group size 54 lam=2.3286 |detS|=64 a=(2, 2, 2, 2, 3, 0, 3, 0, 3, 0) b=(2, 3, 0, 2, 5, 0, 0, 0, 3, 0) hist_differs=True disc_iso=False E269_congruent=(False, 7, 0, 14) within_ctrl=True 1s
+N=12 group size 54 lam=2.3575 |detS|=60 a=(2, 3, 0, 2, 3, 0, 4, 0, 0, 0) b=(2, 4, 0, 0, 2, 4, 0, 0, 3, 0) hist_differs=True disc_iso=False E269_congruent=(False, 6, 0, 14) within_ctrl=True 1s
+N=12 group size 140 lam=2.1451 |detS|=40 a=(2, 2, 2, 3, 0, 2, 3, 0, 3, 0) b=(2, 2, 3, 0, 3, 0, 2, 2, 3, 0) hist_differs=False disc_iso=True E269_congruent=(False, 12, 0, 14) within_ctrl=True 1s
+N=12 group size 148 lam=2.2671 |detS|=52 a=(2, 2, 3, 0, 3, 0, 2, 3, 0, 0) b=(2, 3, 0, 4, 0, 0, 2, 2, 3, 0) hist_differs=True disc_iso=False E269_congruent=(False, 4, 0, 14) within_ctrl=True 1s
+N=12 group size 178 lam=2.2489 |detS|=48 a=(2, 2, 3, 0, 2, 3, 0, 3, 0, 0) b=(2, 2, 4, 0, 0, 2, 3, 0, 3, 0) hist_differs=True disc_iso=False E269_congruent=(False, 5, 0, 14) within_ctrl=True 1s
+N=12 group size 298 lam=2.0810 |detS|=48 a=(2, 2, 2, 2, 3, 0, 3, 0, 0, 0) b=(2, 2, 5, 0, 0, 0, 2, 3, 0, 0) hist_differs=True disc_iso=False E269_congruent=(False, 3, 0, 14) within_ctrl=True 1s
+N=12 group size 372 lam=2.0149 |detS|=39 a=(2, 2, 2, 2, 2, 3, 0, 3, 0, 0) b=(2, 2, 2, 3, 0, 2, 4, 0, 0, 0) hist_differs=True disc_iso=False E269_congruent=(False, 0, 0, 12) within_ctrl=True 1s
+N=12 group size 372 lam=2.0582 |detS|=44 a=(2, 2, 2, 2, 2, 4, 0, 0, 3, 0) b=(2, 2, 3, 0, 2, 4, 0, 0, 0, 0) hist_differs=True disc_iso=False E269_congruent=(False, 3, 0, 14) within_ctrl=True 1s
+N=12 group size 550 lam=1.9165 |detS|=32 a=(2, 2, 2, 3, 0, 2, 3, 0, 0, 0) b=(2, 2, 5, 0, 0, 0, 2, 2, 3, 0) hist_differs=True disc_iso=False E269_congruent=(False, 5, 0, 14) within_ctrl=True 1s
+N=12 group size 754 lam=1.8688 |detS|=28 a=(2, 2, 2, 2, 3, 0, 2, 3, 0, 0) b=(2, 2, 2, 4, 0, 0, 2, 2, 3, 0) hist_differs=True disc_iso=False E269_congruent=(False, 3, 0, 14) within_ctrl=True 0s
+N=12 group size 993 lam=1.7884 |detS|=20 a=(2, 2, 3, 0, 2, 2, 3, 0, 0, 0) b=(2, 2, 4, 0, 0, 2, 2, 2, 3, 0) hist_differs=True disc_iso=False E269_congruent=(False, 4, 0, 14) within_ctrl=True 1s
+N=12 group size 2516 lam=1.6610 |detS|=12 a=(2, 2, 3, 0, 2, 2, 2, 3, 0, 0) b=(2, 4, 0, 0, 2, 2, 2, 2, 3, 0) hist_differs=True disc_iso=False E269_congruent=(False, 3, 0, 14) within_ctrl=True 1s

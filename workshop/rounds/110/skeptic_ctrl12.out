@@ -1,0 +1,14 @@
+PARI stack size set to 3000000000 bytes, maximum size set to 3000000512
+N=12 size 37 lam=2.4596 hist_differs=True cross(cong,nvec,nsol)@0.5=(False, 4, 0) ctrl@0.5=(True, 6, 2) cross@5.0=(False, 11, 0) ctrl@5.0=(True, 14, 6) 1s
+N=12 size 54 lam=2.3286 hist_differs=True cross(cong,nvec,nsol)@0.5=(False, 7, 0) ctrl@0.5=(True, 11, 4) cross@5.0=(False, 11, 0) ctrl@5.0=(True, 15, 4) 1s
+N=12 size 54 lam=2.3575 hist_differs=True cross(cong,nvec,nsol)@0.5=(False, 6, 0) ctrl@0.5=(True, 8, 2) cross@5.0=(False, 18, 0) ctrl@5.0=(True, 25, 6) 1s
+N=12 size 140 lam=2.1451 hist_differs=False cross(cong,nvec,nsol)@0.5=(False, 12, 0) ctrl@0.5=(True, 14, 2) cross@5.0=(False, 21, 0) ctrl@5.0=(True, 31, 6) 1s
+N=12 size 148 lam=2.2671 hist_differs=True cross(cong,nvec,nsol)@0.5=(False, 4, 0) ctrl@0.5=(True, 5, 1) cross@5.0=(False, 8, 0) ctrl@5.0=(True, 9, 3) 1s
+N=12 size 178 lam=2.2489 hist_differs=True cross(cong,nvec,nsol)@0.5=(False, 5, 0) ctrl@0.5=(True, 9, 1) cross@5.0=(False, 7, 0) ctrl@5.0=(True, 20, 3) 1s
+N=12 size 298 lam=2.0810 hist_differs=True cross(cong,nvec,nsol)@0.5=(False, 3, 0) ctrl@0.5=(True, 4, 1) cross@5.0=(False, 6, 0) ctrl@5.0=(True, 10, 3) 1s
+N=12 size 372 lam=2.0149 hist_differs=True cross(cong,nvec,nsol)@0.5=(False, 0, 0) ctrl@0.5=(True, 1, 1) cross@5.0=(False, 3, 0) ctrl@5.0=(True, 3, 3) 1s
+N=12 size 372 lam=2.0582 hist_differs=True cross(cong,nvec,nsol)@0.5=(False, 3, 0) ctrl@0.5=(True, 7, 2) cross@5.0=(False, 3, 0) ctrl@5.0=(True, 12, 6) 1s
+N=12 size 550 lam=1.9165 hist_differs=True cross(cong,nvec,nsol)@0.5=(False, 5, 0) ctrl@0.5=(True, 9, 1) cross@5.0=(False, 7, 0) ctrl@5.0=(True, 24, 3) 1s
+N=12 size 754 lam=1.8688 hist_differs=True cross(cong,nvec,nsol)@0.5=(False, 3, 0) ctrl@0.5=(True, 4, 1) cross@5.0=(False, 3, 0) ctrl@5.0=(True, 12, 3) 1s
+N=12 size 993 lam=1.7884 hist_differs=True cross(cong,nvec,nsol)@0.5=(False, 4, 0) ctrl@0.5=(True, 7, 3) cross@5.0=(False, 8, 0) ctrl@5.0=(True, 21, 7) 1s
+N=12 size 2516 lam=1.6610 hist_differs=True cross(cong,nvec,nsol)@0.5=(False, 3, 0) ctrl@0.5=(True, 4, 1) cross@5.0=(False, 6, 0) ctrl@5.0=(True, 12, 3) 1s

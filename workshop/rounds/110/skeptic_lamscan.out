@@ -1,0 +1,5 @@
+8 groups 11 with>=2 quipus 0 min lam None []
+9 groups 19 with>=2 quipus 1 min lam 1.7816 [np.float64(1.7816)]
+10 groups 40 with>=2 quipus 2 min lam 1.8098 [np.float64(1.8098), np.float64(2.0306)]
+11 groups 79 with>=2 quipus 4 min lam 1.8238 [np.float64(1.8238), np.float64(2.0062), np.float64(2.1257), np.float64(2.3193)]
+12 groups 176 with>=2 quipus 13 min lam 1.661 [np.float64(1.661), np.float64(1.7884), np.float64(1.8688), np.float64(1.9165), np.float64(2.0149)]
