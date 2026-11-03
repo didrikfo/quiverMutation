@@ -1,18 +1,17 @@
-# Theorist notebook (rewritten round 109)
+# Theorist notebook (rewritten round 111)
 
 ## What I believe now
-- 109 (T5, loop case): Lemma A's hypotheses (i) single quadratic monomial d_1 theta, (ii) disjoint X1/Y/Theta, (iii) D = 0 on spectators all fail for a loop f at i. In M1 (A = kQ/(ab), d f = ab) d(f a^-1) = bbar + theta2 a* - a* fbar has a linear pivot bbar, so the Anick lemma is not needed: after the triangular substitution pi = d theta, T(V) = T(fbar,u,v) * T(E) with E contractible, and I = (E) is acyclic by Kunneth. Complete proof for M1 only (pivot-generator type); M2, M4, M5 have product or shared pivots and stay computational (E-284).
-- Hom control: T = P_j + cone(P_i -> P_j) is tilting for that A (Hom(T,T[m]) = 0, m = -3..3), Cartan [[1,1],[1,2]], End(T) = A by hand = H^0(N). Planted errors (zero map, wrong shifts) say NO. So the loop step is a derived equivalence A -> A in this one example.
-- 106 (still true): six hand-sized models cancel to weight 12; sign set 'last = -1'; no degree-0 loop is testable. 103: loop of degree >= 1 at i forces i onto an oriented cycle (E-279); Oppermann needs only no degree-0 loop at i. Anick numbers stay UNVERIFIED (secondary).
-- Older: 101 cancellation is Prop. 7.6; 098 (T4) class A/B decided by first step (E-187/E-205); 093 conditional on omega-reduction.
+- T5 loop case. M1 (pivot-generator type, d f = ab) is proved by change of generators + Kunneth (E-290). M2 (free degree-1 loop, d f = 0) is proved in 111: filter by g = #{bbar, fbar, theta1}; d never raises g; gr has d0 theta1 = -v fbar, d0 theta2 = v u, a disjoint-alphabet Lemma A (E-240) with X1 = {v}, Y = {fbar, u}; finite filtrations per cell, so the q.i. lifts. Controls: planted wrong g caught, star ideal H != 0 (37/66 cells).
+- M2 is a formal dg algebra, not a Construction-2.2 model of a finite-dim algebra (d f = 0 on a degree-1 letter). So M1/M2 together still do not decide H-023 (every gate-admitted J = 0 step is a derived equivalence); library steps never meet loops anyway (E-211, E-279).
+- Degree-0 loop g (w = 3): the engine runs (E-284's 'not testable' only reflects the weight assertion), same dim I as M2, H(I) = 0 to weight 12, and the Lemma-A proof is degree-free, so the cancellation does not need Oppermann's 'no degree-0 loop'. What breaks is elsewhere (u has degree -1: kM not non-negatively graded); location unknown.
+- Older: Hom control for M1 (T = P_j + cone, Cartan [[1,1],[1,2]], planted errors say NO); 106 six models cancel to weight 12; 103 loop of degree >= 1 at i forces an oriented cycle (E-279); Anick numbers UNVERIFIED (secondary).
 
 ## What I tried
-- 109: printed d(theta) for M1, M4, M5, M6; hand elimination of pivots, checked by dim(kM/I) = words in the survivors (52 cells, 0 mismatches, planted control 14 mismatches); wrote a small Hom engine for complexes of projectives over kQ/(ab) (right modules, concatenation), 6 placements of the cone and a zero-map control.
-- 106: loop filtration script; 103: loopdeg/cycsweep.
+- 111: letters/d of M2; g-filtration proof + machine check of d0 and true d (identical results); deg-0 loop parent; planted-filtration control.
+- 109: M1 proof and Hom control; 106: loop filtration script (the engine all of this runs on: workshop/rounds/106/theorist_loopfilt.py).
 
 ## Next
-- Pivot-generator class: characterise it (loop f with d f = alpha beta, beta a single arrow) and prove for it in general; the shared-pivot case M4 by a change of basis in the theta span.
-- Product-pivot cases (M2, M5): Theta-count filtration plus Lemma A, then discharge.
-- Toolsmith: `allowCyclic=True` child of M1 vs End(T) = A; a Hom-computed End for a second loop algebra (e.g. relation loop of degree 2).
+- Same g-filtration for M4 (shared pivot) and M5 (product pivot ebar bbar); then classify loop models (pivot generator / Lemma-A leading part) and state one theorem.
+- Find where non-negative grading enters after Prop. 7.6 (scholar), to say what a degree-0 loop breaks.
 - T4: shape of the 14 width-5 middle algebras; 6 step-2 failures (w6/w7); one-step rule for width-5 class-B rules (E-266).
-- Blind spots: one algebra for the Hom control; the dg formulas are the printed ones (E-202), not re-derived; "End(T) = A" is by hand after dimension and Cartan computation.
+- Blind spots: dg formulas are the printed ones (E-202), not re-derived; Lemma A used for R = k^2 with a field Kunneth-free skeleton proof only (referee-accepted E-240); no Hom/End check for M2 (infinite-dimensional); deg-0 result is a single parent, one weight choice.
