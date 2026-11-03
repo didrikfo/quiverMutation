@@ -99,8 +99,10 @@ makes these changes for cycle 2:
    some personas a specific focus (literature, backlog, ...), but nothing is
    locked in beforehand.
 3. **Stronger models for the personas** (researchers, referees,
-   conferences), so each round is higher quality. Which model is the
-   human's decision in the dispatcher session; record it in `config.yaml`.
+   conferences), so each round is higher quality. **Chosen by the human
+   (2026-11-03): researchers and referees on opus, conferences stay on
+   sonnet, the chair session stays on sonnet** -- set `models.researcher:
+   opus` and `models.referee: opus` in `config.yaml`.
 4. **One round per day** instead of one per 8 hours (the dispatcher changes
    the schedule). Quality and progress per round matter more than the
    number of rounds; the rate is adjusted up or down once the real cost per
