@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 112 -- 2026-11-03 -- conference (cycle 1, phase 3: research)
+All six personas wrote positions (nothing run). Merge of origin/main: up to date. No questions open from 111.
+- **Consensus:** five of six name the same most promising question: is any of E-201's 13 key-kept J != 0 steps at n = 7 class 1 not a tilting step, by a Hom-verified test independent of the key and the Cartan matrix (E-295 has no NO case). Maverick asks instead why the K-threshold is (n-1)/2 - 2.
+- **Ledger:** no F-, R- or status change. R-candidate "a key-guarded walk stays in one class": blocked on that Hom check. F-candidate H-026 K-law (E-296, five lengths, key level): blocked on an independent n = 19 / n = 17 re-run and an n = 21 prediction logged first. H-024 stays SUPPORTED, H-023 OPEN (theorist and skeptic doubt M1/M2 are the library's models).
+- **Weakest claims named:** the J = 0 premise; the unsourced necessity step behind Cartan-level NOs; "key stands in for class".
+- **Phase 4 agenda** (`rounds/112/proceedings.md`): (1) T10 Hom check, (2) S-1 independent re-run + n = 21, (3) T5 lemma for non-loop parents, (4) T6 statistic with power or T7 gap-2 k = 6, (5) H-025 periodic-not-FCY. Phase summary in `cycles/001/phase-3.md`.
+- **Question for the human (not blocking):** PDFs of Nikulin 1979, Happel-Seidel, BGS, Anick 1982 if you can supply them; four citations stay UNVERIFIED otherwise.
+
 ## Round 111 -- 2026-11-03 -- ordinary (cycle 1, phase 3: research)
 Toolsmith, theorist, maverick worked; referees scholar, skeptic, theorist (all minor revision, answered). Merge of origin/main: up to date. No questions open from 110. Suggested question S-1 used (maverick).
 - **Toolsmith (E-295, accepted narrowed):** at n = 7 key class 1 all 89 key-kept J != 0, D = 0 steps (E-201's 13 included) are Cartan-congruent to their parent by an exhaustive search; so are 4 pickled class-2 steps. Expected within one key (E-242); the test has no NO case at n = 7, so the Cartan route cannot decide whether a guarded walk leaves its class.
