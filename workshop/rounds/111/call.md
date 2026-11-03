@@ -8,4 +8,6 @@ Step 0.5: round 110 left no questions ("None"); nothing to decide. Merge of orig
 ## Revisions due
 (none)
 ## Referees
-(filled in at step 3)
+- skeptic refereeing theorist (M2 cancellation proof).
+- scholar refereeing toolsmith (n = 7 class 1 Z-congruence).
+- theorist refereeing maverick (n = 17 K-threshold, shift reduction).

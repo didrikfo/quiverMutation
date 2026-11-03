@@ -16,7 +16,13 @@
 - Trap: `toolsmith_cones.py 7` writes its json into rounds/107 (I moved it to 109). A background command with a 10-min timeout finished in 2m38; check before waiting.
 - Weak points: match is by labelled Cartan matrix, not full iso; key guard never refused so it has no NO control in this run; signs of commutativity relations only checked as +-1.
 
+## Round 111 (T10, n = 7 class 1, E-201's 13 steps)
+- Believe: re-ran `069/skeptic_c1_13.py 1 500 45000` (3 segments, ~8.5 min each, checkpoint /tmp/skeptic_c1_13_ck1.pkl): E-201 counts reproduce (359 J != 0 Cartan steps, 89 D = 0, all key-kept, all fail tiltingPlus, Hom(T,T[-1]) != 0). All 89 (and all 177 Cartan matrices pairwise, and C vs C^T) are Z-congruent: exact search, rank 7, lam 1.5823, Phi = (x+1)(sextic Salem). q_S/det/signature equal on the 89; differ on all 270 key-changed steps. Test cannot say NO here: no power at n = 7 class 1 (control only at n = 12, E-269 group of 140: NO 4/4, YES 2/2).
+- Tool: `111/toolsmith_c1_13_exact.py` = pari-free port of E-269 (`cypari` and `pip` absent in .venv; own integer kernel, LLL, Fincke-Pohst; set `E.N` for another n). 2 s for 89 pairs.
+- Trap: the walk's script prints analysis only on the last segment; backgrounded commands via `nohup ... &` return at once (notification is the wrapper), use foreground with timeout 10m or poll with `until grep`; Monitor outputs fire repeatedly.
+- Box search over small commutant combinations misses real congruences (24 of 89 at box 2); do not read a miss as NO.
+
 ## Next
-- Key-refusal control on the same pipeline (an E-268 J != 0 step); canonicalKey-level match.
-- n = 8 (cones > 10 min?): size with the n=7 timing (brute force 126 s, cones 2m38 for 42 objects) and propose OVERNIGHT if needed.
-- Verify exchange = Aihara-Iyama mutation, and Bruning generation, before a finding.
+- A tilting complex (not single-vertex) whose End has the child's Cartan matrix, for one of the 13; cone-closure/tiltsearch from rounds 107.
+- Class 2 record 6 (E-212) through `congruent` once a checkpoint exists.
+- Key-refusal control (E-268 J != 0) on the E-289 pipeline; canonicalKey-level match; n = 8 cones sizing.
