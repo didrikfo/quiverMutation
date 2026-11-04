@@ -1,0 +1,35 @@
+chain True ['R4', 'F1', 'R7', 'F1', 'F4', 'F3'] ['F1', 'F3', 'R7', 'R4', 'R3', 'F5']
+(1, 'R', 2) reject ['meet', 'nostep'] 0
+(2, 'F', 1) reject ['Hom', 'meet'] 0
+(0, 'R', 6) reject ['meet', 'nostep'] 0
+(3, 'R', 2) reject ['meet', 'nostep'] 1
+(0, 'F', 1) reject ['meet', 'nostep'] 1
+(1, 'F', 7) reject ['meet', 'nostep'] 1
+(1, 'F', 6) reject ['meet', 'nostep'] 1
+(4, 'F', 3) reject ['meet'] 1
+(5, 'R', 3) reject ['meet', 'nostep'] 1
+(1, 'R', 6) reject ['meet', 'nostep'] 2
+(3, 'R', 5) reject ['meet'] 2
+(4, 'R', 2) reject ['meet', 'nostep'] 2
+(4, 'F', 6) reject ['meet', 'nostep'] 2
+(3, 'F', 4) reject ['meet'] 2
+(4, 'R', 3) reject ['meet', 'nostep'] 2
+(3, 'F', 5) reject ['meet', 'nostep'] 3
+(4, 'F', 5) reject ['meet', 'nostep'] 3
+(3, 'R', 7) reject ['meet'] 3
+(2, 'R', 3) reject ['meet', 'nostep'] 3
+(2, 'F', 3) reject ['meet'] 3
+(4, 'R', 6) reject ['meet', 'nostep'] 3
+(5, 'F', 6) reject ['meet', 'nostep'] 4
+(0, 'F', 2) reject ['meet', 'nostep'] 4
+(3, 'R', 1) reject ['meet'] 4
+(0, 'R', 3) reject ['meet', 'nostep'] 4
+(0, 'F', 4) reject ['Hom', 'meet', 'nostep'] 4
+(0, 'F', 5) reject ['meet'] 343
+(2, 'R', 2) reject ['meet', 'nostep'] 343
+(0, 'F', 3) reject ['meet', 'nostep'] 343
+(2, 'F', 7) reject ['meet', 'nostep'] 343
+(1, 'F', 4) reject ['meet', 'nostep'] 343
+(5, 'R', 5) reject ['meet'] 344
+(0, 'R', 5) reject ['meet', 'nostep'] 345
+(1, 'R', 4) reject ['meet', 'nostep'] 345
