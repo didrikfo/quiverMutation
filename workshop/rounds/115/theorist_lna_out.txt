@@ -1,0 +1,18 @@
+class size 2 dimA [9] distinct HH(0,1,2): [(1, 0, 0)]
+class size 8 dimA [7, 8, 10] distinct HH(0,1,2): [(1, 0, 0)]
+time 0s
+class size 12 dimA [11, 12, 13, 14] distinct HH(0,1,2): [(1, 0, 0)]
+class size 16 dimA [9, 10, 11, 12, 15] distinct HH(0,1,2): [(1, 0, 0)]
+time 0s
+class size 2 dimA [16] distinct HH(0,1,2): [(1, 0, 0)]
+class size 24 dimA [13, 15, 16, 17, 18, 19] distinct HH(0,1,2): [(1, 0, 0)]
+class size 26 dimA [13, 14, 15, 16, 18, 20] distinct HH(0,1,2): [(1, 0, 0)]
+class size 32 dimA [11, 12, 13, 14, 15, 17, 21] distinct HH(0,1,2): [(1, 0, 0)]
+time 0s
+class size 8 dimA [17, 19, 21] distinct HH(0,1,2): [(1, 0, 0)]
+class size 12 dimA [18, 20, 22] distinct HH(0,1,2): [(1, 0, 0)]
+class size 14 dimA [18, 21, 23, 24] distinct HH(0,1,2): [(1, 0, 0)]
+class size 58 dimA [15, 16, 17, 18, 20, 21, 24, 27] distinct HH(0,1,2): [(1, 0, 0)]
+class size 64 dimA [13, 14, 15, 16, 17, 19, 20, 23, 28] distinct HH(0,1,2): [(1, 0, 0)]
+class size 108 dimA [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26] distinct HH(0,1,2): [(1, 0, 0)]
+time 1s

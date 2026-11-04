@@ -9,4 +9,6 @@ Breadth: T4 (last worked 106) is overdue; this round's slots go to two revision/
 ## Revisions due
 - maverick: answer the review of rounds/114/maverick.md
 ## Referees
-(filled in at step 3)
+- skeptic refereeing theorist (T10 invariant).
+- toolsmith refereeing experimentalist (S-1 non-lone class).
+- scholar refereeing maverick (revision; wrote the original review).

@@ -1,17 +1,17 @@
-# Theorist notebook (rewritten round 111)
+# Theorist notebook (rewritten round 115)
 
 ## What I believe now
-- T5 loop case. M1 (pivot-generator type, d f = ab) is proved by change of generators + Kunneth (E-290). M2 (free degree-1 loop, d f = 0) is proved in 111: filter by g = #{bbar, fbar, theta1}; d never raises g; gr has d0 theta1 = -v fbar, d0 theta2 = v u, a disjoint-alphabet Lemma A (E-240) with X1 = {v}, Y = {fbar, u}; finite filtrations per cell, so the q.i. lifts. Controls: planted wrong g caught, star ideal H != 0 (37/66 cells).
-- M2 is a formal dg algebra, not a Construction-2.2 model of a finite-dim algebra (d f = 0 on a degree-1 letter). So M1/M2 together still do not decide H-023 (every gate-admitted J = 0 step is a derived equivalence); library steps never meet loops anyway (E-211, E-279).
-- Degree-0 loop g (w = 3): the engine runs (E-284's 'not testable' only reflects the weight assertion), same dim I as M2, H(I) = 0 to weight 12, and the Lemma-A proof is degree-free, so the cancellation does not need Oppermann's 'no degree-0 loop'. What breaks is elsewhere (u has degree -1: kM not non-negatively graded); location unknown.
-- Older: Hom control for M1 (T = P_j + cone, Cartan [[1,1],[1,2]], planted errors say NO); 106 six models cancel to weight 12; 103 loop of degree >= 1 at i forces an oriented cycle (E-279); Anick numbers UNVERIFIED (secondary).
+- T10 / H-015 NO-capable invariant (115): HH^0..2 (Hochschild cohomology dims, derived invariant by Rickard/Happel, independent of key and Cartan) is implemented (`rounds/115/theorist_hh.py`, E-relative bar complex mod 32003). YES 13/13 on E-201's steps (consistency only: the 13 are chain-joined), NO 2/2 on planted same-Cartan pair (commutative square vs ab=0, with tail, n=4,7), NO 2/56 on refused steps. BLIND on every LNA (n<=7) and on the n=9 F-010 equal-key inequivalent pair (HH^0..6 = k in degree 0). So at n<=9 no HH-dimension test can say NO to a key-kept step in the LNA-descended region.
+- Cartan-level NO for F-010 pair is q_S (E-292); there is no key- and Cartan-free NO known on any key-equal inequivalent pair. R-candidate remains YES-side only.
+- Older (111): M1/M2 loop models proved (E-290, E-294); degree-0 loop cancels at w=3; M4/M5 not done; non-negative grading location unknown.
 
 ## What I tried
-- 111: letters/d of M2; g-filtration proof + machine check of d0 and true d (identical results); deg-0 loop parent; planted-filtration control.
-- 109: M1 proof and Hom control; 106: loop filtration script (the engine all of this runs on: workshop/rounds/106/theorist_loopfilt.py).
+- 115: HH code with self-tests (A_n, Kronecker (1,3,0), D4-equivalent square), controls, all LNAs n<=7, all 75 J!=0 steps of the rebuilt walk, F-010 pair. Rebuild of the /tmp checkpoint takes ~6 min (two runs of skeptic_c1_13.py).
+- Weak point: HH value (1,1,1) of ab=0 square not independently cross-checked; mod p not Q; coefficients as presented.
 
 ## Next
-- Same g-filtration for M4 (shared pivot) and M5 (product pivot ebar bbar); then classify loop models (pivot generator / Lemma-A leading part) and state one theorem.
-- Find where non-negative grading enters after Prop. 7.6 (scholar), to say what a degree-0 loop breaks.
-- T4: shape of the 14 width-5 middle algebras; 6 step-2 failures (w6/w7); one-step rule for width-5 class-B rules (E-266).
-- Blind spots: dg formulas are the printed ones (E-202), not re-derived; Lemma A used for R = k^2 with a field Kunneth-free skeleton proof only (referee-accepted E-240); no Hom/End check for M2 (infinite-dimensional); deg-0 result is a single parent, one weight choice.
+- Ask for a skeptic cross-check of HH (second implementation or gentle-algebra formula).
+- Need a walk that leaves HH-trivial region: log HH(parent), HH(child) for every J!=0 step at n>=8 with parallel arrows; first nontrivial child HH is the chance of a real NO.
+- Prove or find source: tree-quiver algebras have HH^m=0, m>=1 (would make the obstruction a theorem for LNAs).
+- T5: M4/M5 g-filtration; where non-negative grading enters (from 111).
+- Blind spots: dg formulas printed (E-202); Lemma A for R=k^2 only; HH over GF(p) vs Q.

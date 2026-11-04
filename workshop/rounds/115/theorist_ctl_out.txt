@@ -1,0 +1,11 @@
+comm square +tail0 dim 9 cartan-sum 9 HH0-2 [1, 0, 0]
+square ab=0 +tail0 dim 9 cartan-sum 9 HH0-2 [1, 1, 1]
+comm square (+) +tail0, coeff + dim 9 cartan-sum 9 HH0-2 [1, 0, 0]
+comm square +tail3 dim 27 cartan-sum 27 HH0-2 [1, 0, 0]
+square ab=0 +tail3 dim 27 cartan-sum 27 HH0-2 [1, 1, 1]
+comm square (+) +tail3, coeff + dim 27 cartan-sum 27 HH0-2 [1, 0, 0]
+tail 0 Cartan equal: True  HH equal: False -> HH says NO
+tail 3 Cartan equal: True  HH equal: False -> HH says NO
+D4 (hereditary) [1, 0, 0]
+A4 hereditary [1, 0, 0]
+Kronecker x A2-chain [1, 3, 0]
