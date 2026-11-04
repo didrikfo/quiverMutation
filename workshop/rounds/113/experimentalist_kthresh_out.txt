@@ -37,3 +37,34 @@ in key class 1292 (93s)
  image keys for K>=8: 2
  image keys for K>=9: 1
 93s
+
+## run 19 6 (round 113 response)
+target keys 1 lone rows [(7, 8), (8, 7)]
+shifted rows 208012 0s
+in key class 1953 (54s)
+ K 6 {0: 780, 1: 522}
+ K 7 {0: 265, 1: 257}
+ K 8 {0: 129}
+ image keys for K>=6: 2
+ image keys for K>=7: 2
+ image keys for K>=8: 1
+54s
+
+real	0m54.559s
+user	0m54.039s
+sys	0m0.032s
+## run 21 7 (round 113 response)
+target keys 1 lone rows [(8, 9), (9, 8)]
+shifted rows 742900 1s
+in key class 3829 (253s)
+ K 7 {0: 1502, 1: 1035}
+ K 8 {0: 522, 1: 513}
+ K 9 {0: 257}
+ image keys for K>=7: 2
+ image keys for K>=8: 2
+ image keys for K>=9: 1
+253s
+
+real	4m13.735s
+user	4m10.356s
+sys	0m0.828s
