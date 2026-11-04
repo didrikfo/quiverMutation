@@ -1,0 +1,19 @@
+target keys 1 lone rows [(3, 8), (8, 3)]
+shifted rows 208012 0s
+in key class 4597 (42s)
+ K 2 {0: 2183, 1: 522}
+ K 3 {0: 956, 1: 257}
+ K 4 {0: 410}
+ K 5 {0: 171}
+ K 6 {0: 68}
+ K 7 {0: 21}
+ K 8 {0: 9}
+ image keys for K>=2: 2
+ image keys for K>=3: 2
+ image keys for K>=4: 1
+ image keys for K>=5: 1
+ image keys for K>=6: 1
+ image keys for K>=7: 1
+ image keys for K>=8: 1
+ libdel mismatches 0
+42s
