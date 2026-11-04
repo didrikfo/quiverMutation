@@ -1,0 +1,4 @@
+chain True ['R4', 'F1', 'R7', 'F1', 'F4', 'F3'] ['F1', 'F3', 'R7', 'R4', 'R3', 'F5']
+corruptions 0 accepted 0 []
+rejected 0 failing tests {} ONE test only {}
+B swapped for another child: YES for [] of 12 [(0, False, ('Hom', 'meet', 'nostep')), (1, False, ('meet', 'nostep')), (2, False, ('meet', 'nostep')), (3, False, ('meet', 'nostep')), (4, False, ('meet', 'nostep')), (5, False, ('meet', 'nostep')), (6, False, ('Hom', 'meet', 'nostep')), (7, False, ('Hom', 'meet', 'nostep')), (9, False, ('meet', 'nostep')), (10, False, ('meet', 'nostep')), (11, False, ('meet', 'nostep')), (12, False, ('meet', 'nostep'))]

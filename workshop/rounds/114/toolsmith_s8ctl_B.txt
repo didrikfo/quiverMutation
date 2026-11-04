@@ -1,0 +1,4 @@
+chain True ['R4', 'F1', 'R7', 'F1', 'F4', 'F3'] ['F1', 'F3', 'R7', 'R4', 'R3', 'F5']
+corruptions 78 accepted 1 [(1, 4, 'R', 1)]
+rejected 77 failing tests {'nostep': 55, 'meet': 77, 'Hom': 1} ONE test only {'meet': 21}
+B swapped for another child: YES for [] of 0 []

@@ -1,0 +1,8 @@
+resumed [5008, 3729] levels [4, 5]
+level done side 0 levels [5, 5] balls [5499, 3729] 87s
+PAUSED [5499, 15549] levels [5, 5] 554s
+resumed [5499, 15549] levels [5, 5]
+level done side 1 levels [5, 6] balls [5499, 17240] 96s
+PAUSED [10711, 17240] levels [5, 6] 553s
+resumed [10711, 17240] levels [5, 6]
+PAUSED [16921, 17240] levels [5, 6] 550s
