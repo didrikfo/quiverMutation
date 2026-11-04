@@ -13,10 +13,10 @@ A_n and B_n are derived equivalent for every n >= 5 (Fosse 2305.06642 Cor. 4.6, 
 
 ---
 
-## H-026 — The vertex-deletion K-threshold is a law: K0 = (n - 1)/2 - 2 for the lone-3 class
-*2026-10-30* · **SUPPORTED** *(key level, lone-3 class, head ends, six lengths n = 11..21 with an independent re-run and a prediction at n = 21: E-296, E-299; not class level, not derived)*
+## H-026 — The vertex-deletion K-threshold of a lone-3 key class is the shorter free stretch beside the 3: K0 = min(h, n - 4 - h) (central class: (n - 1)/2 - 2)
+*2026-10-30, restated 2026-11-04* · **SUPPORTED** *(key level, lone-3 classes, head and tail ends tested directly; central class n = 11..21, off-centre n = 13, 15, 17: E-296, E-299, E-301; the original central-only wording was falsified by E-301, R-015; not class level, not derived)*
 
-At key level, deleting a vertex from a long free stretch next to a lone 3 stabilises once the kept stretch has K >= K0, and K0 = 3, 4, 5 at n = 11, 13, 15 (E-146, E-263; the free-stretch D >= 3 rule, E-206; |orbit B_n| = n 2^(n-5) to n = 16, E-247, unproved; note E-280: orbit(B_n) is a move-orbit size, not the class). **Falsifiable:** K0 = 6 at n = 17, or a lone-3 row at n = 11..15 whose threshold differs. It rests on six lengths at key level only (E-299); class level, non-lone classes, tail ends directly or a derivation settle it. Thread S-1.
+At key level, deleting an end vertex from a long free stretch next to a lone 3 stabilises (one image key) once the kept stretch has K >= K0. Central class: K0 = 3, 4, 5, 6, 7, 8 at n = 11, 13, 15, 17, 19, 21 (E-146, E-263, E-296, E-299, E-301); off-centre classes (h free vertices on the short side) have K0 = h on all 7 classes with a split at n = 13, 15, 17 (a fit to seven points, E-301); h = 0, 1 at n = 13 show no split at K >= 2. E-263's "messy" (4,7) class was a writer artefact (R-015). **Falsifiable:** a lone-3 class with K0 != min(h, n - 4 - h), e.g. n = 19 h = 5 or 6 (predicted 5, 6), or n = 15 h = 3 (predicted 3). Class level, non-lone classes and a derivation remain open. Thread S-1.
 
 ---
 

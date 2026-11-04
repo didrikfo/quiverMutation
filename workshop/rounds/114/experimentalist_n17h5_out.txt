@@ -1,0 +1,18 @@
+## n=17 K1=3 h=5 TAIL=1
+target keys 1 lone rows [(5, 8), (8, 5)]
+shifted rows 742900 2s
+in key class 6600 (123s)
+ K 3 {0: 1502, 1: 2416}
+ K 4 {0: 522, 1: 1091}
+ K 5 {0: 257, 1: 486}
+ K 6 {1: 222}
+ K 7 {1: 71}
+ K 8 {1: 33}
+ image keys for K>=3: 2
+ image keys for K>=4: 2
+ image keys for K>=5: 2
+ image keys for K>=6: 1
+ image keys for K>=7: 1
+ image keys for K>=8: 1
+ libdel mismatches 0
+123s

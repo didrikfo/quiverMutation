@@ -6,6 +6,15 @@ does not. See [`README.md`](README.md).
 
 ---
 
+## R-015 — "The (4,7)/(7,4) lone-3 class at n = 15 is messy: 12 image keys at K >= 5" (E-263), and "the K-threshold is (n-1)/2 - 2 for every lone-3 row" (H-026's wording)
+*retracted 2026-11-04* · corrected by E-301 (workshop round 114)
+
+E-263 reported 12 image keys at K >= 5 for the 21 045-row (4,7)/(7,4) class, and E-296/H-026 carried it as "non-lone (4,7)-type classes: messy" and as a falsifier ("a lone-3 row at n = 11..15 whose threshold differs") that was thought not to have fired.
+
+**False.** The round-097 scan wrote each row as `"".join(map(str, r))`, so an entry >= 10 took two characters and the digit-by-digit parse of `ends` produced wrong rows: 440 of the 21 045 h = 4 lines are malformed (the h = 5 files have none). A clean count gives K = 3, 4: 2 image keys; K >= 5: 1 key, so K0 = 4. That class is a lone-3 class with a smaller threshold than the central one, and the same holds off-centre at n = 13 and 17 (K0 = min(h, n-4-h) on 7 of 7 classes with a split, a fit). So H-026's formula (n-1)/2 - 2 is the central class only. **Lesson:** a separator-free text format breaks silently when a field reaches two digits; check the line length of every stored hit file.
+
+---
+
 ## R-014 — "A_n and B_n are derived equivalent only at n = 9, 10" (E-218 title)
 *retracted 2026-11-01* · corrected by Fosse arXiv:2305.06642 Cor. 4.6, Thm 4.2/4.5 (LaTeX read, E-280, E-285) -> E-285
 

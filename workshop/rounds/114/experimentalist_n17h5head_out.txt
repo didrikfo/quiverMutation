@@ -1,0 +1,16 @@
+target keys 1 lone rows [(5, 8), (8, 5)]
+shifted rows 742900 2s
+in key class 6600 (122s)
+ K 3 {0: 2416, 1: 1502}
+ K 4 {0: 1091, 1: 522}
+ K 5 {0: 486, 1: 257}
+ K 6 {0: 222}
+ K 7 {0: 71}
+ K 8 {0: 33}
+ image keys for K>=3: 2
+ image keys for K>=4: 2
+ image keys for K>=5: 2
+ image keys for K>=6: 1
+ image keys for K>=7: 1
+ image keys for K>=8: 1
+122s

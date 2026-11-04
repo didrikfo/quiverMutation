@@ -1,0 +1,4 @@
+class rows (tail K>=2) 3800
+class rows with an entry >= 10: 44 ; class rows whose joined string is in the files: 3800 ; absent: 0
+absent rows == rows with an entry >= 10 : False
+malformed lines that are the joined string of a class row: 44 of 440

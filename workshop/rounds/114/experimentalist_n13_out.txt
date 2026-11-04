@@ -1,0 +1,180 @@
+## n=13 K1=2 h=0 TAIL=0
+target keys 1 lone rows [(0, 9), (9, 0)]
+shifted rows 16796 0s
+in key class 576 (5s)
+ K 2 {0: 320}
+ K 3 {0: 144}
+ K 4 {0: 64}
+ K 5 {0: 28}
+ K 6 {0: 12}
+ K 7 {0: 5}
+ K 8 {0: 2}
+ K 9 {0: 1}
+ image keys for K>=2: 1
+ image keys for K>=3: 1
+ image keys for K>=4: 1
+ image keys for K>=5: 1
+ image keys for K>=6: 1
+ image keys for K>=7: 1
+ image keys for K>=8: 1
+ image keys for K>=9: 1
+ libdel mismatches 0
+5s
+## n=13 K1=2 h=0 TAIL=1
+target keys 1 lone rows [(0, 9), (9, 0)]
+shifted rows 16796 0s
+in key class 576 (3s)
+ K 2 {0: 320}
+ K 3 {0: 144}
+ K 4 {0: 64}
+ K 5 {0: 28}
+ K 6 {0: 12}
+ K 7 {0: 5}
+ K 8 {0: 2}
+ K 9 {0: 1}
+ image keys for K>=2: 1
+ image keys for K>=3: 1
+ image keys for K>=4: 1
+ image keys for K>=5: 1
+ image keys for K>=6: 1
+ image keys for K>=7: 1
+ image keys for K>=8: 1
+ image keys for K>=9: 1
+ libdel mismatches 0
+3s
+## n=13 K1=2 h=1 TAIL=0
+target keys 1 lone rows [(1, 8), (8, 1)]
+shifted rows 16796 0s
+in key class 2087 (4s)
+ K 2 {0: 1301}
+ K 3 {0: 511}
+ K 4 {0: 182}
+ K 5 {0: 62}
+ K 6 {0: 21}
+ K 7 {0: 7}
+ K 8 {0: 3}
+ image keys for K>=2: 1
+ image keys for K>=3: 1
+ image keys for K>=4: 1
+ image keys for K>=5: 1
+ image keys for K>=6: 1
+ image keys for K>=7: 1
+ image keys for K>=8: 1
+ libdel mismatches 0
+4s
+## n=13 K1=2 h=1 TAIL=1
+target keys 1 lone rows [(1, 8), (8, 1)]
+shifted rows 16796 0s
+in key class 2087 (3s)
+ K 2 {0: 1301}
+ K 3 {0: 511}
+ K 4 {0: 182}
+ K 5 {0: 62}
+ K 6 {0: 21}
+ K 7 {0: 7}
+ K 8 {0: 3}
+ image keys for K>=2: 1
+ image keys for K>=3: 1
+ image keys for K>=4: 1
+ image keys for K>=5: 1
+ image keys for K>=6: 1
+ image keys for K>=7: 1
+ image keys for K>=8: 1
+ libdel mismatches 0
+3s
+## n=13 K1=2 h=2 TAIL=0
+target keys 1 lone rows [(2, 7), (7, 2)]
+shifted rows 16796 0s
+in key class 1150 (3s)
+ K 2 {0: 608, 1: 129}
+ K 3 {0: 255}
+ K 4 {0: 103}
+ K 5 {0: 38}
+ K 6 {0: 12}
+ K 7 {0: 5}
+ image keys for K>=2: 2
+ image keys for K>=3: 1
+ image keys for K>=4: 1
+ image keys for K>=5: 1
+ image keys for K>=6: 1
+ image keys for K>=7: 1
+ libdel mismatches 0
+3s
+## n=13 K1=2 h=2 TAIL=1
+target keys 1 lone rows [(2, 7), (7, 2)]
+shifted rows 16796 0s
+in key class 1150 (3s)
+ K 2 {0: 129, 1: 608}
+ K 3 {1: 255}
+ K 4 {1: 103}
+ K 5 {1: 38}
+ K 6 {1: 12}
+ K 7 {1: 5}
+ image keys for K>=2: 2
+ image keys for K>=3: 1
+ image keys for K>=4: 1
+ image keys for K>=5: 1
+ image keys for K>=6: 1
+ image keys for K>=7: 1
+ libdel mismatches 0
+3s
+## n=13 K1=2 h=3 TAIL=0
+target keys 1 lone rows [(3, 6), (6, 3)]
+shifted rows 16796 0s
+in key class 880 (3s)
+ K 2 {0: 410, 1: 136}
+ K 3 {0: 171, 1: 65}
+ K 4 {0: 68}
+ K 5 {0: 21}
+ K 6 {0: 9}
+ image keys for K>=2: 2
+ image keys for K>=3: 2
+ image keys for K>=4: 1
+ image keys for K>=5: 1
+ image keys for K>=6: 1
+ libdel mismatches 0
+3s
+## n=13 K1=2 h=3 TAIL=1
+target keys 1 lone rows [(3, 6), (6, 3)]
+shifted rows 16796 0s
+in key class 880 (3s)
+ K 2 {0: 136, 1: 410}
+ K 3 {0: 65, 1: 171}
+ K 4 {1: 68}
+ K 5 {1: 21}
+ K 6 {1: 9}
+ image keys for K>=2: 2
+ image keys for K>=3: 2
+ image keys for K>=4: 1
+ image keys for K>=5: 1
+ image keys for K>=6: 1
+ libdel mismatches 0
+3s
+## n=13 K1=2 h=4 TAIL=0
+target keys 1 lone rows [(4, 5), (5, 4)]
+shifted rows 16796 0s
+in key class 788 (3s)
+ K 2 {0: 285, 1: 222}
+ K 3 {0: 122, 1: 71}
+ K 4 {0: 38, 1: 33}
+ K 5 {0: 17}
+ image keys for K>=2: 2
+ image keys for K>=3: 2
+ image keys for K>=4: 2
+ image keys for K>=5: 1
+ libdel mismatches 0
+3s
+## n=13 K1=2 h=4 TAIL=1
+target keys 1 lone rows [(4, 5), (5, 4)]
+shifted rows 16796 0s
+in key class 788 (3s)
+ K 2 {0: 222, 1: 285}
+ K 3 {0: 71, 1: 122}
+ K 4 {0: 33, 1: 38}
+ K 5 {1: 17}
+ image keys for K>=2: 2
+ image keys for K>=3: 2
+ image keys for K>=4: 2
+ image keys for K>=5: 1
+ libdel mismatches 0
+3s

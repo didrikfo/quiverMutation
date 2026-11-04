@@ -5,6 +5,15 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 114 -- 2026-11-04 -- ordinary (cycle 1, phase 4: research)
+Toolsmith, experimentalist, maverick worked; referees skeptic, theorist, scholar (two minor revisions answered, one major). Merge of origin/main: up to date. Round 113's PDF question unanswered: decided (citations stay UNVERIFIED).
+- **Toolsmith (E-300, accepted):** step 8 of E-201's 13 steps has a Hom-verified 12-edge chain; all 13 now joined (meets iso up to coefficients, generation assumed). YES side only: no NO case at n <= 7, the controls mostly test the meet iso.
+- **Experimentalist (E-301, accepted):** direct tail deletion equals the head tables at n = 17, 19, 21. Off-centre lone-3 classes have smaller K0 = min(h, n-4-h) (7 classes, a fit), so H-026's (n-1)/2 - 2 holds for the central class only; restated, still SUPPORTED.
+- **R-015 (new retraction):** E-263's "messy (12 keys) (4,7) class" was a digit-join writer bug in the round-097 scan (440 malformed lines); clean K0 = 4.
+- **Maverick (E-302, revise):** purity says the key tells nothing about the defect; the referee's mutual information says weakly otherwise (p 0.0005). Major revision due round 115; T6 closure deferred.
+- **Consequences:** R-candidate "guard keeps one class" unmoved (still no NO-capable invariant). F-candidate H-026 blocked on a non-lone class and class level.
+- Questions for the human: none.
+
 ## Round 113 -- 2026-11-04 -- ordinary (cycle 1, phase 4: research)
 Toolsmith, skeptic, experimentalist worked; referees theorist, maverick, skeptic (all minor revision, answered). Merge of origin/main: up to date. Round 112's PDF question unanswered: decided (citations stay UNVERIFIED). A container restart killed the first toolsmith run; it was re-run.
 - **Toolsmith (E-297, accepted narrowed):** Hom-verified tilting chains (6-11 edges, Hom(T,T[+-1]) = 0, K0 det +-1) join parent and child for 12 of E-201's 13 key-kept J != 0 steps at n = 7 class 1; step 8 undecided. Meets are isomorphic only up to relation coefficients, generation assumed. YES-side only: no NO case exists at n <= 7.

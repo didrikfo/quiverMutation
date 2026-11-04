@@ -1,0 +1,8 @@
+h = 4 lines 21045 by length {13: 20605, 14: 374, 15: 66} malformed 440
+   malformed lines: E-263 ends values {'K<3': 550, 'K<0': 214, 'K>=3': 116}  sample ['25100900000002', '20391000000000']
+h = 5 lines 18328 by length {13: 18328} malformed 0
+   malformed lines: E-263 ends values {}  sample []
+h = 6 lines 0 by length {} malformed 0
+   malformed lines: E-263 ends values {}  sample []
+h = 7 lines 0 by length {} malformed 0
+   malformed lines: E-263 ends values {}  sample []
