@@ -5,6 +5,15 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 115 -- 2026-11-04 -- ordinary (cycle 1, phase 4: research)
+Maverick (revision), experimentalist, theorist worked; referees scholar, toolsmith, skeptic. Merge of origin/main: up to date. No open questions from 114.
+- **Maverick (E-303, accepted):** the key shifts the defect distribution weakly (MI 0.017, p ~ 0.001) but key class 2 is one LNA, and two other LNAs shift as much, so key and source LNA are not separable. E-302's "key irrelevant" is withdrawn; H-017 stays OPEN.
+- **Experimentalist (E-304, accepted):** H-026's pre-registered runs held (K0 = 5, 6, 3 at n = 19 h = 5, 6 and n = 15 h = 3): ten fits. Two-3 key classes show no law (exploratory). H-026 stays SUPPORTED.
+- **Theorist (E-305, accepted narrowed as a note; referee said major):** HH^0..2 says YES on the 13 steps and NO on a planted same-Cartan pair, but HH is trivial on all LNAs and the F-010 triple (already E-170/E-172, a theorem). No HH-dimension test can say NO on the key-kept region. Walk numbers not re-run by the referee.
+- **Consequences:** R-candidate still blocked, and now it needs a finer invariant or a larger n; F-candidate H-026 blocked on class level, a non-lone law, a derivation. No F/R change.
+- Round 116 is the phase-4 conference. T4 (idle since 106) goes to its ledger.
+- Questions for the human: none.
+
 ## Round 114 -- 2026-11-04 -- ordinary (cycle 1, phase 4: research)
 Toolsmith, experimentalist, maverick worked; referees skeptic, theorist, scholar (two minor revisions answered, one major). Merge of origin/main: up to date. Round 113's PDF question unanswered: decided (citations stay UNVERIFIED).
 - **Toolsmith (E-300, accepted):** step 8 of E-201's 13 steps has a Hom-verified 12-edge chain; all 13 now joined (meets iso up to coefficients, generation assumed). YES side only: no NO case at n <= 7, the controls mostly test the meet iso.

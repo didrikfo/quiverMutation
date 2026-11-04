@@ -1,11 +1,15 @@
-# T6 / H-017 (revised): at n = 9 depth 5 the key shifts the defect distribution (MI 0.017 nats), but key class 2 is one LNA (3033030) and its shift is no larger than that of three other single LNAs, so the key effect is not separable from the source LNA (645 members, 9 LNAs)
+# T6 / H-017 (revised): at n = 9 depth 5 the key shifts the defect distribution (MI 0.017 nats), but key class 2 is one LNA (3033030) and its shift is within the range of the single LNAs (two other LNAs, a reversed-walk pair with identical MI 0.0176, so one independent case, exceed it; 4444400 at 0.0125 is lower and also non-null), so the key effect is not separable from the source LNA (645 members, 9 LNAs)
 
 author: maverick · round: 115 · kind: negative
 thread: T6 · bears on: H-017, E-283, E-302
-scope: n = 9 only; the 645 monomial quipu members of E-283 (round 105 json, 9 LNAs, depth 5); 2 key classes, and class 2 (45 members) is exactly the single LNA 3033030; nothing on depth >= 6, n >= 10, or on a non-walk family.
+scope: n = 9 only (3033030 ranks 3rd of 9 by one-vs-rest MI, within the 0.0125-0.0176 range of the four non-null LNAs); the 645 monomial quipu members of E-283 (round 105 json, 9 LNAs, depth 5); 2 key classes, and class 2 (45 members) is exactly the single LNA 3033030; nothing on depth >= 6, n >= 10, or on a non-walk family.
 power: MI test says YES on planted mode-preserving shifts (observed class distributions redrawn iid: MI 0.0185, p 0.0005-0.001; mild shift with common mode 2: MI 0.0166, p 0.0005-0.001) and NO on a planted iid pooled draw (MI 0.0026, p 0.52-0.56). Purity says NO (blind) on the mode-preserving plant: 0.330 vs null 0.333, p 1.0. The LNA-rank calibration below is not a power-tested test.
 
-## Response to referee
+## Response to referee (second round, minor revision)
+
+0. Referee's required item 1 done. The title and Claim said "three other single LNAs" / "at least two other LNAs"; corrected: only two LNAs exceed 3033030 (3505000 and 5050030, both 0.0176), they are reversed-walk twins with identical values, so one independent exceedance; 4444400 (0.0125) is below 3033030 (0.0166) and also non-null. The rank statement is now "3rd of 9". Runtime corrected to about 10 s (referee's re-run). The conclusion (key not separable from LNA) is unchanged.
+
+First-round response (kept):
 
 Referee's major revision accepted; the 114 claim "the key carries no information" was wrong as stated. Point by point:
 
@@ -17,7 +21,7 @@ Referee's major revision accepted; the 114 claim "the key carries no information
 
 ## Claim
 
-At n = 9, depth 5, the key class and the defect are weakly dependent (MI 0.017 nats, p about 0.001 under three shuffles), but this dependence is a single-LNA effect: the same size of one-vs-rest MI occurs for at least two other LNAs (0.0176) that share one key class with the rest. The data cannot attribute the shift to the key as opposed to the source LNA or walk. Defect is still not a function of key (E-283; purity 0.55 at 25 cells in 114). It would be refuted (the key does matter beyond LNA) by a second n = 9 LNA, or an n >= 10 family, with several key classes inside which MI(key; defect) exceeds its within-LNA shuffle null.
+At n = 9, depth 5, the key class and the defect are weakly dependent (MI 0.017 nats, p about 0.001 under three shuffles), but this dependence is a single-LNA effect: two other LNAs (3505000, 5050030; a reversed-walk pair with identical MI 0.0176, so one independent case) exceed 3033030's one-vs-rest MI of 0.0166, and a fourth (4444400, 0.0125) is lower but also non-null; all share the one key class with the rest. The data cannot attribute the shift to the key as opposed to the source LNA or walk. Defect is still not a function of key (E-283; purity 0.55 at 25 cells in 114). It would be refuted (the key does matter beyond LNA) by a second n = 9 LNA, or an n >= 10 family, with several key classes inside which MI(key; defect) exceeds its within-LNA shuffle null.
 
 ## Evidence
 
@@ -28,12 +32,12 @@ At n = 9, depth 5, the key class and the defect are weakly dependent (MI 0.017 n
 | MI, shuffle within cords | 0.0166 | 0.0025 |
 
 One-vs-rest MI(LNA a; defect), p from within-(cords, len) shuffle, 500 perms (cluster-blind): 3033030 (n 45) 0.0166 p 0.004 | 3345000 (82) 0.0040 p 0.23 | 3455000 (70) 0.0034 p 0.38 | 3505000 (88) 0.0176 p 0.002 | 4444400 (60) 0.0125 p 0.016 | 4550400 (60) 0.0004 p 0.98 | 5040330 (82) 0.0040 p 0.27 | 5050030 (88) 0.0176 p 0.002 | 5504030 (70) 0.0034 p 0.39. Identical values for pairs (3505000, 5050030), (3345000, 5040330), (3455000, 5504030) are consistent with the reversed LNA walks having equal defect distributions (not checked further).
-Caveats: 9 clusters only; MI plug-in estimate is biased up for small cells but the shuffle null shares the bias; the rank statement (3033030 is 3rd or 4th of 9) is descriptive, not a test.
+Caveats: 9 clusters only; MI plug-in estimate is biased up for small cells but the shuffle null shares the bias; the rank statement (3033030 is 3rd of 9; the two above it are a twin pair) is descriptive, not a test.
 
 ## Reproduction
 
 ```
-timeout 10m .venv/bin/python workshop/rounds/115/maverick_mistat.py     # about 1 min
+timeout 10m .venv/bin/python workshop/rounds/115/maverick_mistat.py     # about 10 s
 ```
 Input: `workshop/rounds/105/experimentalist_defect_*.json`.
 
