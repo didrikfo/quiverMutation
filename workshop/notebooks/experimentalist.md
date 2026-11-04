@@ -1,16 +1,16 @@
-# Experimentalist notebook (rewritten round 114)
+# Experimentalist notebook (rewritten round 115)
 
 ## What I now believe
-- S-1/H-026: K-threshold K0 = (n-1)/2 - 2 holds at key level for the lone-3 class at n = 17, 19, 21, head (113) AND tail deleted directly (114, predicted first, 0 mismatches vs pwh.removeVertex(n,r,n)); tables identical up to key labels. Scope: not class level, not tested below K0-1 at n = 19, 21.
-- Reply 114: E-263 (4,7) "12 keys" = writer bug (''.join of entries >= 10 -> 440 malformed lines in h=4 hit files; (5,6) h=5 files clean). (4,7) has K0 = 4. Non-central lone-3 classes: K0 fits min(h, n-4-h) (n=13 h=2,3,4; n=15 h=4,5; n=17 h=5,6). H-026 wording falsified; (n-1)/2-2 only for the central class. Fit on 7 points, untested at n = 19 h<7.
-- Counts 780/265/129/65 (+ 2^m style) recur across classes; unexplained.
-- T10/H-015 (110): key guard refuses real steps at n = 6 class 0 (1150 J != 0 steps), none at J = 0; no guarded walk known to leave a class. Open: n=7 c1, c2 record 6.
-- T7/H-010 (107): no lowering control for start-gap-2 pair at k <= 4. T6 (105): defect not constant per key class at n = 9 depth 5.
-- Practical: tail row = shifted row + zeros at the end, image = drop last entry. Write outputs to files; log predictions in a file first.
+- S-1/H-026: K0 = min(h, n-4-h) for lone-3 classes at key level now fits 10 points: n = 13 h=2,3,4; 15 h=3,4,5; 17 h=5,6; 19 h=5 (K0=5), 6 (6), plus central 19, 21 (7, 8). Round 115 predictions (5, 6, 3) all held. Still key level, head ends, K >= K1 only; no class level, no derivation.
+- Two-3 key classes are different: 1, 2 or 3 image keys, no law found (n=13 (2,7): split to K=2, (4,8): 3 keys at K=1, (3,6): none; n=15 (3,9): 3 keys at K=2). Counts 780/265/129/65 do not reappear. Caution: a key class may contain rows not of the two-3 shape.
+- E-263 (4,7) "12 keys" = writer bug (R-015), K0 = 4.
+- T10/H-015 (110): key guard refuses real steps at n = 6 class 0; open n=7 c1, c2 record 6. T7 (107): no lowering control at k<=4. T6 (105): defect not constant per key class.
+- Practical: tail row = shifted row + zeros; image = drop an end entry. Outputs to files; prediction file first. Job size: rows(n-K1) ~ 10 min limit; n=19 K1=3 is ~50 min (overnight proposal if wanted).
 
 ## What I tried
-- 114: `rounds/114/experimentalist_tail.py` (TAIL=1, h=). 113: `_kthresh.py`. 110: `_refusal.py`. 107: `_chain.py`; 105: `_defect_census.py`.
+- 115: `rounds/115/experimentalist_kloc.py`, `_nonlone.py` (p= positions). 114: `_tail.py`; 113 `_kthresh.py`; 110 `_refusal.py`; 107 `_chain.py`; 105 `_defect_census.py`.
 
 ## What I would do next
-1. Test K0 = min(h, n-4-h) at n = 19 (h=5,6), n = 15 h=3; n = 23 tail.
-2. T10: n = 7 class 1 Hom-verified chain (overnight). T7 chain at k=5; T6 depth-6.
+1. Non-lone: pick p,q small at n = 15/17 with predictions per key count; try to find the rule for depth of split (maybe shorter stretch before the first 3 plus gap).
+2. n = 19 h=5 at K1=3 (overnight, ~50 min) to see lower K; n = 23 tail.
+3. T10 n=7 class 1 chain; T7 at k=5; T6 depth 6.
