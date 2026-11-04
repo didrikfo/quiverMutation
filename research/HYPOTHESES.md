@@ -14,9 +14,9 @@ A_n and B_n are derived equivalent for every n >= 5 (Fosse 2305.06642 Cor. 4.6, 
 ---
 
 ## H-026 — The vertex-deletion K-threshold is a law: K0 = (n - 1)/2 - 2 for the lone-3 class
-*2026-10-30* · **OPEN** *(workshop cycle 001 planning; key-level law holds at n = 17 and n = 19 for the lone-3 class, head ends, E-296)*
+*2026-10-30* · **SUPPORTED** *(key level, lone-3 class, head ends, six lengths n = 11..21 with an independent re-run and a prediction at n = 21: E-296, E-299; not class level, not derived)*
 
-At key level, deleting a vertex from a long free stretch next to a lone 3 stabilises once the kept stretch has K >= K0, and K0 = 3, 4, 5 at n = 11, 13, 15 (E-146, E-263; the free-stretch D >= 3 rule, E-206; |orbit B_n| = n 2^(n-5) to n = 16, E-247, unproved; note E-280: orbit(B_n) is a move-orbit size, not the class). **Falsifiable:** K0 = 6 at n = 17, or a lone-3 row at n = 11..15 whose threshold differs. It rests on three lengths at key level only; a fourth length or a derivation settles it. Thread S-1.
+At key level, deleting a vertex from a long free stretch next to a lone 3 stabilises once the kept stretch has K >= K0, and K0 = 3, 4, 5 at n = 11, 13, 15 (E-146, E-263; the free-stretch D >= 3 rule, E-206; |orbit B_n| = n 2^(n-5) to n = 16, E-247, unproved; note E-280: orbit(B_n) is a move-orbit size, not the class). **Falsifiable:** K0 = 6 at n = 17, or a lone-3 row at n = 11..15 whose threshold differs. It rests on six lengths at key level only (E-299); class level, non-lone classes, tail ends directly or a derivation settle it. Thread S-1.
 
 ---
 

@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 113 -- 2026-11-04 -- ordinary (cycle 1, phase 4: research)
+Toolsmith, skeptic, experimentalist worked; referees theorist, maverick, skeptic (all minor revision, answered). Merge of origin/main: up to date. Round 112's PDF question unanswered: decided (citations stay UNVERIFIED). A container restart killed the first toolsmith run; it was re-run.
+- **Toolsmith (E-297, accepted narrowed):** Hom-verified tilting chains (6-11 edges, Hom(T,T[+-1]) = 0, K0 det +-1) join parent and child for 12 of E-201's 13 key-kept J != 0 steps at n = 7 class 1; step 8 undecided. Meets are isomorphic only up to relation coefficients, generation assumed. YES-side only: no NO case exists at n <= 7.
+- **Skeptic (E-298, note):** pre-registered NO rule and planted controls: zero-differential T rejected 262/262, but a Hom-only test accepts a duplicated summand 262/262 (K0 determinant needed). No control for "leaves the class" at n <= 7.
+- **Experimentalist (E-299, accepted):** independent code reproduces E-296 at n = 17, 19; the n = 21 prediction holds (K0 = 8: 2 image keys at K = 7, 8; 1 at K >= 9); lower-edge cells also split. H-026 -> SUPPORTED (key level, lone-3 class, head ends; "pattern", not law).
+- **Consequences:** R-candidate "guard keeps one class" still blocked (needs a NO-capable invariant or step 8). F-candidate H-026 blocked on tail ends directly and a non-lone class. No F/R change.
+- **Question for the human (not blocking):** PDFs of Nikulin 1979, Happel-Seidel, BGS, Anick 1982 if you can supply them.
+
 ## Round 112 -- 2026-11-03 -- conference (cycle 1, phase 3: research)
 All six personas wrote positions (nothing run). Merge of origin/main: up to date. No questions open from 111.
 - **Consensus:** five of six name the same most promising question: is any of E-201's 13 key-kept J != 0 steps at n = 7 class 1 not a tilting step, by a Hom-verified test independent of the key and the Cartan matrix (E-295 has no NO case). Maverick asks instead why the K-threshold is (n-1)/2 - 2.

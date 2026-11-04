@@ -240,3 +240,4 @@ The format stays open to change at each cycle retrospective.
 - round 052, question 2 (PDFs of arXiv:1009.3370, 2509.12983): wanted if the human can supply them; scholar tries the standing arXiv permission again -- decided by the chair of round 053; no answer from the human (applied, round 053)
 - round 052, question 3 (`canonicalKey` DEFAULT_CAP 5040): not yet; do it in a toolsmith round with the docstring rewords and the E-160 wrapper test -- decided by the chair of round 053; no answer from the human (applied, round 053)
 - round 053, question 1 (PDFs of arXiv:1009.3370, 2509.12983): wanted if the human can supply them; literature stays parked -- decided by the chair of round 054; no answer from the human (applied, round 054)
+- round 112, question 1 (PDFs of Nikulin 1979, Happel-Seidel, BGS, Anick 1982) (applied, round 113): citations stay UNVERIFIED, no action -- decided by the chair of round 113; no answer from the human

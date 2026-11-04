@@ -6,6 +6,35 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-299 — H-026 / S-1, key level, head ends, lone-3 class: independent re-run reproduces E-296 at n = 17, 19, and the n = 21 prediction K0 = 8 holds (K = 7, 8 give 2 image keys, K >= 9 gives 1); the lower-edge cells K = 6 (n = 19) and K = 7 (n = 21) also split; a corroborated pattern at six lengths, not a law
+*2026-11-04* · **`timeout 10m .venv/bin/python workshop/rounds/113/experimentalist_kthresh.py run 21 8`; `... run 21 7`; `... run 19 6`; `... run 19 7`; `... run 17 5`; `... plan N K` sizes a run** (n = 21 K1 = 8: 93 s; K1 = 7: 253 s) · *workshop round 113, experimentalist, refereed by skeptic (minor revision, answered)*
+
+Scope: n = 17, 19, 21; one Coxeter-key class per n (lone-3, (6,7)/(7,6), (7,8)/(8,7), (8,9)/(9,8)); key level only; head-end deletions (tail by E-296's mirror equivariance, not re-tested); K <= K0 - 2 not run at n = 19, 21; not class level, not non-lone classes. Own row enumerator, Cartan builder and numpy Coxeter polynomial; 0 mismatches against the library on keys (1200 rows) and on vertex-1 deletion (1859 rows, all 330 class rows at n = 17). The "prediction logged first" is NOT independently timestamped (one commit); it is specific and refutable, nothing more is claimed.
+
+Result: image keys at n - 1 by end stretch K. n = 17: K = 5, 6 two, K >= 7 one. n = 19: K = 6, 7 two (K = 7: 265/257), K >= 8 one (129). n = 21: K = 7, 8 two (K = 8: 522/513), K >= 9 one (257); 1292 key-class rows at K1 = 8 (include non-lone rows with the same key). Largest splitting K = 3, 4, 5, 6, 7, 8 at n = 11..21, i.e. (n - 1)/2 - 2, now six lengths; the single-key cell sizes 65, 129, 257 follow 2^m + 1, unexplained. Power: the table would have refuted K0 = 7 or 9 at n = 21 (and 6 or 8 at n = 19) by reading; no separately planted error. The n = 19 K = 7 cell that E-296 rested on one run is now a second implementation.
+
+Consequence: H-026 moves from "three lengths" to SUPPORTED at key level. F-blockers: class level, non-lone classes, tail ends directly, a derivation of K0.
+
+---
+
+## E-298 — H-015 / T10: pre-registered rule for the 13 key-kept J != 0 steps, and planted controls at n <= 6 showing a Hom_K(T,T[m]) test says NO to a zero-differential T (262/262), is blind to a duplicated summand (262/262 false YES, caught only by the K0 determinant), and that no control for "leaves the class" exists at n <= 7
+*2026-11-04* · **`timeout 10m .venv/bin/python -W ignore workshop/rounds/113/skeptic_homctl.py`** (seconds) · *workshop round 113, skeptic, refereed by maverick (minor revision, answered)*
+
+Scope: all LNAs and relation duals at n = 4, 5, and 12 LNAs plus duals at n = 6 (30, 112, 120 steps); two-term T of `rounds/050/skeptic_tilt.py`; not the 13 steps, not generation. Rule (written before any toolsmith output): YES = an explicit chain with Hom(T,T[+-1]) = 0 on each edge, K0 determinant +-1, labelled End(T) Cartan equal to the next algebra, meeting in an explicit isomorphism; NO only by a derived invariant that differs, with its own power control, or a finite proof; a chain search with no meet is a bound, not NO. A Hom failure at the step itself (all 13 have Hom(T,T[-1]) != 0, E-201) is not a NO (E-212). Controls: P1 zero differential, NO on 262 of 262; P2 duplicated summand, Hom-only test accepts 262 of 262, K0 determinant 0 on 262 of 262 (E-287 already has the K0 check, so P2 is a measured false-YES rate, not a new gap); P3 wrong labelled child, NO on 506 of 506, weak (child Cartan is the repo's own output; positive control k2 == k matches 20/20, 70/70, 64/64 at n = 4, 5, 6). Mostly restates E-201, E-212, E-287; the new part is the controls. The n = 9 F-010 pair is the only candidate for a NO control for chains and hit the cap (E-212).
+
+---
+
+## E-297 — H-015 / T10, n = 7 key class 1: Hom-verified tilting chains join parent and child for 12 of E-201's 13 key-kept J != 0, D = 0 steps (step 8 undecided); meets isomorphic only up to relation coefficients, generation by T assumed (E-168); a YES-side consistency check, no NO case exists at n <= 7
+*2026-11-04* · **`timeout 10m .venv/bin/python -u workshop/rounds/069/skeptic_c1_13.py 1 540 23000` (twice; checkpoint in /tmp); `timeout 10m .venv/bin/python -u workshop/rounds/113/toolsmith_c1_chain.py chain I 5 40000` (I = 0..12; steps 3, 8, 9: `chain I 6 150000`); `... toolsmith_c1_chain.py ctl 4 5 40000`; `... toolsmith_c1_chain.py replay 3 0 0 "R2 F3 F2 F3 F7" "F3 F5 R3 F6 R5 F3"`; `.../toolsmith_c1_k0ctl.py`** (44-290 s per step) · *workshop round 113, toolsmith, refereed by theorist (minor revision, answered)*
+
+Scope: n = 7, key class 1, the 13 steps of E-201 (checkpoint nexp 23000, indexed 0..12); bidirectional search over vertex tilting edges, depth <= 5 per side (3, 9: 6), cap 40 000 (3, 9: 150 000). Verification uses no gate, J or key. Generation proxied by the K0 determinant (Okuyama-Rickard assumed, E-168); the meet isomorphism ignores relation coefficients; loop-freedom at every mutated vertex checked by the verifier (0 flags on 0-2, 4-7, 10-12 and on the replayed chains for 3, 9).
+
+Result: steps 0-7 and 9-12 each have an explicit chain of 6 to 11 edges, every edge with Hom_K(T,T[+-1]) = 0 (chain maps mod homotopy), K0 determinant +-1 and labelled Cartan equal to dim Hom(T_i,T_j). Step 8 (parent and child both have parallel arrows): no meet after about 4 x 8 min (balls 5.5k / 9.8k), UNDECIDED; "13 of 13" is not claimed. Direct parent-to-child fails the Hom test in all 13 (E-201; not a NO, E-212). Controls (steps 2, 4, 5; 286 single-edge corruptions): 280 rejected, all by the meet isomorphism (alone for 120), Hom 11, impossible step 151, K0 / Cartan / loop 0; 6 accepted, each a valid tilting edge, a true YES; duplicated-summand T has K0 det 0 in 708 of 708, real T +-1 in 118 of 118; 36 of 36 end-swaps rejected. Controls for the other 9 chains not run.
+
+Consequence: none for the record beyond E-212/E-228: with no NO case at n <= 7 this cannot refute "a key-guarded walk stays in one class"; the R-candidate stays blocked on a NO-capable invariant (n = 9 F-010 pair) or on step 8. Deeper step 8 search proposed for next round.
+
+---
+
 ## E-296 — H-026 / S-1, key level, head ends, one lone-3 key class per n: the K-threshold law holds at n = 17 (K = 6 and K = 5 give 2 image keys, K >= 7 gives 1) and at n = 19 for K = 7 (2 keys) and K = 8 (1 key); n = 15 reproduces E-263; tail ends by a tested mirror equivariance; n = 19 rests on one run
 *2026-11-03* · **`timeout 10m .venv/bin/python workshop/rounds/111/maverick_k17.py check`, `... maverick_k17.py run 15 4`, `run 17 6`; `timeout 10m .venv/bin/python workshop/rounds/111/maverick_mirror.py`** (197 s) · *workshop round 111, maverick, refereed by theorist (minor revision, answered)*
 

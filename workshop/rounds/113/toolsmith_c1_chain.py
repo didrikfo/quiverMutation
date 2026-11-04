@@ -160,6 +160,10 @@ r = Z[I]; A, B, v0 = r['alg'], r['ch'], r['v']
 print('step', I, 'v', v0, 'parent parallel', parallel(A), 'child parallel', parallel(B), flush=True)
 h = horn(A, 'F', v0)
 print('failing step F%d: child iso to recorded child %s; Hom(T,T[+-1])=0 %s; Cartan=dimHom %s; dim Hom(T,T[-1]) = %d  (must be NOT tilting)' % (v0, iso(h[0], B), h[1], h[2], h[3]), flush=True)
+if MODE == 'replay':   # replay I 0 0 'moveA...' 'moveB...' : verify given edge lists (no search)
+    mk = lambda t: [(w[0], int(w[1:])) for w in t.split()]
+    ok, la, lb, meet, par = verify(A, B, mk(ARGV[5]), mk(ARGV[6]))
+    print('REPLAY step', I, 'A-side', ' '.join(la), '| B-side', ' '.join(lb), 'meet-isomorphic', meet, 'parallel-at-meet', par, 'VERDICT', 'YES' if ok else 'NO', 'failing', sorted(VERIFY_FAILS)); sys.exit()
 res, sizes = search_chain(A, B, DEPTH, CAP, ck='/tmp/c1chain_ck%d.pkl' % I)
 print('search sizes (A side, B side)', sizes, '%.0fs' % (time.time() - t0), flush=True)
 if res == 'PAUSED': print('STEP', I, 'PAUSED (rerun the same command to resume)', sizes); sys.exit()
