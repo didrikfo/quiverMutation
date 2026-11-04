@@ -8,4 +8,6 @@ Step 0.5: round 112's only question (PDFs of Nikulin 1979, Happel-Seidel, BGS, A
 ## Revisions due
 (none)
 ## Referees
-(filled in at step 3)
+- theorist refereeing toolsmith (Hom-verified chains, T10).
+- skeptic refereeing experimentalist (S-1 re-run, n = 21 prediction).
+- maverick refereeing skeptic (NO rule and controls, T10).

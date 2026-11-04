@@ -47,6 +47,16 @@ def step(x, kind, v):
     c = reduction.reducePathAlgebra(raw)
     if sorted(c.vertices()) != V: return None
     return (c if kind == 'F' else dual(c)), a, c
+def k0det(a, k, dup=None):
+    """det of the K0 classes of the n summands of T in K0(proj A) = Z^V: [P_i] (i != k), [T_k] = [P_k] - sum_{k->h} [P_h]; dup=j replaces T_k by a second copy of P_j (control P2)."""
+    V = sorted(a.quiver.nodes); ix = {u: i for i, u in enumerate(V)}; M = np.zeros((len(V), len(V)), dtype=object)
+    for u in V:
+        if u != k: M[ix[u], ix[u]] = 1
+    if dup is not None: M[ix[k], ix[dup]] = 1
+    else:
+        M[ix[k], ix[k]] = 1
+        for h in set(a.quiver.successors(k)): M[ix[k], ix[h]] -= a.quiver.number_of_edges(k, h)
+    return int(sympy.Matrix(M.tolist()).det())
 def horn(x, kind, v):
     """independent verdict (child, Hom(T,T[+-1]) = 0, Cartan(child) = dim Hom(T_i,T_j), total dim Hom(T,T[-1]))."""
     r = step(x, kind, v)
@@ -55,7 +65,7 @@ def horn(x, kind, v):
     Vs, res = stepTest(a, v, -1)
     zero = not np.array(res[-1]).any() and not np.array(res[1]).any()
     C = np.array(invariants.cartanMatrix(c, exact=True).tolist(), dtype=int)
-    return y, zero, bool((np.array(res[0], dtype=int) == C.T).all()), int(np.abs(np.array(res[-1])).sum())
+    return y, zero and k0det(a, v) in (1, -1), bool((np.array(res[0], dtype=int) == C.T).all()), int(np.abs(np.array(res[-1])).sum())
 
 def moves(alg):   # SEARCH filter only
     if list(nx.simple_cycles(alg.quiver)): return []
