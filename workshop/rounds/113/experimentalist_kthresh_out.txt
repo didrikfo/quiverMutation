@@ -1,0 +1,33 @@
+== 17 6 libdel
+target keys 1 lone rows [(6, 7), (7, 6)]
+shifted rows 16796 0s
+in key class 330 (8s)
+ K 6 {0: 136, 1: 129}
+ K 7 {0: 65}
+ image keys for K>=6: 2
+ image keys for K>=7: 1
+ libdel mismatches 0
+8s
+== 17 5
+target keys 1 lone rows [(6, 7), (7, 6)]
+shifted rows 58786 0s
+in key class 1007 (21s)
+ K 5 {0: 412, 1: 265}
+ K 6 {0: 136, 1: 129}
+ K 7 {0: 65}
+ image keys for K>=5: 2
+ image keys for K>=6: 2
+ image keys for K>=7: 1
+21s
+== 19 7
+target keys 1 lone rows [(7, 8), (8, 7)]
+shifted rows 58786 0s
+in key class 651 (24s)
+ K 7 {0: 265, 1: 257}
+ K 8 {0: 129}
+ image keys for K>=7: 2
+ image keys for K>=8: 1
+24s
+== 21 8
+target keys 1 lone rows [(8, 9), (9, 8)]
+shifted rows 208012 0s
