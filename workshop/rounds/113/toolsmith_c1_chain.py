@@ -65,7 +65,8 @@ def horn(x, kind, v):
     Vs, res = stepTest(a, v, -1)
     zero = not np.array(res[-1]).any() and not np.array(res[1]).any()
     C = np.array(invariants.cartanMatrix(c, exact=True).tolist(), dtype=int)
-    return y, zero and k0det(a, v) in (1, -1), bool((np.array(res[0], dtype=int) == C.T).all()), int(np.abs(np.array(res[-1])).sum())
+    k0 = k0det(a, v) in (1, -1); loopfree = a.quiver.number_of_edges(v, v) == 0   # round 113 response: loop-free = E-168 generation condition
+    return y, zero, bool((np.array(res[0], dtype=int) == C.T).all()), int(np.abs(np.array(res[-1])).sum()), k0, loopfree
 
 def moves(alg):   # SEARCH filter only
     if list(nx.simple_cycles(alg.quiver)): return []
@@ -129,16 +130,22 @@ def trace(S, s, kc, A, B):
     return back(0, kc), back(1, kc)
 
 def replay(x0, mv, tamper=None):
-    ok = True; x = x0; log = []
+    ok = True; x = x0; log = []; fails = set()
     for i, (kind, v) in enumerate(mv):
         if tamper and tamper[0] == i: kind, v = tamper[1], tamper[2]
         h = horn(x, kind, v)
-        if h is None: return False, None, log + ['NOSTEP']
-        y, zero, cart, hm = h; log.append('%s%d%s' % (kind, v, '' if zero and cart else '!')); ok &= (zero and cart); x = y
-    return ok, x, log
+        if h is None: fails.add('nostep'); return False, None, log + ['NOSTEP'], fails
+        y, zero, cart, hm, k0, lf = h; log.append('%s%d%s' % (kind, v, '' if zero and cart and k0 and lf else '!')); ok &= (zero and cart and k0 and lf); x = y
+        if not zero: fails.add('Hom')
+        if not k0: fails.add('K0')
+        if not cart: fails.add('Cartan')
+        if not lf: fails.add('loop')
+    return ok, x, log, fails
+VERIFY_FAILS = set()
 def verify(A, B, mvA, mvB, tA=None, tB=None, swapB=None):
-    okA, MA, la = replay(A, mvA, tA); okB, MB, lb = replay(B if swapB is None else swapB, mvB, tB)
+    okA, MA, la, fa = replay(A, mvA, tA); okB, MB, lb, fb = replay(B if swapB is None else swapB, mvB, tB)
     meet = MA is not None and MB is not None and iso(MA, MB)
+    VERIFY_FAILS.clear(); VERIFY_FAILS.update(fa | fb | (set() if meet else {'meet'}))
     return okA and okB and meet, la, lb, meet, (MA is not None and parallel(MA)) or (MB is not None and parallel(MB))
 
 t0 = time.time()
@@ -162,7 +169,7 @@ ok, la, lb, meet, par = verify(A, B, mvA, mvB)
 print('A-side', ' '.join(la), '| B-side', ' '.join(lb), '| edges', len(mvA) + len(mvB), 'meet-isomorphic', meet, 'parallel-at-meet', par)
 print('STEP', I, 'CHAIN VERDICT', 'YES' if ok else 'NO (verifier rejected)', '%.0fs' % (time.time() - t0))
 if MODE == 'ctl':
-    tot = acc = 0; accl = []
+    tot = acc = 0; accl = []; anyf = {}; solo = {}
     V = sorted(A.quiver.nodes)
     for side, mv in ((0, mvA), (1, mvB)):
         for e in range(len(mv)):
@@ -172,12 +179,16 @@ if MODE == 'ctl':
                     tam = (e, kind, v)
                     o = verify(A, B, mvA, mvB, tam if side == 0 else None, tam if side == 1 else None)[0]
                     tot += 1; acc += o
+                    if not o:
+                        for t in VERIFY_FAILS: anyf[t] = anyf.get(t, 0) + 1
+                        if len(VERIFY_FAILS) == 1: t, = VERIFY_FAILS; solo[t] = solo.get(t, 0) + 1
                     if o: accl.append((side, e, kind, v))
     print('single-edge corruptions %d, accepted %d' % (tot, acc), accl[:10])
+    print('rejected (%d): failing tests (each corruption may fail several) %s; rejected by ONE test only %s' % (tot - acc, anyf, solo))
     # swap the end: replace B by a different child of the 13 (a different algebra) -- meet must fail
-    sw = []
+    sw = []; swf = {}
     for j, rj in enumerate(Z):
         if j == I: continue
         o = verify(A, B, mvA, mvB, swapB=rj['ch'])
-        sw.append((j, bool(o[0])))
-    print('B replaced by another step\'s child, verdict YES for:', [j for j, o in sw if o], 'of', len(sw), '%.0fs' % (time.time() - t0))
+        sw.append((j, bool(o[0]))); swf[tuple(sorted(VERIFY_FAILS))] = swf.get(tuple(sorted(VERIFY_FAILS)), 0) + 1
+    print('B replaced by another step\'s child, verdict YES for:', [j for j, o in sw if o], 'of', len(sw), 'failing-test sets', swf, '%.0fs' % (time.time() - t0))

@@ -23,7 +23,7 @@ def k0det(T, V, alg):
         for d, vs in T[i][0].items():
             for v in vs: M[r, idx[v]] += (-1) ** d
     return round(abs(np.linalg.det(M)))
-res = dict(alg=0, P1=0, P1no=0, P2=0, P2homyes=0, P2k0no=0, P3=0, P3no=0, R=0, Rtilt=0, Rk0=0, Rcart=0)
+res = dict(alg=0, P1=0, P1no=0, P2=0, P2homyes=0, P2k0no=0, P3=0, P3no=0, R=0, Rtilt=0, Rk0=0, Rcart=0, Rcartmatch=0)
 algs = []
 for lna in list(nk.LinearNakayamaAlgebra.allOfLength(N))[:MAXA]:
     algs += [lna, pathAlgebra.dualPathAlgebra(lna)]
@@ -35,10 +35,8 @@ for alg in algs:
         T = skt.complexT(A, k, V, -1)
         res['R'] += 1; res['Rtilt'] += tilt_ok(A, T, V); res['Rk0'] += (k0det(T, V, alg) == 1)
         # P1
-        Tz = dict(T); Tz[k] = ({-1: [k], 0: [b[1] for b in outs]}, {-1: {}})
         Tz2 = {i: ({0: [i]}, {}) for i in V if i != k}
-        Tz2['k'] = Tz[k]; Tz2['h'] = ({1: [b[1] for b in outs]}, {})   # explicit split of the cone: P_k at 0? keep P_k and (+P_h)[-1] as stalk summands
-        Tz2['k'] = ({0: [k]}, {}); Tz2['h'] = ({1: [b[1] for b in outs]}, {})
+        Tz2['k'] = ({0: [k]}, {}); Tz2['h'] = ({1: [b[1] for b in outs]}, {})   # P_k and (+P_h)[-1] as stalk summands
         Vz = list(Tz2)
         res['P1'] += 1; res['P1no'] += (not tilt_ok(A, Tz2, Vz))
         # P2
@@ -54,11 +52,13 @@ for alg in algs:
         if tilt_ok(A, T, V):
             H = np.array([[skt.homdim(A, T[i], T[j], 0) for j in V] for i in V])
             for k2 in V:
-                if k2 == k or not ap.arrowsOutOf(alg.quiver, k2): continue
+                if not ap.arrowsOutOf(alg.quiver, k2): continue
                 try:
                     raw = mutation.quiverMutationAtVertex(alg, k2); c = reduction.reducePathAlgebra(raw)
                     if sorted(c.vertices()) != V: continue
                     C = np.array(invariants.cartanMatrix(c, exact=True).tolist(), dtype=int)
                 except Exception: continue
+                if k2 == k:   # positive control: the true child (Cartan is the repo's mutation output, not independent)
+                    res['Rcart'] += 1; res['Rcartmatch'] += bool((H == C.T).all()); continue
                 res['P3'] += 1; res['P3no'] += (not (H == C.T).all())
 print(N, res)
