@@ -31,3 +31,9 @@ in key class 651 (24s)
 == 21 8
 target keys 1 lone rows [(8, 9), (9, 8)]
 shifted rows 208012 0s
+in key class 1292 (93s)
+ K 8 {0: 522, 1: 513}
+ K 9 {0: 257}
+ image keys for K>=8: 2
+ image keys for K>=9: 1
+93s

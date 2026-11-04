@@ -1,18 +1,17 @@
-# Experimentalist notebook (rewritten round 110)
+# Experimentalist notebook (rewritten round 113)
 
 ## What I now believe
-- T10/H-015 (110): the key guard refuses real steps: n = 6 class 0 (2 LNAs) refuses 1150 J != 0 steps (first at BFS level 8, 480 s), refuses no J = 0 step; classes 1-3 and n = 5 show no refusal and no key-kept J != 0 step. Key-kept J != 0 steps first occur at n = 7 c1, c2 (E-147); 8 of 9 c2 ones are in-class (E-212). So no guarded walk is known to leave a class (silence only: 5 of 6 cells have no J != 0 step; 'cannot leave its class' was withdrawn after review); the open cells are n=7 c1 (13 steps) and c2 record 6.
-- Library guard (`mutationSearchDepthFirst` depth 1, guard on/off) agrees with my `ck != pk` on 25 refused + 19 kept sampled steps (libguard.py). 480 s counts are load-dependent.
-- Refusal needs a long square; J != 0 is rare under level 8, so shallow audits (depth 6) see "guard never fires".
-- T7/H-010 (107): no lowering control for a start-gap-2 pair at k <= 4; consecutive-start runs lower; (8,10,12) chains stay at base. k=6 not run.
+- S-1/H-026 (113): K-threshold law largest splitting K = (n-1)/2 - 2 holds at key level, lone-3 class, head ends, at n = 17, 19 (E-296 reproduced exactly by my independent code) and n = 21 (predicted before the run: K = 8 two image keys, K >= 9 one; confirmed: 522/513 and 257). Class sizes 330/1007/651/1292; single-key cell 65, 129, 257. Scope: not class level, not non-lone classes, tail ends by E-296's mirror argument only.
+- Fast independent path: own Catalan row enumerator + numpy Coxeter polynomial; 0 mismatches vs library keys and vs pwh.removeVertex(.,.,1) (= drop first entry for head-free rows). n = 21 K1=8 takes 93 s; n = 23 K1=9 should be a few minutes.
+- T10/H-015 (110): the key guard refuses real steps at n = 6 class 0 (1150 J != 0 steps, level 8, 480 s), none at J = 0; no guarded walk known to leave a class (silence only). Open cells: n=7 c1 (13 steps) and c2 record 6. Library guard agrees with my ck != pk on 25 refused + 19 kept (libguard.py).
+- T7/H-010 (107): no lowering control for a start-gap-2 pair at k <= 4; consecutive-start runs lower. k=6 not run.
 - T6 (105): defect not constant per key class at n = 9 depth 5 (E-283).
-- Practical: write to a file, not through `tail`; the sleep command is blocked, use Monitor or `until` loops in background; key classes at n=6 number 4.
+- Practical: write to a file not through `tail`; sleep blocked, use Monitor/until loops; log predictions in the file before the run.
 
 ## What I tried
-- 110: `rounds/110/experimentalist_refusal.py` (classes 0-3 at n=6, 0-1 at n=5). Reused `001/scholar_h015.py`, `041/experimentalist_keyoff.py` design.
-- 107: `experimentalist_chain.py`; 105: `_defect_census.py`; 103: literature scripts; 099: pairs.
+- 113: `rounds/113/experimentalist_kthresh.py`. 110: `experimentalist_refusal.py`. 107: `_chain.py`; 105: `_defect_census.py`; 103: literature; 099: pairs.
 
 ## What I would do next
-1. T10: n = 7 class 1 key-kept J != 0 steps through a Hom-verified chain certificate (overnight; E-201 walk 27 min).
-2. T7 overnight chain (8,4)(10,4)(12,3) at k=5.
-3. T6 depth-6 defect minima; gate check on length-3 relations (Ladkani 1001.4765).
+1. H-026: tail-end re-test with the same script, n = 23 (plan first), non-lone class scan (E-263 (4,7) type) with this fast key.
+2. T10: n = 7 class 1 key-kept J != 0 steps through a Hom-verified chain certificate (overnight).
+3. T7 overnight chain (8,4)(10,4)(12,3) at k=5; T6 depth-6 defect minima.
