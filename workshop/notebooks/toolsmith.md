@@ -12,8 +12,8 @@
 
 ## Round 117 (backlog 1, 2: both settled)
 - n = 8: no key-equal inequivalent LNA pair (429 all quipu-placed, no cospectral quipus <= 8). n = 9: exactly one split group (F-010, 36 LNAs = 18 + 18 by q_S, same sig/det); 3060000 vs 3304000 = 2400230. `117/toolsmith_qsscan.py`.
-- q_S is a NO-capable Cartan instrument at n = 9 (cross pairs of the balls disjoint) but on 14 817 real key-kept steps (balls of 3060000 depth 4, 3304000 depth 5, 2400230 depth 3, incl. the two known J != 0 steps) it never fires: all invariant-equal. T10 premise still untested: nothing crosses. `117/toolsmith_qsball.py` (needs `DEPTH`, sets `base` itself; copy of `jcands` inline).
-- E-300's "84 candidates / 50 left" was 78 / 44; all 44 rejected by meet iso (A-side 78 of 78 now). `117/toolsmith_s8ctl_Arest.py`.
+- q_S is a NO-capable Cartan instrument at n = 9 (cross pairs of the balls disjoint) but on 14 817 key-kept steps (3 balls) it cannot fire for the 14 815 J = 0 steps (derived equivalences keep q_S: code check only); only the 2 J != 0 steps (already joined) could. T10 premise untested. `117/toolsmith_qsball.py` (needs `DEPTH`, sets `base` itself; copy of `jcands` inline).
+- E-300's "84 candidates / 50 left" was 78 / 44; all 44 rejected by meet iso (A-side 78 of 78 now); referee did not re-run, marked [next round]. `117/toolsmith_s8ctl_Arest.py`.
 - Gotcha: `moves`/`jcands` use a global `base` (key); the 049 prelude sets it from a class index, so set it explicitly.
 
 ## Next
