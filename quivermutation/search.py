@@ -319,7 +319,8 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
     '<quiverName>DF.txt' transcript that the caller parsed back by string
     slicing; that round trip is gone -- see NOTES.md idea 11.
 
-    **`coxeterGuard` is what makes the walk a walk in one derived class.**
+    **`coxeterGuard` is a necessary-condition filter, not a proof of one derived
+    class.**
     `mutationIsPossibleAtVertex` rules mutation *out*, not in -- the paper's own
     hypothesis is on the algebra and it says plainly that this is in general not
     equivalent to a condition on the quiver -- so a step it admits can still fail
@@ -332,6 +333,18 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
     requirement, applied per step: a mutation whose `coxeterKey` differs from the
     start's is not taken.  `baseKey` carries the start's key down the recursion
     and is computed here when the caller does not supply it.
+
+    What it does *not* do: an equal key is necessary for a derived equivalence,
+    not sufficient (E-147, E-151), so a key-kept step could still leave the
+    derived class.  Whether any does is open (T10, H-015): all 13 key-kept steps
+    examined at n = 7, class 1 were Hom-verified derived equivalences (E-297,
+    E-300), and a J != 0 step is a derived equivalence only if the mutation is
+    still tilting (E-308).  Nothing here proves the walk stays in one class.
+    The guard is also **inert on cyclic input**: the key is None for a quiver
+    with an oriented cycle, the guard is then switched off at the start (or the
+    step let through), and the search does not descend from a cyclic node
+    anyway (E-211, E-223).  Direct callers of `procedure.mutateAtVertex` get no
+    key guard at all.
 
     Passing `coxeterGuard = False` restores the old behaviour, and is for
     measuring what the guard changes, not for producing answers.

@@ -266,7 +266,17 @@ def mutateAtVertex(quiver, relations, vertex, checkCartan = None, allowCyclic = 
     only offers vertex-simple tails there and drops relations, and the child is
     then not derived equivalent to the parent (research E-211, n = 4 monomial
     example).  A cycle elsewhere in the quiver is not refused.  `allowCyclic =
-    True` restores the old behaviour (the result is then unproved).
+    True` skips the refusal, but it does not restore a working cyclic case: step
+    3 for a relation from a vertex to itself is not implemented (F-002), and on
+    the cyclic examples tried the call raises `KeyError` (procedure.py step 3,
+    E-277: Oppermann 2112.08129 Ex. 3.2 gives `KeyError: (0, (2, 1, 0))`) or
+    returns an unproved result.  Do not read a result of `allowCyclic = True`
+    as evidence either way.
+
+    Note on the source: Oppermann's hypothesis (1504.02617 Thm 1.1) is only "no
+    loop of degree 0 at the mutated vertex"; loops of higher degree and cyclic
+    D(i) are inside the theorem (E-273).  The refusal above is the library's
+    own, stricter than the source, because step 7 is not valid there (E-211).
 
     `checkCartan` (default: environment variable QM_CHECK_CARTAN set to 1)
     raises `CartanCongruenceError` when the result's Cartan matrix is not
