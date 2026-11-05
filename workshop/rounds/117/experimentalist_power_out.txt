@@ -1,0 +1,3 @@
+refit n=13 h=2 K1=1: K0=2
+refit n=13 h=3 K1=2: K0=3
+refit n=13 h=4 K1=3: K0=4

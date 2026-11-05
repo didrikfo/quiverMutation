@@ -1,0 +1,46 @@
+ n=14 class lone h in (5,)  rows 1903  image keys 1
+   K 1 {0: 1091}
+   K 2 {0: 486}
+   K 3 {0: 222}
+   K 4 {0: 71}
+   K 5 {0: 33}
+   K0 (last K>=1 with 2+ image keys) = None ; law min(h,n-4-h) = 5
+ n=14 class lone h in (4,)  rows 4095  image keys 2
+   K 1 {0: 1503, 1: 856}
+   K 2 {0: 661, 1: 412}
+   K 3 {0: 285, 1: 136}
+   K 4 {0: 122, 1: 65}
+   K 5 {0: 38}
+   K 6 {0: 17}
+   K0 (last K>=1 with 2+ image keys) = 4 ; law min(h,n-4-h) = 4
+ n=14 class lone h in (3,)  rows 4992  image keys 2
+   K 1 {0: 2183, 1: 780}
+   K 2 {0: 956, 1: 265}
+   K 3 {0: 410, 1: 129}
+   K 4 {0: 171}
+   K 5 {0: 68}
+   K 6 {0: 21}
+   K 7 {0: 9}
+   K0 (last K>=1 with 2+ image keys) = 3 ; law min(h,n-4-h) = 3
+ n=14 class lone h in (2,)  rows 6428  image keys 2
+   K 1 {0: 3216, 1: 522}
+   K 2 {0: 1412, 1: 257}
+   K 3 {0: 608}
+   K 4 {0: 255}
+   K 5 {0: 103}
+   K 6 {0: 38}
+   K 7 {0: 12}
+   K 8 {0: 5}
+   K0 (last K>=1 with 2+ image keys) = 2 ; law min(h,n-4-h) = 2
+ n=14 class lone h in (1,)  rows 13920  image keys 5
+   K 1 {0: 7385, 1: 513, 2: 250, 3: 304, 4: 231}
+   K 2 {0: 3150}
+   K 3 {0: 1301}
+   K 4 {0: 511}
+   K 5 {0: 182}
+   K 6 {0: 62}
+   K 7 {0: 21}
+   K 8 {0: 7}
+   K 9 {0: 3}
+   K0 (last K>=1 with 2+ image keys) = 1 ; law min(h,n-4-h) = 1
+46s
