@@ -5,6 +5,15 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 117 -- 2026-11-05 -- ordinary (cycle 1, phase 5: backlog)
+Toolsmith, experimentalist, scholar worked; referees skeptic, theorist, maverick (all minor revision, answered). Backlog list written first (`cycles/001/backlog.md`). Merge of origin/main: up to date. No open questions from 116.
+- **Toolsmith (E-306, accepted narrowed):** no key-equal inequivalent LNA pair at n = 8; at n = 9 only F-010 (q_S splits 18 + 18), so a NO-capable Cartan instrument exists. But the 14 815 J = 0 steps with constant q_S are guaranteed, not a test; no crossing step found. Step-8 A-side corruptions 78 of 78 rejected (author-only; E-300's "84" was 78).
+- **Experimentalist (E-307, accepted narrowed):** pre-registered n = 14 prediction FAILED at the self-mirror class (one image key at every K >= 1; also n = 10, 12, 16, 18): H-026's even-n extension is false, odd-n wording stands. The "rival" min(h, n-3-h) equals the law off-centre. Image key constant on forward-rewrite components at n = 15 h = 3 (sub-orbit only).
+- **Scholar (E-308, accepted):** necessity step for H-024 sourced (Ladkani Lemma 3.5 + Rickard + Aihara-Iyama 2.27, P = r^-T); generation for E-287 via Hubery-Krause; Nikulin/Anick/Forre/Bruning stay UNVERIFIED; H-028 retired as a citation.
+- **Consequences:** H-026 status narrowed to odd n; R-candidate still blocked (instrument exists, no crossing step); no F/R entry.
+- Backlog after 117: items 1, 3-7 settled/converted, 2 unreproduced; 8-17, 19 open for 118-119.
+- Questions for the human: none.
+
 ## Round 116 -- 2026-11-05 -- conference (cycle 1, phase 4: research)
 All six personas wrote position statements (nothing run). Merge of origin/main: up to date. No open questions from 115.
 - **Agreement:** five of six name the same most promising question: T10 has no NO-capable instrument (13 of 13 YES chains, Cartan 89 of 89, HH all YES-side), so a key-equal inequivalent pair or silting-not-tilting step at n = 8..9 is needed before any more chains. Routes differ (q_S/Z[Phi], HH at n >= 8, Aihara-Iyama) but are compatible.

@@ -14,7 +14,7 @@ A_n and B_n are derived equivalent for every n >= 5 (Fosse 2305.06642 Cor. 4.6, 
 ---
 
 ## H-026 — The vertex-deletion K-threshold of a lone-3 key class is the shorter free stretch beside the 3: K0 = min(h, n - 4 - h) (central class: (n - 1)/2 - 2)
-*2026-10-30, restated 2026-11-04* · **SUPPORTED** *(key level, lone-3 classes, head and tail ends tested directly; central class n = 11..21, off-centre n = 13, 15, 17, 19: E-296, E-299, E-301, E-304 (ten fits); the original central-only wording was falsified by E-301, R-015; not class level, not derived)*
+*2026-10-30, restated 2026-11-04* · **SUPPORTED** *(odd n only: the even-n extension is refuted at the self-mirror central class, E-307; key level, lone-3 classes, head and tail ends tested directly; central class n = 11..21, off-centre n = 13, 15, 17, 19: E-296, E-299, E-301, E-304 (ten fits); the original central-only wording was falsified by E-301, R-015; not class level, not derived)*
 
 At key level, deleting an end vertex from a long free stretch next to a lone 3 stabilises (one image key) once the kept stretch has K >= K0. Central class: K0 = 3, 4, 5, 6, 7, 8 at n = 11, 13, 15, 17, 19, 21 (E-146, E-263, E-296, E-299, E-301); off-centre classes (h free vertices on the short side) have K0 = h on all 7 classes with a split at n = 13, 15, 17 (a fit to seven points, E-301); h = 0, 1 at n = 13 show no split at K >= 2. E-263's "messy" (4,7) class was a writer artefact (R-015). **Falsifiable:** a lone-3 class with K0 != min(h, n - 4 - h), (the runs n = 19 h = 5, 6 and n = 15 h = 3, predicted 5, 6, 3, held: E-304). Class level, non-lone classes and a derivation remain open. Thread S-1.
 
