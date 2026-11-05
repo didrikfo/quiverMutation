@@ -8,4 +8,6 @@ Every assignment must end each item settled / retired / converted.
 ## Revisions due
 (none)
 ## Referees
-(filled in at step 3)
+- skeptic: referees toolsmith.md
+- theorist: referees experimentalist.md
+- maverick: referees scholar.md

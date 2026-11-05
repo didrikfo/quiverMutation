@@ -1,0 +1,56 @@
+chain True ['R4', 'F1', 'R7', 'F1', 'F4', 'F3'] ['F1', 'F3', 'R7', 'R4', 'R3', 'F5']
+ncands 78
+(1, 'F', 5) reject ['meet'] 362
+(5, 'F', 5) reject ['meet', 'nostep'] 362
+(4, 'R', 4) reject ['meet', 'nostep'] 362
+(5, 'R', 6) reject ['meet', 'nostep'] 363
+(4, 'F', 1) reject ['meet', 'nostep'] 363
+(2, 'R', 4) reject ['meet', 'nostep'] 363
+(1, 'R', 3) reject ['meet', 'nostep'] 363
+(3, 'F', 7) reject ['meet'] 363
+(3, 'F', 3) reject ['meet'] 363
+(5, 'R', 7) reject ['meet'] 364
+(1, 'F', 3) reject ['meet'] 364
+(4, 'R', 1) reject ['meet'] 364
+(3, 'F', 2) reject ['meet'] 364
+A-side sample 13 accepted 0
+chain True ['R4', 'F1', 'R7', 'F1', 'F4', 'F3'] ['F1', 'F3', 'R7', 'R4', 'R3', 'F5']
+ncands 78
+(2, 'F', 2) reject ['meet'] 0
+(4, 'R', 7) reject ['meet'] 0
+(5, 'F', 1) reject ['meet', 'nostep'] 1
+(4, 'R', 5) reject ['meet'] 1
+(1, 'R', 5) reject ['meet', 'nostep'] 1
+(5, 'R', 1) reject ['meet'] 2
+(2, 'R', 1) reject ['meet'] 2
+(3, 'R', 4) reject ['meet', 'nostep'] 2
+(2, 'R', 6) reject ['meet', 'nostep'] 2
+(0, 'R', 1) reject ['meet', 'nostep'] 2
+(1, 'R', 7) reject ['meet'] 3
+(2, 'F', 4) reject ['meet'] 3
+(3, 'R', 6) reject ['meet', 'nostep'] 3
+A-side sample 13 accepted 0
+chain True ['R4', 'F1', 'R7', 'F1', 'F4', 'F3'] ['F1', 'F3', 'R7', 'R4', 'R3', 'F5']
+ncands 78
+(4, 'F', 7) reject ['meet'] 0
+(0, 'F', 6) reject ['meet', 'nostep'] 0
+(4, 'F', 2) reject ['meet'] 1
+(1, 'F', 2) reject ['meet'] 1
+(5, 'R', 4) reject ['meet'] 1
+(3, 'R', 3) reject ['meet', 'nostep'] 1
+(0, 'R', 2) reject ['meet', 'nostep'] 1
+(2, 'R', 5) reject ['meet'] 6
+(5, 'F', 7) reject ['meet'] 6
+(5, 'F', 4) reject ['meet'] 6
+(5, 'F', 2) reject ['meet'] 7
+(1, 'R', 1) reject ['meet', 'nostep'] 7
+(0, 'F', 7) reject ['meet', 'nostep'] 7
+A-side sample 13 accepted 0
+chain True ['R4', 'F1', 'R7', 'F1', 'F4', 'F3'] ['F1', 'F3', 'R7', 'R4', 'R3', 'F5']
+ncands 78
+(2, 'F', 6) reject ['meet', 'nostep'] 0
+(3, 'F', 6) reject ['meet', 'nostep'] 0
+(0, 'R', 7) reject ['meet', 'nostep'] 1
+(5, 'R', 2) reject ['meet', 'nostep'] 1
+(2, 'F', 5) reject ['meet'] 1
+A-side sample 5 accepted 0
