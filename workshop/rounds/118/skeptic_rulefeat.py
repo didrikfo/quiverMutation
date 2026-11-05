@@ -33,7 +33,10 @@ res.sort(reverse=True)
 print('width-7 majority baseline', round(base, 3), '; features', len(names), '; tried', len(res))
 for r in res[:6]: print('  test7 %.3f  train %.3f  %s' % r)
 rng = random.Random(0); best = []
-for t in range(20):
+import os
+NSH = int(os.environ.get("NSHUF", "20"))
+for t in range(NSH):
     ys = [y for _, y in tr]; rng.shuffle(ys); tr2 = [(f, y) for (f, _), y in zip(tr, ys)]
     best.append(max(score(tr2, te, c) for k in (1, 2) for c in itertools.combinations(names, k)))
 print('label-shuffled best test7 over', len(best), 'shuffles: max %.3f mean %.3f' % (max(best), sum(best) / len(best)))
+print('shuffles with best >= 0.872 (the real best): %d of %d; >= 0.90: %d' % (sum(b >= 0.872 - 1e-9 for b in best), len(best), sum(b >= 0.90 for b in best)))

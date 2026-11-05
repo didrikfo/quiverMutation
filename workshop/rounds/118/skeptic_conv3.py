@@ -196,7 +196,8 @@ def gen(kind, n, rng):
 
 def sweep(kind, n, seeds):
     cnt = Counter(); exs = []
-    for seed in range(seeds):
+    s0 = int(os.environ.get('SEED0', '0'))
+    for seed in range(s0, s0 + seeds):
         A = gen(kind, n, random.Random(seed))
         if A is None: continue
         cnt['parents'] += 1

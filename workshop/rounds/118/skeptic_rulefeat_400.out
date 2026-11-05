@@ -1,0 +1,9 @@
+width-7 majority baseline 0.66 ; features 15 ; tried 120
+  test7 0.872  train 0.853  ('nnew_minus_nold_pairs_shared', 'rel_sumdiff')
+  test7 0.872  train 0.853  ('minlen_old', 'rel_sumdiff')
+  test7 0.872  train 0.853  ('diff', 'minlen_old')
+  test7 0.872  train 0.765  ('diff', 'nnew_minus_nold_pairs_shared')
+  test7 0.851  train 0.824  ('maxlen_old_eq_w-1', 'rel_sumdiff')
+  test7 0.851  train 0.824  ('maxlen_new_eq_w-1', 'rel_sumdiff')
+label-shuffled best test7 over 400 shuffles: max 0.872 mean 0.749
+shuffles with best >= 0.872 (the real best): 19 of 400; >= 0.90: 0
