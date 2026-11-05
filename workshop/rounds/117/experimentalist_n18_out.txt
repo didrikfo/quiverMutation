@@ -1,0 +1,12 @@
+ n=18 class lone h in (7,)  rows 1174  image keys 1
+   K 5 {0: 780}
+   K 6 {0: 265}
+   K 7 {0: 129}
+   K0 (last K>=5 with 2+ image keys) = None ; law min(h,n-4-h) = 7
+ n=18 class lone h in (6,)  rows 2248  image keys 2
+   K 5 {0: 856, 1: 522}
+   K 6 {0: 412, 1: 257}
+   K 7 {0: 136}
+   K 8 {0: 65}
+   K0 (last K>=5 with 2+ image keys) = 6 ; law min(h,n-4-h) = 6
+59s
