@@ -1,0 +1,10 @@
+class rows 4597 46s
+rows reached by rewrites outside the K>=2 set: 4780 52s
+rewrite edges inside class set 44792 outside (K<2 or not in class) 0 57s
+components of the K>=2 class rows under rewrites: 1677 sizes [1799, 1359, 1130, 89, 44, 41, 41, 41, 36, 33, 32, 30, 28, 28, 26]
+ K=2: components containing rows of this K, by set of image keys hit: {frozenset({0}): 1133, frozenset({1}): 92}
+   components mixing both image keys at K=2: 0
+ K=3: components containing rows of this K, by set of image keys hit: {frozenset({0}): 572, frozenset({1}): 29}
+   components mixing both image keys at K=3: 0
+ K=2: rows 2705, components with >= 2 such rows 373, mixed components real 0, shuffled-label mean 159.1 (min 138, max 182 of 200)
+ K=3: rows 1213, components with >= 2 such rows 117, mixed components real 0, shuffled-label mean 51.9 (min 38, max 66 of 200)

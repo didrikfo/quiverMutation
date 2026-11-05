@@ -1,16 +1,17 @@
-# Experimentalist notebook (rewritten round 115)
+# Experimentalist notebook (rewritten round 117)
 
 ## What I now believe
-- S-1/H-026: K0 = min(h, n-4-h) for lone-3 classes at key level now fits 10 points: n = 13 h=2,3,4; 15 h=3,4,5; 17 h=5,6; 19 h=5 (K0=5), 6 (6), plus central 19, 21 (7, 8). Round 115 predictions (5, 6, 3) all held. Still key level, head ends, K >= K1 only; no class level, no derivation.
-- Two-3 key classes are different: 1, 2 or 3 image keys, no law found (n=13 (2,7): split to K=2, (4,8): 3 keys at K=1, (3,6): none; n=15 (3,9): 3 keys at K=2). Counts 780/265/129/65 do not reappear. Caution: a key class may contain rows not of the two-3 shape.
-- E-263 (4,7) "12 keys" = writer bug (R-015), K0 = 4.
-- T10/H-015 (110): key guard refuses real steps at n = 6 class 0; open n=7 c1, c2 record 6. T7 (107): no lowering control at k<=4. T6 (105): defect not constant per key class.
-- Practical: tail row = shifted row + zeros; image = drop an end entry. Outputs to files; prediction file first. Job size: rows(n-K1) ~ 10 min limit; n=19 K1=3 is ~50 min (overnight proposal if wanted).
+- S-1/H-026: all ten (twelve) earlier fits were ODD n. Round 117: at even n the law K0 = min(h, n-4-h) holds for non-central lone-3 classes (n = 10, 12, 14, 16, 10 classes) but the self-mirror class h = n-4-h has NO split at K >= 1 (n = 10, 12, 14; n = 16 K >= 3). My pre-registered K0(5,5) = 5 at n = 14 was falsified. H-026 needs rewording; refinement fitted post hoc.
+- Rivals min(h, n-5-h), min(h, n-3-h) (short-side reading) equal the law off-centre: no data can separate them there; R1/R4/R5/long-side reading are refuted (power control; planted K0-1 miss caught 8/8).
+- Class level (n = 15 h = 3): image key is a function of the move component (forward rewrites, 1677 components; shuffle null 52 mixed vs 0). Components are sub-orbits only; q_S / derived class untested. My "not separated" prediction was wrong.
+- Two-3 classes: no law (round 115). E-263 (4,7) was a writer bug (R-015).
+- Practical: kpower.py `table N K1 h,h,..` does a one-pass multi-class table (rows(n-K1) enumeration: 208k rows = 45 s); `orbits` uses lnaMoves.rewritesOf union-find.
+- Lesson: when every fit is at one parity (or one side), the rival that differs only at the other parity is the real test; list what the fits cannot separate before choosing rivals.
 
 ## What I tried
-- 115: `rounds/115/experimentalist_kloc.py`, `_nonlone.py` (p= positions). 114: `_tail.py`; 113 `_kthresh.py`; 110 `_refusal.py`; 107 `_chain.py`; 105 `_defect_census.py`.
+- 117: `rounds/117/experimentalist_kpower.py` (+ prediction file, outputs *_out.txt). 115: kloc, nonlone. 114 tail; 113 kthresh; 110 refusal; 107 chain; 105 defect census.
 
 ## What I would do next
-1. Non-lone: pick p,q small at n = 15/17 with predictions per key count; try to find the rule for depth of split (maybe shorter stretch before the first 3 plus gap).
-2. n = 19 h=5 at K1=3 (overnight, ~50 min) to see lower K; n = 23 tail.
-3. T10 n=7 class 1 chain; T7 at k=5; T6 depth 6.
+1. Explain the self-mirror exception (head/tail symmetry) and test non-lone self-mirror classes ((p,p) two-3 rows) at even n.
+2. Class level properly: q_S or Z[Phi] on rows of the two image-key populations at n = 15 h = 3, K = 3; full orbit with reverse edges (needs rows(15) enumeration, ~12 min, chunk it).
+3. Tail end at even n; T10 n=7 class 1 chain; T7 at k=5; T6 depth 6.

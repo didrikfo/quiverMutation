@@ -70,6 +70,15 @@ def ballrun(root):
                     except Exception: continue
                     steps.append(('Jne0', qx, qinv(c)))
         front = nxt; print(root, 'depth', d + 1, 'nodes', len(seen), 'steps so far', len(steps), '%.0fs' % (time.time() - t0), flush=True)
+    if os.environ.get('LASTJ', '1') == '1':   # J != 0 candidates of the depth-DEPTH parents too (no J = 0 expansion)
+        for x in front:
+            qx = qinv(x)
+            for kind, v, tag_ in jcands(x):
+                if tag_ != 'kept': continue
+                try: c = child(x, kind, v)
+                except Exception: continue
+                steps.append(('Jne0', qx, qinv(c)))
+        print(root, 'last-layer J scan done', '%.0fs' % (time.time() - t0), flush=True)
     return seen, steps
 res = {}
 for root in ROOTS:

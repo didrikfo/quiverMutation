@@ -1,3 +1,32 @@
 refit n=13 h=2 K1=1: K0=2
 refit n=13 h=3 K1=2: K0=3
 refit n=13 h=4 K1=3: K0=4
+refit n=15 h=3 K1=2: K0=3
+refit n=15 h=4 K1=3: K0=4
+refit n=15 h=5 K1=4: K0=5
+refit n=17 h=5 K1=4: K0=5
+refit n=17 h=6 K1=5: K0=6
+observed K0: {(13, 2): 2, (13, 3): 3, (13, 4): 4, (15, 3): 3, (15, 4): 4, (15, 5): 5, (17, 5): 5, (17, 6): 6, (19, 5): 5, (19, 6): 6, (19, 7): 7, (21, 8): 8, (10, 2): 2, (10, 1): 1, (12, 3): 3, (12, 2): 2, (14, 4): 4, (14, 3): 3, (14, 2): 2, (14, 1): 1, (16, 5): 5, (16, 4): 4}
+law min(h,n-4-h)                                               refuted on 0 of 12 odd-n fits []
+                                                                 +even non-central: refuted on [] of 22 ; +central even: [(10, 3), (12, 4), (14, 5)]
+R1 floor((n-1)/2)-2 (central formula for every class)          refuted on 7 of 12 odd-n fits [(13, 2), (13, 3), (15, 3), (15, 4), (17, 5), (19, 5), (19, 6)]
+                                                                 +even non-central: refuted on [(13, 2), (13, 3), (15, 3), (15, 4), (17, 5), (19, 5), (19, 6), (10, 1), (12, 2), (14, 3), (14, 2), (14, 1), (16, 4)] of 22 ; +central even: [(10, 3), (12, 4), (14, 5)]
+R2 min(h,n-5-h)                                                refuted on 0 of 12 odd-n fits []
+                                                                 +even non-central: refuted on [] of 22 ; +central even: [(10, 3), (12, 4), (14, 5)]
+R3 min(h,n-3-h), small side                                    refuted on 0 of 12 odd-n fits []
+                                                                 +even non-central: refuted on [] of 22 ; +central even: [(10, 3), (12, 4), (14, 5)]
+R3m min(h,n-3-h), read on long side h'=n-4-h                   refuted on 12 of 12 odd-n fits [(13, 2), (13, 3), (13, 4), (15, 3), (15, 4), (15, 5), (17, 5), (17, 6), (19, 5), (19, 6), (19, 7), (21, 8)]
+                                                                 +even non-central: refuted on [(13, 2), (13, 3), (13, 4), (15, 3), (15, 4), (15, 5), (17, 5), (17, 6), (19, 5), (19, 6), (19, 7), (21, 8), (10, 2), (10, 1), (12, 3), (12, 2), (14, 4), (14, 3), (14, 2), (14, 1), (16, 5), (16, 4)] of 22 ; +central even: [(10, 3), (12, 4), (14, 5)]
+R4 floor(n/2)-2                                                refuted on 7 of 12 odd-n fits [(13, 2), (13, 3), (15, 3), (15, 4), (17, 5), (19, 5), (19, 6)]
+                                                                 +even non-central: refuted on [(13, 2), (13, 3), (15, 3), (15, 4), (17, 5), (19, 5), (19, 6), (10, 2), (10, 1), (12, 3), (12, 2), (14, 4), (14, 3), (14, 2), (14, 1), (16, 5), (16, 4)] of 22 ; +central even: [(10, 3), (12, 4), (14, 5)]
+R5 h-1 (law minus one)                                         refuted on 12 of 12 odd-n fits [(13, 2), (13, 3), (13, 4), (15, 3), (15, 4), (15, 5), (17, 5), (17, 6), (19, 5), (19, 6), (19, 7), (21, 8)]
+                                                                 +even non-central: refuted on [(13, 2), (13, 3), (13, 4), (15, 3), (15, 4), (15, 5), (17, 5), (17, 6), (19, 5), (19, 6), (19, 7), (21, 8), (10, 2), (10, 1), (12, 3), (12, 2), (14, 4), (14, 3), (14, 2), (14, 1), (16, 5), (16, 4)] of 22 ; +central even: [(10, 3), (12, 4), (14, 5)]
+planted K0-1 miss (image keys of K = K0 merged):
+  n=13 h=2 true K0 2, planted-instrument K0 1, law test NO(detected)
+  n=13 h=3 true K0 3, planted-instrument K0 2, law test NO(detected)
+  n=13 h=4 true K0 4, planted-instrument K0 3, law test NO(detected)
+  n=15 h=3 true K0 3, planted-instrument K0 2, law test NO(detected)
+  n=15 h=4 true K0 4, planted-instrument K0 3, law test NO(detected)
+  n=15 h=5 true K0 5, planted-instrument K0 4, law test NO(detected)
+  n=17 h=5 true K0 5, planted-instrument K0 4, law test NO(detected)
+  n=17 h=6 true K0 6, planted-instrument K0 5, law test NO(detected)

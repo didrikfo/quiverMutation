@@ -95,7 +95,7 @@ elif mode == 'power':
     print('observed K0:', obs)
     for name, f in rivals.items():
         bad = [k for k, v in obs.items() if f(*k) != v]
-        print('%-62s refuted on %d of %d odd-n fits %s' % (name, len(bad), len(obs_odd), [k for k in obs_odd if f(*k) != obs_odd[k]]))
+        print('%-62s refuted on %d of %d odd-n fits %s' % (name, len([k for k in obs_odd if f(*k) != obs_odd[k]]), len(obs_odd), [k for k in obs_odd if f(*k) != obs_odd[k]]))
         print('%-62s   +even non-central: refuted on %s of %d ; +central even: %s' % ('', [k for k in obs if f(*k) != obs[k]], len(obs), [k for k in central_even if f(*k) != central_even[k]]))
     # planted miss: instrument that misses the K0 split (image keys at K = K0 merged) must report K0-1 or less => law test says NO
     print('planted K0-1 miss (image keys of K = K0 merged):')
@@ -112,8 +112,21 @@ elif mode == 'orbits':
     def find(x):
         while parent[x] != x: parent[x] = parent[parent[x]]; x = parent[x]
         return x
+    # close under forward rewrites: add rows reached (they must have the class key), then union
+    cls = key(n, lone(n, h)); frontier = list(S); added = {}
+    while frontier:
+        nxt = []
+        for m in frontier:
+            for r in lnaMoves.rewritesOf(n, list(m)):
+                r = tuple(r)
+                if r not in S and r not in added:
+                    assert key(n, r) == cls
+                    added[r] = None; nxt.append(r)
+        frontier = nxt
+    print('rows reached by rewrites outside the K>=2 set:', len(added), '%.0fs' % (time.time()-t))
+    for r in added: S[r] = (next((i for i, x in enumerate(r) if x), n), None); parent[r] = r
     outside = 0; edges = 0
-    for m in S:
+    for m in list(S):
         for r in lnaMoves.rewritesOf(n, list(m)):
             r = tuple(r)
             if r in S:
@@ -127,10 +140,25 @@ elif mode == 'orbits':
     for K in (2, 3):
         cnt = collections.Counter()
         for r, v in comp.items():
-            js = frozenset(S[m][1] for m in v if S[m][0] == K)
+            js = frozenset(S[m][1] for m in v if S[m][0] == K and S[m][1] is not None)
             if js: cnt[js] += 1
         print(' K=%d: components containing rows of this K, by set of image keys hit:' % K, dict(cnt))
-        mixed = [v for v in comp.values() if len({S[m][1] for m in v if S[m][0] == K}) > 1]
+        mixed = [v for v in comp.values() if len({S[m][1] for m in v if S[m][0] == K and S[m][1] is not None}) > 1]
         print('   components mixing both image keys at K=%d: %d' % (K, len(mixed)))
         if mixed:
-            v = mixed[0]; print('   example component size', len(v), [m for m in v if S[m][0] == K][:3])
+            v = mixed[0]; print('   example component size', len(v), [m for m in v if S[m][0] == K and S[m][1] is not None][:3])
+    # power of the purity test: shuffle image labels among the K rows (same label counts); how many components would be mixed?
+    import random
+    random.seed(7)
+    for K in (2, 3):
+        rowsK = [m for m in S if S[m][0] == K and S[m][1] is not None]
+        lab = [S[m][1] for m in rowsK]; comp_of = [find(m) for m in rowsK]
+        multi = collections.Counter(comp_of); nmulti = sum(1 for c, v in multi.items() if v >= 2)
+        def nmixed(labels):
+            d = collections.defaultdict(set)
+            for c, l in zip(comp_of, labels): d[c].add(l)
+            return sum(1 for v in d.values() if len(v) > 1)
+        nulls = []
+        for _ in range(200):
+            l2 = lab[:]; random.shuffle(l2); nulls.append(nmixed(l2))
+        print(' K=%d: rows %d, components with >= 2 such rows %d, mixed components real %d, shuffled-label mean %.1f (min %d, max %d of 200)' % (K, len(rowsK), nmulti, nmixed(lab), sum(nulls)/len(nulls), min(nulls), max(nulls)))
