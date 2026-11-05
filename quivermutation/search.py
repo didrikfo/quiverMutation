@@ -339,8 +339,9 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
     derived class.  Whether any does is open (T10, H-015): 13 key-kept
     steps examined at n = 7, class 1 are joined by derived-equivalence chains
     (E-300), but "generation assumed", and 12 of the 13 chains are E-297's,
-    not re-verified there; this is not a proof of equivalence.  A J != 0 step is a derived equivalence only if the mutation is
-    still tilting (E-308).  Nothing here proves the walk stays in one class.
+    not re-verified there; this is not a proof of equivalence.  A J != 0
+    step is a derived equivalence only if the mutation is still tilting
+    (E-308).  Nothing here proves the walk stays in one class.
     The guard is also **inert on cyclic input**: the key is None for a quiver
     with an oriented cycle, the guard is then switched off at the start (or the
     step let through), and the search does not descend from a cyclic node

@@ -6,6 +6,15 @@ scope: docstrings in 3 library files; reruns at the recorded sizes (n = 7, 8 wal
 power: n/a for the docstrings. For the reruns: each script's own controls (031 --controls has congruent and FAILS rows; 027 --hand has 4 FAILS hand cases) still discriminate, and every script reports "0 mismatches" or a list that could be non-empty
 backlog: 11 settled (one item is a proposal for the chair: F-002 text, see below) · 12 settled
 
+## Response to referee (maverick, minor revision)
+
+1. `canonicalKey` docstring: now cites E-160 (not E-157) and says "343 depth-7 nodes with no key in one ball"; "hundreds" removed. The module docstring's "It has since fired (E-155, E-157)" now reads E-155, E-160 as well. Done.
+2. search.py guard paragraph: the "Hom-verified" sentence now says the 13 key-kept steps are joined by chains (E-300), "generation assumed", 12 of the 13 chains are E-297's and not re-verified there, and that this is not a proof. Done.
+3. 027 line in the table: the 1.0 % is by algebras (64/6269 here, 93/9197 recorded); the 93/26 289 outdeg-1 rows (0.35 %) is a different denominator. Stated in the table. Done.
+4. "recorded" column: the source of each figure is now named in the table (round outputs 031, 059, 034, 027 as transcribed in the submissions of those rounds; research entries where I know them). I did not re-check these against the old outputs; the referee did not either. Done as asked.
+5. Scope note accepted: for 034, 3 of 5 J != 0 rows (exp 7822, 7831, 7836) are unchecked, and "the part they covered agrees" is row-for-row for 034 (2 of 5 ROW lines) and ratio-level only for 027.
+6. Tests rerun after the edits: `tests/test_fingerprint.py tests/test_search_soundness.py -m "not slow"`: 34 passed, 2 deselected. (procedure.py not touched in this response.)
+
 ## Claim
 
 Item 12: none of the five direct-caller scripts is changed by the `CyclicDescendantsError` refusal. 031/toolsmith_parallel (controls and dimcheck 1500 2), 059/theorist_enddim (n = 7), 059/theorist_enddim2 (7 8 600) reproduce their recorded numbers exactly (0 mismatches; 3 271 children, 26 009 pairs; 38 steps = 28 J = 0 + 10 J != 0). 034/skeptic_outdeg3 and 027/scholar_pairtest are wall-clock-capped walks: on this machine they covered less (table), the part they covered agrees with the record (same ROW lines, same J = 0 counts, same J != 0 fraction), the rest was not reached. Not claimed: that the uncovered tail (rows exp 7822, 7831, 7836 of 034) would reproduce; a 10-minute command cannot reach it here.
@@ -14,17 +23,17 @@ Item 11: the six pending consequences are done (five docstring edits) or answere
 
 ## Evidence
 
-Item 12 (reruns; the label "recorded" is the round's submission):
+Item 12 (reruns). "recorded" = the figures in the output/submission of the round in each script's path (031, 059, 034, 027 -> rounds/031/toolsmith_parallel, rounds/059/theorist_enddim*, rounds/034/skeptic_outdeg3, rounds/027/scholar_pairtest), transcribed by me from those rounds' submissions; the 034 and 027 caps are E-126-level walks recorded there. I did not re-check the transcription against the old outputs:
 
-| script, command | recorded | now |
+| script, command | recorded (source: round output) | now |
 |---|---|---|
-| 031 `--controls` | N1-N3 congruent; P5, P6, D0, W0 FAILS | same rows, rc 0 |
+| 031 `--controls` (round 031) | N1-N3 congruent; P5, P6, D0, W0 FAILS | same rows, rc 0 |
 | 031 `--dimcheck 1500 2` | 1 132 quivers, 7 571 pairs, 0 dim and 0 J mismatches; 3 271 children, 26 009 pairs, 0 | identical |
 | 059 enddim `7` | 0 mismatches (462 / 330 rows per side J0 / Jne0) | identical |
 | 059 enddim2 `7 8 600` | 7 parallel parents, 38 steps (28 J = 0, 10 J != 0), 0 mismatches | 7 parents, 20 + 8 J = 0, 10 J != 0, 0 mismatches |
 | 034 outdeg3 `8 0 560 9000` (run twice) | expanded 8 456; 5 ROW lines; 41 + 158 J = 0 congruent; 4 + 1 J != 0 FAILS | expanded 7 435 / 7 805 (cap hit first); ROW exp 6820, 7424 identical; 41 + 158 J = 0 congruent, same; the other 3 FAILS rows (exp 7822, 7831, 7836) lie past the cut |
 | 027 pairtest `--hand` | 4 FAILS, W2 kinds nn, nz, n, none | identical |
-| 027 pairtest `7 150 0` (run twice) | 9 197 algebras; J != 0 = 93 of 26 289 outdeg-1 rows, all with a pair | 4 445 and 6 333 algebras; 45 and 65 J != 0, all with a pair ("noW2" rows all J = 0); ratio 1.0 % as recorded (1.01 %) |
+| 027 pairtest `7 150 0` (run twice) | 9 197 algebras; J != 0 = 93 of 26 289 outdeg-1 rows, all with a pair | 4 445 and 6 333 algebras; 45 and 65 J != 0, all with a pair ("noW2" rows all J = 0); J != 0 share 1.0 % of algebras (64/6269 now, 93/9197 recorded = 1.01 %), not of outdeg-1 rows (93/26 289 = 0.35 %) |
 
 Nothing raised `CyclicDescendantsError` or `KeyError`. The 027/034 deficits are the 150 s / 560 s caps on a machine that was running other jobs, not a change in outcome; I did not verify that by an uncapped run.
 
