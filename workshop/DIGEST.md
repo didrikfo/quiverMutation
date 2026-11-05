@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 116 -- 2026-11-05 -- conference (cycle 1, phase 4: research)
+All six personas wrote position statements (nothing run). Merge of origin/main: up to date. No open questions from 115.
+- **Agreement:** five of six name the same most promising question: T10 has no NO-capable instrument (13 of 13 YES chains, Cartan 89 of 89, HH all YES-side), so a key-equal inequivalent pair or silting-not-tilting step at n = 8..9 is needed before any more chains. Routes differ (q_S/Z[Phi], HH at n >= 8, Aihara-Iyama) but are compatible.
+- **Ledger:** no F- or R-entry, no status change. R-candidate blocked on that missing control (H-015 stays OPEN, unfalsifiable so far). F-candidate H-026 blocked on a class-level orbit check (n = 15 h = 3), a rival-formula power control, and an outside prediction incl. even n = 14. T6 closed for the cycle (key and source LNA confounded); T4 closed to the backlog.
+- **Weakest claims:** "13 of 13 joined" (YES-side, generation assumed); the K-law as a key-level fit; the unsourced necessity step behind Cartan-level NO.
+- **Phase 5 (backlog) agenda:** (1) T10 control, (2) H-026 class level + power, (3) code/docstring consequences, (4) literature backlog, (5) T5 M4/M5. Summary in `cycles/001/phase-4.md`.
+- Questions for the human: none.
+
 ## Round 115 -- 2026-11-04 -- ordinary (cycle 1, phase 4: research)
 Maverick (revision), experimentalist, theorist worked; referees scholar, toolsmith, skeptic. Merge of origin/main: up to date. No open questions from 114.
 - **Maverick (E-303, accepted):** the key shifts the defect distribution weakly (MI 0.017, p ~ 0.001) but key class 2 is one LNA, and two other LNAs shift as much, so key and source LNA are not separable. E-302's "key irrelevant" is withdrawn; H-017 stays OPEN.

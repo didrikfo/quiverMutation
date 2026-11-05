@@ -2,29 +2,29 @@
 
 Owned by the chair. Rewritten (not appended) at the end of every round, under 12 000 bytes, each thread entry under 600 characters; history lives in the E-entries and `cycles/CCC/phase-P.md`. Every persona reads this first.
 
-last_round: 115
+last_round: 116
 cycle: 1 (rounds 101-120; CYCLE.md; plan in cycles/001/plan.md)
-phase: 4
-focus: research (round 116 is the conference;  phase summaries in cycles/001/phase-1.md .. phase-3.md)
-next_round_kind: conference
+phase: 5
+focus: backlog (round 117 first: write cycles/001/backlog.md before the call; round 120 is the cycle's last conference; phase summaries in cycles/001/phase-1.md .. phase-4.md)
+next_round_kind: ordinary
 
 ## What the project is doing now
 Tilting mutation of quivers with relations; derived equivalence of Nakayama algebras (LNAs). The search (`quivermutation/search.py`) walks mutations under a *gate* and a *Coxeter-key guard*; the guard is not a tilting test (E-147, E-151), and whether a guarded walk can leave a derived class through a J != 0 step is open. Retrospective 2 (`retrospectives/002-rounds-045-100.md`) reviews rounds 045-100 and introduced cycles; read its Part 1 for the long lines.
 
 ## Cycle 1 plan
-See `cycles/001/plan.md`. Phases 1-3 done (phase-1.md .. phase-3.md). Phase 4 agenda (round 112, ranked; rounds 113-115 did 1, 2, 4 in part): (1) T10 step 8 and a NO-capable invariant (R-candidate); (2) S-1/H-026 tail ends directly and a non-lone class (F-candidate); (3) T5: lemma for finite-dimensional non-loop parents, Lemma A at degree -1 to weight 12, M4/M5 (theorist); (4) T6 statistic with power (shuffle control) or T7 gap-2 at k = 6; (5) H-025 periodic-not-FCY LNA (scholar). Blocking checks: item 1 (a NO-capable invariant) and item 2 (a non-lone class).
+See `cycles/001/plan.md`. Phases 1-4 done. Phase 5 agenda (round 116, ranked): (1) a control for T10: key-equal inequivalent pairs at n = 8..9 by q_S / Z[Phi], HH at n >= 8 (toolsmith, theorist); (2) H-026 class level + power control + even-n (n = 14) prediction logged first (experimentalist, skeptic); (3) code/docstring consequences (toolsmith); (4) literature backlog: UNVERIFIED citations, Bruning generation, Aihara-Iyama silting-not-tilting, H-025 search (scholar); (5) T5 M4/M5 (theorist). Every backlog assignment ends settled / retired / converted.
 
 ## Open threads
 Each: question · H-entry · state · last worked · owner.
 
-- **T10 · guard audit** (agenda 1) · H-015 · Can a key-guarded walk leave a derived class through a J != 0 step? All 13 of E-201's steps at n = 7 class 1 have Hom-verified chains (E-297, E-300): YES side only. HH^0..2 dimensions cannot say NO there (trivial on LNAs, E-170/E-172; E-305), so a NO needs a finer invariant or n >= 9 (F-010 pair HH-blind). A-side corruption control: 50 of 84 left. · 115 · theorist
-- **T5 · J = 0 premise** (agenda, round 112: 3) · H-023 · Is every gate-admitted J = 0 step a derived equivalence? Cancellation proved (E-235); loop models M1 (E-290) and M2 (E-294, formal dg algebra, g-filtration to Lemma A) proved; degree-0 loop cancels at w = 3 to weight 12 (one model). M4, M5 (shared/product pivots), Hom/End(T) for M2, Anick numbers UNVERIFIED. · 111 · theorist
-- **T3/T8 · Cartan-level invariants** (H-025 is agenda 5) · H-024 (SUPPORTED; also H-025) · Necessity sourced (E-272; round 110 recheck, Phi-equivariance only inside the proof of Ladkani Lemma 3.14). E-292: NO on 19 of 19 q_S-separated pairs (lam >= 1.661), YES on 19 controls; NO is never pure lattice search. Open: lam < 1.5 NO (no LNA pair exists there, E-276), Z[Phi]-class route, Nikulin 1.13.3 unverified. · 110 · skeptic
+- **T10 · guard audit** (agenda, round 116: 1) · H-015 · Can a key-guarded walk leave a derived class through a J != 0 step? All 13 of E-201's steps at n = 7 class 1 have Hom-verified chains (E-297, E-300): YES side only. HH^0..2 dimensions cannot say NO there (trivial on LNAs, E-170/E-172; E-305), so a NO needs a finer invariant or n >= 9 (F-010 pair HH-blind). A-side corruption control: 50 of 84 left. Conference 116: needs a key-equal inequivalent pair or silting-not-tilting step (n = 8..9) separated by q_S/HH, else H-015 is unfalsifiable here. · 115 · theorist
+- **T5 · J = 0 premise** (agenda, round 116: 5) · H-023 · Is every gate-admitted J = 0 step a derived equivalence? Cancellation proved (E-235); loop models M1 (E-290) and M2 (E-294, formal dg algebra, g-filtration to Lemma A) proved; degree-0 loop cancels at w = 3 to weight 12 (one model). M4, M5 (shared/product pivots), Hom/End(T) for M2, Anick numbers UNVERIFIED. · 111 · theorist
+- **T3/T8 · Cartan-level invariants** (H-025 in the literature backlog) · H-024 (SUPPORTED; also H-025) · Necessity sourced (E-272; round 110 recheck, Phi-equivariance only inside the proof of Ladkani Lemma 3.14). E-292: NO on 19 of 19 q_S-separated pairs (lam >= 1.661), YES on 19 controls; NO is never pure lattice search. Open: lam < 1.5 NO (no LNA pair exists there, E-276), Z[Phi]-class route, Nikulin 1.13.3 unverified. · 110 · skeptic
 - **T7 · H-010** · H-010 · Single-mutation rule and Catalan factorisation proved relative to `procedure` (E-187, E-205). Two-bystander cells at k = 3..5 stay at overlap 2 (E-230, E-241, E-260), but no start-gap-2 pair at k <= 4 can lower, so they have no control (E-288, no power). Gate part published for gentle LNAs only (E-280). Open: a gap-2 shape that can lower, k >= 6. · 107 · experimentalist
-- **T4 · H-020 rule table** · H-020 · H1 holds to widths 9-11, lengths <= 14 (E-225), independent engines (E-207, E-243). Class-B rules: 298 of 304 leave the LNA class at step 1, 6 at step 2 (E-266); first step adds one arrow at widths 5-7, but no width-independent relation-count rule (E-286). H3/H4 not closed; last item "narrowed only". · 106 · skeptic
+- **T4 · H-020 rule table** (closed to backlog, 116) · H-020 · H1 holds to widths 9-11, lengths <= 14 (E-225), independent engines (E-207, E-243). Class-B rules: 298 of 304 leave the LNA class at step 1, 6 at step 2 (E-266); first step adds one arrow at widths 5-7, but no width-independent relation-count rule (E-286). H3/H4 not closed; last item "narrowed only". · 106 · skeptic
 - **H-027 · A_n vs B_n reachability** · H-027 (SUPPORTED) · A_n ~ B_n (Fosse Cor. 4.6) but A_n not in orbit(B_n) (E-280). Tilting exchanges reach A_n from B_n at depth 3, 4, 5 (n = 5, 6, 7; E-287, E-289); intermediate End(T) not LNAs, each step gate-admitted; generation (Bruning) UNVERIFIED; not shown to be silting mutations. · 109 · toolsmith
-- **S-1 · vertex deletion** (agenda 2) · H-026 (SUPPORTED) · K0 = min(h, n-4-h) for lone-3 classes at key level; ten fits incl. the pre-registered n = 19 h = 5, 6, n = 15 h = 3 (E-301, E-304). Two-3 key classes: last split K = 2, 1, none, >= 3, no law (exploratory). F-blockers: class level, a non-lone law, a derivation. · 115 · experimentalist
-- **T6 · H-017** · H-017 · Defect not constant per key class (E-283); key shifts the defect distribution weakly (MI 0.017, E-303) but key class 2 is one LNA (3033030), so key and source LNA are not separable; two other LNAs exceed it. Open: n >= 10 or a family with several key classes per LNA; closure proposal for conference 116. · 115 · maverick
+- **S-1 · vertex deletion** (agenda, round 116: 2) · H-026 (SUPPORTED) · K0 = min(h, n-4-h) for lone-3 classes at key level; ten fits incl. the pre-registered n = 19 h = 5, 6, n = 15 h = 3 (E-301, E-304). Two-3 key classes: last split K = 2, 1, none, >= 3, no law (exploratory). F-blockers (116): class level (orbit check n = 15 h = 3), power control (rival formula), outside prediction incl. even n = 14; also a non-lone law, a derivation. · 115 · experimentalist
+- **T6 · H-017** · H-017 · Defect not constant per key class (E-283); key shifts the defect distribution weakly (MI 0.017, E-303) but key class 2 is one LNA (3033030), so key and source LNA are not separable; two other LNAs exceed it. CLOSED for cycle 1 (116): key and source LNA confounded at n = 9; reopens only with >= 2 LNAs per key class (n >= 10). · 115 · maverick
 - **T1 · H-021'**, **T2 · s(c)**: closed round 060 (E-176). **T9 · long runs**: parked (`OVERNIGHT.md` Menu 4).
 
 ## Awaiting revision
@@ -59,6 +59,7 @@ Each: question · H-entry · state · last worked · owner.
 - The 7 + 7 n = 9 F-010 J = 0 join was run once by the dispatcher (E-250: no meet, no power).
 - arXiv is reachable (STEERING, standing permissions).
 
+- Round 116 conference: no F/R entry; blockers in rounds/116/proceedings.md.
 - Rounds 113-115: E-297/E-300 (13 of 13 chains), E-298/E-305 (controls; HH has no power on the key-kept region), E-299/E-301/E-304 (K-law, ten fits; R-015), E-302/E-303 (T6). R-candidate still blocked (no NO-capable invariant); F-candidate H-026 blocked on class level, a non-lone law, a derivation.
 
 ## Rota
