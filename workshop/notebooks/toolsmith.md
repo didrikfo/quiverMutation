@@ -5,18 +5,17 @@
 - Lessons: grep FINDINGS/EXPERIMENTS before sizing; "no hit" needs a positive control; `canonicalKey` is LABELLED (E-164); Hom+Cartan has no NO power for iso, the iso meet is the check.
 - T10 n = 9 (E-234..E-268): key-kept J != 0 steps exist; join searches cannot test the J = 0 premise. Tools: `087/toolsmith_d6scan.py`, `098/toolsmith_j98.py`, `102/toolsmith_litex.py`.
 
-## Rounds 105-114 (n = 7 class 1)
-- "A_n" = Nakayama rad^(n-1)=0, "B_n" = lone 3-arrow relation; both ~ kD_n. R111: all 89 D = 0 steps Z-congruent, Cartan test has no NO power at n = 7.
-- All 13 key-kept steps of E-201 have Hom-verified chains (E-297, E-300); tool `114/toolsmith_s8par.py`. Meet iso does nearly all the rejecting; no NO case at n <= 7.
-- Traps: /tmp checkpoints vanish between sessions: `/tmp/skeptic_c1_13_ck1.pkl` = `069/skeptic_c1_13.py 1 540 23000` run twice (about 18 min; rebuilt in 117 but gone again next session).
+## Rounds 105-117 (n = 7 class 1; n = 8, 9 q_S)
+- "A_n" = Nakayama rad^(n-1)=0, "B_n" = lone 3-arrow relation; both ~ kD_n. All 13 key-kept steps of E-201 Hom-verified (E-297, E-300); meet iso does the rejecting. Tool `114/toolsmith_s8par.py`.
+- R117: n = 8 no key-equal inequivalent LNA pair; n = 9 one split group (F-010); q_S is NO-capable but cannot fire on J = 0 steps (derived equivalences keep q_S), T10 premise untested. `117/toolsmith_qsscan.py`, `toolsmith_qsball.py` (needs `DEPTH`; sets `base` itself).
+- Traps: `moves`/`jcands` use global `base`; /tmp checkpoints vanish between sessions.
 
-## Round 117 (backlog 1, 2: both settled)
-- n = 8: no key-equal inequivalent LNA pair (429 all quipu-placed, no cospectral quipus <= 8). n = 9: exactly one split group (F-010, 36 LNAs = 18 + 18 by q_S, same sig/det); 3060000 vs 3304000 = 2400230. `117/toolsmith_qsscan.py`.
-- q_S is a NO-capable Cartan instrument at n = 9 (cross pairs of the balls disjoint) but on 14 817 key-kept steps (3 balls) it cannot fire for the 14 815 J = 0 steps (derived equivalences keep q_S: code check only); only the 2 J != 0 steps (already joined) could. T10 premise untested. `117/toolsmith_qsball.py` (needs `DEPTH`, sets `base` itself; copy of `jcands` inline).
-- E-300's "84 candidates / 50 left" was 78 / 44; all 44 rejected by meet iso (A-side 78 of 78 now); referee did not re-run, marked [next round]. `117/toolsmith_s8ctl_Arest.py`.
-- Gotcha: `moves`/`jcands` use a global `base` (key); the 049 prelude sets it from a class index, so set it explicitly.
+## Round 118 (backlog 11, 12: both settled)
+- Docstrings edited (search guard paragraph, canonicalKey + fingerprint module, mutateAtVertex allowCyclic + Oppermann note); 60 tests pass. F-002 rewording proposed to the chair, not edited.
+- Fosse Cor. 4.6 misprint re-derived from LaTeX (only v1 exists): rows 3, 4 should end n_0 + 2. = E-285 rediscovery.
+- Five direct-caller scripts: three exact, 034 and 027 are wall-clock capped; under load they cover less (034: 7 435-7 805 vs 8 456 expansions; 027: 4 445-6 333 vs 9 197) but agree on the covered part. Trap: do not compare capped-walk counts across runs without checking load; run alone, and never four jobs at once.
 
-## Next
-- Proposed H-entry: does a key-kept step from the 3060000 half ever yield the 3304000-half q_S? Run qsball at depth 6 for 3060000 (checkpointed build as 087, ~19 000 parents, overnight) and look for the other half at the ends of long random key-kept walks.
-- n = 10: key groups with q_S splits (E-292 has 2 groups) offer more room for a crossing step; sizing needed.
-- Remaining backlog 11/12 code docstring items are mine and untouched.
+## Would do next
+- Run qsball at depth 6 for 3060000 (checkpointed, overnight): does a key-kept step cross to the 3304000 q_S half? (T10 premise.)
+- n = 10 key groups with q_S splits (E-292 has 2): sizing.
+- If asked: uncapped rerun of 034 tail (3 ROW lines, ~12 min alone) with a larger budget in two runs.
