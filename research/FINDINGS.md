@@ -2987,6 +2987,12 @@ For a minimal relation `r: i ⇢ i` the procedure calls for one arrow
 `r`'s source to its target, which on a cycle is a loop on `i*`. The second worked
 example of arXiv:2112.08129 does not reproduce.
 
+*Update, workshop round 118 (E-277, E-311):* the library refuses cyclic D(i)
+(`CyclicDescendantsError`, E-211); with `allowCyclic = True` the second worked
+example (Ex. 3.2) raises `KeyError: (0, (2, 1, 0))` in step 3 and does not add a
+loop on `i*`. Pinned as a strict xfail in `tests/test_mutation_procedure.py`. The
+LNA search never reaches it.
+
 Pinned as a strict xfail in `tests/test_mutation_procedure.py`. The LNA search
 never reaches it, since it stops descending at the first cycle, so no published
 result depends on it.

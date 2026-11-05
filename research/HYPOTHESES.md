@@ -6,6 +6,27 @@ it. Status is one of `OPEN`, `SUPPORTED`, `CONFIRMED → F-nnn`, `REFUTED → R-
 
 ---
 
+## H-031 — Loop cancellation for pivot-reducible degree-1 loops (proposed round 118; broader than the proved models M1, M2, M4, M5)
+*2026-11-05* · **OPEN** *(proved for the formal dg models M1, M2, M4, M5: E-290, E-294, E-309; not Hom/End(T); not general)* · *workshop round 118, theorist*
+
+For a Construction-2.2 parent with a degree-1 loop f at i whose differential is d f = sum_p a_p r_p (a_p arrows out of i, r_p paths from t(a_p) to i, one r_p ending in an arrow b with the star letter b-bar linear in d theta_{f,a_p}), a triangular change of generators brings kM to B * T(E) with B of Lemma A shape (X1 = {w}, one Theta per pair), so kM -> N is a quasi-isomorphism. The existence of the substitution is part of the hypothesis: M5 needed a second, product-pivot step. **Falsifiable:** a loop model of this form (any number of out-arrows, paths r_p of any length, d^2 = 0) with H(I) != 0 in some cell (E-284 engine, `workshop/rounds/106/theorist_loopfilt.py`), or one where no triangular substitution reaches the shape. Bears on H-023 only through the formal step; the Hom/End(T) step is not addressed.
+
+---
+
+## H-030 — The repo's gate and F/R conventions depend on the relation presentation: with a redundant length-3 relation they fail, with a minimal set only the E-080 over-admission occurs (proposed round 118)
+*2026-11-05* · **OPEN** *(in sample, n = 4..6: 74 anomaly lines in 9 of 206 non-minimal-presentation parents, 8 of 51 minimal arrow-length-3 parents, 0 in 470 minimal length-2 parents: E-310)* · *workshop round 118, skeptic*
+
+**Claim (sufficient condition only):** if the relation set of a non-monomial parent contains a redundant arrow-length-3 relation, the repo's gate or F/R child can disagree with Hom-verified tilting in both directions; deleting the redundant relation removes the failure (seed 1614, n = 5: 8 of 8 vertex/side cases fail, 0 of 8 after deletion). Not claimed: 'exactly when', anything for monomial, parallel-arrow or cyclic-with-result parents (0 failures there), n >= 7. **Falsifiable:** a non-minimal presentation with a redundant length-3 relation on which the repo agrees with tilting at every vertex/side, systematically; or a failure with a minimal length-2 presentation. Test: locate the failing step in `isMutable`/`mutateAtVertex`/`reduce` and make a regression test of seed 1614 (round 119, toolsmith).
+
+---
+
+## H-029 — The first-step (arrows, relations) delta of an H-020 class-B floating rule is a function of the rule alone (proposed round 118)
+*2026-11-05* · **OPEN** *(widths 5-6, lengths <= 8: 82 of 82 cross-length transfers, E-310; width 7 vacuous)* · *workshop round 118, skeptic*
+
+For a class-B floating rule d (notLNA at step 1) at widths 5-6, lengths <= 8, the first mutation changes (arrows, relations) by (1,1) or (1,2), a number fixed by d alone, but not by len(added) - 1 (E-286) and by none of 15 hand-made 1-2-feature predictors beyond the best of 400 label shuffles (0.872 vs shuffled max 0.872; 19 of 400). **Falsifiable:** build the rule table at widths <= 7 and predict the delta at widths 8-9, lengths 9-10 (about 10 min per width); one wrong prediction refutes the 'function of the rule' reading at that width. This is the sharpened form of E-286's H3/H4.
+
+---
+
 ## H-027 — A_n is reached from B_n by a tilting mutation outside the E-187 moves
 *2026-11-02* · **SUPPORTED** *(multi-step tilting exchanges reach A_n from B_n at depth 3 (n = 5), 4 (n = 6), E-287; generation UNVERIFIED; one-step vertex-local NO, E-282; round 104 ledger, E-285)*
 

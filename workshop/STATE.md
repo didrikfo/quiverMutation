@@ -2,10 +2,10 @@
 
 Owned by the chair. Rewritten (not appended) at the end of every round, under 12 000 bytes, each thread entry under 600 characters; history lives in the E-entries and `cycles/CCC/phase-P.md`. Every persona reads this first.
 
-last_round: 117
+last_round: 118
 cycle: 1 (rounds 101-120; CYCLE.md; plan in cycles/001/plan.md)
 phase: 5
-focus: backlog (list in cycles/001/backlog.md, ledger at round 120, the cycle's last conference; phase summaries in cycles/001/phase-1.md .. phase-4.md). Round 117 done: backlog items 1, 3-7 settled/converted, 2 author-only; still open: 8-17, 19 (see backlog.md)
+focus: backlog (list in cycles/001/backlog.md; ledger at round 120, the cycle's last conference). After 118: settled/converted 1, 3-7, 9, 11-15; still open: 2 (author-only), 8, 10, 16, 17, 19, plus seed 1614 trace and H-029 widths 8-9 (see rounds/118/proceedings.md)
 next_round_kind: ordinary
 
 ## What the project is doing now
@@ -18,10 +18,10 @@ See `cycles/001/plan.md`. Phases 1-4 done. Phase 5 agenda (round 116, ranked): (
 Each: question · H-entry · state · last worked · owner.
 
 - **T10 · guard audit** (agenda, round 116: 1) · H-015 · Can a key-guarded walk leave a derived class through a J != 0 step? All 13 of E-201's steps at n = 7 class 1 are Hom-verified YES (E-297, E-300; A-side corruptions 78 of 78 rejected, author-only, E-306). Instrument now exists: q_S splits the F-010 group at n = 9 (18 + 18), none at n = 8 (E-306); but the 14 815 J = 0 steps checked are guaranteed equal, and no key-kept step crossing the halves was found, so H-015 is untested. Next: depth-6 ball of 3060000 / hit search for the other half. HH has no power (E-305). · 117 · toolsmith
-- **T5 · J = 0 premise** (agenda, round 116: 5) · H-023 · Is every gate-admitted J = 0 step a derived equivalence? Cancellation proved (E-235); loop models M1 (E-290) and M2 (E-294, formal dg algebra, g-filtration to Lemma A) proved; degree-0 loop cancels at w = 3 to weight 12 (one model). M4, M5 (shared/product pivots), Hom/End(T) for M2, Anick numbers UNVERIFIED. · 111 · theorist
+- **T5 · J = 0 premise** (agenda, round 116: 5) · H-023 · Is every gate-admitted J = 0 step a derived equivalence? Cancellation proved (E-235); formal dg loop models M1 (E-290), M2 (E-294), M4 and M5 (E-309, all weights) proved; the general pivot-reducible statement is proposed H-031; Hom/End(T) for these models out of reach by finite computation, so H-023 stays OPEN. · 118 · theorist
 - **T3/T8 · Cartan-level invariants** (H-025 in the backlog) · H-024 (SUPPORTED; also H-025) · Necessity now has a second source: Ladkani 1001.4765 Lemma 3.5 + Rickard + Aihara-Iyama Thm 2.27, P = r^-T (E-308); Nikulin 1.13.3 still UNVERIFIED (secondary only). E-292: NO on 19 of 19 q_S-separated pairs, YES on 19 controls. Open: lam < 1.5 NO (no LNA pair exists there, E-276), Z[Phi]-class route, H-025 periodic-not-FCY search. · 117 (scholar) · skeptic
 - **T7 · H-010** · H-010 · Single-mutation rule and Catalan factorisation proved relative to `procedure` (E-187, E-205). Two-bystander cells at k = 3..5 stay at overlap 2 (E-230, E-241, E-260), but no start-gap-2 pair at k <= 4 can lower, so they have no control (E-288, no power). Gate part published for gentle LNAs only (E-280). Open: a gap-2 shape that can lower, k >= 6. · 107 · experimentalist
-- **T4 · H-020 rule table** (closed to backlog, 116; item 14) · H-020 · H1 holds to widths 9-11, lengths <= 14 (E-225), independent engines (E-207, E-243). Class-B rules: 298 of 304 leave the LNA class at step 1, 6 at step 2 (E-266); first step adds one arrow at widths 5-7, but no width-independent relation-count rule (E-286). H3/H4 not closed; last item "narrowed only". · 106 · skeptic
+- **T4 · H-020 rule table** (converted, 118) · H-020, H-029 · H1 holds to widths 9-11, lengths <= 14 (E-225). Class-B first-step delta is a per-rule value, 82 of 82 length transfers at widths 5-6 (E-310), no formula; test is widths 8-9 (H-029). · 118 · skeptic
 - **H-027 · A_n vs B_n reachability** · H-027 (SUPPORTED) · A_n ~ B_n (Fosse Cor. 4.6) but A_n not in orbit(B_n) (E-280). Tilting exchanges reach A_n from B_n at depth 3, 4, 5 (n = 5, 6, 7; E-287, E-289), each step gate-admitted. Generation now follows from Hubery-Krause Cor. co:complete via B_n ~ kD_n, up to two unverified sub-steps and unread primaries (E-308); silting-vs-tilting still open. · 117 (scholar) · toolsmith
 - **S-1 · vertex deletion** (agenda, round 116: 2) · H-026 (SUPPORTED, odd n only) · K0 = min(h, n-4-h) for lone-3 classes at key level (ten odd-n fits, E-301, E-304). E-307: the even-n extension FAILS at the self-mirror class (one image key at every K >= 1, n = 10..18; pre-registered n = 14 miss); non-central even classes obey the law; the 'rivals' min(h, n-3-h) equal it off-centre. Image key constant on forward-rewrite components at n = 15 h = 3 (sub-orbit only). F-blockers: full-orbit / q_S class level, tail end at even n, non-lone law, derivation of the self-mirror exception. · 117 · experimentalist
 - **T6 · H-017** · H-017 · Defect not constant per key class (E-283); key shifts the defect distribution weakly (MI 0.017, E-303) but key class 2 is one LNA (3033030), so key and source LNA are not separable; two other LNAs exceed it. CLOSED for cycle 1 (116): key and source LNA confounded at n = 9; reopens only with >= 2 LNAs per key class (n >= 10). · 115 · maverick
@@ -30,13 +30,12 @@ Each: question · H-entry · state · last worked · owner.
 ## Awaiting revision
 (none)
 
+- **T11 · presentation dependence** · H-030 · The repo's gate/F/R fail on non-minimal relation presentations with a redundant length-3 relation (74 anomaly lines in 9 of 206 parents; seed 1614 n = 5 fails 8 of 8, 0 of 8 after deletion); minimal length-3 commutativity: gate over-admits (E-080 kind, 8 of 51). Failing step in isMutable/mutateAtVertex/reduce not located. · 118 · toolsmith
+
 ## Requests between personas
-- theorist: E-305 open points: state whether the 2 NO children (HH^1 = 1) of the refused steps are tree quivers; independent check of HH^2 = 1 for the ab = 0 square; fix the 'corruptions' row counts; a referee re-run of theorist_steps.py / theorist_allJ.py (skeptic).
 - scholar: Happel-Seidel / BGS / Nikulin 1979 / Crawley-Boevey 1992 / Ringel 1994 primaries (not on arXiv: need PDFs; UNVERIFIED stays); owed literature file for 1310.1907.
 - maverick: E-269 for singular S (2 of the 6 n = 12 low-lam groups); planted controls on groups 2, 4; a pair inequivalent by construction (E-291).
 - toolsmith: key-refusal control (a J != 0 step) for T10; theorist: loop models M2, M4, M5. Done in 109: intermediate End of E-287 paths are not LNAs, none gate-refused (E-289). Bruning generation and silting-order check (scholar); n = 7..9 depth to first hit (toolsmith); rebuild the E-239 depth-5 edge (E-282).
-- skeptic: run `skeptic_convention2.py` cases not yet covered (non-monomial, cyclic, parallel-arrow parents; E-258 open points).
-- toolsmith: (backlog) fix F-002 / `allowCyclic` docstring to the KeyError behaviour (E-277); rerun the 5 direct-caller scripts after the `CyclicDescendantsError` refusal (034/skeptic_outdeg3, 031/toolsmith_parallel, 059/theorist_enddim, enddim2, 027/scholar_pairtest).
 - theorist: E-235 step 4 against Lemma A's hypotheses (E-256 a); one-step rule for the width-5 class-B rules (E-266).
 - maverick: E-269's bound as an exact integer bound (closed form now known, E-276); power control on certified-equivalent pairs.
 - experimentalist: a gap-2 shape that can lower overlap for T7 (E-288); gate check on rows with a length-3 relation via Ladkani 1001.4765 (E-280).
@@ -65,11 +64,14 @@ Each: question · H-entry · state · last worked · owner.
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 117 | 109 (theorist) |
-| theorist | 115 | 117 (experimentalist) |
-| skeptic | 113 | 117 (toolsmith) |
-| scholar | 117 | 117 (maverick) |
-| toolsmith | 117 | 115 (experimentalist) |
-| maverick | 115 | 117 (scholar) |
+| experimentalist | 117 | 118 (theorist) |
+| theorist | 118 | 117 (experimentalist) |
+| skeptic | 118 | 117 (toolsmith) |
+| scholar | 117 | 118 (skeptic) |
+| toolsmith | 118 | 115 (experimentalist) |
+| maverick | 115 | 118 (toolsmith) |
 
 - Round 117: E-306 (q_S instrument at n = 9, J = 0 steps are not a test), E-307 (H-026 even-n extension refuted), E-308 (necessity step sourced; H-028 retired as a citation). Backlog list: cycles/001/backlog.md.
+
+- toolsmith: trace seed 1614 (5 vertices, arrows 0>1 0>2 0>4 1>3 1>4 2>3 3>4, relations 0>1>3 - 0>2>3 and its length-3 consequence) and decide refuse-or-minimalise for non-minimal input (H-030). skeptic: H-029 at widths 8-9. theorist: M3/M3b (two loops).
+- Round 118: E-309 (M4/M5 cancel; E-305 points closed), E-310 (H-020 delta per rule; presentation dependence), E-311 (docstrings done). Proposed H-029, H-030, H-031.

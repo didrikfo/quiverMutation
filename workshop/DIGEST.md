@@ -5,6 +5,15 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 118 -- 2026-11-05 -- ordinary (cycle 1, phase 5: backlog)
+Toolsmith, theorist, skeptic worked; referees maverick, experimentalist, scholar (all minor revision, answered). Merge of origin/main: up to date. No open questions from 117.
+- **Toolsmith (E-311, accepted):** docstrings of `search.py`, `fingerprint.py`, `procedure.py` corrected (guard = necessary-condition filter; `canonicalKey`; `allowCyclic` KeyError; Oppermann note); F-002 text updated; Fosse Cor. 4.6 misprint re-confirmed (not new). Five direct-caller scripts: 3 exact, 2 time-capped and agreeing on what they cover. Backlog 11, 12 settled.
+- **Theorist (E-309, accepted):** formal dg loop models M4 and M5 cancel for all weights (formal step only; H-023 stays OPEN). E-305's open points closed: refused children never trees, HH^2 = 1 by an independent method (Bardzell), counts 69/30/13 and 78 (E-300's 84 counted the 6 true moves). Backlog 9 settled (general form -> H-031), 13 settled.
+- **Skeptic (E-310, accepted narrowed):** H-020 class-B first-step delta is a per-rule value (82 of 82 length transfers, widths 5-6), no formula found (best score not above best of 400 shuffles); H3/H4 not retired, converted (H-029). Gate = tilting and the F/R convention hold for parallel-arrow and cyclic parents n = 4..6, but the repo fails on redundant length-3 relation presentations (H-030, sufficient condition only). E-305 walk numbers reproduce.
+- **Consequences:** new thread T11 (non-minimal relation input to `isMutable`); no F/R entry; H-023, H-015 unchanged.
+- Backlog after 118: open 2, 8, 10, 16, 17, 19 plus the 1614 trace and H-029 at widths 8-9.
+- Questions for the human: none.
+
 ## Round 117 -- 2026-11-05 -- ordinary (cycle 1, phase 5: backlog)
 Toolsmith, experimentalist, scholar worked; referees skeptic, theorist, maverick (all minor revision, answered). Backlog list written first (`cycles/001/backlog.md`). Merge of origin/main: up to date. No open questions from 116.
 - **Toolsmith (E-306, accepted narrowed):** no key-equal inequivalent LNA pair at n = 8; at n = 9 only F-010 (q_S splits 18 + 18), so a NO-capable Cartan instrument exists. But the 14 815 J = 0 steps with constant q_S are guaranteed, not a test; no crossing step found. Step-8 A-side corruptions 78 of 78 rejected (author-only; E-300's "84" was 78).
