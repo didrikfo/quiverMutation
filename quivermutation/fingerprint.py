@@ -25,7 +25,7 @@ bundle sizes' factorials.  Over the same two searches, every node that has
 parallel arrows at all has **one** bundle of **two** arrows -- cost 2 -- and such
 nodes are 0.2% to 3% of the walk (E-042).  So `canonicalKey` is exact, and the
 `cap` that guards against a bundle structure nobody had seen when this was written.
-It has since fired (E-155, E-157; see `canonicalKey`).
+It has since fired (E-155, E-160; see `canonicalKey`).
 
 **The other ambiguity is the sign gauge, and it is the one that was costing
 real work.**  Rescaling an arrow by -1 is an automorphism of the path algebra,
@@ -303,9 +303,8 @@ def canonicalKey(pathAlg, cap = DEFAULT_CAP, gauge = True):
     and is conservative where it is not (see the module docstring).
 
     `None` when the quiver would need more than `cap` relabelings.  Searches
-    do produce it: 2 nodes at n = 8 (E-155), and at n = 7 hundreds of
-    child-side nodes with parallel-arrow bundles (E-157; 343 at depth 7 in one
-    ball).  A caller that gets `None` must treat the node as
+    do produce it: 2 nodes at n = 8 (E-155), and at n = 7 343 depth-7 nodes
+    with no key in one ball (E-160).  A caller that gets `None` must treat the node as
     one it has not seen before -- that is the safe direction -- which is what
     `Visited.seen` does.
 
