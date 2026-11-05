@@ -1,0 +1,15 @@
+width 5 L<= 8 notLNA rules 14 one delta over all matches 14 several deltas 0 length-transfer (single hist delta -> next L) 28 / 28
+  delta distribution over rules {(1, 2): 6, (1, 1): 8} ; matches per rule {8: 14}
+  key len(added) : groups 2 functional groups 2
+  key len(d[1]) : groups 2 functional groups 0
+  key width only : groups 1 functional groups 0
+width 6 L<= 8 notLNA rules 54 one delta over all matches 54 several deltas 0 length-transfer (single hist delta -> next L) 54 / 54
+  delta distribution over rules {(1, 2): 26, (1, 1): 28} ; matches per rule {3: 54}
+  key len(added) : groups 3 functional groups 2
+  key len(d[1]) : groups 3 functional groups 0
+  key width only : groups 1 functional groups 0
+width 7 L<= 8 notLNA rules 94 one delta over all matches 94 several deltas 0 length-transfer (single hist delta -> next L) 0 / 0
+  delta distribution over rules {(1, 1): 32, (1, 2): 62} ; matches per rule {1: 94}
+  key len(added) : groups 4 functional groups 2
+  key len(d[1]) : groups 4 functional groups 1
+  key width only : groups 1 functional groups 0

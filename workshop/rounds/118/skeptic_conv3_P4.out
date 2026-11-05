@@ -1,0 +1,12 @@
+1293 F power (T_R,T_L differ): other side matches False
+126 F tilting step: own side matches True (Cartan checked False, child cyclic True)
+1167 F tilting step: own side matches True (Cartan checked True, child cyclic False)
+175 F: gate False, tilting False
+1293 F: gate True, tilting True
+1299 R power (T_R,T_L differ): other side matches False
+122 R tilting step: own side matches True (Cartan checked False, child cyclic True)
+1177 R tilting step: own side matches True (Cartan checked True, child cyclic False)
+174 R: gate False, tilting False
+1299 R: gate True, tilting True
+607 parents
+exceptions: [] total 0

@@ -1,0 +1,107 @@
+1418 F power (T_R,T_L differ): other side matches False
+3 F tilting step: own side matches False (Cartan checked False, child cyclic True) [relations minimal False, longest commutativity rel arrow length 3]
+17 F tilting step: own side matches False (Cartan checked True, child cyclic False) [relations minimal False, longest commutativity rel arrow length 3]
+62 F tilting step: own side matches True (Cartan checked False, child cyclic True) [relations minimal False, longest commutativity rel arrow length 2]
+190 F tilting step: own side matches True (Cartan checked False, child cyclic True) [relations minimal False, longest commutativity rel arrow length 3]
+166 F tilting step: own side matches True (Cartan checked False, child cyclic True) [relations minimal True, longest commutativity rel arrow length 2]
+24 F tilting step: own side matches True (Cartan checked False, child cyclic True) [relations minimal True, longest commutativity rel arrow length 3]
+110 F tilting step: own side matches True (Cartan checked True, child cyclic False) [relations minimal False, longest commutativity rel arrow length 2]
+268 F tilting step: own side matches True (Cartan checked True, child cyclic False) [relations minimal False, longest commutativity rel arrow length 3]
+521 F tilting step: own side matches True (Cartan checked True, child cyclic False) [relations minimal True, longest commutativity rel arrow length 2]
+57 F tilting step: own side matches True (Cartan checked True, child cyclic False) [relations minimal True, longest commutativity rel arrow length 3]
+113 F: gate False, tilting False [relations minimal False, longest commutativity rel arrow length 2]
+249 F: gate False, tilting False [relations minimal False, longest commutativity rel arrow length 3]
+234 F: gate False, tilting False [relations minimal True, longest commutativity rel arrow length 2]
+38 F: gate False, tilting False [relations minimal True, longest commutativity rel arrow length 3]
+6 F: gate False, tilting True [relations minimal False, longest commutativity rel arrow length 3]
+3 F: gate True, tilting False [relations minimal True, longest commutativity rel arrow length 3]
+172 F: gate True, tilting True [relations minimal False, longest commutativity rel arrow length 2]
+472 F: gate True, tilting True [relations minimal False, longest commutativity rel arrow length 3]
+687 F: gate True, tilting True [relations minimal True, longest commutativity rel arrow length 2]
+81 F: gate True, tilting True [relations minimal True, longest commutativity rel arrow length 3]
+1432 R power (T_R,T_L differ): other side matches False
+3 R tilting step: own side matches False (Cartan checked False, child cyclic True) [relations minimal False, longest commutativity rel arrow length 3]
+19 R tilting step: own side matches False (Cartan checked True, child cyclic False) [relations minimal False, longest commutativity rel arrow length 3]
+67 R tilting step: own side matches True (Cartan checked False, child cyclic True) [relations minimal False, longest commutativity rel arrow length 2]
+193 R tilting step: own side matches True (Cartan checked False, child cyclic True) [relations minimal False, longest commutativity rel arrow length 3]
+161 R tilting step: own side matches True (Cartan checked False, child cyclic True) [relations minimal True, longest commutativity rel arrow length 2]
+23 R tilting step: own side matches True (Cartan checked False, child cyclic True) [relations minimal True, longest commutativity rel arrow length 3]
+99 R tilting step: own side matches True (Cartan checked True, child cyclic False) [relations minimal False, longest commutativity rel arrow length 2]
+279 R tilting step: own side matches True (Cartan checked True, child cyclic False) [relations minimal False, longest commutativity rel arrow length 3]
+524 R tilting step: own side matches True (Cartan checked True, child cyclic False) [relations minimal True, longest commutativity rel arrow length 2]
+64 R tilting step: own side matches True (Cartan checked True, child cyclic False) [relations minimal True, longest commutativity rel arrow length 3]
+112 R: gate False, tilting False [relations minimal False, longest commutativity rel arrow length 2]
+244 R: gate False, tilting False [relations minimal False, longest commutativity rel arrow length 3]
+231 R: gate False, tilting False [relations minimal True, longest commutativity rel arrow length 2]
+34 R: gate False, tilting False [relations minimal True, longest commutativity rel arrow length 3]
+5 R: gate False, tilting True [relations minimal False, longest commutativity rel arrow length 3]
+3 R: gate True, tilting False [relations minimal True, longest commutativity rel arrow length 3]
+166 R: gate True, tilting True [relations minimal False, longest commutativity rel arrow length 2]
+489 R: gate True, tilting True [relations minimal False, longest commutativity rel arrow length 3]
+685 R: gate True, tilting True [relations minimal True, longest commutativity rel arrow length 2]
+87 R: gate True, tilting True [relations minimal True, longest commutativity rel arrow length 3]
+465 parents
+64 parents [relations minimal False, longest commutativity rel arrow length 2]
+158 parents [relations minimal False, longest commutativity rel arrow length 3]
+217 parents [relations minimal True, longest commutativity rel arrow length 2]
+26 parents [relations minimal True, longest commutativity rel arrow length 3]
+exceptions: [('nomatch', 'F', 239, 1, ' [relations minimal False, longest commutativity rel arrow length 3]'), ('nomatch', 'F', 239, 2, ' [relations minimal False, longest commutativity rel arrow length 3]'), ('gate!=tilt', 'R', 239, 2, False, True, ' [relations minimal False, longest commutativity rel arrow length 3]'), ('nomatch', 'R', 239, 2, ' [relations minimal False, longest commutativity rel arrow length 3]'), ('gate!=tilt', 'R', 239, 3, False, True, ' [relations minimal False, longest commutativity rel arrow length 3]'), ('nomatch', 'R', 239, 3, ' [relations minimal False, longest commutativity rel arrow length 3]'), ('nomatch', 'R', 239, 5, ' [relations minimal False, longest commutativity rel arrow length 3]'), ('gate!=tilt', 'F', 514, 4, True, False, ' [relations minimal True, longest commutativity rel arrow length 3]'), ('nomatch', 'F', 873, 0, ' [relations minimal False, longest commutativity rel arrow length 3]'), ('nomatch', 'F', 873, 2, ' [relations minimal False, longest commutativity rel arrow length 3]'), ('nomatch', 'R', 873, 2, ' [relations minimal False, longest commutativity rel arrow length 3]'), ('gate!=tilt', 'F', 873, 3, False, True, ' [relations minimal False, longest commutativity rel arrow length 3]')] total 59
+EXC ('nomatch', 'F', 239, 1, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'F', 239, 2, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('gate!=tilt', 'R', 239, 2, False, True, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'R', 239, 2, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('gate!=tilt', 'R', 239, 3, False, True, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'R', 239, 3, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'R', 239, 5, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('gate!=tilt', 'F', 514, 4, True, False, ' [relations minimal True, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'F', 873, 0, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'F', 873, 2, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'R', 873, 2, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('gate!=tilt', 'F', 873, 3, False, True, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'F', 873, 3, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'R', 873, 3, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('gate!=tilt', 'F', 873, 4, False, True, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'F', 873, 4, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'R', 873, 5, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'F', 1006, 1, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'R', 1006, 4, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'R', 1006, 5, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'F', 1037, 0, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'R', 1037, 5, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('gate!=tilt', 'R', 1629, 2, True, False, ' [relations minimal True, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'F', 1761, 0, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'F', 1761, 1, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('gate!=tilt', 'R', 1761, 1, False, True, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'R', 1761, 1, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'F', 1761, 2, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'R', 1761, 2, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('gate!=tilt', 'F', 1761, 3, False, True, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'F', 1761, 3, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'R', 1761, 3, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'R', 1761, 4, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'R', 1761, 5, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('gate!=tilt', 'F', 1806, 4, True, False, ' [relations minimal True, longest commutativity rel arrow length 3]')
+EXC ('gate!=tilt', 'F', 1944, 3, True, False, ' [relations minimal True, longest commutativity rel arrow length 3]')
+EXC ('gate!=tilt', 'R', 2257, 1, True, False, ' [relations minimal True, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'F', 2420, 0, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'F', 2420, 1, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'R', 2420, 2, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('gate!=tilt', 'F', 2420, 3, False, True, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'F', 2420, 3, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'R', 2420, 3, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('gate!=tilt', 'F', 2420, 4, False, True, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'F', 2420, 4, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'R', 2420, 4, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'R', 2420, 5, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('gate!=tilt', 'R', 2794, 1, True, False, ' [relations minimal True, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'F', 2976, 0, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'F', 2976, 1, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('gate!=tilt', 'R', 2976, 1, False, True, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'R', 2976, 1, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'F', 2976, 2, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('gate!=tilt', 'R', 2976, 3, False, True, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'R', 2976, 3, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('gate!=tilt', 'F', 2976, 4, False, True, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'F', 2976, 4, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'R', 2976, 4, ' [relations minimal False, longest commutativity rel arrow length 3]')
+EXC ('nomatch', 'R', 2976, 5, ' [relations minimal False, longest commutativity rel arrow length 3]')

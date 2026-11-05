@@ -1,0 +1,16 @@
+417 F power (T_R,T_L differ): other side matches False
+621 F repo refusal CyclicDescendantsError (tilting False)
+614 F repo refusal CyclicDescendantsError (tilting True)
+144 F tilting step: own side matches True (Cartan checked False, child cyclic True)
+273 F tilting step: own side matches True (Cartan checked True, child cyclic False)
+838 F: gate False, tilting False
+1031 F: gate True, tilting True
+403 R power (T_R,T_L differ): other side matches False
+629 R repo refusal CyclicDescendantsError (tilting False)
+617 R repo refusal CyclicDescendantsError (tilting True)
+133 R tilting step: own side matches True (Cartan checked False, child cyclic True)
+270 R tilting step: own side matches True (Cartan checked True, child cyclic False)
+854 R: gate False, tilting False
+1020 R: gate True, tilting True
+587 parents
+exceptions: [] total 0
