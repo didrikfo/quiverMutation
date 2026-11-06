@@ -2,22 +2,31 @@
 
 The workshop's rounds are grouped into **cycles**. A cycle is a planning step,
 five **phases** of four rounds each (three ordinary rounds and a conference),
-and a cycle retrospective. Each phase has a **focus** that changes what the
-chair assigns and what the conference is about. This file is the procedure
+and a cycle retrospective. A phase may have a **focus** that changes what
+the chair assigns and what the conference is about; since cycle 2 the
+default is plain research, and only the planning step gives a phase (or part
+of one, or some personas) a focus. This file is the procedure
 for the parts that are not a plain round; `ROUND.md` says where a round uses
 it. Introduced by retrospective 2 (`retrospectives/002-rounds-045-100.md`);
 every part of it is meant to be changed by a cycle retrospective.
 
 ```
 planning step ── phase 1 ── phase 2 ── phase 3 ── phase 4 ── phase 5 ── cycle retrospective
- (not a round)   literature  research   research   research   backlog    (not a round)
-                 3 + conf    3 + conf   3 + conf   3 + conf   3 + conf
+ (not a round)   3 + conf    3 + conf   3 + conf   3 + conf   3 + conf   (not a round)
+                 focus: research unless the cycle plan says otherwise
 ```
+
+Cycle 1 (rounds 101-120) ran with fixed focuses (literature, research x 3,
+backlog); its retrospective (`cycles/001/retrospective.md`) found both
+special phases useful, the literature one largely as a catch-up, and the
+human's plan of 2026-11-03 made plain research the default.
 
 ## Where a round is in its cycle
 
 `config.yaml` has a `cycle:` block: `first_round` of cycle 1, `rounds_per_phase`
-and the list of `phases` (their focus, in order). For round `r`:
+and the list of `phases` (their default focus, in order). The cycle's
+`plan.md`, section *Phase focus*, overrides it for a phase, part of a phase,
+or named personas; the round chair reads that section. For round `r`:
 
 * cycle `c = (r - first_round) // (rounds_per_phase * len(phases)) + 1`;
 * position `k = (r - first_round) % (rounds_per_phase * len(phases))`;
@@ -45,18 +54,18 @@ than a grep.
 
    > You are **<Name>**; your persona is in `workshop/personas/<id>.md`. The
    > workshop is planning cycle CCC: rounds AAA-BBB, five phases of four rounds
-   > (literature, research, research, research, backlog; see
-   > `workshop/CYCLE.md`). Read your notebook, `workshop/STATE.md`,
+   > (research by default; a phase or part of one may be given a literature,
+   > backlog or other focus by this plan; see `workshop/CYCLE.md`). Read your notebook, `workshop/STATE.md`,
    > `workshop/STEERING.md`, the last cycle's `retrospective.md` (or
    > `workshop/retrospectives/` for the latest), and grep `research/` for what
    > you need. Write `workshop/cycles/CCC/plan/<id>.md` in the shape of
    > `workshop/templates/plan.md`, at most 40 lines. It is a loose plan, not a
-   > commitment: what you would like to find out this cycle and why; for
-   > **phase 1**, the papers or kinds of paper you would look for and which
-   > open claim each would check; for **phases 2-4**, the two or three
-   > questions you would work on and the hypothesis each bears on; for
-   > **phase 5**, what you expect to be left open and want closed; and what
-   > result by the end of the cycle you would call progress. Do not run
+   > commitment: what you would like to find out this cycle and why; the
+   > two or three questions you would work on and the hypothesis each bears
+   > on; whether any phase or part of one should have a focus (literature
+   > reading on a named question, a backlog sweep, a proof push, ...) and
+   > why; and what result by the end of the cycle you would call
+   > progress. Do not run
    > anything and edit no other file. Reply with your main question in one
    > line.
 
@@ -66,17 +75,21 @@ than a grep.
      `research/HYPOTHESES.md` (next free number, falsifiable statement, status
      `OPEN` or `SUPPORTED` with pointers, `· *workshop cycle CCC planning*` in the
      date line). A thread in `STATE.md` must name its H-entry.
-   * **Phase 1 reading list**: papers and searches, each with the claim or
-     inconclusive result it should check, and who reads it.
-   * **Loose agenda for phases 2-4**: ranked threads, owners, first questions.
-     Not binding: phase conferences change it.
-   * **Expected backlog**: what the plans expect to need closing in phase 5.
+   * **Phase focus**: for each phase, `research` (the default) or a focus
+     (`literature`, `backlog`, or another one described in a line), and for
+     which rounds or personas. Decide it from the plans; do not add a focus
+     the plans do not argue for. Cycle 1's retrospective found a backlog
+     sweep near the end of a cycle closed long-pending items that nothing
+     else closed; consider one.
+   * **Loose agenda**: ranked threads, owners, first questions. Not
+     binding: phase conferences change it.
+   * **Reading list**, if any phase or persona has a literature focus.
    * **What would count as progress** by the end of the cycle (two to four
      concrete outcomes, e.g. "F-entry for X written, or the blocking check
      named").
    * Where the personas disagree.
 4. Rewrite `STATE.md` for the cycle (header `cycle`, `phase: 1`,
-   `focus: literature`, `next_round_kind: ordinary`), with the threads of the
+   `focus:` as the plan says, `next_round_kind: ordinary`), with the threads of the
    plan. Add a DIGEST entry `## Cycle CCC planning -- <date>` (at most 15
    lines), ending with one bold line inviting the human to edit `plan.md` or
    `STEERING.md` if they want the cycle to go differently. Commit and push as
@@ -84,15 +97,16 @@ than a grep.
 
 ## Phase focus: what changes in a round
 
-### Literature (phase 1)
+### Literature (when the plan gives it)
 
-* **Call.** Every assignment is literature work on an open thread: find
+* **Call.** Every assignment with this focus is literature work on an open thread: find
   papers (arXiv search and reading, `research/literature/`), and check
   against them an open hypothesis, an inconclusive or "no power" experiment,
-  a claim marked UNVERIFIED, or a term the project coined. The scholar works
-  every round of the phase; the other two slots go to personas whose threads
-  have the most unchecked claims. No breadth slot and no suggested-question
-  slot: the phase already ranges over all threads.
+  a claim marked UNVERIFIED, or a term the project coined. In a whole
+  literature phase the scholar works every round and the other two slots go
+  to personas whose threads have the most unchecked claims, with no breadth
+  or suggested-question slot; a partial focus applies to the rounds or
+  personas the plan names.
 * **Work.** Computation only to check a published statement against the
   repo (reproduce a paper's example, test a stated theorem on small cases).
   A submission of kind `literature` lists what was searched (queries,
@@ -103,16 +117,16 @@ than a grep.
 * **Review.** The referee checks the cited statements against the source
   (the LaTeX, if fetched) and its hypotheses against the case here.
 * **Conference.** Positions answer: what did the literature change for my
-  thread; what is now known to be known; what should phase 2 not do
+  thread; what is now known to be known; what the next phase should not do
   because it is published. The ledger also covers literature results.
 
-### Research (phases 2-4)
+### Research (the default)
 
 Rounds run as `ROUND.md` describes, with the breadth slot and the
 suggested-question slot. The cycle plan's loose agenda is the starting
-agenda of phase 2; each conference re-proposes it.
+agenda of phase 1; each conference re-proposes it.
 
-### Backlog (phase 5)
+### Backlog (when the plan gives it)
 
 The research backlog, not the code backlog.
 
@@ -131,10 +145,17 @@ The research backlog, not the code backlog.
 * **Consequences.** A pending consequence for library code or a docstring
   is done in this phase or explicitly declined with a reason; it does not
   carry over silently.
-* **Conference (the cycle's last round).** The ledger covers the whole
-  cycle, not just the phase: every hypothesis the cycle worked on gets a
-  decision, and the chair marks each backlog item settled, retired,
-  converted, or carried over (with the reason).
+
+### The cycle's last conference (always)
+
+Whatever the focuses, the conference of the last phase closes the cycle:
+the ledger covers the whole cycle, not just the phase (every hypothesis the
+cycle worked on gets a decision), and the chair marks every open item in
+`STATE.md` (threads' open points, requests, UNVERIFIED citations, undecided
+overnight proposals, pending consequences for code or docstrings) as
+settled, retired, converted, or carried over with the reason, in
+`workshop/cycles/CCC/backlog.md`. If there was a backlog phase, its list is
+the starting point.
 
 ## Phase summary (at each conference)
 
@@ -152,8 +173,7 @@ Done by the dispatcher session, not a round session, when `STATE.md` says
 cycle as a research process:
 
 * the cycle plan's progress outcomes: met, not met, why;
-* each phase: did its focus do what it was for (did phase 1 find things that
-  changed phase 2; did phase 5 close what it listed);
+* each phase: did its focus (if it had one) do what it was for;
 * the numbers (rounds, reviews, entries, statuses changed, cost);
 * **the format itself**: number of phases, their order and focus, whether to
   add another focus (examples: a *consolidation* phase that only writes

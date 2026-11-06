@@ -48,21 +48,21 @@ the agenda.
 Since round 101 the rounds are grouped into **cycles** ([`CYCLE.md`](CYCLE.md)):
 
 ```
-planning ── literature ── research ── research ── research ── backlog ── retrospective
- step       phase 1       phase 2     phase 3     phase 4     phase 5    of the cycle
-            (3 rounds + a conference each: 20 rounds)
+planning ── phase 1 ── phase 2 ── phase 3 ── phase 4 ── phase 5 ── retrospective
+ step       (3 rounds + a conference each: 20 rounds)              of the cycle
 ```
 
 * **Planning step** (a session of its own): every persona writes a loose plan
   for the cycle; the chair merges them into `cycles/CCC/plan.md`, and writes
   every question the cycle will work on as an H-entry. **This is the best
   place for you to steer**: edit `plan.md` or `STEERING.md`.
-* **Literature phase**: finding and reading papers, checking hypotheses,
-  inconclusive experiments and unverified citations against them.
-* **Research phases**: rounds as above.
-* **Backlog phase**: the research backlog. Open items, inconclusive results,
-  unverified citations and pending consequences are settled, retired or
-  turned into new hypotheses.
+* **Phases** are plain research by default. The planning step may give a
+  phase, part of one, or some personas a focus: **literature** (finding and
+  reading papers, checking claims against them) or **backlog** (settling,
+  retiring or converting open items). Cycle 1 used a fixed literature phase
+  first and a backlog phase last; since cycle 2 nothing is fixed.
+* **The cycle's last conference** always marks every open item settled,
+  retired, converted or carried over.
 * **Cycle retrospective** (by the dispatcher session): what worked, and
   changes to the format itself (number and order of phases, other focuses).
 
@@ -110,7 +110,7 @@ putting it on a schedule.
 **On a schedule.** A Routine that starts a fresh session on each firing does
 *not* get the repository attached, and could not push (found on the first
 attempt, 2026-09-29). So the schedule is two-stage: a Routine fires a short
-turn into a **dispatcher** session every 8 hours (it has been 12 and 2; in
+turn into a **dispatcher** session once a day (it has been 12, 8 and 2 hours; in
 back-to-back mode the dispatcher re-arms itself with a one-shot check every
 15-30 minutes), and the dispatcher starts the round with `create_session`,
 giving it the repository as its source and `workshop` as its outcome branch,

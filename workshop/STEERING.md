@@ -83,7 +83,7 @@ A short negative result ("dead end, because ...") is a welcome outcome.
 <!-- e.g. "conference", "only skeptic and theorist", "everyone on H-021" -->
 (none)
 
-## Plan after round 120 (human, 2026-11-03)
+## Plan after round 120 (human, 2026-11-03) -- done 2026-11-06 (cycle 1 retrospective, `cycles/001/retrospective.md`)
 
 Cycle 1 runs to the end exactly as now (rounds 112-120, phase focuses as
 planned); **do not implement any of this early**. After round 120 the

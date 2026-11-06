@@ -3,10 +3,10 @@
 Owned by the chair. Rewritten (not appended) at the end of every round, under 12 000 bytes, each thread entry under 600 characters; history lives in the E-entries and `cycles/CCC/phase-P.md`. Every persona reads this first.
 
 last_round: 120
-cycle: 1 (rounds 101-120; CYCLE.md; plan in cycles/001/plan.md)
-phase: 5 (done)
-focus: cycle 1 finished at the round-120 conference (ledger and backlog marks: rounds/120/proceedings.md, cycles/001/phase-5.md). Next: the cycle 1 retrospective (dispatcher), then planning for cycle 2 (rounds 121-140).
-next_round_kind: retrospective
+cycle: 2 (rounds 121-140; CYCLE.md; plan in cycles/002/plan.md once the planning step has run)
+phase: none yet (planning step next)
+focus: research by default; the cycle 2 plan may give a phase or personas a focus. Cycle 1 retrospective: cycles/001/retrospective.md.
+next_round_kind: planning
 
 ## What the project is doing now
 Tilting mutation of quivers with relations; derived equivalence of Nakayama algebras (LNAs). The search (`quivermutation/search.py`) walks mutations under a *gate* and a *Coxeter-key guard*; the guard is not a tilting test (E-147, E-151), and whether a guarded walk can leave a derived class through a J != 0 step is open. Retrospective 2 (`retrospectives/002-rounds-045-100.md`) reviews rounds 045-100 and introduced cycles; read its Part 1 for the long lines.

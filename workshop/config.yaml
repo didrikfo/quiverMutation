@@ -22,18 +22,20 @@ conference_every: 4
 
 # Cycles (CYCLE.md): a planning step, then phases of rounds_per_phase rounds
 # (the last of each is the conference), then a cycle retrospective. The
-# phases list gives each phase's focus, in order: literature | research |
-# backlog. Planning and retrospective steps take no round number.
+# phases list gives each phase's default focus, in order (research |
+# literature | backlog); the cycle plan's *Phase focus* section overrides
+# it. Cycle 1 used [literature, research, research, research, backlog].
+# Planning and retrospective steps take no round number.
 cycle:
   first_round: 101          # first round of cycle 1
   rounds_per_phase: 4
-  phases: [literature, research, research, research, backlog]
+  phases: [research, research, research, research, research]
 
 # Models for the subagents (the Agent tool's `model`: sonnet, opus, haiku).
 # The chair is whatever model runs the round session itself.
 models:
-  researcher: sonnet
-  referee: sonnet
+  researcher: opus     # sonnet until cycle 1 (human's choice, 2026-11-03)
+  referee: opus        # sonnet until cycle 1
   conference: sonnet   # was haiku until retrospective 2 (positions echoed STATE.md)
 
 # Limits every subagent is told to keep.

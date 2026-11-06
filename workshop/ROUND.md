@@ -5,10 +5,10 @@ yourself this round: you set the questions, brief the personas, assign
 referees, decide, and write up. Follow the steps in order. Paths are relative
 to the repository root.
 
-Rounds are grouped into cycles of five phases (literature, research x 3,
-backlog), each of three ordinary rounds and a conference; `workshop/CYCLE.md`
-has the cycle procedure, the planning step and what each phase's focus
-changes. This file says where a round uses it.
+Rounds are grouped into cycles of five phases, each of three ordinary
+rounds and a conference; phases are plain research unless the cycle plan
+gives one a focus. `workshop/CYCLE.md` has the cycle procedure, the planning
+step and what a focus changes. This file says where a round uses it.
 
 Keep your own reading small. You need `workshop/STEERING.md`,
 `workshop/config.yaml`, `workshop/STATE.md`, the top of `workshop/DIGEST.md`,
@@ -78,10 +78,11 @@ kind: ordinary
 
 How to choose:
 
-* **Phase focus.** In a **literature** or **backlog** phase, the call follows
-  that focus as `CYCLE.md` describes (and, in the first round of a backlog
-  phase, the backlog list is written first); the breadth and
-  suggested-question rules below apply in **research** phases only.
+* **Phase focus.** Read *Phase focus* in the cycle's `plan.md`. Where it
+  gives this round (or some personas) a **literature**, **backlog** or other
+  focus, the call follows it as `CYCLE.md` describes (in the first round of
+  a backlog phase, the backlog list is written first); the breadth and
+  suggested-question rules below apply to research slots only.
 * **Revisions first.** Anyone in *Awaiting revision* on the board is called, and
   their assignment is the revision. A revision counts towards
   `researchers_per_round`.
@@ -368,7 +369,7 @@ No new research. The point is to step back and agree what is worth doing.
    > **the result of this phase closest to a finding**, and what one check
    > it still needs; **what you need** from another persona. <For a
    > literature phase: also what the literature changed for your thread and
-   > what phase 2 should not do because it is published. For a backlog
+   > what the next phase should not do because it is published. For a backlog
    > phase: which backlog items you consider settled, retired or still
    > open.> Do not run anything and do not edit other files. Reply with your
    > most promising question in one line.
@@ -390,11 +391,19 @@ No new research. The point is to step back and agree what is worth doing.
    For each: write the entry, or name the **one check that blocks it**; that
    check becomes an assignment in the next ordinary round (step 1). A
    ledger with no change is allowed only with the blocking checks named.
+   **Scoped findings:** a finding states its scope (n, classes, levels,
+   groups tested) in its title, like an E-entry; it need not wait for a
+   result with no open point. When the blocking check named at an earlier
+   conference has been done, write the F-entry at the scope reached, with
+   the next open point in its body; a candidate gets a blocker named at most
+   once -- at the next conference, write it at its current scope or retire
+   it with the reason.
    A question the workshop is working on that has no H-entry gets one now.
    Write this under `## Ledger` in `proceedings.md`, one line per decision
    with identifiers. Then commit these `research/` edits with the round.
-   In the conference of a **backlog** phase, the ledger covers the whole
-   cycle and the backlog list (`CYCLE.md`, *Backlog*).
+   In the conference of the cycle's **last phase**, the ledger covers the
+   whole cycle and every open item is marked (`CYCLE.md`, *The cycle's last
+   conference*).
 4. Write the rest of `proceedings.md` as a **proposed agenda**: three to five
    threads, ranked, each with who should work on it and the first question
    to ask. At least one item comes from outside the thread that took most of

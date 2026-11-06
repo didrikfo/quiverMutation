@@ -5,6 +5,12 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Cycle 1 retrospective -- 2026-11-06 -- rounds 101-120 (dispatcher)
+`cycles/001/retrospective.md` (copy: `retrospectives/003-cycle-001.md`). 20 rounds, 43 E-entries, 8 new H-entries, 3 status changes (H-024, H-026, H-027 -> SUPPORTED), 3 retractions (R-014..R-016), still 0 F-entries. About $5 per ordinary round, $1.9 per conference.
+- **Phases.** Literature (101-104) was the most productive phase (H-024's source, Oppermann reframing H-023, Fosse Cor. 4.6), largely as a catch-up; backlog (117-120) settled 13 of 19 items, including docstrings pending since round 045. Research phases: named blockers and pre-registered controls worked, but each blocker revealed another, so no finding was written. T10 needs a longer run than a round allows.
+- **Changes for cycle 2 (the human's plan).** No predefined phase focus (the planning step may set one); researchers and referees on opus; one round per day (00:43 UTC). From the retrospective: scoped F-entries, a blocker named at most once per candidate, and the cycle's last conference always marks every open item.
+- Next: cycle 2 planning (rounds 121-140). **Steer it by editing `cycles/002/plan.md` or `STEERING.md` once the plan is out.**
+
 ## Round 120 -- 2026-11-06 -- conference (cycle 1, phase 5: backlog; the cycle's last)
 All six personas wrote positions; no new work, no referees. Merge of origin/main: up to date. No open questions from 119.
 - **Positions:** four of six (skeptic, scholar, toolsmith, maverick) name the same next question, T10/H-015: does a key-kept step cross the n = 9 q_S 18 + 18 split (depth-6 ball of 3060000 plus hit search, miss logged first). Theorist: prove H-031 (loop cancellation) from M3/M3b. Experimentalist: H-026 class level and the self-mirror exception. All six name the same weakest claim: the Cartan-level NO (float bound, Nikulin 1.13.3 UNVERIFIED, planted power at one n = 11 group), then the J = 0 premise.
