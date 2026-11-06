@@ -1,0 +1,8 @@
+signed seed 514 F 4 ['gate!=tilt']
+signed seed 1629 R 2 ['gate!=tilt']
+signed seed 1806 F 4 ['gate!=tilt']
+signed seed 1944 F 3 ['gate!=tilt']
+signed seed 2257 R 1 ['gate!=tilt']
+signed seed 2794 R 1 ['gate!=tilt']
+signed seed 3277 R 2 ['gate!=tilt']
+parents 617 failing vertex/side cases {'signed': 7, 'unsigned': 49}

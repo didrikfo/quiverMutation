@@ -1,0 +1,10 @@
+signed seed 871 R 1 ['gate!=tilt']
+unsigned seed 1614 F 0 ['nomatch']
+unsigned seed 1614 F 1 ['nomatch']
+unsigned seed 1614 R 1 ['gate!=tilt', 'nomatch']
+unsigned seed 1614 F 2 ['nomatch']
+unsigned seed 1614 R 2 ['gate!=tilt', 'nomatch']
+unsigned seed 1614 F 3 ['gate!=tilt', 'nomatch']
+unsigned seed 1614 R 3 ['nomatch']
+unsigned seed 1614 R 4 ['nomatch']
+parents 319 failing vertex/side cases {'signed': 1, 'unsigned': 22}

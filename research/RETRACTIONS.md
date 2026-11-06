@@ -6,6 +6,17 @@ does not. See [`README.md`](README.md).
 
 ---
 
+## R-016 — "The repo's gate and F/R convention fail on non-minimal relation presentations with a redundant length-3 relation" (E-310, H-030's wording; seed 1614 '0 of 8 after deletion')
+*retracted 2026-11-06* · corrected by E-312 (workshop round 119)
+
+E-310 and H-030 reported 74 anomaly lines in 9 of 206 non-minimal parents and that seed 1614 (n = 5) failed 8 of 8 vertex/side cases and 0 of 8 once the redundant relation was deleted, read as a presentation dependence of `isMutable`/`mutateAtVertex`/`reduce`.
+
+**False as a claim about the repo.** The round-118 harness (`workshop/rounds/118/skeptic_conv3.py`, `repo_input`) encoded the coefficient -1 as 32002 = 32003 - 1; the repo computes over the rationals, where that is a different algebra (E-312). With -1 passed as -1, seed 1614 fails 0 of 8, and the E-310 sample's failures fall from 71 to 8, all E-080-type over-admissions on minimal presentations. The "0 of 8 after deletion" power control changed the coefficient, not the minimality. What survives of E-310: the parallel-arrow/cyclic results, the H-020 delta part (E-310 (14)), and the E-080 over-admission on minimal length-3 presentations. Lesson: a harness that feeds the library an encoding must be checked against the library's number type before a library failure is claimed.
+
+---
+
+---
+
 ## R-015 — "The (4,7)/(7,4) lone-3 class at n = 15 is messy: 12 image keys at K >= 5" (E-263), and "the K-threshold is (n-1)/2 - 2 for every lone-3 row" (H-026's wording)
 *retracted 2026-11-04* · corrected by E-301 (workshop round 114)
 

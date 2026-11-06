@@ -1,0 +1,1 @@
+((8, 4), (10, 3)) base 2 reached 11 min 2 lowered 0 secs 222.9

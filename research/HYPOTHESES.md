@@ -13,10 +13,10 @@ For a Construction-2.2 parent with a degree-1 loop f at i whose differential is 
 
 ---
 
-## H-030 — The repo's gate and F/R conventions depend on the relation presentation: with a redundant length-3 relation they fail, with a minimal set only the E-080 over-admission occurs (proposed round 118)
-*2026-11-05* · **OPEN** *(in sample, n = 4..6: 74 anomaly lines in 9 of 206 non-minimal-presentation parents, 8 of 51 minimal arrow-length-3 parents, 0 in 470 minimal length-2 parents: E-310)* · *workshop round 118, skeptic*
+## H-030 — The repo's gate over-admits on minimal presentations with a length-3 relation (E-080 kind); the non-minimal-presentation part is retracted (proposed round 118, narrowed round 119)
+*2026-11-06* · **OPEN** *(8 anomalies in 936 minimal-presentation parents, n = 5, 6, coefficients +-1: E-312; the redundant-relation claim retracted: R-016)* · *workshop round 118, skeptic; narrowed round 119, toolsmith*
 
-**Claim (sufficient condition only):** if the relation set of a non-monomial parent contains a redundant arrow-length-3 relation, the repo's gate or F/R child can disagree with Hom-verified tilting in both directions; deleting the redundant relation removes the failure (seed 1614, n = 5: 8 of 8 vertex/side cases fail, 0 of 8 after deletion). Not claimed: 'exactly when', anything for monomial, parallel-arrow or cyclic-with-result parents (0 failures there), n >= 7. **Falsifiable:** a non-minimal presentation with a redundant length-3 relation on which the repo agrees with tilting at every vertex/side, systematically; or a failure with a minimal length-2 presentation. Test: locate the failing step in `isMutable`/`mutateAtVertex`/`reduce` and make a regression test of seed 1614 (round 119, toolsmith).
+**Claim now:** for non-monomial parents with a minimal presentation containing a length-3 relation, the gate can admit a vertex that Hom-verified tilting refuses (8 of 936 parents; seeds 871, 514, 1629, 1806, 1944, 2257, 2794, 3277). Redundant relations are handled correctly once coefficients are passed as rationals (E-312, R-016). **Falsifiable:** a gate-admitted vertex of a minimal presentation that Hom refuses is the claim; a proof that the gate is exact on length-3 relations (or a counterexample to the 8) refutes it. Open: which of the 8 have exactly the E-080 shape, and whether an injectivity test of p -> p(arrow) on the span closes them.
 
 ---
 
@@ -629,6 +629,8 @@ outside a quipu class is a *single* overlapping cluster, usually against an end.
 A normal form fitted to those may say nothing about a quiver long enough to hold
 two clusters far from both ends.
 
+
+**Amendment (round 119, E-314; idea, not run).** Proposed sub-statement H-017b: at n = 10, 11 the depth-5 defect of monomial quipu members depends on the Coxeter key beyond the source LNA's own features. Test: per-LNA mean defect, between-key variance after regressing out LNA features, key labels permuted among LNAs; about 15 LNAs per n; minimum detectable effect delta* fixed first by a planted-defect control; a non-significant result reads "not detected at power 0.8 for delta >= delta*", never "key irrelevant". Full text: `workshop/rounds/119/maverick.md`, last section. An OVERNIGHT proposal, not run.
 ---
 
 ## H-016 — Walking through a parallel-arrow quiver reaches a merge nothing else does

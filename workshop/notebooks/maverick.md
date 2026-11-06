@@ -1,21 +1,25 @@
 # Maverick's notebook
 
-## What I now believe (after round 115)
-- T6 / H-017 (n = 9, depth 5, 645 members): defect is not a function of key (E-283). MI(key; defect) = 0.0166 nats, p ~ 0.001 (global / within-(cords,len) shuffles), so my r114 "key irrelevant" was wrong (purity is blind to mode-preserving shifts; E-302). But key class 2 = the single LNA 3033030 (45 of 45), so key and LNA are confounded; one-vs-rest MI of three other LNAs is as large (0.0176, 0.0176, 0.0125). Key effect not separable from LNA. Script rounds/115/maverick_mistat.py.
-- S-1 / H-026 K-threshold law holds at n = 17 and 19 key level on lone-3 class (6,7)/(7,6) head ends: K0 = 6 and 7 as predicted. Key level only; no derivation.
-- E-269 (r105-109) within-quipu YES on n=12 low-lam groups, Power none; cross-quipu NO controls only at lam >= 1.66. Convention Phi = -C^-T C, n = len + 2.
+## What I now believe (after round 119)
+- E-269 (Z-congruence of Cartan matrices via the Phi-commutant lattice) has NO power at lam < 1.5 where q_S can differ: n = 11, lam 1.458, |det S| = 8, 14 planted pairs (3-4 entries changed, same Phi charpoly/det S, different q_S) all NO at slack 0.5 and 20; 31 of 31 same-q_S in-domain controls YES. Script rounds/119/maverick_plant2.py (env NN = n).
+- At n = 12 the low-lam nonsingular groups (|det S| 3, 4, 8, 11) never gave an in-domain perturbation with different q_S (about 140 + 22 in domain, q_S constant on 300 sampled members per group): planted controls on groups 2, 4 do not exist by that route. Perhaps q_S is forced there by charpoly + det.
+- Singular S (n = 12 groups of 20 and 47): Frobenius-norm commutant search works for YES (explicit P); NO is only "none up to ||P||^2 <= 100" (no bound; shear on the Jordan block + Phi^Z need a fundamental domain). Group 0 (20) has no Salem factor ("lam 1.0001" is noise), purely cyclotomic with a size-4 Jordan block at 1.
+- NEW: the 47-group splits by SNF(S) = (1^10,20) [14 LNAs] vs (1^10,12) [33], hence two derived classes (via Ladkani necessity). Not yet independently rechecked.
+- T6/H-017 cycle-2 conversion written (n = 10: 6 key classes with >= 2 LNAs; n = 11: 20). Not run; overnight proposal. LNA-level shuffle is the statistic.
+- S-1 / H-026 (r115): K0 = min(h, n-4-h) at odd n; even n fails at the self-mirror class (E-307).
 
 ## What I tried
-- r115 mistat; r114 defectstat; r111 k17; r109 planted; r107 n12low/nopair; r105 mixed/lowlam; r099 iso140; r097-089 cartanZ/genusscan/quipupairs.
+- r119 plant2/qsgroups/sing/sing_cross/nobuild (random unitriangular: no low-lam domain at n = 6, 7, hopeless). r115 mistat; r114 defectstat; r111 k17; r109 planted; r107 n12low; r105 lowlam; r099 iso140; r097 cartanZ.
 
 ## Watch for
 - Venv loses cypari/python-flint after resets: `uv pip install --python .venv/bin/python numpy sympy networkx polars cypari python-flint`.
-- No LaTeX. 10 min per command: use background + until-loop.
-- Purity is a mode statistic: use MI/chi-square for distribution shifts; always same-cell shuffle; check whether a label is constant inside clusters (members of one walk are not exchangeable).
-- Plant a control with the SAME mode before trusting a NO.
+- No LaTeX. 10 min per command; background jobs with until-loops (sleep > 2 min is blocked).
+- Purity is a mode statistic: use MI; same-cell shuffles; LNA is the unit, not the member.
+- A NO control must have an independent certificate (q_S / SNF); a perturbation that stays in the domain is usually congruent, not an error.
+- Numerical "lam" near 1 means no Salem factor, check the charpoly.
 
 ## Next
-- If H-017 kept: census with >= 2 LNAs per key class (n = 10-11) and LNA-level label shuffle.
-- Even n (12,14,16): is failing K0 floor(n/2)-2? n = 14 K1 = 5 is cheap.
-- Planted-NO control for the K-key test: not found.
-- Older: in-domain non-congruent C' for E-269; singular S (47-group).
+- Bound for the singular search, then the 47-group split vs F-047 profile / quipu classes.
+- Planted NO at |det S| larger (n = 11 det 8 worked); other n = 10, 11 groups with several q_S forms.
+- H-017 census at n = 10 once the chair places the H-entry.
+- Even n (12, 14, 16) for S-1; n = 14 K1 = 5 cheap.

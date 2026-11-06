@@ -1,0 +1,9 @@
+871 n 5 nrels 1 path lengths [[3]] redundant(each) [False] minimal True
+514 n 6 nrels 2 path lengths [[2], [3]] redundant(each) [False, False] minimal True
+1629 n 6 nrels 1 path lengths [[3]] redundant(each) [False] minimal True
+1806 n 6 nrels 2 path lengths [[2], [3]] redundant(each) [False, False] minimal True
+1944 n 6 nrels 2 path lengths [[2], [3]] redundant(each) [False, False] minimal True
+2257 n 6 nrels 1 path lengths [[3]] redundant(each) [False] minimal True
+2794 n 6 nrels 4 path lengths [[2], [2], [2], [3]] redundant(each) [False, False, False, False] minimal True
+3277 n 6 nrels 4 path lengths [[2], [2], [3], [3]] redundant(each) [False, False, False, False] minimal True
+control 1614 [False, True]

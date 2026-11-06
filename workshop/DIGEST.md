@@ -5,6 +5,15 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 119 -- 2026-11-06 -- ordinary (cycle 1, phase 5: backlog)
+Toolsmith, experimentalist, maverick worked; referees skeptic, theorist, scholar (all minor revision, answered). Merge of origin/main: up to date. No open questions from 118.
+- **Toolsmith (E-312, accepted; R-016):** seed 1614's "redundant relation" failure was the round-118 harness passing -1 as 32002 into the rational library, not a bug in `isMutable`/`mutateAtVertex`/`reduce`. With -1 correct the repo agrees with tilting (8 of 8); 71 -> 8 failures on the n = 5, 6 sample, the 8 left all minimal E-080-type over-admissions. 5 regression tests, library untouched.
+- **Experimentalist (E-313, note, no power):** no start-gap-2 pair lowers overlap in 3 non-vacuous cells (k = 4, 5); k >= 5 mostly capped, parallel-arrow ValueError is an engine limit. E-288 had already declined this overnight run; item 10 converted to a theorist question.
+- **Maverick (E-314, accepted narrowed):** E-269's Z-congruence search says NO on 21 of 21 q_S-separated planted pairs at one n = 11 group (292 of 292 controls YES); no planted pair exists at n = 12. The singular n = 12 group of 47 splits 14 + 33 by SNF(S) (referee recomputed): not one derived class. E-291 amended; H-017b proposed (overnight, not run).
+- **Consequences:** R-016 retracts E-310's non-minimal-presentation failures and H-030's wording (H-030 narrowed to 8 of 936 minimal cases); no F/R entry for T10. Item 17 (undecided overnight proposals): none approved, retired by the chair.
+- Round 120 is the cycle's last conference (ledger covers the whole cycle). Open backlog: 2, 8, H-029 widths 8-9, E-080 shape of the 8.
+- Questions for the human: none.
+
 ## Round 118 -- 2026-11-05 -- ordinary (cycle 1, phase 5: backlog)
 Toolsmith, theorist, skeptic worked; referees maverick, experimentalist, scholar (all minor revision, answered). Merge of origin/main: up to date. No open questions from 117.
 - **Toolsmith (E-311, accepted):** docstrings of `search.py`, `fingerprint.py`, `procedure.py` corrected (guard = necessary-condition filter; `canonicalKey`; `allowCyclic` KeyError; Oppermann note); F-002 text updated; Fosse Cor. 4.6 misprint re-confirmed (not new). Five direct-caller scripts: 3 exact, 2 time-capped and agreeing on what they cover. Backlog 11, 12 settled.

@@ -1,17 +1,16 @@
-# Experimentalist notebook (rewritten round 117)
+# Experimentalist notebook (rewritten round 119)
 
 ## What I now believe
-- S-1/H-026: all ten (twelve) earlier fits were ODD n. Round 117: at even n the law K0 = min(h, n-4-h) holds for non-central lone-3 classes (n = 10, 12, 14, 16, 10 classes) but the self-mirror class h = n-4-h has NO split at K >= 1 (n = 10, 12, 14; n = 16 K >= 3; n = 18 K >= 5, out of sample, h=6 K0=6 ok). Wording: refutes the even-n EXTENSION, not H-026 as worded; E-146 had n = 12. My pre-registered K0(5,5) = 5 at n = 14 was falsified. H-026 needs rewording; refinement fitted post hoc.
-- Rivals min(h, n-5-h), min(h, n-3-h) (short-side reading) equal the law off-centre: no data can separate them there; R1/R4/R5/long-side reading are refuted (power control; planted K0-1 miss caught 8/8).
-- Class level (n = 15 h = 3): image key constant on forward-rewrite components (sub-orbits, not full orbit; 1677 components; shuffle null 52 mixed vs 0). Components are sub-orbits only; q_S / derived class untested. My "not separated" prediction was wrong.
-- Two-3 classes: no law (round 115). E-263 (4,7) was a writer bug (R-015).
-- Practical: kpower.py `table N K1 h,h,..` does a one-pass multi-class table (rows(n-K1) enumeration: 208k rows = 45 s); `orbits` uses lnaMoves.rewritesOf union-find.
-- Lesson: when every fit is at one parity (or one side), the rival that differs only at the other parity is the real test; list what the fits cannot separate before choosing rivals.
+- T7 / H-010: no gap-2 pair has ever lowered overlap (E-288, round 119); runs of three do (2->0, 3->2). The two-bystander shape has no control. k >= 5 is hours per cell: 109 s for (8,4)(10,4) at k = 4 margin 1, capped at k = 5, 6. Undecided is not negative.
+- Harness: at k = 5, 6 `arrowPaths.liftPath` raises "parallel arrows does not name a path" for (8,3)(10,3). Deeper cells may need that fixed.
+- S-1/H-026 (round 117): at even n the law K0 = min(h, n-4-h) holds off-centre; the self-mirror class has no split (n = 10, 12, 14; 16 K >= 3). Needs rewording; refinement fitted post hoc. Rivals min(h, n-5-h), min(h, n-3-h) are equal off-centre. Class level (n = 15 h = 3): image key constant on forward-rewrite components only.
+- Two-3 classes: no law (115). E-263 (4,7) was a writer bug (R-015).
+- Practical: kpower.py `table N K1 h,h,..`; `orbits` uses lnaMoves.rewritesOf. Lesson: if every fit is at one parity, test the rival that differs at the other.
 
 ## What I tried
-- 117: `rounds/117/experimentalist_kpower.py` (+ prediction file, outputs *_out.txt). 115: kloc, nonlone. 114 tail; 113 kthresh; 110 refusal; 107 chain; 105 defect census.
+- 119: `rounds/119/experimentalist_gap2.py` (+ _k4/_k5/_k6 outputs). 117 kpower; 115 kloc, nonlone; 114 tail; 113 kthresh; 110 refusal; 107 chain.
 
 ## What I would do next
-1. Explain the self-mirror exception (head/tail symmetry) and test non-lone self-mirror classes ((p,p) two-3 rows) at even n.
-2. Class level properly: q_S or Z[Phi] on rows of the two image-key populations at n = 15 h = 3, K = 3; full orbit with reverse edges (needs rows(15) enumeration, ~12 min, chunk it).
-3. Tail end at even n; T10 n=7 class 1 chain; T7 at k=5; T6 depth 6.
+1. T7: overnight k = 5, 6 gap-2 pairs (see submission 119), or ask theorist for an argument that gap-2 cannot lower.
+2. Self-mirror exception at even n; non-lone self-mirror classes.
+3. Class level with q_S / Z[Phi] at n = 15 h = 3.

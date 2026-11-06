@@ -1,0 +1,49 @@
+Traceback (most recent call last):
+  File "/home/user/quiverMutation/workshop/rounds/119/experimentalist_trace.py", line 9, in <module>
+    try: print(*ch.run((pat, steps, margin)), flush=True)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/quiverMutation/workshop/rounds/107/experimentalist_chain.py", line 19, in run
+    reached = lm.localMutationSequences(L, rl, lo, hi, steps, margin)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/quiverMutation/quivermutation/lnaMoves.py", line 1016, in localMutationSequences
+    walk(nakayama.LinearNakayamaAlgebra(length, relLengths), maxSteps, [])
+  File "/home/user/quiverMutation/quivermutation/lnaMoves.py", line 1014, in walk
+    walk(nextAlg, steps - 1, sequence)
+  File "/home/user/quiverMutation/quivermutation/lnaMoves.py", line 1014, in walk
+    walk(nextAlg, steps - 1, sequence)
+  File "/home/user/quiverMutation/quivermutation/lnaMoves.py", line 1014, in walk
+    walk(nextAlg, steps - 1, sequence)
+  [Previous line repeated 1 more time]
+  File "/home/user/quiverMutation/quivermutation/lnaMoves.py", line 1001, in walk
+    nextAlg = _quiet(mutation.quiverMutationAtVertices, _copy(pathAlg), [signed])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/quiverMutation/quivermutation/lnaMoves.py", line 31, in _quiet
+    return function(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/quiverMutation/quivermutation/mutation.py", line 49, in quiverMutationAtVertices
+    pathAlg = quiverMutationAtVertex(pathAlg, vertex)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/quiverMutation/quivermutation/mutation.py", line 42, in quiverMutationAtVertex
+    pathAlg.quiver, procedure.relationsFrom(pathAlg), vertex))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/quiverMutation/quivermutation/procedure.py", line 96, in relationsFrom
+    return ap.lift(pathAlg.quiver, pathAlg.rels)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/quiverMutation/quivermutation/arrowPaths.py", line 558, in lift
+    return [liftCombination(quiver, reading(rel)) for rel in rels]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/quiverMutation/quivermutation/arrowPaths.py", line 558, in <listcomp>
+    return [liftCombination(quiver, reading(rel)) for rel in rels]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/quiverMutation/quivermutation/arrowPaths.py", line 534, in liftCombination
+    return combination((liftPath(quiver, path), coefficient)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/quiverMutation/quivermutation/arrowPaths.py", line 181, in combination
+    for term in terms:
+  File "/home/user/quiverMutation/quivermutation/arrowPaths.py", line 534, in <genexpr>
+    return combination((liftPath(quiver, path), coefficient)
+                        ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/quiverMutation/quivermutation/arrowPaths.py", line 516, in liftPath
+    raise ValueError("{0} -> {1} is {2} parallel arrows, so the vertex "
+ValueError: 10 -> 13 is 2 parallel arrows, so the vertex sequence [7, 9, 10, 13] does not name a path
+secs 59.5

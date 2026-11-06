@@ -1,0 +1,4 @@
+((8, 4), (10, 4)) CAP 170 s: undecided (not a verdict)
+((8, 5), (10, 5)) CAP 170 s: undecided (not a verdict)
+((8, 3), (10, 3)) ERROR ValueError 10 -> 13 is 2 parallel arrows, so the vertex sequence [7, 9, 10, 13] does not name a path
+((8, 4), (10, 3)) CAP 170 s: undecided (not a verdict)
