@@ -20,3 +20,6 @@ Each: item · source · what closes it. Ranked by what it would settle. Status c
 17. Overnight proposals never decided: E-204 depth 8+8, exact classifyLength(10) (E-206/E-210), n = 12 growth sweep (E-253), k = 5 margin 2 (E-260) · decide: approve or retire.
 18. Missing primaries needing PDFs (Nikulin 1979, Happel-Seidel, BGS, Anick 1982) · human; not available -> UNVERIFIED stays (decided rounds 112-114).
 19. T6 H-017 (closed for cycle, reopens at n >= 10 with >= 2 LNAs per key class) -> convert to cycle-2 H-entry.
+
+## Status at the round-120 conference
+Settled: 1 (instrument exists, T10 untested), 3 (sub-orbit), 4, 5, 6, 7, 9, 11, 12, 13, 14, 15, 16 (one n = 11 group), 18 (UNVERIFIED stays). Retired: 2 (stop rule; author-reported), 17. Converted: 10, 19. Carried to cycle 2: 8, H-029 widths 8-9, E-080 shape of the 8, T10 depth-6 ball, second-group planted power for E-269.

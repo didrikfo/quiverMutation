@@ -273,6 +273,9 @@ def mutateAtVertex(quiver, relations, vertex, checkCartan = None, allowCyclic = 
     returns an unproved result.  Do not read a result of `allowCyclic = True`
     as evidence either way.
 
+    Coefficients in the relations are rationals (`relationAlgebra`): pass -1 as
+    -1, never as a residue such as 32002 (research R-016, E-312).
+
     Note on the source: Oppermann's hypothesis (1504.02617 Thm 1.1) is only "no
     loop of degree 0 at the mutated vertex"; loops of higher degree and cyclic
     D(i) are inside the theorem (E-273).  The refusal above is the library's

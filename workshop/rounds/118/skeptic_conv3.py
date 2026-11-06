@@ -1,3 +1,4 @@
+# NOTE (round 120): repo_input below maps residues above P/2 to positives; this encoding is the R-016 harness error (-1 became 32002). Do not reuse.
 """Round 118 (skeptic), item 15 (E-258 open points): the F/R side convention and gate = tilting for parents that skeptic_convention2.py did not
 cover: (P) acyclic MONOMIAL with PARALLEL arrows, (N) acyclic NON-MONOMIAL (commutativity relations p - q, plus monomials), (C) CYCLIC monomial.
 Own engine = rounds/091/skeptic_convention.py (K^b(proj), Hom by cohomology of Hom complexes) generalised: paths are arrow-index tuples, Hom(P_u,P_w)

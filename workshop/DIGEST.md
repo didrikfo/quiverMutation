@@ -5,6 +5,15 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 120 -- 2026-11-06 -- conference (cycle 1, phase 5: backlog; the cycle's last)
+All six personas wrote positions; no new work, no referees. Merge of origin/main: up to date. No open questions from 119.
+- **Positions:** four of six (skeptic, scholar, toolsmith, maverick) name the same next question, T10/H-015: does a key-kept step cross the n = 9 q_S 18 + 18 split (depth-6 ball of 3060000 plus hit search, miss logged first). Theorist: prove H-031 (loop cancellation) from M3/M3b. Experimentalist: H-026 class level and the self-mirror exception. All six name the same weakest claim: the Cartan-level NO (float bound, Nikulin 1.13.3 UNVERIFIED, planted power at one n = 11 group), then the J = 0 premise.
+- **Ledger (whole cycle):** no F- or R-entry, no hypothesis status changed. H-015 stays OPEN (instrument exists, untested). F-candidate: H-024 "Cartan-level NO valid for lam >= 1.5" -- blocked by planted power at a second group. R-candidate: "a key group is one derived class" (n = 12 group of 47 splits 14 + 33) -- blocked by an independent SNF on C.
+- **Backlog (19 items):** settled 1, 3-7, 9, 11-16, 18; retired 2 (stop rule), 17 (all four old overnight proposals); converted 10, 19. Carried to cycle 2: item 8 (H-025 search), H-029 widths 8-9, E-080 shape of the 8 anomalies, the T10 depth-6 ball, second-group power for E-269.
+- **Chair edits:** one docstring sentence in `mutateAtVertex` (pass -1 as -1; R-016); warning header on `rounds/118/skeptic_conv3.py`. Phase summary `cycles/001/phase-5.md`.
+- Next: cycle 1 retrospective (dispatcher), then planning for cycle 2 per the human's plan in STEERING.
+- Questions for the human: none. (Chair decision: depth-6 ball not yet approved as an overnight run; size it with `--plan` first.)
+
 ## Round 119 -- 2026-11-06 -- ordinary (cycle 1, phase 5: backlog)
 Toolsmith, experimentalist, maverick worked; referees skeptic, theorist, scholar (all minor revision, answered). Merge of origin/main: up to date. No open questions from 118.
 - **Toolsmith (E-312, accepted; R-016):** seed 1614's "redundant relation" failure was the round-118 harness passing -1 as 32002 into the rational library, not a bug in `isMutable`/`mutateAtVertex`/`reduce`. With -1 correct the repo agrees with tilting (8 of 8); 71 -> 8 failures on the n = 5, 6 sample, the 8 left all minimal E-080-type over-admissions. 5 regression tests, library untouched.
