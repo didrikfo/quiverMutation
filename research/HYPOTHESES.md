@@ -6,6 +6,13 @@ it. Status is one of `OPEN`, `SUPPORTED`, `CONFIRMED → F-nnn`, `REFUTED → R-
 
 ---
 
+## H-032 — Inside a Coxeter key group, walk-connected iff Phi-equivariantly Z-congruent Cartan forms (n <= 12; converse of H-024; proposed cycle 2 planning)
+*2026-11-07* · **OPEN** *(no test yet; first case: the singular n = 12 key group of 47, split 14 + 33 by SNF(S), E-314; n = 9 F-010 group split 18 + 18 by q_S, E-306)* · *workshop cycle 002 planning, maverick*
+
+**Claim:** for LNAs of length n <= 12, two LNAs in one Coxeter key group are joined by a key-guarded walk exactly when their Cartan forms are Phi-equivariantly Z-congruent. H-024 is the "only if" direction for derived equivalence; this adds completeness of the Cartan level inside a key group. **Falsifiable:** a guarded walk that joins two congruence classes (then H-015 or H-024 is false, or a census has a bug), or one congruence class that holds two walk components no deeper walk joins. Bears on H-015 (the 47-group is a second NO-capable instrument for T10) and on the R-candidate "a key group is one derived class". Speculation level: idea.
+
+---
+
 ## H-031 — Loop cancellation for pivot-reducible degree-1 loops (proposed round 118; broader than the proved models M1, M2, M4, M5)
 *2026-11-05* · **OPEN** *(proved for the formal dg models M1, M2, M4, M5: E-290, E-294, E-309; not Hom/End(T); not general)* · *workshop round 118, theorist*
 

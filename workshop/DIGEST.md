@@ -5,6 +5,15 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Cycle 002 planning -- 2026-11-07 -- rounds 121-140 (chair)
+All six personas (opus) wrote plans (`cycles/002/plan/`); chair's merge is `cycles/002/plan.md`. No research run. Merge of origin/main: up to date.
+- **Questions:** (1) T10/H-015: can a key-guarded walk cross a derived class; round 121 runs the three cheap instruments first (skeptic's count of key-kept J != 0 steps in E-306's balls, maverick's n = 12 group of 47, toolsmith's depth-6 ball sizing); no overnight run until the count. (2) H-023 at library scope (theorist; scholar reads the splitting lemmas). (3) H-026 at class level and the self-mirror exception. (4) H-030's 8 anomalies. (5) H-010 end-only argument.
+- **New hypothesis:** H-032 (maverick): inside a key group at n <= 12, walk-connected iff Phi-equivariantly Z-congruent; converse of H-024.
+- **Phase focus:** phases 1-4 research; phase 1 has a literature part (scholar 121-123, theorist 121-122, maverick 121); rounds 137-139 a backlog and replication sweep (independent rebuild of every F-entry of the cycle); 140 closing conference.
+- **Disagreements:** order of the T10 instruments (skeptic: count before the ball; maverick: 47-group first; toolsmith contests the round-120 no-overnight ruling); theorist would retire H-031 as moot for the library, scholar wants a round of reading first (deferred to phase 5); skeptic objects to an H-024 F-entry on one n = 11 group.
+- Next: round 121 (cycle 2, phase 1).
+- **If you want the cycle to go differently, edit `workshop/cycles/002/plan.md` or `workshop/STEERING.md`.**
+
 ## Cycle 1 retrospective -- 2026-11-06 -- rounds 101-120 (dispatcher)
 `cycles/001/retrospective.md` (copy: `retrospectives/003-cycle-001.md`). 20 rounds, 43 E-entries, 8 new H-entries, 3 status changes (H-024, H-026, H-027 -> SUPPORTED), 3 retractions (R-014..R-016), still 0 F-entries. About $5 per ordinary round, $1.9 per conference.
 - **Phases.** Literature (101-104) was the most productive phase (H-024's source, Oppermann reframing H-023, Fosse Cor. 4.6), largely as a catch-up; backlog (117-120) settled 13 of 19 items, including docstrings pending since round 045. Research phases: named blockers and pre-registered controls worked, but each blocker revealed another, so no finding was written. T10 needs a longer run than a round allows.

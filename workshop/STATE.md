@@ -3,21 +3,21 @@
 Owned by the chair. Rewritten (not appended) at the end of every round, under 12 000 bytes, each thread entry under 600 characters; history lives in the E-entries and `cycles/CCC/phase-P.md`. Every persona reads this first.
 
 last_round: 120
-cycle: 2 (rounds 121-140; CYCLE.md; plan in cycles/002/plan.md once the planning step has run)
-phase: none yet (planning step next)
-focus: research by default; the cycle 2 plan may give a phase or personas a focus. Cycle 1 retrospective: cycles/001/retrospective.md.
-next_round_kind: planning
+cycle: 2 (rounds 121-140; CYCLE.md; plan in cycles/002/plan.md, written 2026-11-07)
+phase: 1
+focus: research; phase 1 has a literature part (scholar 121-123, theorist 121-122, maverick 121); phase 5 rounds 137-139 are a backlog and replication sweep, 140 the closing conference (cycles/002/plan.md, Phase focus). Cycle 1 retrospective: cycles/001/retrospective.md.
+next_round_kind: ordinary
 
 ## What the project is doing now
 Tilting mutation of quivers with relations; derived equivalence of Nakayama algebras (LNAs). The search (`quivermutation/search.py`) walks mutations under a *gate* and a *Coxeter-key guard*; the guard is not a tilting test (E-147, E-151), and whether a guarded walk can leave a derived class through a J != 0 step is open. Retrospective 2 (`retrospectives/002-rounds-045-100.md`) reviews rounds 045-100 and introduced cycles; read its Part 1 for the long lines.
 
-## Cycle 1 plan
-Done. Cycle-2 agenda proposed by the round-120 conference (rounds/120/proceedings.md): (1) T10/H-015 depth-6 ball + hit search (toolsmith, maverick, skeptic); (2) H-024 planted power at a second group (maverick); (3) H-023/H-031 M3/M3b (theorist, skeptic); (4) H-026 class level + self-mirror (experimentalist, theorist); (5) H-029 widths 8-9, H-025 search. The human's plan for cycle 2 is in STEERING.md.
+## Cycle 2 plan
+See cycles/002/plan.md: questions T10 (count, 47-group, ball sizing in round 121; no overnight run until the count), H-023 at library scope, H-026 class level, H-030, H-010, H-032 (new, H-024's converse). Cycle 1 plan: done. Cycle-2 agenda proposed by the round-120 conference (rounds/120/proceedings.md): (1) T10/H-015 depth-6 ball + hit search (toolsmith, maverick, skeptic); (2) H-024 planted power at a second group (maverick); (3) H-023/H-031 M3/M3b (theorist, skeptic); (4) H-026 class level + self-mirror (experimentalist, theorist); (5) H-029 widths 8-9, H-025 search. The human's plan for cycle 2 is in STEERING.md.
 
 ## Open threads
 Each: question · H-entry · state · last worked · owner.
 
-- **T10 · guard audit** (agenda, round 120: 1) · H-015 · Can a key-guarded walk leave a derived class through a J != 0 step? All 13 of E-201's steps at n = 7 class 1 are Hom-verified YES (E-297, E-300; A-side corruptions 78 of 78 rejected, author-only, E-306). Instrument now exists: q_S splits the F-010 group at n = 9 (18 + 18), none at n = 8 (E-306); but the 14 815 J = 0 steps checked are guaranteed equal, and no key-kept step crossing the halves was found, so H-015 is untested. Next: depth-6 ball of 3060000 / hit search for the other half. HH has no power (E-305). · 117 · toolsmith
+- **T10 · guard audit** (agenda, round 120: 1) · H-015, H-032 · Can a key-guarded walk leave a derived class through a J != 0 step? All 13 of E-201's steps at n = 7 class 1 are Hom-verified YES (E-297, E-300; A-side corruptions 78 of 78 rejected, author-only, E-306). Instrument now exists: q_S splits the F-010 group at n = 9 (18 + 18), none at n = 8 (E-306); but the 14 815 J = 0 steps checked are guaranteed equal, and no key-kept step crossing the halves was found, so H-015 is untested. Next: depth-6 ball of 3060000 / hit search for the other half. HH has no power (E-305). · 117 · toolsmith
 - **T5 · J = 0 premise** (agenda, round 120: 3) · H-023 · Is every gate-admitted J = 0 step a derived equivalence? Cancellation proved (E-235); formal dg loop models M1 (E-290), M2 (E-294), M4 and M5 (E-309, all weights) proved; the general pivot-reducible statement is proposed H-031; Hom/End(T) for these models out of reach by finite computation, so H-023 stays OPEN. · 118 · theorist
 - **T3/T8 · Cartan-level invariants** (H-025 in the backlog) · H-024 (SUPPORTED; also H-025) · Necessity now has a second source: Ladkani 1001.4765 Lemma 3.5 + Rickard + Aihara-Iyama Thm 2.27, P = r^-T (E-308); Nikulin 1.13.3 still UNVERIFIED (secondary only). E-292: NO on 19 of 19 q_S-separated pairs, YES on 19 controls. Open: lam < 1.5 NO (no LNA pair exists there, E-276), Z[Phi]-class route, H-025 periodic-not-FCY search. · 117 (scholar) · skeptic E-314: planted NO power at one n = 11 group (21 of 21) and singular n = 12 group of 47 splits 14 + 33 by SNF(S) (E-291 amended).
 - **T7 · H-010** · H-010 · Single-mutation rule and Catalan factorisation proved relative to `procedure` (E-187, E-205). No start-gap-2 pair lowers overlap in three non-vacuous cells k = 4, 5; k = 5/6 mostly capped, engine ValueError on parallel arrows (E-313, no power); overnight not approved. Open: theorist argument whether H-010's end-only reasoning excludes gap-2 lowering (retirement route). · 119 · experimentalist
