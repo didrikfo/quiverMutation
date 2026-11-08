@@ -7,7 +7,7 @@ Also recorded: the LNAs reached (line nodes), labelled A14 / B33 / other.
 Controls (CTRL env):  'planted' -- the detector is shown the 33-class LNAs as if they were ball nodes and must flag every one (planted crossing);
                       'off'     -- the same ball with coxeterGuard=False: nodes whose key moved are certainly NOT derived equivalent to the root;
                                    reports how many of them the SNF detector flags, and how many key-EQUAL nodes with a different SNF the unguarded walk meets.
-usage (repo root): ROOT=3040500030 DEPTH=3 [CTRL=off] timeout 10m .venv/bin/python -W ignore workshop/rounds/121/maverick_ball47.py"""
+usage (repo root): ROOT=3040500030 DEPTH=3 [SIDES=right,opposite] [CTRL=off|planted] timeout 10m .venv/bin/python -W ignore workshop/rounds/121/maverick_ball47.py"""
 import sys, os, copy, time, collections
 sys.path.insert(0, '.')
 import flint
@@ -48,7 +48,7 @@ def main():
         same = sum(snf_of(invariants.integerCartanMatrix(nk.LinearNakayamaAlgebra.fromClassName(ct.className(r)))) != base for r in mem if lab[r] == 'A14')
         print('PLANTED: 33-class LNAs flagged %d of 33; 14-class LNAs flagged %d of 14 (want 33, 0)' % (flagged, same)); return
     guard = CTRL != 'off'; stats = collections.Counter(); flaggedN = []; lnas = collections.Counter(); snfhist = collections.Counter()
-    for side in ('right', 'opposite'):
+    for side in os.environ.get('SIDES', 'right,opposite').split(','):
         start = nk.LinearNakayamaAlgebra.fromClassName(ROOT)
         start = copy.deepcopy(start) if side == 'right' else pathAlgebra.dualPathAlgebra(start)
         vis = fingerprint.Visited()

@@ -8,4 +8,6 @@ Slots: 3 (config). Plan item 1 asks for count, 47-group and ball sizing; the cou
 ## Revisions due
 (none)
 ## Referees
-(filled in at step 3)
+- theorist: referees scholar.md
+- experimentalist: referees skeptic.md
+- skeptic: referees maverick.md
