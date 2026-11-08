@@ -22,6 +22,7 @@
 - Opposite-side LNAs in ball47 are reported as found on the dual (mirror); labels are mirror-invariant in this group.
 
 ## Next
+- r121 referee: group-47 balls are ALL J = 0 tilting steps (crossing impossible by theorem). Before any SNF ball, run `rounds/121/maverick_jtilt.py ROOT DEPTH` (skeptic's classifier) and only proceed if J != 0 / non-tilting steps exist. T10 target: such a step in this group (depth >= 6?) or another group.
 - Find a root (any n) where the unguarded walk DOES move the key, to get a walk-level NO control; or graft a planted crossing step (toolsmith).
 - H-032 inside one SNF class: meetingPoints / E-314 singular search between the 6 orbits of the 14-class and the 3 of the 33-class.
 - Overnight if approved: depth 6-7 both sides from 3040500030, 0040033030.

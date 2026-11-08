@@ -40,6 +40,11 @@ def split_test(gens, dval, theta):
     rest_th = sorted((name(x) if not isinstance(x, str) else x) for x in theta if x not in C)
     return C, mix, bij, rest_th
 
+def ideal_test(gens, dval, C):
+    """Referee item 4 (KY's PROOF, not its statement): the projection killing C is a dg map iff the two-sided ideal (C)
+    is d-stable, i.e. every word of d(c), c in C, contains a C letter. Returns the failing (c, word) pairs."""
+    return [(c, w) for c in gens if c in C for w, k in dval[c].items() if k and not set(w) & C]
+
 def run(model):
     q = lf.MODELS[model](); m, letters, wt = lf.setup(q)
     dval = {L: {w: k for w, k in m.partial({(L,): 1}).items() if k} for L in letters}
@@ -56,6 +61,8 @@ def run(model):
     print(f'  (c) letters with a linear term in d: {[(name(x), [name(w[0]) for w in dval[x] if len(w) == 1]) for x in letters if any(len(w) == 1 for w in dval[x])]}')
     print(f'  (d) KY L.2.10 direct-sum on raw generators: C = {sorted(name(x) for x in C)}; trivial part linear+bijective: {bij}; mixing terms: {len(mix)}  -> {"YES" if C and not mix and bij else "NO"}')
     for t in mix[:4]: print('      e.g.', t[0], t[1], [name(y) for y in t[2]])
+    bad_id = ideal_test(letters, dval, C)
+    print(f'  (d\') dg-ideal version: words of d(C) outside the ideal (C): {len(bad_id)}  -> {"YES" if C and not bad_id else "NO"}', [(name(c), [name(y) for y in w]) for c, w in bad_id])
     print(f'  (e) Theta letters outside the trivial part (reduced part, quadratic d, Lemma A territory): {rest}')
     return m, letters, dval
 
@@ -68,8 +75,12 @@ with contextlib.redirect_stdout(buf):
     sys.path.insert(0, 'workshop/rounds/118'); import theorist_m45 as T
 gens = list(T.claim5); theta = {'ta', 'saa', 'sma', 'tmp', 'smmp', 'samp'}
 C, mix, bij, rest = split_test(gens, T.claim5, theta)
-print(f'== CONTROL M5 after the E-309 substitution: C = {sorted(C)}; linear+bijective {bij}; mixing {len(mix)} -> {"YES" if C and not mix and bij else "NO"}; Theta left in reduced part: {rest}')
+print(f'== CONTROL M5 after the E-309 substitution: C = {sorted(C)}; linear+bijective {bij}; mixing {len(mix)} -> {"YES" if C and not mix and bij else "NO"}; Theta left in reduced part: {rest}; dg-ideal failures {len(ideal_test(gens, T.claim5, C))}')
 # planted error: re-introduce one mixing term (d ta = pa + w fb) -> must say NO
 bad = dict(T.claim5); bad['ta'] = {('pa',): 1, ('w', 'fb'): 1}
 C2, mix2, bij2, _ = split_test(gens, bad, theta)
 print(f'== PLANTED (d ta = pa + w fb): mixing {len(mix2)} -> {"YES" if C2 and not mix2 and bij2 else "NO"}')
+# planted for (d'): a word of d(ta) avoiding C (w fb is in (C) only if fb is; use two non-C letters)
+nonC = sorted(x for x in gens if x not in C)[:2]
+bad2 = dict(T.claim5); bad2['ta'] = {('pa',): 1, tuple(nonC): 1}
+print(f'== PLANTED for (d\') (d ta = pa + {" ".join(nonC)}): dg-ideal failures {len(ideal_test(gens, bad2, C))}')

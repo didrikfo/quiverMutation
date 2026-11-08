@@ -3,7 +3,7 @@ mode `ball ROOT DEPTH`: rebuild E-306's ball (E-212 `moves`, J = 0 key-kept tilt
   gate-admissible perI (J != 0) F/R candidate by outcome (kept / moved / illegal / verts / err) -- E-306's script dropped a kept candidate
   silently if `child` raised; here such a drop is counted -- and the q_S invariant (signature, |det S|, q_S histogram of S = C + C^T) of each
   key-kept child, labelled A (= 3060000 half), B (= 3304000 half) or OTHER.
-mode `replay`: rebuild the parents of all 18 recorded key-kept perI J != 0 steps of the F-010 balls (E-233, E-234 x10, E-239, E-244 x6) from
+mode `replay`: rebuild the parents of all 19 recorded key-kept perI J != 0 steps of the F-010 balls (E-233, E-234 x10, E-239, E-244 x6, E-254) from
   their recorded paths, check every path move is a `moves` move, check the step is perI-flagged and key-kept, and label the child's q_S.
   Planted control: each step's child compared against the OTHER half's root invariant (must say NO).
 usage (repo root): timeout 10m .venv/bin/python -W ignore workshop/rounds/121/skeptic_jcount.py ball 3060000 4 | replay"""
@@ -81,7 +81,8 @@ elif MODE[0] == 'replay':
         ('E-239 2026', '3304000', 'F2 R8 R9 R7 R7', 'R7'),
         ('E-244 4606', '3304000', 'F2 F1 R8 R9 R7 R7', 'R7'), ('E-244 8063', '3304000', 'F2 R8 R7 R9 F7 R9', 'R9'),
         ('E-244 8170', '3304000', 'F2 R8 R9 F2 R7 R7', 'R7'), ('E-244 8196', '3304000', 'F2 R8 R9 F4 R7 R7', 'R7'),
-        ('E-244 8427', '3304000', 'F2 R9 R8 R7 R9 R7', 'R7'), ('E-244 11123', '3304000', 'R8 R9 R7 R7 F2 F7', 'R2')]
+        ('E-244 8427', '3304000', 'F2 R9 R8 R7 R9 R7', 'R7'), ('E-244 11123', '3304000', 'R8 R9 R7 R7 F2 F7', 'R2'),
+        ('E-254', '2400230', 'F1 F1 F2 F3 R9 R7 R9 F3', 'F3')]   # added round 121 response (referee: 19th step, 2400230 is half B)
     t0 = time.time(); tally = collections.Counter()
     for rec, root, path, step in STEPS:
         x = nk.LinearNakayamaAlgebra.fromClassName(root); ok = True
@@ -95,9 +96,11 @@ elif MODE[0] == 'replay':
         c = child(x, kind, v) if ok else None
         hp, hc = (half(x), half(c)) if ok else ('-', '-')
         other = INV['3304000'] if root == '3060000' else INV['3060000']
+        pm = PP(path); shape = ('step=last move' if pm[-1] == (kind, v) else 'step in path' if (kind, v) in pm else 'step not in path')
+        tally[('shape', shape)] += 1   # printed shape key: does the step repeat a move (same kind, same vertex) of the path?
         planted_no = (qinv(c) != other) if ok else None       # planted cross step: child vs the other half's root; must be True (NO)
         res = 'YES (q_S equal)' if ok and qinv(c) == qinv(x) else 'NO' if ok else 'path broken'
         tally[(tag, res, planted_no)] += 1
-        print('%-12s root %s path %-22s step %s  path moves ok %s  tag %-8s parent %s child %s  q_S test: %s  planted cross step NO: %s'
-              % (rec, root, path, step, ok, tag, hp, hc, res, planted_no), flush=True)
+        print('%-12s root %s path %-24s step %s  shape %-16s path moves ok %s  tag %-8s parent %s child %s  q_S test: %s  planted cross step NO: %s'
+              % (rec, root, path, step, shape, ok, tag, hp, hc, res, planted_no), flush=True)
     print('TALLY', dict(tally), 'time %.0fs' % (time.time() - t0))
