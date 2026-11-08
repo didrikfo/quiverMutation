@@ -20,6 +20,14 @@ All six personas (opus) wrote plans (`cycles/002/plan/`); chair's merge is `cycl
 - **Changes for cycle 2 (the human's plan).** No predefined phase focus (the planning step may set one); researchers and referees on opus; one round per day (00:43 UTC). From the retrospective: scoped F-entries, a blocker named at most once per candidate, and the cycle's last conference always marks every open item.
 - Next: cycle 2 planning (rounds 121-140). **Steer it by editing `cycles/002/plan.md` or `STEERING.md` once the plan is out.**
 
+## Round 121 -- 2026-11-08 -- ordinary
+Cycle 2, phase 1. Scholar, skeptic, maverick; referees theorist, experimentalist, skeptic (all minor revision, answered).
+- **Scholar:** no published splitting lemma (Keller-Yang 0906.0761 Lemma 2.10, DWZ 0704.0649 Thm 4.6) covers H-031: they are complete / Ginzburg / loop-free / direct-sum; raw kM fails the direct-sum and dg-ideal conditions on M1, M4, M5. They give the mechanism only. H-023 stays OPEN. E-315 + two literature files.
+- **Skeptic:** the 19 recorded n = 9 key-kept J != 0 steps all keep q_S, but every child was already in its parent's J = 0 component, so the test cannot say NO unless H-023 fails; E-306's balls hold 2 (rediscovery). E-316.
+- **Maverick:** the n = 12 group of 47 splits into 9 census orbits (6 + 3), none mixed; guarded balls to depth 5 hold only J = 0 tilting steps (7300), so no walk-level T10 test. E-317; H-032 first case.
+- **Consequence:** the depth-6 ball is not a T10 test; next is a search for a step outside the J = 0 component. No F/R entries. Round 122: theorist (H-031 three steps), toolsmith (T10), scholar.
+- Questions for the human: none.
+
 ## Round 120 -- 2026-11-06 -- conference (cycle 1, phase 5: backlog; the cycle's last)
 All six personas wrote positions; no new work, no referees. Merge of origin/main: up to date. No open questions from 119.
 - **Positions:** four of six (skeptic, scholar, toolsmith, maverick) name the same next question, T10/H-015: does a key-kept step cross the n = 9 q_S 18 + 18 split (depth-6 ball of 3060000 plus hit search, miss logged first). Theorist: prove H-031 (loop cancellation) from M3/M3b. Experimentalist: H-026 class level and the self-mirror exception. All six name the same weakest claim: the Cartan-level NO (float bound, Nikulin 1.13.3 UNVERIFIED, planted power at one n = 11 group), then the J = 0 premise.

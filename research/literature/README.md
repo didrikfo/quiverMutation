@@ -43,6 +43,8 @@ literature give us for **merging** classes of LNAs?
 | [1305.5213](1305.5213-strong-global-dimension.md) — Alvares–Le Meur–Marcos | Happel–Zacharia via `s.gl.dim`: finite iff piecewise hereditary, and a height function on the mutation graph. Its **value** is not a derived invariant |
 | [1910.01494](1910.01494-derived-tame-nakayama.md) — Bekkert–Giraldo–Vélez-Marulanda, Derived tame Nakayama algebras | Why the skewed-gentle route does **not** reopen R-008: every LNA has a simple projective. The pointer to Brüstle |
 | [2509.02375](2509.02375-coxeter-coefficients-trees.md) — Harel–Ladkani, Coefficients of Coxeter polynomials of trees | Thm. 1.1: the second coefficient counts a quipu's cords — the invariant H-017 asks for |
+| [0906.0761](0906.0761-keller-yang-derived-equivalences-qp.md) Keller-Yang | Lemma 2.10 (trivial-part removal, complete Ginzburg, direct sum): the model for H-031's second step, not a proof of it (E-315) |
+| [0704.0649](0704.0649-dwz-quivers-with-potentials.md) DWZ | Splitting Thm 4.6, Lemma 4.7 (unitriangular substitution): complete, loop-free; model for H-031's first step (E-315) |
 
 ## Writing a summary
 

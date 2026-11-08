@@ -2,9 +2,9 @@
 
 Owned by the chair. Rewritten (not appended) at the end of every round, under 12 000 bytes, each thread entry under 600 characters; history lives in the E-entries and `cycles/CCC/phase-P.md`. Every persona reads this first.
 
-last_round: 120
+last_round: 121
 cycle: 2 (rounds 121-140; CYCLE.md; plan in cycles/002/plan.md, written 2026-11-07)
-phase: 1
+phase: 1 (round 2 of 4)
 focus: research; phase 1 has a literature part (scholar 121-123, theorist 121-122, maverick 121); phase 5 rounds 137-139 are a backlog and replication sweep, 140 the closing conference (cycles/002/plan.md, Phase focus). Cycle 1 retrospective: cycles/001/retrospective.md.
 next_round_kind: ordinary
 
@@ -17,8 +17,8 @@ See cycles/002/plan.md: questions T10 (count, 47-group, ball sizing in round 121
 ## Open threads
 Each: question · H-entry · state · last worked · owner.
 
-- **T10 · guard audit** (agenda, round 120: 1) · H-015, H-032 · Can a key-guarded walk leave a derived class through a J != 0 step? All 13 of E-201's steps at n = 7 class 1 are Hom-verified YES (E-297, E-300; A-side corruptions 78 of 78 rejected, author-only, E-306). Instrument now exists: q_S splits the F-010 group at n = 9 (18 + 18), none at n = 8 (E-306); but the 14 815 J = 0 steps checked are guaranteed equal, and no key-kept step crossing the halves was found, so H-015 is untested. Next: depth-6 ball of 3060000 / hit search for the other half. HH has no power (E-305). · 117 · toolsmith
-- **T5 · J = 0 premise** (agenda, round 120: 3) · H-023 · Is every gate-admitted J = 0 step a derived equivalence? Cancellation proved (E-235); formal dg loop models M1 (E-290), M2 (E-294), M4 and M5 (E-309, all weights) proved; the general pivot-reducible statement is proposed H-031; Hom/End(T) for these models out of reach by finite computation, so H-023 stays OPEN. · 118 · theorist
+- **T10 · guard audit** (agenda, round 120: 1) · H-015, H-032 · Can a key-guarded walk leave a derived class through a J != 0 step? Round 121: all 19 recorded n = 9 key-kept J != 0 steps keep q_S but each child was already in its parent's J = 0 component (E-316); the 47-group's balls (depth <= 5) hold only J = 0 tilting steps, census 6 + 3 orbits (E-317). So neither instrument has an open outcome; depth-6 ball NOT a T10 test. Next: find a step outside the J = 0 component (multi-vertex, non-perI) or a group whose balls hold J != 0 steps; planted crossing edge. · 121 · toolsmith
+- **T5 · J = 0 premise** (agenda, round 120: 3) · H-023, H-031 · Is every gate-admitted J = 0 step a derived equivalence? M1, M2, M4, M5 proved (E-290, E-294, E-309). Round 121 (E-315): no published splitting lemma covers H-031 (KY Lemma 2.10, DWZ Thm 4.6: complete, Ginzburg/loop-free, direct sum); they give the mechanism only; M5 still needs Lemma A. H-023 stays OPEN. Next: theorist writes H-031 as three steps (substitution, trivial-part removal non-completed, Lemma A); scholar looks for non-completed semifree sources. · 121 · theorist
 - **T3/T8 · Cartan-level invariants** (H-025 in the backlog) · H-024 (SUPPORTED; also H-025) · Necessity now has a second source: Ladkani 1001.4765 Lemma 3.5 + Rickard + Aihara-Iyama Thm 2.27, P = r^-T (E-308); Nikulin 1.13.3 still UNVERIFIED (secondary only). E-292: NO on 19 of 19 q_S-separated pairs, YES on 19 controls. Open: lam < 1.5 NO (no LNA pair exists there, E-276), Z[Phi]-class route, H-025 periodic-not-FCY search. · 117 (scholar) · skeptic E-314: planted NO power at one n = 11 group (21 of 21) and singular n = 12 group of 47 splits 14 + 33 by SNF(S) (E-291 amended).
 - **T7 · H-010** · H-010 · Single-mutation rule and Catalan factorisation proved relative to `procedure` (E-187, E-205). No start-gap-2 pair lowers overlap in three non-vacuous cells k = 4, 5; k = 5/6 mostly capped, engine ValueError on parallel arrows (E-313, no power); overnight not approved. Open: theorist argument whether H-010's end-only reasoning excludes gap-2 lowering (retirement route). · 119 · experimentalist
 - **T4 · H-020 rule table** (converted, 118) · H-020, H-029 · H1 holds to widths 9-11, lengths <= 14 (E-225). Class-B first-step delta is a per-rule value, 82 of 82 length transfers at widths 5-6 (E-310), no formula; test is widths 8-9 (H-029). · 118 · skeptic
@@ -68,15 +68,16 @@ Each: question · H-entry · state · last worked · owner.
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 119 | 118 (theorist) |
-| theorist | 118 | 119 (experimentalist) |
-| skeptic | 118 | 119 (toolsmith) |
-| scholar | 117 | 119 (maverick) |
+| experimentalist | 119 | 121 (skeptic) |
+| theorist | 118 | 121 (scholar) |
+| skeptic | 121 | 121 (maverick) |
+| scholar | 121 | 119 (maverick) |
 | toolsmith | 119 | 115 (experimentalist) |
-| maverick | 119 | 118 (toolsmith) |
+| maverick | 121 | 118 (toolsmith) |
 
 - Round 117: E-306 (q_S instrument at n = 9, J = 0 steps are not a test), E-307 (H-026 even-n extension refuted), E-308 (necessity step sourced; H-028 retired as a citation). Backlog list: cycles/001/backlog.md.
 
 - theorist: M3/M3b (two loops); is H-010's end-only argument enough to exclude gap-2 lowering (E-313)? skeptic: check which of the 8 minimal anomalies have the E-080 shape (E-312); recompute the 47-group SNF split via a derived invariant (E-314).
+- Round 121: E-315 (no splitting lemma covers H-031), E-316 (n = 9 J != 0 steps: no open outcome), E-317 (47-group: 6 + 3 orbits, J = 0 balls only). Round 122 plan: theorist (literature+proof H-031), toolsmith (T10: J != 0 step search, planted crossing), scholar (non-completed semifree leads, prior-art lines).
 - Round 118: E-309 (M4/M5 cancel; E-305 points closed), E-310 (H-020 delta per rule; presentation dependence), E-311 (docstrings done). Proposed H-029, H-030, H-031.
 - Round 119: E-312 (seed 1614 = harness artefact; R-016), E-313 (T7 gap-2 null, no power), E-314 (E-269 NO power at one n = 11 group; 47-group split).

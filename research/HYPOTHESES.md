@@ -13,12 +13,16 @@ it. Status is one of `OPEN`, `SUPPORTED`, `CONFIRMED → F-nnn`, `REFUTED → R-
 
 ---
 
+**2026-11-08 (workshop round 121, E-317):** first case: the group of 47 has 9 census orbits (6 + 3), none mixed; each SNF class is not one orbit under known moves. Balls to depth 5 hold only J = 0 steps, so no walk-level test yet. Status unchanged.
+
 ## H-031 — Loop cancellation for pivot-reducible degree-1 loops (proposed round 118; broader than the proved models M1, M2, M4, M5)
 *2026-11-05* · **OPEN** *(proved for the formal dg models M1, M2, M4, M5: E-290, E-294, E-309; not Hom/End(T); not general)* · *workshop round 118, theorist*
 
 For a Construction-2.2 parent with a degree-1 loop f at i whose differential is d f = sum_p a_p r_p (a_p arrows out of i, r_p paths from t(a_p) to i, one r_p ending in an arrow b with the star letter b-bar linear in d theta_{f,a_p}), a triangular change of generators brings kM to B * T(E) with B of Lemma A shape (X1 = {w}, one Theta per pair), so kM -> N is a quasi-isomorphism. The existence of the substitution is part of the hypothesis: M5 needed a second, product-pivot step. **Falsifiable:** a loop model of this form (any number of out-arrows, paths r_p of any length, d^2 = 0) with H(I) != 0 in some cell (E-284 engine, `workshop/rounds/106/theorist_loopfilt.py`), or one where no triangular substitution reaches the shape. Bears on H-023 only through the formal step; the Hom/End(T) step is not addressed.
 
 ---
+
+**2026-11-08 (workshop round 121, E-315):** no published splitting lemma covers it (KY 0906.0761 Lemma 2.10, DWZ 0704.0649 Thm 4.6: complete, Ginzburg / loop-free, direct sum); they supply the mechanism for the substitution and trivial-part steps, not the statement. Status unchanged.
 
 ## H-030 — The repo's gate over-admits on minimal presentations with a length-3 relation (E-080 kind); the non-minimal-presentation part is retracted (proposed round 118, narrowed round 119)
 *2026-11-06* · **OPEN** *(8 anomalies in 936 minimal-presentation parents, n = 5, 6, coefficients +-1: E-312; the redundant-relation claim retracted: R-016)* · *workshop round 118, skeptic; narrowed round 119, toolsmith*
