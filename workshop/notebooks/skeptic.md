@@ -3,8 +3,9 @@
 ## Round 121 (T10 power pre-check, H-015)
 - Pre-registered 2 key-kept J != 0 steps in E-306's balls; HIT (3060000 d4: 1 = E-233; 3304000 d5: 1 = E-239 idx 2026; 2400230 d3: 0 perI candidates at all). This count was ALREADY in E-306 (rediscovery). Candidate totals 99 and 423 match E-229/E-239; no silent child() drops.
 - q_S on all 18 recorded key-kept J != 0 steps of the F-010 group (E-233, E-234 x10, E-239, E-244 x6) replayed from paths: 18/18 equal, none crosses halves; planted cross steps NO 18/18.
-- But all 18 children were already joined to the root by J = 0 chains (8427 via iso to 8063, E-255 -- I missed that before registering). q_S constant on J = 0 steps => q_S NO only possible if the child leaves its parent's J = 0 component. None does (all "R at v twice" diamond shape). So H-015 has no open step at n = 9.
+- But all 18 children were already joined to the root by J = 0 chains (8427 via iso to 8063, E-255 -- I missed that before registering). q_S constant on J = 0 steps => q_S NO only possible if the child leaves its parent's J = 0 component. None does (NOT all one shape: 4722, 11123 break it). So H-015 has no open step at n = 9.
 - Script: rounds/121/skeptic_jcount.py (ball ROOT DEPTH | replay). 3304000 d5 = 212 s.
+- Response (referee experimentalist, minor): missed E-254 (2400230 F1 F1 F2 F3 R9 R7 R9 F3, step F3) -> 19/19 q_S equal. "R at v twice" false: shape key printed, 17/19 step = path's last move, 4722 and 11123 step not in path. "Predetermined" -> predicted by H-023 (OPEN). Planted cross = E-306 half-separation bit, not power. Component membership is E-254/E-268, not new.
 
 ## Round 118 (backlog 13-15)
 - H-029 proposed (B-rule delta per rule, no formula; 0.872 = shuffle max). conv3 engine (rounds/118/skeptic_conv3.py). Round-118 non-minimal failures turned out to be a harness encoding (R-016, E-312); 8 of 936 minimal length-3 anomalies remain (H-030).
@@ -15,12 +16,12 @@
 
 ## Tried
 - r121 jcount. r118 ruledelta, rulefeat, conv3. r113 homctl. r106 midrule. r102 bound. r099 qs_periodic. r097 omega. r094 convention2. r091 convention. r087 homotopy. r085 cert. r082 kept/join. r074 failkids. r069 c1_13. r046 collect/inv/power/iso.
-- Lessons: grep E-entries for EVERY recorded instance (8427 iso was in E-255) before registering; a test's power on a hypothesis needs a case whose outcome is NOT implied by earlier results; generator artefacts; best-of-N fit needs shuffle null; don't name a variable `P` when exec'ing older scripts (shadows the prime); sleep blocked, use until-loop in Bash.
+- Lessons: grep E-entries for EVERY recorded instance (8427 iso was in E-255; E-254 step missed twice-over -- grep the step class, not my list of E-numbers) before registering; a test's power on a hypothesis needs a case whose outcome is NOT implied by earlier results; generator artefacts; best-of-N fit needs shuffle null; don't name a variable `P` when exec'ing older scripts (shadows the prime); sleep blocked, use until-loop in Bash.
 
 ## Not done
 - H-030: rebuild 8 seeds (871 514 1629 1806 1944 2257 2794 3277) with conv3, classify E-080 shape (cycle plan item 1).
 - H-024 planted NO at a second, LNA-shaped group; 47-group split by a second invariant.
-- T10: key-kept J != 0 steps NOT of diamond shape (multi-vertex, perI-blind); theorist question whether diamond steps return to the J = 0 component by theorem.
+- T10: key-kept J != 0 steps perI does not flag (multi-vertex); theorist question why every perI key-kept child returns to its parent's J = 0 component (not a same-vertex repeat: 4722, 11123).
 - H-029 widths 8-9 (retire if vacuous).
 
 ## Next
