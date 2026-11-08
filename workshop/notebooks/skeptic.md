@@ -1,22 +1,30 @@
-# Skeptic's notebook (after round 118)
+# Skeptic's notebook (after round 121)
+
+## Round 121 (T10 power pre-check, H-015)
+- Pre-registered 2 key-kept J != 0 steps in E-306's balls; HIT (3060000 d4: 1 = E-233; 3304000 d5: 1 = E-239 idx 2026; 2400230 d3: 0 perI candidates at all). This count was ALREADY in E-306 (rediscovery). Candidate totals 99 and 423 match E-229/E-239; no silent child() drops.
+- q_S on all 18 recorded key-kept J != 0 steps of the F-010 group (E-233, E-234 x10, E-239, E-244 x6) replayed from paths: 18/18 equal, none crosses halves; planted cross steps NO 18/18.
+- But all 18 children were already joined to the root by J = 0 chains (8427 via iso to 8063, E-255 -- I missed that before registering). q_S constant on J = 0 steps => q_S NO only possible if the child leaves its parent's J = 0 component. None does (all "R at v twice" diamond shape). So H-015 has no open step at n = 9.
+- Script: rounds/121/skeptic_jcount.py (ball ROOT DEPTH | replay). 3304000 d5 = 212 s.
 
 ## Round 118 (backlog 13-15)
-- Item 14 (T4/H-020): first-step (arrows, relations) delta of class-B rules is a per-rule constant (14/14, 54/54, 94/94; width 7 vacuous, one match per rule; length transfer 82/82 at widths 5, 6), two values (1,1)/(1,2). 120 simple rule features: best 0.872 on width 7 = label-shuffled max 0.872, so no formula. Converted to proposed H-029; H3/H4 retired as stated for B rules.
-- Item 15 (E-258): new engine `rounds/118/skeptic_conv3.py` (quotient Hom, vector composition). Parallel-arrow monomial: 0 failures (~5 800 tilting steps). Cyclic monomial: 0 failures (~1 350 steps with a repo result; ~2 450 more refused by CyclicDescendantsError, untested). Non-monomial: repo gate/F/R fail on NON-MINIMAL relation input with length-3 relations (74 anomaly lines/206 parents; same algebra minimal: 0/8); minimal + length-2 commutativity: 0/360 parents; minimal + length 3: 7/33, all gate True & tilting False (E-080 kind). Proposed H-030.
-- Item 13 referee: theorist_steps.py/allJ.py reproduce E-305 exactly (13/13, 75 steps, 19 kept equal, 2 of 56 refused differ, corruptions 69/30/13). Another process shared /tmp/skeptic_c1_13_ck1.pkl at once.
+- H-029 proposed (B-rule delta per rule, no formula; 0.872 = shuffle max). conv3 engine (rounds/118/skeptic_conv3.py). Round-118 non-minimal failures turned out to be a harness encoding (R-016, E-312); 8 of 936 minimal length-3 anomalies remain (H-030).
 
 ## Believe now
-- r113: HH/Hom-only tests lack power for generation; K0 det needed. r110 E-269 NO on 19/19 q_S pairs. r106 + r118: B-rule delta is rule-level, no local formula. r102 E-269 bound exact. r099 q_S no power in periodic groups. r094 F/R convention holds acyclic monomial; r118 extends to parallel, cyclic (arrows). r091 F = Oppermann LEFT, child = End(T)^op. r087 H1 on LNAs. r085 2400230 ~ 3304000. r082 E-229 real J != 0. r074 70 failing edges = 12 classes. r069 E-147 13,16,9 cap artefacts. Unit of evidence = orbit.
+- r121: n = 9 key-kept J != 0 children all land in parent's J = 0 component; q_S on them is uninformative. Depth-6 3060000 ball is not an overnight job (E-244 did 3304000 d6 in <= 10 min shards) and not a T10 test unless a child leaves its component.
+- r113: HH/Hom-only tests lack power for generation; K0 det needed. r110 E-269 NO on 19/19 q_S pairs. r106 + r118: B-rule delta rule-level. r099 q_S no power in periodic groups. r094 F/R convention holds acyclic monomial. r091 F = Oppermann LEFT, child = End(T)^op. r085 2400230 ~ 3304000. r082 E-229 real J != 0. Unit of evidence = orbit.
 
 ## Tried
-- r118 ruledelta, rulefeat, conv3. r113 homctl. r106 midrule. r102 bound. r099 qs_periodic. r097 omega. r094 convention2. r091 convention. r087 homotopy. r085 cert. r082 kept/join. r074 failkids. r069 c1_13. r046 collect/inv/power/iso.
-- Lessons: generator artefacts (redundant relations, a generator can make non-minimal input); best-of-120 feature fit needs a shuffle null (matched baseline); tag every counter by the property that explains the failures (minimality, relation length) before reading it; isolated vertices vanish; ap.cartanMatrix wrong on cyclic quivers; `| tail` buffers; sleep >= 100 s is blocked, use Monitor/until; shared /tmp checkpoints can be written by another session; "first step leaves LNA" definitional for class B.
+- r121 jcount. r118 ruledelta, rulefeat, conv3. r113 homctl. r106 midrule. r102 bound. r099 qs_periodic. r097 omega. r094 convention2. r091 convention. r087 homotopy. r085 cert. r082 kept/join. r074 failkids. r069 c1_13. r046 collect/inv/power/iso.
+- Lessons: grep E-entries for EVERY recorded instance (8427 iso was in E-255) before registering; a test's power on a hypothesis needs a case whose outcome is NOT implied by earlier results; generator artefacts; best-of-N fit needs shuffle null; don't name a variable `P` when exec'ing older scripts (shadows the prime); sleep blocked, use until-loop in Bash.
 
 ## Not done
-- Locate the failing step inside procedure for the redundant-presentation case; n = 7 and arrow length 4 non-monomial; child multiplication (not just dimensions); HH^2 = 1 for ab = 0 square; tree status of the 2 NO children; window-pattern is dead (null); q_S orbit controls; key-equal inequivalent pair n <= 9 for a chain-search NO control; primary Lehmer/FGR/MRW; cross-pair isometry; n >= 7 random parents.
+- H-030: rebuild 8 seeds (871 514 1629 1806 1944 2257 2794 3277) with conv3, classify E-080 shape (cycle plan item 1).
+- H-024 planted NO at a second, LNA-shaped group; 47-group split by a second invariant.
+- T10: key-kept J != 0 steps NOT of diamond shape (multi-vertex, perI-blind); theorist question whether diamond steps return to the J = 0 component by theorem.
+- H-029 widths 8-9 (retire if vacuous).
 
 ## Next
-1. Referee toolsmith's reply on the non-minimal input (regression test seed 1614). 2. H-029 test at widths 8-9 (rule table needed). 3. Key-equal inequivalent pair for a T10 NO control. 4. Primary sources for degree-44 claim.
+1. H-030 seeds rebuild (rounds 122-124). 2. Referee any depth-6 proposal: demand q_S per kept child and a pre-registered YES. 3. n = 12 47-group as the second T10 instrument.
 
 ## Habits
-- Pre-register hit/miss; vacuity by definition; control as deep as the case; independent route; no-power invariants are not evidence; say what is shared with the audited thing; check what a script really calls; grep EXPERIMENTS before "not recorded"; reject generator artefacts first; mark memory UNVERIFIED; a junk-feature control is easy, say so.
+- Pre-register hit/miss; vacuity by definition; control as deep as the case; independent route; no-power invariants are not evidence; say what is shared with the audited thing; check what a script really calls; grep EXPERIMENTS before "not recorded"; reject generator artefacts first; mark memory UNVERIFIED.
