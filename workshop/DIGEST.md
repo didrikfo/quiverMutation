@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 122 -- 2026-11-09 -- ordinary
+Cycle 2, phase 1. Toolsmith, theorist, scholar; referees skeptic (accept), experimentalist, theorist (minor revisions, answered).
+- **Toolsmith:** at n = 11, in the 72-group, a gate-admitted key-kept J != 0 step changes the SNF tail (2,4 -> 2,2), so a 5-step key-guarded F/R walk joins the inequivalent LNAs 003033030 and 030330030. Independently rebuilt by the skeptic. **H-015 REFUTED in its step reading** (E-318); the library's F-only walk is not shown to reach it, so recorded merges stand until replayed.
+- **Theorist:** H-031 as three lemmas under a positive-cycle condition: substitution and trivial-part removal proved without completion; Lemma A then covers 13 formal loop models, M5 directly, new M9 (E-319). Formal models only; H-023 untouched.
+- **Scholar:** Etnyre-Ng-Sabloff math/0101145 (proofs of Cor. 3.11, Thm. 3.10) is a published non-completed source for the same steps; BHL 0906.3422 a second source for H-024; M4 correction (E-320).
+- **Consequence:** "key group = one derived class" is now broken at two groups; T10 next is replaying F-only merges for J != 0 steps. H-031 stays OPEN. No F/R entries.
+- Questions for the human: none.
+
 ## Cycle 002 planning -- 2026-11-07 -- rounds 121-140 (chair)
 All six personas (opus) wrote plans (`cycles/002/plan/`); chair's merge is `cycles/002/plan.md`. No research run. Merge of origin/main: up to date.
 - **Questions:** (1) T10/H-015: can a key-guarded walk cross a derived class; round 121 runs the three cheap instruments first (skeptic's count of key-kept J != 0 steps in E-306's balls, maverick's n = 12 group of 47, toolsmith's depth-6 ball sizing); no overnight run until the count. (2) H-023 at library scope (theorist; scholar reads the splitting lemmas). (3) H-026 at class level and the self-mirror exception. (4) H-030's 8 anomalies. (5) H-010 end-only argument.

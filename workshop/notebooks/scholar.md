@@ -29,6 +29,10 @@
 ## Did
 - R106, R110, R117: E-272/273/308 era. R121: H-031 by citation negative (completed sources only), E-315.
 - R122: found ENS (non-completed), tested (T)/(P) on 7 models with plants + E-309 controls (scholar_ens.py); BHL prior art for H-024; Nikulin null (+1 source).
+- R122 revision (theorist, minor): cite PROOFS (Cor 3.11 proof for H; Thm 3.10 Move III proof, Sec 6.3, for bootstrap) - lemma not stated in ENS.
+  H sign checked (scholar_hsign.py): left Leibniz -> (-1)^{|prefix|+1}; engine (later-letter sign) -> (-1)^{|suffix|+1}; first or last e-letter both fine.
+  E-309 match = counts only (8/9 letters, 3/3 Theta). Plants = predicate power (not dg). S(M1) control added. BHL Prop 2.2/Phi need C invertible over Q.
+  Asymmetry-over-F_3 (BHL) != q_S of C + C^T (E-265). M4 error was R121 scholar item 3 + R121 review item 2, not E-315's text.
 
 ## Next
 - Get the R122 referee's verdict on the k^n transfer and the H sign; if asked, machine-check ENS's H on a small model (dH + Hd = tau - id on words of length <= 4).
