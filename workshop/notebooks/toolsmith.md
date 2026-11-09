@@ -3,23 +3,19 @@
 ## Rounds 003-102 (short)
 - `orbitCensus`/`OrbitsTask` in `batch.py` (`--jobs`, `--plan`, `--summary`); ledger unsafe with two processes on one file. Traps: foreground sleeps <= 115 s, `pkill -f` kills own shell, > 3 jobs on 4 cores inflates timings, check `ps` after a timeout.
 - Lessons: grep FINDINGS/EXPERIMENTS before sizing; "no hit" needs a positive control; `canonicalKey` is LABELLED (E-164); Hom+Cartan has no NO power for iso, the iso meet is the check.
-- T10 n = 9 (E-234..E-268): key-kept J != 0 steps exist; join searches cannot test the J = 0 premise. Tools: `087/toolsmith_d6scan.py`, `098/toolsmith_j98.py`, `102/toolsmith_litex.py`.
 
-## Rounds 105-117 (n = 7 class 1; n = 8, 9 q_S)
-- "A_n" = Nakayama rad^(n-1)=0, "B_n" = lone 3-arrow relation; both ~ kD_n. All 13 key-kept steps of E-201 Hom-verified (E-297, E-300). Tool `114/toolsmith_s8par.py`.
-- R117: n = 8 no key-equal inequivalent LNA pair; n = 9 one split group (F-010); q_S NO-capable but cannot fire on J = 0 steps; T10 premise untested. `117/toolsmith_qsscan.py`, `toolsmith_qsball.py` (needs `DEPTH`).
-- Traps: `moves`/`jcands` use global `base`; /tmp checkpoints vanish between sessions.
+## Rounds 105-119 (short)
+- n = 7..9 key-kept steps Hom-verified (E-297, E-300); q_S instrument (`117/toolsmith_qsscan.py`, `qsball.py`). R119: seed 1614 = harness coefficient encoding (-1 as 32002), E-312. Lesson: check encodings before tracing code.
 
-## Round 118 (backlog 11, 12 settled)
-- Docstrings edited; F-002 rewording proposed; Fosse Cor. 4.6 misprint = E-285 rediscovery. Capped-walk scripts (034, 027) cover less under load: run alone.
-
-## Round 119 (H-030 / T11 settled)
-- Seed 1614 failure = harness artefact: skeptic's `repo_input` passed -1 as 32002; repo is rational, so the "redundant" length-3 relation was not redundant (it forces paths to zero). With -1: 0/8 failures; sample N5 0-5999 + N6 0-3999: 71 -> 8, the 8 all minimal length-3 gate over-admissions (E-080). Decision: neither refuse nor minimalise; docstring sentence proposed (coefficients rational). Test `tests/test_redundant_presentation.py`; scripts `119/toolsmith_trace1614.py`, `toolsmith_fix1614.py`.
-- Lesson (mine to remember): when a mod-p harness feeds a rational library, check the coefficient encoding BEFORE tracing code. The skeptic's "power control" (0 of 8 after deletion) was a planted error of the wrong kind.
-- Chair asked to reword H-030 and amend E-310.
+## Round 122 (T10): FIRST CROSSING FOUND (pending review)
+- Tool `122/toolsmith_jxsearch.py`: `--plan N` lists INV-split key groups (INV = SNF(C+C^T), signature, q_S hist), cached in `toolsmith_jxgroups.json` (n = 9: 1, n = 10: 3, n = 11: 6 groups; more than E-292 because it includes singular S and signature splits). `run N` does a guarded F/R BFS that expands every key-kept child, labels J by `perI`, and union-finds J = 0 components (up to iso via 075's WL hash + explicit iso, ISO=1). For each key-kept J != 0 step it records INV(parent) vs INV(child), joined/OPEN, and an EXT-radius J = 0 extension. CTRL=planted grafts a crossing edge and an in-component edge.
+- Hit: n = 11 group 5 (72 = 13 + 59, SNF tails 2,4 / 2,2), root 003033030. P = F3 R8 F3 (J = 0); the F3 step at P is J != 0, key-kept, gate-admitted, and SNF goes 2,4 -> 2,2 (det C = 1, acyclic). The child is one J = 0 step (F6) from LNA 030330030 (59-class), so a 5-step guarded F/R walk joins two derived-inequivalent LNAs: H-015 false. Checked with brute-force Cartan and determinantal divisors in `toolsmith_jxhit.py`. The library's F-only walk (`toolsmith_jxlib.py`) does not reach it at depth <= 6.
+- Null elsewhere: 19 other roots (n = 9 depth 5, n = 10, 11 depth 4) have 0 key-kept J != 0 steps, except E-233's pair at 3060000, which joins up to iso at ext 2. Labelled keys made it look OPEN: always use ISO.
+- No flint/pari in .venv: use sympy `smith_normal_form` (fast enough at n <= 11). The n = 11 group table costs about 5 min: use the cache.
+- Belief now: the key guard is necessary only; the J != 0 refusal (E-151, 8-11% cost) should become a library guard. Merges resting on J != 0 steps need re-audit.
 
 ## Would do next
-- Docstring line on rational coefficients in isMutable/mutateAtVertex (tiny).
-- Which of the 8 remaining minimal anomalies are exactly E-080's shape; is there a cheap injectivity check for the gate?
-- qsball depth 6 for 3060000 (overnight): does a key-kept step cross the 3304000 q_S half? (T10 premise.)
-- n = 10 key groups with q_S splits (E-292 has 2): sizing.
+- After review: library opt-in `refuseNonTilting=True` in `mutationSearchDepthFirst` (J check = perI = tiltingPlus), with a test built on P -> X from 003033030 (gate admits, key kept, refused under the option). Time it.
+- Audit: which recorded merges (E-032, F-entries at n >= 9) used a J != 0 step? Scan replayable paths with the perI flag.
+- n = 11 group 5: all 72 roots at depth 4; F-only depth 7-8 from 003033030 (does the library walk itself cross?).
+- n = 12 sizing (group table > 5 min; propose overnight). Docstring line on rational coefficients (still pending). E-080 shape of the 8 anomalies (T11).

@@ -8,4 +8,6 @@ Slots: 3. Follows the round-121 plan (STATE.md).
 ## Revisions due
 (none)
 ## Referees
-(filled in at step 3)
+- skeptic: referees toolsmith.md (a claim that H-015 is false; re-run it)
+- experimentalist: referees theorist.md
+- theorist: referees scholar.md

@@ -26,7 +26,9 @@ src = open('workshop/rounds/033/experimentalist_bothdie.py').read().split("mode 
 exec(compile(src, 'bd', 'exec'))          # perI, nk, mutation, procedure, reduction, ap, search, fingerprint, pathAlgebra, nx
 import numpy as np, sympy as sp
 from sympy.matrices.normalforms import smith_normal_form
-from quivermutation import coxeterTables as ct, invariants
+from quivermutation import coxeterTables as ct, invariants, arrowPaths
+_iso = open('workshop/rounds/075/toolsmith_isojoin.py').read(); exec(_iso[_iso.index('def struct(a):'):_iso.index('def ballH(')])   # struct, H (WL hash), iso (explicit, sign-aware)
+ISO = os.environ.get('ISO', '1') == '1'   # 1: J = 0 components are taken up to isomorphism (labelled canonicalKey misses relabelled copies, E-164)
 
 KINDS = os.environ.get('KINDS', 'FR')   # F = right mutation (the library walk), R = left (mutate the dual, dualise back; E-212 `moves`)
 _inv = {}
@@ -51,8 +53,16 @@ def INV(C):
         hist = tuple(sorted(collections.Counter(sum(y[i] * S[i][j] * y[j] for i in range(n) for j in range(n)) % 2 for y in seen).items()))
     _inv[k] = (snf, sg, hist); return _inv[k]
 
+_GC = 'workshop/rounds/122/toolsmith_jxgroups.json'   # cache of groups(N) (class names only); delete to recompute
 def groups(N):
-    """NO-capable key groups at length N: list of (key, {INV: [className, ...]})."""
+    """NO-capable key groups at length N: list of (key, {INV: [className, ...]}) (from the cache: (None, {i: [names]}))."""
+    import json
+    try: c = json.load(open(_GC))
+    except Exception: c = {}
+    if str(N) in c: return [(None, {i: m for i, m in enumerate(g)}) for g in c[str(N)]]
+    out = _groups(N); c[str(N)] = [list(cl.values()) for _, cl in out]; json.dump(c, open(_GC, 'w'))
+    return out
+def _groups(N):
     out = []
     for key, mem in ct.lnaKeyIndex(N).items():
         if len(mem) < 2: continue
@@ -83,19 +93,29 @@ def ball(N, root, D, label, ctrl='', verbose=True):
     t0 = time.time(); r = nk.LinearNakayamaAlgebra.fromClassName(root)
     pk0 = search._coxeterKeyOrNone(r); inv0 = INV(invariants.integerCartanMatrix(r))
     seen = set(); frontier = []; tab = collections.Counter(); uf = UF(); jx = []; lnas = {}
-    def add(alg, k):
+    reps = collections.defaultdict(list)   # WL hash -> [(key, alg)] one per isomorphism class seen in the ball
+    def isorep(alg, register, k=None):
+        h = H(alg)
+        for k2, a2 in reps[h]:
+            if iso(alg, a2): return k2
+        if register: reps[h].append((k, alg))
+        return None
+    def add(alg, k, path=()):
         if k is not None:
             if k in seen: return
             seen.add(k); nm = lna_name(alg, N)
             if nm: lnas[k] = nm
-        frontier.append((alg, k))
-    for a in (copy.deepcopy(r), pathAlgebra.dualPathAlgebra(r)):
-        k = fingerprint.canonicalKey(a); add(a, k); uf.f(k)
+            if ISO:
+                k2 = isorep(alg, True, k)
+                if k2 is not None: uf.u(k, k2); tab['iso-merged nodes'] += 1
+        frontier.append((alg, k, path))
+    for side, a in (('root', copy.deepcopy(r)), ('dual', pathAlgebra.dualPathAlgebra(r))):
+        k = fingerprint.canonicalKey(a); add(a, k, (side,)); uf.f(k)
     uf.u(fingerprint.canonicalKey(r), fingerprint.canonicalKey(pathAlgebra.dualPathAlgebra(r)))   # root ~ its dual (opposite algebra)
     planted_done = False
     for level in range(D):
         cur, frontier[:] = frontier[:], []
-        for alg, pk in cur:
+        for alg, pk, path in cur:
             if list(nx.simple_cycles(alg.quiver)): tab['cyclic parent'] += 1; continue
             pinv = None; j0kids = []
             for kind, v in [(kd, v) for kd in KINDS for v in sorted(alg.quiver.nodes)]:
@@ -117,8 +137,8 @@ def ball(N, root, D, label, ctrl='', verbose=True):
                 else:
                     if pinv is None: pinv = INV(invariants.integerCartanMatrix(alg))
                     jx.append(dict(level=level + 1, v=kind + str(v), pk=pk, ck=k, inv_eq=INV(invariants.integerCartanMatrix(ch)) == pinv,
-                                   inv_root=INV(invariants.integerCartanMatrix(ch)) == inv0, planted=None, child=ch))
-                add(ch, k)
+                                   inv_root=INV(invariants.integerCartanMatrix(ch)) == inv0, planted=None, child=ch, parent=alg, path=path))
+                add(ch, k, path + (kind + str(v),))
             if ctrl == 'planted' and level == 1 and not planted_done and j0kids:
                 planted_done = True
                 # crossing: an LNA of another INV class (same key by construction)
@@ -157,6 +177,9 @@ def ball(N, root, D, label, ctrl='', verbose=True):
                     if k is None or k in met: continue
                     met.add(k)
                     if k in uf.p and uf.f(k) == target: s['ext'] = e; break
+                    if ISO:
+                        k2 = isorep(ch, False)
+                        if k2 is not None and uf.f(k2) == target: s['ext'] = e; break
                     nf.append(ch)
                 if s['ext']: break
             if s['ext']: break
@@ -174,6 +197,15 @@ def labels(N):
         for ci, inv in enumerate(ks):
             for nm in cl[inv]: lab[nm] = dict(group=gi, cls=ci, size=len(cl[inv]), other=cl[ks[(ci + 1) % len(ks)]][0], nclasses=len(ks), gsize=sum(map(len, cl.values())))
     return lab
+
+def detail(N, s, l):
+    P, Cc = s['parent'], s['child']
+    for nm, A in (('parent', P), ('child', Cc)):
+        C = sp.Matrix(invariants.integerCartanMatrix(A))
+        print('     %s: path %s; vertices %d arrows %d acyclic %s det C %s; INV %s' % (nm, ' '.join(s['path']), len(A.quiver.nodes), A.quiver.number_of_edges(),
+              nx.is_directed_acyclic_graph(A.quiver), C.det(), INV(C.tolist())))
+        print('       arrows', sorted(A.quiver.edges()), 'relations', procedure.relationsFrom(A))
+    print('     child INV equals the INV of LNA class:', [ci for ci, m in groups(N)[l['group']][1].items() if INV(ct.lnaCartanMatrix(N, tuple(int(c) for c in m[0]))) == INV(invariants.integerCartanMatrix(Cc))])
 
 if __name__ == '__main__':
     if ARGV[1] == '--plan':
@@ -208,5 +240,7 @@ if __name__ == '__main__':
             if s['planted'] or not s['joined'] or not s['inv_eq']:
                 print('   step level %s v %s planted %s INV(parent)==INV(child) %s INV(child)==INV(root) %s joined-in-ball %s ext-join %s (ext nodes %s) guard admits %s child-component LNAs %s' % (
                     s['level'], s['v'], s['planted'], s['inv_eq'], s['inv_root'], s['joined'], s['ext'], s.get('ext_nodes'), s.get('guard_admits', True), s['child_comp_lnas'][:6]), flush=True)
+        for s in b['jx']:
+            if s['planted'] is None and not s['inv_eq'] and os.environ.get('DETAIL', '1') == '1': detail(N, s, l)
         print('  ROOT %s: distinct %d, steps %s, key-kept J!=0 %d, LNAs in ball %s, %.0fs' % (rt, b['distinct'], dict(b['tab']), len(b['jx']), b['lnas'][:8], b['secs']), flush=True)
     print('SUMMARY n=%d depth %d roots %d gate-admitted acyclic-child steps %d; key-kept J!=0 steps by (kind, INV, component): %s  %.0fs' % (N, D, len(roots), steps, dict(T), time.time() - t0))
