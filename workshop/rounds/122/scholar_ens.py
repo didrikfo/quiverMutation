@@ -10,8 +10,11 @@ stabilisation, Sec. 6.3 'Move III' bootstrap g_i, Lemmas 6.2-6.4; numbers by wor
 Under (T)+(P), ENS's proof gives a finite tame isomorphism A ~ S(A') (no completion); A' is identified with the dg quotient
 A/(theta, d theta), i.e. the substitution theta -> 0, b -> -v/c; we compute it and iterate while some pair satisfies (P).
 Checks: d^2 = 0 on every intermediate algebra (Leibniz, applied-first words, sign (-1)^{deg of later letters} as the engine);
-remaining letters and Theta letters at the end.  Power: a planted cycle (T fails) and a planted pair whose v contains a letter
-lying over b (P fails) must be refused.
+remaining letters and Theta letters at the end.  Predicate power only: a planted cycle (T fails) and a planted pair whose v
+contains a letter lying over b (P fails) must be refused; both plants are NOT dg algebras (d^2 != 0), so they test the
+predicates, not whether (T)/(P) are needed for the conclusion.  YES controls: an ENS stabilisation S(M1) = M1 * <e1, e2>
+(Def. 3.9, d e1 = e2) must cancel e1 -> e2 and then reproduce M1; the E-309 substituted M4/M5 algebras (degrees taken from
+the model letters they replace, d^2 printed) must cancel exactly their 3 trivial pairs.
 Usage (repo root): .venv/bin/python -W ignore workshop/rounds/122/scholar_ens.py"""
 import importlib.util
 from fractions import Fraction as F
@@ -123,14 +126,21 @@ if __name__ == '__main__':
     gens = ['b', 'x', 't', 'y', 'z']; dd = {'b': {}, 'y': {}, 'z': {}, 'x': {('b', 'y'): 1}, 't': {('b',): 1, ('x', 'z'): 1}}
     fp = find_pair(gens, dd, below(gens, dd), set())
     print('== PLANT pair (d t = b + x z, b below x): pair found:', fp, '-> refused' if fp is None else '-> MISSED')
-    # control YES where YES is true: a stabilisation S(A) of ENS Def. 3.6, d e1 = e2, plus the E-309 substituted M5 (claim5)
+    # control YES: a stabilisation S(A) of ENS Def. 3.9, d e1 = e2 (|e1| = 2, |e2| = 1), on M1
+    letters, d, deg, theta = model('M1_loop1_dphi=ba')
+    gs = letters + ['e1', 'e2']; ds = dict(d); ds['e1'] = {('e2',): 1}; ds['e2'] = {}; degs = dict(deg); degs['e1'] = 2; degs['e2'] = 1
+    g2, _, steps, st = destabilise(gs, ds, degs, theta | {'e1'}, 'S(M1)')
+    print(f'== CONTROL S(M1) = M1 * <e1,e2>: d^2=0 {d2_ok(gs, ds, degs)}; triangular {below(gs, ds) is not None}; cancelled {[s.split(" (")[0] for s in steps]}; left {sorted(name(x) for x in g2)}')
+    # control YES: the E-309 substituted M4 / M5 (theorist_m45 claim4 / claim5), degrees from the replaced model letters
     import sys, io, contextlib
     buf = io.StringIO()
     with contextlib.redirect_stdout(buf):
         sys.path.insert(0, 'workshop/rounds/118'); import theorist_m45 as T
-    gens = list(T.claim5); deg5 = {g: 0 for g in gens}
+    def degs_of(mod, repl):
+        q = lf.MODELS[mod](); m, _, _ = lf.setup(q); return {g: m.deg(L) for g, L in repl.items()}
+    gens = list(T.claim5); deg5 = degs_of('M5_loop_two_paths', T.repl5)
     B = below(gens, T.claim5)
     g2, _, steps, st = destabilise(gens, T.claim5, deg5, {'ta', 'saa', 'sma', 'tmp', 'smmp', 'samp'}, 'claim5')
-    print(f'== CONTROL E-309 substituted M5: triangular {B is not None}; cancelled {len(steps)} pairs {[s.split(" (")[0] for s in steps]}; left {len(g2)} {sorted(g2)}')
-    g4 = list(T.claim4); g4r, _, st4, _ = destabilise(g4, T.claim4, {g: 0 for g in g4}, set(), 'claim4')
-    print(f'== CONTROL E-309 substituted M4: triangular {below(g4, T.claim4) is not None}; cancelled {len(st4)} pairs; left {len(g4r)} {sorted(g4r)}')
+    print(f'== CONTROL E-309 substituted M5: d^2=0 {d2_ok(gens, T.claim5, deg5)}; all steps d^2=0 {st == "ok"}; triangular {B is not None}; cancelled {len(steps)} pairs {[s.split(" (")[0] for s in steps]}; left {len(g2)} {sorted(g2)}')
+    g4 = list(T.claim4); deg4 = degs_of('M4_two_alpha', T.repl4); g4r, _, st4, s4 = destabilise(g4, T.claim4, deg4, set(), 'claim4')
+    print(f'== CONTROL E-309 substituted M4: d^2=0 {d2_ok(g4, T.claim4, deg4)}; all steps d^2=0 {s4 == "ok"}; triangular {below(g4, T.claim4) is not None}; cancelled {len(st4)} pairs; left {len(g4r)} {sorted(g4r)}')

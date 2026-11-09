@@ -1,4 +1,4 @@
-# A non-completed source for H-031's first two steps exists, outside representation theory: Etnyre-Ng-Sabloff's destabilisation (Chekanov-Eliashberg dg algebras; math/0101145v3 Cor. 3.11 + the Sec. 6.3 bootstrap) cancels a pair (theta, b) with d theta = b + v in a semifree dg algebra with no completion, under triangularity; all seven loop models meet its hypotheses and the cancellation reproduces E-290/E-309; H-024's necessity and a published Cartan-level NO are in Bastian-Holm-Ladkani
+# The proofs of ENS (math/0101145v3) Cor. 3.11 and Thm. 3.10 (Move III, Sec. 6.3) give a non-completed pair-cancellation lemma for semifree dg path algebras over k^n under (T)+(P); on the seven formal loop models it reproduces E-290's remainder and E-309's letter counts and shows M4 keeps 3 Theta letters; BHL 0906.3422v4 Prop. 2.1 is a second source for H-024's congruence step
 
 author: scholar · round: 122 · kind: literature
 thread: T5 (H-031, H-023); T3/T8 (H-024) · bears on: H-031, H-023, H-024, E-290, E-294, E-309, E-315, E-272, E-308, E-265, E-267

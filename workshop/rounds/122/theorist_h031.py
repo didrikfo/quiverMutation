@@ -4,7 +4,7 @@ Parts (each prints a verdict line; every check has a control that must say NO):
   [LF]   local finiteness: every oriented cycle of the letter quiver of kM has positive weight (=> each (src,tgt,weight)
          cell is finite-dimensional with bounded word length).  Control: a toy letter quiver with a weight-0 cycle.
   [H1]   linear part of d: only Theta letters have a linear term, no linear term is a Theta letter, the pivot letters
-         are distinct with unit coefficient (no linear change needed).  Control: M4 (needs a linear change, E-309).
+         are distinct with coefficient c != 0 (projection divides by c; no linear change needed).  Control: M4 (needs a linear change, E-309).
   [PI]   Lemma 2 data: the projection pi: kM -> T(H) killing E = {pivot thetas, their d}, pivot letters solved from
          pi(d theta) = 0; checks pi is a dg map (pi d x = d_H pi x on EVERY letter) and d_H^2 = 0; prints d_H on
          the reduced Theta letters.  Control: a planted sign in one pivot solution must break the dg-map check.
@@ -79,7 +79,7 @@ def h1(letters, dval, theta):
     piv = {}; bad = []
     for L in sorted(src, key=repr):
         lp = lin_part(dval, L)
-        cand = [x for x, k in lp.items() if abs(k) == 1 and x not in theta]
+        cand = [x for x, k in lp.items() if k != 0 and x not in theta]   # c != 0 as in Lemma 1; projection divides by c
         x = next((x for x in cand if x not in piv.values() and all(x not in lin_part(dval, M) for M in src if M != L)), None)
         if x is None: bad.append(nm(L))
         else: piv[L] = x
@@ -236,7 +236,7 @@ if __name__ == '__main__':
     psi_generic('M7_two_loops', 'M7b_two_loops_both', 'N', 'h', 'f', 1, plant=True)
     ok, mins = lf_check([0, 1], [(0, 1, 2), (1, 0, -2)])
     print(f'[LF control] toy quiver with a weight-0 cycle -> {"YES (NOT caught)" if ok else "NO (caught)"}')
-    part_models(['M1_loop1_dphi=ba', 'M4_two_alpha', 'M4p_M1_plus_parallel', 'M7_two_loops', 'M5_loop_two_paths', 'M5p_M1_plus_spectators', 'M9_unabsorbable', 'M3b_loop2_dfnonzero'])
+    part_models(['M1_loop1_dphi=ba', 'M2_loop1_dphi=0', 'M3_loop2_junction', 'M8_loop3_A', 'M8_loop3_B', 'M7b_two_loops_both', 'M4_two_alpha', 'M4p_M1_plus_parallel', 'M7_two_loops', 'M5_loop_two_paths', 'M5p_M1_plus_spectators', 'M9_unabsorbable', 'M3b_loop2_dfnonzero'])
     part_psi()
 
 # ---------------- [SH] Lemma 3 shape on (T(H), d_H): search g: X -> {0..G}; theta's g = g of its leading word
@@ -305,6 +305,16 @@ def part_nearmiss():
     _, piv = h1(letters, dval, th2); H, dH, bd, b2 = projection(q, m, letters, dval, th2, piv)
     found, tried = search(m, H, dH, th2, 3)
     print(f'[SH control] M1 with Theta + a* (E-284 near-miss, H(I) != 0 there): pi dg {not bd}; shape found: {bool(found)} ({tried} g tried) -> {"YES (NOT caught)" if found else "NO (caught)"}')
+    # further near-misses with H(I) != 0 (referee round 122): enlarge Theta by f or a*; (H1) and [PI] must still pass, [SH] must say NO,
+    # and the engine must report sumH != 0 for the same ideal (I + extra), weight <= 9
+    for name, extra, label in [('M2_loop1_dphi=0', ('m', None, 'f', None), 'I+(f)'), ('M2_loop1_dphi=0', ('s', 'a'), 'I+(a*)'), ('M7_two_loops', ('s', 'a'), 'I+(a*)')]:
+        q, m, letters, wt, dval, theta = build(name); th2 = set(theta) | {extra}
+        r1, piv = h1(letters, dval, th2); h1ok = not any(r1.values())
+        H, dH, bd, b2 = projection(q, m, letters, dval, th2, piv)
+        found, tried = search(m, H, dH, th2, 3)
+        res = lf.run(name + label, MODELS[name](), 9, verbose=False, pick=lambda ls: sorted(th2, key=repr))
+        print(f'[SH control] {name} {label}: H1 {h1ok}; PI {not bd and not b2}; shape found: {bool(found)} ({tried} g tried) -> '
+              f'{"YES (NOT caught)" if found else "NO (caught)"}; engine W=9: bad cells {res["bad_cells"]}, sumH {res["sumH"]}')
 
 if __name__ == '__main__':
     part_shape(); part_nearmiss()
