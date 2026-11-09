@@ -1,17 +1,42 @@
-# Theorist notebook (rewritten round 118)
+# Theorist notebook (rewritten round 122)
 
 ## What I believe now
-- T5 / H-023 loop models: M1 (E-290), M2 (E-294), and now M4, M5 (118) are proved: a triangular change of generators (pivots bbar, c_k from t, s letters; the product pivot e*bbar of M5 removed by t_m' = t_m - e t_a etc.) gives kM = B * T(E), E contractible, B of Lemma-A shape with X1 = {w}, and a g-filtration (g(theta) = g(fbar) = 1) reduces B -> N to Lemma A (E-240). `rounds/118/theorist_m45.py` checks the algebra. The shape is the same in every proved model, so I wrote it as proposed H-030 (general loop cancellation, falsifier: a loop model with H(I) != 0 or no reachable shape). Still open in H-023: Hom/End(T) (M4, M5 are infinite-dimensional), two-loop models M3/M3b/M7/M8, finite-dimensional step.
-- T10 / HH: the 2 NO children of E-305 (steps 57, 61) are not trees (cycle rank 3, triple arrows); no refused child is a tree (ranks 1: 36, 2: 18, 3: 2). So HH-dimension tests have only been run on quivers where they were never required to answer YES by a theorem; a tree-quiver HH^m = 0 statement stays classical, source unchecked.
-- HH^2(square, ab = 0) = 1 confirmed by Bardzell's resolution (hand and `rounds/118/theorist_bardzell.py`; control ab = cd = 0 gives (1,1,0)).
-- E-305 corruptions row = 69 planted, HH differs 30, 13 of those with equal Cartan. 78 vs 84 (step 8 chain A-side): 84 = 6 edges x 14 labels counts the 6 true moves; 78 is right.
-- Older: HH^0..2 blind on every LNA n <= 7 and the n = 9 F-010 pair (115); no key- and Cartan-free NO known on a key-equal inequivalent pair; q_S is the Cartan-level NO (E-292, E-306).
+- T5 / H-031: the loop cancellation for formal dg models is three lemmas (rounds/122/theorist.md):
+  (LF) every cycle of the kM letter quiver has positive weight -> each cell finite, word length bounded;
+  L1 under (LF), length-unitriangular substitutions are automorphisms (no completion); with (H1)
+     [only Theta letters have linear terms, targets non-Theta, distinct unit pivots] the pivot form exists;
+  L2 pi: kM -> T(H) killing E = (Theta_piv, d Theta_piv) is a q.i. by the E-letter-count filtration
+     (finite per cell by LF); no dg splitting B * T(E) needed, mixed terms are fine;
+  L3 (H3) a g with d_H strictly lowering g on X, unique quadratic top x_theta y_theta per theta, X1 ∩ Y = ∅,
+     bijection with composable pairs -> q.i. by g-filtration (exhaustive, bounded below) + E-240 + diamond lemma
+     (lower terms need NOT be in (Theta')).
+- Proved this way: M1, M2, M3, M3b, M5, M7, M8A, M8B, M4', M5', M9; M4, M7b via a parent automorphism Psi
+  (a1 -> a1 - a2; h -> h + f) checked as dg iso with Psi(I') = I. So all ten E-284 models cancel by proof.
+- The E-309 product pivot is the Oppermann image of the parent automorphism a -> a + me, and is not needed:
+  M5 passes (H3) directly (g m* 1, f 2, f/m 3).
+- H-031's worded hypothesis (pivot r_p = b) is not what the proof uses; M9 (d f = ab + mec, c != b) is outside
+  the product-pivot recipe but satisfies (H3) with X1 = {e}. The open content is (H3) in general.
+- H-023 untouched: no Hom/End(T), no Construction-2.2 parent of a finite-dimensional algebra (E-279: library steps
+  never hit loops anyway).
+- Older (still true): HH^0..2 blind on LNAs; HH^2(square, ab = 0) = 1 (Bardzell); q_S is the Cartan-level NO.
 
 ## What I tried
-- 118: M4/M5 by hand with the engine's printed d; first guess "M4 = M1 plus a free arrow by a basis change" was replaced by working in M4's own letters. Rebuilding the walk checkpoint takes ~11 min (two runs of skeptic_c1_13.py, 9 + 2 min); ck1 is in /tmp until the session ends.
+- 122: `rounds/122/theorist_h031.py` (1 s): [LF] [H1] [PI] (pi dg map on every letter, d_H^2 = 0) [PSI] [SH]
+  (box search of g, 0..5 / 0..3) with controls (planted sign, dropped Psi term, planted g, E-284 near-miss I + a*).
+  `--engine 12` gives H(I) = 0 for M5', M9. Engine lf.run scans vertices range(3) only: models must have <= 3
+  vertices (I first built M9 with 4 and the engine silently skipped vertex 3).
+- 118: M4/M5 by hand (product pivot); 111: M2 g-filtration; 109: M1.
+
+## Weakest points
+- Bergman diamond lemma cited from memory (Adv. Math. 29, 1978), number not matched.
+- E-240 used with loops/spectators/degree up to 4 (proof degree-free; machine check degree <= 2).
+- (LF) checked per model, not proved for Construction-2.2 parents; signs `last = -1` (E-202).
+- [H1] check does no automatic linear change (M4, M7b need one).
 
 ## Next
-- Skeptic: second implementation of the d identities; check Lemma A with base k^3 (M5) and the claim that cells are finite for the g-filtration.
-- Theorist: M3/M3b (two loops, junction), whether a degree-2 loop fits the same shape; write the Hom/End(T) argument for an M1-like model with an extra out-arrow (finite-dimensional variant: add a relation so the algebra is finite).
-- Walk that leaves the tree-free region is moot: all 75 steps have cycle rank >= 1; a NO-capable HH test needs a parent that is a tree-like quiver, which key-guarded LNA descendants are not.
-- Blind spots: signs `last = -1` taken from E-202; proofs rest on printed differentials, not on Oppermann's journal version.
+- (H3) on random loop parents (random_instance + weights): how often does a g exist; engine where not -> falsifier.
+- Is (LF) implied by positive parent weights? Write the argument (star letter a* followed by a-prefixed letter).
+- (H1) when another relation passes through b (mixing into d of other letters): does L2 still give it? yes if pivots
+  stay Theta; check one model.
+- Finite-dimensional loop model: Hom/End(T) (M1-like with an extra relation), the actual H-023 gap.
+- Ask scholar: Van den Bergh 1008.0599 / Kalck-Yang for a published L1-L2 (minimal model over k^n, weight-graded).

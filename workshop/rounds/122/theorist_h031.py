@@ -164,7 +164,6 @@ def part_psi():
         tag = 'control (dropped smm.e in Psi(s_am))' if drop else 'Psi'
         print(f'[PSI] {tag}: letters unmapped {missing}; d Psi != Psi d on {bad}; Psi(Theta\') in (Theta): {th_ok} -> {"YES" if not bad and not missing else "NO"}')
         if not drop:   # inverse: same formulas with e -> -e applied to M5 letters gives M5' elements; check Psi o Psi^-1 = id
-            Sinv = {L: {w: k * (-1) ** sum(1 for x in w if x == e) for w, k in S[L].items()} for L in S}
             # Psi^-1(L) = L - (corrections): solve triangularly by iteration
             inv = {}
             for L in S:
@@ -178,10 +177,66 @@ def part_psi():
             th_inv = all(all(any(x in thp for x in w) for w in inv[L]) for L in th5)
             print(f'[PSI] Psi invertible (triangular inverse found, Psi(Psi^-1 L) = L on all {len(S)} letters): {ok_inv}; Psi^-1(Theta) in (Theta\'): {th_inv}')
 
+# generic letter maps induced by a parent automorphism (Lemma 1(c) instances), checked as dg isomorphisms preserving the Theta ideal
+MODELS['M4p_M1_plus_parallel'] = lambda: lf.mk({'a1': (0, 1, 0), 'a2': (0, 1, 0), 'b': (1, 0, 0), 'f': (0, 0, 1)}, ['a1', 'a2'],
+    {'f': {('a1', 'b'): 1}}, {'a1': 1, 'a2': 1, 'b': 2, 'f': 3})
+def psi_generic(src, tgt, kind, a, q, c, rho=(), plant=False):
+    _, ms, Ls_, _, ds, ths = build(src); _, mt, Lt, _, dt, tht = build(tgt)
+    R = [('m', None, r, None) for r in rho]
+    def P(*terms):
+        out = {}
+        for k, w in terms: addto(out, tuple(w), k)
+        return out
+    S = {}
+    for L in Ls_:
+        if kind == 'A':   # A-arrow a -> a + c * (q then rho), q in A
+            if L[0] == 's':
+                S[L] = P((1, [L]), (-c, R + [('s', a)])) if L[1] == q else P((1, [L])); continue
+            _, al, p_, be = L
+            pre = [(1, al)] + ([(c, q)] if al == a else [])
+            suf = [(1, be)] + ([(-c, a)] if be == q else [])
+            terms = []
+            for k1, x in pre:
+                for k2, y in suf:
+                    w = ([] if y == be else R) + [('m', x, p_, y)] + ([] if x == al else R)
+                    terms.append((k1 * k2, w))
+            S[L] = P(*terms)
+        else:             # non-A arrow a -> a + c * q (parallel, same degree)
+            S[L] = P((1, [L]), (c, [('m', L[1], q, L[3])])) if L[0] == 'm' and L[2] == a else P((1, [L]))
+    if plant:
+        k0 = next(L for L in Ls_ if L in ths and len(S[L]) > 1); S[k0] = dict(list(S[k0].items())[:-1])
+    def Psi(E):
+        out = {}
+        for w, k in E.items():
+            cur = {(): k}
+            for x in w: cur = mul(cur, S[x])
+            for u, cc in cur.items(): addto(out, u, cc)
+        return out
+    bad = [nm(L) for L in Ls_ if Psi(ds[L]) != leib(dt, mt.deg, S[L])]
+    th_ok = all(all(any(x in tht for x in w) for w in S[L]) for L in ths)
+    inv = {}
+    for L in Lt:
+        cur = {(L,): 1}
+        for _ in range(8):
+            diff = {w: -k for w, k in Psi(cur).items()}; addto(diff, (L,), 1)
+            if not diff: break
+            for w, k in diff.items(): addto(cur, w, k)
+        inv[L] = cur
+    ok_inv = all(Psi(inv[L]) == {(L,): 1} for L in Lt)
+    th_inv = all(all(any(x in ths for x in w) for w in inv[L]) for L in tht)
+    ok = not bad and th_ok and ok_inv and th_inv and len(Ls_) == len(Lt)
+    print(f'[PSI] {src} -> {tgt} ({kind}: {a} -> {a} + {c}*{q}{"".join(rho)}){" PLANTED (one term dropped)" if plant else ""}: d Psi != Psi d on {bad}; '
+          f'Psi(Theta) in (Theta) {th_ok}; inverse {ok_inv}; Psi^-1(Theta) in (Theta) {th_inv} -> {"YES" if ok else "NO"}')
+
 if __name__ == '__main__':
+    psi_generic('M5p_M1_plus_spectators', 'M5_loop_two_paths', 'A', 'a', 'm', 1, ('e',))
+    psi_generic('M5p_M1_plus_spectators', 'M5_loop_two_paths', 'A', 'a', 'm', 1, ('e',), plant=True)
+    psi_generic('M4p_M1_plus_parallel', 'M4_two_alpha', 'A', 'a1', 'a2', -1)
+    psi_generic('M7_two_loops', 'M7b_two_loops_both', 'N', 'h', 'f', 1)
+    psi_generic('M7_two_loops', 'M7b_two_loops_both', 'N', 'h', 'f', 1, plant=True)
     ok, mins = lf_check([0, 1], [(0, 1, 2), (1, 0, -2)])
     print(f'[LF control] toy quiver with a weight-0 cycle -> {"YES (NOT caught)" if ok else "NO (caught)"}')
-    part_models(['M1_loop1_dphi=ba', 'M4_two_alpha', 'M5_loop_two_paths', 'M5p_M1_plus_spectators', 'M9_unabsorbable', 'M3b_loop2_dfnonzero'])
+    part_models(['M1_loop1_dphi=ba', 'M4_two_alpha', 'M4p_M1_plus_parallel', 'M7_two_loops', 'M5_loop_two_paths', 'M5p_M1_plus_spectators', 'M9_unabsorbable', 'M3b_loop2_dfnonzero'])
     part_psi()
 
 # ---------------- [SH] Lemma 3 shape on (T(H), d_H): search g: X -> {0..G}; theta's g = g of its leading word
@@ -217,7 +272,7 @@ def search(m, H, dH, theta, Gmax=3):
         if r: found = r; break
     return found, tried
 
-SHAPE = ['M1_loop1_dphi=ba', 'M2_loop1_dphi=0', 'M5_loop_two_paths', 'M5p_M1_plus_spectators', 'M9_unabsorbable', 'M3b_loop2_dfnonzero',
+SHAPE = ['M1_loop1_dphi=ba', 'M2_loop1_dphi=0', 'M4p_M1_plus_parallel', 'M5_loop_two_paths', 'M5p_M1_plus_spectators', 'M9_unabsorbable', 'M3b_loop2_dfnonzero',
          'M3_loop2_junction', 'M7_two_loops', 'M7b_two_loops_both', 'M8_loop3_A', 'M8_loop3_B']
 def part_shape():
     out = {}
@@ -226,7 +281,7 @@ def part_shape():
         if r1['unpivoted'] or r1['nontheta_src'] or r1['theta_tgt']: print(f'[SH] {name}: H1 fails {r1} -> not reached'); continue
         H, dH, bdg, bd2 = projection(q, m, letters, dval, theta, piv)
         if bdg or bd2: print(f'[SH] {name}: projection not a dg map -> not reached'); continue
-        found, tried = search(m, H, dH, theta, 2 if len(H) > 10 else 3)
+        nX = sum(1 for L in H if L not in theta); found, tried = search(m, H, dH, theta, 5 if nX <= 7 else 3)
         if found:
             G, lead = found
             print(f'[SH] {name}: Lemma A shape found after {tried} g-vectors: g = { {nm(k): v for k, v in G.items() if v} }; leading words {[(nm(t), nm(w[0]) + "·" + nm(w[1])) for t, w in lead.items()]}')
@@ -236,7 +291,7 @@ def part_shape():
             r, why = shape(m, H, dH, theta, bad)
             print(f'     control: planted g({nm(x0)}) = 0 -> {"YES (NOT caught)" if r else "NO (caught): " + why}')
         else:
-            print(f'[SH] {name}: no g in the box gives Lemma A shape on the raw letters of H ({tried} tried) -> NO' + (' (no Theta left: Lemma 3 vacuous)' if not any(L in theta for L in H) else ''))
+            print(f'[SH] {name}: no g in the box (0..5 if <= 7 X letters, else 0..3) gives Lemma A shape on the raw letters of H ({tried} tried) -> NO' + (' (no Theta left: Lemma 3 vacuous)' if not any(L in theta for L in H) else ''))
         out[name] = found
     return out
 

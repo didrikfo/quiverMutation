@@ -117,7 +117,7 @@ def ball(N, root, D, label, ctrl='', verbose=True):
                 else:
                     if pinv is None: pinv = INV(invariants.integerCartanMatrix(alg))
                     jx.append(dict(level=level + 1, v=kind + str(v), pk=pk, ck=k, inv_eq=INV(invariants.integerCartanMatrix(ch)) == pinv,
-                                   inv_root=INV(invariants.integerCartanMatrix(ch)) == inv0, planted=None))
+                                   inv_root=INV(invariants.integerCartanMatrix(ch)) == inv0, planted=None, child=ch))
                 add(ch, k)
             if ctrl == 'planted' and level == 1 and not planted_done and j0kids:
                 planted_done = True
@@ -130,10 +130,38 @@ def ball(N, root, D, label, ctrl='', verbose=True):
                 if kept: add(X, xk)
                 ch, k = j0kids[0]   # in-component: the node's own J = 0 child, relabelled as a J != 0 edge
                 jx.append(dict(level=level + 1, v='planted-same', pk=pk, ck=k, inv_eq=INV(invariants.integerCartanMatrix(ch)) == pinv,
-                               inv_root=True, planted='same', guard_admits=True))
+                               inv_root=True, planted='same', guard_admits=True, child=ch))
         if verbose: print('  %s level %d distinct %d jx %d %s %.0fs' % (root, level + 1, len(seen), len(jx), dict(tab), time.time() - t0), flush=True)
+    EXT = int(os.environ.get('EXT', '3'))
     for s in jx:
         s['joined'] = (s['pk'] is not None and s['ck'] is not None and uf.f(s['pk']) == uf.f(s['ck']))
+        s['ext'] = 0 if s['joined'] else None
+        if s['joined'] or s['ck'] is None or s['pk'] is None or s['planted'] == 'cross' and False: continue
+        # extension: J = 0 key-kept BFS from the child, radius EXT; joined if it meets the parent's in-ball J = 0 class
+        if s['planted'] == 'cross': X0 = nk.LinearNakayamaAlgebra.fromClassName(label['other'])
+        else: X0 = s['child']
+        target = uf.f(s['pk']); fr = [X0]; met = set([s['ck']])
+        for e in range(1, EXT + 1):
+            nf = []
+            for x in fr:
+                if list(nx.simple_cycles(x.quiver)): continue
+                for kind, v in [(kd, v) for kd in KINDS for v in sorted(x.quiver.nodes)]:
+                    a = x if kind == 'F' else pathAlgebra.dualPathAlgebra(x)
+                    if not mutation.mutationIsPossibleAtVertex(a, v) or perI(a, v): continue
+                    raw = mutation.quiverMutationAtVertex(a, v)
+                    if any(ap.isIllegalRelation(raw.quiver, rr) for rr in procedure.relationsFrom(raw)): continue
+                    ch = reduction.reducePathAlgebra(raw)
+                    if kind == 'R': ch = pathAlgebra.dualPathAlgebra(ch)
+                    if search._coxeterKeyOrNone(ch) != pk0: continue
+                    k = fingerprint.canonicalKey(ch)
+                    if k is None or k in met: continue
+                    met.add(k)
+                    if k in uf.p and uf.f(k) == target: s['ext'] = e; break
+                    nf.append(ch)
+                if s['ext']: break
+            if s['ext']: break
+            fr = nf
+        s['ext_nodes'] = len(met)
     comp_lnas = collections.defaultdict(set)
     for k, nm in lnas.items(): comp_lnas[uf.f(k)].add(nm)
     for s in jx: s['child_comp_lnas'] = sorted(comp_lnas.get(uf.f(s['ck']), ())) if s['ck'] is not None else None
@@ -175,10 +203,10 @@ if __name__ == '__main__':
         b = ball(N, rt, D, l, ctrl)
         steps += sum(v for k, v in b['tab'].items() if isinstance(k, tuple))
         for s in b['jx']:
-            tag = (s['planted'] or 'real', 'INV eq' if s['inv_eq'] else 'INV DIFFERS', 'joined' if s['joined'] else 'OPEN')
+            tag = (s['planted'] or 'real', 'INV eq' if s['inv_eq'] else 'INV DIFFERS', 'joined in ball' if s['joined'] else 'joined at ext %d' % s['ext'] if s['ext'] else 'OPEN')
             T[tag] += 1
             if s['planted'] or not s['joined'] or not s['inv_eq']:
-                print('   step level %s v %s planted %s INV(parent)==INV(child) %s INV(child)==INV(root) %s joined-in-ball %s guard admits %s child-component LNAs %s' % (
-                    s['level'], s['v'], s['planted'], s['inv_eq'], s['inv_root'], s['joined'], s.get('guard_admits', True), s['child_comp_lnas'][:6]), flush=True)
+                print('   step level %s v %s planted %s INV(parent)==INV(child) %s INV(child)==INV(root) %s joined-in-ball %s ext-join %s (ext nodes %s) guard admits %s child-component LNAs %s' % (
+                    s['level'], s['v'], s['planted'], s['inv_eq'], s['inv_root'], s['joined'], s['ext'], s.get('ext_nodes'), s.get('guard_admits', True), s['child_comp_lnas'][:6]), flush=True)
         print('  ROOT %s: distinct %d, steps %s, key-kept J!=0 %d, LNAs in ball %s, %.0fs' % (rt, b['distinct'], dict(b['tab']), len(b['jx']), b['lnas'][:8], b['secs']), flush=True)
     print('SUMMARY n=%d depth %d roots %d gate-admitted acyclic-child steps %d; key-kept J!=0 steps by (kind, INV, component): %s  %.0fs' % (N, D, len(roots), steps, dict(T), time.time() - t0))
