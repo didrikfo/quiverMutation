@@ -1,0 +1,38 @@
+n=15 h=3 (class of lone h=3, law K0=3): 26762 of 2674440 rows carry the key  135s
+ image keys on the whole class by K (label: rows):
+   K 0 {0: 10895, 1: 2923, 2: 1058, 3: 309, 4: 214, 5: 93, 6: 264}
+   K 1 {0: 4907, 1: 1502}
+   K 2 {0: 2183, 1: 522}
+   K 3 {0: 956, 1: 257}
+   K 4 {0: 410}
+   K 5 {0: 171}
+   K 6 {0: 68}
+   K 7 {0: 21}
+   K 8 {0: 9}
+ moves=rules: 79294 undirected move edges, 6871 orbits, sizes [2108, 2048, 2048, 96, 96, 70, 70, 56, 56, 52, 52, 50]  146s
+   K=0: orbits containing K-rows 5183, mixed (>= 2 image keys at this K) 18  e.g. orbit of 2108 rows: {0: '2000000060000', 2: '3405000000000', 6: '6000000000000'}
+   K=1: orbits containing K-rows 2541, mixed (>= 2 image keys at this K) 4  e.g. orbit of 2048 rows: {1: '0203000000000', 0: '0600030000000'}
+   K=2: orbits containing K-rows 1225, mixed (>= 2 image keys at this K) 0
+   K=3: orbits containing K-rows 601, mixed (>= 2 image keys at this K) 0
+   K=4: orbits containing K-rows 267, mixed (>= 2 image keys at this K) 0
+   K=5: orbits containing K-rows 118, mixed (>= 2 image keys at this K) 0
+   K=6: orbits containing K-rows 20, mixed (>= 2 image keys at this K) 0
+   K=7: orbits containing K-rows 5, mixed (>= 2 image keys at this K) 0
+   K=8: orbits containing K-rows 3, mixed (>= 2 image keys at this K) 0
+   whole orbit (any K): 18 of 6871 orbits carry >= 2 image keys
+   reduced rows only, K=2: 123 rows, image keys [0, 1], mixed orbits 0
+   reduced rows only, K=3: 86 rows, image keys [0, 1], mixed orbits 0
+   reduced rows only, K=4: 65 rows, image keys [0], mixed orbits 0
+   reduced rows only, K=5: 48 rows, image keys [0], mixed orbits 0
+   reduced rows only, K=6: 29 rows, image keys [0], mixed orbits 0
+   reduced rows only, K=7: 8 rows, image keys [0], mixed orbits 0
+   reduced rows only, K=8: 2 rows, image keys [0], mixed orbits 0
+ q_S classes of the key class: 1 (q_S inconsistent inside an orbit: 0 checks failed)
+   sig (14, 1, 0) |det S| 20 hist ((Fraction(0, 1), 1), (Fraction(2, 5), 2), (Fraction(3, 5), 2), (Fraction(17, 20), 4), (Fraction(1, 1), 1), (Fraction(5, 4), 2), (Fraction(7, 5), 2), (Fraction(8, 5), 2), (Fraction(33, 20), 4)): 6871 orbits, 26762 rows; image keys at K=3: {0: 956, 1: 257}
+ control K=3: real mixed 0; shuffled labels mixed mean 51.3 (min 35, max 66 of 200); planted orbit-function mixed 0
+ control K=2: real mixed 0; shuffled labels mixed mean 159.3 (min 136, max 179 of 200); planted orbit-function mixed 0
+555s
+
+real	9m16.644s
+user	11m57.285s
+sys	0m1.352s

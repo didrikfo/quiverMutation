@@ -1,0 +1,37 @@
+n=15 h=3 (class of lone h=3, law K0=3): 26762 of 2674440 rows carry the key  106s
+ image keys on the whole class by K (label: rows):
+   K 0 {0: 10895, 1: 2923, 2: 1058, 3: 309, 4: 214, 5: 93, 6: 264}
+   K 1 {0: 4907, 1: 1502}
+   K 2 {0: 2183, 1: 522}
+   K 3 {0: 956, 1: 257}
+   K 4 {0: 410}
+   K 5 {0: 171}
+   K 6 {0: 68}
+   K 7 {0: 21}
+   K 8 {0: 9}
+ moves=mut: 206146 undirected move edges, 3 orbits, sizes [15444, 11154, 164]  123s
+   K=0: orbits containing K-rows 3, mixed (>= 2 image keys at this K) 2  e.g. orbit of 15444 rows: {0: '2000000030000', 1: '2003000000000', 3: '3355004000000', 5: '3355006000000', 2: '331010000000000', 4: '5003880000000', 6: '11000000000000'}
+   K=1: orbits containing K-rows 3, mixed (>= 2 image keys at this K) 1  e.g. orbit of 15444 rows: {0: '0200000030000', 1: '0203000000000'}
+   K=2: orbits containing K-rows 3, mixed (>= 2 image keys at this K) 1  e.g. orbit of 15444 rows: {0: '0020000030000', 1: '0023000000000'}
+   K=3: orbits containing K-rows 3, mixed (>= 2 image keys at this K) 1  e.g. orbit of 15444 rows: {0: '0002000030000', 1: '0003000000000'}
+   K=4: orbits containing K-rows 2, mixed (>= 2 image keys at this K) 0
+   K=5: orbits containing K-rows 3, mixed (>= 2 image keys at this K) 0
+   K=6: orbits containing K-rows 2, mixed (>= 2 image keys at this K) 0
+   K=7: orbits containing K-rows 2, mixed (>= 2 image keys at this K) 0
+   K=8: orbits containing K-rows 2, mixed (>= 2 image keys at this K) 0
+   whole orbit (any K): 2 of 3 orbits carry >= 2 image keys
+   FIRST COUNTEREXAMPLE at K=3 (smallest mixed orbit, 15444 rows): 0002000030000 (img 0) ~ 0003000000000 (img 1), move path length 48:
+     0002000030000[K3,i0] - 2002000030000[K0,i0] - 0200020030000[K1,i0] - 0200020030002[K1,i0] - 0200020030020[K1,i0] - 2020020030020[K0,i0] - 2020020403300[K0,i0] - 2020024444000[K0,i0] - 2020023450000[K0,i0] - 2020024555000[K0,i0] - 2020025605000[K0,i0] - 2020035550400[K0,i0] - 0202035550400[K1,i0] - 0202040504030[K1,i0] - 0202040444400[K1,i0] - 0202050040330[K1,i0] - 0202050033300[K1,i0] - 0202060003020[K1,i0] - 0202660040020[K1,i0] - 0203605003020[K1,i0] - 0203555040020[K1,i0] - 0203445500020[K1,i0] - 0203335000020[K1,i0] - 0233405000020[K1,i0] - 0244440400020[K1,i0] - 0244440400002[K1,i0] - 0255044030002[K1,i0] - 0266004002002[K1,i0] - 0256050002002[K1,i0] - 0355504002002[K1,i0] - 0355504002000[K1,i0] - 0344550002000[K1,i0] - 0333500002000[K1,i0] - 0403340002000[K1,i0] - 0403340000002[K1,i0] - 0500333000002[K1,i0] - 5504403000002[K0,i0] - 5504403000000[K0,i0] - 6600400200000[K0,i0] - 6050030200000[K0,i1] - 5550400200000[K0,i1] - 0504030200000[K1,i1] - 0444400200000[K1,i1] - 0334000200000[K1,i1] - 0334000000002[K1,i1] - 0334000000000[K1,i1] - 0203000000000[K1,i1] - 2003000000000[K0,i1] - 0003000000000[K3,i1]
+   reduced rows only, K=2: 123 rows, image keys [0, 1], mixed orbits 1  e.g. {1: '0033300000000', 0: '0033355003000'}
+   reduced rows only, K=3: 86 rows, image keys [0, 1], mixed orbits 1  e.g. {1: '0003000000000', 0: '0003335000000'}
+     path (26 moves): 0003000000000[K3,i1] - 2003000000000[K0,i1] - 0203000000000[K1,i1] - 0203000000002[K1,i1] - 0334000000002[K1,i1] - 0334000020000[K1,i1] - 3350000020000[K0,i1] - 3350000020002[K0,i1] - 3600000020002[K0,i0] - 3600000202000[K0,i0] - 4660000202000[K0,i0] - 3560003002000[K0,i0] - 4555003002000[K0,i0] - 3450040002000[K0,i0] - 4444040002000[K0,i0] - 3340500002000[K0,i0] - 0333500002000[K1,i0] - 0236000002000[K1,i0] - 0246600002000[K1,i0] - 0235600030000[K1,i0] - 0245550030000[K1,i0] - 0234500400000[K1,i0] - 0244440400000[K1,i0] - 0204033400000[K1,i0] - 0203335000000[K1,i0] - 2003335000000[K0,i0] - 0003335000000[K3,i0]
+   reduced rows only, K=4: 65 rows, image keys [0], mixed orbits 0
+   reduced rows only, K=5: 48 rows, image keys [0], mixed orbits 0
+   reduced rows only, K=6: 29 rows, image keys [0], mixed orbits 0
+   reduced rows only, K=7: 8 rows, image keys [0], mixed orbits 0
+   reduced rows only, K=8: 2 rows, image keys [0], mixed orbits 0
+ q_S classes of the key class: 1 (q_S inconsistent inside an orbit: 0 checks failed)
+   sig (14, 1, 0) |det S| 20 hist ((Fraction(0, 1), 1), (Fraction(2, 5), 2), (Fraction(3, 5), 2), (Fraction(17, 20), 4), (Fraction(1, 1), 1), (Fraction(5, 4), 2), (Fraction(7, 5), 2), (Fraction(8, 5), 2), (Fraction(33, 20), 4)): 3 orbits, 26762 rows; image keys at K=3: {0: 956, 1: 257}
+ control K=3: real mixed 1; shuffled labels mixed mean 3.0 (min 2, max 3 of 200); planted orbit-function mixed 0
+ control K=2: real mixed 1; shuffled labels mixed mean 2.6 (min 2, max 3 of 200); planted orbit-function mixed 0
+142s

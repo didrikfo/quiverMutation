@@ -1,0 +1,32 @@
+n=13 h=3 (class of lone h=3, law K0=3): 5835 of 208012 rows carry the key  8s
+ image keys on the whole class by K (label: rows):
+   K 0 {0: 2183, 1: 856, 2: 304, 3: 119, 4: 53, 5: 72}
+   K 1 {0: 956, 1: 412}
+   K 2 {0: 410, 1: 136}
+   K 3 {0: 171, 1: 65}
+   K 4 {0: 68}
+   K 5 {0: 21}
+   K 6 {0: 9}
+ moves=rules: 10896 undirected move edges, 2349 orbits, sizes [556, 556, 552, 26, 26, 18, 18, 16, 16, 14, 14, 14]  11s
+   K=0: orbits containing K-rows 1750, mixed (>= 2 image keys at this K) 7  e.g. orbit of 556 rows: {1: '20030000000', 0: '26000300000', 3: '60050000000'}
+   K=1: orbits containing K-rows 749, mixed (>= 2 image keys at this K) 1  e.g. orbit of 556 rows: {1: '02030000000', 0: '06000300000'}
+   K=2: orbits containing K-rows 301, mixed (>= 2 image keys at this K) 0
+   K=3: orbits containing K-rows 129, mixed (>= 2 image keys at this K) 0
+   K=4: orbits containing K-rows 20, mixed (>= 2 image keys at this K) 0
+   K=5: orbits containing K-rows 5, mixed (>= 2 image keys at this K) 0
+   K=6: orbits containing K-rows 3, mixed (>= 2 image keys at this K) 0
+   whole orbit (any K): 7 of 2349 orbits carry >= 2 image keys
+   reduced rows only, K=2: 79 rows, image keys [0, 1], mixed orbits 0
+   reduced rows only, K=3: 50 rows, image keys [0, 1], mixed orbits 0
+   reduced rows only, K=4: 29 rows, image keys [0], mixed orbits 0
+   reduced rows only, K=5: 8 rows, image keys [0], mixed orbits 0
+   reduced rows only, K=6: 2 rows, image keys [0], mixed orbits 0
+ q_S classes of the key class: 1 (q_S inconsistent inside an orbit: 0 checks failed)
+   sig (12, 1, 0) |det S| 14 hist ((Fraction(0, 1), 1), (Fraction(2, 7), 2), (Fraction(1, 2), 1), (Fraction(4, 7), 2), (Fraction(11, 14), 2), (Fraction(15, 14), 2), (Fraction(8, 7), 2), (Fraction(23, 14), 2)): 2349 orbits, 5835 rows; image keys at K=3: {0: 171, 1: 65}
+ control K=3: real mixed 0; shuffled labels mixed mean 8.3 (min 5, max 12 of 200); planted orbit-function mixed 0
+ control K=2: real mixed 0; shuffled labels mixed mean 21.8 (min 13, max 29 of 200); planted orbit-function mixed 0
+84s
+
+real	1m24.895s
+user	1m37.752s
+sys	0m0.209s

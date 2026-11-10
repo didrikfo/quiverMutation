@@ -1,0 +1,35 @@
+n=13 h=3 (class of lone h=3, law K0=3): 5835 of 208012 rows carry the key  8s
+ image keys on the whole class by K (label: rows):
+   K 0 {0: 2183, 1: 856, 2: 304, 3: 119, 4: 53, 5: 72}
+   K 1 {0: 956, 1: 412}
+   K 2 {0: 410, 1: 136}
+   K 3 {0: 171, 1: 65}
+   K 4 {0: 68}
+   K 5 {0: 21}
+   K 6 {0: 9}
+ moves=mut: 35104 undirected move edges, 3 orbits, sizes [3697, 2115, 23]  11s
+   K=0: orbits containing K-rows 3, mixed (>= 2 image keys at this K) 2  e.g. orbit of 3697 rows: {0: '20000030000', 1: '20030000000', 3: '33550040000', 2: '33880000000', 4: '50036600000', 5: '90000000000'}
+   K=1: orbits containing K-rows 3, mixed (>= 2 image keys at this K) 1  e.g. orbit of 3697 rows: {0: '02000030000', 1: '02030000000'}
+   K=2: orbits containing K-rows 2, mixed (>= 2 image keys at this K) 1  e.g. orbit of 3697 rows: {0: '00200030000', 1: '00230000000'}
+   K=3: orbits containing K-rows 3, mixed (>= 2 image keys at this K) 1  e.g. orbit of 3697 rows: {0: '00020030000', 1: '00030000000'}
+   K=4: orbits containing K-rows 2, mixed (>= 2 image keys at this K) 0
+   K=5: orbits containing K-rows 2, mixed (>= 2 image keys at this K) 0
+   K=6: orbits containing K-rows 2, mixed (>= 2 image keys at this K) 0
+   whole orbit (any K): 2 of 3 orbits carry >= 2 image keys
+   FIRST COUNTEREXAMPLE at K=3 (smallest mixed orbit, 3697 rows): 00020030000 (img 0) ~ 00030000000 (img 1), move path length 35:
+     00020030000[K3,i0] - 00020030002[K3,i0] - 20020030002[K0,i0] - 20020030020[K0,i0] - 02020030020[K1,i0] - 02020403300[K1,i0] - 02020500330[K1,i0] - 02002600030[K1,i0] - 20202600030[K0,i0] - 22202600030[K0,i0] - 22203600000[K0,i0] - 20223600000[K0,i0] - 20233350000[K0,i0] - 20240334000[K0,i0] - 20250033300[K0,i0] - 22250033300[K0,i0] - 22260003020[K0,i0] - 22360000220[K0,i0] - 23335000220[K0,i0] - 23335000022[K0,i0] - 24033400022[K0,i0] - 24033400002[K0,i0] - 24033400000[K0,i0] - 25003330000[K0,i0] - 26000302000[K0,i0] - 36000022000[K0,i0] - 36000002200[K0,i0] - 33500002200[K0,i1] - 33500000220[K0,i1] - 03340000220[K1,i1] - 02030000220[K1,i1] - 02030000022[K1,i1] - 20030000022[K0,i1] - 00030000022[K3,i1] - 00030000002[K3,i1] - 00030000000[K3,i1]
+   reduced rows only, K=2: 79 rows, image keys [0, 1], mixed orbits 1  e.g. {1: '00333000000', 0: '00333550030'}
+   reduced rows only, K=3: 50 rows, image keys [0, 1], mixed orbits 1  e.g. {1: '00030000000', 0: '00033350000'}
+     path (25 moves): 00030000000[K3,i1] - 20030000000[K0,i1] - 02030000000[K1,i1] - 03340000000[K1,i1] - 03340000002[K1,i1] - 33500000002[K0,i1] - 36000000002[K0,i0] - 36000002000[K0,i0] - 46600002000[K0,i0] - 35600030000[K0,i0] - 45550030000[K0,i0] - 55044030000[K0,i0] - 05003330000[K1,i0] - 05003330002[K1,i0] - 05003330022[K1,i0] - 04033400022[K1,i0] - 03335000022[K1,i0] - 02360000022[K1,i0] - 02360000220[K1,i0] - 02260003020[K1,i0] - 02250033300[K1,i0] - 02240334000[K1,i0] - 22040334000[K0,i0] - 20040334000[K0,i0] - 00040334000[K3,i0] - 00033350000[K3,i0]
+   reduced rows only, K=4: 29 rows, image keys [0], mixed orbits 0
+   reduced rows only, K=5: 8 rows, image keys [0], mixed orbits 0
+   reduced rows only, K=6: 2 rows, image keys [0], mixed orbits 0
+ q_S classes of the key class: 1 (q_S inconsistent inside an orbit: 0 checks failed)
+   sig (12, 1, 0) |det S| 14 hist ((Fraction(0, 1), 1), (Fraction(2, 7), 2), (Fraction(1, 2), 1), (Fraction(4, 7), 2), (Fraction(11, 14), 2), (Fraction(15, 14), 2), (Fraction(8, 7), 2), (Fraction(23, 14), 2)): 3 orbits, 5835 rows; image keys at K=3: {0: 171, 1: 65}
+ control K=3: real mixed 1; shuffled labels mixed mean 2.5 (min 2, max 3 of 200); planted orbit-function mixed 0
+ control K=2: real mixed 1; shuffled labels mixed mean 2.0 (min 2, max 2 of 200); planted orbit-function mixed 0
+15s
+
+real	0m15.633s
+user	0m29.987s
+sys	0m0.228s

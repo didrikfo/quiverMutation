@@ -1,31 +1,34 @@
-# Skeptic's notebook (after round 121)
+# Skeptic's notebook (after round 123)
 
-## Round 121 (T10 power pre-check, H-015)
-- Pre-registered 2 key-kept J != 0 steps in E-306's balls; HIT (3060000 d4: 1 = E-233; 3304000 d5: 1 = E-239 idx 2026; 2400230 d3: 0 perI candidates at all). This count was ALREADY in E-306 (rediscovery). Candidate totals 99 and 423 match E-229/E-239; no silent child() drops.
-- q_S on all 18 recorded key-kept J != 0 steps of the F-010 group (E-233, E-234 x10, E-239, E-244 x6) replayed from paths: 18/18 equal, none crosses halves; planted cross steps NO 18/18.
-- But all 18 children were already joined to the root by J = 0 chains (8427 via iso to 8063, E-255 -- I missed that before registering). q_S constant on J = 0 steps => q_S NO only possible if the child leaves its parent's J = 0 component. None does (NOT all one shape: 4722, 11123 break it). So H-015 has no open step at n = 9.
-- Script: rounds/121/skeptic_jcount.py (ball ROOT DEPTH | replay). 3304000 d5 = 212 s.
-- Response (referee experimentalist, minor): missed E-254 (2400230 F1 F1 F2 F3 R9 R7 R9 F3, step F3) -> 19/19 q_S equal. "R at v twice" false: shape key printed, 17/19 step = path's last move, 4722 and 11123 step not in path. "Predetermined" -> predicted by H-023 (OPEN). Planted cross = E-306 half-separation bit, not power. Component membership is E-254/E-268, not new.
-
-## Round 118 (backlog 13-15)
-- H-029 proposed (B-rule delta per rule, no formula; 0.872 = shuffle max). conv3 engine (rounds/118/skeptic_conv3.py). Round-118 non-minimal failures turned out to be a harness encoding (R-016, E-312); 8 of 936 minimal length-3 anomalies remain (H-030).
+## Round 123 (T10 replay of recorded merges, H-015 / H-032)
+- Two kinds of "merge" on record, and the call conflated them:
+  (a) n = 9 F-010 JOINS built around an audited J != 0 step (E-233/234/239/244/254/255): root -path-> P -STEP-> X -path-> M ~iso~ M' <-path- root.
+      Mixed F/R; only the root halves are mostly F-only (16 of 19). Every one contains exactly one J != 0 step BY DESIGN (the audited step).
+      Replayed 19 (13 printed + 5 E-234 terminal-only regenerated, totals 8 8 7 7 7 reproduce + E-233 X~P) and 8427 via iso to 8063 (True):
+      258 steps, 19 J != 0 (the audited ones), 239 J = 0 / tiltingPlus / key kept / gate; INV (SNF, signature, q_S) constant at EVERY node.
+      SNF(S) and signature are equal for the two F-010 halves, so only q_S has power at n = 9 (planted cross merges: meet iso False, q_S differ, 2 of 2).
+  (b) The library's own LNA-to-LNA merges (no J filter): F-037 (5 paths, 35 edges), F-054 meet + mixed certificate, C(2,4,5) atlas meet,
+      F-041 meetingPoints n = 8 (10), n = 9 (52; 13 none), n = 10 (206; 98 none) = F-041 counts; 276 merges. 0 J != 0 steps, 0 INV changes.
+- Control: E-318 walk flagged (step 4 F3 J != 0, NOT-tp, SNF tail (1,2,4)->(1,2,2)).
+- Scripts: rounds/123/skeptic_mergereplay.py (records|extra|f037|control|mkpkl), skeptic_f041.py N [lo hi], skeptic_jtilt.py (copy of E-317 classifier).
+- Mostly confirmation: join steps were already Hom-verified in their records (skeptic_join replay), F-037 edges tiltingPlus (E-164), F-041 n = 8 (E-156).
+  New: perI + INV at every node; F-041 n = 9/10 witness edges; C(2,4,5) meet path replayed (E-164 said unreplayed).
 
 ## Believe now
-- r121: n = 9 key-kept J != 0 children all land in parent's J = 0 component; q_S on them is uninformative. Depth-6 3060000 ball is not an overnight job (E-244 did 3304000 d6 in <= 10 min shards) and not a T10 test unless a child leaves its component.
-- r113: HH/Hom-only tests lack power for generation; K0 det needed. r110 E-269 NO on 19/19 q_S pairs. r106 + r118: B-rule delta rule-level. r099 q_S no power in periodic groups. r094 F/R convention holds acyclic monomial. r091 F = Oppermann LEFT, child = End(T)^op. r085 2400230 ~ 3304000. r082 E-229 real J != 0. Unit of evidence = orbit.
-
-## Tried
-- r121 jcount. r118 ruledelta, rulefeat, conv3. r113 homctl. r106 midrule. r102 bound. r099 qs_periodic. r097 omega. r094 convention2. r091 convention. r087 homotopy. r085 cert. r082 kept/join. r074 failkids. r069 c1_13. r046 collect/inv/power/iso.
-- Lessons: grep E-entries for EVERY recorded instance (8427 iso was in E-255; E-254 step missed twice-over -- grep the step class, not my list of E-numbers) before registering; a test's power on a hypothesis needs a case whose outcome is NOT implied by earlier results; generator artefacts; best-of-N fit needs shuffle null; don't name a variable `P` when exec'ing older scripts (shadows the prime); sleep blocked, use until-loop in Bash.
+- No recorded merge (of either kind) uses a J != 0 step except the audited steps of (a), and those stay in q_S class. E-318's walk (F3 R8 F3, then J != 0 F3) is
+  outside every recorded path; no recorded LNA merge passes a J != 0 step (first meetings only for F-041).
+- r121: n = 9 key-kept J != 0 children land in parent's J = 0 component. r113: HH/Hom-only tests lack power. r099 q_S no power in periodic groups.
+  r094 F/R convention; r091 F = Oppermann LEFT. Unit of evidence = orbit.
 
 ## Not done
-- H-030: rebuild 8 seeds (871 514 1629 1806 1944 2257 2794 3277) with conv3, classify E-080 shape (cycle plan item 1).
-- H-024 planted NO at a second, LNA-shaped group; 47-group split by a second invariant.
-- T10: key-kept J != 0 steps perI does not flag (multi-vertex); theorist question why every perI key-kept child returns to its parent's J = 0 component (not a same-vertex repeat: 4722, 11123).
-- H-029 widths 8-9 (retire if vacuous).
+- n = 7 "25 of 25": E-160's 3 paths still not Hom-tested (needs E-151 c1 rebuild > 10 min); INV has no power at n = 7 anyway.
+- E-032 n = 10/11 overnight merges and n = 11 merges.py runs: no paths recorded; would need --witness reruns.
+- H-030 seeds rebuild (871 514 1629 1806 1944 2257 2794 3277); n = 12 47-group second instrument; H-029 widths 8-9.
 
 ## Next
-1. H-030 seeds rebuild (rounds 122-124). 2. Referee any depth-6 proposal: demand q_S per kept child and a pre-registered YES. 3. n = 12 47-group as the second T10 instrument.
+1. Library default: refuse J != 0 steps in mutationSearchDepthFirst (E-151 cost 8-11%) -- referee toolsmith's proposal, demand that F-041/F-037 counts are unchanged (they should be: 0 J != 0 edges).
+2. H-030 seeds. 3. Referee any n = 12 T10 run: pre-registered YES, q_S/SNF per kept child.
 
 ## Habits
-- Pre-register hit/miss; vacuity by definition; control as deep as the case; independent route; no-power invariants are not evidence; say what is shared with the audited thing; check what a script really calls; grep EXPERIMENTS before "not recorded"; reject generator artefacts first; mark memory UNVERIFIED.
+- Pre-register hit/miss; grep the step class, not my E-list; check what a "merge" is in each record before counting; exec'd scripts overwrite sys.argv/ARGV
+  (save mine as MYARGV); control as deep as the case; no-power invariants (SNF at n = 9 F-010) are not evidence; mark memory UNVERIFIED.
