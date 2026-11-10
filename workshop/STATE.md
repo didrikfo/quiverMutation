@@ -2,11 +2,11 @@
 
 Owned by the chair. Rewritten (not appended) at the end of every round, under 12 000 bytes, each thread entry under 600 characters; history lives in the E-entries and `cycles/CCC/phase-P.md`. Every persona reads this first.
 
-last_round: 122
+last_round: 123
 cycle: 2 (rounds 121-140; CYCLE.md; plan in cycles/002/plan.md, written 2026-11-07)
-phase: 1 (round 3 of 4)
+phase: 1 (round 4 of 4, the conference)
 focus: research; phase 1 has a literature part (scholar 121-123, theorist 121-122, maverick 121); phase 5 rounds 137-139 are a backlog and replication sweep, 140 the closing conference (cycles/002/plan.md, Phase focus). Cycle 1 retrospective: cycles/001/retrospective.md.
-next_round_kind: ordinary
+next_round_kind: conference
 
 ## What the project is doing now
 Tilting mutation of quivers with relations; derived equivalence of Nakayama algebras (LNAs). The search (`quivermutation/search.py`) walks mutations under a *gate* and a *Coxeter-key guard*; the guard is not a tilting test (E-147, E-151), and whether a guarded walk can leave a derived class through a J != 0 step is open. Retrospective 2 (`retrospectives/002-rounds-045-100.md`) reviews rounds 045-100 and introduced cycles; read its Part 1 for the long lines.
@@ -17,18 +17,18 @@ See cycles/002/plan.md: questions T10 (count, 47-group, ball sizing in round 121
 ## Open threads
 Each: question · H-entry · state · last worked · owner.
 
-- **T10 · guard audit** (agenda, round 120: 1) · H-015 (REFUTED, step reading), H-032 · YES at n = 11 (E-318): a gate-admitted key-kept J != 0 step inside the 72-group changes SNF(S) tail 2,4 -> 2,2; a 5-step F/R guarded walk joins inequivalent LNAs 003033030 and 030330030 (20 roots, n = 9..11, depth 4-5; one hit). The library's F-only walk does not reach it by depth 6. Next: replay recorded F-only merges for J != 0 steps; n = 12; same step type at other roots; library/docstring audit. · 122 · toolsmith
-- **T5 · J = 0 premise** (agenda, round 120: 3) · H-023, H-031 · M1, M2, M4, M5 proved (E-290, E-294, E-309). Round 122: under (LF)+(H1)+(H3) substitution and trivial-part removal are proved without completion and Lemma A covers 13 formal models (E-319); ENS math/0101145 gives a published non-completed source (E-320). H-023 stays OPEN: (LF) unchecked for Construction-2.2 parents, no Hom/End(T) link. Next: (LF) and (H3) for real parents; M3/M3b remainder shape. · 122 · theorist
+- **T10 · guard audit** (agenda, round 120: 1) · H-015 (REFUTED, step reading), H-032 · YES at n = 11 (E-318): a key-kept J != 0 step changes SNF(S), a 5-step F/R guarded walk joins inequivalent LNAs. E-321: no recorded LNA-to-LNA merge (n = 8-10) uses a J != 0 step, and none could (balls hold none); the 19 audited n = 9 joins keep q_S. Next: library J != 0 refusal (prunes 0 F-041 edges, refuses E-318); n = 11, 12 merges; step shape of E-318 vs the 19. · 123 · skeptic
+- **T5 · J = 0 premise** (agenda, round 120: 3) · H-023, H-031 · M1, M2, M4, M5 proved (E-290, E-294, E-309); E-319 three lemmas on 13 formal models; E-322: (LF) proved under (C) for Construction-2.2 parents, (H1) is (H1w), (H3) checked per instance on 82 LNA steps. H-023 OPEN: (H3) in general, finite-dimensional loop parents, Hom/End(T), M3/M3b. · 123 · theorist
 - **T3/T8 · Cartan-level invariants** (H-025 in the backlog) · H-024 (SUPPORTED; also H-025) · Necessity now has a second source: Ladkani 1001.4765 Lemma 3.5 + Rickard + Aihara-Iyama Thm 2.27, P = r^-T (E-308); Nikulin 1.13.3 still UNVERIFIED (secondary only). E-292: NO on 19 of 19 q_S-separated pairs, YES on 19 controls. Open: lam < 1.5 NO (no LNA pair exists there, E-276), Z[Phi]-class route, H-025 periodic-not-FCY search. · 117 (scholar) · skeptic E-314: planted NO power at one n = 11 group (21 of 21) and singular n = 12 group of 47 splits 14 + 33 by SNF(S) (E-291 amended).
 - **T7 · H-010** · H-010 · Single-mutation rule and Catalan factorisation proved relative to `procedure` (E-187, E-205). No start-gap-2 pair lowers overlap in three non-vacuous cells k = 4, 5; k = 5/6 mostly capped, engine ValueError on parallel arrows (E-313, no power); overnight not approved. Open: theorist argument whether H-010's end-only reasoning excludes gap-2 lowering (retirement route). · 119 · experimentalist
 - **T4 · H-020 rule table** (converted, 118) · H-020, H-029 · H1 holds to widths 9-11, lengths <= 14 (E-225). Class-B first-step delta is a per-rule value, 82 of 82 length transfers at widths 5-6 (E-310), no formula; test is widths 8-9 (H-029). · 118 · skeptic
 - **H-027 · A_n vs B_n reachability** · H-027 (SUPPORTED) · A_n ~ B_n (Fosse Cor. 4.6) but A_n not in orbit(B_n) (E-280). Tilting exchanges reach A_n from B_n at depth 3, 4, 5 (n = 5, 6, 7; E-287, E-289), each step gate-admitted. Generation now follows from Hubery-Krause Cor. co:complete via B_n ~ kD_n, up to two unverified sub-steps and unread primaries (E-308); silting-vs-tilting still open. · 117 (scholar) · toolsmith
-- **S-1 · vertex deletion** (agenda, round 120: 4) · H-026 (SUPPORTED, odd n only) · K0 = min(h, n-4-h) for lone-3 classes at key level (ten odd-n fits, E-301, E-304). E-307: the even-n extension FAILS at the self-mirror class (one image key at every K >= 1, n = 10..18; pre-registered n = 14 miss); non-central even classes obey the law; the 'rivals' min(h, n-3-h) equal it off-centre. Image key constant on forward-rewrite components at n = 15 h = 3 (sub-orbit only). F-blockers: full-orbit / q_S class level, tail end at even n, non-lone law, derivation of the self-mirror exception. · 117 · experimentalist
+- **S-1 · vertex deletion** (agenda, round 120: 4) · H-026 (SUPPORTED, odd n only) · K0 = min(h, n-4-h) for lone-3 classes at key level (ten odd-n fits, E-301, E-304). Round 123 (revision pending): key not constant on whole orbits at K0; on K >= 1 sub-orbits constancy is automatic (E-141, E-146). E-307: the even-n extension FAILS at the self-mirror class (one image key at every K >= 1, n = 10..18; pre-registered n = 14 miss); non-central even classes obey the law; the 'rivals' min(h, n-3-h) equal it off-centre. F-blockers: K = 0 transit class level, tail end, non-lone law, self-mirror derivation. · 123 · experimentalist
 - **T6 · H-017** · H-017 · Defect not constant per key class (E-283); key shift weak, confounded with source LNA at n = 9 (E-303). Closed for cycle 1; cycle-2 form: H-017b (amendment text in H-017, E-314): per-LNA statistic, delta* fixed first, n = 10/11, overnight proposal, not run. · 119 (text) · maverick
 - **T1 · H-021'**, **T2 · s(c)**: closed round 060 (E-176). **T9 · long runs**: parked (`OVERNIGHT.md` Menu 4).
 
 ## Awaiting revision
-(none)
+- experimentalist: revise rounds/123/experimentalist.md per rounds/123/experimentalist.review.md (cite E-141/E-146; K >= 1 restricted orbits and induced moves; per-orbit K0 counts; `rules` contrast; fix title; flag E-307 (3) as automatic). Referee scripts: rounds/123/maverick_*.py.
 
 - **T11 · presentation dependence** · H-030 (narrowed) · The round-118 redundant-relation failures were a harness encoding (-1 as 32002); retracted R-016, E-312. Left: 8 of 936 minimal length-3 parents where the gate over-admits (E-080 kind; seeds 871 514 1629 1806 1944 2257 2794 3277). Next: which have the exact E-080 shape; does an injectivity test close them. Docstring note on rational coefficients proposed, not made. · 119 · toolsmith
 
@@ -61,24 +61,21 @@ Each: question · H-entry · state · last worked · owner.
 - arXiv is reachable (STEERING, standing permissions).
 
 - Round 120 conference: no F/R entry, no status change; F-candidate H-024 (lam >= 1.5, blocker: planted power at a second group), R-candidate "key group = one derived class" (blocker: SNF on C of the 47-group). Docstring sentence added to mutateAtVertex. Overnight proposals E-204, E-206/E-210, E-253, E-260 retired.
-- Round 116 conference: no F/R entry; blockers in rounds/116/proceedings.md.
-- Rounds 113-115: E-297/E-300 (13 of 13 chains), E-298/E-305 (controls; HH has no power on the key-kept region), E-299/E-301/E-304 (K-law, ten fits; R-015), E-302/E-303 (T6). R-candidate still blocked (no NO-capable invariant); F-candidate H-026 blocked on class level, a non-lone law, a derivation.
 
 ## Rota
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 119 | 122 (theorist) |
-| theorist | 122 | 122 (scholar) |
-| skeptic | 121 | 122 (toolsmith) |
-| scholar | 122 | 119 (maverick) |
-| toolsmith | 122 | 115 (experimentalist) |
-| maverick | 121 | 118 (toolsmith) |
+| experimentalist | 123 | 122 (theorist) |
+| theorist | 123 | 122 (scholar) |
+| skeptic | 123 | 122 (toolsmith) |
+| scholar | 122 | 123 (theorist) |
+| toolsmith | 122 | 123 (skeptic) |
+| maverick | 121 | 123 (experimentalist) |
 
-- Round 117: E-306 (q_S instrument at n = 9, J = 0 steps are not a test), E-307 (H-026 even-n extension refuted), E-308 (necessity step sourced; H-028 retired as a citation). Backlog list: cycles/001/backlog.md.
 
 - theorist: M3/M3b (two loops); is H-010's end-only argument enough to exclude gap-2 lowering (E-313)? skeptic: check which of the 8 minimal anomalies have the E-080 shape (E-312); recompute the 47-group SNF split via a derived invariant (E-314).
-- Round 122: E-318 (H-015 refuted in step reading, n = 11), E-319 (H-031 three lemmas, 13 formal models), E-320 (ENS source; BHL second source for H-024). Round 123 plan: toolsmith/skeptic follow-up on E-318 (replay F-only merges), experimentalist H-026 class level, theorist (LF) for real parents. Owed: literature file for ENS math/0101145, BHL 0906.3422.
-- Round 121: E-315 (no splitting lemma covers H-031), E-316 (n = 9 J != 0 steps: no open outcome), E-317 (47-group: 6 + 3 orbits, J = 0 balls only). Round 122 plan: theorist (literature+proof H-031), toolsmith (T10: J != 0 step search, planted crossing), scholar (non-completed semifree leads, prior-art lines).
-- Round 118: E-309 (M4/M5 cancel; E-305 points closed), E-310 (H-020 delta per rule; presentation dependence), E-311 (docstrings done). Proposed H-029, H-030, H-031.
-- Round 119: E-312 (seed 1614 = harness artefact; R-016), E-313 (T7 gap-2 null, no power), E-314 (E-269 NO power at one n = 11 group; 47-group split).
+- Round 122: E-318 (H-015 refuted in step reading, n = 11), E-319 (H-031 three lemmas, 13 formal models), E-320 (ENS source; BHL second source for H-024).
+- Round 121: E-315, E-316 (n = 9 J != 0 steps), E-317 (47-group: 6 + 3 orbits). Rounds 113-120: see cycles/001 and rounds/116, 120 proceedings.
+
+- Round 123: E-321 (merge replay), E-322 ((LF) proof, (H1w)); experimentalist H-026 class level to revision. Round 124 is the conference: positions on the phase, then ledger (F-candidate H-024, R-candidate key group = one class; blockers in rounds/120/proceedings.md; E-318 now breaks the R-candidate's premise at two groups).

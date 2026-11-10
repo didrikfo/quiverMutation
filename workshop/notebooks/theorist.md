@@ -10,6 +10,9 @@
   w(p) > w(b) for non-A p from i, b in A. (C) follows from equal A-weights (path length; |A| = 1), by induction on degree
   (d p != 0, no single-arrow word). Proof: pair each star b* with the next letter (which starts at i and has no suffix).
   Not implied by positive weights alone: kQ/(a1 c) with w(a2) = 5 gives the letter f a2^-1 of weight -3.
+  Best form (scholar's review): under (C), phi(i) = c in (max w(A), min w(non-A from i)) makes EVERY kM letter positive
+  (Adams-connected kM). (C) is sufficient, not necessary (kQ/(a1 c d - a2 d, a1 e), w(e) = 1). (LF) <=> some potential on all
+  vertices works (Bellman-Ford); open: is (C) always reachable by reweighting? Checked: `123/theorist_shift.py`, 82/82.
   Covers loops at i and cyclic quivers. On a line the kM letter quiver is acyclic.
 - On 10 LNAs (n = 4-6), all 82 vertex instances on A and A^op: (LF), (H1w), [PI], (H3) hold; H(I) = 0.
   Strict (H1) fails on 26 instances, all gate-closed under E-252 (F = Def 3.2 on A). On LNAs, a failure forces J != 0 (proof).
@@ -30,7 +33,8 @@
 ## Weakest points
 - Bergman's diamond lemma (Adv. Math. 29, 1978) is cited from memory; E-240 is used beyond degree 2.
 - The (H1w)-on-LNA and J != 0 arguments are sketches ("one Anick chain per cell and degree on a line").
-- The tree parent is hand-written: d^2 = 0 is checked, H = A is not (argued by Anick chains).
+- The tree parent is hand-written: d^2 = 0 is checked, H = A is not (it is the monomial Anick resolution).
+- Cite E-258 (not only E-252) for F/R on rows with length 3-4 relations.
 - The F/R match rests on E-252 (dimension data, length-2 relations only).
 
 ## Next

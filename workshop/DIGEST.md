@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 123 -- 2026-11-10 -- ordinary
+Cycle 2, phase 1 (round 3 of 4). Skeptic, experimentalist, theorist; referees toolsmith (minor, answered), maverick (major revision), scholar (minor, answered). Container restarted once mid-round; referees re-run.
+- **Skeptic:** replayed recorded merges at n = 8-10. The 19 audited n = 9 F-010 joins each hold one J != 0 step with q_S constant everywhere; no recorded LNA-to-LNA merge (F-037, F-054, C(2,4,5), F-041) holds one, and that zero is forced (the F-041 balls, 117 642 edges at n = 10, contain none). E-318's walk is flagged (**E-321**). Recorded F-only merges stand at n <= 10.
+- **Theorist:** (LF) proved for Construction-2.2 parents under (C) by a vertex shift; round 122's (H1) clause 1 is not implied and unused, replaced by (H1w); (H3), H(I) = 0 checked on 82 LNA steps (**E-322**). Cancellation on no-loop steps was already E-235. H-023 and H-031 stay OPEN.
+- **Experimentalist:** image key not constant on whole mutation orbits at K = K0 (n = 13, 15), but the referee shows that is largely automatic and already in E-141/E-146: **major revision**, nothing promoted; E-307 (3)'s constancy is likewise automatic.
+- **Consequence:** library J != 0 refusal is the toolsmith's candidate next step (prunes 0 recorded edges, refuses E-318). Round 124 is the phase conference.
+- Questions for the human: none.
+
 ## Round 122 -- 2026-11-09 -- ordinary
 Cycle 2, phase 1. Toolsmith, theorist, scholar; referees skeptic (accept), experimentalist, theorist (minor revisions, answered).
 - **Toolsmith:** at n = 11, in the 72-group, a gate-admitted key-kept J != 0 step changes the SNF tail (2,4 -> 2,2), so a 5-step key-guarded F/R walk joins the inequivalent LNAs 003033030 and 030330030. Independently rebuilt by the skeptic. **H-015 REFUTED in its step reading** (E-318); the library's F-only walk is not shown to reach it, so recorded merges stand until replayed.

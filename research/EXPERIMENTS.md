@@ -6,6 +6,29 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-322 — T5 / H-031, H-023: (LF) is proved for every Construction-2.2 parent with a positive homogeneous weight satisfying (C) (vertex shift at i); on 10 small LNAs (n = 4-6, 82 vertex instances, both sides) (H1w), (H3) and H(I) = 0 are machine-checked on real parents; round 122's (H1) clause 1 is NOT implied and is never used (replace by (H1w)); finite-dimensional loop parents, Hom/End(T) untouched
+*2026-11-10* · **`.venv/bin/python -W ignore workshop/rounds/123/theorist_lnaparent.py` (1 s); `.venv/bin/python -W ignore workshop/rounds/123/theorist_shift.py` (< 1 s)** · *workshop round 123, theorist, refereed by scholar (minor revision, answered)*
+
+Scope: (LF) is a proof, given (C) (w(p) > w(b) for every non-A letter p from i and every degree-0 arrow b from i; implied by equal A-arrow weights or |A| = 1); (C) is sufficient, not necessary (referee's toy kQ/(a1 c d - a2 d, a1 e) has (LF) with w(e) = 1 and (C) fails; whether every parent can be reweighted to meet (C) is open). The machine checks cover A4 20, 30; A5 220, 230, 320, 020, 202; A6 2220, 3300, 2400, every vertex with an out-arrow, on A and A^op, plus one hand-built non-LNA tree (whose H = A is not machine-checked; Anick resolution). The 82-instance (LF) check is vacuous (letter quivers on a line are acyclic): the Proposition rests on the proof. Controls: c = max w(A) outside the shift interval gives a weight-0 letter on 82 of 82 (NO); a dropped d-term fails H = A; unequal weights w(a2) = 5 give (LF) NO; planted g and the closed ideal (a*) are caught. (H3) is found per instance (10 instances with remaining Theta letters, 8 gate-admitted), not proved for LNAs in general.
+
+Result: (H1w) (every Theta letter with a linear term has a pivot not in Theta, in no other letter's linear part, pivots distinct) is what Lemmas 1-2 of E-319 use; E-319's clause "only Theta letters have a linear term" fails on 26 gate-closed LNA instances and on one gate-admitted J = 0 tree step and is never used. Prior record: cancellation for no-loop parents is E-235 (via omega-reduction), E-256, E-279; new here is reaching real parents without the omega-reduction (per instance) and the proof of (LF).
+
+Consequences: H-031's hypothesis (H1) reads (H1w); H-023's loop joint then rests on (H3) for real parents and Hom/End(T) only. No F/R change.
+
+---
+
+## E-321 — T10 / H-015, H-032: replay of recorded merges at n = 8-10: the 19 n = 9 F-010 joins each contain exactly one J != 0 step (the audited one, by construction) with q_S, SNF(S), signature constant at every node (258 steps, 239 J = 0); the library's LNA-to-LNA merges (F-037 5 printed paths, F-054, C(2,4,5), F-041 at n = 8, 9, 10) contain no J != 0 step, and that zero is forced: the depth-3 key-guarded balls of all F-041 pairs (2 396, 18 518, 117 642 distinct edges) hold no key-kept J != 0 edge; E-318's walk is flagged
+*2026-11-10* · **`timeout 10m .venv/bin/python -W ignore workshop/rounds/123/skeptic_mergereplay.py records|extra|f037|control`; `skeptic_f041.py N [LO HI]`; `skeptic_ballJ.py N [LO HI]`; classifier `skeptic_jtilt.py` (copy of E-317's)** · *workshop round 123, skeptic, refereed by toolsmith (minor revision, answered)*
+
+Scope: recorded merges with a printed or regenerable path only; n = 7 "25 of 25" paths, E-032's n = 10/11 merges (no paths stored), n = 11, 12 not covered; F-037 is 5 printed paths of 19 hits. Power: E-318's 5-step walk is flagged (step 4 J != 0, `tiltingPlus` false, SNF tail (1,2,4) -> (1,2,2)); the two planted cross merges fail at the meet isomorphism, not at a step (one INV comparison, not independent). At n = 9 only q_S can say NO (SNF(S) and signature are equal for the F-010 halves). Every pair that meets has exactly one meeting key (n = 8: 10 of 10, n = 9: 52 of 52, n = 10: 206 of 206).
+
+Result: the answer to "do the recorded merges use a J != 0 step?" is: the 19 audited joins do, all inside one q_S class; no recorded LNA-to-LNA merge does, and none could, since the balls they are drawn from have no such edge. So E-318's crossing is not contradicted by, and not reachable from, any recorded merge; this is not evidence that the library walk cannot cross from other starts (E-318 is one). Prior record: E-316 (q_S at the 19 steps), E-169 (C(2,4,5) replay, J = 0), E-156 (F-041 n = 8), E-164 (F-037 edges). INV constancy along J = 0 steps is a weak necessary-condition test of H-023; none failed.
+
+Consequences: the recorded F-only merges stand (answers E-318's open point at n <= 10); the `mutationSearchDepthFirst` docstring claim (a guarded walk stays in one derived class) stays false for R / J != 0 walks. A default J != 0 refusal in the library would prune 0 edges in these balls and refuse E-318's walk (toolsmith; regression: F-041 counts unchanged, E-318 walk refused).
+
+---
+
+
 ## E-315 — T5 / H-031, H-023: no published splitting lemma covers H-031 (Keller-Yang 0906.0761v3 Lemma 2.10, DWZ 0704.0649v4 Thm 4.6, Oppermann 1504.02617v1 read in LaTeX); on the formal models M1, M2, M4, M5, M6 only, the raw kM fails KY's direct-sum hypothesis (4, 12, 10 mixing terms in M1, M4, M5) and the dg-ideal condition of its proof (2, 6, 3); literature
 *2026-11-08* · **`.venv/bin/python -W ignore workshop/rounds/121/scholar_splithyp.py`; `.venv/bin/python -I workshop/rounds/121/scholar_kynumbers.py <KellerYangDerEqQuivMut.tex> T:DWZreduction 2.9 L:reduction lemma:Mittag-Leffler 9.9`** · *workshop round 121, scholar, refereed by theorist (minor revision, answered)*
 

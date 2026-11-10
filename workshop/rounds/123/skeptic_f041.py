@@ -45,6 +45,7 @@ for i in range(lo, min(hi, len(P))):
     if not ms: tot['no meeting'] += 1; print(i, ''.join(map(str, a)), ''.join(map(str, b)), 'NO MEETING', flush=True); continue
     key, pl, pr = ms[0]
     rl, el = half(X, pl); rr, er = half(Y, pr); rows = rl + rr
+    tot['halves end at meeting key'] += (search.quiverKey(el) == key == search.quiverKey(er)); tot['pairs with >1 meeting'] += len(ms) > 1   # referee item 5
     fw = [r for r in rows if r[0] == 'fwd']; iv = [r for r in rows if r[0] == 'inv']
     nJ = sum(r[3] for r in fw); nJi = sum(r[3] for r in iv); ninv = sum(not r[6] for r in fw)
     tot['merges'] += 1; tot['fwd edges'] += len(fw); tot['fwd J!=0'] += nJ; tot['inv edges'] += len(iv); tot['inv J!=0'] += nJi

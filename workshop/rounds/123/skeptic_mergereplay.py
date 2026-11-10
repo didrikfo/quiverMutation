@@ -125,7 +125,8 @@ if MODE == 'records':
     pl = []
     replay('PLANTED a', '3060000', 'F1 R9 R8 R8', 'R8', 'R1 R3', '3304000', 'F2 F1 F6 F5 F2', pk0, pl)
     replay('PLANTED b', '3304000', 'F2 R8 R9 R7 R7', 'R7', 'R2', '3060000', A, pk0, pl)
-    print('planted cross merges: meet iso %s, INV(root) == INV(root\') %s (both must be False)' % ([o[2] for o in pl], [INV(nk.LinearNakayamaAlgebra.fromClassName(a)) == INV(nk.LinearNakayamaAlgebra.fromClassName(b)) for a, b in (('3060000', '3304000'),) * 2]))
+    print('planted cross merges: meet iso %s (both must be False); one INV comparison (both plants pair the same two roots): INV(3060000) == INV(3304000) %s; INV changes at their steps %s'
+          % ([o[2] for o in pl], INV(nk.LinearNakayamaAlgebra.fromClassName('3060000')) == INV(nk.LinearNakayamaAlgebra.fromClassName('3304000')), [o[4] for o in pl]))
     print('\nSUMMARY (record, replay ok, meet iso, J != 0 steps, INV changes, steps):')
     for o in out: print('  ', o)
     print('merges with >= 1 J != 0 step: %d of %d; with exactly 1: %d; with an INV change: %d; time %.0fs'

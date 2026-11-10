@@ -16,7 +16,9 @@
 
 ## Believe now
 - No recorded merge (of either kind) uses a J != 0 step except the audited steps of (a), and those stay in q_S class. E-318's walk (F3 R8 F3, then J != 0 F3) is
-  outside every recorded path; no recorded LNA merge passes a J != 0 step (first meetings only for F-041).
+  outside every recorded path; no recorded LNA merge passes a J != 0 step -- but that is FORCED (r123 response, toolsmith): the depth-3 key-guarded
+  balls of all F-041 pairs n = 8, 9, 10 have 0 J != 0 walk edges (2 396 / 18 518 / 117 642 distinct; skeptic_ballJ.py). Exactly 1 meeting per pair.
+  Lesson: before reading a 0 count on paths, count the pool the paths are drawn from. C(2,4,5) merge was already E-169.
 - r121: n = 9 key-kept J != 0 children land in parent's J = 0 component. r113: HH/Hom-only tests lack power. r099 q_S no power in periodic groups.
   r094 F/R convention; r091 F = Oppermann LEFT. Unit of evidence = orbit.
 
@@ -26,7 +28,7 @@
 - H-030 seeds rebuild (871 514 1629 1806 1944 2257 2794 3277); n = 12 47-group second instrument; H-029 widths 8-9.
 
 ## Next
-1. Library default: refuse J != 0 steps in mutationSearchDepthFirst (E-151 cost 8-11%) -- referee toolsmith's proposal, demand that F-041/F-037 counts are unchanged (they should be: 0 J != 0 edges).
+1. Library default: refuse J != 0 steps in mutationSearchDepthFirst (E-151 cost 8-11%) -- prunes 0 edges in F-041 balls; regression = F-041 counts unchanged AND E-318 walk refused.
 2. H-030 seeds. 3. Referee any n = 12 T10 run: pre-registered YES, q_S/SNF per kept child.
 
 ## Habits
