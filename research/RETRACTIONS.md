@@ -6,6 +6,15 @@ does not. See [`README.md`](README.md).
 
 ---
 
+## R-017 — "A Coxeter key group is one derived class, and the key guard keeps a walk inside it"
+*retracted 2026-11-11* · corrected by E-314, E-317, E-318 (workshop rounds 119, 121, 122; conference round 124)
+
+Held (never as one sentence, but in the guard's design, `mutationSearchDepthFirst`'s old docstring and H-015's sufficiency reading, E-034, E-096, E-155): walking under the gate and the Coxeter-key guard stays in one derived class, so equal key means one class.
+
+**False.** The key (Coxeter polynomial) is a coarse invariant: key groups hold several derived classes, split by SNF(S) of S = C + C^T (a derived invariant, necessity step E-308): the n = 9 F-010 group 18 + 18 (F-010), the n = 11 group of 72 as 13 + 59 and the n = 12 group of 47 as 14 + 33 (E-314, E-317). And the guard does not keep a walk in its class: at n = 11 a gate-admitted key-kept J != 0 right mutation changes SNF(S)'s tail from (2,4) to (2,2), and a 5-step key-guarded F/R walk joins the inequivalent LNAs 003033030 and 030330030 (E-318, rebuilt by the skeptic with three SNF routes; one hit in 20 roots searched). What survives: under the J = 0 premise (H-023) every step the library's F-only walks take preserves the class, and no recorded LNA-to-LNA merge at n <= 10 uses a J != 0 step (E-321). **Open points:** the n = 11 and n = 12 splits and the crossing rest on SNF(S) alone (a second invariant independent of S is not yet computed; the Coxeter polynomial is equal by construction); the crossing is one instance. **Lesson:** a guard that is necessary for equivalence says nothing about sufficiency until a crossing is looked for with a power control.
+
+---
+
 ## R-016 — "The repo's gate and F/R convention fail on non-minimal relation presentations with a redundant length-3 relation" (E-310, H-030's wording; seed 1614 '0 of 8 after deletion')
 *retracted 2026-11-06* · corrected by E-312 (workshop round 119)
 

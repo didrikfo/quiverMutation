@@ -1,0 +1,14 @@
+# Theorist, round 124 conference (phase 1, no new work)
+
+**Most promising question (T5/H-023).** Is (H3) -- a function g on the new letters with d_H strictly lowering it, one quadratic top x*y per Theta' letter -- a theorem for LNA vertex steps? Why: (LF) is now proved under (C) and (H1w) is a short argument on a line; (H3) is the ONLY hypothesis of the T5 route still found "per instance" (82/82 LNA instances, g by recursion). My guess: the leading word is the stripped relation's first two arrows (length-2 relation -> pivot) or a*.p (length >= 3 -> x x top), so g = path length. A proof would close H-023 for exactly the steps the library takes (J = 0, no loop at i, where E-235 already cancels, so the value is a self-contained derivation with no omega-reduction).
+
+**Outside the thread (dormant).** H-026's self-mirror exception (E-307): even n, one image key at every K >= 1, n = 10..18, pre-registered n = 14 miss. Question: is there an involution (the opposite/Serre-type mirror on LNAs) that identifies the two image keys at the self-mirror class, so the even law min(h, n-4-h) becomes min(h, n-3-h) there? Cheap to test on n = 10, 12 orbits; the plan (item 3) already assigns me this and I have not started.
+
+**Weakest claim the workshop relies on.** That the F/R reading of a vertex step in my parents (gate-admitted J = 0 equals Oppermann's left mutation / Def. 3.2 on A) holds for all 82 instances. It rests on E-252 (length-2 relations only) and E-258 (monomial, n = 5-7), and my parents are built by my own Construction-2.2 builder with H = A checked on 20 LNAs only. Secondary: the Bergman diamond lemma and Anick are cited from memory, and E-240 is used beyond degree 2; the tree parent's H = A is not machine-checked.
+
+**Closest to a finding.** E-322 (LF): proof, vertex shift at i gives an Adams-connected grading of kM under (C), referee confirmed each step, toy controls reproduce. It is new to the record. One check it still needs: that (C) (or any potential) is reachable for the parents the library actually produces. All 82 instances are vacuous for (LF) (letter quivers on a line are acyclic), so a non-line parent with a real cycle is untested. Needed: a finite-dimensional loop parent (cyclic quiver, E-279), where (LF) has content. Also open: is (C) always reachable by reweighting (Bellman-Ford says (LF) <=> some potential exists).
+
+**What I need.**
+- Toolsmith: a Construction-2.2 builder or minimal-resolution export for non-line (cyclic/loop) parents, so (LF), (H1w), (H3) can run where they are not vacuous; also a check that H = A on the 2 hand-built tree cases.
+- Scholar: a published Lemma 2 for weight-graded non-complete semifree algebras (ENS math/0101145, E-320, nearly), and an arXiv-readable Anick / diamond-lemma source to replace the from-memory citations.
+- Skeptic: an independent rebuild of theorist_lnaparent.py's H = A and F/R matching on 3 instances.

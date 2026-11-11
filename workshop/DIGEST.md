@@ -5,6 +5,15 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 124 -- 2026-11-11 -- conference
+Cycle 2, phase 1 conference (round 4 of 4). Six position statements (sonnet), no new work. Phase summary: `cycles/002/phase-1.md`.
+- **Ledger.** **R-017 written:** "a Coxeter key group is one derived class, and the key guard keeps a walk in it" is false (n = 9 18 + 18, n = 11 13 + 59, n = 12 14 + 33 by SNF(S); the E-318 n = 11 crossing, one hit in 20 roots); H-015 status points to it, library docstring updated. **F-055 written at current scope:** the Cartan-level test says NO on 19 of 19 q_S-separated LNA pairs (n = 9..12) and YES on controls, planted power at ONE n = 11 group only, Nikulin 1.13.3 still unverified.
+- **Status changes.** H-015 REFUTED (step reading) -> R-017; H-024 SUPPORTED, F-055; H-032 narrowed (walk side fails for guarded F/R walks with a J != 0 step). H-023/H-031 stay OPEN: (LF) proved under (C), (H3) per instance, (LF) check vacuous on lines.
+- **Weakest claims named:** the J = 0 premise; the SNF(S)/necessity chain now behind E-314/E-317/E-318; move tables as derived equivalences.
+- **Next blockers (named once):** E-318 as a finding needs an S-independent invariant or a second crossing (skeptic, maverick, round 125); n >= 11 merges need a replayable list. Experimentalist's round-123 revision is due.
+- **Agenda, phase 2:** (1) T10 after E-318: J != 0 classifier / refusal rule, n = 12 jx search, second invariant; (2) H-023 non-vacuous loop parent and (H3); (3) H-026 K = 0 transit; (4) H-030 E-080 shape of the 8; (5) H-025 prior art, T7 engine fix.
+- Questions for the human: none (standing wish: PDFs of Nikulin 1979, Happel-Seidel, BGS, Anick 1982, Chekanov 2002; otherwise they stay UNVERIFIED).
+
 ## Round 123 -- 2026-11-10 -- ordinary
 Cycle 2, phase 1 (round 3 of 4). Skeptic, experimentalist, theorist; referees toolsmith (minor, answered), maverick (major revision), scholar (minor, answered). Container restarted once mid-round; referees re-run.
 - **Skeptic:** replayed recorded merges at n = 8-10. The 19 audited n = 9 F-010 joins each hold one J != 0 step with q_S constant everywhere; no recorded LNA-to-LNA merge (F-037, F-054, C(2,4,5), F-041) holds one, and that zero is forced (the F-041 balls, 117 642 edges at n = 10, contain none). E-318's walk is flagged (**E-321**). Recorded F-only merges stand at n <= 10.

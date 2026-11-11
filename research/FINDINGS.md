@@ -5,6 +5,19 @@ See [`README.md`](README.md) for conventions.
 
 ---
 
+## F-055 — At n = 9..12 the Cartan-level test (Phi-equivariant Z-congruence, E-269) says NO on 19 of 19 q_S-separated LNA pairs and YES on 19 of 19 controls; planted-pair power is shown at ONE n = 11 group only
+*2026-11-11* · *workshop round 124 (conference ledger), chair; evidence refereed in rounds 110 (skeptic, refereed by toolsmith) and 119 (maverick, refereed by scholar)*
+
+Evidence: E-292, E-281, E-314; necessity step E-308, E-272, E-320 (BHL 0906.3422 Prop. 2.1).
+
+**The claim, at its scope.** If A, B are derived equivalent finite-dimensional algebras of finite global dimension, there is P in GL_n(Z) with P^T C_B P = C_A and P Phi_A = Phi_B P (H-024; Ladkani math/0610685 Cor. 3.13, Lemma 3.14, BHL 0906.3422 Prop. 2.1 matched in the sources). E-269's search for such a P says NO on 19 of 19 two-quipu LNA pairs of the same Coxeter key at n = 9..12 whose discriminant forms q_S differ (lam 1.661..2.46; 14 of the 19 by an exhaustive vector search that also fails exactly, 5 by the q_S certificate alone), and YES with an exact P on 19 of 19 within-quipu controls and on the 6 mixed-digit pairs of Fosse Cor. 4.6 (E-281). Planted power: on 21 planted non-LNA pairs at one n = 11 group (lam 1.458, |det S| = 8) the search says NO, and YES on 292 of 292 same-q_S perturbations (E-314).
+
+**What it does not say.** No planted-pair power at any other group (for |det S| in {3,4,5,6,11}, n = 9..12, no in-domain planted pair exists) and none at n = 12; nothing for lam < 1.5 (no LNA pair exists there, E-276); the lattice step behind q_S (Nikulin Cor. 1.13.3) is matched in secondary sources only (UNVERIFIED); E-269's bound is a floating-point majorant (closed form since E-276). A NO is therefore a NO for these pairs, not a general decision procedure. Skeptic's standing objection (one planted group) is why the title says so. Blocking check named at round 120 (a second planted group) was not run in phase 1; written at current scope as the rule requires.
+
+Reproduce: `.venv/bin/python -W ignore workshop/rounds/110/skeptic_qsno.py` (n = 9..12), `workshop/rounds/119/maverick_plant3.py` (see E-314).
+
+---
+
 ## F-054 — Two walks can meet at one algebra under different labels, and that joins two of E-032's four unlinked `n = 10` orbits
 *2026-09-26*
 

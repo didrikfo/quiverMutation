@@ -336,7 +336,8 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
 
     What it does *not* do: an equal key is necessary for a derived equivalence,
     not sufficient (E-147, E-151), so a key-kept step could still leave the
-    derived class.  Whether any does is open (T10, H-015): 13 key-kept
+    derived class.  One does (E-318, R-017: at n = 11 a key-kept J != 0
+    step changes SNF(S)); no recorded LNA-to-LNA merge uses one (E-321).  13 key-kept
     steps examined at n = 7, class 1 are joined by derived-equivalence chains
     (E-300), but "generation assumed", and 12 of the 13 chains are E-297's,
     not re-verified there; this is not a proof of equivalence.  A J != 0
