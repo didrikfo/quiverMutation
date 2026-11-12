@@ -44,6 +44,7 @@ def run(n, h, moves, cls, lab):
         if bucket is None: continue
         v = 'same image' if a == b else ('image move' if b in inb(a) or a in inb(b) else 'neither')
         bucket[v] += 1
+        if bucket is ind and v == 'same image': bucket['(same image; of these self-loop m == r: %s)' % (m == r)] += 1
         if bucket is ctl and lab[m] != lab[r]: bucket['(key changes; of these neither: %s)' % (v == 'neither')] += 1
     print(' [%s] induced, both ends K>=1: %s | control, one end K=0: %s' % (moves, dict(ind), dict(ctl)))
     # (2) restricted components

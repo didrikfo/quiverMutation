@@ -1,0 +1,8 @@
+record       step   tilting?  other steps    detour   nodes
+E-233        R8     False     all J=0 tp     None     808
+E-233 X~P    R8     False     all J=0 tp     None     808
+E-234 1932   R8     False     all J=0 tp     None     735
+E-234 1970   R8     False     all J=0 tp     None     877
+E-234 2003   R8     False     all J=0 tp     None     877
+E-234 4551   R8     False     all J=0 tp     None     813
+E-234 4722   R1     False     all J=0 tp     None     808

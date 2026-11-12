@@ -1,4 +1,4 @@
-n=13 h=3 K0=3: class 5835 rows, 6 image keys  17s
+n=13 h=3 K0=3: class 5835 rows, 6 image keys  10s
  [rules] induced, both ends K>=1: {'image move': 3044} | control, one end K=0: {'neither': 675, 'image move': 1403, 'same image': 880, '(key changes; of these neither: True)': 8}
  [rules] restricted (K>=1) rows 2248, components 1213, whole component mixed 0; K=1 hit 801 mixed 0 (shuffled 78.3, 67-92); K=2 hit 305 mixed 0 (shuffled 21.1, 15-30); K=3 hit 131 mixed 0 (shuffled 7.1, 4-10); image keys on K>=1 rows: 2
  [rules] full orbits 2349; {'orbits with >= 2 K0 rows': 14, '  of these, > 1 restricted component': 14, '  of these, mixed at K0': 0, 'orbits joining restricted comps of >= 2 image keys': 1}
@@ -15,7 +15,7 @@ n=13 h=3 K0=3: class 5835 rows, 6 image keys  17s
  [mut] K=0 rows 3587 in 8 K=0 components; 3 touch >= 2 restricted comps; 2 touch comps of >= 2 image keys (bridges), sizes [1280, 841]
     smallest bridge: 841 K=0 rows, e.g. ['20030000000', '20030000002', '20030000020'], touching 6 restricted comps
  [mut] 4s
- [der] induced, both ends K>=1: {'same image': 335, 'image move': 11983} | control, one end K=0: {'image move': 4544, 'neither': 573, 'same image': 1215, '(key changes; of these neither: True)': 8}
+ [der] induced, both ends K>=1: {'same image': 335, '(same image; of these self-loop m == r: True)': 335, 'image move': 11983} | control, one end K=0: {'image move': 4544, 'neither': 573, 'same image': 1215, '(key changes; of these neither: True)': 8}
  [der] restricted (K>=1) rows 2248, components 4, whole component mixed 0; K=1 hit 4 mixed 0 (shuffled 4.0, 4-4); K=2 hit 4 mixed 0 (shuffled 3.9, 3-4); K=3 hit 4 mixed 0 (shuffled 3.0, 3-3); image keys on K>=1 rows: 2
  [der] full orbits 2; {'orbits with >= 2 K0 rows': 2, '  of these, > 1 restricted component': 1, '  of these, mixed at K0': 1, 'orbits joining restricted comps of >= 2 image keys': 1}
     orbit 3697 rows: 3 restricted comps carrying 2 image keys; K0 rows by image key {0: 102, 1: 65}; K=1..K0 rows by image key {1: {0: 508, 1: 412}, 2: {0: 230, 1: 136}, 3: {0: 102, 1: 65}}
@@ -23,3 +23,7 @@ n=13 h=3 K0=3: class 5835 rows, 6 image keys  17s
  [der] K=0 rows 3587 in 5 K=0 components; 2 touch >= 2 restricted comps; 2 touch comps of >= 2 image keys (bridges), sizes [1290, 844]
     smallest bridge: 844 K=0 rows, e.g. ['20030000000', '20030000002', '20030000020'], touching 3 restricted comps
  [der] 4s
+
+real	0m20.605s
+user	0m35.449s
+sys	0m0.221s

@@ -41,8 +41,10 @@ def plant(K):
             for k in I0:
                 if I2[k] != I0[k]: ch[k] += 1
             if I2['SK'] == I0['SK'] and I2['X3'] != I0['X3']: ch['X3 with SK same'] += 1
-            if I2['SK'] == I0['SK'] and I2['X3'] != I0['X3'] and charpoly(C2) == charpoly(C): ch['X3 with SK and Coxeter key same'] += 1
-        print('plant %s: %d unimodular C + K (S identical); invariant changed in: %s' % (name, tot, dict(ch)))
+            ks = charpoly(C2) == charpoly(C); ch['key same'] += ks; ch['X3 with key same'] += ks and I2['X3'] != I0['X3']
+            if I2['SK'] == I0['SK'] and I2['X3'] != I0['X3'] and ks: ch['X3 with SK and Coxeter key same'] += 1
+        print('plant %s: %d unimodular C + K (S identical); invariant changed in: %s; X3 with SK and Coxeter key same: %d; Coxeter key same: %d (X3 changed in %d)'
+              % (name, tot, dict(ch), ch['X3 with SK and Coxeter key same'], ch['key same'], ch['X3 with key same']))
     # planted-error control: a non-congruence C -> P^T C Q must be caught by the invariant comparison
     C = flint.fmpz_mat(ct.lnaCartanMatrix(n, (0, 0, 3, 0, 3, 3, 0, 3, 0))); I0 = cinv(C); bad = 0
     def um():
