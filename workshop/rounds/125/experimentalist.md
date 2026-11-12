@@ -87,7 +87,7 @@ Table C: orbits that join restricted components of >= 2 image keys (rows; restri
 ```
 timeout 10m .venv/bin/python workshop/rounds/125/experimentalist_transit.py 13 3     # 21 s (rules, mut, der); referee 35 s
 timeout 10m .venv/bin/python workshop/rounds/125/experimentalist_transit.py 13 2     # 31 s; referee 43 s
-timeout 10m .venv/bin/python workshop/rounds/125/experimentalist_transit.py 15 3     # N15TIME (key scan dominates); referee 5 min 48 s
+timeout 10m .venv/bin/python workshop/rounds/125/experimentalist_transit.py 15 3     # 3 min 18 s this run (key scan 140 s; was 5 min 07 s); referee 5 min 48 s
 ```
 Outputs: `workshop/rounds/125/experimentalist_transit_n13h{2,3}_out.txt`, `..._n15h3_out.txt` (< 5 KB each). All three outputs regenerated in this revision with the key-change counter (control) and the self-loop counter (`der` same-image). Imports `rounds/123/experimentalist_classlevel.py` and `rounds/117/toolsmith_qsscan.py`. Referee scripts `rounds/123/maverick_k1.py`, `maverick_ind.py` give the same `mut` / `der` / `rules` numbers on the runs they cover.
 

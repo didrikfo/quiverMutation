@@ -6,3 +6,6 @@ E-234 1970   R8     False     all J=0 tp     None     877
 E-234 2003   R8     False     all J=0 tp     None     877
 E-234 4551   R8     False     all J=0 tp     None     813
 E-234 4722   R1     False     all J=0 tp     None     808
+E-239 2026   R7     False     all J=0 tp     None     633
+E-244 4606   R7     False     all J=0 tp     None     861
+E-244 8063   R9     False     all J=0 tp     None     642
