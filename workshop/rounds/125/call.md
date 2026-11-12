@@ -8,4 +8,6 @@ No open question from round 124 (proceedings: none); nothing to settle under ste
 ## Revisions due
 - experimentalist: answer the review of rounds/123/experimentalist.md
 ## Referees
-(filled in at step 3)
+- experimentalist (revision): maverick (wrote the original review)
+- maverick: theorist
+- toolsmith: skeptic

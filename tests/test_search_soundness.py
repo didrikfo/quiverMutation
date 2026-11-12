@@ -158,3 +158,53 @@ def test_a_cyclic_start_disables_the_guard_rather_than_raising():
     search.mutationSearchDepthFirst(cyclic, 3, [], 'cyclic', printOutput = False,
                                     collected = collected)
     assert collected == []
+
+
+# ---------------------------------------------------------------------------
+# refuseNonTilting: the per-step J != 0 refusal (E-318), default off
+# ---------------------------------------------------------------------------
+
+
+def _e318Parent():
+    """P = 003033030 after F3 R8 F3 (R = right mutation of the dual, read back).
+
+    All three steps are tilting and key-kept; at P the right mutation at 3 is
+    gate-admitted and key-kept but not tilting, and its child has a different
+    SNF(C + C^T) (E-318), so it is not a derived equivalence.
+    """
+    from quivermutation import mutation, reduction
+    algebra = nk.LinearNakayamaAlgebra.fromClassName('003033030')
+    for kind, vertex in (('F', 3), ('R', 8), ('F', 3)):
+        side = algebra if kind == 'F' else pathAlgebra.dualPathAlgebra(algebra)
+        assert mutation.mutationIsPossibleAtVertex(side, vertex)
+        assert mutation.isTiltingAtVertex(side, vertex)
+        child = reduction.reducePathAlgebra(mutation.quiverMutationAtVertex(side, vertex))
+        algebra = child if kind == 'F' else pathAlgebra.dualPathAlgebra(child)
+    return algebra
+
+
+def test_is_tilting_at_vertex_says_no_at_e318s_step():
+    from quivermutation import mutation, reduction
+    base = search._coxeterKeyOrNone(nk.LinearNakayamaAlgebra.fromClassName('003033030'))
+    parent = _e318Parent()
+    assert search._coxeterKeyOrNone(parent) == base
+    assert mutation.mutationIsPossibleAtVertex(parent, 3)
+    assert not mutation.isTiltingAtVertex(parent, 3)
+    child = reduction.reducePathAlgebra(mutation.quiverMutationAtVertex(lm._copy(parent), 3))
+    assert search._coxeterKeyOrNone(child) == base      # the key guard admits it
+
+
+def test_refuse_non_tilting_drops_exactly_e318s_step_and_is_off_by_default():
+    parent = _e318Parent()
+
+    def children(**option):
+        seen = []
+        search.mutationSearchDepthFirst(lm._copy(parent), 1, [], 'tilting', printOutput = False,
+                                        visitor = lambda pathAlg, path: seen.append(tuple(path)),
+                                        **option)
+        return set(seen)
+
+    default, off, on = children(), children(refuseNonTilting = False), children(refuseNonTilting = True)
+    assert default == off
+    assert (3,) in off
+    assert off - on == {(3,)}

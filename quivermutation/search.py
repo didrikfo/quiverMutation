@@ -289,7 +289,7 @@ def deeperWhenFromSpec(spec):
                       budget = budget, limit = limit, name = name)
 
 
-def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName = 'quiver', vertexRelabeling = None, printOutput = True, collected = None, collectedHereditary = None, visitor = None, coxeterGuard = True, baseKey = None, deeperWhen = None, deeperSpent = 0, visited = None):
+def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName = 'quiver', vertexRelabeling = None, printOutput = True, collected = None, collectedHereditary = None, visitor = None, coxeterGuard = True, baseKey = None, deeperWhen = None, deeperSpent = 0, visited = None, refuseNonTilting = False):
     """Walk mutations of pathAlg to the given depth, recording the lines found.
 
     Every quiver reached that is again a line is recorded as a triple
@@ -368,6 +368,16 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
     offered to a node is the shortest one; see `fingerprint.Visited`.
 
     Leaving `visited` as `None` is the undeduped walk, unchanged.
+
+    **`refuseNonTilting`** (default off) also refuses an admitted step that is
+    not a tilting mutation (`mutation.isTiltingAtVertex` false, i.e. J != 0).
+    It is the per-step guard E-318 asks for: that step is gate-admitted and
+    key-kept and still changes SNF(C + C^T).  A J = 0 step is a tilting
+    mutation, hence a derived equivalence (Ladkani), so with the option every
+    step taken is one, up to the correctness of the procedure's output
+    (H-023).  Off, the walk is unchanged.  E-321: the recorded n <= 10
+    LNA-to-LNA merges and their depth-3 balls hold no key-kept J != 0 step,
+    so the option would remove none of them.
     """
     # These used to default to [] and {}, which Python evaluates once at
     # definition time.  The relabeling dict is filled in below and so leaked
@@ -449,6 +459,8 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
             # against all of them, so the search was refusing mutations the
             # paper allows, twice over.  F-016.
             if mutation.mutationIsPossibleAtVertex(pathAlg, vertex):
+                if refuseNonTilting and not mutation.isTiltingAtVertex(pathAlg, vertex):
+                    continue
                 mutationVerticesAtDepth.append(vertexRelabeling[vertex])
                 mutPathAlg = mutation.quiverMutationAtVertex(pathAlg, vertex)
                 # The check is over the *arrow* relations, not `rels`.  Two
@@ -483,7 +495,7 @@ def mutationSearchDepthFirst(pathAlg, depth, mutationVertices = None, quiverName
                     # movedKey is None for a cyclic quiver, which the search does
                     # not descend from anyway; it is let through so that cycles
                     # end a branch exactly as they did before the guard.
-                mutationSearchDepthFirst(copy.deepcopy(mutPathAlg), depth, mutationVerticesAtDepth, quiverName, vertexRelabeling, printOutput, collected, collectedHereditary, visitor, coxeterGuard, baseKey, deeperWhen, deeperSpent, visited)
+                mutationSearchDepthFirst(copy.deepcopy(mutPathAlg), depth, mutationVerticesAtDepth, quiverName, vertexRelabeling, printOutput, collected, collectedHereditary, visitor, coxeterGuard, baseKey, deeperWhen, deeperSpent, visited, refuseNonTilting)
     return
 
 
@@ -570,7 +582,7 @@ def hereditaryFormFromTheorem(lineLength, relationString):
     return algebra.quipuName()
 
 
-def linesReachedFrom(pathAlg, depth, alsoDual = True, deeperWhen = None):
+def linesReachedFrom(pathAlg, depth, alsoDual = True, deeperWhen = None, refuseNonTilting = False):
     """The LNAs a bounded mutation search out of `pathAlg` reaches.
 
     Returns a dict from relation string to the shortest mutation path found to
@@ -606,7 +618,7 @@ def linesReachedFrom(pathAlg, depth, alsoDual = True, deeperWhen = None):
         collected = []
         mutationSearchDepthFirst(copy.deepcopy(startPoint), depth, [], 'lines',
                                  printOutput = False, collected = collected,
-                                 deeperWhen = deeperWhen)
+                                 deeperWhen = deeperWhen, refuseNonTilting = refuseNonTilting)
         for found in lines.mutationListLineCleanup(collected, printOutput = False):
             algebra = found[0] if index == 0 else pathAlgebra.dualPathAlgebra(found[0])
             # Sorted, because a relation set read off the dual comes out in the

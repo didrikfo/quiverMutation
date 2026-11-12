@@ -85,6 +85,53 @@ def mutationIsPossibleAtVertex(pathAlg, vertex, allowParallelArrows = True):
                                allowParallelArrows = allowParallelArrows)
 
 
+def isTiltingAtVertex(pathAlg, vertex):
+    """Whether right mutation at `vertex` is a tilting mutation (J = 0).
+
+    Ladkani 1001.4765, Prop. 2.3(c): it is exactly when, for every vertex
+    i != vertex, the map p |-> (p beta)_beta, beta running over the arrows out
+    of `vertex`, is injective on the paths i ~> vertex modulo the ideal.  The
+    gate (`mutationIsPossibleAtVertex`) does not imply this: E-151 and E-318
+    are admissible, key-kept steps with J != 0, and E-318's changes SNF(C + C^T),
+    so it is not a derived equivalence.  Linear algebra over the rationals, on
+    the arrow relations, so parallel arrows and coefficients are respected.
+    """
+    from fractions import Fraction
+    from . import arrowPaths as ap
+    quiver = pathAlg.quiver
+    relations = procedure.relationsFrom(pathAlg)
+    outArrows = ap.arrowsOutOf(quiver, vertex)
+    for i in quiver.nodes:
+        if i == vertex:
+            continue
+        candidates = ap.allPathsBetween(quiver, i, vertex)
+        if not candidates:
+            continue
+        quotientDim = len(candidates) - len(ap.idealBasis(quiver, relations, i, vertex))
+        if quotientDim == 0:
+            continue
+        rank, pivots = 0, {}
+        for path in candidates:
+            row = {}
+            for beta in outArrows:
+                reduced = ap.reduceAgainstPivots(ap.combination([path + (beta,)]),
+                                                 ap.idealBasis(quiver, relations, i, beta[1]))
+                for key, value in reduced.items():
+                    row[(beta, key)] = Fraction(value)
+            while row:
+                head = min(row)
+                if head not in pivots:
+                    pivots[head] = {k: v / row[head] for k, v in row.items()}
+                    rank += 1
+                    break
+                factor, pivot = row[head], pivots[head]
+                row = {k: row.get(k, 0) - factor * pivot.get(k, 0) for k in set(row) | set(pivot)}
+                row = {k: v for k, v in row.items() if v != 0}
+        if rank < quotientDim:
+            return False
+    return True
+
+
 def showMutationSteps(pathAlg, mutationVertexList, firstDisplayedStep = 0):
     """Mutate step by step, printing and plotting each one, for looking by hand.
 

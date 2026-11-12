@@ -1,0 +1,11 @@
+n=12: 176 keys, 170 groups of >= 2 LNAs, 10 split by (SNF, signature) [165s]
+  group of 21: 11 LNAs SNF tail (1, 1, 25) sig (10, 2) root 0045050400; 10 LNAs SNF tail (1, 5, 5) sig (10, 2) root 0345040400
+  group of 47: 14 LNAs SNF tail (1, 1, 20) sig (10, 1) root 0040033030; 33 LNAs SNF tail (1, 1, 12) sig (10, 1) root 0400033030
+  group of 95: 24 LNAs SNF tail (1, 2, 8) sig (10, 2) root 0034504030; 71 LNAs SNF tail (1, 4, 4) sig (10, 2) root 0050404400
+  group of 178: 102 LNAs SNF tail (1, 2, 24) sig (11, 1) root 0030030300; 76 LNAs SNF tail (1, 4, 12) sig (11, 1) root 0040003030
+  group of 264: 50 LNAs SNF tail (1, 1, 14) sig (10, 1) root 0030334400; 214 LNAs SNF tail (1, 1, 8) sig (10, 1) root 0050400300
+  group of 290: 21 LNAs SNF tail (1, 1, 12) sig (10, 1) root 0003033030; 269 LNAs SNF tail (1, 1, 4) sig (10, 1) root 0300033030
+  group of 298: 170 LNAs SNF tail (1, 2, 24) sig (11, 1) root 0000303000; 128 LNAs SNF tail (1, 4, 12) sig (11, 1) root 0050000300
+  group of 372: 324 LNAs SNF tail (1, 1, 4) sig (10, 1) root 0033440030; 48 LNAs SNF tail (1, 1, 14) sig (10, 1) root 0303345000
+  group of 550: 426 LNAs SNF tail (1, 2, 16) sig (11, 1) root 0003003000; 124 LNAs SNF tail (1, 4, 8) sig (11, 1) root 0050000030
+  group of 3837: 1537 LNAs SNF tail (1, 2, 2) sig (12, 0) root 0000000030; 2300 LNAs SNF tail (1, 2, 2) sig (10, 2) root 0033440330

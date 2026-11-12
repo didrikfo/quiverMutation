@@ -11,6 +11,7 @@ CTRL=planted adds round 122's planted crossing edge and planted in-component edg
 usage (repo root):
   ROOTS=r1,r2,... DEPTH=d [CTRL=planted] [OUT=file.jsonl] timeout 10m .venv/bin/python -W ignore workshop/rounds/125/toolsmith_jxclass.py N
   GROUP=g [SLICE=a:b] DEPTH=d ... toolsmith_jxclass.py N        # roots of key group g (cache order), names sorted, slice a:b
+  NOLABEL=1 ROOTS=... DEPTH=d ... toolsmith_jxclass.py 12                 # no group table needed (n = 12)
   .venv/bin/python -W ignore workshop/rounds/125/toolsmith_jxclass.py --tally file.jsonl [...]   # merge outputs, dedup crossings by iso"""
 import sys, os, json, time, collections
 sys.path.insert(0, '.'); _A = sys.argv[:]; sys.argv = ['x', 'none']
@@ -83,12 +84,18 @@ def tally(files):
     for P, C, rs in reps:
         print('  SNF %s -> %s, sig %s -> %s; seen %d times from roots %s; e.g. %s %s|%s at level %d' % (rs[0]['parent_snf'], rs[0]['child_snf'],
               rs[0]['parent_sig'], rs[0]['child_sig'], len(rs), sorted({x['root'] for x in rs}), rs[0]['root'], rs[0]['side'], rs[0]['path'] + ' ' + rs[0]['v'], rs[0]['level']))
+    par = []   # iso classes of crossing parents, up to duality
+    for P, C, rs in reps:
+        if not any(iso(P, Q) or iso(pathAlgebra.dualPathAlgebra(P), Q) for Q in par): par.append(P)
+    print('distinct crossing parents up to iso and duality: %d' % len(par))
     roots_with = collections.Counter(r['root'] for r in real if r['cross'])
     print('roots whose ball holds a crossing: %d of %d: %s' % (len(roots_with), len(heads), dict(roots_with)))
 
 if __name__ == '__main__':
     if _A[1] == '--tally': tally(_A[2:]); sys.exit()
-    N = int(_A[1]); D = int(os.environ.get('DEPTH', '3')); ctrl = os.environ.get('CTRL', ''); lab = labels(N)
+    N = int(_A[1]); D = int(os.environ.get('DEPTH', '3')); ctrl = os.environ.get('CTRL', '')
+    # NOLABEL=1: no group table (n = 12 has no cache; computing it with q_S costs too much); group/class printed as -1, no planted control
+    lab = collections.defaultdict(lambda: dict(group=-1, cls=-1, other=None)) if os.environ.get('NOLABEL') == '1' else labels(N)
     if os.environ.get('ROOTS'): roots = os.environ['ROOTS'].split(',')
     else:
         g = int(os.environ['GROUP']); roots = sorted(nm for nm, l in lab.items() if l['group'] == g)
