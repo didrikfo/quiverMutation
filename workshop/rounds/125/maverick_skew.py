@@ -30,15 +30,18 @@ def snf(M):
 
 
 def invs(C):
-    n = len(C); Cm = sp.Matrix(C); T = Cm.T
-    out = {'S': snf((Cm + T).tolist()), 'SK': snf((Cm - T).tolist())}
-    for a in (2, 3, -2, -3): out['X%d' % a] = snf((a * Cm + T).tolist())
-    Phi = -Cm.inv() * T; assert all(x.is_integer for x in Phi)
-    x = sp.Symbol('x'); cp = sp.Poly((x * sp.eye(n) - Phi).det(), x)
-    for f, _ in sp.factor_list(cp.as_expr())[1]:
-        fp = sp.Poly(f, x); M = sp.zeros(n, n); P = sp.eye(n)
-        for c in reversed(fp.all_coeffs()): M += c * P; P = P * Phi
-        out['F[%s]' % str(f).replace(' ', '')] = snf(M.tolist())
+    n = len(C); Cm = flint.fmpz_mat([[int(v) for v in r] for r in C]); T = Cm.transpose()
+    L = lambda M: [[int(M[i, j]) for j in range(n)] for i in range(n)]
+    out = {'S': snf(L(Cm + T)), 'SK': snf(L(Cm - T))}
+    for a in (2, 3, -2, -3): out['X%d' % a] = snf(L(a * Cm + T))
+    d = int(Cm.det()); assert abs(d) == 1, d
+    Ci = flint.fmpz_mat(L(Cm.inv() * d)) * d          # exact integer inverse (det = +-1)
+    Phi = -(Ci * T); I_ = flint.fmpz_mat([[int(i == j) for j in range(n)] for i in range(n)])
+    cp = Phi.charpoly(); fac = cp.factor()[1]
+    for f, _ in fac:
+        M = flint.fmpz_mat(n, n); P = I_
+        for k in range(f.degree() + 1): M += int(f[k]) * P; P = P * Phi
+        out['F[%s]' % str(f).replace(' ', '')] = snf(L(M))
     return out
 
 
@@ -93,7 +96,7 @@ def main():
         C = sp.Matrix(lna(r))
         for _ in range(30):
             P = unimod(N, rng); assert abs(P.det()) == 1; tot += 1
-            if invs((P.T * C * P).tolist()) != I[r]: fails += 1
+            if invs([[int(v) for v in row] for row in (P.T * C * P).tolist()]) != I[r]: fails += 1
     print('\n== congruence control: %d planted P^T C P copies, %d with a changed invariant (must be 0)  (%.0fs)' % (tot, fails, time.time() - T0))
     if os.environ.get('walk', '1') == '1': walkpart(keys)
 
