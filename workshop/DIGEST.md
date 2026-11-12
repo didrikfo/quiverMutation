@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 125 -- 2026-11-12 -- ordinary
+Cycle 2, phase 2 (round 1 of 4). Toolsmith, maverick, experimentalist (revision); referees skeptic, theorist, maverick (all minor revision, all answered).
+- **Toolsmith:** a second, independent crossing: n = 12, 47-group, a 5-step key-guarded F/R walk through a non-tilting J != 0 step joins inequivalent LNAs 0040033030 and 0400330030; at n = 11, 4 of 7 duality orbits of the 13-class cross (E-318's "1 in 20" sampled one root). All 50 found cross, each needs an R move, none can be undone. Skeptic re-ran it with its own SNF. **E-323**; new opt-in `refuseNonTilting` (off; refuses the 19 audited F-010 steps, prunes no recorded F-041 merge).
+- **Maverick:** SNF(3C + C^T) separates the E-318 pair but never finer than SNF(S) on LNAs n = 8..12; no independent second Cartan-level witness exists for one pair. **E-324** (null result, narrowed).
+- **Experimentalist:** one orbit carries both image keys at K0 (n = 13, 15), the key changes only through K = 0 bridge components; K >= 1 constancy and E-307 (3) are automatic. **E-325**.
+- **Consequences:** R-017 holds at a second group by a walk crossing; H-032's walk side fails in its first case (status updated); F-candidate (E-318 + E-323) to be written at conference 128.
+- Questions for the human: none.
+
 ## Round 124 -- 2026-11-11 -- conference
 Cycle 2, phase 1 conference (round 4 of 4). Six position statements (sonnet), no new work. Phase summary: `cycles/002/phase-1.md`.
 - **Ledger.** **R-017 written:** "a Coxeter key group is one derived class, and the key guard keeps a walk in it" is false (n = 9 18 + 18, n = 11 13 + 59, n = 12 14 + 33 by SNF(S); the E-318 n = 11 crossing, one hit in 20 roots); H-015 status points to it, library docstring updated. **F-055 written at current scope:** the Cartan-level test says NO on 19 of 19 q_S-separated LNA pairs (n = 9..12) and YES on controls, planted power at ONE n = 11 group only, Nikulin 1.13.3 still unverified.

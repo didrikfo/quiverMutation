@@ -9,3 +9,14 @@ E-234 4722   R1     False     all J=0 tp     None     808
 E-239 2026   R7     False     all J=0 tp     None     633
 E-244 4606   R7     False     all J=0 tp     None     861
 E-244 8063   R9     False     all J=0 tp     None     642
+E-244 8170   R7     False     all J=0 tp     None     801
+E-244 8196   R7     False     all J=0 tp     None     799
+E-244 11123  R2     False     all J=0 tp     None     626
+E-254        F3     False     all J=0 tp     None     641
+E-234 1275   R8     False     all J=0 tp     None     606
+E-234 1433   R8     False     all J=0 tp     None     634
+E-234 1746   R8     False     all J=0 tp     None     701
+E-234 1818   R8     False     all J=0 tp     None     747
+E-234 1915   R9     False     all J=0 tp     None     808
+E-255 8427   R7     False     all J=0 tp     None     633
+of 20 audited steps: refused by the option 20; joins whose other steps are all J = 0 tilting 20; child reached from parent by an option-admitted detour of depth <= 3: 0; 312s

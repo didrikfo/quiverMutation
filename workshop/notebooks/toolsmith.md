@@ -9,7 +9,7 @@
 - R125: the classifier `125/toolsmith_jxclass.py` (wraps `122/toolsmith_jxsearch.ball`, ISO=0 EXT=0; per step: tiltingPlus, perI, SNF, signature, q_S; `--tally` dedups crossings by iso + duality; NOLABEL=1 for n = 12, which has no group cache). Data in `125/toolsmith_jxclass_out.jsonl`.
 - Results:
   - group 5 at depth 3: 0 of 72 roots.
-  - depth 4, 13-class: 8 of 13 roots = 4 of 7 duality orbits cross (48 steps, 12 distinct, 7 parents). 59-class depth 4 on 5 roots: 0. Direction is always small class -> large class.
+  - depth 4, 13-class: 8 of 13 roots = 4 of 7 duality orbits cross (48 steps, 12 distinct, 7 parents). 59-class depth 4 on 5 roots: 0. Direction is always small class -> large class: the referee found the reverse of all 50 crossing steps gate-refused (a gate fact, not sampling).
   - **n = 12 second independent crossing**: 0040033030·F3 R9 F3, step F3, SNF (1,1,20) -> (1,1,12) (47-group), and X12 -F7-> LNA 0400330030 (33-class). Checked by brute Cartan and d_11 (`toolsmith_jxhit12.py`). E-317's F-only balls missed it: the path has an R move.
   - All 50 key-kept J != 0 steps seen are crossings, all non-tilting, all with an R move on the BFS path; q_S is useless there (det S = 0).
 - n = 12 sizing (`toolsmith_snf12.py`, 4 min, no q_S): 10 split groups (21..3837). Depth-4 ball 5-6 min per root.
@@ -17,10 +17,12 @@
 ## Library change (R125, pending review)
 - `mutation.isTiltingAtVertex` (Ladkani 2.3(c)). `mutationSearchDepthFirst` / `linesReachedFrom(refuseNonTilting=False)`. Two tests in `tests/test_search_soundness.py` on E-318's P (gate + key admit, option drops child (3) only, default == off).
 - Agrees with perI on 9 010 / 9 010 steps. F-041 balls: 0 keys removed at n = 8 (1 600) and n = 9 (11 622), meetings unchanged; cost x1.16 / x1.08 (`125/toolsmith_refuse.py`).
+- It DOES refuse the 19 audited E-316 F-010 J != 0 steps (`125/toolsmith_refuse19.py`). Their 20 joins are root-to-root, so no LNA merge is lost, but the joins are not recovered by any option-admitted detour of depth <= 3 ("in-component" in E-316 is undirected).
 
 ## Beliefs
-- Key guard: necessary only. J != 0 refusal: cheap, removes nothing recorded, removes every crossing seen. It should become the default after the n = 10 F-041 check.
-- Pure-F library walks have not been seen to cross. That is untested beyond depth 6 from one root.
+- Key guard: necessary only. J != 0 refusal: cheap, removes no recorded LNA-to-LNA merge, removes every crossing seen (and the 19 harmless E-316 steps). It should become the default after the n = 10 F-041 check.
+- Pure-F library walks have not been seen to cross. Untested beyond depth 6 (003033030) and depth 5 (0040033030, E-317: X12 not within F-only distance 5).
+- Wording lesson (R125 review): "removes nothing recorded" must name what was checked (merges) and what was not (the audited cycle-joins).
 - Sampling one root per class (round 122) badly undercounts. Count by duality orbit and by depth.
 
 ## Would do next
