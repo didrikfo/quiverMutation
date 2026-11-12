@@ -1,0 +1,25 @@
+n=13 h=3 K0=3: class 5835 rows, 6 image keys  17s
+ [rules] induced, both ends K>=1: {'image move': 3044} | control, one end K=0: {'neither': 675, 'image move': 1403, 'same image': 880, '(key changes; of these neither: True)': 8}
+ [rules] restricted (K>=1) rows 2248, components 1213, whole component mixed 0; K=1 hit 801 mixed 0 (shuffled 78.3, 67-92); K=2 hit 305 mixed 0 (shuffled 21.1, 15-30); K=3 hit 131 mixed 0 (shuffled 7.1, 4-10); image keys on K>=1 rows: 2
+ [rules] full orbits 2349; {'orbits with >= 2 K0 rows': 14, '  of these, > 1 restricted component': 14, '  of these, mixed at K0': 0, 'orbits joining restricted comps of >= 2 image keys': 1}
+    orbit 556 rows: 5 restricted comps carrying 2 image keys; K0 rows by image key {1: 49}; K=1..K0 rows by image key {1: {0: 8, 1: 120}, 2: {1: 74}, 3: {1: 49}}
+ [rules] K=0 rows 3587 in 1759 K=0 components; 147 touch >= 2 restricted comps; 1 touch comps of >= 2 image keys (bridges), sizes [116]
+    smallest bridge: 116 K=0 rows, e.g. ['26000300000', '26000300002', '26000300020'], touching 3 restricted comps
+ [rules] 2s
+ [mut] induced, both ends K>=1: {'image move': 10070} | control, one end K=0: {'neither': 675, 'image move': 2529, 'same image': 880, '(key changes; of these neither: True)': 8}
+ [mut] restricted (K>=1) rows 2248, components 13, whole component mixed 0; K=1 hit 12 mixed 0 (shuffled 8.6, 7-10); K=2 hit 4 mixed 0 (shuffled 3.9, 3-4); K=3 hit 5 mixed 0 (shuffled 3.4, 3-4); image keys on K>=1 rows: 2
+ [mut] full orbits 3; {'orbits with >= 2 K0 rows': 3, '  of these, > 1 restricted component': 2, '  of these, mixed at K0': 1, 'orbits joining restricted comps of >= 2 image keys': 1}
+    orbit 3697 rows: 9 restricted comps carrying 2 image keys; K0 rows by image key {0: 102, 1: 65}; K=1..K0 rows by image key {1: {0: 508, 1: 412}, 2: {0: 230, 1: 136}, 3: {0: 102, 1: 65}}
+    orbit 2115 rows: 1 restricted comps carrying 1 image keys; K0 rows by image key {0: 67}; K=1..K0 rows by image key {1: {0: 431}, 2: {0: 180}, 3: {0: 67}}
+    orbit 23 rows: 3 restricted comps carrying 1 image keys; K0 rows by image key {0: 2}; K=1..K0 rows by image key {1: {0: 17}, 2: {}, 3: {0: 2}}
+ [mut] K=0 rows 3587 in 8 K=0 components; 3 touch >= 2 restricted comps; 2 touch comps of >= 2 image keys (bridges), sizes [1280, 841]
+    smallest bridge: 841 K=0 rows, e.g. ['20030000000', '20030000002', '20030000020'], touching 6 restricted comps
+ [mut] 4s
+ [der] induced, both ends K>=1: {'same image': 335, 'image move': 11983} | control, one end K=0: {'image move': 4544, 'neither': 573, 'same image': 1215, '(key changes; of these neither: True)': 8}
+ [der] restricted (K>=1) rows 2248, components 4, whole component mixed 0; K=1 hit 4 mixed 0 (shuffled 4.0, 4-4); K=2 hit 4 mixed 0 (shuffled 3.9, 3-4); K=3 hit 4 mixed 0 (shuffled 3.0, 3-3); image keys on K>=1 rows: 2
+ [der] full orbits 2; {'orbits with >= 2 K0 rows': 2, '  of these, > 1 restricted component': 1, '  of these, mixed at K0': 1, 'orbits joining restricted comps of >= 2 image keys': 1}
+    orbit 3697 rows: 3 restricted comps carrying 2 image keys; K0 rows by image key {0: 102, 1: 65}; K=1..K0 rows by image key {1: {0: 508, 1: 412}, 2: {0: 230, 1: 136}, 3: {0: 102, 1: 65}}
+    orbit 2138 rows: 1 restricted comps carrying 1 image keys; K0 rows by image key {0: 69}; K=1..K0 rows by image key {1: {0: 448}, 2: {0: 180}, 3: {0: 69}}
+ [der] K=0 rows 3587 in 5 K=0 components; 2 touch >= 2 restricted comps; 2 touch comps of >= 2 image keys (bridges), sizes [1290, 844]
+    smallest bridge: 844 K=0 rows, e.g. ['20030000000', '20030000002', '20030000020'], touching 3 restricted comps
+ [der] 4s

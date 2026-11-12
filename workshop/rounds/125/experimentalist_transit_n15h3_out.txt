@@ -1,0 +1,32 @@
+n=15 h=3 K0=3: class 26762 rows, 7 image keys  247s
+ [rules] induced, both ends K>=1: {'image move': 23407} | control, one end K=0: {'neither': 6826, 'image move': 9062, 'same image': 4597}
+ [rules] restricted (K>=1) rows 11006, components 4826, whole component mixed 0; K=1 hit 3160 mixed 0 (shuffled 364.1, 344-392); K=2 hit 1371 mixed 0 (shuffled 125.4, 104-144); K=3 hit 630 mixed 0 (shuffled 45.5, 33-56); image keys on K>=1 rows: 2
+ [rules] full orbits 6871; {'orbits with >= 2 K0 rows': 117, '  of these, > 1 restricted component': 117, '  of these, mixed at K0': 0, 'orbits joining restricted comps of >= 2 image keys': 4}
+    orbit 2048 rows: 6 restricted comps carrying 2 image keys; K0 rows by image key {1: 181}; K=1..K0 rows by image key {1: {0: 29, 1: 444}, 2: {1: 272}, 3: {1: 181}}
+    orbit 70 rows: 7 restricted comps carrying 2 image keys; K0 rows by image key {1: 6}; K=1..K0 rows by image key {1: {0: 1, 1: 15}, 2: {1: 9}, 3: {1: 6}}
+    orbit 38 rows: 5 restricted comps carrying 2 image keys; K0 rows by image key {1: 3}; K=1..K0 rows by image key {1: {0: 1, 1: 7}, 2: {1: 4}, 3: {1: 3}}
+    orbit 38 rows: 5 restricted comps carrying 2 image keys; K0 rows by image key {1: 3}; K=1..K0 rows by image key {1: {0: 1, 1: 7}, 2: {1: 4}, 3: {1: 3}}
+ [rules] K=0 rows 15756 in 5323 K=0 components; 848 touch >= 2 restricted comps; 4 touch comps of >= 2 image keys (bridges), sizes [422, 16, 12, 12]
+    smallest bridge: 12 K=0 rows, e.g. ['2600030022220', '3350000022220', '3600000022220'], touching 2 restricted comps
+ [rules] 14s
+ [mut] induced, both ends K>=1: {'image move': 63769} | control, one end K=0: {'neither': 6826, 'image move': 14564, 'same image': 4597}
+ [mut] restricted (K>=1) rows 11006, components 16, whole component mixed 0; K=1 hit 15 mixed 0 (shuffled 10.5, 8-13); K=2 hit 6 mixed 0 (shuffled 4.4, 3-6); K=3 hit 6 mixed 0 (shuffled 4.4, 3-5); image keys on K>=1 rows: 2
+ [mut] full orbits 3; {'orbits with >= 2 K0 rows': 3, '  of these, > 1 restricted component': 2, '  of these, mixed at K0': 1, 'orbits joining restricted comps of >= 2 image keys': 1}
+    orbit 15444 rows: 9 restricted comps carrying 2 image keys; K0 rows by image key {0: 508, 1: 257}; K=1..K0 rows by image key {1: {0: 2423, 1: 1502}, 2: {0: 1121, 1: 522}, 3: {0: 508, 1: 257}}
+    orbit 11154 rows: 1 restricted comps carrying 1 image keys; K0 rows by image key {0: 431}; K=1..K0 rows by image key {1: {0: 2389}, 2: {0: 1058}, 3: {0: 431}}
+    orbit 164 rows: 6 restricted comps carrying 1 image keys; K0 rows by image key {0: 17}; K=1..K0 rows by image key {1: {0: 95}, 2: {0: 4}, 3: {0: 17}}
+ [mut] K=0 rows 15756 in 8 K=0 components; 3 touch >= 2 restricted comps; 2 touch comps of >= 2 image keys (bridges), sizes [6008, 2520]
+    smallest bridge: 2520 K=0 rows, e.g. ['2003000000000', '2003000000002', '2003000000020'], touching 6 restricted comps
+ [mut] 23s
+ [der] induced, both ends K>=1: {'same image': 623, 'image move': 74152} | control, one end K=0: {'image move': 25527, 'neither': 6246, 'same image': 5220}
+ [der] restricted (K>=1) rows 11006, components 4, whole component mixed 0; K=1 hit 4 mixed 0 (shuffled 4.0, 4-4); K=2 hit 4 mixed 0 (shuffled 3.9, 3-4); K=3 hit 4 mixed 0 (shuffled 3.0, 3-3); image keys on K>=1 rows: 2
+ [der] full orbits 2; {'orbits with >= 2 K0 rows': 2, '  of these, > 1 restricted component': 1, '  of these, mixed at K0': 1, 'orbits joining restricted comps of >= 2 image keys': 1}
+    orbit 15444 rows: 3 restricted comps carrying 2 image keys; K0 rows by image key {0: 508, 1: 257}; K=1..K0 rows by image key {1: {0: 2423, 1: 1502}, 2: {0: 1121, 1: 522}, 3: {0: 508, 1: 257}}
+    orbit 11318 rows: 1 restricted comps carrying 1 image keys; K0 rows by image key {0: 448}; K=1..K0 rows by image key {1: {0: 2484}, 2: {0: 1062}, 3: {0: 448}}
+ [der] K=0 rows 15756 in 5 K=0 components; 2 touch >= 2 restricted comps; 2 touch comps of >= 2 image keys (bridges), sizes [6018, 2523]
+    smallest bridge: 2523 K=0 rows, e.g. ['2003000000000', '2003000000002', '2003000000020'], touching 3 restricted comps
+ [der] 22s
+
+real	5m7.331s
+user	6m49.316s
+sys	0m1.562s
