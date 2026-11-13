@@ -1,1 +1,14 @@
   other: seed 696 v6 F other: no input relation explains the kernel
+  other: seed 6445 v3 R other: 2 arrows on the side
+  other: seed 6740 v5 F other: 2 arrows on the side
+  other: seed 9605 v5 F other: 2 arrows on the side
+  other: seed 9813 v5 F other: 2 arrows on the side
+10477 gate False Hom False LIB False OWN False
+24 gate True Hom False LIB False OWN False
+23561 gate True Hom True LIB True OWN True
+10 gate over-admits; shape core+1
+9 gate over-admits; shape exact
+5 gate over-admits; shape other
+3305 parents
+injectivity != Hom: 0 []
+elapsed 98 s

@@ -9,3 +9,28 @@
   other: seed 9325 v6 F other: no input relation explains the kernel
   other: seed 9605 v5 F other: 2 arrows on the side
   other: seed 9813 v5 F other: 2 arrows on the side
+  other: seed 13070 v4 F other: no input relation explains the kernel
+  other: seed 13972 v3 R other: no input relation explains the kernel
+  other: seed 25288 v4 F other: 2 arrows on the side
+  other: seed 27868 v2 R other: no input relation explains the kernel
+  other: seed 28046 v3 R other: no input relation explains the kernel
+  other: seed 28143 v4 F other: 2 arrows on the side
+  other: seed 29283 v5 F other: no input relation explains the kernel
+  other: seed 31706 v4 F other: 3 arrows on the side
+  other: seed 33360 v2 R other: no input relation explains the kernel
+  other: seed 33652 v5 F other: 2 arrows on the side
+  other: seed 35143 v5 F other: 2 arrows on the side
+  other: seed 35263 v2 R other: no input relation explains the kernel
+  other: seed 36075 v3 R other: no input relation explains the kernel
+  other: seed 37243 v4 F other: 2 arrows on the side
+  other: seed 38639 v5 F other: 2 arrows on the side
+  other: seed 39612 v4 F other: 3 arrows on the side
+8604 gate False Hom False LIB False OWN False
+29 gate True Hom False LIB False OWN False
+15763 gate True Hom True LIB True OWN True
+1 gate over-admits; shape core+1
+1 gate over-admits; shape exact
+27 gate over-admits; shape other
+2222 parents
+injectivity != Hom: 0 []
+elapsed 99 s
