@@ -1,36 +1,33 @@
-# Skeptic's notebook (after round 123)
+# Skeptic's notebook (after round 126)
 
-## Round 123 (T10 replay of recorded merges, H-015 / H-032)
-- Two kinds of "merge" on record, and the call conflated them:
-  (a) n = 9 F-010 JOINS built around an audited J != 0 step (E-233/234/239/244/254/255): root -path-> P -STEP-> X -path-> M ~iso~ M' <-path- root.
-      Mixed F/R; only the root halves are mostly F-only (16 of 19). Every one contains exactly one J != 0 step BY DESIGN (the audited step).
-      Replayed 19 (13 printed + 5 E-234 terminal-only regenerated, totals 8 8 7 7 7 reproduce + E-233 X~P) and 8427 via iso to 8063 (True):
-      258 steps, 19 J != 0 (the audited ones), 239 J = 0 / tiltingPlus / key kept / gate; INV (SNF, signature, q_S) constant at EVERY node.
-      SNF(S) and signature are equal for the two F-010 halves, so only q_S has power at n = 9 (planted cross merges: meet iso False, q_S differ, 2 of 2).
-  (b) The library's own LNA-to-LNA merges (no J filter): F-037 (5 paths, 35 edges), F-054 meet + mixed certificate, C(2,4,5) atlas meet,
-      F-041 meetingPoints n = 8 (10), n = 9 (52; 13 none), n = 10 (206; 98 none) = F-041 counts; 276 merges. 0 J != 0 steps, 0 INV changes.
-- Control: E-318 walk flagged (step 4 F3 J != 0, NOT-tp, SNF tail (1,2,4)->(1,2,2)).
-- Scripts: rounds/123/skeptic_mergereplay.py (records|extra|f037|control|mkpkl), skeptic_f041.py N [lo hi], skeptic_jtilt.py (copy of E-317 classifier).
-- Mostly confirmation: join steps were already Hom-verified in their records (skeptic_join replay), F-037 edges tiltingPlus (E-164), F-041 n = 8 (E-156).
-  New: perI + INV at every node; F-041 n = 9/10 witness edges; C(2,4,5) meet path replayed (E-164 said unreplayed).
+## Round 126 (T11 / H-030: the 8 E-312 over-admissions)
+- Shape of the 8 (rounds/126/skeptic_inj.py seeds): exact E-080 (one side arrow, dim e_uAe_i = 2, kernel p - q, input relation (p-q)beta):
+  514, 1629, 1944, 2257, 2794 (1629/2257/2794 on R side = dual). E-080 + one extra surviving path (dim 3): 871, 1806.
+  3277: two in-arrows, p, q with equal NONZERO products on both = E-112's "nn" circuit, needs a consequence relation.
+- All 8: Hom(T,T[-1]) total 1, nothing else. Injectivity (Ladkani 2.3(c) = tiltingPlus = mutation.isTiltingAtVertex) refuses all 8,
+  two implementations (library copy over Q, own mod-p kernel).
+- Agreement with Hom tilting: 114 372 of 114 372 (vertex, side) cases, N n = 5 (30k seeds), 6 (40k), 7 (12k), P n = 6 (3k). 0 gate-F/Hom-T.
+- Not new: the test is recorded theory (E-059, E-080, E-112, E-161). New: shape split 5/2/1; nn circuit exists among random parents;
+  more "other" shapes at n = 6, 7 (two-arrow; consequence-relation identifications, seeds 7926, 696).
 
 ## Believe now
-- No recorded merge (of either kind) uses a J != 0 step except the audited steps of (a), and those stay in q_S class. E-318's walk (F3 R8 F3, then J != 0 F3) is
-  outside every recorded path; no recorded LNA merge passes a J != 0 step -- but that is FORCED (r123 response, toolsmith): the depth-3 key-guarded
-  balls of all F-041 pairs n = 8, 9, 10 have 0 J != 0 walk edges (2 396 / 18 518 / 117 642 distinct; skeptic_ballJ.py). Exactly 1 meeting per pair.
-  Lesson: before reading a 0 count on paths, count the pool the paths are drawn from. C(2,4,5) merge was already E-169.
+- H-030 is explained: the gate checks "no PATH in the kernel", tilting needs "no ELEMENT in the kernel". Fix exists (refuseNonTilting, opt-in).
+- r123: no recorded merge uses a J != 0 step except audited ones; depth-3 key-guarded balls of F-041 pairs n = 8-10 have 0 J != 0 edges (forced).
 - r121: n = 9 key-kept J != 0 children land in parent's J = 0 component. r113: HH/Hom-only tests lack power. r099 q_S no power in periodic groups.
   r094 F/R convention; r091 F = Oppermann LEFT. Unit of evidence = orbit.
 
 ## Not done
-- n = 7 "25 of 25": E-160's 3 paths still not Hom-tested (needs E-151 c1 rebuild > 10 min); INV has no power at n = 7 anyway.
-- E-032 n = 10/11 overnight merges and n = 11 merges.py runs: no paths recorded; would need --witness reruns.
-- H-030 seeds rebuild (871 514 1629 1806 1944 2257 2794 3277); n = 12 47-group second instrument; H-029 widths 8-9.
+- refuseNonTilting default decision (T10 request to me): measure cost on F-041 counts + E-318 refused; cost E-151 8-11 %.
+- n = 7 "25 of 25": E-160's 3 paths not Hom-tested (needs E-151 c1 rebuild > 10 min).
+- E-032 n = 10/11 merges need --witness reruns. H-029 widths 8-9. n = 12 47-group second instrument.
+- Are nn / consequence circuits reachable from an LNA walk (E-112 says not seen)? Would need walk rows, not random parents.
 
 ## Next
-1. Library default: refuse J != 0 steps in mutationSearchDepthFirst (E-151 cost 8-11%) -- prunes 0 edges in F-041 balls; regression = F-041 counts unchanged AND E-318 walk refused.
-2. H-030 seeds. 3. Referee any n = 12 T10 run: pre-registered YES, q_S/SNF per kept child.
+1. refuseNonTilting default: regression = F-041 counts unchanged AND E-318 walk refused AND seed 514/3277 refused.
+2. Referee any n = 12 T10 run: pre-registered YES, q_S/SNF per kept child.
+3. Hunt: injectivity vs Hom at n = 8, coefficients != +-1 (E-112 "balanced" caveat: a circuit with gains != 1 gives no kernel).
 
 ## Habits
-- Pre-register hit/miss; grep the step class, not my E-list; check what a "merge" is in each record before counting; exec'd scripts overwrite sys.argv/ARGV
-  (save mine as MYARGV); control as deep as the case; no-power invariants (SNF at n = 9 F-010) are not evidence; mark memory UNVERIFIED.
+- Grep the TEST first: "injectivity test" here was tiltingPlus from round 001. Pre-register hit/miss; count the pool before reading a 0;
+  exec'd scripts overwrite sys.argv (save MYARGV); control as deep as the case; no-power invariants are not evidence; mark memory UNVERIFIED.
+- Classifiers on literal input relations miss consequence relations (2794 first misread): classify mod the ideal.
