@@ -33,6 +33,9 @@ cache = {}
 def cp(x, y):
     if (x, y) not in cache: cache[(x, y)] = all(hom(x, y, m) == 0 and hom(y, x, m) == 0 for m in NONZ)
     return cache[(x, y)]
+exc = sum(1 for r in range(N) if h[r][r][0] == 1 and all(h[r][r][j] == 0 for j in h[r][r] if j != 0))
+rng = sorted({j for r in range(N) for s_ in range(N) for j, v in h[r][s_].items() if v})
+print('exceptional objects (End = k, no self-Hom in degree != 0): %d of %d; degrees j with some Hom(X, Y[j]) != 0: %s' % (exc, N, rng))
 selfok = lambda x: all(hom(x, x, m) == 0 for m in range(-8, 9) if m != 0) and hom(x, x, 0) == 1
 klass = lambda x: ((-1) ** x[1]) * cls[x[0]]
 def unimod(T): return abs(round(np.linalg.det(np.array([klass(x) for x in T])))) == 1
@@ -74,17 +77,38 @@ def irred(T, T2):
         if presilt(S) and unimod(S) and geq(hi, S) and geq(S, lo): Zs.append(z)
     return ('left' if left else 'right'), len(Zs), Zs
 
+def irred_any(T, T2):
+    """any-slot certificate (round 126 response, referee item 2): AI Prop 2.36 + Thm 2.35 under (F) only, no Thm 2.44, no silting
+    reduction, no functorial finiteness. If T > T2 and T2 is not an irreducible left mutation of T, some irreducible left mutation
+    L = mu^+_X(T) at ANY summand X has T > L >= T2, L != T2; L is silting (Thm 2.31), so presilting and unimodular (Thm 2.27), and
+    differs from T in one indecomposable summand (Cor 2.28, Prop 2.33). Count all S = (T minus X) + Z, any slot X, any listed Z (no
+    selfok filter), S presilting, unimodular, T >= S >= T2, S != T, T2. Count 0 => irreducible. Dually for T2 > T."""
+    left, right = geq(T, T2), geq(T2, T)
+    if left == right: return ('incomparable' if not left else 'both'), None, []
+    hi, lo = (T, T2) if left else (T2, T)
+    k2 = key_(T2); W_ = []
+    for i, X in enumerate(T):
+        rest = [x for x in T if x != X]
+        for z in allz:
+            if z == X or z in rest: continue
+            S = rest + [z]
+            if key_(S) == k2: continue
+            if presilt(S) and unimod(S) and geq(hi, S) and geq(S, lo): W_.append((i, z))
+    return ('left' if left else 'right'), len(W_), W_
+key_ = frozenset
+
 # ---- control 1 and 2: depth-1 and depth-2 exchanges of B_n
 print('== control 1: depth-1 exchanges of B_%d (slot, new summand, direction, #between) ==' % n)
-d1 = nbrs(T0); byslot = {}
+d1 = nbrs(T0); byslot = {}; anyno = 0
 for i, T1 in d1:
-    dr, c, Zs = irred(T0, T1); byslot.setdefault(i, []).append(c)
-    print('  slot %d: %s -> %s  %s  between=%s %s' % (i, T0[i], T1[i], dr, c, Zs))
+    dr, c, Zs = irred(T0, T1); byslot.setdefault(i, []).append(c); da, ca, Wa = irred_any(T0, T1); anyno += (ca != 0)
+    print('  slot %d: %s -> %s  %s  between=%s %s | any-slot witnesses=%s %s' % (i, T0[i], T1[i], dr, c, Zs, ca, Wa))
 bad = [i for i, cs in byslot.items() if sum(1 for c in cs if c == 0) > 2]
+print('  any-slot certificate: %d exchanges, %d certified, %d NO' % (len(d1), len(d1) - anyno, anyno))
 print('  slots with > 2 certified-irreducible complements (impossible, would be a test failure):', bad)
 print('  slots with 3+ complements, of which the test says NOT irreducible:', {i: sum(1 for c in cs if c) for i, cs in byslot.items() if len(cs) >= 3})
 print('== control 2: planted composites T0 > T1 > T2 (or <), same slot, same direction, all tilting; direct T0 -> T2 must count >= 1 ==')
-planted = caught = 0
+planted = caught = caught_any = 0
 for i, T1 in d1:
     dr1, c1, _ = irred(T0, T1)
     if c1 != 0: continue
@@ -93,12 +117,12 @@ for i, T1 in d1:
         dr2, c2, _ = irred(T1, T2)
         if c2 != 0 or dr2 != dr1: continue
         dr, c, Zs = irred(T0, T2); planted += 1; caught += (c is not None and c >= 1)
-        print('  slot %d: %s -> %s -> %s (%s,%s): direct %s between=%s %s' % (i, T0[i], T1[i], T2[i], dr1, dr2, dr, c, Zs))
-print('  planted composites caught: %d of %d' % (caught, planted))
+        ca = irred_any(T0, T2)[1]; caught_any += (ca is not None and ca >= 1)
+        print('  slot %d: %s -> %s -> %s (%s,%s): direct %s between=%s %s | any-slot witnesses=%s' % (i, T0[i], T1[i], T2[i], dr1, dr2, dr, c, Zs, ca))
+print('  planted composites caught: %d of %d (any-slot certificate: %d of %d)' % (caught, planted, caught_any, planted))
 sys.stdout.flush()
 
 # ---- all shortest paths to the first-depth A_n hits (as round 109)
-key_ = frozenset
 layers = [{key_(T0): T0}]; seen = {key_(T0)}; parents = {key_(T0): []}
 for dpt in range(1, 7):
     new = {}
@@ -126,13 +150,15 @@ for k in hits:
         npaths += 1
         for T, T2 in p: steps[(key_(T), key_(T2))] = (T, T2)
 print('== E-287 shortest paths: %d paths, %d distinct steps ==' % (npaths, len(steps)))
-tally = {}
+tally = {}; tally_any = {}
 for (a, b), (T, T2) in sorted(steps.items(), key=lambda kv: (sorted(kv[0][0]), sorted(kv[0][1]))):
     dr, c, Zs = irred(T, T2)
     i = [s for s in range(n) if T[s] != T2[s]][0]
     tally[(dr, c == 0)] = tally.get((dr, c == 0), 0) + 1
-    print('  %s -> %s at slot %d: %s, between=%s %s' % (T[i], T2[i], i, dr, c, Zs))
+    da, ca, Wa = irred_any(T, T2); tally_any[ca == 0] = tally_any.get(ca == 0, 0) + 1
+    print('  %s -> %s at slot %d: %s, between=%s %s | any-slot witnesses=%s %s' % (T[i], T2[i], i, dr, c, Zs, ca, Wa))
 print('tally (direction, certified irreducible): count', tally)
+print('any-slot certificate (AI Prop 2.36 + Thm 2.35, no Thm 2.44): certified %d of %d distinct steps' % (tally_any.get(True, 0), len(steps)))
 # per path: all steps certified?
 allok = 0
 for k in hits:

@@ -1,0 +1,11 @@
+  other: seed 2460 v5 F other: 2 arrows on the side
+4977 gate False Hom False LIB False OWN False
+15 gate True Hom False LIB False OWN False
+11439 gate True Hom True LIB True OWN True
+3 gate over-admits; shape core+1
+1 gate over-admits; shape core+2
+10 gate over-admits; shape exact
+1 gate over-admits; shape other
+1385 parents
+injectivity != Hom: 0 []
+elapsed 68 s

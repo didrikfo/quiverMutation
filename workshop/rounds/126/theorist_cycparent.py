@@ -22,6 +22,30 @@ def nonzero(n, rels, s, W):
             if (s - 1 + o) % n == (a - 1) % n: return False
     return True
 
+def kupisch(n, rels):
+    """Kupisch series: c[j] = length of P_(j+1) = min over relations (s, l) of ((s - 1 - j) mod n + l)"""
+    return tuple(min((s - 1 - j) % n + l for s, l in rels) for j in range(n))
+
+def gldim_finite(c):
+    """gl.dim < inf iff every rad P_j has a terminating uniserial syzygy chain: Omega(top t, length l) = (t + l, c_t - l)"""
+    n = len(c)
+    for j in range(n):
+        t, l, seen = (j + 1) % n, c[j] - 1, set()
+        while 0 < l < c[t]:
+            if (t, l) in seen: return False
+            seen.add((t, l)); t, l = (t + l) % n, c[t] - l
+    return True
+
+def kupisch_classes(n, LMAX):
+    """independent enumeration: all admissible Kupisch series (c_(j+1) >= c_j - 1, c_j >= 2) whose relations (starts j with
+    c_(j+1) >= c_j, length c_j) have length <= LMAX, finite gl.dim, one per rotation"""
+    out = set()
+    for c in itertools.product(range(2, n + LMAX), repeat=n):
+        if any(c[(j + 1) % n] < c[j] - 1 for j in range(n)): continue
+        if max(c[j] for j in range(n) if c[(j + 1) % n] >= c[j]) > LMAX or not gldim_finite(c): continue
+        out.add(min(c[k:] + c[:k] for k in range(n)))
+    return out
+
 def minimal_model(n, rels, WMAX, plant=False, cap=12):
     """stops early once LMAX consecutive weights add no letter (complete: an Anick (m+1)-chain extends an m-chain by fewer
     than LMAX arrows), or once more than cap letters of degree >= 1 exist (reported as incomplete)"""
@@ -190,18 +214,30 @@ if __name__ == '__main__':
                 return not nonzero(nn, [r1], r2[0], r2[1]) and r1 != r2
             if any(inside(a, b) for a in rels for b in rels): continue
             sel.append((nn, rels))
+    CAP = int(sys.argv[sys.argv.index('--cap') + 1]) if '--cap' in sys.argv else 60
     if '--rows' in sys.argv:
         sel = [ROWS[int(k)] for k in sys.argv[sys.argv.index('--rows') + 1].split(',')]
     arr, d, wt = minimal_model(2, [(1, 2), (2, 2)], 10)
-    print(f'[GLDIM control] 2-cycle x1x2 = x2x1 = 0 (selfinjective, infinite gl.dim): letters up to W = 10: {len(arr)}, max weight {max(wt.values())} (must grow with W)')
+    print(f'[GLDIM control] 2-cycle x1x2 = x2x1 = 0 (selfinjective, infinite gl.dim): letters up to W = 10: {len(arr)}, max weight {max(wt.values())} (must grow with W); Kupisch gl.dim finite: {gldim_finite(kupisch(2, [(1, 2), (2, 2)]))} (must be False)')
     arr, d, wt = minimal_model(3, [(1, 2), (2, 2)], WMAX, plant=True)
     print(f'[MM control] Z3/(x1x2, x2x3) with one dropped term: H = A failures {len(check_mm(3, [(1, 2), (2, 2)], arr, d, wt, WMAX))} (must be > 0)')
+    tally = dict(classes=0, inf=0, inf_but_complete=0, run=0, capskip=0, inst=0)
+    runk = set()
     for k, (n, rels) in enumerate(sel):
-        arr, d, wt = minimal_model(n, rels, WMAX)
+        tally['classes'] += 1
+        kc = kupisch(n, rels)
+        if not gldim_finite(kc):   # skip on a PROVED property; cross-check: the cap-12 builder must not find a complete model
+            arr, d, wt = minimal_model(n, rels, WMAX, cap=12); top = max(wt.values())
+            comp = top <= WMAX - max(l for _, l in rels) and sum(1 for v in arr.values() if v[2]) <= 12
+            tally['inf'] += 1; tally['inf_but_complete'] += comp
+            print(f'=== Z{n} rels {rels}: SKIPPED, infinite gl.dim (Kupisch {kc}); cap-12 builder complete: {comp} (must be False)'); continue
+        arr, d, wt = minimal_model(n, rels, WMAX, cap=CAP)
         top = max(wt.values())
-        fin = top <= WMAX - max(l for _, l in rels) and sum(1 for v in arr.values() if v[2]) <= 12
+        fin = top <= WMAX - max(l for _, l in rels) and sum(1 for v in arr.values() if v[2]) <= CAP
         if not fin:
-            print(f'=== Z{n} rels {rels}: SKIPPED, minimal model not complete (more than 12 letters of degree >= 1 or weight > WMAX - LMAX)'); continue
+            tally['capskip'] += 1
+            print(f'=== Z{n} rels {rels}: SKIPPED BY SIZE CAP (finite gl.dim, Kupisch {kc}): model not complete (more than {CAP} letters of degree >= 1 or weight > WMAX - LMAX)'); continue
+        tally['run'] += 1; tally['inst'] += n; runk.add(min(kc[j:] + kc[:j] for j in range(n)))
         mm = check_mm(n, rels, arr, d, wt, min(WMAX, top + 2 * n + 2))
         print(f'=== Z{n} rels {rels}: letters {len(arr)}, degrees {sorted(g for *_, g in arr.values())}, max weight {top} '
               f'(complete: {fin}), [MM] H = A to W = {min(WMAX, top + 2 * n + 2)}: {"YES" if not mm else "NO " + str(mm[:3])}')
@@ -210,6 +246,11 @@ if __name__ == '__main__':
             feat = (n, rels) == (3, [(1, 2), (2, 2)]) and i == 1
             out = analyse(n, rels, arr, d, wt, i, WENG=2 * (top + 6), ctrl=feat, verbose=feat)
             print(f'  i={i} ' + ' '.join(f'{k} {v}' for k, v in out.items()))
+    print('[TALLY]', tally)
+    if '--sweep' in sys.argv:
+        kk = kupisch_classes(nn, LMAX)
+        print(f'[KUPISCH control] finite-gl.dim classes for {nn}:{LMAX} by Kupisch series: {len(kk)}; run: {len(runk)}; '
+              f'missing from run: {sorted(kk - runk)}; run but not in list: {sorted(runk - kk)}')
     # [LF] control: the M1 parent with the shift c = max w(A) (outside the (C) interval) must give a nonpositive letter
     arr, d, wt = minimal_model(2, [(1, 2)], 8)
     q, m, letters, wtf, dval, theta, A = kM(arr, d, wt, 1)

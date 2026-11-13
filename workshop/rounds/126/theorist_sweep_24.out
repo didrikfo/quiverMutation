@@ -1,0 +1,14 @@
+[GLDIM control] 2-cycle x1x2 = x2x1 = 0 (selfinjective, infinite gl.dim): letters up to W = 10: 16, max weight 8 (must grow with W); Kupisch gl.dim finite: False (must be False)
+[MM control] Z3/(x1x2, x2x3) with one dropped term: H = A failures 320 (must be > 0)
+=== Z2 rels [(1, 2)]: letters 3, degrees [0, 0, 1], max weight 2 (complete: True), [MM] H = A to W = 8: YES
+    parent d: {'r1': 'x1·x2'}
+  i=1 letters 7 theta 2 d2 0 nonhom 0 parent_loops_at_i ['r1'] LF True cycles True kM_loop_letters 3 C True minshift 1/2 H1w True H1strict True PI True thetaprime [] SH True lead [] g=pathlength vacuous ENG (0, 0, 0, 51, 562)
+  i=2 letters 4 theta 0 d2 0 nonhom 0 parent_loops_at_i [] LF True cycles True kM_loop_letters 2 C True minshift 1 H1w True H1strict False PI True thetaprime [] SH True lead [] g=pathlength vacuous ENG (0, 0, 0, 24, 0)
+=== Z2 rels [(1, 2), (2, 2)]: SKIPPED, infinite gl.dim (Kupisch (2, 2)); cap-12 builder complete: False (must be False)
+=== Z2 rels [(1, 3)]: SKIPPED, infinite gl.dim (Kupisch (3, 4)); cap-12 builder complete: False (must be False)
+=== Z2 rels [(1, 3), (2, 3)]: SKIPPED, infinite gl.dim (Kupisch (3, 3)); cap-12 builder complete: False (must be False)
+=== Z2 rels [(1, 4)]: SKIPPED, infinite gl.dim (Kupisch (4, 5)); cap-12 builder complete: False (must be False)
+=== Z2 rels [(1, 4), (2, 4)]: SKIPPED, infinite gl.dim (Kupisch (4, 4)); cap-12 builder complete: False (must be False)
+[TALLY] {'classes': 6, 'inf': 5, 'inf_but_complete': 0, 'run': 1, 'capskip': 0, 'inst': 2}
+[KUPISCH control] finite-gl.dim classes for 2:4 by Kupisch series: 1; run: 1; missing from run: []; run but not in list: []
+[LF control] Z2/(x1x2) at i = 1, shift c = max w(A) = 1: nonpositive letters ['x1*'] (must be non-empty)
