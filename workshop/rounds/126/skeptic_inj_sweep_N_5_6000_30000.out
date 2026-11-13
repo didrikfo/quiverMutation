@@ -1,0 +1,7 @@
+3996 gate False Hom False LIB False OWN False
+8 gate True Hom False LIB False OWN False
+8314 gate True Hom True LIB True OWN True
+2 gate over-admits; shape core+1
+6 gate over-admits; shape exact
+1673 parents
+injectivity != Hom: 0 []

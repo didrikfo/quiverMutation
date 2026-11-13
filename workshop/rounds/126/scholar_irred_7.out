@@ -1,0 +1,43 @@
+n 7 objects up to shift 42 (expected n(n-1) = 42 ) Hom tables 0s
+== control 1: depth-1 exchanges of B_7 (slot, new summand, direction, #between) ==
+  slot 0: (0, 0) -> (1, 1)  left  between=0 []
+  slot 1: (6, 0) -> (1, 0)  right  between=0 []
+  slot 1: (6, 0) -> (7, 1)  left  between=0 []
+  slot 2: (11, 0) -> (7, 0)  right  between=0 []
+  slot 2: (11, 0) -> (12, 1)  left  between=0 []
+  slot 3: (15, 0) -> (12, 0)  right  between=0 []
+  slot 3: (15, 0) -> (16, 1)  left  between=0 []
+  slot 3: (15, 0) -> (33, 2)  left  between=1 [(16, 1)]
+  slot 4: (18, 0) -> (19, 1)  left  between=0 []
+  slot 5: (21, 0) -> (19, 0)  right  between=0 []
+  slot 6: (23, 0) -> (22, 0)  right  between=0 []
+  slot 6: (23, 0) -> (34, 0)  right  between=1 [(22, 0)]
+  slots with > 2 certified-irreducible complements (impossible, would be a test failure): []
+  slots with 3+ complements, of which the test says NOT irreducible: {3: 1}
+== control 2: planted composites T0 > T1 > T2 (or <), same slot, same direction, all tilting; direct T0 -> T2 must count >= 1 ==
+  slot 3: (15, 0) -> (16, 1) -> (33, 2) (left,left): direct left between=1 [(16, 1)]
+  slot 6: (23, 0) -> (22, 0) -> (34, 0) (right,right): direct right between=1 [(22, 0)]
+  planted composites caught: 2 of 2
+depth 1 new 12 A_n hits 0 [2s]
+depth 2 new 76 A_n hits 0 [2s]
+depth 3 new 327 A_n hits 0 [4s]
+depth 4 new 1046 A_n hits 0 [8s]
+depth 5 new 2667 A_n hits 2 [25s]
+== E-287 shortest paths: 6 paths, 14 distinct steps ==
+  (15, 0) -> (16, 1) at slot 3: left, between=0 []
+  (21, 0) -> (19, 0) at slot 5: right, between=0 []
+  (15, 0) -> (16, 1) at slot 3: left, between=0 []
+  (11, 0) -> (13, 1) at slot 2: left, between=0 []
+  (21, 0) -> (19, 0) at slot 5: right, between=0 []
+  (11, 0) -> (13, 1) at slot 2: left, between=0 []
+  (6, 0) -> (9, 1) at slot 1: left, between=0 []
+  (21, 0) -> (19, 0) at slot 5: right, between=0 []
+  (6, 0) -> (9, 1) at slot 1: left, between=0 []
+  (0, 0) -> (4, 1) at slot 0: left, between=0 []
+  (21, 0) -> (19, 0) at slot 5: right, between=0 []
+  (0, 0) -> (4, 1) at slot 0: left, between=0 []
+  (21, 0) -> (19, 0) at slot 5: right, between=0 []
+  (21, 0) -> (22, 1) at slot 5: left, between=0 []
+tally (direction, certified irreducible): count {('left', True): 9, ('right', True): 5}
+paths all of whose steps are certified irreducible: 6 of 6   [26s]
+path-steps with multiplicity by AI direction (left = mu^+, T > T'): {'left': 25, 'right': 5} (compare E-289 gate-matching side: right 9/16/25, left 3/4/5)
