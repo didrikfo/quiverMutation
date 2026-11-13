@@ -25,7 +25,7 @@ For a Construction-2.2 parent with a degree-1 loop f at i whose differential is 
 **2026-11-08 (workshop round 121, E-315):** no published splitting lemma covers it (KY 0906.0761 Lemma 2.10, DWZ 0704.0649 Thm 4.6: complete, Ginzburg / loop-free, direct sum); they supply the mechanism for the substitution and trivial-part steps, not the statement. Status unchanged.
 
 ## H-030 — The repo's gate over-admits on minimal presentations with a length-3 relation (E-080 kind); the non-minimal-presentation part is retracted (proposed round 118, narrowed round 119)
-*2026-11-06* · **OPEN** *(8 anomalies in 936 minimal-presentation parents, n = 5, 6, coefficients +-1: E-312; the redundant-relation claim retracted: R-016)* · *workshop round 118, skeptic; narrowed round 119, toolsmith*
+*2026-11-06* · **OPEN** *(8 anomalies in 936 minimal-presentation parents, n = 5, 6, coefficients +-1: E-312; the redundant-relation claim retracted: R-016; all 8 refused by the injectivity test, E-327)* · *workshop round 118, skeptic; narrowed round 119, toolsmith*
 
 **Claim now:** for non-monomial parents with a minimal presentation containing a length-3 relation, the gate can admit a vertex that Hom-verified tilting refuses (8 of 936 parents; seeds 871, 514, 1629, 1806, 1944, 2257, 2794, 3277). Redundant relations are handled correctly once coefficients are passed as rationals (E-312, R-016). **Falsifiable:** a gate-admitted vertex of a minimal presentation that Hom refuses is the claim; a proof that the gate is exact on length-3 relations (or a counterexample to the 8) refutes it. Open: which of the 8 have exactly the E-080 shape, and whether an injectivity test of p -> p(arrow) on the span closes them.
 
@@ -39,7 +39,7 @@ For a class-B floating rule d (notLNA at step 1) at widths 5-6, lengths <= 8, th
 ---
 
 ## H-027 — A_n is reached from B_n by a tilting mutation outside the E-187 moves
-*2026-11-02* · **SUPPORTED** *(multi-step tilting exchanges reach A_n from B_n at depth 3 (n = 5), 4 (n = 6), E-287; generation UNVERIFIED; one-step vertex-local NO, E-282; round 104 ledger, E-285)*
+*2026-11-02* · **SUPPORTED** *(multi-step tilting exchanges reach A_n from B_n at depth 3 (n = 5), 4 (n = 6), E-287; generation UNVERIFIED; every step of the n = 5-7 paths is an irreducible silting mutation, E-328; one-step vertex-local NO, E-282; round 104 ledger, E-285)*
 
 A_n and B_n are derived equivalent for every n >= 5 (Fosse 2305.06642 Cor. 4.6, LaTeX read, E-280) but A_n is not in the E-187 move-orbit of B_n for n = 6..17 (E-247, E-280). **Claim:** some tilting mutation not among the E-187 moves (a J != 0 silting-and-tilting step, or an APR-type step the moves omit) joins B_n to A_n, so the orbit n 2^(n-5) is a move-orbit and not the class. **Falsifiable:** an exhaustive search at n = 5 or 6, with a tilting test independent of the move set (Hom(T, T[k]) = 0 for k != 0), finds no such step. **Would settle it:** the step, or the exhaustive negative; the n >= 18 closure (moves invertible and mirror-closed) is not re-proved. Open until round 105+.
 

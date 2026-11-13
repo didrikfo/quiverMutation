@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 126 -- 2026-11-13 -- ordinary
+Cycle 2, phase 2. Theorist, skeptic, scholar; referees skeptic, experimentalist, theorist (all minor revisions, answered).
+- **Theorist:** the loop case of H-023's formal step is no longer vacuous: (LF), (H1w), (H3), H(I) = 0 hold on 34 monomial cyclic Nakayama parents (149 instances, 20 with a loop); g is not letter-additive affine; (C)/(LF) depend on the presentation (E-326). Formal cancellation only, not gate-admitted steps.
+- **Skeptic:** of the 8 E-312 over-admissions, 5 have exactly E-080's shape; the injectivity test (already `isTiltingAtVertex`) refuses all 8 and matches Hom on 298 337 of 298 337 random cases n = 5-8 (E-327). H-030 pointer updated.
+- **Scholar:** every step of the n = 5-7 B_n -> A_n paths is an irreducible silting mutation (any-slot certificate), so they are tilting chains; one secondary input (D_n type) (E-328). Closing H-027 proposed for conference 128.
+- **Consequence:** the guarded walk's over-admissions are closed by a test off by default (as in T10). No F/R entries; round 128 is the phase conference.
+- Questions for the human: none.
+
 ## Round 125 -- 2026-11-12 -- ordinary
 Cycle 2, phase 2 (round 1 of 4). Toolsmith, maverick, experimentalist (revision); referees skeptic, theorist, maverick (all minor revision, all answered).
 - **Toolsmith:** a second, independent crossing: n = 12, 47-group, a 5-step key-guarded F/R walk through a non-tilting J != 0 step joins inequivalent LNAs 0040033030 and 0400330030; at n = 11, 4 of 7 duality orbits of the 13-class cross (E-318's "1 in 20" sampled one root). All 50 found cross, each needs an R move, none can be undone. Skeptic re-ran it with its own SNF. **E-323**; new opt-in `refuseNonTilting` (off; refuses the 19 audited F-010 steps, prunes no recorded F-041 merge).

@@ -44,6 +44,8 @@ by a command, and checked against what is already recorded.
   instead.
 - Refactoring code that no experiment needs.
 
+- round 125 proceedings: no questions; `refuseNonTilting` stays default off, no overnight run -- recorded by the chair of round 126 (applied, round 126)
+
 ## Suggested questions (optional, not a priority)
 
 Questions the human finds interesting but does **not** want to displace the

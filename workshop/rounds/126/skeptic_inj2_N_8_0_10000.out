@@ -5,3 +5,20 @@
   other: seed 5586 v5 F other: 2 arrows on the side
   other: seed 5726 v4 R other: 2 arrows on the side
   other: seed 5806 v5 F other: 2 arrows on the side
+  other: seed 7370 v6 F other: 2 arrows on the side
+  other: seed 7483 v5 F other: 2 arrows on the side
+  other: seed 7822 v4 R other: 2 arrows on the side
+  other: seed 7843 v5 F other: 2 arrows on the side
+  other: seed 8361 v5 F other: 3 arrows on the side
+  other: seed 8741 v4 F other: 3 arrows on the side
+  other: seed 8753 v5 R other: 3 arrows on the side
+16613 gate False Hom False LIB False OWN False
+45 gate True Hom False LIB False OWN False
+36966 gate True Hom True LIB True OWN True
+7 gate over-admits; shape core+1
+2 gate over-admits; shape core+2
+22 gate over-admits; shape exact
+14 gate over-admits; shape other
+4511 parents
+injectivity != Hom: 0 []
+elapsed 228 s
