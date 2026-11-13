@@ -8,4 +8,6 @@ Round 125 proceedings: no questions; nothing to settle under step 0.5. Merge of 
 ## Revisions due
 (none)
 ## Referees
-(filled in at step 3)
+- theorist: skeptic
+- skeptic: experimentalist
+- scholar: theorist (functorial finiteness of thick D, the author's own step)
