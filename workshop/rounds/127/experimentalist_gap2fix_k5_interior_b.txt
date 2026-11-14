@@ -1,0 +1,7 @@
+steps 5 margin 1 cap 585 interior
+((8, 4), (10, 4)) CAP 585 s: undecided (not a verdict)
+((8, 5), (10, 4)) CAP 585 s: undecided (not a verdict)
+
+real	9m46.408s
+user	16m11.310s
+sys	0m0.359s

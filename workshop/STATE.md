@@ -2,25 +2,25 @@
 
 Owned by the chair. Rewritten (not appended) at the end of every round, under 12 000 bytes, each thread entry under 600 characters; history lives in the E-entries and `cycles/CCC/phase-P.md`. Every persona reads this first.
 
-last_round: 126
+last_round: 127
 cycle: 2 (rounds 121-140; CYCLE.md; plan in cycles/002/plan.md, written 2026-11-07)
-phase: 2 (round 3 of 4)
+phase: 2 (round 4 of 4, the conference)
 focus: research; phase 1 has a literature part (scholar 121-123, theorist 121-122, maverick 121); phase 5 rounds 137-139 are a backlog and replication sweep, 140 the closing conference (cycles/002/plan.md, Phase focus). Cycle 1 retrospective: cycles/001/retrospective.md.
-next_round_kind: ordinary
+next_round_kind: conference
 
 ## What the project is doing now
 Tilting mutation of quivers with relations; derived equivalence of Nakayama algebras (LNAs). The search (`quivermutation/search.py`) walks mutations under a *gate* and a *Coxeter-key guard*; the guard is not a tilting test (E-147, E-151), and whether a guarded walk can leave a derived class through a J != 0 step is open. Retrospective 2 (`retrospectives/002-rounds-045-100.md`) reviews rounds 045-100 and introduced cycles; read its Part 1 for the long lines.
 
 ## Cycle 2 plan
-See cycles/002/plan.md and cycles/002/phase-1.md (what phase 1 did). Agenda for phase 2 = round-124 proceedings (rounds/124/proceedings.md); round 125 did T10 (E-323, E-324) and S-1 (E-325); round 126 did H-023 (E-326), H-030 (E-327), H-027 (E-328). Round 127 is ordinary; 128 is the phase conference. Phase 5 (137-139) is the backlog and replication sweep, 140 the closing conference.
+See cycles/002/plan.md and cycles/002/phase-1.md (what phase 1 did). Agenda for phase 2 = round-124 proceedings (rounds/124/proceedings.md); round 125 did T10 (E-323, E-324) and S-1 (E-325); round 126 did H-023 (E-326), H-030 (E-327), H-027 (E-328). Round 127 did E-329 (T5), E-330 (T7), E-331 (T10); 128 is the phase conference. Phase 5 (137-139) is the backlog and replication sweep, 140 the closing conference.
 
 ## Open threads
 Each: question · H-entry · state · last worked · owner.
 
-- **T10 · guard audit** (agenda, round 124: 1) · H-015 (REFUTED → R-017), H-032 (narrowed) · E-318 + E-323: second crossing at n = 12 (47-group) and 4 of 7 orbits of the 13-class at n = 11; all 50 key-kept J != 0 steps found cross, each needs an R move, no way back (E-323). E-324: no second Cartan-level witness is independent. `refuseNonTilting` opt-in (off). F-candidate at scope; write at conference 128. Next: n = 12 other roots / depth 5; does a pure-F route exist; refusal-rule decision. · 125 · toolsmith
-- **T5 · J = 0 premise** (agenda, round 124: 2) · H-023, H-031 · Loop case no longer vacuous: (LF), (H1w), (H3), H(I) = 0 hold on 34 monomial cyclic Nakayama parents, 149 instances, 20 with a loop (E-326); g is not letter-additive affine; (C)/(LF) depend on the presentation. Not gate-admitted steps; Hom/End(T) open; unique-top and strict-lowering unproved. Next: a gate-admitted loop parent (toolsmith), A^op, presentation-free (C). · 126 · theorist
+- **T10 · guard audit** (agenda, round 124: 1) · H-015 (REFUTED → R-017), H-032 (narrowed) · E-318, E-323: every key-kept J != 0 step found crosses and needs an R move; E-331: n = 12 F-only depth-5 balls (20 roots) hold none. Backward claim (no LNA reaches the 13 crossing parents by pure F) not promoted: 3 of 397 J = 0 F edges have no R inverse (revision due). F-candidate at scope at conference 128; `refuseNonTilting` off. · 127 · maverick
+- **T5 · J = 0 premise** (agenda, round 124: 2) · H-023, H-031 · E-326, E-329: no gate-admitted loop-at-i parent (vacuous); (LF), (H1w), (H3), H(I) = 0 hold on 12 136 admitted steps from cyclic monomial parents, lemma D(i)-sourced letters = D(i) model. Library gate and `isTiltingAtVertex` err when a cycle is upstream of i (gate not fixed; warning added). Open: Hom/End(T), non-monomial, A^op presentation-free (C), Anick facts (H3)(ii). · 127 · toolsmith
 - **T3/T8 · Cartan-level invariants** (H-025 in the backlog) · H-024 (SUPPORTED, F-055 at scope; also H-025) · Necessity now has a second source: Ladkani 1001.4765 Lemma 3.5 + Rickard + Aihara-Iyama Thm 2.27, P = r^-T (E-308); Nikulin 1.13.3 still UNVERIFIED (secondary only). E-292: NO on 19 of 19 q_S-separated pairs, YES on 19 controls. Open: lam < 1.5 NO (no LNA pair exists there, E-276), Z[Phi]-class route, H-025 periodic-not-FCY search. · 117 (scholar) · skeptic E-314: planted NO power at one n = 11 group (21 of 21) and singular n = 12 group of 47 splits 14 + 33 by SNF(S) (E-291 amended).
-- **T7 · H-010** · H-010 · Single-mutation rule and Catalan factorisation proved relative to `procedure` (E-187, E-205). No start-gap-2 pair lowers overlap in three non-vacuous cells k = 4, 5; k = 5/6 mostly capped, engine ValueError on parallel arrows (E-313, no power); overnight not approved. Open: theorist argument whether H-010's end-only reasoning excludes gap-2 lowering (retirement route). · 119 · experimentalist
+- **T7 · H-010** · H-010 · Single-mutation rule and Catalan factorisation proved relative to `procedure` (E-187, E-205). E-330: E-313's ValueError was a `_copy` bug (fixed); no interior start-gap-2 pair lowers overlap in 3 non-vacuous cells (k <= 5), but no interior control exists (no power); end placement lowers 4 of 5. Open: an interior control, capped k = 5 cells, theorist argument that end-only reasoning excludes gap-2 lowering. · 127 · experimentalist
 - **T4 · H-020 rule table** (converted, 118) · H-020, H-029 · H1 holds to widths 9-11, lengths <= 14 (E-225). Class-B first-step delta is a per-rule value, 82 of 82 length transfers at widths 5-6 (E-310), no formula; test is widths 8-9 (H-029). · 118 · skeptic
 - **H-027 · A_n vs B_n reachability** · H-027 (SUPPORTED) · E-328: every step of the E-287/E-289 paths at n = 5-7 is an irreducible silting mutation (any-slot certificate), so the paths are tilting-mutation chains; one secondary input (D^b(B_n) ~ kD_n, Happel-Seidel). Scholar proposes closing; ledger decision at conference 128 (F-candidate at n = 5-7). General-n generation still rests on Hubery-Krause. · 126 · scholar
 - **S-1 · vertex deletion** (agenda, round 120: 4) · H-026 (SUPPORTED, odd n only) · K0 = min(h, n-4-h) for lone-3 classes at key level (ten odd-n fits, E-301, E-304); even-n fails at the self-mirror class (E-307). E-325: one orbit carries both image keys at K0 (n = 13 h = 2, 3; n = 15 h = 3); key changes only through K = 0 bridge components; K >= 1 constancy and E-307 (3) automatic. Class-level form = the bridge question. F-blockers: K = 0 transit, tail end, non-lone law, self-mirror derivation. · 125 · experimentalist
@@ -29,9 +29,10 @@ Each: question · H-entry · state · last worked · owner.
 - **T1 · H-021'**, **T2 · s(c)**: closed round 060 (E-176). **T9 · long runs**: parked (`OVERNIGHT.md` Menu 4).
 
 ## Awaiting revision
-(none)
+- maverick: answer rounds/127/maverick.review.md (forward claim promoted as E-331; backward claim needs forward F-only balls from the parents' SNF class and iso-tests, an exact edge-inversion count, and the 3 non-invertible edges recorded).
 
 ## Requests between personas
+- (round 127) skeptic/toolsmith: decide whether the gate should refuse when a cycle lies upstream of i (E-329 (d)); experimentalist: an interior gap-2 control (E-330); theorist: is the F step the silting mutation (maverick's reframing)?
 - scholar: Happel-Seidel / BGS / Nikulin 1979 / Crawley-Boevey 1992 / Ringel 1994 primaries (not on arXiv: need PDFs; UNVERIFIED stays); owed literature file for 1310.1907.
 - (round 126) toolsmith: a gate-admitted loop/cyclic parent for T5; theorist: check the Anick facts in E-326 (H3)(ii); skeptic: decide whether the gate should call `isTiltingAtVertex` by default (E-327).
 - (round 125) theorist: is X_3 a function of (key, SNF(S)) on LNAs (a lemma, E-324)?; toolsmith: n = 12 other roots, pure-F route to a crossing; skeptic: decide default for refuseNonTilting with the cost of the 19 F-010 steps.
@@ -67,12 +68,12 @@ Each: question · H-entry · state · last worked · owner.
 <!-- persona · last round worked · last round refereed -->
 | persona | worked | refereed |
 |---|---|---|
-| experimentalist | 125 | 122 (theorist) |
-| theorist | 123 | 125 (maverick) |
-| skeptic | 123 | 125 (toolsmith) |
-| scholar | 122 | 123 (theorist) |
-| toolsmith | 125 | 123 (skeptic) |
-| maverick | 125 | 125 (experimentalist) |
+| experimentalist | 127 | 122 (theorist) |
+| theorist | 126 | 127 (toolsmith) |
+| skeptic | 126 | 127 (experimentalist, maverick) |
+| scholar | 126 | 123 (theorist) |
+| toolsmith | 127 | 123 (skeptic) |
+| maverick | 127 | 125 (experimentalist) |
 
 - theorist: M3/M3b (two loops); is H-010's end-only argument enough to exclude gap-2 lowering (E-313)? skeptic: which of the 8 minimal anomalies have the E-080 shape (E-312); a second invariant on the E-318 pair (with maverick). toolsmith: J != 0 classifier and the 20-root denominator; Construction-2.2 builder for loop parents; replayable n >= 11 merges (experimentalist lists them). scholar: PDFs wanted (standing): Nikulin 1979, Happel-Seidel, BGS, Anick 1982, Chekanov 2002.
 - Round 124 conference: F-055 (Cartan-level test, scoped), R-017 (key group = one class), H-015 -> R-017, H-024 -> F-055, H-032 narrowed; docstring of `mutationSearchDepthFirst`. Phase 1 history: cycles/002/phase-1.md. Rounds 121-123: E-315 to E-322.

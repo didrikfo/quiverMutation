@@ -1,0 +1,6 @@
+steps 6 margin 1 cap 585 interior
+((8, 3), (10, 3)) interior L 20 base 1 reached 0 min None lowered 0 best None None secs 521.9
+
+real	8m43.684s
+user	7m7.670s
+sys	0m0.193s

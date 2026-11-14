@@ -1,0 +1,4 @@
+[SWEEP n=5 arrows<=5 rel length<=3] {'parents': 474, 'inst': 602, 'admitted': 342, 'lib_disagree': 0, 'lib_J_disagree': 214, 'upstream': 142, 'incomplete': 0, 'run': 342, 'allpass': 342, 'loopletters': 326, 'theta': 28, 'thetaprime': 0, 'thetaprime_up': 0, 'J_disagree_on_admitted': 0, 'admitted_Aop': 30, 'up_Aop': 0, 'aud_closed': 342, 'aud_inD': 342, 'aud_same': 342, 'aud_nonD': 342}  (48 s)
+  [A^op admitted] ('x1:2>1 x2:3>1 x3:1>2 x4:3>4 x5:5>4 | rels x3.x1', 5, 'up', False)
+  [A^op admitted] ('x1:2>1 x2:3>1 x3:1>2 x4:3>4 x5:5>4 | rels x1.x3', 5, 'up', False)
+  [A^op admitted] ('x1:2>1 x2:3>1 x3:1>2 x4:3>4 x5:5>4 | rels x3.x1 x2.x3', 5, 'up', False)

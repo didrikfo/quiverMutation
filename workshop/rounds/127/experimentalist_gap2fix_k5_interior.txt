@@ -1,0 +1,9 @@
+steps 5 margin 1 cap 570 interior
+((8, 4), (10, 3)) interior L 20 base 2 reached 11 min 2 lowered 0 best 000000034000000000 [10, 9, -12] secs 561.6
+((8, 4), (10, 4)) CAP 570 s: undecided (not a verdict)
+((8, 5), (10, 5)) CAP 570 s: undecided (not a verdict)
+((8, 5), (10, 4)) CAP 570 s: undecided (not a verdict)
+
+real	9m31.284s
+user	16m23.116s
+sys	0m0.593s

@@ -446,3 +446,20 @@ def test_the_inverse_of_a_rule_is_not_free():
     assert candidate not in lm.VERIFIED_MOVES
     confirmed, failures = lm.verifyMove(candidate, [candidate[0] + 1])
     assert failures or confirmed == 0
+
+
+def test_copy_keeps_the_arrow_relations_of_a_parallel_arrow_quiver():
+    """`_copy` must carry `arrowRels`: without them `relationsFrom` lifts the
+    vertex paths, which raises on a parallel pair (research E-313's ValueError
+    in `localMutationSequences` at k = 5, 6)."""
+    from quivermutation import procedure as pr
+    algebra = nk.LinearNakayamaAlgebra(6, "3030")
+    for vertex in [1, 3, 4, 1, 4]:
+        algebra = quiet(qm.quiverMutationAtVertices, algebra, [vertex])
+    assert algebra.hasParallelArrows()
+    duplicate = lm._copy(algebra)
+    assert duplicate.arrowRels == algebra.arrowRels
+    assert pr.relationsFrom(duplicate) == pr.relationsFrom(algebra)
+    for vertex in range(1, 7):
+        for signed in (vertex, -vertex):
+            quiet(qm.quiverMutationAtVertices, lm._copy(algebra), [signed])

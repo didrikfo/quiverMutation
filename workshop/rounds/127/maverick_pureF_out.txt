@@ -1,0 +1,112 @@
+# fwd 12 5 (F-only, root+dual), one line per root
+  ROOT 0000000030: nodes 8190, steps {'J=0 kept': 18875}, J!=0 kept 0, crossings 0  286s
+  ROOT 0000303000: nodes 4080, steps {'J=0 kept': 9592}, J!=0 kept 0, crossings 0  315s
+  ROOT 0003003000: nodes 4330, steps {'J=0 kept': 10386}, J!=0 kept 0, crossings 0  313s
+  ROOT 0003033030: nodes 2127, steps {'J=0 kept': 4647}, J!=0 kept 0, crossings 0  291s
+  ROOT 0030030300: nodes 2445, steps {'J=0 kept': 5778}, J!=0 kept 0, crossings 0  350s
+  ROOT 0030334400: nodes 1529, steps {'J=0 kept': 3185}, J!=0 kept 0, crossings 0  286s
+  ROOT 0033440030: nodes 1504, steps {'J=0 kept': 3083}, J!=0 kept 0, crossings 0  185s
+  ROOT 0033440330: nodes 1063, steps {'J=0 kept': 2006}, J!=0 kept 0, crossings 0  134s
+  ROOT 0034504030: nodes 1616, steps {'J=0 kept': 3188}, J!=0 kept 0, crossings 0  259s
+  ROOT 0040003030: nodes 2867, steps {'J=0 kept': 6604}, J!=0 kept 0, crossings 0  387s
+  ROOT 0040033030: nodes 2150, steps {'J=0 kept': 4656}, J!=0 kept 0, crossings 0  330s
+  ROOT 0045050400: nodes 2668, steps {'J=0 kept': 5458}, J!=0 kept 0, crossings 0  401s
+  ROOT 0050000030: nodes 5229, steps {'J=0 kept': 12089}, J!=0 kept 0, crossings 0  303s
+  ROOT 0050000300: nodes 4637, steps {'J=0 kept': 10893}, J!=0 kept 0, crossings 0  341s
+  ROOT 0050400300: nodes 3311, steps {'J=0 kept': 7348}, J!=0 kept 0, crossings 0  415s
+  ROOT 0050404400: nodes 2547, steps {'J=0 kept': 5252}, J!=0 kept 0, crossings 0  418s
+  ROOT 0300033030: nodes 2491, steps {'J=0 kept': 5473}, J!=0 kept 0, crossings 0  316s
+  ROOT 0303345000: nodes 1420, steps {'J=0 kept': 2909}, J!=0 kept 0, crossings 0  171s
+  ROOT 0345040400: nodes 1479, steps {'J=0 kept': 2927}, J!=0 kept 0, crossings 0  261s
+  ROOT 0400033030: nodes 2531, steps {'J=0 kept': 5464}, J!=0 kept 0, crossings 0  367s
+# back 6, J0=1 (last completed depth per target; depth-6 runs that hit the 10 min cap stop at 5)
+TARGET #0 n=11 003033030 root|F3 R8 F3 F3: F crossing steps at P [('F3', (1, 2, 4), (1, 2, 2))]; R-only ball depth 6, J=0 steps only True
+    depth 6: new nodes 1888, cumulative 2914, steps {'J=0 kept': 6071, 'J!=0 kept': 70}  292s
+  LNAs reached by R-only from P (= pure-F routes L -> P): NONE
+TARGET #1 n=11 003033030 root|F3 R8 F3 R5: F crossing steps at P [('F5', (1, 2, 4), (1, 2, 2))]; R-only ball depth 6, J=0 steps only True
+    depth 6: new nodes 1789, cumulative 2769, steps {'J=0 kept': 5393, 'J!=0 kept': 105}  213s
+  LNAs reached by R-only from P (= pure-F routes L -> P): NONE
+TARGET #10 n=11 303500030 root|F4 R11 F8 F8: F crossing steps at P [('F8', (1, 2, 4), (1, 2, 2))]; R-only ball depth 6, J=0 steps only True
+    depth 5: new nodes 1717, cumulative 2360, steps {'J=0 kept': 3938, 'J!=0 kept': 33}  183s
+  (cap at depth 6; no LNA hit printed)
+TARGET #11 n=11 303500030 root|F4 R11 F8 R4: F crossing steps at P [('F4', (1, 2, 4), (1, 2, 2))]; R-only ball depth 6, J=0 steps only True
+    depth 6: new nodes 4335, cumulative 6318, steps {'J=0 kept': 12298, 'J!=0 kept': 418}  587s
+  LNAs reached by R-only from P (= pure-F routes L -> P): NONE
+TARGET #2 n=11 203033030 root|F3 R8 F3 F3: F crossing steps at P [('F3', (1, 2, 4), (1, 2, 2))]; R-only ball depth 6, J=0 steps only True
+    depth 6: new nodes 1322, cumulative 2073, steps {'J=0 kept': 3920, 'J!=0 kept': 45}  213s
+  LNAs reached by R-only from P (= pure-F routes L -> P): NONE
+TARGET #3 n=11 203033030 root|F3 R8 F3 R5: F crossing steps at P [('F5', (1, 2, 4), (1, 2, 2))]; R-only ball depth 6, J=0 steps only True
+    depth 6: new nodes 753, cumulative 1230, steps {'J=0 kept': 2448, 'J!=0 kept': 51}  89s
+  LNAs reached by R-only from P (= pure-F routes L -> P): NONE
+TARGET #4 n=11 303305000 root|F4 R11 R7 F11: F crossing steps at P [('F11', (1, 2, 4), (1, 2, 2))]; R-only ball depth 6, J=0 steps only True
+    depth 6: new nodes 5562, cumulative 7807, steps {'J=0 kept': 12956, 'J!=0 kept': 249}  531s
+  LNAs reached by R-only from P (= pure-F routes L -> P): NONE
+TARGET #5 n=11 303305000 root|F4 R11 R7 R7: F crossing steps at P [('F7', (1, 2, 4), (1, 2, 2))]; R-only ball depth 6, J=0 steps only True
+    depth 5: new nodes 1513, cumulative 2131, steps {'J=0 kept': 4002, 'J!=0 kept': 106}  201s
+  (cap at depth 6; no LNA hit printed)
+TARGET #6 n=11 303305000 root|F4 R11 R11 F9: F crossing steps at P [('F9', (1, 2, 4), (1, 2, 2))]; R-only ball depth 6, J=0 steps only True
+    depth 6: new nodes 4239, cumulative 6012, steps {'J=0 kept': 10332, 'J!=0 kept': 107}  438s
+  LNAs reached by R-only from P (= pure-F routes L -> P): NONE
+TARGET #7 n=11 303500030 root|F1 R6 R6 F4: F crossing steps at P [('F4', (1, 2, 4), (1, 2, 2))]; R-only ball depth 6, J=0 steps only True
+    depth 6: new nodes 1921, cumulative 2954, steps {'J=0 kept': 6051, 'J!=0 kept': 304}  314s
+  LNAs reached by R-only from P (= pure-F routes L -> P): NONE
+TARGET #8 n=11 303500030 root|F1 R6 R6 R6: F crossing steps at P [('F6', (1, 2, 4), (1, 2, 2))]; R-only ball depth 6, J=0 steps only True
+    depth 6: new nodes 2494, cumulative 3666, steps {'J=0 kept': 6657, 'J!=0 kept': 23}  294s
+  LNAs reached by R-only from P (= pure-F routes L -> P): NONE
+TARGET #9 n=11 303500030 root|F4 R11 F4 R6: F crossing steps at P [('F6', (1, 2, 4), (1, 2, 2))]; R-only ball depth 6, J=0 steps only True
+    depth 6: new nodes 3844, cumulative 5623, steps {'J=0 kept': 11114, 'J!=0 kept': 93}  478s
+  LNAs reached by R-only from P (= pure-F routes L -> P): NONE
+TARGET #0 n=12 0040033030 root|F3 R9 F3 F3: F crossing steps at P [('F3', (1, 1, 20), (1, 1, 12))]; R-only ball depth 6, J=0 steps only True
+    depth 5: new nodes 1179, cumulative 1691, steps {'J=0 kept': 3340, 'J!=0 kept': 21}  257s
+  (cap at depth 6; no LNA hit printed)
+# back 2, J0=0
+TARGET #0 n=11 003033030 root|F3 R8 F3 F3: F crossing steps at P [('F3', (1, 2, 4), (1, 2, 2))]; R-only ball depth 2, J=0 steps only False
+  LNAs reached by R-only from P (= pure-F routes L -> P): NONE
+TARGET #1 n=11 003033030 root|F3 R8 F3 R5: F crossing steps at P [('F5', (1, 2, 4), (1, 2, 2))]; R-only ball depth 2, J=0 steps only False
+  LNAs reached by R-only from P (= pure-F routes L -> P): {'300330300': [(2, 'R3 R6', (1, 2, 2)), (2, 'R3 R8', (1, 2, 2))]}
+TARGET #2 n=11 203033030 root|F3 R8 F3 F3: F crossing steps at P [('F3', (1, 2, 4), (1, 2, 2))]; R-only ball depth 2, J=0 steps only False
+  LNAs reached by R-only from P (= pure-F routes L -> P): NONE
+TARGET #3 n=11 203033030 root|F3 R8 F3 R5: F crossing steps at P [('F5', (1, 2, 4), (1, 2, 2))]; R-only ball depth 2, J=0 steps only False
+  LNAs reached by R-only from P (= pure-F routes L -> P): {'300330302': [(2, 'R3 R6', (1, 2, 2)), (2, 'R3 R8', (1, 2, 2))]}
+TARGET #4 n=11 303305000 root|F4 R11 R7 F11: F crossing steps at P [('F11', (1, 2, 4), (1, 2, 2))]; R-only ball depth 2, J=0 steps only False
+  LNAs reached by R-only from P (= pure-F routes L -> P): NONE
+TARGET #5 n=11 303305000 root|F4 R11 R7 R7: F crossing steps at P [('F7', (1, 2, 4), (1, 2, 2))]; R-only ball depth 2, J=0 steps only False
+  LNAs reached by R-only from P (= pure-F routes L -> P): NONE
+TARGET #6 n=11 303305000 root|F4 R11 R11 F9: F crossing steps at P [('F9', (1, 2, 4), (1, 2, 2))]; R-only ball depth 2, J=0 steps only False
+  LNAs reached by R-only from P (= pure-F routes L -> P): NONE
+TARGET #7 n=11 303500030 root|F1 R6 R6 F4: F crossing steps at P [('F4', (1, 2, 4), (1, 2, 2))]; R-only ball depth 2, J=0 steps only False
+  LNAs reached by R-only from P (= pure-F routes L -> P): {'330340030': [(2, 'R6 R1', (1, 2, 2)), (2, 'R6 R3', (1, 2, 2))]}
+TARGET #8 n=11 303500030 root|F1 R6 R6 R6: F crossing steps at P [('F6', (1, 2, 4), (1, 2, 2))]; R-only ball depth 2, J=0 steps only False
+  LNAs reached by R-only from P (= pure-F routes L -> P): NONE
+TARGET #9 n=11 303500030 root|F4 R11 F4 R6: F crossing steps at P [('F6', (1, 2, 4), (1, 2, 2))]; R-only ball depth 2, J=0 steps only False
+  LNAs reached by R-only from P (= pure-F routes L -> P): NONE
+TARGET #10 n=11 303500030 root|F4 R11 F8 F8: F crossing steps at P [('F8', (1, 2, 4), (1, 2, 2))]; R-only ball depth 2, J=0 steps only False
+  LNAs reached by R-only from P (= pure-F routes L -> P): NONE
+TARGET #11 n=11 303500030 root|F4 R11 F8 R4: F crossing steps at P [('F4', (1, 2, 4), (1, 2, 2))]; R-only ball depth 2, J=0 steps only False
+  LNAs reached by R-only from P (= pure-F routes L -> P): NONE
+
+real	0m31.063s
+user	0m30.611s
+sys	0m0.177s
+# ctrl
+  node root F1 F3 F3 F4: root/dual found by R-only at depths [4]
+  node dual F10 F11 F11 F8: root/dual found by R-only at depths [4]
+  node dual F8 F8 F11 F11: root/dual found by R-only at depths [4]
+  node root F2 F1 F3 F4: root/dual found by R-only at depths [4]
+  node root F1 F2 F4 F9: root/dual found by R-only at depths [4]
+CTRL root 003033030 K=4: 5 of 5 depth-4 F-nodes (5 non-LNA) lead back to the root by R-only within 4
+
+real	1m40.738s
+user	1m39.903s
+sys	0m0.218s
+  node root F1 F3 F10: root/dual found by R-only at depths [3]
+  node dual F9 F7 F6: root/dual found by R-only at depths [3]
+  node dual F6 F5 F9: root/dual found by R-only at depths [3]
+  node dual F5 F12 F10: root/dual found by R-only at depths [3]
+  node root F2 F1 F5: root/dual found by R-only at depths [3]
+  node root F1 F3 F2: root/dual found by R-only at depths [3]
+CTRL root 0040033030 K=3: 6 of 6 depth-3 F-nodes (6 non-LNA) lead back to the root by R-only within 3
+
+real	0m56.364s
+user	0m55.811s
+sys	0m0.150s

@@ -7,7 +7,7 @@ it. Status is one of `OPEN`, `SUPPORTED`, `CONFIRMED → F-nnn`, `REFUTED → R-
 ---
 
 ## H-032 — Inside a Coxeter key group, walk-connected iff Phi-equivariantly Z-congruent Cartan forms (n <= 12; converse of H-024; proposed cycle 2 planning)
-*2026-11-07* · **OPEN, narrowed at round 124, again at 125: the 'walk-connected' side fails for key-guarded F/R walks with a J != 0 step, at the n = 12 group of 47 too (E-318, E-323, R-017); untested for the library's F-only walks (E-321 for n <= 10)** *(first case: the singular n = 12 key group of 47, split 14 + 33 by SNF(S), E-314; n = 9 F-010 group split 18 + 18 by q_S, E-306)* · *workshop cycle 002 planning, maverick*
+*2026-11-07* · **OPEN, narrowed at round 124, again at 125 (E-331: no F-only crossing in n = 12 depth-5 balls): the 'walk-connected' side fails for key-guarded F/R walks with a J != 0 step, at the n = 12 group of 47 too (E-318, E-323, R-017); untested for the library's F-only walks (E-321 for n <= 10)** *(first case: the singular n = 12 key group of 47, split 14 + 33 by SNF(S), E-314; n = 9 F-010 group split 18 + 18 by q_S, E-306)* · *workshop cycle 002 planning, maverick*
 
 **Claim:** for LNAs of length n <= 12, two LNAs in one Coxeter key group are joined by a key-guarded walk exactly when their Cartan forms are Phi-equivariantly Z-congruent. H-024 is the "only if" direction for derived equivalence; this adds completeness of the Cartan level inside a key group. **Falsifiable:** a guarded walk that joins two congruence classes (then H-015 or H-024 is false, or a census has a bug), or one congruence class that holds two walk components no deeper walk joins. Bears on H-015 (the 47-group is a second NO-capable instrument for T10) and on the R-candidate "a key group is one derived class". Speculation level: idea.
 
@@ -67,7 +67,7 @@ If A and B are derived equivalent, there is P in GL_n(Z) with P^T C_B P = C_A (o
 ---
 
 ## H-023 — Every gate-admitted J = 0 mutation step is a derived equivalence
-*2026-10-30* · **OPEN** *(workshop cycle 001 planning; the premise of T5 and under H-015; E-284: loop case cancels in ten hand-sized models, computation only; M1 proved E-290, M2 proved E-294)*
+*2026-10-30* · **OPEN** *(workshop cycle 001 planning; the premise of T5 and under H-015; E-329: loop-at-i admission vacuous, 12 136 cyclic-parent steps pass; E-284: loop case cancels in ten hand-sized models, computation only; M1 proved E-290, M2 proved E-294)*
 
 If the gate admits a step with J = 0 (acyclic D(i), no loops of degree >= 1 at i, omega-reduced), the mutated algebra is derived equivalent to its parent. Proved so far: cancellation (E-235), Lemma A directly (E-240), step-7 kernel = Oppermann's for acyclic D(i) (E-199), F/R convention (E-252, E-258); the library refuses cyclic D(i) (E-211, E-222); a loop of degree >= 1 at i forces i onto a cycle, so library steps never meet one (E-279). **Falsifiable:** a gate-admitted J = 0 step whose child has a different derived invariant (Cartan form, Phi, Hochschild data). **Open joints:** E-235 step 4 against Lemma A's hypotheses after omega-reduction (E-256), loops of degree >= 1 at i (Oppermann's theorem allows them, needs a unitriangular cancellation, E-273). Join searches cannot test it (E-250, E-255, E-268). If it holds, H-015 reduces to J != 0 steps.
 

@@ -95,10 +95,18 @@ def isTiltingAtVertex(pathAlg, vertex):
     are admissible, key-kept steps with J != 0, and E-318's changes SNF(C + C^T),
     so it is not a derived equivalence.  Linear algebra over the rationals, on
     the arrow relations, so parallel arrows and coefficients are respected.
+
+    Acyclic quivers only: on a quiver with an oriented cycle the candidate
+    paths are vertex-simple but the ideal basis is not, so the count can be
+    wrong (workshop round 127, toolsmith: 1 <-> 2 with the 2-cycle killed at 1,
+    1 -> 3 -> 4 with (1 3 4) = 0, mutated at 3, returns True; the answer is
+    False, as the gate says).  It warns
+    (`CyclicQuiverWarning`) there and returns the same value as before.
     """
     from fractions import Fraction
     from . import arrowPaths as ap
     quiver = pathAlg.quiver
+    ap.warnIfCyclic(quiver, "mutation.isTiltingAtVertex")
     relations = procedure.relationsFrom(pathAlg)
     outArrows = ap.arrowsOutOf(quiver, vertex)
     for i in quiver.nodes:

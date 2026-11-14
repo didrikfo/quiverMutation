@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 127 -- 2026-11-14 -- ordinary
+Cycle 2, phase 2 (round 3 of 4). Toolsmith, experimentalist, maverick; referees theorist (minor, answered), skeptic (minor, answered), skeptic (major).
+- **Toolsmith:** no gate-admitted loop-at-i parent exists (known, E-279), but on 12 136 admitted steps from cyclic monomial parents (LF), (H1w), (H3), H(I) = 0 all hold and the D(i)-sourced letters carry the D(i) model (**E-329**). The library gate and `isTiltingAtVertex` err when a cycle lies upstream of i; the latter now warns.
+- **Experimentalist:** E-313's ValueError was a `lnaMoves._copy` bug (fixed, tested). No interior start-gap-2 pair lowers overlap in 3 non-vacuous cells, but there is no interior control, so no power (**E-330**).
+- **Maverick:** no key-kept J != 0 step in 129 813 steps of n = 12 F-only depth-5 balls (**E-331**). The backward claim failed review: 3 of 397 J = 0 F edges have no R inverse; revision due.
+- **Consequences:** gate over-admission with a cycle upstream of i (decision open); T7's retirement route needs an interior control.
+- Questions for the human: none. Round 128 is the phase conference.
+
 ## Round 126 -- 2026-11-13 -- ordinary
 Cycle 2, phase 2. Theorist, skeptic, scholar; referees skeptic, experimentalist, theorist (all minor revisions, answered).
 - **Theorist:** the loop case of H-023's formal step is no longer vacuous: (LF), (H1w), (H3), H(I) = 0 hold on 34 monomial cyclic Nakayama parents (149 instances, 20 with a loop); g is not letter-additive affine; (C)/(LF) depend on the presentation (E-326). Formal cancellation only, not gate-admitted steps.

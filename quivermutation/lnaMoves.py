@@ -109,6 +109,13 @@ def _copy(pathAlg):
     duplicate = pathAlgebra.PathAlgebra()
     duplicate.quiver = copy.deepcopy(pathAlg.quiver)
     duplicate.rels = copy.deepcopy(pathAlg.rels)
+    # The arrow-model relations are the only faithful reading once the quiver
+    # has parallel arrows; dropping them made `procedure.relationsFrom` fall
+    # back to lifting vertex paths, which raises there (E-313).
+    for attribute in ("arrowRels", "relCombinations"):
+        stored = getattr(pathAlg, attribute, None)
+        if stored is not None:
+            setattr(duplicate, attribute, copy.deepcopy(stored))
     return duplicate
 
 

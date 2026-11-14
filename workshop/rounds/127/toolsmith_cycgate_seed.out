@@ -1,0 +1,20 @@
+[GLDIM control] Anick tail test vs Kupisch test on Z_n antichains n <= 5, length <= 4: agree 360, disagree 0 (must be 0); infinite by Kupisch 148
+    gl.dim finite (Anick): True
+=== seed x1:1>2 x2:2>1 x3:2>3 x4:3>4 | rels x1.x2: dim A = 14, letters 5, complete True, max weight 2, [MM] H = A to W = 8: YES
+    loop letters: {'r1': ((1, 1, 1), 'x1·x2')}
+  A i=3 exact gate 1 library gate 1 library J0 1 letters 6 theta 0 d2 0 nonhom 0 parent_loops_at_i [] LF True cycles True kM_loop_letters 1 C True minshift 1 H1w True H1strict True PI True thetaprime [] SH True lead [] g=pathlength vacuous ENG (0, 0, 0, 74, 0) loop_letters_parent ['r1']
+    gl.dim finite (Anick): True
+=== seed x1:1>2 x2:2>1 x3:2>3 x4:3>4 | rels x2.x1: dim A = 12, letters 5, complete True, max weight 2, [MM] H = A to W = 8: YES
+    loop letters: {'r1': ((2, 2, 1), 'x2·x1')}
+  A i=3 exact gate 1 library gate 1 library J0 1 letters 6 theta 0 d2 0 nonhom 0 parent_loops_at_i [] LF True cycles True kM_loop_letters 1 C True minshift 1 H1w True H1strict True PI True thetaprime [] SH True lead [] g=pathlength vacuous ENG (0, 0, 0, 79, 0) loop_letters_parent ['r1']
+    gl.dim finite (Anick): True
+=== seed x1:1>2 x2:2>1 x3:2>3 x4:3>4 | rels x1.x2 x2.x1.x3: dim A = 12, letters 7, complete True, max weight 4, [MM] H = A to W = 10: YES
+    loop letters: {'r1': ((1, 1, 1), 'x1·x2')}
+  A i=3 exact gate 1 library gate 1 library J0 1 letters 10 theta 0 d2 0 nonhom 0 parent_loops_at_i [] LF True cycles True kM_loop_letters 1 C True minshift 1 H1w True H1strict True PI True thetaprime [] SH True lead [] g=pathlength vacuous ENG (0, 0, 0, 125, 0) loop_letters_parent ['r1']
+    gl.dim finite (Anick): False
+[MM control] seed with one d-term dropped: H = A failures 25 (must be > 0)
+[GATE control] seed + relation x3x4: exact gate at 3 = False (must be False), library gate False (must be False)
+[ENG / SH controls] glued A4 30 + 2-cycle, i = 1: ENG (0, 0, 0, 126, 24); closed ideal (stars) in place of I: (8, 8, [(2, 4, 4, 0, 1)]) (bad cells must be > 0); planted g: NO (caught): d0 != 0 on r1
+[BARE control] glued A4 30 + 2-cycle at i = 1 (['R[x1.x2.x3]/x1'], [('R[x1.x2.x3]/x1', 'x2·x3')]): equal to bare A4 30 / A4 20 / A4 02: [True, False, False] (must be [True, False, False])
+[SIMPLE control] x1:1>2 x2:2>1 x3:2>3 x4:3>4 | rels x1.x2.x1 x2.x1.x3.x4: gl.dim finite False, exact gate at 3 = False (refusing path ('x2', 'x1', 'x3')), library gate True, library J0 True, mutateAtVertex(3): runs (D(3) acyclic, not refused)
+[SIMPLE control] x1:1>2 x2:2>1 x3:2>3 x4:3>4 | rels x1.x2 x2.x1.x3.x4: gl.dim finite True, exact gate at 3 = False (refusing path ('x2', 'x1', 'x3')), library gate True, library J0 True, mutateAtVertex(3): runs (D(3) acyclic, not refused)

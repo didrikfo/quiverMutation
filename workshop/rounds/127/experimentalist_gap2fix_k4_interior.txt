@@ -1,0 +1,10 @@
+steps 4 margin 1 cap 280 interior
+((8, 3), (10, 3)) interior L 20 base 1 reached 0 min None lowered 0 best None None secs 79.6
+((8, 4), (10, 3)) interior L 20 base 2 reached 6 min 2 lowered 0 best 000000340000000000 [8, 8, 8, 8] secs 115.9
+((8, 4), (10, 4)) interior L 21 base 2 reached 0 min None lowered 0 best None None secs 213.1
+((8, 5), (10, 4)) interior L 21 base 3 reached 4 min 3 lowered 0 best 0000004500000000000 [8, 8, 8, 8] secs 179.2
+((8, 5), (10, 5)) CAP 280 s: undecided (not a verdict)
+
+real	4m41.378s
+user	7m44.061s
+sys	0m0.456s

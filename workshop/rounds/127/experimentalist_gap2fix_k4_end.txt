@@ -1,0 +1,10 @@
+steps 4 margin 1 cap 280 end
+((8, 3), (10, 3)) end L 13 base 1 reached 0 min None lowered 0 best None None secs 14.3
+((8, 4), (10, 3)) end L 13 base 2 reached 14 min 0 lowered 7 best 40000000000 [1, 1, 1, 1] secs 23.0
+((8, 4), (10, 4)) end L 14 base 2 reached 3 min 1 lowered 1 best 040020000000 [-5, -5, -6, -6] secs 45.5
+((8, 5), (10, 4)) end L 14 base 3 reached 6 min 0 lowered 3 best 500000000000 [1, 1, 1, 1] secs 38.3
+((8, 5), (10, 5)) end L 15 base 3 reached 4 min 2 lowered 1 best 0500300000000 [-6, -6, -7, -7] secs 68.6
+
+real	1m9.983s
+user	2m0.229s
+sys	0m0.359s

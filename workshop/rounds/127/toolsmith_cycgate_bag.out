@@ -1,0 +1,2 @@
+[BAG] a:4>5 b:5>4 g:5>1 x1:1>2 x2:2>3 | rels a.b b.a.g.x1 at i = 1: gl.dim finite True, D(1) acyclic True, exact gate False (refusing path ('b', 'a', 'g')), library gate True, library J0 True
+[AUDIT control] seed x1.x2 = 0 at i = 3: audit with D(3) = [3, 4]: (True, True, True, 5); with D replaced by {1, 2, 3} (not successor-closed): closed False (must be False)

@@ -103,3 +103,23 @@ def test_loop_at_or_below_the_vertex_refused():
     q3.add_edge(1, 2)
     q3.add_edge(1, 1)
     procedure.mutateAtVertex(q3, [], 2)                         # loop above 2 only: accepted
+
+
+def test_isTiltingAtVertex_warns_on_cycle_upstream():
+    """Round 127 (toolsmith): a 2-cycle 1 <-> 2 upstream of 3 -> 4, relations (1 2 1) and (1 3 4).
+    The path 1 -> 3 dies against the only arrow out of 3, so the gate refuses and J != 0; the
+    vertex-simple count in isTiltingAtVertex says True.  It now warns; the value is unchanged."""
+    from helpers import path_algebra
+    from quivermutation import mutation
+    alg = path_algebra([[1, 2], [1, 3], [2, 1], [3, 4]], [[[1, 2, 1]], [[1, 3, 4]]])
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        assert mutation.mutationIsPossibleAtVertex(alg, 3) is False
+    with pytest.warns(ap.CyclicQuiverWarning, match="isTiltingAtVertex"):
+        # PINS A BUG: the true answer is False (J != 0).  If isTiltingAtVertex is fixed to read
+        # non-simple paths, change this to `is False`; a failure here is then the fix, not a regression.
+        assert mutation.isTiltingAtVertex(alg, 3) is True
+    acyclic = path_algebra([[1, 3], [3, 4]], [[[1, 3, 4]]])
+    with warnings.catch_warnings():
+        warnings.simplefilter("error")
+        assert mutation.isTiltingAtVertex(acyclic, 3) is False

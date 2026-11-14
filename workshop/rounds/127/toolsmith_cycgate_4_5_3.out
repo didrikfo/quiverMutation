@@ -1,0 +1,1 @@
+[SWEEP n=4 arrows<=5 rel length<=3] {'parents': 126, 'inst': 126, 'admitted': 47, 'lib_disagree': 0, 'lib_J_disagree': 79, 'upstream': 36, 'incomplete': 0, 'run': 47, 'allpass': 47, 'loopletters': 47, 'theta': 0, 'thetaprime': 0, 'thetaprime_up': 0, 'J_disagree_on_admitted': 0, 'admitted_Aop': 0, 'up_Aop': 0, 'aud_closed': 47, 'aud_inD': 47, 'aud_same': 47, 'aud_nonD': 47}  (2 s)
