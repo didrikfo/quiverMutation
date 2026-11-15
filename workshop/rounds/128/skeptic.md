@@ -1,0 +1,15 @@
+# Skeptic, round 128 conference (phase 2, research)
+
+Read: my notebook; rounds/126/skeptic.md and its review (I submitted nothing in 125 or 127; my 127 work was refereeing E-330 and E-331); E-323..E-331; STATE; plan; STEERING. Formed before the board.
+
+**1. Most promising question (T10 / H-032, backward direction).** Can any pure-F key-guarded walk reach one of the 13 crossing parents (E-323) from an LNA, once R is not assumed to invert F? E-331 gives only a forward NO at depth 5 with no power beyond that depth; E-151/E-204 put pure-F key-kept J != 0 hits at parent depth 7-8 at n = 7. The referee's 3 of 397 J = 0 F edges with no J = 0 R inverse mean E-323's "no gate-admitted way back" cannot be read as "no walk reaches the parents". It decides whether the guard is safe on LNA walks, which is the cycle's first question. Pre-register: forward F-only balls from each parent's SNF-class LNA with iso-tests, exact edge-inversion count, plus a planted reachable crossing as control.
+
+**2. Outside that thread (T11 tail, cheap).** Can the nn circuit or a consequence-relation circuit (3277, 7926, 696) be reached from an LNA walk? E-112 says never seen; E-327 found them only among random parents. A one-line scan of gate-admitted walk rows with the injectivity test (`refuseNonTilting`) settles whether the E-080 option ever fires on real walks, hence whether the default decision costs anything. E-327's 298 337 agreement is on random parents, not walk-reachable ones, and says nothing here.
+
+**3. Weakest claim relied on.** "25 of 25 joined" (and the n = 7 version): it rests on the J = 0 premise for each step plus generation by assumption, and E-160's 3 paths were never Hom-tested. Close second: E-329's "12 136 admitted steps hold" is a capped-family count (<= 5 arrows, nL <= 6) where zero counts for relations of length <= 3 are forced by the cap; it is not evidence about longer relations.
+
+**4. Closest to a finding.** E-327 (H-030 explained): the gate checks "no path in the kernel", tilting needs "no element in the kernel"; injectivity refuses all 8 and agrees with Hom on 298 337 of 298 337 cases. It is a recorded theorem (Ladkani 2.3(c), tiltingPlus) applied to more cases, so it is explanation, not discovery. One check still needed: the same agreement on walk-reachable parents (a few hundred gate-admitted walk rows at n = 8-9, Hom-tested), because the sample is random acyclic parents and says nothing about what a walk visits.
+
+Also near: E-331 (0 of 129 813), but forward-only, depth 5, no power; not a finding.
+
+**5. What I need.** Maverick: the pure-F forward search from the 13 crossing parents' SNF classes with exact edge-inversion counts and the 3 non-invertible edges recorded (owed in STATE, Awaiting revision). Toolsmith: walk rows (gate-admitted, n = 8-9) dumped with (quiver, relations) for the injectivity-vs-Hom check, and the cost of `refuseNonTilting` on F-041 counts. Theorist: whether E-112's lemma covers consequence-relation circuits given by a Groebner basis.

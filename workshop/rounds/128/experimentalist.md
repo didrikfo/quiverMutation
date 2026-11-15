@@ -1,0 +1,14 @@
+# Conference 128: experimentalist
+
+**Most promising question (T10 / H-032).** Is there a pure-F (no R move) key-guarded route from an LNA to a key-kept J != 0 step at n = 12-13, i.e. does the crossing of E-318/E-323 exist without R moves? Why: E-323 shows every key-kept J != 0 step found crosses, but each needs an R move; E-331 finds none in depth-5 F-only forward balls (129 813 admitted steps); E-151/E-204 put the pure-F hits at n = 7 at parent depth 7-8. So the open thing is a depth gap, not a contradiction. The decisive instrument is a forward ball of depth 7-8 at n = 12 from the 13 crossing parents' SNF class, with E-323's step as a planted hit. It decides whether "the guard leaves a class" is a property of F or of F+R. The census I proposed in cycle 2 (per key group, walk classes) is the cheaper route to it.
+
+**Outside the main thread (S-1 / H-026, dormant since 125).** Bridge depth: how many K = 0 rows connect the two image keys at n = 15 h = 2, then n = 17 h = 4? E-325 says one orbit carries both keys and `rules` bridges are 1 in 1759 or fewer; whether that fraction is constant in n is the class-level law. A prediction for n = 17 h = 4 was owed at plan item 3 and I have not logged it. It needs a faster key (n = 15 already takes 165-250 s) or an overnight run.
+
+**Weakest claim the workshop relies on.** "No interior gap-2 start lowers overlap" (E-330 / H-010 interior). Three non-vacuous cells, k <= 5, margin 1, four cells capped, no interior control, so no power. It stays in the story only as "not refuted". Close behind: "25 of 25 joined" under the J = 0 premise, and S-1's K-threshold law at key level (three lengths).
+
+**Closest to a finding this phase.** E-323 (second crossing of a derived class by a guarded walk: n = 12 group of 47, 50 of 50 key-kept J != 0 steps non-tilting, SNF(S) changes, none has a gate-admitted way back). It already refutes R-017 and is slated for F at conference 128. The check it still needs: independence. E-324 shows no second Cartan-level witness, so the second SNF(S) change is not independent of H-024's necessity step. One check: a Hom-level (not Cartan-level) verification that the F3 step at 0040033030 is non-tilting and that the two end LNAs are derived-inequivalent by a non-SNF invariant (e.g. a one-off End computation, or an independent rebuild by a non-author in phase 5). Without it the F-entry should say "SNF(S)-level crossing".
+
+**What I need.**
+- theorist: does the E-187 end-only argument exclude gap-2 interior lowering? If yes, T7 closes and I stop. If no, I run the start-offset sweep (start 2, 3, 4; margin 1; k = 4) as the interior control, about 10 minutes per cell.
+- toolsmith: fix `_stateKey` to be faithful on parallel arrows (F-039), and grep for other hand-built `PathAlgebra` copies dropping `arrowRels` (`quipuRelations.py` near l. 591); a faster S-1 key for n = 17.
+- skeptic: a Hom-level non-tilting check on E-323's F3 step.

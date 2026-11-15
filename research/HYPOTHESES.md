@@ -39,7 +39,7 @@ For a class-B floating rule d (notLNA at step 1) at widths 5-6, lengths <= 8, th
 ---
 
 ## H-027 — A_n is reached from B_n by a tilting mutation outside the E-187 moves
-*2026-11-02* · **SUPPORTED** *(multi-step tilting exchanges reach A_n from B_n at depth 3 (n = 5), 4 (n = 6), E-287; generation UNVERIFIED; every step of the n = 5-7 paths is an irreducible silting mutation, E-328; one-step vertex-local NO, E-282; round 104 ledger, E-285)*
+*2026-11-02* · **CONFIRMED -> F-056** *(at n = 5-7: every step of the shortest paths is an irreducible silting mutation, E-328; E-287 depth 3 (n = 5), 4 (n = 6); general n open, generation UNVERIFIED; one-step vertex-local NO, E-282; round 104 ledger, E-285)*
 
 A_n and B_n are derived equivalent for every n >= 5 (Fosse 2305.06642 Cor. 4.6, LaTeX read, E-280) but A_n is not in the E-187 move-orbit of B_n for n = 6..17 (E-247, E-280). **Claim:** some tilting mutation not among the E-187 moves (a J != 0 silting-and-tilting step, or an APR-type step the moves omit) joins B_n to A_n, so the orbit n 2^(n-5) is a move-orbit and not the class. **Falsifiable:** an exhaustive search at n = 5 or 6, with a tilting test independent of the move set (Hom(T, T[k]) = 0 for k != 0), finds no such step. **Would settle it:** the step, or the exhaustive negative; the n >= 18 closure (moves invertible and mirror-closed) is not re-proved. Open until round 105+.
 

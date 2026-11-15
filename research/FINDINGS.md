@@ -5,6 +5,19 @@ See [`README.md`](README.md) for conventions.
 
 ---
 
+## F-056 — At n = 5, 6, 7 the shortest E-287/E-289 paths from B_n to A_n are chains of irreducible silting mutations, hence of tilting mutations; the one secondary input is D^b(B_n) ~ D^b(kD_n) (Happel-Seidel, UNVERIFIED)
+*2026-11-15* · *workshop round 128 (conference ledger), chair; evidence refereed in round 126 (scholar, refereed by theorist) and reproduced by the theorist*
+
+Evidence: E-328, E-287, E-289, E-285, E-280; Aihara-Iyama Prop 2.36, Thm 2.35, Thm 2.31 matched in the sources (E-308).
+
+**The claim, at its scope.** Every step (8, 11, 14 distinct steps at n = 5, 6, 7) of every shortest path found in E-287/E-289 is an irreducible silting mutation by the any-slot certificate, so each intermediate object is silting and the paths are tilting-mutation chains: A_n is reached from B_n by tilting mutations outside the E-187 moves (H-027, CONFIRMED at this scope).
+
+**What it does not say.** Nothing for n >= 8 or for general n (generation there rests on Hubery-Krause, not run); the exceptional-object counts n(n-1) rest on B_n ~ A_n and A_n of type D_n (secondary, UNVERIFIED); the controls cannot detect a missing object; the E-289 left/right swap is unexplained.
+
+Reproduce: `.venv/bin/python workshop/rounds/126/scholar_irred.py 5` (and 6, 7).
+
+---
+
 ## F-055 — At n = 9..12 the Cartan-level test (Phi-equivariant Z-congruence, E-269) says NO on 19 of 19 q_S-separated LNA pairs and YES on 19 of 19 controls; planted-pair power is shown at ONE n = 11 group only
 *2026-11-11* · *workshop round 124 (conference ledger), chair; evidence refereed in rounds 110 (skeptic, refereed by toolsmith) and 119 (maverick, refereed by scholar)*
 

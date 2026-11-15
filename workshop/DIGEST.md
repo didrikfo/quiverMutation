@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 128 -- 2026-11-15 -- conference
+Cycle 2, phase 2 (round 4 of 4). All six personas gave position statements; nothing run.
+- **Convergence:** four of six (theorist, scholar, toolsmith, maverick) name the same question: is every key-kept J != 0 step a non-tilting irreducible silting mutation (J != 0 <=> the injectivity test fails)? If yes, option-on walks cannot leave a derived class and T10 reduces to completeness. Skeptic and experimentalist ask for the pure-F deeper ball.
+- **Ledger:** **F-056** written (H-027 CONFIRMED at n = 5-7: the E-287/E-289 paths are chains of irreducible silting, hence tilting, mutations; Happel-Seidel input UNVERIFIED). F-candidate E-323 (guarded crossings): blocked by one check, a Hom-level / non-SNF verification of the F3 step and the 47-group pair. R-candidate "the gate decides tilting": blocked by gate-vs-Hom on cycle-upstream walk parents. E-331 still needs a power control. No other status change.
+- **Weakest claims named:** the unsourced necessity step behind every Cartan-level NO (Nikulin 1.13.3); the J = 0 premise; capped zero counts (E-329, E-330, E-331).
+- **Agenda, phase 3:** (1) T10 as silting-vs-tilting mechanism (theorist, scholar, toolsmith); (2) E-323 blocker and E-331 power control (skeptic, maverick revision); (3) H-025 prior art then search; (4) T5 (H3) on a new shape; (5) T7 interior control or close.
+- Phase summary: cycles/002/phase-2.md. Questions for the human: none (standing wish: PDFs of Nikulin 1979, Happel-Seidel, BGS, Anick 1982, Chekanov 2002).
+
 ## Round 127 -- 2026-11-14 -- ordinary
 Cycle 2, phase 2 (round 3 of 4). Toolsmith, experimentalist, maverick; referees theorist (minor, answered), skeptic (minor, answered), skeptic (major).
 - **Toolsmith:** no gate-admitted loop-at-i parent exists (known, E-279), but on 12 136 admitted steps from cyclic monomial parents (LF), (H1w), (H3), H(I) = 0 all hold and the D(i)-sourced letters carry the D(i) model (**E-329**). The library gate and `isTiltingAtVertex` err when a cycle lies upstream of i; the latter now warns.
