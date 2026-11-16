@@ -1,4 +1,4 @@
-# E-323's F3 step at 0040033030·F3 R9 F3 is non-tilting at Hom level (Hom(T,T[-1]) = 2), and 0040033030 / 0400330030 are separated by Phi-conjugacy invariants that need no lattice theory, but every one of them is the same 3- and 5-local fact as SNF(S)
+# E-323's F3 step at 0040033030·F3 R9 F3 is non-tilting at Hom level (Hom(T,T[-1]) = 2, at p = 2, 7, 101, 32003), and 0040033030 / 0400330030 are separated by Phi-conjugacy invariants that need no lattice theory; all of them sit at eigenvalue 1 mod 3 and mod 5 and go through the same necessity chain as SNF(S), one ((x - 1)^2 at p = 3) being finer than SNF(S)
 
 author: skeptic · round: 129 · kind: result
 thread: T10 · bears on: E-323, E-318, E-324, H-024, F-055, H-032, R-017, the F-candidate of conference 128
