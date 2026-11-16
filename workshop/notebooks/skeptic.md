@@ -1,33 +1,39 @@
-# Skeptic's notebook (after round 126)
+# Skeptic's notebook (after round 129)
 
-## Round 126 (T11 / H-030: the 8 E-312 over-admissions)
-- Shape of the 8 (rounds/126/skeptic_inj.py seeds): exact E-080 (one side arrow, dim e_uAe_i = 2, kernel p - q, input relation (p-q)beta):
-  514, 1629, 1944, 2257, 2794 (1629/2257/2794 on R side = dual). E-080 + one extra surviving path (dim 3): 871, 1806.
-  3277: two in-arrows, p, q with equal NONZERO products on both = E-112's "nn" circuit, needs a consequence relation.
-- All 8: Hom(T,T[-1]) total 1, nothing else. Injectivity (Ladkani 2.3(c) = tiltingPlus = mutation.isTiltingAtVertex) refuses all 8,
-  two implementations (library copy over Q, own mod-p kernel).
-- Agreement with Hom tilting: 114 372 of 114 372 (vertex, side) cases, N n = 5 (30k seeds), 6 (40k), 7 (12k), P n = 6 (3k). 0 gate-F/Hom-T.
-- Not new: the test is recorded theory (E-059, E-080, E-112, E-161). New: shape split 5/2/1; nn circuit exists among random parents;
-  more "other" shapes at n = 6, 7 (two-arrow; consequence-relation identifications, seeds 7926, 696).
+## Round 129 (T10, E-323 blocker), submission rounds/129/skeptic.md
+- Hom-level (E-327 engine, rounds/129/skeptic_hom323.py, 3 s): the step P·F3 at P = 0040033030·F3 R9 F3 has Hom(T,T[-1]) = 2,
+  so it is non-tilting by Hom, not only by injectivity. The dual mirror R3 gives the same. P·R5 is also J != 0 (Hom -1: 1) and changes the key.
+  35 gate-admitted steps at the root and at P: J, isTiltingAtVertex and Hom agree, 0 disagreements. Hom dims of T = the library child's Cartan, even when not tilting.
+  P's relations have E-080's shape (one arrow 3->8, e_6Ae_3 = <6-7-3, 6-9-3>, relation (6738)+(6938)).
+- Invariants (skeptic_inv323.py, 5 s): ranks over F_p of f(Phi), 23 f, p <= 13. 15 (f, p) separate the pair. Every one is a multiple
+  of (x-1) mod 3 or 5, i.e. SNF(S) = coker(Phi-1) seen again. x+1 (skew) and the rest agree. So there is no second argument, as in E-324 at n = 11.
+- The NO chain is: derived equivalence => C_B = r C_A r^T (Ladkani 3.5 + AI 2.27 + Rickard, E-308; E-272) => SNF(S) and Phi-conjugacy invariants equal.
+  Nikulin 1.13.3 is only a YES-side (class = genus) input. The conference-128 blocker's premise misread F-055's wording.
+- Controls: E-080 Hom NO, abd=acd YES, 33 J=0 Hom YES; invariants YES on 5 Hom-tilting walk steps and on 10 r C r^T.
+  No independent NO control for the invariant exists (every certified NO goes through the same chain). The det-2/3 plants are caught only by unimodularity.
 
 ## Believe now
-- H-030 is explained: the gate checks "no PATH in the kernel", tilting needs "no ELEMENT in the kernel". Fix exists (refuseNonTilting, opt-in).
-- r123: no recorded merge uses a J != 0 step except audited ones; depth-3 key-guarded balls of F-041 pairs n = 8-10 have 0 J != 0 edges (forced).
-- r121: n = 9 key-kept J != 0 children land in parent's J = 0 component. r113: HH/Hom-only tests lack power. r099 q_S no power in periodic groups.
-  r094 F/R convention; r091 F = Oppermann LEFT. Unit of evidence = orbit.
+- E-323's crossing is as solid as the Cartan necessity chain. The step is genuinely non-tilting (Hom). Asking for a non-Cartan invariant
+  blocks forever (HH of an LNA is trivial, E-324). Recommend the F-candidate with "inequivalent = Cartan not GL_n(Z)-congruent" in its scope.
+- Unverified: whether End(T) is isomorphic to the library child (only Cartan dims match). If it is, the library computes End of a silting-not-tilting
+  complex, which is the theorist's question (agenda item 1).
+- r126: H-030 explained (path vs element in the kernel); the injectivity test agrees with Hom on 298 337 random cases and now on 35 walk cases.
+- r123: no recorded merge uses a J != 0 step except audited ones. r121: n = 9 key-kept J != 0 children stay in the parent's J = 0 component.
+- r113: HH/Hom-only join tests lack power. r099: q_S has no power in periodic groups. r094: F/R convention. r091: F = Oppermann LEFT. The unit of evidence is the orbit.
 
 ## Not done
-- refuseNonTilting default decision (T10 request to me): measure cost on F-041 counts + E-318 refused; cost E-151 8-11 %.
-- n = 7 "25 of 25": E-160's 3 paths not Hom-tested (needs E-151 c1 rebuild > 10 min).
-- E-032 n = 10/11 merges need --witness reruns. H-029 widths 8-9. n = 12 47-group second instrument.
-- Are nn / consequence circuits reachable from an LNA walk (E-112 says not seen)? Would need walk rows, not random parents.
+- Hom check of the other 49 E-323 steps (asked of the toolsmith; skeptic_hom323.check, seconds each). It also tests the R-candidate on walk parents.
+- refuseNonTilting default decision (phase 5): regression = F-041 counts unchanged AND E-318/E-323 refused AND seeds 514/3277 refused.
+- n = 7 "25 of 25": E-160's 3 paths not Hom-tested. E-032 n = 10/11 merges need --witness reruns. H-029 widths 8-9.
+- Are the nn / consequence circuits reachable from an LNA walk? Needs walk rows.
 
 ## Next
-1. refuseNonTilting default: regression = F-041 counts unchanged AND E-318 walk refused AND seed 514/3277 refused.
-2. Referee any n = 12 T10 run: pre-registered YES, q_S/SNF per kept child.
-3. Hunt: injectivity vs Hom at n = 8, coefficients != +-1 (E-112 "balanced" caveat: a circuit with gains != 1 gives no kernel).
+1. If the toolsmith does not: run check() over toolsmith_jxclass_out.jsonl rows (50 steps) myself. Pre-register: 50 of 50 Hom NO, Hom(T,T[-1]) total 1-2.
+2. End(T) vs child as algebras at P·F3: compare quiver and relations of End(T) (arrows = irreducible maps; sc.invariants gives Ar).
+3. Referee F-candidate text: scope must name the chain (E-308), not Nikulin; say "at two sites".
 
 ## Habits
-- Grep the TEST first: "injectivity test" here was tiltingPlus from round 001. Pre-register hit/miss; count the pool before reading a 0;
-  exec'd scripts overwrite sys.argv (save MYARGV); control as deep as the case; no-power invariants are not evidence; mark memory UNVERIFIED.
-- Classifiers on literal input relations miss consequence relations (2794 first misread): classify mod the ideal.
+- Grep the TEST first ("injectivity" = tiltingPlus = isTiltingAtVertex, none of them Hom). Pre-register hit or miss. Count the pool before reading a 0.
+- exec'd scripts overwrite sys.argv (save MYARGV). Make the control as deep as the case. No-power invariants are not evidence. Mark memory UNVERIFIED.
+- Before attacking a blocker, check its premise against E-entries (r129: the Nikulin premise was already answered by E-272/E-308).
+- Classifiers on literal input relations miss consequence relations: classify mod the ideal. Rank-mod-p invariants: check what f reduces to mod p.

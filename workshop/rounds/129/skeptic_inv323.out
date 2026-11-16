@@ -1,0 +1,41 @@
+pair 0040033030 / 0400330030: brute-force Cartan == table: True True
+charpoly(Phi) equal: True
+separating (f, p): [('x+2', 3), ('x+4', 5), ('x-1', 3), ('x-1', 5), ('x-4', 3), ('x^2+x+1', 3), ('x^2-1', 3), ('x^2-1', 5), ('x^3-1', 3), ('x^3-1', 5), ('x^4-1', 3), ('x^4-1', 5), ('x^5-1', 3), ('x^6-1', 3), ('x^6-1', 5)]
+separating, other than f = x-1 (= SNF(S)): [('x+2', 3), ('x+4', 5), ('x-4', 3), ('x^2+x+1', 3), ('x^2-1', 3), ('x^2-1', 5), ('x^3-1', 3), ('x^3-1', 5), ('x^4-1', 3), ('x^4-1', 5), ('x^5-1', 3), ('x^6-1', 3), ('x^6-1', 5)]
+   x+2        p=3  rank 11 vs 10
+   x+4        p=5  rank 10 vs 11
+   x-1        p=3  rank 11 vs 10
+   x-1        p=5  rank 10 vs 11
+   x-4        p=3  rank 11 vs 10
+   x^2+x+1    p=3  rank 10 vs 8
+   x^2-1      p=3  rank 9 vs 8
+   x^2-1      p=5  rank 8 vs 9
+   x^3-1      p=3  rank 9 vs 8
+   x^3-1      p=5  rank 8 vs 9
+   x^4-1      p=3  rank 9 vs 8
+   x^4-1      p=5  rank 8 vs 9
+   x^5-1      p=3  rank 11 vs 10
+   x^6-1      p=3  rank 7 vs 6
+   x^6-1      p=5  rank 6 vs 7
+
+E-323 walk from 0040033030 (each step: J, Hom-tilting, invariants of End(T) == parent?):
+  walk                         F3   J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+      invariants(child) == invariants(parent): True; == invariants(root): True; differs at 0 of 126 (f,p)
+  walk                         R9   J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+      invariants(child) == invariants(parent): True; == invariants(root): True; differs at 0 of 126 (f,p)
+  walk                         F3   J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+      invariants(child) == invariants(parent): True; == invariants(root): True; differs at 0 of 126 (f,p)
+  walk                         F3   J!=0 True  isTiltingAtVertex False Hom-tilting False Hom(T,T[m])!=0 at {-1: 2}    End(T)=child Cartan True  key kept True
+      invariants(child) == invariants(parent): False; == invariants(root): False; differs at 15 of 126 (f,p)
+J = 0 key-kept steps from the J != 0 child that land on an LNA: [('F7', '0400330030'), ('F9', '0400330030')]
+  last step -> 0400330030      F7   J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+      LNA 0400330030: invariants == 0400330030: True; == child: True
+  last step -> 0400330030      F9   J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+      LNA 0400330030: invariants == 0400330030: True; == child: True
+
+controls:
+  YES (code): r C_A r^T, r in GL_12(Z), 10 draws: invariants equal on 10 of 10
+  planted error: r with det 2, 10 draws: caught by the invariant 0, by the unimodularity check 10
+  planted error: r with det 3, 10 draws: caught by the invariant 0, by the unimodularity check 10
+  E-318 n = 11 pair 003033030 / 030330030 separating f != x-1: ['x^2+1', 'x^2-1', 'x^6+1', 'x^6-1']
+5s

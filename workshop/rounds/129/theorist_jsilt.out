@@ -1,0 +1,68 @@
+E-080 abde=acde @4 F (J!=0 known)  J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+abd=acd @4 F (tilting known)       J 0 lib_tilt True  appr True  H[-2,-1,1,2] 0 0 0 0  silting True  tilting True  End0~child True (~child^T False) dimEnd(Y) 1
+PLANTED drop arrow: 1->2->{3,4} @2 J 0 lib_tilt True  appr True  H[-2,-1,1,2] 0 0 1 0  silting False tilting False End0~child None (~child^T None) dimEnd(Y) 1
+PLANTED drop arrow: E-080 @1       J 0 lib_tilt True  appr True  H[-2,-1,1,2] 0 0 2 0  silting False tilting False End0~child None (~child^T None) dimEnd(Y) 1
+LNA A5/(abc) @2 F                  J 0 lib_tilt True  appr True  H[-2,-1,1,2] 0 0 0 0  silting True  tilting True  End0~child True (~child^T False) dimEnd(Y) 1
+LNA A5/(abc) @3 F                  J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+PLANTED wrong child: LNA @2 vs child@3 J 0 lib_tilt True  appr True  H[-2,-1,1,2] 0 0 0 0  silting True  tilting True  End0~child False (~child^T False) dimEnd(Y) 1
+walk 0040033030 root: F3           J 0 lib_tilt True  appr True  H[-2,-1,1,2] 0 0 0 0  silting True  tilting True  End0~child True (~child^T False) dimEnd(Y) 1
+walk 0040033030 root: R9           J 0 lib_tilt True  appr True  H[-2,-1,1,2] 0 0 0 0  silting True  tilting True  End0~child True (~child^T False) dimEnd(Y) 1
+walk 0040033030 root: F3           J 0 lib_tilt True  appr True  H[-2,-1,1,2] 0 0 0 0  silting True  tilting True  End0~child True (~child^T False) dimEnd(Y) 1
+walk 0040033030 root: F3           J 2 lib_tilt False appr True  H[-2,-1,1,2] 0 2 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+walk 003033030 root: F3            J 0 lib_tilt True  appr True  H[-2,-1,1,2] 0 0 0 0  silting True  tilting True  End0~child True (~child^T False) dimEnd(Y) 1
+walk 003033030 root: R8            J 0 lib_tilt True  appr True  H[-2,-1,1,2] 0 0 0 0  silting True  tilting True  End0~child True (~child^T False) dimEnd(Y) 1
+walk 003033030 root: F3            J 0 lib_tilt True  appr True  H[-2,-1,1,2] 0 0 0 0  silting True  tilting True  End0~child True (~child^T False) dimEnd(Y) 1
+walk 003033030 root: F3            J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+003033030 root|F3 R8 F3 F3         J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+003033030 root|F3 R8 F3 R5         J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+003033030 dual|F8 R3 R3 F5         J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+003033030 dual|F8 R3 R3 R3         J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+203033030 root|F3 R8 F3 F3         J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+203033030 root|F3 R8 F3 R5         J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+203033030 dual|F8 R3 R3 F5         J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+203033030 dual|F8 R3 R3 R3         J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+303303000 root|F4 R9 R9 F7         J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+303303000 root|F4 R9 R9 R9         J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+303303000 dual|F9 R4 F9 F9         J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+303303000 dual|F9 R4 F9 R7         J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+303303002 root|F4 R9 R9 F7         J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+303303002 root|F4 R9 R9 R9         J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+303303002 dual|F9 R4 F9 F9         J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+303303002 dual|F9 R4 F9 R7         J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+303305000 root|F4 R11 R7 F11       J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+303305000 root|F4 R11 R7 R7        J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+303305000 root|F4 R11 R11 F9       J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+303305000 dual|F11 R4 F7 F7        J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+303305000 dual|F11 R4 F7 R11       J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+303305000 dual|F11 R4 F11 R9       J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+303500030 root|F1 R6 R6 F4         J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+303500030 root|F1 R6 R6 R6         J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+303500030 root|F4 R11 F4 R6        J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+303500030 root|F4 R11 F8 F8        J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+303500030 root|F4 R11 F8 R4        J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+303500030 dual|F6 R1 F6 F6         J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+303500030 dual|F6 R1 F6 R4         J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+303500030 dual|F11 R4 R4 F6        J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+303500030 dual|F11 R4 R8 F4        J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+303500030 dual|F11 R4 R8 R8        J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+305003030 root|F1 R8 R4 F8         J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+305003030 root|F1 R8 R4 R4         J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+305003030 root|F1 R8 R8 F6         J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+305003030 root|F6 R11 F6 F6        J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+305003030 root|F6 R11 F6 R8        J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+305003030 dual|F8 R1 F4 F4         J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+305003030 dual|F8 R1 F4 R8         J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+305003030 dual|F8 R1 F8 R6         J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+305003030 dual|F11 R6 R6 F8        J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+305003030 dual|F11 R6 R6 R6        J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+500033030 root|F1 R8 F1 R3         J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+500033030 root|F1 R8 F5 F5         J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+500033030 root|F1 R8 F5 R1         J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+500033030 dual|F8 R1 R1 F3         J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+500033030 dual|F8 R1 R5 F1         J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+500033030 dual|F8 R1 R5 R5         J 1 lib_tilt False appr True  H[-2,-1,1,2] 0 1 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+0040033030 root|F3 R9 F3 F3        J 2 lib_tilt False appr True  H[-2,-1,1,2] 0 2 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+0040033030 dual|F9 R3 R3 R3        J 2 lib_tilt False appr True  H[-2,-1,1,2] 0 2 0 0  silting True  tilting False End0~child True (~child^T False) dimEnd(Y) 1
+(side, J>0, lib_tilt, approximation, silting, tilting, H[-1] == J, End0 ~ child, End0 ~ child^T, dim Hom(Y, Y[-1])) -> count
+   ('F', True, False, True, True, False, True, True, False, 0) 25
+   ('R', True, False, True, True, False, True, True, False, 0) 25

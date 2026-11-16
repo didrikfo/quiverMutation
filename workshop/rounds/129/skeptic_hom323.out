@@ -1,0 +1,44 @@
+controls (E-327 shapes):
+  E-080 abde=acde at d (NO)    Hom-tilting False, Hom(T,T[m])!=0 at {-1: 1}
+  abd=acd at d (YES)           Hom-tilting True, Hom(T,T[m])!=0 at {}
+E-323 path from 0040033030 (J = 0 steps, pre-registered Hom YES), then the step F3 (pre-registered Hom NO):
+  path step                    F3   J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+  path step                    R9   J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+  path step                    F3   J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+  E-323 step at P              F3   J!=0 True  isTiltingAtVertex False Hom-tilting False Hom(T,T[m])!=0 at {-1: 2}    End(T)=child Cartan True  key kept True
+  E-323 mirror (dual side)     R3   J!=0 True  isTiltingAtVertex False Hom-tilting False Hom(T,T[m])!=0 at {-1: 2}    End(T)=child Cartan True  key kept True
+relations of P: [{((2, 4, 0), (4, 5, 0), (5, 6, 0), (6, 7, 0)): 1}, {((2, 4, 0), (4, 5, 0), (5, 6, 0), (6, 9, 0)): 1}, {((3, 8, 0), (8, 10, 0)): 1}, {((4, 5, 0), (5, 6, 0), (6, 7, 0), (7, 3, 0)): 1, ((4, 5, 0), (5, 6, 0), (6, 9, 0), (9, 3, 0)): 1}, {((6, 7, 0), (7, 3, 0), (3, 8, 0)): 1, ((6, 9, 0), (9, 3, 0), (3, 8, 0)): 1}, {((8, 10, 0), (10, 11, 0), (11, 12, 0)): 1}]
+every gate-admitted step at root 0040033030
+  root 0040033030              F1   J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+  root 0040033030              F2   J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+  root 0040033030              F3   J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+  root 0040033030              F4   J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+  root 0040033030              F5   J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+  root 0040033030              F7   J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+  root 0040033030              F10  J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+  root 0040033030              R2   J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+  root 0040033030              R3   J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+  root 0040033030              R5   J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+  root 0040033030              R6   J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+  root 0040033030              R9   J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+  root 0040033030              R11  J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+  root 0040033030              R12  J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+every gate-admitted step at P
+  P                            F1   J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+  P                            F2   J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+  P                            F3   J!=0 True  isTiltingAtVertex False Hom-tilting False Hom(T,T[m])!=0 at {-1: 2}    End(T)=child Cartan True  key kept True
+  P                            F4   J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+  P                            F5   J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+  P                            F7   J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+  P                            F9   J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+  P                            F10  J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+  P                            R2   J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+  P                            R3   J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+  P                            R5   J!=0 True  isTiltingAtVertex False Hom-tilting False Hom(T,T[m])!=0 at {-1: 1}    End(T)=child Cartan True  key kept False
+  P                            R6   J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+  P                            R7   J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+  P                            R9   J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+  P                            R11  J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+  P                            R12  J!=0 False isTiltingAtVertex True  Hom-tilting True  Hom(T,T[m])!=0 at {}         End(T)=child Cartan True  key kept True
+cases 35; disagreements (J!=0 vs Hom, isTiltingAtVertex vs Hom, Hom-tilting but End(T) != child Cartan): 0 []
+3s
