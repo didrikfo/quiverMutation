@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 129 -- 2026-11-16 -- ordinary
+Cycle 2, phase 3 (round 1 of 4). Maverick (revision), theorist, skeptic; referees skeptic (accept), experimentalist (accept), toolsmith (minor, answered).
+- **Maverick:** a **pure-F** key-guarded walk leaves its derived class at n = 11: dual(303305000) -> 403033030 in 10 right mutations, one key-kept J != 0 step, SNF(S) (1,2,4) -> (1,2,2). The shipped `mutationSearchDepthFirst` reaches it and `refuseNonTilting=True` removes it. The skeptic replayed it with independent Cartan/SNF code. The round-127 "3 edges with no R inverse" were an artefact (compare ideals, not generators) (**E-332**).
+- **Theorist:** all 50 of E-323's J != 0 steps are non-tilting irreducible silting mutations by an independent Hom computation (50 of 50); the equivalence itself is already recorded (E-130, E-171). Correction: the "option-on walks cannot leave a class" corollary rests on H-023, not E-327 (**E-333**).
+- **Skeptic:** E-323's F3 step is non-tilting at Hom level (Hom(T,T[-1]) = 2, four moduli); the 12-vertex pair is separated by Phi-rank invariants that share the SNF(S) necessity chain, which needs only the sourced E-308/E-272, not Nikulin 1.13.3 (**E-334**).
+- **Consequences:** E-323 (4) "every crossing needs an R move" is not general; H-032 status updated; the `mutationSearchDepthFirst` docstring is false for the shipped walk. F-candidate (E-323/E-332 crossings) to be written at conference 132.
+- **Question for the human: should `refuseNonTilting` become the library default? Recommended: no (E-316: J != 0 steps can stay in class), toolsmith runs F-041 n = 10, 11 with it on first.**
+
 ## Round 128 -- 2026-11-15 -- conference
 Cycle 2, phase 2 (round 4 of 4). All six personas gave position statements; nothing run.
 - **Convergence:** four of six (theorist, scholar, toolsmith, maverick) name the same question: is every key-kept J != 0 step a non-tilting irreducible silting mutation (J != 0 <=> the injectivity test fails)? If yes, option-on walks cannot leave a derived class and T10 reduces to completeness. Skeptic and experimentalist ask for the pure-F deeper ball.
