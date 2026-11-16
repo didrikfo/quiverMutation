@@ -1,0 +1,263 @@
+# round 129 maverick: outputs of maverick_inv.py / maverick_libwalk.py / round-127 maverick_pureF.py fwd (scratch copies concatenated, depth-progress lines dropped)
+## c78
+N=7 class 1 key (1, 1, -1, -3, -3, -1, 1, 1): 12 seeds, F-only depth 8
+  KEY-KEPT J!=0 at parent level 7: seed L:30400 path F1 F1 F3 F4 F4 F5 F5 F4
+  KEY-KEPT J!=0 at parent level 7: seed L:30400 path F1 F1 F3 F4 F5 F5 F4 F4
+  KEY-KEPT J!=0 at parent level 7: seed D:40030 path F3 F7 F5 F7 F4 F4 F3 F4
+  KEY-KEPT J!=0 at parent level 7: seed D:40030 path F7 F5 F7 F4 F3 F3 F4 F4
+CTRL7 N=7 cls 1 depth 8: nodes 29515, steps {'J=0 kept': 47951, 'J!=0 kept': 4}, key-kept J!=0 4  274s
+## f7_30400
+ROOT 30400 (n=7) SNF tail (1, 1, 4) sig (6, 1), F-only depth 8
+   J!=0 key-kept: depth 8 path root F1 F1 F3 F4 F4 F5 F5 F4 SNF (1, 1, 4) -> (1, 1, 4) cross False child-vs-root differs False
+   J!=0 key-kept: depth 8 path root F1 F1 F3 F4 F5 F5 F4 F4 SNF (1, 1, 4) -> (1, 1, 4) cross False child-vs-root differs False
+  ROOT 30400: nodes 8043, steps {'J=0 kept': 12956, 'J!=0 kept': 2}, J!=0 kept 2, crossings 0  73s
+TOTAL {'roots': 1, 'nodes': 8043, 'steps': 12958, 'J!=0': 2, 'cross': 0}
+## f7_40030
+ROOT 40030 (n=7) SNF tail (1, 1, 4) sig (6, 1), F-only depth 8
+   J!=0 key-kept: depth 8 path dual F3 F7 F5 F7 F4 F4 F3 F4 SNF (1, 1, 4) -> (1, 1, 4) cross False child-vs-root differs False
+   J!=0 key-kept: depth 8 path dual F7 F5 F7 F4 F3 F3 F4 F4 SNF (1, 1, 4) -> (1, 1, 4) cross False child-vs-root differs False
+  ROOT 40030: nodes 7947, steps {'J=0 kept': 12803, 'J!=0 kept': 2}, J!=0 kept 2, crossings 0  68s
+TOTAL {'roots': 1, 'nodes': 7947, 'steps': 12805, 'J!=0': 2, 'cross': 0}
+## clsFR
+12 crossing parents (n = 11) up to iso
+   PARENT #0 reached at depth 3 path root F3 R8 F3
+   PARENT #1 reached at depth 3 path dual F8 R3 R3
+  ROOT 003033030 (n=11) moves FR depth 3: nodes 794, steps {'J=0 kept': 1938}, signature-matched nodes iso-tested 58, parents reached [(0, 3, 'root F3 R8 F3'), (1, 3, 'dual F8 R3 R3')], key-kept J!=0 0  45s
+   PARENT #4 reached at depth 3 path root F4 R11 R7
+   PARENT #6 reached at depth 3 path root F4 R11 R11
+   PARENT #5 reached at depth 3 path dual F11 R4 F7
+  ROOT 303305000 (n=11) moves FR depth 3: nodes 864, steps {'J=0 kept': 2024}, signature-matched nodes iso-tested 30, parents reached [(4, 3, 'root F4 R11 R7'), (6, 3, 'root F4 R11 R11'), (5, 3, 'dual F11 R4 F7')], key-kept J!=0 0  46s
+   PARENT #7 reached at depth 3 path root F1 R6 R6
+   PARENT #10 reached at depth 3 path root F4 R11 F8
+   PARENT #8 reached at depth 3 path dual F6 R1 F6
+   PARENT #9 reached at depth 3 path dual F11 R4 R4
+   PARENT #11 reached at depth 3 path dual F11 R4 R8
+  ROOT 303500030 (n=11) moves FR depth 3: nodes 800, steps {'J=0 kept': 1944}, signature-matched nodes iso-tested 38, parents reached [(7, 3, 'root F1 R6 R6'), (10, 3, 'root F4 R11 F8'), (8, 3, 'dual F6 R1 F6'), (9, 3, 'dual F11 R4 R4'), (11, 3, 'dual F11 R4 R8')], key-kept J!=0 0  44s
+   PARENT #2 reached at depth 3 path root F3 R8 F3
+   PARENT #3 reached at depth 3 path dual F8 R3 R3
+  ROOT 203033030 (n=11) moves FR depth 3: nodes 584, steps {'J=0 kept': 1384}, signature-matched nodes iso-tested 70, parents reached [(2, 3, 'root F3 R8 F3'), (3, 3, 'dual F8 R3 R3')], key-kept J!=0 0  37s
+CLS TOTAL {'roots': 4, 'nodes': 3042, 'hits': 12, 'J!=0': 0}
+## inv11_3b
+ROOT 003033030 depth 1 {'F J=0 edges': 12, 'inverse J=0 R found': 12}  new nodes 12  1s
+ROOT 003033030 depth 2 {'F J=0 edges': 67, 'inverse J=0 R found': 67}  new nodes 42  12s
+  INVERSE ONLY AS IDEAL d=3: root F3 F3 + F4 at ['R4']
+  INVERSE ONLY AS IDEAL d=3: dual F11 F9 + F10 at ['R10']
+  INVERSE ONLY AS IDEAL d=3: dual F11 F11 + F10 at ['R10']
+ROOT 003033030 depth 3 {'F J=0 edges': 227, 'inverse J=0 R found': 224, 'inverse only up to ideal (other generators)': 3}  new nodes 121  54s
+INV TOTAL 003033030 N=11 depth 3: {'F J=0 edges': 306, 'inverse J=0 R found': 303, 'inverse only up to ideal (other generators)': 3}
+## inv11_4
+ROOT 003033030 depth 1 {'F J=0 edges': 12, 'inverse J=0 R found': 12}  new nodes 12  1s
+ROOT 003033030 depth 2 {'F J=0 edges': 67, 'inverse J=0 R found': 67}  new nodes 42  12s
+  INVERSE ONLY AS IDEAL d=3: root F3 F3 + F4 at ['R4']
+  INVERSE ONLY AS IDEAL d=3: dual F11 F9 + F10 at ['R10']
+  INVERSE ONLY AS IDEAL d=3: dual F11 F11 + F10 at ['R10']
+ROOT 003033030 depth 3 {'F J=0 edges': 227, 'inverse J=0 R found': 224, 'inverse only up to ideal (other generators)': 3}  new nodes 121  52s
+  INVERSE ONLY AS IDEAL d=4: root F1 F3 F3 + F4 at ['R4']
+  INVERSE ONLY AS IDEAL d=4: root F3 F3 F6 + F4 at ['R4']
+  INVERSE ONLY AS IDEAL d=4: root F3 F3 F9 + F4 at ['R4']
+  INVERSE ONLY AS IDEAL d=4: dual F2 F11 F9 + F10 at ['R10']
+  INVERSE ONLY AS IDEAL d=4: dual F2 F11 F11 + F10 at ['R10']
+  INVERSE ONLY AS IDEAL d=4: dual F3 F11 F9 + F10 at ['R10']
+  INVERSE ONLY AS IDEAL d=4: dual F3 F11 F11 + F10 at ['R10']
+  INVERSE ONLY AS IDEAL d=4: dual F5 F11 F9 + F10 at ['R10']
+  INVERSE ONLY AS IDEAL d=4: dual F5 F11 F11 + F10 at ['R10']
+  INVERSE ONLY AS IDEAL d=4: dual F8 F6 F5 + F3 at ['R3']
+  INVERSE ONLY AS IDEAL d=4: dual F8 F8 F5 + F3 at ['R3']
+  INVERSE ONLY AS IDEAL d=4: dual F11 F9 F8 + F10 at ['R10']
+  INVERSE ONLY AS IDEAL d=4: dual F11 F9 F11 + F10 at ['R10']
+  INVERSE ONLY AS IDEAL d=4: dual F11 F11 F8 + F10 at ['R10']
+ROOT 003033030 depth 4 {'F J=0 edges': 646, 'inverse J=0 R found': 632, 'inverse only up to ideal (other generators)': 14}  new nodes 316  169s
+INV TOTAL 003033030 N=11 depth 4: {'F J=0 edges': 952, 'inverse J=0 R found': 935, 'inverse only up to ideal (other generators)': 17}
+## inv11_3_303305000
+ROOT 303305000 depth 1 {'F J=0 edges': 12, 'inverse J=0 R found': 12}  new nodes 12  1s
+ROOT 303305000 depth 2 {'F J=0 edges': 68, 'inverse J=0 R found': 68}  new nodes 44  13s
+  INVERSE ONLY AS IDEAL d=3: root F1 F1 + F2 at ['R2']
+  INVERSE ONLY AS IDEAL d=3: root F1 F3 + F2 at ['R2']
+  INVERSE ONLY AS IDEAL d=3: dual F11 F7 + F10 at ['R10']
+ROOT 303305000 depth 3 {'F J=0 edges': 246, 'inverse only up to ideal (other generators)': 3, 'inverse J=0 R found': 243}  new nodes 139  57s
+INV TOTAL 303305000 N=11 depth 3: {'F J=0 edges': 326, 'inverse J=0 R found': 323, 'inverse only up to ideal (other generators)': 3}
+## inv11_3_303500030
+ROOT 303500030 depth 1 {'F J=0 edges': 12, 'inverse J=0 R found': 12}  new nodes 12  2s
+ROOT 303500030 depth 2 {'F J=0 edges': 67, 'inverse J=0 R found': 67}  new nodes 42  12s
+  INVERSE ONLY AS IDEAL d=3: root F1 F1 + F2 at ['R2']
+  INVERSE ONLY AS IDEAL d=3: root F1 F1 + F6 at ['R6']
+  INVERSE ONLY AS IDEAL d=3: root F1 F3 + F2 at ['R2']
+  INVERSE ONLY AS IDEAL d=3: root F1 F3 + F6 at ['R6']
+  INVERSE ONLY AS IDEAL d=3: dual F11 F9 + F10 at ['R10']
+  INVERSE ONLY AS IDEAL d=3: dual F11 F11 + F10 at ['R10']
+ROOT 303500030 depth 3 {'F J=0 edges': 228, 'inverse only up to ideal (other generators)': 6, 'inverse J=0 R found': 222}  new nodes 122  54s
+INV TOTAL 303500030 N=11 depth 3: {'F J=0 edges': 307, 'inverse J=0 R found': 301, 'inverse only up to ideal (other generators)': 6}
+## inv12_3b
+ROOT 0040033030 depth 1 {'F J=0 edges': 14, 'inverse J=0 R found': 14}  new nodes 14  2s
+ROOT 0040033030 depth 2 {'F J=0 edges': 91, 'inverse J=0 R found': 91}  new nodes 56  22s
+  INVERSE ONLY AS IDEAL d=3: dual F9 F7 + F3 at ['R3']
+  INVERSE ONLY AS IDEAL d=3: dual F9 F9 + F3 at ['R3']
+  INVERSE ONLY AS IDEAL d=3: dual F12 F10 + F11 at ['R11']
+  INVERSE ONLY AS IDEAL d=3: dual F12 F12 + F11 at ['R11']
+ROOT 0040033030 depth 3 {'F J=0 edges': 350, 'inverse J=0 R found': 346, 'inverse only up to ideal (other generators)': 4}  new nodes 179  107s
+INV TOTAL 0040033030 N=12 depth 3: {'F J=0 edges': 455, 'inverse J=0 R found': 451, 'inverse only up to ideal (other generators)': 4}
+## inv12_4
+ROOT 0040033030 depth 1 {'F J=0 edges': 14, 'inverse J=0 R found': 14}  new nodes 14  2s
+ROOT 0040033030 depth 2 {'F J=0 edges': 91, 'inverse J=0 R found': 91}  new nodes 56  21s
+  INVERSE ONLY AS IDEAL d=3: dual F9 F7 + F3 at ['R3']
+  INVERSE ONLY AS IDEAL d=3: dual F9 F9 + F3 at ['R3']
+  INVERSE ONLY AS IDEAL d=3: dual F12 F10 + F11 at ['R11']
+  INVERSE ONLY AS IDEAL d=3: dual F12 F12 + F11 at ['R11']
+ROOT 0040033030 depth 3 {'F J=0 edges': 350, 'inverse J=0 R found': 346, 'inverse only up to ideal (other generators)': 4}  new nodes 179  110s
+  INVERSE ONLY AS IDEAL d=4: root F3 F3 F4 + F5 at ['R5']
+  INVERSE ONLY AS IDEAL d=4: root F3 F3 F5 + F4 at ['R4']
+  INVERSE ONLY AS IDEAL d=4: root F3 F4 F4 + F5 at ['R5']
+  INVERSE ONLY AS IDEAL d=4: dual F2 F9 F7 + F3 at ['R3']
+  INVERSE ONLY AS IDEAL d=4: dual F2 F9 F9 + F3 at ['R3']
+  INVERSE ONLY AS IDEAL d=4: dual F2 F12 F10 + F11 at ['R11']
+  INVERSE ONLY AS IDEAL d=4: dual F2 F12 F12 + F11 at ['R11']
+  INVERSE ONLY AS IDEAL d=4: dual F3 F9 F7 + F2 at ['R2']
+  INVERSE ONLY AS IDEAL d=4: dual F3 F9 F9 + F2 at ['R2']
+  INVERSE ONLY AS IDEAL d=4: dual F3 F12 F10 + F11 at ['R11']
+  INVERSE ONLY AS IDEAL d=4: dual F3 F12 F12 + F11 at ['R11']
+  INVERSE ONLY AS IDEAL d=4: dual F5 F12 F10 + F11 at ['R11']
+  INVERSE ONLY AS IDEAL d=4: dual F5 F12 F12 + F11 at ['R11']
+  INVERSE ONLY AS IDEAL d=4: dual F6 F12 F10 + F11 at ['R11']
+  INVERSE ONLY AS IDEAL d=4: dual F6 F12 F12 + F11 at ['R11']
+  INVERSE ONLY AS IDEAL d=4: dual F9 F7 F6 + F3 at ['R3']
+  INVERSE ONLY AS IDEAL d=4: dual F9 F7 F9 + F3 at ['R3']
+  INVERSE ONLY AS IDEAL d=4: dual F9 F7 F11 + F3 at ['R3']
+  INVERSE ONLY AS IDEAL d=4: dual F9 F7 F12 + F3 at ['R3']
+  INVERSE ONLY AS IDEAL d=4: dual F9 F9 F6 + F3 at ['R3']
+  INVERSE ONLY AS IDEAL d=4: dual F9 F9 F11 + F3 at ['R3']
+  INVERSE ONLY AS IDEAL d=4: dual F9 F9 F12 + F3 at ['R3']
+  INVERSE ONLY AS IDEAL d=4: dual F12 F10 F9 + F11 at ['R11']
+  INVERSE ONLY AS IDEAL d=4: dual F12 F10 F12 + F11 at ['R11']
+  INVERSE ONLY AS IDEAL d=4: dual F12 F12 F9 + F11 at ['R11']
+ROOT 0040033030 depth 4 {'F J=0 edges': 1095, 'inverse J=0 R found': 1070, 'inverse only up to ideal (other generators)': 25}  new nodes 511  389s
+INV TOTAL 0040033030 N=12 depth 4: {'F J=0 edges': 1550, 'inverse J=0 R found': 1521, 'inverse only up to ideal (other generators)': 29}
+## cls6_003033030
+12 crossing parents (n = 11) up to iso
+  ROOT 003033030 (n=11) moves F depth 6: nodes 3337, steps {'J=0 kept': 7058}, signature-matched nodes iso-tested 267, parents reached NONE, key-kept J!=0 0  198s
+CLS TOTAL {'roots': 1, 'nodes': 3337, 'hits': 0, 'J!=0': 0}
+## cls6_023033030
+12 crossing parents (n = 11) up to iso
+  ROOT 023033030 (n=11) moves F depth 6: nodes 1685, steps {'J=0 kept': 3397}, signature-matched nodes iso-tested 217, parents reached NONE, key-kept J!=0 0  104s
+CLS TOTAL {'roots': 1, 'nodes': 1685, 'hits': 0, 'J!=0': 0}
+## cls6_203033030
+12 crossing parents (n = 11) up to iso
+  ROOT 203033030 (n=11) moves F depth 6: nodes 2085, steps {'J=0 kept': 4250}, signature-matched nodes iso-tested 239, parents reached NONE, key-kept J!=0 0  127s
+CLS TOTAL {'roots': 1, 'nodes': 2085, 'hits': 0, 'J!=0': 0}
+## cls6_223033030
+12 crossing parents (n = 11) up to iso
+  ROOT 223033030 (n=11) moves F depth 6: nodes 1107, steps {'J=0 kept': 2019}, signature-matched nodes iso-tested 150, parents reached NONE, key-kept J!=0 0  75s
+CLS TOTAL {'roots': 1, 'nodes': 1107, 'hits': 0, 'J!=0': 0}
+## cls6_303305000
+12 crossing parents (n = 11) up to iso
+   key-kept J!=0 at depth 6 path dual F6 F11 F7 F11 F7 F7
+  ROOT 303305000 (n=11) moves F depth 6: nodes 4576, steps {'J=0 kept': 9295, 'J!=0 kept': 1}, signature-matched nodes iso-tested 135, parents reached NONE, key-kept J!=0 1  258s
+CLS TOTAL {'roots': 1, 'nodes': 4576, 'hits': 0, 'J!=0': 1}
+## cls6_303500030
+12 crossing parents (n = 11) up to iso
+   key-kept J!=0 at depth 6 path root F1 F1 F4 F3 F1 F8
+   key-kept J!=0 at depth 6 path root F1 F3 F4 F1 F3 F8
+  ROOT 303500030 (n=11) moves F depth 6: nodes 3759, steps {'J=0 kept': 7524, 'J!=0 kept': 2}, signature-matched nodes iso-tested 128, parents reached NONE, key-kept J!=0 2  242s
+CLS TOTAL {'roots': 1, 'nodes': 3759, 'hits': 0, 'J!=0': 2}
+## cls6_305500030
+12 crossing parents (n = 11) up to iso
+  ROOT 305500030 (n=11) moves F depth 6: nodes 4911, steps {'J=0 kept': 9734}, signature-matched nodes iso-tested 112, parents reached NONE, key-kept J!=0 0  273s
+CLS TOTAL {'roots': 1, 'nodes': 4911, 'hits': 0, 'J!=0': 0}
+## cls5_0040033030
+1 crossing parents (n = 12) up to iso
+  ROOT 0040033030 (n=12) moves F depth 5: nodes 2150, steps {'J=0 kept': 4656}, signature-matched nodes iso-tested 102, parents reached NONE, key-kept J!=0 0  170s
+CLS TOTAL {'roots': 1, 'nodes': 2150, 'hits': 0, 'J!=0': 0}
+## cls5_0240033030
+1 crossing parents (n = 12) up to iso
+  ROOT 0240033030 (n=12) moves F depth 5: nodes 1171, steps {'J=0 kept': 2503}, signature-matched nodes iso-tested 93, parents reached NONE, key-kept J!=0 0  99s
+CLS TOTAL {'roots': 1, 'nodes': 1171, 'hits': 0, 'J!=0': 0}
+## cls5_2040033030
+1 crossing parents (n = 12) up to iso
+  ROOT 2040033030 (n=12) moves F depth 5: nodes 1415, steps {'J=0 kept': 3029}, signature-matched nodes iso-tested 100, parents reached NONE, key-kept J!=0 0  112s
+CLS TOTAL {'roots': 1, 'nodes': 1415, 'hits': 0, 'J!=0': 0}
+## cls5_2240033030
+1 crossing parents (n = 12) up to iso
+  ROOT 2240033030 (n=12) moves F depth 5: nodes 791, steps {'J=0 kept': 1551}, signature-matched nodes iso-tested 65, parents reached NONE, key-kept J!=0 0  61s
+CLS TOTAL {'roots': 1, 'nodes': 791, 'hits': 0, 'J!=0': 0}
+## cls5_0500033030
+1 crossing parents (n = 12) up to iso
+  ROOT 0500033030 (n=12) moves F depth 5: nodes 2301, steps {'J=0 kept': 4889}, signature-matched nodes iso-tested 80, parents reached NONE, key-kept J!=0 0  186s
+CLS TOTAL {'roots': 1, 'nodes': 2301, 'hits': 0, 'J!=0': 0}
+## cls5_2500033030
+1 crossing parents (n = 12) up to iso
+  ROOT 2500033030 (n=12) moves F depth 5: nodes 1437, steps {'J=0 kept': 2945}, signature-matched nodes iso-tested 57, parents reached NONE, key-kept J!=0 0  98s
+CLS TOTAL {'roots': 1, 'nodes': 1437, 'hits': 0, 'J!=0': 0}
+## cls5_3040500030
+1 crossing parents (n = 12) up to iso
+  ROOT 3040500030 (n=12) moves F depth 5: nodes 1910, steps {'J=0 kept': 4155}, signature-matched nodes iso-tested 38, parents reached NONE, key-kept J!=0 0  172s
+CLS TOTAL {'roots': 1, 'nodes': 1910, 'hits': 0, 'J!=0': 0}
+## lib_303500030
+  OTHER SNF CLASS: path 1 3 4 1 3 8 SNF tail (1, 2, 2) sig (9, 1)
+  OTHER SNF CLASS: path 1 1 4 3 1 8 SNF tail (1, 2, 2) sig (9, 1)
+LIBWALK 303500030 root n=11 depth 6: root SNF tail (1, 2, 4) sig (9, 1); visits 3824; nodes in another (SNF, sig) class 2  176s
+## lib_303305000d
+  OTHER SNF CLASS: path 11 6 11 7 7 7 SNF tail (1, 2, 2) sig (9, 1)
+LIBWALK 303305000 dual n=11 depth 6: root SNF tail (1, 2, 4) sig (9, 1); visits 4901; nodes in another (SNF, sig) class 1  214s
+## libR_303500030
+LIBWALK refuseNonTilting 303500030 root n=11 depth 6: root SNF tail (1, 2, 4) sig (9, 1); visits 3822; nodes in another (SNF, sig) class 0  176s
+## after1
+AFTER 303500030 root F1 F1 F4 F3 F1 + F8: child SNF tail (1, 2, 2); F J=0 ball depth 3: nodes 158, LNAs NONE
+## after1FR
+AFTER 303500030 root F1 F1 F4 F3 F1 + F8: child SNF tail (1, 2, 2); FR J=0 ball depth 2: nodes 124, LNAs NONE
+## idealctrl
+  same generators (truth YES)                                                           sameIdeal True  struct-iso True
+  length-3 generator replaced by the one equal mod the commutativity (truth YES)        sameIdeal True  struct-iso False
+  same, vertices cyclically relabelled (truth YES)                                      sameIdeal True  struct-iso False
+  one relation dropped (truth NO)                                                       sameIdeal False  struct-iso False
+  monomial (3,8)(8,9) moved to (8,9)(9,10) (truth NO)                                   sameIdeal False  struct-iso False
+  commutativity sign flipped (NO for this strict test; isomorphic by rescaling)         sameIdeal False  struct-iso True
+IDEALCTRL 6 of 6 as expected
+## jx (the 3 pure-F crossing steps)
+JX 303305000 dual F6 F11 F7 F11 F7 + F7: gate+legal+key-kept True, J!=0 True, tiltingPlus None, isTiltingAtVertex False | parent arrows 11 SNF tail (1, 2, 4) sig (9, 1) | child arrows 12 SNF tail (1, 2, 2) sig (9, 1) | CROSSING True | parent iso to a known crossing parent []
+JX 303500030 root F1 F1 F4 F3 F1 + F8: gate+legal+key-kept True, J!=0 True, tiltingPlus None, isTiltingAtVertex False | parent arrows 11 SNF tail (1, 2, 4) sig (9, 1) | child arrows 12 SNF tail (1, 2, 2) sig (9, 1) | CROSSING True | parent iso to a known crossing parent []
+JX 303500030 root F1 F3 F4 F1 F3 + F8: gate+legal+key-kept True, J!=0 True, tiltingPlus None, isTiltingAtVertex False | parent arrows 11 SNF tail (1, 2, 4) sig (9, 1) | child arrows 12 SNF tail (1, 2, 2) sig (9, 1) | CROSSING True | parent iso to a known crossing parent []
+## diag (one round-127 'no inverse' edge)
+EDGE 003033030 root F3 F3 + F4: X arrows 11 rels 6 dim 34 | Y arrows 12 rels 7; J(F) = False
+   gate=True R2 J=False keykept=True: arrows 12 rels 8 dim 30 quiver-iso-to-X False SNF,sig=X True iso-to-X False same-ideal False; F back to Y at [2]
+   gate=True R3 J=False keykept=True: arrows 10 rels 4 dim 31 quiver-iso-to-X False SNF,sig=X True iso-to-X False same-ideal False; F back to Y at [3]
+   gate=True R4 J=False keykept=True: arrows 11 rels 6 dim 34 quiver-iso-to-X True SNF,sig=X True iso-to-X False same-ideal True; F back to Y at [4]
+   gate=True R8 J=False keykept=True: arrows 11 rels 6 dim 32 quiver-iso-to-X False SNF,sig=X True iso-to-X False same-ideal False; F back to Y at [8]
+   gate=True R10 J=False keykept=True: arrows 12 rels 8 dim 28 quiver-iso-to-X False SNF,sig=X True iso-to-X False same-ideal False; F back to Y at [10]
+   gate=True R11 J=False keykept=True: arrows 13 rels 8 dim 32 quiver-iso-to-X False SNF,sig=X True iso-to-X False same-ideal False; F back to Y at [9, 11]
+   gate=False R1 J=None keykept=False: arrows 11 rels 7 dim 29 quiver-iso-to-X False SNF,sig=X True iso-to-X False same-ideal False; F back to Y at []
+   gate=False R2 J=None keykept=True: arrows 12 rels 8 dim 30 quiver-iso-to-X False SNF,sig=X True iso-to-X False same-ideal False; F back to Y at [2]
+   gate=False R3 J=None keykept=True: arrows 10 rels 4 dim 31 quiver-iso-to-X False SNF,sig=X True iso-to-X False same-ideal False; F back to Y at [3]
+   gate=False R4 J=None keykept=True: arrows 11 rels 6 dim 34 quiver-iso-to-X True SNF,sig=X True iso-to-X False same-ideal True; F back to Y at [4]
+   gate=False R5 J=None keykept=False: arrows 10 rels 4 dim 26 quiver-iso-to-X False SNF,sig=X False iso-to-X False same-ideal False; F back to Y at []
+   gate=False R6 J=None keykept=False: arrows 11 rels 7 dim 31 quiver-iso-to-X False SNF,sig=X False iso-to-X False same-ideal False; F back to Y at []
+   gate=False R7 J=None keykept=False: arrows 11 rels 7 dim 28 quiver-iso-to-X False SNF,sig=X False iso-to-X False same-ideal False; F back to Y at []
+   gate=False R8 J=None keykept=True: arrows 11 rels 6 dim 32 quiver-iso-to-X False SNF,sig=X True iso-to-X False same-ideal False; F back to Y at [8]
+   gate=False R9 J=None keykept=False: arrows 12 rels 7 dim 30 quiver-iso-to-X False SNF,sig=X False iso-to-X False same-ideal False; F back to Y at []
+   gate=False R10 J=None keykept=True: arrows 12 rels 8 dim 28 quiver-iso-to-X False SNF,sig=X True iso-to-X False same-ideal False; F back to Y at [10]
+   gate=False R11 J=None keykept=True: arrows 13 rels 8 dim 32 quiver-iso-to-X False SNF,sig=X True iso-to-X False same-ideal False; F back to Y at [9, 11]
+## after P_b
+AFTER 303305000 dual F6 F11 F7 F11 F7 + F7: child SNF tail (1, 2, 2); F J=0 ball depth 3: nodes 159, LNAs NONE
+
+real	0m11.522s
+user	0m11.504s
+sys	0m0.123s
+AFTER 303305000 dual F6 F11 F7 F11 F7 + F7: child SNF tail (1, 2, 2); FR J=0 ball depth 2: nodes 125, LNAs NONE
+## aftA5
+    depth 4: new nodes 434, cumulative 592, steps {'J=0 kept': 1043}  39s
+    depth 5: new nodes 1491, cumulative 2083, steps {'J=0 kept': 3848}  147s
+AFTER 303500030 root F1 F1 F4 F3 F1 + F8: child SNF tail (1, 2, 2); F J=0 ball depth 5: nodes 2083, LNAs NONE
+## aftB5
+   LNA 403033030 at depth 4 via F3 F3 F4 F7 SNF tail (1, 2, 2)
+    depth 4: new nodes 367, cumulative 526, steps {'J=0 kept': 1008}  37s
+    depth 5: new nodes 1046, cumulative 1572, steps {'J=0 kept': 3323, 'J!=0 kept': 1}  118s
+AFTER 303305000 dual F6 F11 F7 F11 F7 + F7: child SNF tail (1, 2, 2); F J=0 ball depth 5: nodes 1572, LNAs {'403033030': (4, 'F3 F3 F4 F7', (1, 2, 2))}
+## aftA4
+    depth 4: new nodes 3838, cumulative 4637, steps {'J=0 kept': 10551, 'J!=0 kept': 4}  399s
+AFTER 303500030 root F1 F1 F4 F3 F1 + F8: child SNF tail (1, 2, 2); FR J=0 ball depth 4: nodes 4637, LNAs NONE
+## aftB4
+   LNA 403033030 at depth 4 via F3 F3 F4 F7 SNF tail (1, 2, 2)
+   LNA 400330330 at depth 4 via F7 R11 R4 R11 SNF tail (1, 2, 2)
+   LNA 400330030 at depth 4 via R7 R11 R4 R11 SNF tail (1, 2, 2)
+    depth 4: new nodes 3168, cumulative 3928, steps {'J=0 kept': 9515}  335s
+AFTER 303305000 dual F6 F11 F7 F11 F7 + F7: child SNF tail (1, 2, 2); FR J=0 ball depth 4: nodes 3928, LNAs {'403033030': (4, 'F3 F3 F4 F7', (1, 2, 2)), '400330330': (4, 'F7 R11 R4 R11', (1, 2, 2)), '400330030': (4, 'R7 R11 R4 R11', (1, 2, 2))}
+## walk (the 10-step pure-F join)
+WALK 303305000 dual F6 F11 F7 F11 F7 F7 F3 F3 F4 F7: F6(1, 2, 4) F11(1, 2, 4) F7(1, 2, 4) F11(1, 2, 4) F7(1, 2, 4) F7*(1, 2, 2) F3(1, 2, 2) F3(1, 2, 2) F4(1, 2, 2) F7(1, 2, 2) | end LNA 403033030, SNF tail (built from name) (1, 2, 2), key = root key True; start SNF tail (1, 2, 4) (* = J != 0)
