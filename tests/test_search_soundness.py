@@ -208,3 +208,15 @@ def test_refuse_non_tilting_drops_exactly_e318s_step_and_is_off_by_default():
     assert default == off
     assert (3,) in off
     assert off - on == {(3,)}
+
+
+def test_meeting_points_passes_refuse_non_tilting_through():
+    """E-318's parent meets its non-tilting child at depth 1 only with the option off."""
+    from quivermutation import mutation, reduction
+    parent = _e318Parent()
+    child = reduction.reducePathAlgebra(mutation.quiverMutationAtVertex(lm._copy(parent), 3))
+    off = search.meetingPoints(parent, child, 1)
+    on = search.meetingPoints(parent, child, 1, refuseNonTilting = True)
+    assert search.meetingPoints(parent, child, 1, refuseNonTilting = False) == off
+    assert search.quiverKey(child) in {key for key, _, _ in off}
+    assert search.quiverKey(child) not in {key for key, _, _ in on}

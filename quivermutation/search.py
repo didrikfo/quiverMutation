@@ -774,12 +774,13 @@ def quiverKey(pathAlg):
     )
 
 
-def quiversReachedFrom(pathAlg, depth, alsoDual = False):
+def quiversReachedFrom(pathAlg, depth, alsoDual = False, refuseNonTilting = False):
     """Every quiver a bounded search out of `pathAlg` reaches, keyed as above.
 
     The value is the shortest mutation path found to it.  With `alsoDual` the
     opposite algebra is searched as well and what it reaches is carried back
     through the opposite, so every key is a quiver `pathAlg` itself reaches.
+    `refuseNonTilting` is passed to `mutationSearchDepthFirst` (default off).
     """
     found = {}
 
@@ -794,15 +795,17 @@ def quiversReachedFrom(pathAlg, depth, alsoDual = False):
             found[key] = path
 
     mutationSearchDepthFirst(copy.deepcopy(pathAlg), depth, [], 'meet',
-                             printOutput = False, visitor = visit)
+                             printOutput = False, visitor = visit,
+                             refuseNonTilting = refuseNonTilting)
     if alsoDual:
         mutationSearchDepthFirst(
             pathAlgebra.dualPathAlgebra(pathAlg), depth, [], 'meet', printOutput = False,
-            visitor = lambda quiver, path: visit(quiver, path, dualised = True))
+            visitor = lambda quiver, path: visit(quiver, path, dualised = True),
+            refuseNonTilting = refuseNonTilting)
     return found
 
 
-def meetingPoints(first, second, depth, alsoDual = False, limit = None):
+def meetingPoints(first, second, depth, alsoDual = False, limit = None, refuseNonTilting = False):
     """Quivers both algebras reach, with the two paths to each.
 
     A single meeting point is a proof that the two are mutation equivalent: both
@@ -813,9 +816,11 @@ def meetingPoints(first, second, depth, alsoDual = False, limit = None):
 
     Returns a list of `(key, path from first, path to second)`, shortest first,
     empty when the two searches do not meet.  Empty is not a proof of anything.
+    `refuseNonTilting` (default off) refuses non-tilting (J != 0) steps on both
+    sides, as in `mutationSearchDepthFirst`.
     """
-    left = quiversReachedFrom(first, depth, alsoDual)
-    right = quiversReachedFrom(second, depth, alsoDual)
+    left = quiversReachedFrom(first, depth, alsoDual, refuseNonTilting)
+    right = quiversReachedFrom(second, depth, alsoDual, refuseNonTilting)
     shared = set(left) & set(right)
     meetings = sorted(((key, left[key], right[key]) for key in shared),
                       key = lambda meeting: len(meeting[1]) + len(meeting[2]))

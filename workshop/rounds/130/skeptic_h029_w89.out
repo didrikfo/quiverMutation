@@ -1,0 +1,24 @@
+width 8 lengths 9..12: floating 114, notLNA-first rules 94, matches 2068 (per rule {22: 94}); one delta 94, several 0
+  delta values {(1, 1): 704, (1, 2): 1364}
+  isolated (L=w+1) value predicts longer matches: 1974 / 1974 (rules with an isolated value 94)
+  length transfer: 282 / 282
+  matches with context on a window end vertex: 940; rules seen both with and without it: 94
+  control (a) shuffled labels, 100 shuffles: constant rules max 1, mean 0.0 (observed 94; rules with >= 2 matches 94)
+  control (b) planted one wrong delta: caught 59 / 59
+  time 96 s
+
+real	1m37.434s
+user	1m14.247s
+sys	0m0.104s
+width 9 lengths 10..13: floating 18, notLNA-first rules 12, matches 264 (per rule {22: 12}); one delta 12, several 0
+  delta values {(1, 1): 44, (1, 2): 220}
+  isolated (L=w+1) value predicts longer matches: 252 / 252 (rules with an isolated value 12)
+  length transfer: 36 / 36
+  matches with context on a window end vertex: 120; rules seen both with and without it: 12
+  control (a) shuffled labels, 100 shuffles: constant rules max 1, mean 0.1 (observed 12; rules with >= 2 matches 12)
+  control (b) planted one wrong delta: caught 7 / 7
+  time 65 s
+
+real	1m6.706s
+user	0m44.716s
+sys	0m0.151s

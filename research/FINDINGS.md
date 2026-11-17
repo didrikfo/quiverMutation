@@ -843,7 +843,7 @@ the same caveat `orbitOf` carries.
 ---
 
 ## F-041 — Meeting in the middle settles the free move at n = 8, and nearly at 9 and 10
-*2026-09-17* · *re-measured 2026-09-19 under the guarded search, unchanged at `n = 8` and `n = 9` — E-038*
+*2026-09-17* · *re-measured 2026-09-19 under the guarded search, unchanged at `n = 8` and `n = 9` — E-038; depth-3 n = 11 row (924 of 1 513 joined, 288 classes) and the same with `refuseNonTilting` on: E-337*
 
 *Renumbered at merge from `F-038`, which was taken on `main` first by an unrelated entry while this branch was open. Session logs and commit messages from the branch use the old identifier.*
 

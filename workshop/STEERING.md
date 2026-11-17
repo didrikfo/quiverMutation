@@ -244,3 +244,4 @@ The format stays open to change at each cycle retrospective.
 - round 053, question 1 (PDFs of arXiv:1009.3370, 2509.12983): wanted if the human can supply them; literature stays parked -- decided by the chair of round 054; no answer from the human (applied, round 054)
 - round 112, question 1 (PDFs of Nikulin 1979, Happel-Seidel, BGS, Anick 1982) (applied, round 113): citations stay UNVERIFIED, no action -- decided by the chair of round 113; no answer from the human
 - round 113, question 1 (PDFs of Nikulin 1979, Happel-Seidel, BGS, Anick 1982) (applied, round 114): citations stay UNVERIFIED, no action -- decided by the chair of round 114; no answer from the human
+- round 129, question 1 (`refuseNonTilting` default): no, keep it off; document the crossing; toolsmith runs F-041 at n = 10, 11 with it on first -- decided by the chair of round 130; no answer from the human (applied, round 130)

@@ -1,0 +1,32 @@
+steps 4 margin 1 cap 540 interior
+((8, 5), (10, 4), (12, 3)) interior L 22 base 3 reached 10 min 2 lowered 2 best 00000003340000000000 [10, 10, 10, 10] secs 138.9
+((8, 5), (10, 4), (13, 2)) interior L 22 base 3 reached 11 min 2 lowered 1 best 00000003404000000000 [10, 9, 10, 9] secs 152.9
+((8, 5), (10, 5), (14, 2)) interior L 23 base 3 reached 5 min 2 lowered 1 best 000000035004000000000 [10, 9, 10, 9] secs 218.7
+
+real	3m39.565s
+user	6m3.592s
+sys	0m0.297s
+steps 4 margin 1 cap 560 interior
+((8, 4), (10, 3), (12, 2)) interior L 21 base 2 reached 16 min 2 lowered 0 best 0000000333300000000 [10, 10] secs 114.1
+((6, 3), (8, 4), (10, 3)) interior L 21 base 2 reached 2 min 2 lowered 0 best 0000003034000000000 [11, 10, -13] secs 161.3
+((8, 4), (10, 3), (12, 3)) interior L 22 base 2 reached 4 min 2 lowered 0 best 00000034000300000000 [8, 8, 8, 8] secs 169.2
+((8, 4), (10, 3), (13, 2)) interior L 22 base 2 reached 18 min 2 lowered 0 best 00000004030200000000 [13] secs 191.4
+
+real	3m12.466s
+user	5m58.493s
+sys	0m0.208s
+steps 5 margin 1 cap 585 interior
+((8, 4), (10, 3), (12, 2)) interior L 21 base 2 reached 25 min 2 lowered 0 best 0000000403002000000 [-14] secs 251.9
+((8, 4), (10, 3), (13, 2)) CAP 585 s: undecided (not a verdict)
+
+real	9m45.971s
+user	13m50.194s
+sys	0m0.266s
+## run of four, margin 1, interior (k = 3, 4, 5 separate commands)
+((8, 3), (9, 3), (10, 3), (11, 3)) interior L 21 base 2 reached 8 min 2 lowered 0 best 0000003340300000000 [8, 8] secs 7.5   (k = 3)
+((8, 3), (9, 3), (10, 3), (11, 3)) interior L 21 base 2 reached 16 min 2 lowered 0 best 0000003340300000000 [8, 8] secs 37.7  (k = 4)
+((8, 3), (9, 3), (10, 3), (11, 3)) interior L 21 base 2 reached 26 min 2 lowered 0 best 0000003340300000000 [8, 8] secs 166.4 (k = 5)
+
+## round 130 response: k = 4, margin 1, (8,5)(10,4)+(14,2)
+steps 4 margin 1 cap 560 interior
+((8, 5), (10, 4), (14, 2)) interior L 23 base 3 reached 11 min 3 lowered 0 best 000000050400200000000 [14] secs 209.6

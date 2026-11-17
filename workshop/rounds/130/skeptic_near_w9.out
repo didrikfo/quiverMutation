@@ -1,0 +1,4 @@
+width 9 lengths 10..13: class-B rules 12, matches 264
+  outside relation within 1 of |s0|: 60 matches on 12 rules, values {(1, 1): 10, (1, 2): 50}, differ from isolated 0
+  rules by closest outside-relation endpoint to |s0|: {1: 12}
+  time 42 s

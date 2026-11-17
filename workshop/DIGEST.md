@@ -5,6 +5,15 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 130 -- 2026-11-17 -- ordinary
+Cycle 2, phase 3 (round 2 of 4). Toolsmith, skeptic, experimentalist; referees maverick (minor, answered), scholar (minor, answered), theorist (minor, answered).
+- **Toolsmith:** `refuseNonTilting=True` loses no F-041 join at n = 10, 11 (depth 3 + 3, all 1 817 pairs: 206/304 and 924/1 513 joined, class counts unchanged), but only because the balls are thin: none of 172 047 counted steps has dim e_i A e_v >= 2, where the planted control's refused step has 2 (**E-337**). Settles the round-129 question at depth 3: default stays off.
+- **Skeptic (dormant T4):** H-029 holds per rule at widths 8-9: 106 of 106 class-B rules have one first-step delta, equal to the isolated value, incl. 300 matches with context next to the mutation; the registered cross-width test passes without power (**E-335**). **H-029 -> SUPPORTED**, T4 closes.
+- **Experimentalist:** E-330's interior gap-2 null gets a control for (8,5)(10,4) (bystander (13,2) or (12,3) lowers overlap 3 -> 2), not for the overlap-2 shape (**E-336**).
+- **Consequences:** E-330's "no interior control" is partly false; H-010 stays SUPPORTED. Library: `refuseNonTilting` passed through `meetingPoints` (default off), one test.
+- Next: conference 132 ledger (F-candidate E-323/E-332 crossings, R-candidate gate-decides-tilting); round 131 takes H-025 search and T5.
+- Questions for the human: none.
+
 ## Round 129 -- 2026-11-16 -- ordinary
 Cycle 2, phase 3 (round 1 of 4). Maverick (revision), theorist, skeptic; referees skeptic (accept), experimentalist (accept), toolsmith (minor, answered).
 - **Maverick:** a **pure-F** key-guarded walk leaves its derived class at n = 11: dual(303305000) -> 403033030 in 10 right mutations, one key-kept J != 0 step, SNF(S) (1,2,4) -> (1,2,2). The shipped `mutationSearchDepthFirst` reaches it and `refuseNonTilting=True` removes it. The skeptic replayed it with independent Cartan/SNF code. The round-127 "3 edges with no R inverse" were an artefact (compare ideals, not generators) (**E-332**).
