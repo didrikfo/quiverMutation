@@ -6,6 +6,27 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-340 — T5 / R-candidate "the gate decides tilting": on cyclic monomial walk parents from random acyclic roots (n = 5-8, depth 2-3, 600 roots, 18 145 (side, vertex) rows) the library gate over-admits 39 times (34 at n = 5, 4 at n = 6, 1 at n = 7), each Hom-verified non-tilting against the exact gate; only 1 row (n = 5, 'up') is a step with a repo result that E-310 (15) claimed correct; no LNA-rooted F/R walk checked (n = 6 depth <= 5, n = 7 depth <= 4, n = 8 depth <= 2) ever reaches a cyclic node, and `mutationSearchDepthFirst` never expands one (search.py:446)
+*2026-11-18* · **`timeout 10m .venv/bin/python -W ignore workshop/rounds/131/maverick_gatehom.py rand 5 100 3 4` (and `controls`, `walk N D`, `nog`, `libcount`, other `rand` seeds; reproduction list in `workshop/rounds/131/maverick.md`, outputs `maverick_gatehom_*.out`)** · *workshop round 131, maverick, refereed by toolsmith (minor revision, answered)*
+
+Scope: monomial cyclic nodes only (non-monomial skipped: 1 320 of 3 344 cyclic nodes); rows not deduplicated across 7 seeded runs; 6 018 gate-admitted steps on cyclic parents were refused by the procedure (`CyclicDescendantsError`) and give no child, so the "LNAM only" sample is a lower bound; LNA-walk conclusions only at the n and depths above. Power: planted E-329 bag and a simple-seed variant, gate != Hom on 2 of 2; the cycle detector fires on 3 344 cyclic nodes from random roots; exact gate agrees with Hom on all 18 280 rows. Consequence: E-310 (15)'s cyclic-parent clause is false for the library functions (R-candidate, to be written at conference 132 at library scope); not shown for any LNA walk. The witness parent is only ever a leaf of the library walk.
+
+---
+
+## E-339 — H-025 / T3: no paper found states "Phi periodic => FCY" or its negation, but kA_15/rad^3 and kA_15/rad^8 (Phi of order 144, Fuchsian type <2,3,10] by Lenzing-Meltzer-Ruan 2112.15587v2 Thm 6.3(3), proved without Conj 5.7) lie in a class whose singularity R(2,3,10) is a non-hypersurface complete intersection, and an argument (Serre functor (a)[1], Tate-Gulliksen) shows they are not fractionally Calabi-Yau at functor level; a proof-level instance of H-025 at n = 15
+*2026-11-18* · **literature + `workshop/rounds/131/scholar_lmr.py`, `scholar_rank.py`, `scholar_fuchsian.py`; full list in `workshop/rounds/131/scholar.md`** · *workshop round 131, scholar, refereed by skeptic (minor revision, answered)*
+
+Scope: arXiv title/abstract queries (33 e-prints), 4 read in LaTeX at the statements cited (LdlP math/0611532v1, LMR 2112.15587v2, Lenzing 1909.10362v1, Iyama-Takahashi 1012.5954v2 Cor 2.5), theorem numbers matched in source; the non-FCY step is the scholar's own argument, checked by the referee (not published); base change from the algebraic closure added; twisted FCY not covered; n = 14 Coxeter scan stopped at the limit; the record's n = 10-12 groups are not of genus-0 Fuchsian type at n <= 13, so E-245/E-246 are untouched. Power: Coxeter scan control, 14 of 14 true pairs equal, planted wrong pair reported DIFFERENT; hypersurface controls 4 of 4 FCY. Correction to the record: literature/2112.15587 calls Thm 6.3(3) conditional on Conj 5.7; the (2,3,10) case is proved outright. A blind periodic-not-FCY search is not worth running.
+
+---
+
+## E-338 — T10 / T5: at a gate-admitted vertex v every i with dim e_i A e_v <= 1 has J_i = 0 (any field, any relations; E-128 L1, a rediscovery); with all such dims <= 1 and I admissible every nonzero path into v is vertex-simple, so the library's simple-path gate is the exact gate there even on cyclic quivers (new); J != 0 at an admitted step needs dim e_i A e_v >= 2 and a non-monomial piece of I (E-080 / E-318 shape; checked per row, 29 of 29 and 92 of 92)
+*2026-11-18* · **`timeout 10m .venv/bin/python -W ignore workshop/rounds/131/theorist_dcheck.py rows 2000 7` (also `theorist_thin.py`, `theorist_thincyc.py`, `theorist_dcheck.py bag`; list in `workshop/rounds/131/theorist.md`)** · *workshop round 131, theorist, refereed by experimentalist (minor revision, answered)*
+
+Scope: proof for any finite-dimensional A = kQ/I, part (c) also needs R nilpotent mod I (a separate hypothesis: finite dimension plus I in R^2 does not give it, k[x]/(x^2 - x^3)); computations on 600 + 600 random acyclic algebras on 4-7 vertices, 600 random cyclic monomial algebras on 3-5 vertices, 13 F-041 balls (all step quivers acyclic); non-monomial cyclic algebras not computed; thin steps are tilting but being a derived equivalence still rests on H-023. Power: a planted failure for each dropped hypothesis (E-080 square d = 2; the dropped gate; 380 thick cyclic vertices with a non-simple path); E-329's bag has d_5 = 2 and a non-simple refusing path. Explains E-337: the thin F-041 balls cannot contain a J != 0 step.
+
+---
+
 ## E-335 — H-029 / T4: at widths 8-9 (lengths w+1..w+4) the class-B first-step delta is one value per rule, equal to the rule's isolated value (106 of 106 rules, 2 332 matches, incl. 300 matches with outside context within 1 vertex of s0); widths 5-7 at lengths <= w+3; the registered cross-width falsifier passes with no power
 *2026-11-17* · **`.venv/bin/python -W ignore workshop/rounds/130/skeptic_h029.py 8,9 2 200` (and `8 3 100`, `9 3 100`, `skeptic_h029pad.py 10 1`, `skeptic_near.py`; outputs `skeptic_h029*.out`, `skeptic_near_w*.out`)** · *workshop round 130, skeptic, refereed by scholar (minor revision, answered)*
 

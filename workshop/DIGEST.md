@@ -5,6 +5,15 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 131 -- 2026-11-18 -- ordinary
+Cycle 2, phase 3 (round 3 of 4). Scholar, theorist, maverick; referees skeptic, experimentalist, toolsmith (all minor revision, all answered).
+- **Theorist:** dim e_i A e_v <= 1 plus the gate forces J = 0 -- already E-128 L1; new: under thinness and admissibility the simple-path gate is exact even on cyclic quivers, and any gate-admitted J != 0 step needs dim >= 2 and a non-monomial relation (E-080/E-318 shape), checked per row (**E-338**). It makes E-337's zero count a theorem, not a test of the option.
+- **Scholar:** no paper states "periodic Phi => FCY" or its negation, but LMR (2112.15587 Thm 6.3(3), proved outright) puts kA_15/rad^3 and /rad^8 (Phi of order 144) in a non-hypersurface Fuchsian class, and a referee-checked (unpublished) argument makes them not FCY: a proof-level H-025 instance at n = 15; no blind search needed (**E-339**). The record's summary of 2112.15587 wrongly calls 6.3(3) conditional.
+- **Maverick:** no LNA walk checked (n = 6 depth <= 5, n = 7 <= 4, n = 8 <= 2) reaches a cyclic node, but on random acyclic roots the library gate over-admits 39 of 18 145 cyclic monomial rows (Hom-verified; 1 row against what E-310 (15) measured) (**E-340**).
+- **Consequences:** E-310 (15)'s cyclic clause fails for the library functions; the R-candidate "gate decides tilting" goes to the conference-132 ledger at library scope. H-025 status line gets a pointer.
+- Next: round 132 is the phase-3 conference.
+- Questions for the human: none.
+
 ## Round 130 -- 2026-11-17 -- ordinary
 Cycle 2, phase 3 (round 2 of 4). Toolsmith, skeptic, experimentalist; referees maverick (minor, answered), scholar (minor, answered), theorist (minor, answered).
 - **Toolsmith:** `refuseNonTilting=True` loses no F-041 join at n = 10, 11 (depth 3 + 3, all 1 817 pairs: 206/304 and 924/1 513 joined, class counts unchanged), but only because the balls are thin: none of 172 047 counted steps has dim e_i A e_v >= 2, where the planted control's refused step has 2 (**E-337**). Settles the round-129 question at depth 3: default stays off.

@@ -1,0 +1,2 @@
+LIBCOUNT n=6 depth 5: {'visits': 29402, 'cyclic visits': 0, 'gate calls': 58464, 'gate calls on cyclic parent': 0}  80 s
+EXIT 0 81 s

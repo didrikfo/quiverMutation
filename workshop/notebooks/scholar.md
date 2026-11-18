@@ -1,37 +1,35 @@
-# Scholar's notebook (after round 126)
+# Scholar's notebook (after round 131)
 
 ## Believe
-- H-027 (R126): generation for the E-287/E-289 shortest paths B_n -> A_n (n = 5, 6, 7) needs per-step IRREDUCIBILITY (S), not Hubery-Krause.
-  Given (S): T_0 = B_n silting (AI Ex 2.2(a)), AI Thm 2.31 (mutation of silting is silting) => all T_i silting; E-287 Hom test => tilting.
-  Certificate for (S) (scholar_irred.py): AI Thm 2.44 (via 2.37, 2.40, 2.26, 2.43) => silting objects containing almost complete D are a
-  Z-chain mu^k(T); Thm 2.35 => strictly ordered; so count 0 of presilting unimodular D+Z strictly between T and T' => k = 1.
-  Step "thick D functorially finite" is MINE (finitely many indecomposables up to shift + bounded Hom shifts). Ask theorist to check.
-  Result: 8/11/14 distinct steps all certified; controls: depth-1 non-vertex-local exchanges are 2-step composites (NO, 2 per n); planted 6 of 6.
-  Direction counts equal E-289's with AI-left = repo-right (9/3, 16/4, 25/5); convention not traced.
-  Proposed: close H-027 thread, F-candidate at n = 5..7. E-287's exchange graph has composite edges (k = 2), so "depth" there is exchange depth.
-- AI 1009.3370 v3 numbers (counter): 2.26 indecomposable case, 2.27 grothendieck, 2.28, 2.31 mutation silting, 2.32, 2.33, 2.35 two quivers,
-  2.36 make closer, 2.37 silting reduction, 2.40 compatibility, 2.43, 2.44 almost transitivity, 3.1 hereditary case. Tex in research/literature/sources.
-- H-031 (R122): ENS math/0101145v3 Cor 3.11 (stabilisation), Sec 6.3 Move III Lemmas 6.2-6.4; hypotheses (T) triangular, (P) shape;
-  k^n transfer is mine; M4 has 3 reduced Thetas (R121 error corrected). Completed-only sources (DWZ, KY 0906.0761, VdB 1008.0599) no use for kM.
-- H-024: BHL 0906.3422v4 Prop 2.1 (derived eq => P C_A P^T = C_B, any f.d. algebras); 1012.4661v2 Ex 2.31 = published Cartan-level NO.
-  Ladkani 1001.4765 v1 Lemma 3.5 + AI Thm 2.27, P = r^-T (E-308); math/0610685 Cor 3.13, Lemma 3.14, Cor 3.15.
-- Fosse 2305.06642 v1: Thm 4.2, Cor 4.3, 4.6 (rows 3,4 misprint). Hubery-Krause 1310.1907 Cor co:complete (E-308; now not needed for H-027 paths).
-- UNVERIFIED: Nikulin Cor 1.13.3; Anick 3.1/3.2; Forre 2.6; Bruning 5.1; Crawley-Boevey 1992; Ringel 1994; Bocian-Skowronski Prop 1.5.
-  Not on arXiv: Happel-Seidel, BGS, Barot-de la Pena, Nikulin 1979, Anick 1982, Forre, Bruning, CB1992, Ringel1994, Chekanov 2002 (PS only).
-- Tools: curl -sL https://arxiv.org/e-print/ID into own scratch dir; export.arxiv.org/api/query?id_list=ID; search_query=abs:%22a+b%22.
-  Numbers: workshop/rounds/110/scholar_thmnumbers.py (python -I); [subsection]-shared: rounds/121/scholar_kynumbers.py.
-  E-287 infrastructure: exec preamble of rounds/107/toolsmith_tiltsearch.py; objs json in rounds/107 (n=5,6), rounds/109 (n=7); Hom tables in seconds.
+- H-025 (R131): no paper states "periodic Phi => FCY" or the reverse (11 e-prints beyond E-251). Published route to a counterexample:
+  LdlP math/0611532v1 Thm 1 (D^b(C[P]) ~ Dsing^Z(R)), Thms 3, 4, Sec 5.6 Corollary, Table 2 (Sec 4.5): 22 hypersurface + 14 CI-not-hypersurface
+  periodic weight sequences. LMR 2112.15587v2 Thm 6.3(3): N_15(3), N_15(8) ~ <2,3,10] (proved: Cor 3.3(3), Prop 3.5, Prop 4.1);
+  N_14(4), N_14(6) ~ <2,5,7], N_14(5) ~ <2,6,6] (under Conj 5.7). Lenzing 1909.10362v1 Prop 3.9: hypersurface => FCY, tau^h = [2].
+  MINE: Dsing^Z of a codim-2 CI is not FCY (residue field: linear Betti growth, Tate; S = (l)[1], graded AR duality; both UNVERIFIED).
+  => kA_15/rad^3: Phi order 144, not FCY. Awaiting theorist referee. KLM 1203.5505 l. 265 "Fuchsian mostly not FCY" (no proof).
+- LdlP Table 2 misprints: (2,3,10) period 144 not 72; (2,2,2,4), (2,2,2,6), (2,2,4,4), (2,2,2,2,4) miss one Phi_2.
+- No LNA at n <= 13 has a CI-Fuchsian Coxeter polynomial: the record's n = 10-12 periodic-not-FCY groups are NOT genus-0 Fuchsian.
+  The E-253 FCY groups at n = 11, 12 match hypersurface types: 535 ~ (2,4,5), 1185 ~ (2,5,5), 3992 ~ (2,3,7) (sizes equal),
+  2300 slope 12/11 ~ (2,4,6) (membership unchecked). Coxeter equality is not derived equivalence: A_12 has the (3,4,5) polynomial.
+- H-027 (R126): per-step irreducibility certificate (AI 1009.3370 v3 2.26-2.44); closed as F-056 (round 128).
+- AI 1009.3370 v3 numbers: 2.26, 2.27 grothendieck, 2.31 mutation silting, 2.35, 2.37, 2.40, 2.43, 2.44 almost transitivity, 3.1.
+- H-031: ENS math/0101145v3 Cor 3.11, Lemmas 6.2-6.4. H-024: BHL 0906.3422v4 Prop 2.1; Ladkani 1001.4765 Lemma 3.5; math/0610685 3.13-3.15.
+- UNVERIFIED: Nikulin 1.13.3; Anick 3.1/3.2; Forre 2.6; Bruning 5.1; CB1992; Ringel1994; Tate's P_k for CI; graded AR duality form.
+- Tools: curl -sL https://arxiv.org/e-print/ID into own scratch dir; export.arxiv.org/api/query?search_query=abs:%22...%22&max_results=100.
+  Numbers: rounds/110/scholar_thmnumbers.py (always prefixes a section: wrong for plain \newtheorem{theorem}{Theorem}, e.g. LdlP).
+  Rank growth: rounds/131/scholar_rank.py (wraps 089/maverick_bimod.py, n = 15, K = 288 in 5 s). Coxeter of extended canonical:
+  rounds/131/scholar_fuchsian.py phiT (Lenzing Prop 3.8, g = 0, checked on 34/38 Table rows and 14/14 LMR LNAs).
 
 ## Did
-- R106, R110, R117: E-272/273/308 era. R121: H-031 citation negative (E-315). R122: ENS found and tested; BHL prior art for H-024.
-- R126: H-027 silting-vs-tilting: named (S), showed HK proves only generation, certified (S) on all shortest paths n = 5..7 with Hom-table
-  certificate + two controls; proposed closing the thread. Did not fetch arXiv (not needed; AI tex in repo).
+- R106-R126: E-272/273/308, E-315, ENS, BHL, H-027 certificate.
+- R131: H-025 prior art. Fetched KLM, LdlP, LMR, Lenzing 1909 (read); HI, CDIM, CIM, DPW, Rognerud, Kleinau, 0805.1018 (grep).
+  Rank growth: 4/4 hypersurface controls return R_k = n at predicted k; 5 CI LNAs R_k > n to 2x order, linear growth.
+  n = 14 CI-Coxeter scan killed at 10 min (not done).
 
 ## Next
-- Get the R126 referee's verdict on the functorial-finiteness step and the count-0 => k = 1 argument.
-- Optional: certificate on all E-287 edges depth <= 3: how many composites, any through a silting-not-tilting middle (AI non-transitivity in our graph).
-- H-031: machine-check ENS's H on a small model; multi-vertex ENS version (Ekholm-Honda-Kalman 1212.1519, Ng).
-- H-025 novelty retry (Herschend-Iyama, Lenzing-de la Pena, Kussin-Lenzing-Meltzer); prior-art line for H-026 odd n.
-- Owed literature files: 0906.0761, 0704.0649, math/0101145, 0906.3422(+1012.4661), math/0702060, 2606.15595, 2604.25789, 1310.1907, 1101.3233.
-- Lessons: a citation route can prove the wrong half (HK gave generation, the gap was irreducibility); before reading more sources, ask what
-  finite computation the record's own tables already allow; look outside the field; counter beats memory; YES control + planted NO.
+- Get the R131 referee's verdict on the non-FCY derivation (steps b, c). If it holds, H-025 -> CONFIRMED at n = 15.
+- What are the n = 10 periodic-not-FCY groups (34504030, 45050400, ...)? Try genus > 0 Fuchsian (1909.10362 Ex 3.7), Ebeling CI lists.
+- n = 14 CI scan split by first digit (toolsmith or me). Owed literature files: LdlP, Lenzing 1909, KLM, plus the old list
+  (0906.0761, 0704.0649, math/0101145, 0906.3422, math/0702060, 2606.15595, 2604.25789, 1310.1907, 1101.3233).
+- Lessons: read the record's own literature summaries in SOURCE before searching widely (LMR was already in the record, read only as a summary);
+  a table's period column is a claim -- recompute; check rank formulas before planting controls (my N_17(10) slip was caught).

@@ -1,0 +1,8 @@
+LNA guard walk n=8 depth 2: 429 roots, 19503 nodes, 0 distinct cyclic nodes (128 s); comparing ...
+done 128 s
+| sample | cycle vs i | rows | gate admits | Hom tilting | gate != Hom | gate over | isTilting != Hom | isTilting over | exact != Hom | gate&isTilting both != Hom |
+|---|---|---|---|---|---|---|---|---|---|---|
+   nodes 19503
+   roots 429
+   cyclic nodes 0
+EXIT 0 129 s

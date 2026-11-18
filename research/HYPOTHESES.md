@@ -55,7 +55,7 @@ At key level, deleting an end vertex from a long free stretch next to a lone 3 s
 ---
 
 ## H-025 — Phi periodic does not imply fractionally Calabi-Yau for LNAs
-*2026-10-30* · **SUPPORTED** *(E-245, E-246, E-253: rank growth of nu^k P in several groups, verdict constant on every group swept at n = 10, 11, 12; not stated in the literature, E-251; workshop cycle 001 planning)*
+*2026-10-30* · **SUPPORTED** *(E-339: proof-level instance at n = 15 via Fuchsian R(2,3,10), referee-checked, unpublished argument; E-245, E-246, E-253: rank growth of nu^k P in several groups, verdict constant on every group swept at n = 10, 11, 12; not stated in the literature, E-251; workshop cycle 001 planning)*
 
 For a Nakayama algebra of finite global dimension, a periodic Coxeter transformation Phi does not force Phi^m = shift. **Falsifiable:** one swept group whose nu^k P stays bounded for every k although Phi is periodic gives the counter-direction. **Would settle it:** a published statement of either direction (phase 1), or a proof that the rank growth is exact for a whole family.
 

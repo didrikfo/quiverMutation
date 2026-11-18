@@ -1,0 +1,33 @@
+RAND n=8 seed 8 guard walk n=8 depth 2: 50 roots, 2656 nodes, 339 distinct cyclic nodes (9 s); comparing ...
+done 13 s
+  [MUTATION ERROR sample] CyclicDescendantsError: D(2) has an oriented cycle or a loop; step 7 is not valid there (research E-211); pass allowCyclic=True to override
+| sample | cycle vs i | rows | gate admits | Hom tilting | gate != Hom | gate over | isTilting != Hom | isTilting over | exact != Hom | gate&isTilting both != Hom |
+|---|---|---|---|---|---|---|---|---|---|---|
+| RAND n=8 seed 8 LIB leaf | down | 770 | 750 | 750 | 0 | 0 | 0 | 0 | 0 | 0 |
+| RAND n=8 seed 8 LIB leaf | off | 307 | 283 | 283 | 0 | 0 | 0 | 0 | 0 | 0 |
+| RAND n=8 seed 8 LIB leaf | on | 830 | 598 | 598 | 0 | 0 | 232 | 232 | 0 | 0 |
+| RAND n=8 seed 8 LIB leaf | up | 207 | 148 | 148 | 0 | 0 | 42 | 42 | 0 | 0 |
+| RAND n=8 seed 8 LNAM only | down | 220 | 204 | 204 | 0 | 0 | 0 | 0 | 0 | 0 |
+| RAND n=8 seed 8 LNAM only | off | 81 | 71 | 71 | 0 | 0 | 0 | 0 | 0 | 0 |
+| RAND n=8 seed 8 LNAM only | on | 228 | 161 | 161 | 0 | 0 | 67 | 67 | 0 | 0 |
+| RAND n=8 seed 8 LNAM only | up | 70 | 43 | 43 | 0 | 0 | 23 | 23 | 0 | 0 |
+   nodes 2656
+   mutation error 342
+   mutation error CyclicDescendantsError 342
+   mutation error on cyclic parent 342
+   roots 50
+   cyclic nodes 339
+   cyclic LIB-reachable (leaf) 272
+   cyclic non-monomial 107
+   cyclic monomial 232
+  [DISAGREE] ('RAND n=8 seed 8 LIB leaf', 'on', 'A', 6, 'gate', False, 'isTilting', True, 'exact', False, 'Hom', False, {-1: 3}, 'arrows 0:1>3 1:2>3 2:2>5 3:2>7 4:4>5 5:6>8 6:7>6 7:8>6 | zero 3.6.5 7.5')
+  [DISAGREE] ('RAND n=8 seed 8 LIB leaf', 'up', 'Aop', 7, 'gate', False, 'isTilting', True, 'exact', False, 'Hom', False, {-1: 2}, 'arrows 0:3>1 1:3>2 2:5>2 3:5>4 4:6>7 5:6>8 6:7>2 7:8>6 | zero 7.4.6 7.5')
+  [DISAGREE] ('RAND n=8 seed 8 LIB leaf', 'on', 'Aop', 8, 'gate', False, 'isTilting', True, 'exact', False, 'Hom', False, {-1: 2}, 'arrows 0:3>1 1:3>2 2:5>2 3:5>4 4:6>8 5:7>8 6:8>2 7:8>6 | zero 4.6 4.7')
+  [DISAGREE] ('RAND n=8 seed 8 LIB leaf', 'on', 'A', 6, 'gate', False, 'isTilting', True, 'exact', False, 'Hom', False, {-1: 3}, 'arrows 0:2>3 1:2>5 2:2>7 3:3>1 4:4>5 5:6>8 6:7>6 7:8>6 | zero 2.6.5 7.5')
+  [DISAGREE] ('RAND n=8 seed 8 LIB leaf', 'up', 'Aop', 7, 'gate', False, 'isTilting', True, 'exact', False, 'Hom', False, {-1: 2}, 'arrows 0:1>3 1:3>2 2:5>2 3:5>4 4:6>7 5:6>8 6:7>2 7:8>6 | zero 7.4.6 7.5')
+  [DISAGREE] ('RAND n=8 seed 8 LIB leaf', 'on', 'Aop', 8, 'gate', False, 'isTilting', True, 'exact', False, 'Hom', False, {-1: 2}, 'arrows 0:1>3 1:3>2 2:5>2 3:5>4 4:6>8 5:7>8 6:8>2 7:8>6 | zero 4.6 4.7')
+  [DISAGREE] ('RAND n=8 seed 8 LIB leaf', 'on', 'A', 6, 'gate', False, 'isTilting', True, 'exact', False, 'Hom', False, {-1: 4}, 'arrows 0:2>5 1:2>7 2:3>1 3:3>2 4:4>5 5:6>8 6:7>6 7:8>6 | zero 1.6.5 7.5')
+  [DISAGREE] ('RAND n=8 seed 8 LIB leaf', 'up', 'Aop', 7, 'gate', False, 'isTilting', True, 'exact', False, 'Hom', False, {-1: 2}, 'arrows 0:1>3 1:2>3 2:5>2 3:5>4 4:6>7 5:6>8 6:7>2 7:8>6 | zero 7.4.6 7.5')
+  [DISAGREE] ('RAND n=8 seed 8 LIB leaf', 'on', 'Aop', 8, 'gate', False, 'isTilting', True, 'exact', False, 'Hom', False, {-1: 2}, 'arrows 0:1>3 1:2>3 2:5>2 3:5>4 4:6>8 5:7>8 6:8>2 7:8>6 | zero 4.6 4.7')
+  [DISAGREE] ('RAND n=8 seed 8 LIB leaf', 'on', 'A', 6, 'gate', False, 'isTilting', True, 'exact', False, 'Hom', False, {-1: 3}, 'arrows 0:1>3 1:2>3 2:2>5 3:2>7 4:5>4 5:6>8 6:7>6 7:8>6 | zero 3.6.5 7.5')
+EXIT 0 14 s

@@ -1,28 +1,32 @@
 # Maverick's notebook
 
-## What I now believe (after round 129)
-- T10, pure F (r129): **the library's F-only key-guarded walk crosses at n = 11.** From LNA 303500030 (·F1 F1 F4 F3 F1, then F8) and from dual 303305000 (·F6 F11 F7 F11 F7, then F7) five J = 0 steps reach a parent whose key-kept J != 0 non-tilting step changes SNF(S) (1,2,4) -> (1,2,2). `mutationSearchDepthFirst` with its defaults reaches the same nodes at depth 6 (maverick_libwalk.py). `refuseNonTilting=True` removes them. These 2 parents (up to iso) are new, not among the 13 F/R parents of r125. **Pure-F LNA-to-LNA join across classes:** dual(303305000) · F6 F11 F7 F11 F7 F7* F3 F3 F4 F7 = LNA 403033030 (59-class), checked with `walk`. The other child (P_a's) reaches no LNA within F depth 5.
-- Round 127's "every crossing needs an R move" was a depth artefact. My r127 guess was "pure-F crossing would be deeper than 10 min at n = 12". At n = 11 it is cheap (depth 6, about 4 min).
-- E-331 (n = 12, F-only depth 5, 0 J != 0) stands. The 14-class's 7 orbit reps at depth 5 also give 0.
-- **R inverts F**, but only up to the ideal: the referee's 3 "non-invertible" edges are the same algebra with other generators. (5,6)(6,7)(7,8) vs (5,6)(6,3)(3,8) are equal mod the shared commutativity relation. Over 3 135 J = 0 edges in 4 balls, 0 lack an inverse and 55 are ideal-only. Struct iso and canonicalKey compare GENERATORS (F-049). Use `sameIdeal` (maverick_inv.py) when an iso miss matters. E-149's n = 6 "lost in reverse" (10.3 %) is probably the same thing (untested).
-- The round-127 backward R-only balls are only a lower bound (presentation dedup, LNA recognition by monomial generators).
-- Reframing (idea): J = 0 F-walks are descending chains in the silting poset of L. The new sites are non-tilting irreducible steps 5 tilting steps below an LNA, the cleanest test case for "J != 0 <=> silting-not-tilting".
-- E-318 pair (r125): X_a = coker(Phi - a) derived invariant; X_+-3 separate; fails as a function of (key, SNF) for general forms. S-1 / H-026: K0 = min(h, n-4-h) at odd n.
+## What I now believe (after round 131)
+- **T5 R-candidate (r131): the gate's cycle failure is unreachable from LNAs and real elsewhere.**
+  - `mutationSearchDepthFirst` never gates a cyclic parent: 0 of 58 464 calls at n = 6 depth 5, 0 of 107 786 at n = 7 depth 4.
+  - lnaMoves-style walks, which do expand cyclic nodes, reach 0 cyclic nodes from any LNA: n = 6 depth 5, n = 7 depth 4, n = 8 depth 2, with and without the guard. Same as E-204 and F-038.
+  - From random acyclic monomial roots (n = 5-8): 3 344 cyclic nodes. On 18 145 monomial (side, i) rows the gate over-admits 39 times; 38 have i on a cycle (`mutateAtVertex` refuses those anyway) and 1 is 'up' with D(i) acyclic, where the procedure runs. `isTiltingAtVertex` over-admits 2 951 times. Both make 0 errors when no cycle reaches i. The exact gate (all nonzero paths) agrees with Hom 18 145 of 18 145.
+  - This contradicts E-310 (15)'s "gate = tilting for cyclic monomial parents at n = 4..6": its sample had length-2 relations only.
+  - My recommendation: write the R at library scope. The LNA-walk version of the blocker is vacuous.
+- T10, pure F (r129, E-332): the F-only key-guarded walk crosses at n = 11 depth 6 (SNF (1,2,4) -> (1,2,2)). `refuseNonTilting` removes it. Pure-F LNA-to-LNA join across classes: dual(303305000) -> 403033030.
+- R inverts F only up to the ideal. Struct iso and canonicalKey compare GENERATORS (F-049); use `sameIdeal` (129/maverick_inv.py).
+- E-331 (n = 12, F-only depth 5, 0 J != 0) stands.
+- Reframing (idea): J = 0 F-walks are descending chains in the silting poset. New idea (r131): LNA balls never create an oriented cycle, probably because some grading by line order survives each admitted step. Untested.
+- E-318 pair: X_a = coker(Phi - a); K0 = min(h, n-4-h) at odd n (S-1).
 
 ## What I tried
-- r129: workshop/rounds/129/maverick_inv.py (ctrl7 | inv | cls | diag | jx | after | idealctrl) and maverick_libwalk.py; outputs in maverick_inv_out.txt. Costs: cls n = 11 depth 6 is 75-273 s per root; n = 12 depth 5 is 61-186 s; inv n = 12 depth 4 is 389 s; libwalk n = 11 depth 6 is about 200 s.
-- Power controls: n = 7 class 1 depth 8 gives E-204's 4 J != 0 steps exactly (multi-seed, 274 s; `fwd 7 8 30400` / `40030` give 2 + 2). The FR depth-3 balls find 12 of 12 parents. idealctrl: 6 of 6.
-- r127 pureF fwd/back/ctrl; r125 X_a invariants; r121 census47.
+- r131: workshop/rounds/131/maverick_gatehom.py (controls | walk | nog | libcount | rand). Costs: walk 7 4 is 515 s, walk 8 3 is over 10 min (use depth 2), libcount 7 5 is over 10 min, rand runs 25-45 s.
+- r129: maverick_inv.py, maverick_libwalk.py (n = 11 depth 6 is about 200 s per root).
+- Hom engine for cyclic MONOMIAL algebras: `skeptic_conv3.AlgG(n, arrows, [{path: 1}], False)` (quotient=False). Quotient mode enumerates all paths of kQ and dies on cycles, so non-monomial cyclic algebras are not covered.
 
 ## Watch for
-- Venv loses python-flint/cypari: `uv pip install --python .venv/bin/python cypari python-flint`. Never use sympy SNF/det at n >= 11 (INV in toolsmith_jxsearch is sympy).
-- Exec-importing scripts: split on "\nif __name__ == '__main__':". A str.replace on that marker hits the exec line too (cost me a broken file).
-- Never start a job whose output file a queued job also writes. Check `ps` first.
-- `procedure.relationsFrom` ignores a hand-set arrowRels unless `rels` agrees. Build test algebras with `procedure.toPathAlgebra`.
-- A NO needs a control that says NO. An iso NO needs the ideal test.
+- Venv loses python-flint/cypari: `uv pip install --python .venv/bin/python cypari python-flint`. Never use sympy SNF at n >= 11.
+- Exec-importing scripts: split on "\nif __name__ == '__main__':".
+- `/usr/bin/time` is absent; time runs with `date +%s`.
+- My `build()` helper picks the first edge, so it is wrong with parallel arrows: build those with explicit keys.
+- An E-entry's headline can outrun its sample (E-310's cyclic clause: length-2 relations only). Read the generator before citing it.
+- A NO needs a control that says NO; a "0 found" needs the detector shown firing elsewhere (here: random roots).
 
 ## Next
-- Overnight: n = 11 13-class F-only depth 7 (all 13 roots); n = 12 14-class depth 6. Count the pure-F crossing sites; do any reach a 59-class LNA (pure-F LNA-to-LNA join)?
-- Theorist: Hom-level silting check at P_a·F8, P_b·F7.
-- Rerun E-149's lost edges with sameIdeal; if all are recovered, E-149's 10.3 % is an iso artefact.
-- Lemma (LNA-only): is coker(Phi - 3) determined by (key, SNF(S))? n = 13.
+- Toolsmith (requested): make the gate and `isTiltingAtVertex` refuse when a cycle reaches i; it costs nothing on LNA walks.
+- Grading idea: find a function on the n = 7 LNA ball that every admitted step preserves and that forbids oriented cycles.
+- Still open from r129: n = 11 depth 7 13-class; E-149's lost edges with sameIdeal; is coker(Phi - 3) a function of (key, SNF(S)) at n = 13.
