@@ -5,6 +5,16 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 132 -- 2026-11-19 -- conference (phase 3 of cycle 2)
+Six position statements, no new work. Ledger:
+- **F-057 written:** key-guarded walks leave their derived class at n = 11 (pure F, E-332) and n = 12 (E-323) through one key-kept J != 0 non-tilting step (50 of 50 Hom-checked, E-333/E-334); the NO rests on the SNF(S)/Phi chain (E-308/E-272). Open in its body: `sameIdeal` of the E-332 end node and Hom of its nine J = 0 steps; option cost on non-thin balls.
+- **R-018 written:** "the gate decides tilting" is false for library functions on cyclic monomial parents (39 of 18 145 rows, n = 5-7, E-340); not a claim about LNA walks, none of which reach a cyclic node.
+- H-015/H-032 get pointers to F-057; H-025 stays SUPPORTED (E-339 has one referee; blocker: simple-module nu^m check); T4 closed (H-029 SUPPORTED).
+- Common finding of four personas: E-337's "no join lost" is a theorem for thin balls (E-338), so the cost of `refuseNonTilting` on d >= 2 balls is unmeasured.
+- **Phase-4 agenda:** (1) option cost on non-thin balls, threshold pre-registered; (2) child = End(T) for J = 0 steps (H-023); (3) H-025 object-level check + n = 10-12 groups; (4) T7 overlap 2; (5) H-017b pre-registration. Phase summary: `cycles/002/phase-3.md`.
+- Decided without the human: agenda; the n = 11 depth-4 background run is not approved; option default stays off.
+- Questions for the human: none.
+
 ## Round 131 -- 2026-11-18 -- ordinary
 Cycle 2, phase 3 (round 3 of 4). Scholar, theorist, maverick; referees skeptic, experimentalist, toolsmith (all minor revision, all answered).
 - **Theorist:** dim e_i A e_v <= 1 plus the gate forces J = 0 -- already E-128 L1; new: under thinness and admissibility the simple-path gate is exact even on cyclic quivers, and any gate-admitted J != 0 step needs dim >= 2 and a non-monomial relation (E-080/E-318 shape), checked per row (**E-338**). It makes E-337's zero count a theorem, not a test of the option.

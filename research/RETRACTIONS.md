@@ -6,6 +6,17 @@ does not. See [`README.md`](README.md).
 
 ---
 
+## R-018 — "The gate (`isMutable` / `isTiltingAtVertex`) decides tilting at a vertex" (E-310 (15)'s cyclic-parent clause), at library scope: false on cyclic monomial parents
+*retracted 2026-11-19* · corrected by E-340, E-329 (workshop rounds 131, 126; conference round 132)
+
+Held: E-310 (15) read the library gate as exact (admitted exactly when the vertex mutation is tilting) for random parents including cyclic ones.
+
+**False for cyclic parents.** On cyclic monomial walk parents from random acyclic roots (n = 5-8, depth 2-3, 600 roots, 18 145 (side, vertex) rows) the library gate over-admits 39 times (34 at n = 5, 4 at n = 6, 1 at n = 7), each Hom-verified non-tilting against the exact gate; the planted E-329 bag gives gate != Hom as well. Mechanism: a non-simple nonzero path into v with d_w >= 2 when a cycle lies upstream of v (E-338 (c)). Only 1 of the 39 rows is a step with a result E-310 (15) claimed.
+
+**Scope of the retraction.** Library functions on cyclic monomial parents, n = 5-7 (rows not deduplicated; non-monomial cyclic nodes skipped, 1 320 of 3 344). Not a statement about any LNA walk: none checked (n = 6 depth <= 5, n = 7 depth <= 4, n = 8 depth <= 2) reaches a cyclic node, and `mutationSearchDepthFirst` never expands one (search.py:446). The acyclic gate is exact on 298 337 of 298 337 random cases (E-327). Still owed: `isMutable` / `isTiltingAtVertex` refusing when a cycle reaches i.
+
+---
+
 ## R-017 — "A Coxeter key group is one derived class, and the key guard keeps a walk inside it"
 *retracted 2026-11-11* · corrected by E-314, E-317, E-318 (workshop rounds 119, 121, 122; conference round 124)
 

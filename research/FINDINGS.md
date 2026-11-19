@@ -5,6 +5,19 @@ See [`README.md`](README.md) for conventions.
 
 ---
 
+## F-057 — Key-guarded walks leave their derived class: a key-kept J != 0 (non-tilting) step crosses at n = 11 (pure F, depth 6, key group of 72) and n = 12 (F/R, group of 47); "derived inequivalent" rests on the SNF(S) / Phi necessity chain (E-308, E-272), not on a direct proof
+*2026-11-19* · *workshop round 132 (conference ledger), chair; evidence refereed in rounds 122 (E-318), 125 (toolsmith, refereed by skeptic), 129 (maverick, refereed by skeptic; theorist, refereed by experimentalist), 131 (theorist, refereed by experimentalist)*
+
+Evidence: E-332, E-333, E-334, E-323, E-324, E-318, E-338; companion R-017.
+
+**The claim, at its scope.** `mutationSearchDepthFirst` with the Coxeter-key guard and gate (defaults) can leave a derived class. (a) n = 11: dual(303305000) -> 403033030 in 10 right mutations, one a key-kept J != 0 step with SNF(S) (1,2,4) -> (1,2,2) (E-332, replayed with independent Cartan/SNF code); `refuseNonTilting=True` removes it (2 of 2 roots). (b) n = 12, key group of 47: the F3 step at 0040033030 changes the SNF(S) tail (1,1,20) -> (1,1,12) and a 5-step walk joins 0040033030 and 0400330030 (E-323); the step is non-tilting at Hom level (Hom(T,T[-1]) = 2, E-334), and the pair is also separated by 15 Phi-conjugacy ranks. (c) All 50 key-kept J != 0 steps found in 93 balls (n = 11, 12) are irreducible non-tilting silting mutations by an independent Hom computation (E-333). The NO "not derived equivalent" needs only the sourced chain E-308 / E-272 (Ladkani 1001.4765, Rickard, Aihara-Iyama Thm 2.27), not Nikulin 1.13.3 (E-334).
+
+**What it does not say.** Not that the key guard is useless: the guard-kept walks of every recorded LNA-to-LNA merge at n <= 10 contain no J != 0 step, and that zero is forced by thin balls (E-321, E-338), so it is no evidence either way. No F-only crossing at n = 12 depth 5 (E-331, no power). The end node of (a) is compared as quiver and Cartan matrix; a `sameIdeal` check against the LNA 403033030 and a Hom check of the nine J = 0 steps are open (skeptic, round 132). The cost of `refuseNonTilting` on non-thin balls (does it lose joins?) is untested. Nothing at n >= 13.
+
+Reproduce: `timeout 10m .venv/bin/python -W ignore workshop/rounds/129/maverick_libwalk.py 11 6 303500030` (E-332); `.venv/bin/python -W ignore workshop/rounds/129/theorist_jsilt.py all` (E-333); E-323 and E-334 commands in their entries.
+
+---
+
 ## F-056 — At n = 5, 6, 7 the shortest E-287/E-289 paths from B_n to A_n are chains of irreducible silting mutations, hence of tilting mutations; the one secondary input is D^b(B_n) ~ D^b(kD_n) (Happel-Seidel, UNVERIFIED)
 *2026-11-15* · *workshop round 128 (conference ledger), chair; evidence refereed in round 126 (scholar, refereed by theorist) and reproduced by the theorist*
 
