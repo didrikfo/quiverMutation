@@ -8,3 +8,21 @@ real	9m21.468s
 user	14m11.209s
 sys	0m1.106s
 steps 4 margin 1 cap 560 interior
+((6, 2), (8, 4), (10, 3)) interior L 21 base 2 reached 24 min 2 lowered 0 best 0000020040300000000 [7] secs 145.8
+((6, 4), (8, 4), (10, 3)) interior L 21 base 2 reached 6 min 2 lowered 0 best 0000005003400000000 [-14, 11, -14] secs 154.9
+((8, 4), (10, 3), (13, 3)) interior L 23 base 2 reached 6 min 2 lowered 0 best 000000340000300000000 [8, 8, 8, 8] secs 240.1
+((8, 4), (10, 3), (14, 2)) interior L 23 base 2 reached 21 min 2 lowered 0 best 000000040300200000000 [14] secs 254.7
+
+real	4m15.731s
+user	12m32.667s
+sys	0m0.407s
+steps 4 margin 1 cap 560 interior
+((8, 4), (10, 3), (12, 4)) interior L 23 base 2 reached 4 min 2 lowered 0 best 000000340004000000000 [8, 8, 8, 8] secs 207.4
+((5, 3), (8, 4), (10, 3)) interior L 22 base 2 reached 5 min 2 lowered 0 best 00000030340000000000 [10, 10, 10, 10] secs 213.3
+((8, 4), (10, 3), (14, 3)) interior L 24 base 2 reached 6 min 2 lowered 0 best 0000003400000300000000 [8, 8, 8, 8] secs 358.1
+((8, 4), (10, 3), (13, 4)) interior L 24 base 2 reached 6 min 2 lowered 0 best 0000003400004000000000 [8, 8, 8, 8] secs 375.0
+
+real	6m15.920s
+user	19m11.824s
+sys	0m0.319s
+steps 4 margin 1 cap 580 interior
