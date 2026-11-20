@@ -1,0 +1,6 @@
+L 13 almost separate rows 28657 (maxOverlap > 1 among them: 0) polynomials 210 secs 56.1
+clean (4,3) cells 40 polynomial not in S_L (provably never overlap <= 1): 6
+clean (4,4) cells 15 polynomial not in S_L (provably never overlap <= 1): 4
+clean (5,4) cells 17 polynomial not in S_L (provably never overlap <= 1): 13
+YES control: overlap-2 band rows reaching <= 1: 84, polynomial not in S_L: 0
+all overlap-2 band rows 484, polynomial not in S_L: 26  secs 1.7

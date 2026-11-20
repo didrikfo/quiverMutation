@@ -1,0 +1,9 @@
+steps 4 margin 1 cap 540 interior
+((8, 4), (10, 3), (11, 3)) interior L 21 base 2 reached 13 min 0 lowered 4 best 0000000030020000000 [-13, 10, -13] secs 68.8
+((8, 4), (10, 3), (12, 2)) interior L 21 base 2 reached 16 min 2 lowered 0 best 0000000333300000000 [10, 10] secs 80.2
+((8, 5), (10, 4), (13, 2)) interior L 22 base 3 reached 11 min 2 lowered 1 best 00000003404000000000 [10, 9, 10, 9] secs 148.9
+((8, 5), (10, 4), (14, 2)) interior L 23 base 3 reached 11 min 3 lowered 0 best 000000050400200000000 [14] secs 295.2
+
+real	4m56.289s
+user	9m49.279s
+sys	0m0.366s
