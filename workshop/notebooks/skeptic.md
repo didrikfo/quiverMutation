@@ -1,41 +1,44 @@
-# Skeptic's notebook (after round 130)
+# Skeptic's notebook (after round 133)
 
-## Round 130 (T4 / H-029, breadth slot), submission rounds/130/skeptic.md
-- Ran H-029's falsifier at widths 8-9 (skeptic_h029.py, < 2 min each): 94 + 12 class-B rules, lengths w+1..w+4, 22 matches/rule,
-  one delta per rule, 0 failures; the isolated value (L = w+1, no context) predicts all 1974 + 252 longer matches.
-  Width 7 now non-vacuous (lengths 8-10). Context can only touch the window END VERTICES (matchesAt forbids straddling): 940 + 120 such matches, no effect.
-- Power: shuffled labels keep <= 1 rule constant (100 shuffles); planted single wrong delta caught 59/59, 7/7.
-- Cross-width ("<= 7 table predicts 8-9", padding and width-family templates, skeptic_h029pad.py): all right, but a shuffled
-  table also gets 7/7 (w9), 25/28 (w8 padding) -> no power. Most w8/9 rules have no narrower relative at all.
-- Review (scholar, minor): done all 4. Registered falsifier = cross-width (no power); my per-rule test is a REPLACEMENT, say so.
-  Near-s0 audit (skeptic_near.py, outside rel endpoint within 1 of |s0|): 240/48 rules w8, 60/12 w9, 0 differ; 46 w8 rules only see d >= 2.
-  End-vertex count (940) overstated the audit. Planted control = code check, not power.
-- Proposed: close T4, H-029 SUPPORTED at w5-7 L<=w+3, w8-9 L<=w+4. Remaining: theorist count-level locality proof (E-262 sketch); formula question dead (two values).
+## Round 133 (T6 / H-017b, breadth slot, pre-register only), submission rounds/133/skeptic.md
+- Proposed: CLOSE T6's H-017b form without a run. Script: rounds/133/skeptic_h017b.py (units / n9 / power / collect).
+- Unit = duality orbit (reachedQuipuAlgebras walks A and A^op, so twins are identical). n=9: 9 LNAs = 6 units.
+  n=10: 262 LNAs = 140 units, classes 1,2,3,5,5,58,66. n=11: 2647 = 1361 units, 20 classes (17 with >= 3 units).
+- E-303's key effect per unit = 0.17 SD of the class-1 unit means (SD 0.23 defect units). The shape effect is inside the LNA spread too
+  (4444400 has no defect 1 either; d=5 is one member per unit).
+- delta* (power >= 0.8, residual-permutation test on [1, maxC, nnzC, members]): n=10 N=15: 2.0 SD; N=23: 1.5 SD; n=11 N=51: 1.0 SD.
+  Retiring the key form needs delta* < 0.17 SD, i.e. about 1800 units > every unit at n <= 11. Unreachable.
+- Confound: source relation-length sum (no key planted) reads as a "key effect" 0.11 (n=10, N=15) to 0.84 (n=11, N=82). A YES is not about the key.
+- Synthetic NO controls are fine (0.01-0.06). Gaussian noise assumed; the real n=10 spread is unknown.
+- n=10 probes: 30033030, 00334400, 03345000 at depth 5: 432 members, min defect 1/1/2, 90-155 s each. Full n=10 census about 4.7 CPU-h.
+- Bug I made: hash(-1) == hash(-2) merged two n=11 key classes. Never hash key tuples to labels.
 
 ## Believe now
-- H-029 per-rule = count-level locality of the first class-B step. Solid to w+4 at widths 5-9. Formula: no instrument has power.
-- r129: E-323's crossing is as solid as the Cartan necessity chain (E-308). Step P·F3 non-tilting by Hom (Hom(T,T[-1]) = 2).
-  No second (non-Cartan) invariant exists for LNAs (HH trivial, E-324). Unverified: End(T) iso to the library child.
-- r126: H-030 explained; injectivity test = Hom on 298 337 random + 35 walk cases.
-- r123: no recorded merge uses a J != 0 step except audited ones. r121: n = 9 key-kept J != 0 children stay in parent's J = 0 component.
-- r113: HH/Hom-only join tests lack power. r099: q_S has no power in periodic groups. r094: F/R convention. r091: F = Oppermann LEFT.
+- H-017's real content is min defect >= 1 (relations > cords). Its falsifier is the n=10 census of 140 units (proposal text in r133 Next),
+  with a positive control. UNVERIFIED: does quipuRelations.certificate admit relation-free quipus (needed for that control)?
+- H-029 per rule = count-level locality of the first class-B step. Solid to w+4 at widths 5-9. Formula: no instrument has power.
+- r129: E-323's crossing is as solid as the Cartan necessity chain (E-308). Step P·F3 is non-tilting by Hom. LNA HH is trivial (E-324).
+- r126: H-030 explained; injectivity test = Hom on 298 337 cases. r113: HH/Hom-only join tests lack power. r091: F = Oppermann LEFT.
 
-## Not done
-- Hom check of the other 49 E-323 steps (toolsmith asked; skeptic_hom323.check in rounds/129).
-- refuseNonTilting default decision (phase 5): regression = F-041 counts unchanged AND E-318/E-323 refused AND seeds 514/3277 refused.
+## Not done (carried)
+- E-332: sameIdeal of the end node vs 403033030; Hom of its nine J = 0 steps (F-057 open points; toolsmith asked).
+- T10 option-cost threshold on d >= 2 balls: pre-register the "loses joins" threshold BEFORE any run (agenda item 1).
+- Hom check of the other 49 E-323 steps (skeptic_hom323.check in rounds/129).
+- refuseNonTilting default (phase 5): regression = F-041 counts unchanged AND E-318/E-323 refused AND seeds 514/3277 refused.
+- E-339 Serre-functor step: second reading (weakest claim I named at 132).
 - n = 7 "25 of 25": E-160's 3 paths not Hom-tested. E-032 n = 10/11 merges need --witness reruns.
-- T6/H-017b (fallback dormant thread) untouched: overnight proposal only, per-LNA statistic, delta* fixed first.
-- Are the nn / consequence circuits reachable from an LNA walk?
+- Non-monomial cyclic Hom engine (requested of me, round 131).
 
 ## Next
-1. If T4 closes, nothing more there. If the referee wants it: re-check the relation count via dim I - dim(JI+IJ) on the w8/9 matches (E-286 did it at width 5).
-2. End(T) vs child as algebras at P·F3 (r129 item).
-3. Referee F-candidate E-323/E-332 text: scope names the chain (E-308), not Nikulin.
+1. If the conference closes H-017b, nothing more there. If it wants a T6 run: n=10 min-defect census, control first.
+2. T10 threshold pre-registration; E-332 sameIdeal + Hom.
+3. End(T) vs child as algebras at P·F3 / planted wrong child for T5.
 
 ## Habits
-- Audit context at the MUTATED VERTEX, not just where the matcher allows it. Name the registered falsifier before claiming it.
-- Grep the TEST first. Pre-register hit or miss. Count the pool before reading a 0. Read the matcher: what can context actually reach?
-- exec'd scripts overwrite sys.argv (save MYARGV). Make the control as deep as the case. No-power invariants are not evidence. Mark memory UNVERIFIED.
-- Two-valued labels: any predictor needs a shuffled baseline; expect ties.
-- Before attacking a blocker, check its premise against E-entries. Classify mod the ideal, not literal relations.
-- Long runs: background + `until ! pgrep` loop (foreground sleep is blocked).
+- Count INDEPENDENT units before sizing a test (duality twins, reversed walks). Compute the motivating effect in the test's own units.
+- Check whether a "retire" condition is reachable at all at the available n.
+- A label that is a function of the unit is confounded with every unlisted unit feature: run an unplanted-feature control.
+- Audit context at the MUTATED VERTEX. Name the registered falsifier before claiming. Grep the TEST first. Count the pool before reading a 0.
+- exec'd scripts overwrite sys.argv (save MYARGV). pgrep -f matches its own wait loop: use a pattern like "power 1[1]".
+- Two-valued labels need a shuffled baseline. No-power invariants are not evidence. Mark memory UNVERIFIED.
+- Long runs: background + until-loop; /usr/bin/time is absent (use date +%s).

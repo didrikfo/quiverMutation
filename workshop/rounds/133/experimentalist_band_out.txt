@@ -1,0 +1,16 @@
+W 13 P 2 L 17 moves both rows 208012 edges 541450 secs 100.1
+shape | pair overlap | clean cells | isolated(moves 0) | reach overlap < base | example
+(4,3) | 2 | 5390 | 471 | 0 | -
+(4,4) | 2 | 2505 | 505 | 0 | -
+(5,4) | 3 | 4147 | 549 | 1749 | 002222205040000
+(5,5) | 3 | 1547 | 439 | 300 | 002222050500000
+(6,5) | 4 | 2134 | 240 | 1492 | 002222060500000
+all overlap-2 rows 59917 reach overlap <= 1: 8171
+overlap-2 rows reaching <=1, by lengths>=3 multiset (top 12): [((3, 3, 3, 4), 1440), ((3, 3, 3, 3), 1344), ((3, 3, 3), 1024), ((3, 3, 4), 896), ((3, 3, 3, 3, 3), 480), ((3, 3, 3, 5), 480), ((3, 3, 3, 3, 4), 480), ((3, 3, 5), 384), ((3, 3, 4, 4), 320), ((3, 3, 4, 5), 192), ((3, 3, 6), 160), ((3, 3, 3, 6), 144)]
+overlap-2 rows with a relation of >= 4 arrows: 45120 reach <= 1: 5179
+overlap-2 pair types | rows | reach <= 1
+overlap-2 rows with no (3,3) gap-1 pair: 23096 reach <= 1: 0
+
+real	1m50.546s
+user	1m47.143s
+sys	0m0.320s

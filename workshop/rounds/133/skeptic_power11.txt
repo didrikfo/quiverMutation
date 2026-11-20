@@ -1,0 +1,24 @@
+== n=11 design: 3 units per key class with >= 3 units
+  delta 0.0 SD: rejection rate 0.02 (N=51, classes 17)
+  delta 0.5 SD: rejection rate 0.35 (N=51, classes 17)
+  delta 1.0 SD: rejection rate 0.96 (N=51, classes 17)
+  delta 1.5 SD: rejection rate 1.00 (N=51, classes 17)
+  delta 2.0 SD: rejection rate 1.00 (N=51, classes 17)
+  delta 3.0 SD: rejection rate 1.00 (N=51, classes 17)
+  control LNA-only random shift (truth NO): rejection rate 0.06
+  control regressed feature maxC + noise (truth NO beyond features): rejection rate 0.04
+  confound: response = source nrel (+noise), key not planted: 'key effect' rate 0.34
+  confound: response = source sumrel (+noise), key not planted: 'key effect' rate 0.41
+  confound: response = source minrel (+noise), key not planted: 'key effect' rate 0.06
+== n=11 design: 5 units per key class with >= 3 units
+  delta 0.0 SD: rejection rate 0.04 (N=82, classes 17)
+  delta 0.5 SD: rejection rate 0.66 (N=82, classes 17)
+  delta 1.0 SD: rejection rate 1.00 (N=82, classes 17)
+  delta 1.5 SD: rejection rate 1.00 (N=82, classes 17)
+  delta 2.0 SD: rejection rate 1.00 (N=82, classes 17)
+  delta 3.0 SD: rejection rate 1.00 (N=82, classes 17)
+  control LNA-only random shift (truth NO): rejection rate 0.03
+  control regressed feature maxC + noise (truth NO beyond features): rejection rate 0.04
+  confound: response = source nrel (+noise), key not planted: 'key effect' rate 0.62
+  confound: response = source sumrel (+noise), key not planted: 'key effect' rate 0.84
+  confound: response = source minrel (+noise), key not planted: 'key effect' rate 0.10
