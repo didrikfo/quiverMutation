@@ -1,0 +1,53 @@
+# control
+E-318 parent, vertex 3: gate True, tilting False, d = 2, legal True, key kept True
+  depth-1 library walk from P, refuseNonTilting=False: 8 nodes, reaches the E-318 child: True
+  depth-1 library walk from P, refuseNonTilting=True: 7 nodes, reaches the E-318 child: False
+# lib 11 6
+{"N": 11, "D": 6, "root": "303500030", "side": "root", "snfTail": [1, 2, 4], "lnasOff": 1, "lnasOn": 1, "lost": [], "gained": [], "crossReachedOff": [], "counts": {"admitted": 3825, "d<=1": 3785, "d>=2": 40, "d2 tilt=True legal=True kept=True": 36, "NONVACUOUS": 38, "notTilting": 4, "d2 tilt=False legal=True kept=False": 2, "d2 tilt=False legal=True kept=True": 2}, "refusableKeptSteps": [{"d": 2, "v": 8}, {"d": 2, "v": 8}], "secsOff": 198.2, "secsOn": 198.4}
+{"N": 11, "D": 6, "root": "303305000", "side": "dual", "snfTail": [1, 2, 4], "lnasOff": 1, "lnasOn": 1, "lost": [], "gained": [], "crossReachedOff": [], "counts": {"admitted": 4902, "d<=1": 4899, "d>=2": 3, "notTilting": 3, "d2 tilt=False legal=True kept=False": 2, "d2 tilt=False legal=True kept=True": 1, "NONVACUOUS": 1}, "refusableKeptSteps": [{"d": 2, "v": 7}], "secsOff": 247.5, "secsOn": 206.0}
+# nodes 11 6 (post hoc)
+{"N": 11, "D": 6, "root": "303500030", "side": "root", "nodesOff": 1844, "nodesOn": 1842, "lost": 2, "lostByClass": {"CROSS": 2}, "gained": 0, "crossNodesReachedOff": 2, "lostPaths": ["1 3 4 1 3 8", "1 1 4 3 1 8"]}
+{"N": 11, "D": 6, "root": "303305000", "side": "dual", "nodesOff": 2437, "nodesOn": 2436, "lost": 1, "lostByClass": {"CROSS": 1}, "gained": 0, "crossNodesReachedOff": 1, "lostPaths": ["11 6 11 7 7 7"]}
+# lib 9 5
+{"N": 9, "D": 5, "root": "3505000", "side": "root", "snfTail": [1, 1, 2], "lnasOff": 4, "lnasOn": 4, "lost": [], "gained": [], "crossReachedOff": [], "counts": {"admitted": 1106, "d<=1": 1106}, "refusableKeptSteps": [], "secsOff": 16.4, "secsOn": 15.2}
+{"N": 9, "D": 5, "root": "3505000", "side": "rdual", "snfTail": [1, 1, 2], "lnasOff": 7, "lnasOn": 7, "lost": [], "gained": [], "crossReachedOff": [], "counts": {"admitted": 1142, "d<=1": 1142}, "refusableKeptSteps": [], "secsOff": 17.1, "secsOn": 17.2}
+{"N": 9, "D": 5, "root": "5050030", "side": "root", "snfTail": [1, 1, 2], "lnasOff": 7, "lnasOn": 7, "lost": [], "gained": [], "crossReachedOff": [], "counts": {"admitted": 1142, "d<=1": 1142}, "refusableKeptSteps": [], "secsOff": 18.0, "secsOn": 17.0}
+{"N": 9, "D": 5, "root": "5050030", "side": "rdual", "snfTail": [1, 1, 2], "lnasOff": 4, "lnasOn": 4, "lost": [], "gained": [], "crossReachedOff": [], "counts": {"admitted": 1106, "d<=1": 1106}, "refusableKeptSteps": [], "secsOff": 15.9, "secsOn": 16.6}
+{"N": 9, "D": 5, "root": "3345000", "side": "root", "snfTail": [1, 1, 2], "lnasOff": 3, "lnasOn": 3, "lost": [], "gained": [], "crossReachedOff": [], "counts": {"admitted": 588, "d<=1": 588}, "refusableKeptSteps": [], "secsOff": 10.2, "secsOn": 9.3}
+{"N": 9, "D": 5, "root": "3345000", "side": "rdual", "snfTail": [1, 1, 2], "lnasOff": 7, "lnasOn": 7, "lost": [], "gained": [], "crossReachedOff": [], "counts": {"admitted": 643, "d<=1": 643}, "refusableKeptSteps": [], "secsOff": 11.9, "secsOn": 10.5}
+{"N": 9, "D": 5, "root": "3455000", "side": "root", "snfTail": [1, 1, 2], "lnasOff": 4, "lnasOn": 4, "lost": [], "gained": [], "crossReachedOff": [], "counts": {"admitted": 806, "d<=1": 806}, "refusableKeptSteps": [], "secsOff": 13.5, "secsOn": 12.1}
+{"N": 9, "D": 5, "root": "3455000", "side": "rdual", "snfTail": [1, 1, 2], "lnasOff": 8, "lnasOn": 8, "lost": [], "gained": [], "crossReachedOff": [], "counts": {"admitted": 878, "d<=1": 878}, "refusableKeptSteps": [], "secsOff": 15.8, "secsOn": 14.6}
+{"N": 9, "D": 5, "root": "4550400", "side": "root", "snfTail": [1, 1, 2], "lnasOff": 6, "lnasOn": 6, "lost": [], "gained": [], "crossReachedOff": [], "counts": {"admitted": 1014, "d<=1": 1014}, "refusableKeptSteps": [], "secsOff": 17.7, "secsOn": 16.7}
+{"N": 9, "D": 5, "root": "4550400", "side": "rdual", "snfTail": [1, 1, 2], "lnasOff": 6, "lnasOn": 6, "lost": [], "gained": [], "crossReachedOff": [], "counts": {"admitted": 1014, "d<=1": 1014}, "refusableKeptSteps": [], "secsOff": 18.2, "secsOn": 18.9}
+{"N": 9, "D": 5, "root": "5040330", "side": "root", "snfTail": [1, 1, 2], "lnasOff": 7, "lnasOn": 7, "lost": [], "gained": [], "crossReachedOff": [], "counts": {"admitted": 643, "d<=1": 643}, "refusableKeptSteps": [], "secsOff": 24.7, "secsOn": 21.7}
+{"N": 9, "D": 5, "root": "5040330", "side": "rdual", "snfTail": [1, 1, 2], "lnasOff": 3, "lnasOn": 3, "lost": [], "gained": [], "crossReachedOff": [], "counts": {"admitted": 588, "d<=1": 588}, "refusableKeptSteps": [], "secsOff": 12.9, "secsOn": 12.7}
+{"N": 9, "D": 5, "root": "5504030", "side": "root", "snfTail": [1, 1, 2], "lnasOff": 8, "lnasOn": 8, "lost": [], "gained": [], "crossReachedOff": [], "counts": {"admitted": 878, "d<=1": 878}, "refusableKeptSteps": [], "secsOff": 21.8, "secsOn": 16.9}
+{"N": 9, "D": 5, "root": "5504030", "side": "rdual", "snfTail": [1, 1, 2], "lnasOff": 4, "lnasOn": 4, "lost": [], "gained": [], "crossReachedOff": [], "counts": {"admitted": 806, "d<=1": 806}, "refusableKeptSteps": [], "secsOff": 18.8, "secsOn": 17.1}
+{"N": 9, "D": 5, "root": "4444400", "side": "root", "snfTail": [1, 1, 2], "lnasOff": 5, "lnasOn": 5, "lost": [], "gained": [], "crossReachedOff": [], "counts": {"admitted": 625, "d<=1": 625}, "refusableKeptSteps": [], "secsOff": 12.9, "secsOn": 14.2}
+{"N": 9, "D": 5, "root": "4444400", "side": "rdual", "snfTail": [1, 1, 2], "lnasOff": 5, "lnasOn": 5, "lost": [], "gained": [], "crossReachedOff": [], "counts": {"admitted": 625, "d<=1": 625}, "refusableKeptSteps": [], "secsOff": 13.3, "secsOn": 12.4}
+{"N": 9, "D": 5, "root": "3033030", "side": "root", "snfTail": [1, 1, 4], "lnasOff": 1, "lnasOn": 1, "lost": [], "gained": [], "crossReachedOff": [], "counts": {"admitted": 460, "d<=1": 460}, "refusableKeptSteps": [], "secsOff": 9.7, "secsOn": 10.0}
+{"N": 9, "D": 5, "root": "3033030", "side": "rdual", "snfTail": [1, 1, 4], "lnasOff": 1, "lnasOn": 1, "lost": [], "gained": [], "crossReachedOff": [], "counts": {"admitted": 460, "d<=1": 460}, "refusableKeptSteps": [], "secsOff": 10.0, "secsOn": 9.9}
+# paths
+E-233        ends same LNA (3060000)     steps 12 | d>=2 1 | non-vacuous 1 | refused 1 (STEP R8 d2) | refused d<=1 0
+E-233 X~P    ends same LNA (3060000)     steps 11 | d>=2 1 | non-vacuous 1 | refused 1 (STEP R8 d2) | refused d<=1 0
+E-234 1932   ends same LNA (3060000)     steps 14 | d>=2 1 | non-vacuous 1 | refused 1 (STEP R8 d2) | refused d<=1 0
+E-234 1970   ends same LNA (3060000)     steps 14 | d>=2 1 | non-vacuous 1 | refused 1 (STEP R8 d2) | refused d<=1 0
+E-234 2003   ends same LNA (3060000)     steps 14 | d>=2 1 | non-vacuous 1 | refused 1 (STEP R8 d2) | refused d<=1 0
+E-234 4551   ends same LNA (3060000)     steps 14 | d>=2 2 | non-vacuous 2 | refused 1 (STEP R8 d2) | refused d<=1 0
+E-234 4722   ends same LNA (3060000)     steps 13 | d>=2 1 | non-vacuous 1 | refused 1 (STEP R1 d2) | refused d<=1 0
+E-239 2026   ends same LNA (3304000)     steps 12 | d>=2 1 | non-vacuous 1 | refused 1 (STEP R7 d2) | refused d<=1 0
+E-244 4606   ends same LNA (3304000)     steps 15 | d>=2 1 | non-vacuous 1 | refused 1 (STEP R7 d2) | refused d<=1 0
+E-244 8063   ends same LNA (3304000)     steps 13 | d>=2 1 | non-vacuous 1 | refused 1 (STEP R9 d2) | refused d<=1 0
+E-244 8170   ends same LNA (3304000)     steps 14 | d>=2 1 | non-vacuous 1 | refused 1 (STEP R7 d3) | refused d<=1 0
+E-244 8196   ends same LNA (3304000)     steps 14 | d>=2 1 | non-vacuous 1 | refused 1 (STEP R7 d3) | refused d<=1 0
+E-244 11123  ends same LNA (3304000)     steps 13 | d>=2 1 | non-vacuous 1 | refused 1 (STEP R2 d2) | refused d<=1 0
+E-254        ends same LNA (2400230)     steps 18 | d>=2 1 | non-vacuous 1 | refused 1 (STEP F3 d2) | refused d<=1 0
+E-234 1275   ends same LNA (3060000)     steps 14 | d>=2 1 | non-vacuous 1 | refused 1 (STEP R8 d2) | refused d<=1 0
+E-234 1433   ends same LNA (3060000)     steps 14 | d>=2 1 | non-vacuous 1 | refused 1 (STEP R8 d2) | refused d<=1 0
+E-234 1746   ends same LNA (3060000)     steps 13 | d>=2 1 | non-vacuous 1 | refused 1 (STEP R8 d2) | refused d<=1 0
+E-234 1818   ends same LNA (3060000)     steps 13 | d>=2 1 | non-vacuous 1 | refused 1 (STEP R8 d2) | refused d<=1 0
+E-234 1915   ends same LNA (3060000)     steps 13 | d>=2 1 | non-vacuous 1 | refused 1 (STEP R9 d2) | refused d<=1 0
+E-255 8427   ends E-255: no own join path steps  7 | d>=2 1 | non-vacuous 1 | refused 1 (STEP R7 d2) | refused d<=1 0
+E-318 walk (control) F3:d1 R8:d1 F3:d1 F3:d2/REFUSED F6:d1
+E-332 walk           F6:d1 F11:d0 F7:d1 F11:d1 F7:d1 F7:d2/REFUSED F3:d1 F3:d1 F4:d1 F7:d0
+TOTAL {'steps': 280, 'd<=1': 257, 'x': 0, 'd>=2': 23, 'd>=2 nonvacuous': 0, 'nonvacuous': 23, 'nonvacuous tilting=False': 22, 'refused d=2 kept=True': 20, 'nonvacuous tilting=True': 1, 'refused d=3 kept=True': 2} 3s

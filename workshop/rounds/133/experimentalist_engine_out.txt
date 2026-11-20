@@ -1,2 +1,10 @@
 steps 4 margin 1 cap 560 interior
 ((8, 4), (10, 3), (11, 3)) interior L 21 base 2 reached 13 min 0 lowered 4 best 0000000030020000000 [-13, 10, -13] secs 286.4
+((5, 2), (6, 4), (8, 4), (10, 3)) interior L 22 base 2 reached 14 min 2 lowered 0 best 00000204040300000000 [7] secs 502.9
+((5, 2), (8, 4), (10, 3), (12, 3)) CAP 560 s: undecided (not a verdict)
+((5, 2), (8, 4), (10, 3), (13, 5)) CAP 560 s: undecided (not a verdict)
+
+real	9m21.468s
+user	14m11.209s
+sys	0m1.106s
+steps 4 margin 1 cap 560 interior
