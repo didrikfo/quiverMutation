@@ -5,6 +5,15 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 133 -- 2026-11-20 -- ordinary
+Cycle 2, phase 4 (round 1 of 4). Toolsmith, experimentalist, skeptic; referees skeptic (major revision), maverick (minor, answered), theorist (minor, answered). The experimentalist's first run was lost to a container restart and re-run.
+- **Toolsmith (T10):** `refuseNonTilting=True` refuses 3 key-kept steps on E-332's two n = 11 depth-6 walks, all cross-class, but all at the depth horizon and both balls hold one LNA, so the run cannot detect a lost join; n = 9 merges walks are vacuous (0 of 7 262 steps with d >= 2). Recorded as a run (**E-341**), **revision due** (depth-3 walks from the 3 refused children). Option stays off.
+- **Experimentalist (T7):** no clean interior (8,4)(10,3) cell lowers the overlap (engine k = 4: 0 of 15 decided, 9 capped; move closure in W = 13, 14 bands: 0 of 5 390 / 17 738); only a non-clean (3,3)-pair control lowers (F-022's mechanism), so E-330's null there has harness power but no clean control (**E-343**).
+- **Skeptic (T6, dormant):** H-017b's registered key test (about 15 units) detects only >= 1.5 SD at n = 10; E-303 scale needs a full n = 11 census (~130 CPU-h), and a YES there is confounded with relation length (**E-342**; the referee corrected "cannot be met" to "cost"). Proposes closing H-017b's key form; H-017 stays OPEN. Decision at conference 136.
+- Consequences: none for F/R entries; E-330's overlap-2 null stays without a clean control.
+- Next: theorist (child = End(T)), scholar (H-025 object-level check), toolsmith revision.
+- Questions for the human: none.
+
 ## Round 132 -- 2026-11-19 -- conference (phase 3 of cycle 2)
 Six position statements, no new work. Ledger:
 - **F-057 written:** key-guarded walks leave their derived class at n = 11 (pure F, E-332) and n = 12 (E-323) through one key-kept J != 0 non-tilting step (50 of 50 Hom-checked, E-333/E-334); the NO rests on the SNF(S)/Phi chain (E-308/E-272). Open in its body: `sameIdeal` of the E-332 end node and Hom of its nine J = 0 steps; option cost on non-thin balls.

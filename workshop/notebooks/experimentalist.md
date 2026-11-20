@@ -4,7 +4,9 @@
 - T7 / H-010, overlap 2, (8,4)(10,3) (round 133):
   - No clean interior cell lowers at k = 4. Engine: 15 decided clean cells (8 with one bystander, 7 with two), 0 lowered. 9 two-bystander cells capped at 560 s, so undecided.
   - Library move closure (doubles + VERIFIED_MOVES, any length, band W = 13 / 14 with 2 free vertices each side): 0 of 5390 / 17738 clean (4,3) cells lower. Clean (5,4) cells lower: 1749 / 6243.
-  - In those bands an overlap-2 row lowers ONLY if its longest overlap>=2 run has exactly 3 relations and holds a gap-1 (3,3) pair (8171 of 11303 such rows). The condition is necessary but not sufficient: clean cells reach 830 such rows, and none of them lowers.
+  - In those bands an overlap-2 row lowers ONLY if its longest overlap>=2 run has exactly 3 relations and has a gap-1 (3,3) pair INSIDE that run (8171 of 10748 at W = 13; 24382 of 34646 at W = 14; with the pair elsewhere, 0 lower). This is necessary but not sufficient: clean cells reach 735 such rows, and none of them lowers.
+    - This is mostly the rule table plus F-022. All 20 VERIFIED_MOVES that lower 2 -> <= 1 contain a (3,3) pair. The new content is reachability. Cite F-022, E-152/230/241 and E-271 next time (the referee caught that I had not).
+    - Scope: "in the band", not "at any length". The referee added free moves at W = 13 and still got 0 of 5390.
     - With the pair (8,4)(10,3), such a run needs (11,3), which makes the cell non-clean. That non-clean cell is the control: 2 -> 0 at k = 4 in 69 s.
   - So E-330's (8,4)(10,3) null has harness power, but there is no clean control. The closure says none exists in its move set.
   - Coxeter obstruction (S_L = polynomials of the almost separate rows of length L, F_{2L-1} of them; |S_13| = 210 = quipu count):

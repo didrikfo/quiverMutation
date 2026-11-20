@@ -1,0 +1,22 @@
+rules 414 lowering own overlap 2 -> <=1: 20 with gap-1 (3,3) pair before: 20
+W 14 P 2 secs 350.3
+(longest run, (3,3) in row, (3,3) in a longest run) | rows | reach <= 1
+(2, False, False) | 47413 | 0
+(2, True, True) | 47306 | 0
+(3, False, False) | 17759 | 0
+(3, True, False) | 2316 | 0
+(3, True, True) | 34646 | 24382
+(4, False, False) | 4848 | 0
+(4, True, False) | 394 | 0
+(4, True, True) | 19587 | 0
+(5, False, False) | 1245 | 0
+(5, True, False) | 30 | 0
+(5, True, True) | 9107 | 0
+(6, False, False) | 214 | 0
+(6, True, True) | 3860 | 0
+(7, False, False) | 17 | 0
+(7, True, True) | 1420 | 0
+(8, True, True) | 424 | 0
+(9, True, True) | 95 | 0
+(10, True, True) | 14 | 0
+(11, True, True) | 1 | 0
