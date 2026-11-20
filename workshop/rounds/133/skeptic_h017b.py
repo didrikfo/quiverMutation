@@ -7,7 +7,8 @@ usage (from the repository root):
   .venv/bin/python workshop/rounds/133/skeptic_h017b.py collect N NAME  -> depth-5 member census of one LNA (E-283 walk;
                                                                           writes skeptic_defect_<N>_<NAME>.json here)
 Unit = the duality orbit {A, A^op}: reachedQuipuAlgebras walks both orientations, so A and A^op give the same members
-(n = 9: the 9 LNAs of E-283 are 4 twin pairs + 1, i.e. 5 independent units)."""
+(n = 9: the 9 LNAs of E-283 are 3 twin pairs + 3 self-dual singletons, i.e. 6 independent units).
+Note: the power runs add a Poisson(80) members covariate; the null and confound runs do not (referee item 4, r133)."""
 import sys, os, json, random, collections, statistics
 import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -121,7 +122,7 @@ def n9():
     big = [m for (k, c, m) in sig if k[2] == 0]; small = [m for (k, c, m) in sig if k[2] != 0]
     sd = statistics.stdev(big)
     print("class 1 unit means", ["%.3f" % x for x in big], "SD %.3f; class 2 (3033030) mean %.3f -> offset %.2f SD" % (sd, small[0], (small[0] - statistics.mean(big)) / sd))
-    print("(SD of the class-1 unit means; the offset is in those units)")
+    print("(SD of the class-1 unit means; the offset is in those units; SE of one unit vs the mean of %d = sqrt(1 + 1/%d) = %.2f SD)" % (len(big), len(big), (1 + 1 / len(big)) ** .5))
     for lna, v in rows.items():   # E-303's shape effect at unit level: share of defect-1 and defect-5 members
         h = dict(v[3]); print(" shape", lna, v[0][:4], "frac d=1 %.3f  d=5 %.3f" % (h.get(1, 0) / v[1], h.get(5, 0) / v[1]))
 

@@ -1,1 +1,9 @@
 steps 4 margin 1 cap 540 interior
+((5, 2), (6, 4), (8, 4), (10, 3)) interior L 22 base 2 reached 14 min 2 lowered 0 best 00000204040300000000 [7] secs 453.7
+((5, 3), (6, 4), (8, 4), (10, 3)) interior L 22 base 2 reached 12 min 2 lowered 0 best 00000340403000000000 [7, 7, 7, 7] secs 519.6
+((5, 2), (8, 4), (10, 3), (12, 3)) CAP 540 s: undecided (not a verdict)
+((5, 2), (8, 4), (10, 3), (13, 5)) CAP 540 s: undecided (not a verdict)
+
+real	9m1.293s
+user	18m25.718s
+sys	0m0.604s

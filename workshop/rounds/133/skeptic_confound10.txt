@@ -1,0 +1,10 @@
+n=10 population SD over units: {'nrel': 0.932, 'sumrel': 3.09, 'minrel': 0.944}
+  per 3 N=15 sumrel | noise 0.3 (R2 0.92): 0.09 | noise 1.0 (R2 0.50): 0.05 | noise 2.0 (R2 0.20): 0.03 | noise 4.0 (R2 0.06): 0.05
+  per 3 N=15 nrel   | noise 0.3 (R2 0.92): 0.10 | noise 1.0 (R2 0.50): 0.04 | noise 2.0 (R2 0.20): 0.01 | noise 4.0 (R2 0.06): 0.03
+  per 3 N=15 minrel | noise 0.3 (R2 0.92): 0.02 | noise 1.0 (R2 0.50): 0.04 | noise 2.0 (R2 0.20): 0.02 | noise 4.0 (R2 0.06): 0.02
+  per 5 N=23 sumrel | noise 0.3 (R2 0.92): 0.25 | noise 1.0 (R2 0.50): 0.04 | noise 2.0 (R2 0.20): 0.06 | noise 4.0 (R2 0.06): 0.03
+  per 5 N=23 nrel   | noise 0.3 (R2 0.92): 0.17 | noise 1.0 (R2 0.50): 0.06 | noise 2.0 (R2 0.20): 0.06 | noise 4.0 (R2 0.06): 0.06
+  per 5 N=23 minrel | noise 0.3 (R2 0.92): 0.04 | noise 1.0 (R2 0.50): 0.04 | noise 2.0 (R2 0.20): 0.01 | noise 4.0 (R2 0.06): 0.03
+  census N=140 sumrel | noise 0.3 (R2 0.92): 1.00 | noise 1.0 (R2 0.50): 0.85 | noise 2.0 (R2 0.20): 0.30 | noise 4.0 (R2 0.06): 0.10
+  census N=140 nrel   | noise 0.3 (R2 0.92): 1.00 | noise 1.0 (R2 0.50): 0.44 | noise 2.0 (R2 0.20): 0.12 | noise 4.0 (R2 0.06): 0.04
+  census N=140 minrel | noise 0.3 (R2 0.92): 0.01 | noise 1.0 (R2 0.50): 0.04 | noise 2.0 (R2 0.20): 0.05 | noise 4.0 (R2 0.06): 0.04

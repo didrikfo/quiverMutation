@@ -4,11 +4,13 @@
 - Proposed: CLOSE T6's H-017b form without a run. Script: rounds/133/skeptic_h017b.py (units / n9 / power / collect).
 - Unit = duality orbit (reachedQuipuAlgebras walks A and A^op, so twins are identical). n=9: 9 LNAs = 6 units.
   n=10: 262 LNAs = 140 units, classes 1,2,3,5,5,58,66. n=11: 2647 = 1361 units, 20 classes (17 with >= 3 units).
-- E-303's key effect per unit = 0.17 SD of the class-1 unit means (SD 0.23 defect units). The shape effect is inside the LNA spread too
-  (4444400 has no defect 1 either; d=5 is one member per unit).
+- n=9 class-2 unit mean offset -0.17 SD, SE 1.1 SD: NOT E-303's effect size (E-303 is shape/MI; a mean statistic is blind to it).
+  The shape effect is inside the LNA spread too (4444400 has no defect 1 either; d=5 is one member per unit).
 - delta* (power >= 0.8, residual-permutation test on [1, maxC, nnzC, members]): n=10 N=15: 2.0 SD; N=23: 1.5 SD; n=11 N=51: 1.0 SD.
-  Retiring the key form needs delta* < 0.17 SD, i.e. about 1800 units > every unit at n <= 11. Unreachable.
-- Confound: source relation-length sum (no key planted) reads as a "key effect" 0.11 (n=10, N=15) to 0.84 (n=11, N=82). A YES is not about the key.
+  Full census (referee, confirmed): n=11 all 1361 units 0.74 at 0.17 SD, 0.87 at 0.20; n=10 all 140 units 0.17. My "unreachable at n<=11"
+  was WRONG (N*delta^2 extrapolation): the bar is cost. n=11 walk 344 s/unit (one unit) -> census about 130 CPU-h.
+- Confound vs R^2 (standardised feature): n=10 N=23 nominal at R^2 <= 0.5 (my 0.27 was noise-0.3 artefact); n=11 census 0.99 at R^2 0.2.
+  So a YES is confounded exactly in the only design with power. eta^2(key|maxC,nnzC) of sumrel 0.22/0.17 (n=10/11).
 - Synthetic NO controls are fine (0.01-0.06). Gaussian noise assumed; the real n=10 spread is unknown.
 - n=10 probes: 30033030, 00334400, 03345000 at depth 5: 432 members, min defect 1/1/2, 90-155 s each. Full n=10 census about 4.7 CPU-h.
 - Bug I made: hash(-1) == hash(-2) merged two n=11 key classes. Never hash key tuples to labels.
@@ -35,6 +37,8 @@
 3. End(T) vs child as algebras at P·F3 / planted wrong child for T5.
 
 ## Habits
+- Quote a confound rate against R^2 of the feature, never at one arbitrary noise level. Run the full-census power before saying "unreachable".
+- A single-unit offset has SE sqrt(1+1/k) of the comparison spread: never call it an effect size.
 - Count INDEPENDENT units before sizing a test (duality twins, reversed walks). Compute the motivating effect in the test's own units.
 - Check whether a "retire" condition is reachable at all at the available n.
 - A label that is a function of the unit is confounded with every unlisted unit feature: run an unplanted-feature control.
