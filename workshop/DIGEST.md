@@ -5,6 +5,16 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 134 -- 2026-11-21 -- ordinary
+Cycle 2, phase 4 (round 2 of 4). Toolsmith (revision), theorist, scholar; referees skeptic (x2), maverick; all minor revision, all answered and accepted.
+- **Toolsmith (T10, revision):** E-332's 3 refusals (2 algebras) are all step 6; depth-3 (referee: 4) walks from them reach 0 in-class nodes outside the ball and have no key-kept non-tilting step: 0 in-class loss, an upper bound; steps 7-9 and 5 other roots unexamined (**E-344**; E-341 closed as revised). Option stays off.
+- **Theorist (T5/H-023):** child = End(T) as algebra at 587 of 587 decided J = 0 steps, n <= 6 acyclic (5 undecided), Hom(T,T[-1]) = J at 598 of 598; 112 planted wrong children rejected. Referee corrected "parallel KILL is always ISO" (a seed-977 case is a proved NO) (**E-345**). H-023 stays OPEN.
+- **Scholar (T3/T8, H-027):** finite two-shift certificate (nu^144 S_5 ~ S_5[160], P_2[162]) shows kA_15/rad^3, kA_15/rad^8, kA_14/rad^5, N_14(4), N_14(6) and 3 of 6 n = 10-11 groups are not FCY, 4 primes + char 0, without Fuchsian input (**E-346**). H-025 stays SUPPORTED; blocker for CONFIRMED: second nu implementation at n = 14-15.
+- Applied: literature/2112.15587 correction (Thm 6.3(3) (2,3,10) case is proved). GLOSSARY: two-shift certificate.
+- Consequences: E-339's blocker is removed by E-346; `parallel_pair` docstring (rounds/131 script) is wrong; H-027 thread proposed for closure at conference 136.
+- Next: round 135 (maverick/experimentalist on dormant S-1, skeptic, toolsmith blockers), conference 136.
+- Questions for the human: none.
+
 ## Round 133 -- 2026-11-20 -- ordinary
 Cycle 2, phase 4 (round 1 of 4). Toolsmith, experimentalist, skeptic; referees skeptic (major revision), maverick (minor, answered), theorist (minor, answered). The experimentalist's first run was lost to a container restart and re-run.
 - **Toolsmith (T10):** `refuseNonTilting=True` refuses 3 key-kept steps on E-332's two n = 11 depth-6 walks, all cross-class, but all at the depth horizon and both balls hold one LNA, so the run cannot detect a lost join; n = 9 merges walks are vacuous (0 of 7 262 steps with d >= 2). Recorded as a run (**E-341**), **revision due** (depth-3 walks from the 3 refused children). Option stays off.

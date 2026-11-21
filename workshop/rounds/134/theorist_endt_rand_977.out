@@ -1,3 +1,16 @@
   ... 2 steps, 0 s
   ... 5 steps, 1 s
   ... 6 steps, 1 s
+  slow step 271 s: n=6 k=5 arrows=[(4, 5, 0), (3, 5, 0), (0, 2, 0), (0, 2, 1), (1, 4, 0), (3, 5, 1), (1, 4, 1), (4, 5, 1), (3, 4, 0)] rels=[] -> {'J': 0, 'Hm1': 0, 'Hp1': 0, 'dimE': 31, 'narr': 12, 'nrel': 3, 'dir': 'UNDECIDED', 'opp': 'NO:cartan', 'KILL': 'gen UNDECIDED', 'SCALE': 'gen UNDECIDED'}
+  slow step 7 s: n=6 k=5 arrows=[(3, 4, 0), (2, 5, 0), (3, 5, 0), (4, 5, 0), (4, 5, 1), (2, 4, 0), (1, 2, 0)] rels=[{((1, 2, 0), (2, 4, 0)): 1}] -> {'J': 0, 'Hm1': 0, 'Hp1': 0, 'dimE': 28, 'narr': 9, 'nrel': 4, 'dir': 'ISO', 'opp': 'NO:cartan', 'KILL': 'gen NO:groebner', 'SCALE': 'gen ISO'}
+  slow step 184 s: n=6 k=5 arrows=[(3, 5, 0), (4, 5, 0), (3, 4, 0), (1, 2, 0), (4, 5, 1), (3, 4, 1), (1, 2, 1)] rels=[{((3, 4, 0), (4, 5, 0)): 1, ((3, 4, 1), (4, 5, 1)): -1}] -> {'J': 0, 'Hm1': 0, 'Hp1': 0, 'dimE': 20, 'narr': 8, 'nrel': 2, 'dir': 'UNDECIDED', 'opp': 'NO:cartan', 'KILL': 'gen NO:groebner', 'SCALE': 'gen UNDECIDED'}
+time 464 s
+   18 ('J=0', 'tilt', 'dir ISO', 'opp NO:cartan', 'KILL None', 'SCALE None')
+   3 ('J=0', 'tilt', 'dir ISO', 'opp NO:cartan', 'KILL gen ISO', 'SCALE gen ISO')
+   6 ('J=0', 'tilt', 'dir ISO', 'opp NO:cartan', 'KILL gen NO:groebner', 'SCALE gen ISO')
+   4 ('J=0', 'tilt', 'dir ISO', 'opp NO:cartan', 'KILL par ISO', 'SCALE par ISO')
+   1 ('J=0', 'tilt', 'dir ISO', 'opp NO:cartan', 'KILL par NO:groebner', 'SCALE par ISO')
+   1 ('J=0', 'tilt', 'dir UNDECIDED', 'opp NO:cartan', 'KILL gen NO:groebner', 'SCALE gen UNDECIDED')
+   1 ('J=0', 'tilt', 'dir UNDECIDED', 'opp NO:cartan', 'KILL gen UNDECIDED', 'SCALE gen UNDECIDED')
+   1 ('J>0', 'H(2,0)', 'dir ISO', 'opp NO:cartan', 'KILL None', 'SCALE None')
+   5 ('skipped', None)

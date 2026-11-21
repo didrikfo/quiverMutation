@@ -3,14 +3,18 @@
 ## What I believe now
 - H-023 at algebra level (round 134, `rounds/134/theorist_endt.py`). On n <= 6 acyclic parents, at every decided
   gate-admitted J = 0 step, the library child is isomorphic to End(T), label-preserving and over the closure:
-  555 / 555 (342 LNA + duals n = 4-6, 213 random); 3 undecided at a 90 s Groebner cap; Hom(T,T[+-1]) = 0 at all of them.
+  587 / 587 (342 LNA + duals n = 4-6, 245 random incl. referee seed 977); 5 undecided at a 90 s Groebner cap;
+  Hom(T,T[+-1]) = 0 at all of them, and Hom(T,T[-1]) = J_lib at all 598 steps with an acyclic child (audit, after review).
   So H-023's conclusion holds there as a computation, without Oppermann 1.1 / G2.
   - The method is the toolsmith's E-174 (Groebner + Rabinowitsch); only the code and the sample are new. LESSON: my
     notebook said "E-167, 13 edges" but E-174 had already done 370 + 35. Re-grep my own "weakest points" each round.
   - A wrong child comes in five types: dimension; labels or orientation; quiver (rad/rad^2); same Cartan with a wrong
-    ideal (KILL, the only type that needs the multiplication table: 104 / 104 caught); scalar (SCALE, always ISO, the
-    torus absorbs it). A real modulus (E-186 cross-ratio) has not been seen at n <= 6.
-  - KILL with the two terms differing in one parallel letter is ISO by a change of arrows: it is not a wrong child.
+    ideal (KILL, the only type that needs the multiplication table: 112 NO); scalar (SCALE ISO 168 / 169 decided; the
+    one NO:cartan is a dimension change, type 1). A real modulus (E-186 cross-ratio) has not been seen at n <= 6.
+  - WRONG in round 134, caught by the skeptic: "parallel KILL is a change of arrows, so ISO". a' = a - l b rewrites EVERY
+    relation containing a. True only if the kept term's letter a occurs in no other relation term (25 / 32 par ISO);
+    seed 977 n = 4 k = 1 has a par KILL that is NO (rank of the 2->4 relation tensors). LESSON: a change of variables
+    acts on the whole ideal; check the other generators before calling a planted child "not wrong".
   - No End(T) comparison can see J (E-181 theorem): the 5 J != 0 steps are ISO too. Always report Hom(T,T[-1]) next to
     the comparison.
   - A normal-form emitter is not needed: iso is decided directly. A presentation normal form would have to quotient

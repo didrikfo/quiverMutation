@@ -705,3 +705,5 @@ the folded offsets are equal-size singleton orbits. E-061.
 **refuseNonTilting** — opt-in flag (default off) of `mutationSearchDepthFirst` / `linesReachedFrom`: also refuses a gate-admitted, key-kept step whose mutation is not tilting at the vertex (J != 0, `isTiltingAtVertex` false). Refuses all 50 crossings of E-323 and the 19 audited F-010 J != 0 steps of E-316; prunes no recorded F-041 merge at n = 8, 9.
 
 **X_a** — SNF(aC + C^T) = coker(Phi - a) of the Cartan matrix C with Coxeter matrix Phi; a Z-congruence invariant (X_1 = SNF(S)). Gives no partition finer than SNF(S) on LNAs n = 8..12 except X_2 at 5 groups (E-324).
+
+**two-shift certificate** — finite exact proof that a finite-dimensional algebra is not fractionally Calabi-Yau: at one power m of the Nakayama functor nu, two objects X, Y return as nu^m X ~ X[c], nu^m Y ~ Y[c'] with c != c'; then nu^a ~ [b] would force c a = c' a (E-346).

@@ -55,7 +55,7 @@ At key level, deleting an end vertex from a long free stretch next to a lone 3 s
 ---
 
 ## H-025 — Phi periodic does not imply fractionally Calabi-Yau for LNAs
-*2026-10-30* · **SUPPORTED** *(E-339: proof-level instance at n = 15 via Fuchsian R(2,3,10), referee-checked, unpublished argument; E-245, E-246, E-253: rank growth of nu^k P in several groups, verdict constant on every group swept at n = 10, 11, 12; not stated in the literature, E-251; workshop cycle 001 planning)*
+*2026-10-30* · **SUPPORTED** *(E-346: finite exact two-shift certificate at n = 14-15 and three n = 10-11 groups, one nu implementation; E-339: proof-level instance at n = 15 via Fuchsian R(2,3,10), referee-checked, unpublished argument; E-245, E-246, E-253: rank growth of nu^k P in several groups, verdict constant on every group swept at n = 10, 11, 12; not stated in the literature, E-251; workshop cycle 001 planning)*
 
 For a Nakayama algebra of finite global dimension, a periodic Coxeter transformation Phi does not force Phi^m = shift. **Falsifiable:** one swept group whose nu^k P stays bounded for every k although Phi is periodic gives the counter-direction. **Would settle it:** a published statement of either direction (phase 1), or a proof that the rank growth is exact for a whole family.
 
@@ -69,7 +69,7 @@ If A and B are derived equivalent, there is P in GL_n(Z) with P^T C_B P = C_A (o
 ---
 
 ## H-023 — Every gate-admitted J = 0 mutation step is a derived equivalence
-*2026-10-30* · **OPEN** *(workshop cycle 001 planning; the premise of T5 and under H-015; E-329: loop-at-i admission vacuous, 12 136 cyclic-parent steps pass; E-284: loop case cancels in ten hand-sized models, computation only; M1 proved E-290, M2 proved E-294)*
+*2026-10-30* · **OPEN** *(workshop cycle 001 planning; the premise of T5 and under H-015; E-345: child = End(T) at 587 of 587 decided J = 0 steps, n <= 6 acyclic; E-329: loop-at-i admission vacuous, 12 136 cyclic-parent steps pass; E-284: loop case cancels in ten hand-sized models, computation only; M1 proved E-290, M2 proved E-294)*
 
 If the gate admits a step with J = 0 (acyclic D(i), no loops of degree >= 1 at i, omega-reduced), the mutated algebra is derived equivalent to its parent. Proved so far: cancellation (E-235), Lemma A directly (E-240), step-7 kernel = Oppermann's for acyclic D(i) (E-199), F/R convention (E-252, E-258); the library refuses cyclic D(i) (E-211, E-222); a loop of degree >= 1 at i forces i onto a cycle, so library steps never meet one (E-279). **Falsifiable:** a gate-admitted J = 0 step whose child has a different derived invariant (Cartan form, Phi, Hochschild data). **Open joints:** E-235 step 4 against Lemma A's hypotheses after omega-reduction (E-256), loops of degree >= 1 at i (Oppermann's theorem allows them, needs a unitriangular cancellation, E-273). Join searches cannot test it (E-250, E-255, E-268). If it holds, H-015 reduces to J != 0 steps.
 
