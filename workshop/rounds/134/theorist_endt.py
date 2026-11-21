@@ -196,7 +196,7 @@ def reverse(nodes, arrows, rels):
 class Timeout(Exception): pass
 def _alarm(sig, frm): raise Timeout()
 
-def iso(E, nodes, arrows, rels, tmax=60):
+def iso(E, nodes, arrows, rels, tmax=90):
     """label-preserving: does there exist an algebra iso kQ_c/(rels) -> E?  returns 'ISO', 'NO:<reason>', 'UNDECIDED'."""
     lab = E.lab; ix = E.idx
     if sorted(lab) != sorted(nodes): return 'NO:vertices'
@@ -261,20 +261,49 @@ def iso(E, nodes, arrows, rels, tmax=60):
         G = sp.groebner(eqs, *gens, order='grevlex', domain='QQ')
         signal.alarm(0)
     except Timeout:
-        return 'UNDECIDED'
+        return witness(eqs, gens, t) if WITNESS else 'UNDECIDED'
     return 'NO:groebner' if list(G.exprs) == [1] else 'ISO'
 
+WITNESS = False
+def witness(eqs, gens, t, tries=12, tmax=25):
+    """sound ISO certificate only: substitute random integers for some unknowns (not t); a specialised system with a
+    common zero over the closure (GB != [1]) gives a zero of the full system.  [1] after specialisation proves nothing."""
+    rng = random.Random(7); xs = [g for g in gens if g != t]
+    for n in range(tries):
+        kk = max(1, int(len(xs) * (0.05 + 0.05 * n)))
+        sub = {x: rng.randint(-3, 3) for x in rng.sample(xs, kk)}
+        e2 = [sp.expand(e.subs(sub)) for e in eqs]; e2 = [e for e in e2 if e != 0]
+        if any(e.is_number for e in e2): continue
+        g2 = sorted(set().union(*[e.free_symbols for e in e2]), key=str)
+        signal.alarm(tmax)
+        try:
+            G = sp.groebner(e2, *g2, order='grevlex', domain='QQ'); signal.alarm(0)
+        except Timeout:
+            continue
+        if list(G.exprs) != [1]: return 'ISO(witness)'
+    return 'UNDECIDED'
+
 # ---------------- planted wrong children ----------------
+def parallel_pair(p, q):
+    """p, q differ in exactly one letter and those letters are parallel arrows: then p - l q = u (a - l b) w and the
+    substitution a' = a - l b turns it into a monomial, so KILL gives an ISOMORPHIC algebra (not a wrong child)."""
+    if len(p) != len(q): return False
+    d = [n for n in range(len(p)) if p[n] != q[n]]
+    return len(d) == 1 and p[d[0]][:2] == q[d[0]][:2]
+
 def planted(nodes, arrows, rels, how):
-    """KILL: replace the first binomial p - l q by p (only if the Cartan matrix is unchanged). SCALE: l -> 2 l."""
-    for n, r in enumerate(rels):
+    """KILL: replace a binomial p - l q by p (only if the Cartan matrix is unchanged; binomials that are not a
+    parallel-letter pair are tried first). SCALE: l -> 2 l.  Returns (rels', tag) or None."""
+    order = sorted(range(len(rels)), key=lambda n: len(rels[n]) == 2 and parallel_pair(*sorted(rels[n])))
+    for n in order:
+        r = rels[n]
         if len(r) != 2: continue
         (p, a), (q, b) = sorted(r.items())
         if how == 'KILL': new = {p: 1}
         else: new = {p: a, q: 2 * b}
         R2 = rels[:n] + [new] + rels[n + 1:]
         if how == 'KILL' and alg_cartan(nodes, arrows, R2) != alg_cartan(nodes, arrows, rels): continue
-        return R2
+        return R2, ('par' if parallel_pair(p, q) else 'gen')
     return None
 
 # ---------------- one step ----------------
@@ -294,7 +323,7 @@ def step(A, k, wrong=True):
     if wrong:
         for how in ('KILL', 'SCALE'):
             R2 = planted(nodes, arrows, rels, how)
-            out[how] = None if R2 is None else iso(E, nodes, arrows, R2)
+            out[how] = None if R2 is None else R2[1] + ' ' + iso(E, nodes, arrows, R2[0])
     return out
 
 def summarize(rows):
@@ -360,4 +389,15 @@ if __name__ == '__main__':
     mode = sys.argv[1]
     if mode == 'controls': controls()
     elif mode == 'lna': lna(int(sys.argv[2]))
+    elif mode == 'undecided':     # replay the parents whose 'dir' verdict timed out in the rand runs (from the .out files)
+        import ast, glob, re
+        WITNESS = True
+        for f in sorted(glob.glob('workshop/rounds/134/theorist_endt_rand_13%s.out' % (sys.argv[2] if len(sys.argv) > 2 else '?'))):
+            for line in open(f):
+                if "'dir': 'UNDECIDED'" not in line: continue
+                m = re.search(r'n=(\d+) k=(\d+) arrows=(\[.*?\]) rels=(\[.*?\]) -> ', line)
+                al = TH.Alg(int(m.group(1)), ast.literal_eval(m.group(3)), ast.literal_eval(m.group(4)))
+                pa = TH.toLib(al); k = int(m.group(2)); t1 = time.time()
+                r = step(pa, k, wrong=False)
+                print(f.split('_')[-1], 'k=%d' % k, r, '%.0f s' % (time.time() - t1), flush=True)
     elif mode == 'rand': rand(int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4]))

@@ -1,0 +1,20 @@
+  ... 4 steps, 0 s
+  ... 6 steps, 0 s
+  slow step 256 s: n=5 k=4 arrows=[(1, 4, 0), (2, 3, 0), (0, 3, 0), (1, 4, 1), (3, 4, 0), (3, 4, 1), (2, 3, 1), (0, 2, 0)] rels=[{((0, 2, 0), (2, 3, 1)): 1}] -> {'J': 0, 'Hm1': 0, 'Hp1': 0, 'dimE': 34, 'narr': 11, 'nrel': 5, 'dir': 'UNDECIDED', 'opp': 'NO:cartan', 'KILL': 'gen NO:groebner', 'SCALE': 'gen UNDECIDED'}
+  slow step 23 s: n=5 k=4 arrows=[(3, 4, 0), (1, 3, 0), (0, 1, 0), (2, 3, 0), (3, 4, 1), (2, 4, 0), (0, 1, 1)] rels=[{((0, 1, 0), (1, 3, 0), (3, 4, 1)): 1, ((0, 1, 0), (1, 3, 0), (3, 4, 0)): 1}] -> {'J': 0, 'Hm1': 0, 'Hp1': 0, 'dimE': 29, 'narr': 9, 'nrel': 3, 'dir': 'ISO', 'opp': 'NO:cartan', 'KILL': 'gen NO:groebner', 'SCALE': 'gen ISO'}
+  ... 52 steps, 281 s
+  ... 56 steps, 281 s
+  slow step 19 s: n=5 k=3 arrows=[(2, 3, 0), (1, 2, 0), (1, 2, 1), (0, 3, 0), (3, 4, 0), (2, 4, 0), (3, 4, 1)] rels=[{((1, 2, 1), (2, 3, 0), (3, 4, 1)): 1}] -> {'J': 0, 'Hm1': 0, 'Hp1': 0, 'dimE': 29, 'narr': 9, 'nrel': 3, 'dir': 'ISO', 'opp': 'NO:cartan', 'KILL': 'gen NO:groebner', 'SCALE': 'gen ISO'}
+  slow step 7 s: n=5 k=4 arrows=[(2, 3, 0), (1, 2, 0), (1, 2, 1), (0, 3, 0), (3, 4, 0), (2, 4, 0), (3, 4, 1)] rels=[{((1, 2, 1), (2, 3, 0), (3, 4, 1)): 1}] -> {'J': 0, 'Hm1': 0, 'Hp1': 0, 'dimE': 35, 'narr': 9, 'nrel': 3, 'dir': 'ISO', 'opp': 'NO:cartan', 'KILL': 'gen NO:groebner', 'SCALE': 'gen ISO'}
+  slow step 253 s: n=4 k=3 arrows=[(1, 3, 0), (2, 3, 0), (1, 2, 0), (1, 2, 1), (0, 3, 0), (2, 3, 1)] rels=[] -> {'J': 0, 'Hm1': 0, 'Hp1': 0, 'dimE': 22, 'narr': 8, 'nrel': 2, 'dir': 'UNDECIDED', 'opp': 'NO:cartan', 'KILL': 'gen NO:groebner', 'SCALE': 'gen UNDECIDED'}
+time 561 s
+   37 ('J=0', 'tilt', 'dir ISO', 'opp NO:cartan', 'KILL None', 'SCALE None')
+   3 ('J=0', 'tilt', 'dir ISO', 'opp NO:cartan', 'KILL None', 'SCALE gen ISO')
+   1 ('J=0', 'tilt', 'dir ISO', 'opp NO:cartan', 'KILL None', 'SCALE par ISO')
+   1 ('J=0', 'tilt', 'dir ISO', 'opp NO:cartan', 'KILL gen ISO', 'SCALE gen ISO')
+   14 ('J=0', 'tilt', 'dir ISO', 'opp NO:cartan', 'KILL gen NO:groebner', 'SCALE gen ISO')
+   9 ('J=0', 'tilt', 'dir ISO', 'opp NO:cartan', 'KILL par ISO', 'SCALE par ISO')
+   2 ('J=0', 'tilt', 'dir UNDECIDED', 'opp NO:cartan', 'KILL gen NO:groebner', 'SCALE gen UNDECIDED')
+   1 ('J>0', 'H(1,0)', 'dir ISO', 'opp NO:cartan', 'KILL par ISO', 'SCALE par ISO')
+   1 ('J>0', 'H(2,0)', 'dir ISO', 'opp NO:cartan', 'KILL None', 'SCALE None')
+   12 ('skipped', None)

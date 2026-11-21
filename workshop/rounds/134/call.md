@@ -10,4 +10,6 @@ Step 0.5: round 133 proceedings had no questions; nothing to settle.
 ## Notes
 - Suggested question S-1: not taken. S-1 (idle since 125) is the breadth candidate for round 135 if a slot is free.
 ## Referees
-(filled in at step 3)
+- toolsmith (revision): skeptic (wrote the original review)
+- theorist: skeptic
+- scholar: maverick (independent check of the finite certificate)

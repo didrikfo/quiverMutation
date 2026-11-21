@@ -1,0 +1,6 @@
+abd=acd @4 True {'J': 0, 'Hm1': 0, 'Hp1': 0, 'dimE': 11, 'narr': 5, 'nrel': 3, 'dir': 'ISO', 'opp': 'NO:cartan', 'KILL': 'gen NO:groebner', 'SCALE': 'gen ISO'}
+abd=acd @2 True {'J': 0, 'Hm1': 0, 'Hp1': 0, 'dimE': 13, 'narr': 4, 'nrel': 1, 'dir': 'ISO', 'opp': 'NO:cartan', 'KILL': None, 'SCALE': None}
+E-080 @4 (J!=0) True {'J': 1, 'Hm1': 1, 'Hp1': 0, 'dimE': 11, 'narr': 5, 'nrel': 3, 'dir': 'ISO', 'opp': 'NO:cartan', 'KILL': 'gen NO:groebner', 'SCALE': 'gen ISO'}
+A5/(abc) @2 True {'J': 0, 'Hm1': 0, 'Hp1': 0, 'dimE': 10, 'narr': 4, 'nrel': 2, 'dir': 'ISO', 'opp': 'NO:cartan', 'KILL': None, 'SCALE': None}
+A5/(abc) @3 False {'J': 1, 'Hm1': 1, 'Hp1': 0, 'dimE': 10, 'narr': 4, 'nrel': 2, 'dir': 'ISO', 'opp': 'NO:cartan', 'KILL': None, 'SCALE': None}
+PLANTED child@3 vs End(T@2): NO:cartan
