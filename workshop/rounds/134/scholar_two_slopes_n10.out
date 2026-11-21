@@ -1,3 +1,36 @@
 45050400 n=10 m=84: 2 of 20 simples/projectives return as X[c]; shifts [108]  (12s)
   c = 108: P_3 P_8
 VERDICT: single shift: consistent with FCY (no conclusion)
+45050400 n=10 m=168: 2 of 20 simples/projectives return as X[c]; shifts [216]  (55s)
+  c = 216: P_3 P_8
+VERDICT: single shift: consistent with FCY (no conclusion)
+050404400 n=11 m=24: 2 of 22 simples/projectives return as X[c]; shifts [30]  (1s)
+  c = 30: P_5 P_9
+VERDICT: single shift: consistent with FCY (no conclusion)
+050404400 n=11 m=48: 2 of 22 simples/projectives return as X[c]; shifts [60]  (5s)
+  c = 60: P_5 P_9
+VERDICT: single shift: consistent with FCY (no conclusion)
+040404000 n=11 m=72: 2 of 22 simples/projectives return as X[c]; shifts [80]  (6s)
+  c = 80: P_4 P_8
+VERDICT: single shift: consistent with FCY (no conclusion)
+040404000 n=11 m=144: 2 of 22 simples/projectives return as X[c]; shifts [160]  (26s)
+  c = 160: P_4 P_8
+VERDICT: single shift: consistent with FCY (no conclusion)
+34504030 n=10 m=9: 4 of 20 simples/projectives return as X[c]; shifts [10]  (0s)
+  c = 10: P_2 P_5 P_6 P_9
+VERDICT: single shift: consistent with FCY (no conclusion)
+34504030 n=10 m=18: 4 of 20 simples/projectives return as X[c]; shifts [20]  (0s)
+  c = 20: P_2 P_5 P_6 P_9
+VERDICT: single shift: consistent with FCY (no conclusion)
+50505000 n=10 m=9: 4 of 20 simples/projectives return as X[c]; shifts [10]  (0s)
+  c = 10: P_2 P_4 P_7 P_9
+VERDICT: single shift: consistent with FCY (no conclusion)
+50505000 n=10 m=18: 4 of 20 simples/projectives return as X[c]; shifts [20]  (0s)
+  c = 20: P_2 P_4 P_7 P_9
+VERDICT: single shift: consistent with FCY (no conclusion)
+334504030 n=11 m=21: 6 of 22 simples/projectives return as X[c]; shifts [24]  (1s)
+  c = 24: S_1 P_1 P_3 P_6 P_7 P_10
+VERDICT: single shift: consistent with FCY (no conclusion)
+334504030 n=11 m=42: 6 of 22 simples/projectives return as X[c]; shifts [48]  (2s)
+  c = 48: S_1 P_1 P_3 P_6 P_7 P_10
+VERDICT: single shift: consistent with FCY (no conclusion)
