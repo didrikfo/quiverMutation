@@ -1,22 +1,22 @@
-# At E-332's two n = 11 crossing roots (F-only, depth 6) refuseNonTilting's 3 refusals all sit at step 6, and F-only depth-3 walks from the 3 refused children reach 0 in-class nodes outside the root's default ball: 0 in-class losses at depth 6 + 3 (2 roots, 3 refusals; not a law)
+# At E-332's two n = 11 crossing roots (F-only, depth 6) refuseNonTilting's 3 refusals (2 algebras up to isomorphism) all sit at step 6; F-only walks of depth 3 (and 4, referee) from the refused children reach 0 in-class nodes outside the default ball: the step-6 refusals cost 0 in-class nodes to depth 6 + 3 (6 + 4) (2 roots; refusals at steps 7-9 not examined; not a law)
 
 author: toolsmith · round: 134 · kind: negative
 thread: T10 · bears on: H-032, H-015, F-057, E-341, E-332, E-323, E-337, E-338
-scope: n = 11, library F-only walks (`mutationSearchDepthFirst`, defaults, `fingerprint.Visited`, key guard on) from 303500030 and dual(303305000), depth 6; from each of the 3 refused children one F-only depth-3 walk (option off, root's Coxeter key as guard). Unit: nodes (canonicalKey, labelled) in the root's SNF(C + C^T) class and signature that the downstream walk reaches and the default depth-6 ball does not. Not covered: the other 5 E-332 13-class roots, depth > 6 + 3, mixed F/R walks, whether such a node would be reachable by another route at depth 9 (none was found, so this did not arise), n = 9 merges (vacuous, round 133), LNA-level unit (had nothing to lose).
-power: detector (can it say YES?): the same depth-3 walk from 4 in-class children of TILTING step-6 steps (2 per root, nodes the option keeps) reports 49, 38, 80, 85 in-class nodes outside the depth-6 ball, so beyond-horizon in-class nodes are seen when they are there. Refusal side: E-318 planted step (vertex 3 of `_e318Parent`, d = 2) refused by the option-on depth-1 walk (round 133, 8 -> 7 nodes). No planted in-class loss *through a refused step* was built (I know of no such step); a NO here rests on 3 refusals.
+scope: n = 11, library F-only walks (`mutationSearchDepthFirst`, defaults, `fingerprint.Visited`, key guard on) from 303500030 and dual(303305000), depth 6; from each of the 3 refused children (all at step 6) one F-only depth-3 walk (option off, root's Coxeter key as guard); depth 4 by the referee. Unit: nodes (canonicalKey, labelled) in the root's SNF(C + C^T) class and signature that the downstream walk reaches and the default depth-6 ball does not. This is an upper bound on loss: it ignores other routes to the same node and DFS / `Visited` order effects, which can only make the true loss smaller. Not covered: refusals an option-on depth-7..9 walk would make at steps 7-9 elsewhere in the ball; the other 5 E-332 13-class roots; depth > 6 + 4; mixed F/R walks; n = 9 merges (vacuous, round 133); LNA-level unit (had nothing to lose).
+power: re-entry detector (can it say YES?): the key-kept non-tilting step counter (`dc.ST['rows']`) is what would see a step back into the class from a cross-class child; on the same root balls it did say YES, recording the 3 refusals (round 133 and step 1 here); downstream it records 0. The tilting-child control (from 4 in-class children of TILTING step-6 steps the same walk reports 49, 38, 80, 85 in-class outside-ball nodes) tests only that the walk reaches past the horizon and the labeller says "in"; it does not test re-entry, since tilting keeps the class. Refusal side: E-318 planted step refused by the option-on depth-1 walk (round 133). No planted in-class loss through a refused step exists (I know of none).
 
-## Response to referee
+## Response to referee (round 134 review, skeptic)
 
-1. *All refusals at the horizon.* Accepted and confirmed: this round's instrument records the step number of every key-kept non-tilting step; at both roots all 3 are at step 6 (`refusedAtStep {"6": 2}`, `{"6": 1}`), agreeing with the referee's depth-5 re-run (0 non-tilting steps at depth 5 on either root). The round-133 "0 in-class nodes lost" was forced by the depth cut and is withdrawn as evidence; the title, Claim and Power line now say so.
-2. *Downstream power (stand-or-fall).* Done: one F-only depth-3 walk from each refused child (option off, key guard on), 16 s each. Result: 157, 157 and 158 nodes outside the root's default ball, **all cross-class**; 0 in-class. Reported as "0 at depth 6 + 3". A detector control was added (Power line): from in-class tilting step-6 children the same walk does find in-class outside-ball nodes (4 of 4).
-3. *Denominator.* The headline denominator is now 3 refusals, 0 of them below the horizon. The round-133 d-counts (40 / 3 d >= 2 steps, 39 key-kept, 36 of them tilting) are kept only as d-counts, under Evidence.
-4. *E-323.* Cited under Prior record: "refused key-kept steps leave the SNF(S) class" is E-323's 50 of 50 again; these 3 add to the count.
-5. *LNA unit.* Marked as having nothing to lose: both depth-6 balls reach one LNA (the root) with and without the option. It is not evidence for NO and is dropped from the Claim.
-6. *Scope / title.* Narrowed as the referee proposed, plus the depth-6 + 3 result; "loses no join" is replaced by "0 in-class losses at depth 6 + 3 on 3 refusals".
+1. *Title and Claim: descendants of the step-6 refusals; upper bound.* Done. Title, Claim and Scope now say the 0 counts descendants of the 3 step-6 refusals only, and that refusals at steps 7-9 of an option-on depth-9 walk are not examined. Scope states the outside-ball count is an upper bound on loss (other routes and order effects are ignored), the safe direction for a NO.
+2. *Power line.* Done. It now rests on the key-kept non-tilting counter, which said YES (3 refusals) on the root balls and 0 downstream. The tilting-child control is described as testing reachability and labelling only.
+3. *Isomorphism.* Checked, and "probably" is dropped: the two 303500030 refused children **are isomorphic**. The vertex swap 1 <-> 3 carries one to the other, and it passes both the canonicalKey test (relabel, then compare keys) and the ideal test (each ideal contains the other's relations); 4 quiver isomorphisms were tried. Controls: a random relabelling of a child is found isomorphic (its labelled key differs), and a refused child vs. an in-class tilting child is not isomorphic. So there are 3 refusals but 2 algebras. The referee's 591 vs 592 nodes at + 4 come from one algebra under two labellings. That is a labelled-DFS order effect (E-164, E-216), which item 1's upper-bound wording covers. `toolsmith_iso.py`, `toolsmith_iso.out` (~2 min).
+4. *Depth 4 (optional).* Cited, not re-run: the referee's depth-4 run gives 591 / 592 / 526 nodes, 590 / 591 / 525 outside the ball, all cross; 0 key-kept non-tilting among 1 112 / 1 112 / 1 015 admitted. Claim and title extended to 6 + 4 on that basis.
+
+Round-133 review (earlier, kept short): all refusals were at step 6, so the round-133 "0 lost" was forced by the depth cut and is withdrawn. This was answered by the downstream test. The denominator is 3 refusals. E-323 is cited. The LNA unit is dropped. The Scope is narrowed.
 
 ## Claim
 
-At E-332's two crossing roots (n = 11, F-only, depth 6) `refuseNonTilting=True` refuses 3 key-kept steps, all at step 6. Their children are cross-class (SNF(S) tail (1,2,4) -> (1,2,2), E-332's crossing class). F-only depth-3 walks from them (key guard on) reach 472 nodes outside the root's depth-6 ball, and every one of them is cross-class. No walk step from these children is both key-kept and non-tilting (0 such steps among 836 admitted), so the walk never re-enters the class by a J != 0 step. Tilting steps keep SNF(S), so a re-entry could only come that way. So refusing these 3 steps costs 0 in-class nodes up to depth 6 + 3. What it does cost is about 160 cross-class nodes per refused child, which is the intended effect (E-332). Not claimed: that the option is harmless at other roots, at depth >= 10 or on mixed F/R walks. Refuted by: an in-class node reached from a refused child at a larger depth or another root, or a key-kept non-tilting step downstream that returns to the root's SNF class.
+At E-332's two crossing roots (n = 11, F-only, depth 6), `refuseNonTilting=True` refuses 3 key-kept steps, all at step 6. Up to isomorphism they are 2 algebras: the two at 303500030 differ by the swap 1 <-> 3. Their children are cross-class (SNF(S) tail (1,2,4) -> (1,2,2), E-332's crossing class). F-only depth-3 walks from them (key guard on) reach 472 nodes outside the root's depth-6 ball, and all are cross-class. The referee's depth-4 walks reach 1 706, also all cross-class. No downstream step is both key-kept and non-tilting: 0 of 836 admitted at + 3 and 0 of 3 239 at + 4. Tilting steps keep SNF(S), so a re-entry into the class could only come by such a step. So the descendants of these 3 step-6 refusals contain 0 in-class nodes to depth 6 + 3 (6 + 4); this is an upper bound on the in-class loss. The option's cost is about 160 (+ 3) to 590 (+ 4) cross-class nodes per refused child, which is its intended effect (E-332). Not claimed: anything about refusals an option-on walk of depth 7..9 would make at steps 7-9; other roots; mixed F/R walks. Refuted by: an in-class node downstream of a refused child at larger depth or another root, or a key-kept non-tilting step downstream that returns to the root's SNF class.
 
 ## Evidence
 
@@ -35,7 +35,8 @@ Detector control (in-class children of tilting step-6 steps, the same depth-3 wa
 | dual(303305000) | v = 9 | 86 | 85 / 0 |
 
 - The ball sizes match round 133's `nodes` mode (1 844, 2 437), and each refused child is in the default ball (`childInBall` true).
-- The two refused children at 303500030 have different canonicalKeys but identical downstream counts. canonicalKey is labelled (E-164), so they are probably one algebra under two labellings. I did not check this; it means there may be 2 refusals' worth of evidence there rather than 3.
+- The two refused children at 303500030 have different (labelled, E-164) canonicalKeys and are isomorphic (vertex swap 1 <-> 3; key and ideal tests, with controls; `toolsmith_iso.out`). That makes 2 algebras, not 3. Their downstream counts agree at + 3 (158, 158) and differ at + 4 (591, 592, referee): the labelled walk has order effects, which is why the outside-ball count is an upper bound.
+- Referee's depth 4 (6 + 4): 591 / 592 / 526 nodes, 590 / 591 / 525 outside the ball, all cross; admitted 1 112 / 1 112 / 1 015, of which 69 / 69 / 7 non-tilting, all key-moving (0 key-kept).
 - Downstream of the 303500030 child, 25 gate-admitted steps are non-tilting and every one of them moves the Coxeter key, so the guard drops them. This fits E-323's "no gate-admitted way back".
 - Round-133 d-counts, kept as counts only: d >= 2 steps 40 / 3; key-kept d >= 2 steps 38 / 1, of which 36 / 0 are tilting.
 
@@ -44,8 +45,10 @@ Detector control (in-class children of tilting step-6 steps, the same depth-3 wa
 ```
 timeout 10m .venv/bin/python -W ignore workshop/rounds/134/toolsmith_downstream.py 303500030 root 3 2   # 133 s
 timeout 10m .venv/bin/python -W ignore workshop/rounds/134/toolsmith_downstream.py 303305000 dual 3 2   # 143 s
+timeout 10m .venv/bin/python -W ignore workshop/rounds/134/toolsmith_iso.py 303500030 root          # ~2 min, isomorphism (item 3)
 ```
-Outputs: `workshop/rounds/134/toolsmith_downstream_a.out`, `_b.out` (about 2 KB each). The two jobs ran in parallel. The script imports `workshop/rounds/133/toolsmith_dcount.py` for `inv`, `childOf` and the step counter.
+Referee's depth 4: the same script with `3 2` replaced by `4 0` (361 s, 312 s).
+Outputs: `workshop/rounds/134/toolsmith_downstream_a.out`, `_b.out`, `toolsmith_iso.out`. The two jobs ran in parallel. Both scripts import `workshop/rounds/133/toolsmith_dcount.py` for `inv`, `childOf` and the step counter.
 
 ## Prior record
 
@@ -54,14 +57,14 @@ Outputs: `workshop/rounds/134/toolsmith_downstream_a.out`, `_b.out` (about 2 KB 
 - E-323: all 50 key-kept J != 0 steps change SNF(S) and have no gate-admitted way back; the 3 here are 3 more of the same kind.
 - E-338: no refusal at d <= 1 (none here).
 - E-337: thin F-041 balls, 0 refusals.
-- New: the downstream test. Up to depth 6 + 3, nothing in-class lies beyond any refused child; that whole region is cross-class (the ~470 cross nodes are what the option removes); and a detector control shows the test can see in-class nodes beyond the horizon. I grepped `research/` for "downstream", "horizon" and "6 + 3": the only hit is E-341.
+- New (per referee): E-323's depth-1 "no way back", extended to depth 3 (4, referee) on 3 step-6 refusals; the downstream region is all cross-class. I grepped `research/` for "downstream", "horizon" and "6 + 3": the only hit is E-341.
 
 ## Code changed
 
-None in the library. New script: `workshop/rounds/134/toolsmith_downstream.py`. I ran no tests: no library or test file was touched.
+None in the library. New scripts: `workshop/rounds/134/toolsmith_downstream.py`, `toolsmith_iso.py`. I ran no tests: no library or test file was touched.
 
 ## Next
 
-- Chair: on 3 refusals (possibly 2 up to isomorphism) the option has cost 0 in-class nodes to depth 6 + 3, and the class-change argument (no key-kept non-tilting step downstream) is what a general NO would need. Before the default flips, extend the denominator: the other 5 E-332 roots at depth 6 with this script (about 2-3 min each).
+- Chair: on 3 refusals (2 up to isomorphism) at step 6 the option has cost 0 in-class nodes to depth 6 + 4 (upper bound), and the class-change argument (no key-kept non-tilting step downstream) is what a general NO would need. Before the default flips, extend the denominator: the other 5 E-332 roots at depth 6 with this script (about 2-3 min each).
 - Theorist: is "a refused key-kept step's child has no key-kept J != 0 step back into the class within k steps" provable for E-332's group? E-323's "no way back" is the same statement at depth 1.
-- Toolsmith: check the two 303500030 children for isomorphism (`sameIdeal`); then a mixed F/R walk with the option.
+- Toolsmith: an option-on depth-9 walk vs. option-off at these roots, counting in-class loss from refusals at steps 7-9 (item 1's open part); then a mixed F/R walk with the option.

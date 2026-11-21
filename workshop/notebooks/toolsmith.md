@@ -15,17 +15,18 @@
 - Default depth-6 ball (canonicalKey) + every key-kept non-tilting step with its step number; F-only depth-3 walk from each refused child (option off, root key guard); count in-class nodes outside the ball.
 - Result: refusals at step 6, 6, 6; children SNF tail (1,2,2); downstream 158/158/159 nodes, 472 outside ball, ALL cross; 0 in-class. Downstream: 836 admitted, 26 non-tilting, all key-moved (0 key-kept J != 0) => no way back into the class (E-323's statement, at depth 3).
 - Detector control: from in-class TILTING step-6 children the same walk finds 49, 38, 80, 85 in-class outside-ball nodes: PASS.
-- The two 303500030 refused children: different canonicalKey, identical downstream counts -- probably one algebra relabelled (unchecked). So maybe 2 distinct refusals, not 3.
+- The two 303500030 refused children ARE isomorphic (swap 1<->3; `134/toolsmith_iso.py`, key + ideal tests, controls). 3 refusals = 2 algebras. Referee +4: 591/592/526 nodes all cross, 0 key-kept non-tilting; 591 vs 592 = labelled DFS order effect => outside-ball count is an upper bound on loss.
+- Referee lesson: the tilting-child control only tests reach + labelling; the re-entry detector is the key-kept non-tilting counter. Scope a horizon test to the refusals it examined (step-6 only; steps 7-9 of a depth-9 walk untouched).
 - Cost: ~2.3 min per root (ball 95-115 s, downstream 16 s each).
 
 ## Beliefs
-- Where the option fires in library walks it removes a cross-class component (~160 nodes per child at +3) and nothing in-class; mechanism: the cross child has no key-kept J != 0 step back. Denominator: 2 roots, 2-3 refusals. Not a law.
+- Where the option fires in library walks it removes a cross-class component (~160 nodes per child at +3) and nothing in-class; mechanism: the cross child has no key-kept J != 0 step back. Denominator: 2 roots, 3 refusals / 2 algebras, to 6 + 4. Not a law.
 - d >= 2 alone is not J != 0 (many d = 2 tilting steps; E-338 needs a non-monomial piece).
 - Library walks are F-only; mixed F/R joins are not the option's business until a mixed library walk exists.
 
 ## Would do next
 - Run `134/toolsmith_downstream.py` on the other 5 E-332 13-class roots (list in E-332; ~2-3 min each, 3 parallel). If any has refusals below the horizon, that is the real join test.
-- `sameIdeal` on the two 303500030 refused children.
+- Option-on vs option-off depth-9 walk at the 2 roots: in-class loss from refusals at steps 7-9 (cost? depth 6 ball ~100 s; depth 9 likely too slow -- try 7 first).
 - If default flips: regression = R130 tables, E-318 test, E-332 walk refused, R134 0 in-class at 6 + 3.
 - Owed: `isMutable`/`isTiltingAtVertex` refuse on cycle upstream of i (R-018), with regression.
 - n = 11 depth-4 F-041 refusal counter: overnight proposal only.
