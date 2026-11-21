@@ -1,0 +1,34 @@
+3333333333330 n=15 m=144: 9 of 30 simples/projectives return as X[c]; shifts [160, 162]  (5s)
+  c = 160: S_5 S_11
+  c = 162: P_2 P_4 P_6 P_8 P_10 P_12 P_14
+VERDICT: two shifts at one m => not fractionally CY (no a >= 1, b with nu^a ~ [b])
+8888888000000 n=15 m=144: 9 of 30 simples/projectives return as X[c]; shifts [160, 162]  (2s)
+  c = 160: P_3 P_6 P_10 P_13
+  c = 162: S_2 S_5 S_8 S_11 S_14
+VERDICT: two shifts at one m => not fractionally CY (no a >= 1, b with nu^a ~ [b])
+3333333333330 n=15 m=72: 9 of 30 simples/projectives return as X[c]; shifts [80, 81]  (2s)
+  c = 80: S_5 S_11
+  c = 81: P_2 P_4 P_6 P_8 P_10 P_12 P_14
+VERDICT: two shifts at one m => not fractionally CY (no a >= 1, b with nu^a ~ [b])
+333333333330 n=14 m=24: 28 of 28 simples/projectives return as X[c]; shifts [26]  (0s)
+  c = 26: S_1 P_1 S_2 P_2 S_3 P_3 S_4 P_4 S_5 P_5 S_6 P_6 S_7 P_7 S_8 P_8 S_9 P_9 S_10 P_10 S_11 P_11 S_12 P_12 S_13 P_13 S_14 P_14
+VERDICT: single shift: consistent with FCY (no conclusion)
+444444400 n=11 m=15: 22 of 22 simples/projectives return as X[c]; shifts [16]  (0s)
+  c = 16: S_1 P_1 S_2 P_2 S_3 P_3 S_4 P_4 S_5 P_5 S_6 P_6 S_7 P_7 S_8 P_8 S_9 P_9 S_10 P_10 S_11 P_11
+VERDICT: single shift: consistent with FCY (no conclusion)
+4444444400 n=12 m=20: 24 of 24 simples/projectives return as X[c]; shifts [22]  (0s)
+  c = 22: S_1 P_1 S_2 P_2 S_3 P_3 S_4 P_4 S_5 P_5 S_6 P_6 S_7 P_7 S_8 P_8 S_9 P_9 S_10 P_10 S_11 P_11 S_12 P_12
+VERDICT: single shift: consistent with FCY (no conclusion)
+66666660000 n=13 m=18: 26 of 26 simples/projectives return as X[c]; shifts [20]  (0s)
+  c = 20: S_1 P_1 S_2 P_2 S_3 P_3 S_4 P_4 S_5 P_5 S_6 P_6 S_7 P_7 S_8 P_8 S_9 P_9 S_10 P_10 S_11 P_11 S_12 P_12 S_13 P_13
+VERDICT: single shift: consistent with FCY (no conclusion)
+555555555000 n=14 m=60: 10 of 28 simples/projectives return as X[c]; shifts [70, 72]  (1s)
+  c = 70: P_3 S_4 P_4 P_7 P_8 S_11 P_11 P_12
+  c = 72: S_2 S_13
+VERDICT: two shifts at one m => not fractionally CY (no a >= 1, b with nu^a ~ [b])
+444444444400 n=14 m=132: 6 of 28 simples/projectives return as X[c]; shifts [156]  (8s)
+  c = 156: S_2 P_3 P_6 P_9 P_12 S_13
+VERDICT: single shift: consistent with FCY (no conclusion)
+666666660000 n=14 m=132: 6 of 28 simples/projectives return as X[c]; shifts [156]  (6s)
+  c = 156: S_2 S_4 P_5 P_10 S_11 S_13
+VERDICT: single shift: consistent with FCY (no conclusion)

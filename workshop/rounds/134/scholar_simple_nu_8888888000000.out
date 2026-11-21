@@ -1,0 +1,46 @@
+8888888000000 n=15 m=[144, 288, 432] simples=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]  (Q built 0.0s)
+l= 1 m= 144 rank=   22 H-total=   23 deg=[-164,-160] Euler=M^m e_l:True Euler=+e_l shift-of-simple:None  0s
+l= 1 m= 288 rank=   42 H-total=   45 deg=[-326,-320] Euler=M^m e_l:True Euler=+e_l shift-of-simple:None  0s
+l= 1 m= 432 rank=   62 H-total=   67 deg=[-488,-480] Euler=M^m e_l:True Euler=+e_l shift-of-simple:None  1s
+l= 2 m= 144 rank=    4 H-total=    1 deg=[-162,-162] Euler=M^m e_l:True Euler=+e_l shift-of-simple:S_2[162]  1s
+l= 2 m= 288 rank=    4 H-total=    1 deg=[-324,-324] Euler=M^m e_l:True Euler=+e_l shift-of-simple:S_2[324]  1s
+l= 2 m= 432 rank=    4 H-total=    1 deg=[-486,-486] Euler=M^m e_l:True Euler=+e_l shift-of-simple:S_2[486]  1s
+l= 3 m= 144 rank=   20 H-total=   23 deg=[-163,-160] Euler=M^m e_l:True Euler=+e_l shift-of-simple:None  1s
+l= 3 m= 288 rank=   40 H-total=   45 deg=[-325,-320] Euler=M^m e_l:True Euler=+e_l shift-of-simple:None  1s
+l= 3 m= 432 rank=   60 H-total=   67 deg=[-487,-480] Euler=M^m e_l:True Euler=+e_l shift-of-simple:None  2s
+l= 4 m= 144 rank=   22 H-total=   23 deg=[-163,-160] Euler=M^m e_l:True Euler=+e_l shift-of-simple:None  2s
+l= 4 m= 288 rank=   42 H-total=   45 deg=[-325,-320] Euler=M^m e_l:True Euler=+e_l shift-of-simple:None  2s
+l= 4 m= 432 rank=   62 H-total=   67 deg=[-487,-480] Euler=M^m e_l:True Euler=+e_l shift-of-simple:None  3s
+l= 5 m= 144 rank=    4 H-total=    1 deg=[-162,-162] Euler=M^m e_l:True Euler=+e_l shift-of-simple:S_5[162]  3s
+l= 5 m= 288 rank=    4 H-total=    1 deg=[-324,-324] Euler=M^m e_l:True Euler=+e_l shift-of-simple:S_5[324]  3s
+l= 5 m= 432 rank=    4 H-total=    1 deg=[-486,-486] Euler=M^m e_l:True Euler=+e_l shift-of-simple:S_5[486]  3s
+l= 6 m= 144 rank=   20 H-total=   23 deg=[-162,-159] Euler=M^m e_l:True Euler=+e_l shift-of-simple:None  3s
+l= 6 m= 288 rank=   40 H-total=   45 deg=[-324,-319] Euler=M^m e_l:True Euler=+e_l shift-of-simple:None  3s
+l= 6 m= 432 rank=   60 H-total=   67 deg=[-486,-479] Euler=M^m e_l:True Euler=+e_l shift-of-simple:None  3s
+l= 7 m= 144 rank=   23 H-total=   23 deg=[-163,-159] Euler=M^m e_l:True Euler=+e_l shift-of-simple:None  4s
+l= 7 m= 288 rank=   43 H-total=   45 deg=[-325,-319] Euler=M^m e_l:True Euler=+e_l shift-of-simple:None  4s
+l= 7 m= 432 rank=   63 H-total=   67 deg=[-487,-479] Euler=M^m e_l:True Euler=+e_l shift-of-simple:None  4s
+l= 8 m= 144 rank=    2 H-total=    1 deg=[-162,-162] Euler=M^m e_l:True Euler=+e_l shift-of-simple:S_8[162]  4s
+l= 8 m= 288 rank=    2 H-total=    1 deg=[-324,-324] Euler=M^m e_l:True Euler=+e_l shift-of-simple:S_8[324]  4s
+l= 8 m= 432 rank=    2 H-total=    1 deg=[-486,-486] Euler=M^m e_l:True Euler=+e_l shift-of-simple:S_8[486]  4s
+l= 9 m= 144 rank=   20 H-total=   21 deg=[-162,-158] Euler=M^m e_l:True Euler=+e_l shift-of-simple:None  4s
+l= 9 m= 288 rank=   40 H-total=   43 deg=[-324,-318] Euler=M^m e_l:True Euler=+e_l shift-of-simple:None  5s
+l= 9 m= 432 rank=   60 H-total=   65 deg=[-486,-478] Euler=M^m e_l:True Euler=+e_l shift-of-simple:None  5s
+l=10 m= 144 rank=   22 H-total=   23 deg=[-162,-159] Euler=M^m e_l:True Euler=+e_l shift-of-simple:None  5s
+l=10 m= 288 rank=   42 H-total=   45 deg=[-324,-319] Euler=M^m e_l:True Euler=+e_l shift-of-simple:None  5s
+l=10 m= 432 rank=   62 H-total=   67 deg=[-486,-479] Euler=M^m e_l:True Euler=+e_l shift-of-simple:None  6s
+l=11 m= 144 rank=    2 H-total=    1 deg=[-162,-162] Euler=M^m e_l:True Euler=+e_l shift-of-simple:S_11[162]  6s
+l=11 m= 288 rank=    2 H-total=    1 deg=[-324,-324] Euler=M^m e_l:True Euler=+e_l shift-of-simple:S_11[324]  6s
+l=11 m= 432 rank=    2 H-total=    1 deg=[-486,-486] Euler=M^m e_l:True Euler=+e_l shift-of-simple:S_11[486]  6s
+l=12 m= 144 rank=   20 H-total=   21 deg=[-161,-158] Euler=M^m e_l:True Euler=+e_l shift-of-simple:None  6s
+l=12 m= 288 rank=   40 H-total=   43 deg=[-323,-318] Euler=M^m e_l:True Euler=+e_l shift-of-simple:None  6s
+l=12 m= 432 rank=   60 H-total=   65 deg=[-485,-478] Euler=M^m e_l:True Euler=+e_l shift-of-simple:None  7s
+l=13 m= 144 rank=   22 H-total=   23 deg=[-161,-158] Euler=M^m e_l:True Euler=+e_l shift-of-simple:None  7s
+l=13 m= 288 rank=   42 H-total=   45 deg=[-323,-318] Euler=M^m e_l:True Euler=+e_l shift-of-simple:None  7s
+l=13 m= 432 rank=   62 H-total=   67 deg=[-485,-478] Euler=M^m e_l:True Euler=+e_l shift-of-simple:None  8s
+l=14 m= 144 rank=    2 H-total=    1 deg=[-162,-162] Euler=M^m e_l:True Euler=+e_l shift-of-simple:S_14[162]  8s
+l=14 m= 288 rank=    2 H-total=    1 deg=[-324,-324] Euler=M^m e_l:True Euler=+e_l shift-of-simple:S_14[324]  8s
+l=14 m= 432 rank=    2 H-total=    1 deg=[-486,-486] Euler=M^m e_l:True Euler=+e_l shift-of-simple:S_14[486]  8s
+l=15 m= 144 rank=   21 H-total=   21 deg=[-161,-157] Euler=M^m e_l:True Euler=+e_l shift-of-simple:None  8s
+l=15 m= 288 rank=   41 H-total=   43 deg=[-323,-317] Euler=M^m e_l:True Euler=+e_l shift-of-simple:None  8s
+l=15 m= 432 rank=   61 H-total=   65 deg=[-485,-477] Euler=M^m e_l:True Euler=+e_l shift-of-simple:None  9s
