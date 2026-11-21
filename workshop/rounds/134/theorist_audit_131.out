@@ -44,3 +44,13 @@ KILL par ISO (J=0): n=4 k=1 arrows=[(0, 2, 0), (2, 3, 0), (1, 3, 0), (2, 3, 1), 
     child arrows [(1, 4, 0), (1, 4, 1), (2, 3, 0), (2, 4, 0), (3, 1, 0)]
     child rels [{((2, 3, 0), (3, 1, 0), (1, 4, 1)): 3, ((2, 3, 0), (3, 1, 0), (1, 4, 0)): 1}]
     KILL  rels [{((2, 3, 0), (3, 1, 0), (1, 4, 0)): 1}]
+seed 131, 81 gate-admitted steps, 157 s
+   67 J = 0
+   67 J = 0 and Hm1 = Hp1 = 0
+   69 J == Hm1
+   1 KILL gen ISO
+   15 KILL gen NO
+   1 KILL gen UNDECIDED
+   10 KILL par ISO
+   12 no child
+   69 steps with child

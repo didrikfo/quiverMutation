@@ -1,0 +1,45 @@
+p=3 3333333333330 144
+3333333333330 n=15 m=144: 9 of 30 simples/projectives return as X[c]; shifts [160, 162]  (4s)
+  c = 160: S_5 S_11
+  c = 162: P_2 P_4 P_6 P_8 P_10 P_12 P_14
+VERDICT: two shifts at one m => not fractionally CY (no a >= 1, b with nu^a ~ [b])
+p=3 8888888000000 144
+8888888000000 n=15 m=144: 9 of 30 simples/projectives return as X[c]; shifts [160, 162]  (1s)
+  c = 160: P_3 P_6 P_10 P_13
+  c = 162: S_2 S_5 S_8 S_11 S_14
+VERDICT: two shifts at one m => not fractionally CY (no a >= 1, b with nu^a ~ [b])
+p=3 555555555000 60
+555555555000 n=14 m=60: 10 of 28 simples/projectives return as X[c]; shifts [70, 72]  (1s)
+  c = 70: P_3 S_4 P_4 P_7 P_8 S_11 P_11 P_12
+  c = 72: S_2 S_13
+VERDICT: two shifts at one m => not fractionally CY (no a >= 1, b with nu^a ~ [b])
+p=1000003 3333333333330 144
+3333333333330 n=15 m=144: 9 of 30 simples/projectives return as X[c]; shifts [160, 162]  (4s)
+  c = 160: S_5 S_11
+  c = 162: P_2 P_4 P_6 P_8 P_10 P_12 P_14
+VERDICT: two shifts at one m => not fractionally CY (no a >= 1, b with nu^a ~ [b])
+p=1000003 8888888000000 144
+8888888000000 n=15 m=144: 9 of 30 simples/projectives return as X[c]; shifts [160, 162]  (2s)
+  c = 160: P_3 P_6 P_10 P_13
+  c = 162: S_2 S_5 S_8 S_11 S_14
+VERDICT: two shifts at one m => not fractionally CY (no a >= 1, b with nu^a ~ [b])
+p=1000003 555555555000 60
+555555555000 n=14 m=60: 10 of 28 simples/projectives return as X[c]; shifts [70, 72]  (1s)
+  c = 70: P_3 S_4 P_4 P_7 P_8 S_11 P_11 P_12
+  c = 72: S_2 S_13
+VERDICT: two shifts at one m => not fractionally CY (no a >= 1, b with nu^a ~ [b])
+p=2 3333333333330 144
+3333333333330 n=15 m=144: 9 of 30 simples/projectives return as X[c]; shifts [160, 162]  (4s)
+  c = 160: S_5 S_11
+  c = 162: P_2 P_4 P_6 P_8 P_10 P_12 P_14
+VERDICT: two shifts at one m => not fractionally CY (no a >= 1, b with nu^a ~ [b])
+p=2 8888888000000 144
+8888888000000 n=15 m=144: 9 of 30 simples/projectives return as X[c]; shifts [160, 162]  (2s)
+  c = 160: P_3 P_6 P_10 P_13
+  c = 162: S_2 S_5 S_8 S_11 S_14
+VERDICT: two shifts at one m => not fractionally CY (no a >= 1, b with nu^a ~ [b])
+p=2 555555555000 60
+555555555000 n=14 m=60: 10 of 28 simples/projectives return as X[c]; shifts [70, 72]  (1s)
+  c = 70: P_3 S_4 P_4 P_7 P_8 S_11 P_11 P_12
+  c = 72: S_2 S_13
+VERDICT: two shifts at one m => not fractionally CY (no a >= 1, b with nu^a ~ [b])
