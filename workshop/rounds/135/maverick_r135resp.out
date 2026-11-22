@@ -1,0 +1,12 @@
+# round 135 response runs (maverick); GF(2^31-1) unless --prime
+## maverick_compare.py 444444444400 132 U (224 s)
+444444444400 m 132 objs U plant False (object, k) pairs agreeing 6600 disagreeing 0 first disagreements (obj, k, totalH_A, totalH_B) [] 224s
+## maverick_compare.py 666666660000 132 U (402 s)
+666666660000 m 132 objs U plant False (object, k) pairs agreeing 9108 disagreeing 0 first disagreements (obj, k, totalH_A, totalH_B) [] 402s
+## maverick_nu2.py 444444444400 132 U --prime 2
+444444444400 m 132 objects 50 returns 9 shifts [154, 156] {154: ['U4-5', 'U10-11'], 156: ['U1-3', 'U2-2', 'U3-6', 'U6-9', 'U9-12', 'U12-14', 'U13-13']} max summands 102 123s
+## maverick_nu2.py 666666660000 132 U --prime 2
+666666660000 m 132 objects 69 returns 10 shifts [154, 156] {154: ['U6-7', 'U6-9', 'U8-9'], 156: ['U1-5', 'U2-2', 'U4-4', 'U5-10', 'U10-14', 'U11-11', 'U13-13']} max summands 84 263s
+## certificate objects, --prime 1000003 (1-2 s each)
+444444444400 m 132 U4-5,U10-11,U1-3,U13-13: 154 {U4-5,U10-11}, 156 {U1-3,U13-13}
+666666660000 m 132 U6-7,U8-9,U1-5,U13-13: 154 {U6-7,U8-9}, 156 {U1-5,U13-13} (same at --prime 2)

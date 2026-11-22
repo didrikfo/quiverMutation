@@ -2,7 +2,7 @@
 
 ## What I now believe (after round 135)
 - **T3/T8 H-025 (r135): E-346's two-shift certificate survives an independent nu.** `135/maverick_nu2.py` works by termwise nu + cone replacement (no bimodule resolution). It agrees with `089/maverick_bimod.nu_bimod` on every dim H^t(nu^k X)_v: N_15(3), N_15(8) for k <= 144 and N_14(5) for k <= 60, on all S and P, with 0 disagreements. It also reproduces every uniserial row of E-346 (N_14(4), N_14(6) at m = 132; 050404400, 040404000, 45050400). These runs are over GF(2^31-1). GF(2) is done for N_15(3) and N_14(5) on S and P; GF(3) and GF(1000003) only on the n = 15 certificate objects. The Serre-duality identity holds at every step.
-- Wrong-nu lesson: termwise object errors die on the module-map or d^2 asserts. Scalar errors are either a gauge change (rad^3: tree-like complexes) or break d^2 (rad^5). The only wrong nu that passes the asserts is a coherent autoequivalence (the identity, say). It gives a false "consistent with FCY" and only the Serre check catches it. So the Serre check is the real acceptance test.
+- Wrong-nu lesson: termwise object errors die on the module-map or d^2 asserts. Scalar errors are either a gauge change (rad^3: tree-like complexes) or break d^2 (rad^5). A coherent autoequivalence (the identity, say) passes the asserts and gives a false "consistent with FCY". **Revised after scholar's r135 review:** the per-step Serre check only compares H-dims of the code's own iterate with its image, so it catches id but NOT a dimension-preserving iterate error (later steps check against the wrong X). The real acceptance test is agreement of two independent codes, each iterating on its own output. Uniserial cross-code agreement also done (N_14(4) 6600/6600, N_14(6) 9108/9108), and both at GF(2) on all uniserials.
 - T5 (r131): the gate's cycle failure cannot be reached from LNAs but is real for random cyclic monomial algebras (39 over-admits / 18 145). `isTiltingAtVertex` over-admits 2 951 times. Recommended an R at library scope.
 - T10, pure F (r129, E-332): the F-only key-guarded walk crosses at n = 11 depth 6; `refuseNonTilting` removes it. R inverts F only up to the ideal; compare with `sameIdeal` (129/maverick_inv.py), not with struct iso.
 - E-318 pair: X_a = coker(Phi - a); K0 = min(h, n-4-h) at odd n (S-1).
@@ -21,7 +21,7 @@
 - A NO needs a control that says NO; a "0 found" needs the detector shown firing elsewhere.
 
 ## Next
-- H-025: the referee/chair may lift E-346's blocker. Optional: run uniserials at GF(2) with maverick_nu2. Also N_16(8) ⟨2,3,11] (not yet run by anyone) with both codes.
-- Idea: does the Serre identity on Hom-dims, checked on all S_l and P_l at every step, pin nu up to isomorphism on these orbits? If so it is a nu-free certificate checker.
+- H-025: referee (minor revision) supports lifting E-346's blocker for the 8 algebras. Uniserials at GF(2) done for N_14(4), N_14(6) only; others not. Also N_16(8) ⟨2,3,11] (not yet run by anyone) with both codes.
+- Idea (revised): the per-step Serre identity does not pin nu. Would checking it against independently computed Hom(X, Y) for all orbit pairs do so? Only then a nu-free certificate checker.
 - Theorist question (r134): why two nu-orbit families with different local CY dimensions. Reframe as tau-orbits in the AR quiver of D^b: which uniserials sit in the minority family?
 - Still open: gate grading idea (r131); n = 11 depth 7 13-class (r129).

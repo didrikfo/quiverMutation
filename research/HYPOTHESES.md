@@ -48,14 +48,14 @@ A_n and B_n are derived equivalent for every n >= 5 (Fosse 2305.06642 Cor. 4.6, 
 ---
 
 ## H-026 — The vertex-deletion K-threshold of a lone-3 key class is the shorter free stretch beside the 3: K0 = min(h, n - 4 - h) (central class: (n - 1)/2 - 2)
-*2026-10-30, restated 2026-11-04* · **SUPPORTED** *(odd n only: the even-n extension is refuted at the self-mirror central class, E-307; key level, lone-3 classes, head and tail ends tested directly; central class n = 11..21, off-centre n = 13, 15, 17, 19: E-296, E-299, E-301, E-304 (ten fits); the original central-only wording was falsified by E-301, R-015; not class level, not derived)*
+*2026-10-30, restated 2026-11-04* · **SUPPORTED** *(odd n only: the even-n extension is refuted at the self-mirror central class, E-307; key level, lone-3 classes, head and tail ends tested directly; central class n = 11..21, off-centre n = 13, 15, 17, 19: E-296, E-299, E-301, E-304 (ten fits); E-349: key changes only through K = 0 on five more classes; the original central-only wording was falsified by E-301, R-015; not class level, not derived)*
 
 At key level, deleting an end vertex from a long free stretch next to a lone 3 stabilises (one image key) once the kept stretch has K >= K0. Central class: K0 = 3, 4, 5, 6, 7, 8 at n = 11, 13, 15, 17, 19, 21 (E-146, E-263, E-296, E-299, E-301); off-centre classes (h free vertices on the short side) have K0 = h on all 7 classes with a split at n = 13, 15, 17 (a fit to seven points, E-301); h = 0, 1 at n = 13 show no split at K >= 2. E-263's "messy" (4,7) class was a writer artefact (R-015). **Falsifiable:** a lone-3 class with K0 != min(h, n - 4 - h), (the runs n = 19 h = 5, 6 and n = 15 h = 3, predicted 5, 6, 3, held: E-304). Class level, non-lone classes and a derivation remain open. Thread S-1.
 
 ---
 
 ## H-025 — Phi periodic does not imply fractionally Calabi-Yau for LNAs
-*2026-10-30* · **SUPPORTED** *(E-346: finite exact two-shift certificate at n = 14-15 and three n = 10-11 groups, one nu implementation; E-339: proof-level instance at n = 15 via Fuchsian R(2,3,10), referee-checked, unpublished argument; E-245, E-246, E-253: rank growth of nu^k P in several groups, verdict constant on every group swept at n = 10, 11, 12; not stated in the literature, E-251; workshop cycle 001 planning)*
+*2026-10-30* · **SUPPORTED** *(E-346: finite exact two-shift certificate at n = 14-15 and three n = 10-11 groups; E-347: second independent nu implementation agrees, CONFIRMED proposed at conference 136; E-339: proof-level instance at n = 15 via Fuchsian R(2,3,10), referee-checked, unpublished argument; E-245, E-246, E-253: rank growth of nu^k P in several groups, verdict constant on every group swept at n = 10, 11, 12; not stated in the literature, E-251; workshop cycle 001 planning)*
 
 For a Nakayama algebra of finite global dimension, a periodic Coxeter transformation Phi does not force Phi^m = shift. **Falsifiable:** one swept group whose nu^k P stays bounded for every k although Phi is periodic gives the counter-direction. **Would settle it:** a published statement of either direction (phase 1), or a proof that the rank growth is exact for a whole family.
 
@@ -69,7 +69,7 @@ If A and B are derived equivalent, there is P in GL_n(Z) with P^T C_B P = C_A (o
 ---
 
 ## H-023 — Every gate-admitted J = 0 mutation step is a derived equivalence
-*2026-10-30* · **OPEN** *(workshop cycle 001 planning; the premise of T5 and under H-015; E-345: child = End(T) at 587 of 587 decided J = 0 steps, n <= 6 acyclic; E-329: loop-at-i admission vacuous, 12 136 cyclic-parent steps pass; E-284: loop case cancels in ten hand-sized models, computation only; M1 proved E-290, M2 proved E-294)*
+*2026-10-30* · **OPEN** *(workshop cycle 001 planning; the premise of T5 and under H-015; E-348: E-345's test passes 341 planted wrong children; E-345: child = End(T) at 587 of 587 decided J = 0 steps, n <= 6 acyclic; E-329: loop-at-i admission vacuous, 12 136 cyclic-parent steps pass; E-284: loop case cancels in ten hand-sized models, computation only; M1 proved E-290, M2 proved E-294)*
 
 If the gate admits a step with J = 0 (acyclic D(i), no loops of degree >= 1 at i, omega-reduced), the mutated algebra is derived equivalent to its parent. Proved so far: cancellation (E-235), Lemma A directly (E-240), step-7 kernel = Oppermann's for acyclic D(i) (E-199), F/R convention (E-252, E-258); the library refuses cyclic D(i) (E-211, E-222); a loop of degree >= 1 at i forces i onto a cycle, so library steps never meet one (E-279). **Falsifiable:** a gate-admitted J = 0 step whose child has a different derived invariant (Cartan form, Phi, Hochschild data). **Open joints:** E-235 step 4 against Lemma A's hypotheses after omega-reduction (E-256), loops of degree >= 1 at i (Oppermann's theorem allows them, needs a unitriangular cancellation, E-273). Join searches cannot test it (E-250, E-255, E-268). If it holds, H-015 reduces to J != 0 steps.
 

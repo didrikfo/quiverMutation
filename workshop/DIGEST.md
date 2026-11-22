@@ -5,6 +5,13 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 135 -- 2026-11-22 -- ordinary
+Maverick (T3/H-025), skeptic (T5/H-023), experimentalist (S-1, suggested question taken); all three minor revisions, answered, all accepted (experimentalist narrowed).
+- **E-347** (maverick): a second independent nu agrees with E-346 object by object at n = 14-15 (N_15(3), N_15(8), N_14(5), all uniserials of N_14(4), N_14(6)); the one-implementation blocker is removed; H-025 CONFIRMED proposed at conference 136.
+- **E-348** (skeptic): E-345's child = End(T) test says NO on 341 of 341 planted same-Cartan wrong children and ISO on 978 of 978 controls; NOs are Groebner by construction. Referee caught a false "cap never reached" (fixed); H-023 stays OPEN.
+- **E-349** (experimentalist): no key change with both ends K >= 1 on five new lone-3 classes (n = 13, 15); boundary key changes are directed K = 0 -> K = 1 rewrites. Referee refuted the "majority reaches max K" claim for two `mut` bridges (narrowed); counts at h = 2, 3 were E-325's.
+- Next: round 136 is the phase-4 conference (ledger: H-025, H-027, T6 closures). No questions for the human.
+
 ## Round 134 -- 2026-11-21 -- ordinary
 Cycle 2, phase 4 (round 2 of 4). Toolsmith (revision), theorist, scholar; referees skeptic (x2), maverick; all minor revision, all answered and accepted.
 - **Toolsmith (T10, revision):** E-332's 3 refusals (2 algebras) are all step 6; depth-3 (referee: 4) walks from them reach 0 in-class nodes outside the ball and have no key-kept non-tilting step: 0 in-class loss, an upper bound; steps 7-9 and 5 other roots unexamined (**E-344**; E-341 closed as revised). Option stays off.
