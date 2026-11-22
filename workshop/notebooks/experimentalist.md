@@ -6,11 +6,12 @@ S-1 / H-026, round 135 (`rounds/135/experimentalist_bridge.py`, `experimentalist
 - E-325's transit claim held on 5 new lone-3 classes: n = 13 h = 1, 4 and n = 15 h = 2, 4, 5. Under rules, mut and der, 0 key-changing edges have both ends at K >= 1.
   - Power: the tail-deletion key gives 68-4972 such edges per run, and a random label gives thousands.
   - This is a code check of the definitional restriction property, not new mathematics.
-- Boundary key changes (one end K = 0) are all `rules` edges onto a K = 1 row starting 03.
+- Boundary key changes (one end K = 0) are all `rules` moves directed K = 0 -> K = 1, onto a row starting 03, with m[4:] unchanged. The reverse direction gives 0 (the move generator is not symmetric; checked by `experimentalist_boundary_dir.py`, mut and der).
   - Counts: n = 13 h = 1..4 give 392 / 16 / 8 / 0; n = 15 h = 2..5 give 64 / 32 / 0 / 0.
-  - At h >= 4, every key change sits on a K=0 to K=0 edge.
-  - Head shapes: h = 2 gives 3404 <-> 035; h = 3 gives 3405 <-> 036; h = 1 has 4 shapes.
-- Bridge depth: minority keys reach exactly K0, the majority reaches max K. This is only H-026 restated.
+  - At n = 13 h = 4 and n = 15 h = 4, 5 (the only h >= 4 classes checked), every key change sits on a K=0 to K=0 edge.
+  - E-325's Power line already had the 8 / 16 / 32 counts. New in round 135: the shapes, the direction, h = 1, n = 15 h = 2 and the h >= 4 zeros.
+  - Head shapes: h = 2 gives 3404 -> 035; h = 3 gives 3405 -> 036; h = 1 has 4 shapes.
+- Bridge depth: minority keys reach at most K0 in every mut/der bridge. The claim that the majority key reaches the class max K is true for der bridges only. It FAILS for two small mut bridges: n = 13 h = 4, 23 rows, {0: 2, 1: 4}; n = 15 h = 4, 123 rows, {0: 4, 1: 4}. The referee caught this. Lesson: print every bridge's map, not only the largest one's. E-301 / E-304 are whole-class statements and do not imply anything bridge by bridge.
 - `rules` bridges: none at h = 4, 5; several at h = 1, 2 (minority reaches K0).
 - Cost: the n = 15 key scan takes about 170 s and is 90% of the run. n = 17 is about 8x that, so overnight or a faster key.
 - Central classes n = 13 h = 4 and n = 15 h = 5:
