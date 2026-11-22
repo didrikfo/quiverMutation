@@ -12,9 +12,11 @@ Method (independent of rounds/089 maverick_bimod and rounds/087 scholar_rankgrow
   No bimodule resolution, no bar resolution.
 Checks: every map asserted to be a module map; d^2 = 0; H(P) = H(J) vertexwise (quasi-iso dims); optional
   Serre-duality check dim H^t Hom(X, P_i) = dim H^{-t}(nu X)_i (--serre).
-Planted error (--plant): termwise nu scales every standard injective map along a path of length 2 by 2.
-  d^2 = 0 survives (all length-2 composites are summed with equal weights) but nu is no longer a functor.
-Usage (repo root): timeout 10m .venv/bin/python workshop/rounds/135/maverick_nu2.py REL m1,m2,.. [objs] [--prime p] [--plant] [--serre]
+Wrong nu's (controls): --plant=scale  scales every standard injective map along a path of length 2 by 2 (not a
+  functor; d^2 = 0 survives);  --plant=kup  uses I_i = [i - p_i + 1, i] (projective length mistaken for injective
+  length: a functor to modules, wrong objects);  --plant=trunc  I_i := [L_i + 1, i] (one vertex short);  --plant=long  I_i := [L_i - 1, i];
+  --plant=id  nu := identity (a genuine autoequivalence, not Serre).
+Usage (repo root): timeout 10m .venv/bin/python workshop/rounds/135/maverick_nu2.py REL m1,m2,.. [objs] [--prime p] [--plant=scale|kup|trunc|long|id] [--serre]
   REL = relation-length digits, n = len(REL) + 2 (same naming as the record). objs: S (simples), P (projectives),
   U (all uniserials), or e.g. S5,P2,U4-5 ; default S,P.
 """
@@ -29,7 +31,8 @@ def args():
     a = sys.argv[1:]
     if "--prime" in a:
         i = a.index("--prime"); P = int(a[i + 1]); del a[i:i + 2]
-    if "--plant" in a: PLANT = True; a.remove("--plant")
+    for md in ("scale", "kup", "id", "trunc", "long"):
+        if "--plant=" + md in a: PLANT = md; a.remove("--plant=" + md)
     serre = "--serre" in a
     if serre: a.remove("--serre")
     return a, serre
@@ -51,6 +54,12 @@ def rref(M):
             if o != row: M[o] = (M[o] - M[o, col] * M[row]) % P
         piv.append(col); row += 1
     return M[:row], piv
+
+def mulmod(A, B):
+    """A @ B mod P without int64 overflow (split A into 16-bit halves)"""
+    A = np.asarray(A, dtype=np.int64) % P; B = np.asarray(B, dtype=np.int64) % P
+    hi, lo = A >> 16, A & 0xFFFF
+    return (((hi @ B) % P) * 65536 + (lo @ B)) % P
 
 def rank(M):
     M = np.asarray(M)
@@ -120,7 +129,7 @@ def check(X):
         if k + 1 in X.T and X.T[k + 1]:
             for v in range(1, NV + 1):
                 A1 = vmat(X, k, v); A2 = vmat(X, k + 1, v)
-                if A1.size and A2.size: assert not ((A2 @ A1) % P).any(), ("d^2 != 0", k, v)
+                if A1.size and A2.size: assert not mulmod(A2, A1).any(), ("d^2 != 0", k, v)
 
 def cohom(X):
     """{(v, t): dim H^t(X)_v} = dims of H^t Hom(P_v, X)"""
@@ -230,13 +239,20 @@ def replace(J, alg):
         if not X.T[kk]: del X.T[kk]
     return X
 
+def inj(i):
+    if PLANT == "kup": return (max(1, i - ALG.U[i] + i), i)     # bug: injective length taken = projective length
+    if PLANT == "trunc": L, _ = ALG.inj(i); return (min(L + 1, i), i)   # bug: injective envelope missing its top vertex
+    if PLANT == "long": L, _ = ALG.inj(i); return (max(1, L - 1), i)      # bug: injective one vertex too long
+    return ALG.inj(i)
+
 def nu_termwise(X):
     J = Cx()
-    for k, ts in X.T.items(): J.T[k] = [ALG.inj(t[0]) for t in ts]
+    if PLANT == "id": J.T = {k: list(ts) for k, ts in X.T.items()}; J.D = {k: X.mat(k).copy() for k in X.degs()}; return J
+    for k, ts in X.T.items(): J.T[k] = [inj(t[0]) for t in ts]
     for k in X.degs():
         if k + 1 not in X.T: continue
         M = X.mat(k).copy()
-        if PLANT:
+        if PLANT == "scale":
             for b, a in zip(*np.nonzero(M)):
                 if X.T[k][a][0] - X.T[k + 1][b][0] == 2: M[b, a] = 2 * M[b, a] % P
         J.D[k] = M

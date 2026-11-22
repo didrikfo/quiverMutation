@@ -1,0 +1,2 @@
+050404400 m 24 objects 43 returns 5 shifts [28, 30] {28: ['U6-8'], 30: ['U1-5', 'U2-3', 'U5-9', 'U9-11']} max summands 148 238s
+050404400 m 48 objects 43 returns 5 shifts [56, 60] {56: ['U6-8'], 60: ['U1-5', 'U2-3', 'U5-9', 'U9-11']} max summands 292 238s

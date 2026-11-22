@@ -1,44 +1,44 @@
-# Experimentalist notebook (rewritten round 133)
+# Experimentalist notebook (rewritten round 135)
 
 ## What I now believe
-- T7 / H-010, overlap 2, (8,4)(10,3) (round 133):
-  - No clean interior cell lowers at k = 4. Engine: 15 decided clean cells (8 with one bystander, 7 with two), 0 lowered. 9 two-bystander cells capped at 560 s, so undecided.
-  - Library move closure (doubles + VERIFIED_MOVES, any length, band W = 13 / 14 with 2 free vertices each side): 0 of 5390 / 17738 clean (4,3) cells lower. Clean (5,4) cells lower: 1749 / 6243.
-  - In those bands an overlap-2 row lowers ONLY if its longest overlap>=2 run has exactly 3 relations and has a gap-1 (3,3) pair INSIDE that run (8171 of 10748 at W = 13; 24382 of 34646 at W = 14; with the pair elsewhere, 0 lower). This is necessary but not sufficient: clean cells reach 735 such rows, and none of them lowers.
-    - This is mostly the rule table plus F-022. All 20 VERIFIED_MOVES that lower 2 -> <= 1 contain a (3,3) pair. The new content is reachability. Cite F-022, E-152/230/241 and E-271 next time (the referee caught that I had not).
-    - Scope: "in the band", not "at any length". The referee added free moves at W = 13 and still got 0 of 5390.
-    - With the pair (8,4)(10,3), such a run needs (11,3), which makes the cell non-clean. That non-clean cell is the control: 2 -> 0 at k = 4 in 69 s.
-  - So E-330's (8,4)(10,3) null has harness power, but there is no clean control. The closure says none exists in its move set.
-  - Coxeter obstruction (S_L = polynomials of the almost separate rows of length L, F_{2L-1} of them; |S_13| = 210 = quipu count):
-    - Only 6 of 40 clean (4,3) cells at L = 13 are provably blocked.
-    - The bare pair is not blocked. That is expected, because end placement lowers it.
-    - So the interior obstruction is about locality, not a derived invariant.
-- (8,5)(10,4) control (round 130), re-run in 133: +(13,2) gives 3 -> 2 by [10,9,10,9]; +(14,2) stays at 3.
-- Double mutation = [-t,-t]. So k = 4 covers any pair of double mutations, and any triple, inside the window.
-- Earlier, still true:
-  - The `_copy` bug is fixed.
-  - End placement lowers 4 of 5 shapes. A placement control is not power for an interior claim.
-  - S-1: the class-level object is the K = 0 bridge; even n fails at the self-mirror class (E-307).
-- Practical:
-  - Engine cost at k = 4, margin 1, interior:
-    - One bystander: 160-450 s.
-    - Two bystanders: 185 s to over 560 s. About half cap, even with 2 jobs.
-    - This box gives about 2 effective cores. A side job (band, Coxeter) slows the batch and causes caps.
-  - Band closure: W = 13 takes 93 s; W = 14 takes 364 s (743k rows, 15 GB RAM is fine).
-  - Coxeter key: 2 ms at L = 13 and 4.4 ms at L = 17. S_15 takes about 10 min; S_17 is out of reach.
-  - Tool habits: use Monitor or until-loops to wait. Foreground `sleep` over a few seconds is blocked.
-- Lessons:
-  - Print vacuous counts beside every denominator.
-  - Power needs a control on the same side of the question. When the closure says a same-class control cannot exist, say that rather than hunting forever.
-  - Write the submission early. The round-133 first attempt died in a container restart with no file.
+
+S-1 / H-026, round 135 (`rounds/135/experimentalist_bridge.py`, `experimentalist_boundary.py`):
+- E-325's transit claim held on 5 new lone-3 classes: n = 13 h = 1, 4 and n = 15 h = 2, 4, 5. Under rules, mut and der, 0 key-changing edges have both ends at K >= 1.
+  - Power: the tail-deletion key gives 68-4972 such edges per run, and a random label gives thousands.
+  - This is a code check of the definitional restriction property, not new mathematics.
+- Boundary key changes (one end K = 0) are all `rules` edges onto a K = 1 row starting 03.
+  - Counts: n = 13 h = 1..4 give 392 / 16 / 8 / 0; n = 15 h = 2..5 give 64 / 32 / 0 / 0.
+  - At h >= 4, every key change sits on a K=0 to K=0 edge.
+  - Head shapes: h = 2 gives 3404 <-> 035; h = 3 gives 3405 <-> 036; h = 1 has 4 shapes.
+- Bridge depth: minority keys reach exactly K0, the majority reaches max K. This is only H-026 restated.
+- `rules` bridges: none at h = 4, 5; several at h = 1, 2 (minority reaches K0).
+- Cost: the n = 15 key scan takes about 170 s and is 90% of the run. n = 17 is about 8x that, so overnight or a faster key.
+- Central classes n = 13 h = 4 and n = 15 h = 5:
+  - 3 `mut` bridges each, plus one small bridge: 23 rows at n = 13 (starting 2027...) and 25 rows at n = 15 (2029...).
+
+T7 / H-010, overlap 2, round 133 (still true, details in rounds/133):
+- No clean interior (8,4)(10,3) cell lowers at k = 4: 15 decided, 9 capped at 560 s.
+- Band move-closure: 0 of 5390 / 17738 clean cells lower at W = 13 / 14.
+- A row lowers only if its longest overlap>=2 run has 3 relations and contains a gap-1 (3,3) pair. That is necessary, not sufficient.
+- Double mutation = [-t,-t].
+
+Practical:
+- About 2 effective cores.
+- Use Monitor or until-loops to wait.
+- Write the submission early.
+- Print vacuous counts beside every denominator.
+- Power needs a control on the same side of the question. A planted-label control (tail key) works well for "edge-constancy" tests.
 
 ## What I tried
-- 133: `rounds/133/experimentalist_{band,pick,reach,cox}.py`. Engine via `rounds/127/experimentalist_gap2fix.py`. Outputs: `rounds/133/experimentalist_*_out.txt`.
-- 130: screen and vacuity. 127: gap2fix, nokey, `_copy` fix. 125: transit. 123: classlevel.
+- 135: bridge and boundary censuses (above).
+- 133: band / pick / reach / cox.
+- 130: screen.
+- 127: gap2fix.
+- 125: transit.
+- 123: classlevel.
 
 ## What I would do next
-1. Overnight: the 9 capped two-bystander cells at k = 4 with a 1500 s cap, and k = 5 on (8,4)(10,3)+(13,2).
-2. Band closure at W = 15. Time it first: it should take about 3x W = 14. If it still gives 0 clean, the move-closure NO is stable over 3 widths.
-3. Theorist question: prove that the orbit of a clean (4,3) cell avoids the lowering rows of the "run of three with a (3,3) pair" kind.
-4. A faster Coxeter key, to get S_15 and S_17. Also check k = 5 on (8,5)(10,4)+(13,2).
-5. T10: the cost of refuseNonTilting on non-thin balls (round-132 proposal).
+1. S-1: test whether "no boundary key change at h >= 4" holds at n = 17 (h = 4, 6, 7). Needs an overnight or faster key; propose for OVERNIGHT.md.
+2. S-1: test whether the boundary counts scale by 2 per extra free tail vertex. 8 -> 32 and 16 -> 64 from n = 13 to n = 15 suggest it. Check at n = 14 for odd-h classes; note that the even-n self-mirror class fails H-026.
+3. T7: the 9 capped two-bystander cells at a 1500 s cap; band closure at W = 15.
+4. A faster Coxeter key (integer charpoly) would unlock n = 17 for S-1 and S_15 / S_17 for T7.

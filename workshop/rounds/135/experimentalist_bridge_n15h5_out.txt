@@ -1,0 +1,22 @@
+n=15 h=5 K0=5: class 18328 rows, 7 image keys, 7 tail keys  171s
+ image keys by K: {0: {0: 5293, 1: 4029, 2: 499, 3: 265, 4: 124, 5: 368, 6: 96}, 1: {0: 2416, 1: 1866}, 2: {0: 1091, 1: 856}, 3: {0: 486, 1: 412}, 4: {0: 222, 1: 136}, 5: {0: 71, 1: 65}, 6: {0: 33}}
+ [rules] 41918 directed edges; C1 key-changing edges by ends: image {'both0': 136} | CONTROL tail-deletion {'both>=1': 68, 'both0': 68} | CONTROL random {'both>=1': 11084, 'boundary': 10654, 'both0': 14315}
+ [rules] 9s
+ [mut] 126466 directed edges; C1 key-changing edges by ends: image {'both0': 3212} | CONTROL tail-deletion {'both>=1': 1566, 'both0': 1646} | CONTROL random {'both>=1': 34078, 'boundary': 13836, 'both0': 60669}
+   orbit 14454 rows (K0 rows by image key {0: 64, 1: 65}): 10 restricted comps carrying 2 image keys; 6 K=0 comps, 3 bridges
+     bridge 4449 K=0 rows, own image keys [0, 1, 2, 3, 4, 5, 6], touches 6 restricted comps; max K per image key {0: 6, 1: 5}; e.g. 2000030000000
+     bridge 3574 K=0 rows, own image keys [0, 1, 3, 5], touches 5 restricted comps; max K per image key {0: 6, 1: 5}; e.g. 2000003000000
+     bridge 25 K=0 rows, own image keys [0, 1], touches 2 restricted comps; max K per image key {0: 6, 1: 2}; e.g. 2029000000300
+   orbit 3849 rows (K0 rows by image key {0: 7}): 1 restricted comps carrying 1 image keys; 2 K=0 comps, 0 bridges
+   orbit 25 rows (K0 rows by image key {}): 3 restricted comps carrying 1 image keys; 1 K=0 comps, 0 bridges
+ [mut] 14s
+ [der] 144794 directed edges; C1 key-changing edges by ends: image {'both0': 3212} | CONTROL tail-deletion {'both>=1': 1566, 'both0': 1646} | CONTROL random {'both>=1': 40014, 'boundary': 20403, 'both0': 62812}
+   orbit 14454 rows (K0 rows by image key {0: 64, 1: 65}): 3 restricted comps carrying 2 image keys; 2 K=0 comps, 2 bridges
+     bridge 4493 K=0 rows, own image keys [0, 1, 2, 3, 4, 5, 6], touches 3 restricted comps; max K per image key {0: 6, 1: 5}; e.g. 2000030000000
+     bridge 3588 K=0 rows, own image keys [0, 1, 3, 5], touches 2 restricted comps; max K per image key {0: 6, 1: 5}; e.g. 2000003000000
+   orbit 3874 rows (K0 rows by image key {0: 7}): 1 restricted comps carrying 1 image keys; 2 K=0 comps, 0 bridges
+ [der] 14s
+
+real	3m29.559s
+user	8m21.511s
+sys	0m1.529s
