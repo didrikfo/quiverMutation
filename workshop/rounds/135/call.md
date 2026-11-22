@@ -10,4 +10,6 @@ Step 0.5: round 134 proceedings had no questions; nothing to settle.
 ## Notes
 - Suggested question S-1 taken this round (not taken in 134).
 ## Referees
-(filled in at step 3)
+- maverick: scholar (wrote the original certificate)
+- skeptic: theorist (author of E-345)
+- experimentalist: skeptic
