@@ -1,0 +1,15 @@
+time 2 s
+     50    child itself: ISO
+    159    no same-Cartan alternative
+     34    stage of NO: NO:groebner
+    148  child not monomial
+      1  cyclic child
+    209  monomial child
+     43  no child
+      4  planted mono, no parallel arrows, truth NO: NO:groebner
+     65  planted mono, parallel arrows, truth ISO: ISO
+     30  planted mono, parallel arrows, truth NO: NO:groebner
+     43  swap control, truth ISO: ISO
+EXAMPLE truth-NO planted: ('rand', 2, [(1, 3, 0), (1, 3, 1), (1, 4, 0), (3, 2, 0), (4, 2, 0)], [{((1, 4, 0), (4, 2, 0)): 1}], [((1, 3, 0), (3, 2, 0))], 'NO:groebner')
+EXAMPLE truth-NO planted: ('rand', 2, [(1, 3, 0), (1, 3, 1), (1, 4, 0), (3, 2, 0), (4, 2, 0)], [{((1, 4, 0), (4, 2, 0)): 1}], [((1, 3, 1), (3, 2, 0))], 'NO:groebner')
+EXAMPLE truth-NO planted: ('rand', 4, [(1, 2, 0), (1, 2, 1), (3, 5, 0), (3, 6, 0), (5, 6, 0), (5, 6, 1), (6, 4, 0)], [{((3, 6, 0), (6, 4, 0)): 1}], [((3, 5, 0), (5, 6, 0), (6, 4, 0))], 'NO:groebner')

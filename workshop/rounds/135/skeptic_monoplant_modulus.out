@@ -1,0 +1,26 @@
+vertex 1 gate True
+vertex 2 gate True
+vertex 3 gate True
+vertex 4 gate False
+vertex 5 gate False
+vertex 6 gate False
+vertex 7 gate False
+child arrows [(2, 1, 0), (2, 3, 0), (2, 3, 1), (3, 4, 0), (3, 5, 0), (3, 6, 0), (3, 7, 0)]
+child rels [{((2, 3, 0), (3, 4, 0)): 1}, {((2, 3, 1), (3, 5, 0)): 1}, {((2, 3, 0), (3, 6, 0)): 1, ((2, 3, 1), (3, 6, 0)): 1}, {((2, 3, 0), (3, 7, 0)): 1, ((2, 3, 1), (3, 7, 0)): 2}]
+w in-arrows [(2, 1, 0)] out-arrows [] -> w is a sink
+relations besides the point relations: [] (must avoid the corner: each involves w)
+child points [(1, 0), (0, 1), (1, 1), (1, 2)] class ('cr', Fraction(1, 2))
+J 0 child itself vs End(T): ISO
+  same tuple (identity)              points [(1, 0), (0, 1), (1, 1), (1, 2)] truth ISO test ISO          ok  0.0 s
+  Moebius image, same cross-ratio    points [(2, 1), (1, 3), (3, 4), (4, 7)] truth ISO test ISO          ok  0.0 s
+  lambda 2 -> 3                      points [(1, 0), (0, 1), (1, 1), (1, 3)] truth NO  test NO:groebner  ok  0.0 s
+  lambda 2 -> -1                     points [(1, 0), (0, 1), (1, 1), (1, -1)] truth NO  test NO:groebner  ok  0.0 s
+  lambda 2 -> 1/2                    points [(1, 0), (0, 1), (1, 1), (2, 1)] truth NO  test NO:groebner  ok  0.0 s
+  p3, p4 swapped                     points [(1, 0), (0, 1), (1, 2), (1, 1)] truth NO  test NO:groebner  ok  0.0 s
+  p4 = p3 (coincidence)              points [(1, 0), (0, 1), (1, 1), (1, 1)] truth NO  test NO:groebner  ok  0.0 s
+  MONOMIAL 0,inf,0,inf               points [(1, 0), (0, 1), (1, 0), (0, 1)] truth NO  test NO:groebner  ok  0.0 s
+  MONOMIAL 0,inf,inf,0               points [(1, 0), (0, 1), (0, 1), (1, 0)] truth NO  test NO:groebner  ok  0.0 s
+  MONOMIAL 0,0,0,0                   points [(1, 0), (1, 0), (1, 0), (1, 0)] truth NO  test NO:groebner  ok  0.0 s
+agree 10 of 10 (named variants)
+  random batch: truth ISO, test ISO : 42
+  random batch: truth NO, test NO:groebner : 38
