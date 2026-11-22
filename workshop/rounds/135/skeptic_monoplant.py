@@ -54,7 +54,9 @@ def mono_cartan(nodes, arrows, S, allp):
     for a in arrows: c[(a[0], a[1])] += 1
     return {(x, y): c.get((x, y), 0) for x in nodes for y in nodes}
 
-def mono_alternatives(nodes, arrows, rels, cap=40):
+CAP = 1000   # r135 revision: was 40, which seed 133 hit (63 alternatives at one step)
+def mono_alternatives(nodes, arrows, rels, cap=None):
+    cap = cap or CAP
     """all antichains S of paths (len >= 2), S != child's zero paths, with the child's Cartan matrix (up to cap)."""
     allp = allpaths(arrows, nodes)
     own = frozenset(next(iter(r)) for r in rels)
@@ -127,8 +129,38 @@ def steps_rand(N, seed, nmax=6):
         for k in sorted(pa.quiver.nodes):
             if mutation.mutationIsPossibleAtVertex(pa, k): m += 1; yield ('rand', pa, k)
 
+def gl2_control(arrows, rels, rng):
+    """r135 revision (referee's item 5): apply g in GL2 with all four entries nonzero (in [-3, 3]) to every 2-arrow
+    slot, a_i -> sum_j g_ij a_j, and rewrite the child's relations.  An automorphism of kQ: truth ISO."""
+    slots = collections.defaultdict(list)
+    for a in arrows: slots[(a[0], a[1])].append(a)
+    sub = {}
+    for al in slots.values():
+        if len(al) != 2: continue
+        g = [[rng.choice([-3, -2, -1, 1, 2, 3]) for _ in range(2)] for _ in range(2)]
+        while g[0][0] * g[1][1] - g[0][1] * g[1][0] == 0:
+            g = [[rng.choice([-3, -2, -1, 1, 2, 3]) for _ in range(2)] for _ in range(2)]
+        for i in range(2): sub[al[i]] = [(al[j], Fraction(g[i][j])) for j in range(2)]
+    out = []
+    for r in rels:
+        nr = collections.defaultdict(Fraction)
+        for p, c in r.items():
+            for choice in itertools.product(*[sub.get(a, [(a, Fraction(1))]) for a in p]):
+                coef = Fraction(c)
+                for _, x in choice: coef *= x
+                nr[tuple(a for a, _ in choice)] += coef
+        out.append({p: c for p, c in nr.items() if c})
+    return out
+
+def slot_paths(arrows, nodes):
+    """max number of paths (length >= 1) between two distinct vertices"""
+    c = collections.Counter((p[0][0], p[-1][1]) for p in allpaths(arrows, nodes, 1))
+    return max(c.values()) if c else 0
+
 def mono(gen):
     tab = collections.Counter(); t0 = time.time(); bad = []
+    rng = random.Random(1); maxalts = (0, None); maxslot = 0
+    distinct_iso = 0; steps_no = 0
     for name, A, k in gen:
         ch = J.child_of(A, k)
         if ch is None: tab['no child'] += 1; continue
@@ -136,10 +168,19 @@ def mono(gen):
         nodes, arrows, rels = T.child_data(ch)
         if any(len(r) != 1 for r in rels): tab['child not monomial'] += 1; continue
         tab['monomial child'] += 1
+        maxslot = max(maxslot, slot_paths(arrows, nodes))
         alts = mono_alternatives(nodes, arrows, rels)
+        if len(alts) >= CAP: tab['  CAP HIT'] += 1
+        if len(alts) > maxalts[0]: maxalts = (len(alts), (name, k))
         swaps = swap_controls(arrows, rels) if has_parallel(arrows) else []
+        if has_parallel(arrows):
+            E = T.EndT(A, k).table().rad()
+            v = T.iso(E, nodes, arrows, gl2_control(arrows, rels, rng))
+            tab['GL2-image control (non-permutation), truth ISO: ' + v] += 1
+            if v != 'ISO': bad.append((name, k, arrows, rels, 'GL2', v))
         if not alts and not swaps: tab['  no same-Cartan alternative'] += 1; continue
         E = T.EndT(A, k).table().rad()
+        isoset = set(frozenset(next(iter(r)) for r in R2) for R2 in swaps); has_no = False
         own = T.iso(E, nodes, arrows, rels)
         tab['  child itself: ' + own] += 1
         par = has_parallel(arrows)
@@ -149,6 +190,8 @@ def mono(gen):
             truth = mono_truth(arrows, ownset, frozenset(S))
             key = 'planted mono, %s arrows, truth %s: %s' % ('parallel' if par else 'no parallel', truth, v)
             tab[key] += 1
+            if truth == 'ISO': isoset.add(frozenset(S))
+            else: has_no = True
             if v.startswith('NO'): tab['  stage of NO: ' + v] += 1
             if v.split(':')[0] != truth: bad.append((name, k, arrows, rels, S, v, truth))
             if truth == 'NO' and v.startswith('NO') and len(EX) < 3 and (par or not EX): EX.append((name, k, arrows, rels, S, v))
@@ -156,7 +199,12 @@ def mono(gen):
             v = T.iso(E, nodes, arrows, R2)
             tab['swap control, truth ISO: ' + v] += 1
             if v != 'ISO': bad.append((name, k, arrows, rels, R2, v))
+        distinct_iso += len(isoset); steps_no += has_no
     print('time %.0f s' % (time.time() - t0))
+    print('  cap %d; max alternatives at one step: %d at %s' % (CAP, maxalts[0], maxalts[1]))
+    print('  max paths between two distinct vertices, over monomial children: %d' % maxslot)
+    print('  distinct truth-ISO plants (permutation alternatives + swaps, deduplicated): %d' % distinct_iso)
+    print('  steps carrying truth-NO plants: %d' % steps_no)
     for key, v in sorted(tab.items()): print('  %5d  %s' % (v, key))
     for b in bad: print('DISAGREE', b)
     for e in EX: print('EXAMPLE truth-NO planted:', e)

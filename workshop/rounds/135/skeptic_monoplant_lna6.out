@@ -1,4 +1,8 @@
-time 1 s
+time 4 s
+  cap 1000; max alternatives at one step: 0 at None
+  max paths between two distinct vertices, over monomial children: 1
+  distinct truth-ISO plants (permutation alternatives + swaps, deduplicated): 0
+  steps carrying truth-NO plants: 0
     272    no same-Cartan alternative
      70  child not monomial
     272  monomial child

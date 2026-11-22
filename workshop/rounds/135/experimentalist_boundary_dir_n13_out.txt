@@ -1,0 +1,4 @@
+n=13 h=1 mut: K=0 -> K>=1: 392 {'3400->0300 rules': 64, '3403->0340 rules': 8, '4000->0300 rules': 256, '4030->0302 rules': 64}; free-end K {1: 392} | K>=1 -> K=0: 0 {} | tail m[4:] changed on 0
+n=13 h=1 der: K=0 -> K>=1: 392 {'3400->0300 rules': 64, '3403->0340 rules': 8, '4000->0300 rules': 256, '4030->0302 rules': 64}; free-end K {1: 392} | K>=1 -> K=0: 0 {} | tail m[4:] changed on 0
+n=13 h=2 mut: K=0 -> K>=1: 16 {'3404->0350 rules': 16}; free-end K {1: 16} | K>=1 -> K=0: 0 {} | tail m[4:] changed on 0
+n=13 h=2 der: K=0 -> K>=1: 16 {'3404->0350 rules': 16}; free-end K {1: 16} | K>=1 -> K=0: 0 {} | tail m[4:] changed on 0

@@ -5,8 +5,9 @@
 - Monomial family: every other monomial ideal on a monomial child's quiver with the same Cartan matrix. Truth is combinatorial:
   labelled iso of monomial algebras <=> a permutation of parallel arrows maps minimal zero paths onto each other. My proof: gr + torus
   conjugacy in Stab(I)^0. The weakest step is that maximal tori of the connected group are conjugate (standard). No parallel arrows => distinct ideals are never iso.
-- Results: 275 truth-NO (13 without parallel arrows) all NO:groebner; 258 truth-ISO + 178 swap controls all ISO. 4 x 400 random steps n <= 6.
-- LNA n = 4-6: 272 of 272 monomial children have NO same-Cartan monomial alternative. Cartan decides there, and iso's LNA power comes only from the 70 non-monomial ones.
+- Results (revised after theorist's review): 295 truth-NO (13 without parallel arrows) on 77 steps, all NO:groebner. 261 distinct truth-ISO
+  permutation plants (swaps are a subset) + 673 non-permutation GL2-image controls, all ISO. 4 x 400 random steps n <= 6. Original cap 40 WAS hit (seed 133, 63 alts): now 1000.
+- LNA n = 4-6: Cartan decides monomial children trivially. Every LNA child has <= 1 path per vertex pair (all 272), so it is not a finding.
 - Modulus (E-186 type): parent w -> x =>(a0,a1) y -> z_1..z_4, with point relations (s a0 + t a1) c_j = 0, n = 7, mutation at w (gate ok, J = 0).
   The child keeps the points, and w becomes a sink, so a corner argument gives truth = PGL2 class (cross-ratio and coincidences). 46 truth-NO all NO
   (incl. 3 monomial degenerations), 44 truth-ISO all ISO.
@@ -36,6 +37,7 @@
 3. T5: modulus through the mutated vertex; arrow-parallel-to-path plants.
 
 ## Habits
+- Claiming "cap never reached"? PRINT the max reached. Dedupe overlapping control lists before adding. Before counting a zero, ask whether it is trivial.
 - A planted control needs a truth proved independently of the test. Prefer a combinatorial or invariant-theoretic criterion. Check whether the alternative EXISTS before counting zeros.
 - Quote a confound rate against the R^2 of the feature. Run the full-census power before saying "unreachable".
 - Count INDEPENDENT units before sizing a test. A single-unit offset is not an effect size.

@@ -1,7 +1,12 @@
-time 4 s
+time 17 s
+  cap 1000; max alternatives at one step: 14 at ('rand', 3)
+  max paths between two distinct vertices, over monomial children: 8
+  distinct truth-ISO plants (permutation alternatives + swaps, deduplicated): 56
+  steps carrying truth-NO plants: 16
      42    child itself: ISO
     157    no same-Cartan alternative
      40    stage of NO: NO:groebner
+    162  GL2-image control (non-permutation), truth ISO: ISO
     165  child not monomial
       1  cyclic child
     199  monomial child
