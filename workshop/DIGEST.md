@@ -5,6 +5,15 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 136 -- 2026-11-23 -- conference
+Phase 4 (cycle 2) conference: six position statements, no new research. Step 0.5: no open questions from round 135.
+- **Ledger:** **F-058** written (H-025 CONFIRMED, scoped: kA_15/rad^3, kA_15/rad^8, kA_14/rad^5, N_14(4), N_14(6) and three n = 10-11 groups are not fractionally CY, by a two-shift certificate checked by two independent nu codes; open points in its body: second prime for the uniserial-only groups, an FCY size control at n = 14-15, the three one-shift groups).
+- No R-candidate stands; the closest ("`refuseNonTilting` is harmless in-class") has its blocking check named: option-on depth-7/9 walks on E-332's roots, round 137. T6 (H-017b key form, closed without a run) and H-027 (F-056 stands) leave the board.
+- Personas agree the weakest claims are the J = 0 premise ("25 of 25 joined"), the T10 option's zero (3 refusals at one step) and the unverified Nikulin 1.13.3 step.
+- **Agenda for phase 5 (backlog and replication, 137-139; 140 closing conference):** T10 option cost and default decision; independent rebuilds of F-057/F-058/F-056; H-023 beyond n <= 6 acyclic; backlog closures (UNVERIFIED primaries, docstrings, R-018 gate refusal); H-010 capped cells and S-1 at n = 14. The experimentalist's n = 17 overnight run is not approved. History in `cycles/002/phase-4.md`.
+- Note: the experimentalist subagent could not write its file; the chair placed it from its hand-back.
+- Questions for the human: none.
+
 ## Round 135 -- 2026-11-22 -- ordinary
 Maverick (T3/H-025), skeptic (T5/H-023), experimentalist (S-1, suggested question taken); all three minor revisions, answered, all accepted (experimentalist narrowed).
 - **E-347** (maverick): a second independent nu agrees with E-346 object by object at n = 14-15 (N_15(3), N_15(8), N_14(5), all uniserials of N_14(4), N_14(6)); the one-implementation blocker is removed; H-025 CONFIRMED proposed at conference 136.

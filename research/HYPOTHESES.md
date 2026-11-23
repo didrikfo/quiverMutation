@@ -55,7 +55,7 @@ At key level, deleting an end vertex from a long free stretch next to a lone 3 s
 ---
 
 ## H-025 — Phi periodic does not imply fractionally Calabi-Yau for LNAs
-*2026-10-30* · **SUPPORTED** *(E-346: finite exact two-shift certificate at n = 14-15 and three n = 10-11 groups; E-347: second independent nu implementation agrees, CONFIRMED proposed at conference 136; E-339: proof-level instance at n = 15 via Fuchsian R(2,3,10), referee-checked, unpublished argument; E-245, E-246, E-253: rank growth of nu^k P in several groups, verdict constant on every group swept at n = 10, 11, 12; not stated in the literature, E-251; workshop cycle 001 planning)*
+*2026-10-30* · **CONFIRMED -> F-058 (round 136, scoped: n = 10-15 groups of E-346)** *(E-346: finite exact two-shift certificate at n = 14-15 and three n = 10-11 groups; E-347: second independent nu implementation agrees; E-339: proof-level instance at n = 15 via Fuchsian R(2,3,10), referee-checked, unpublished argument; E-245, E-246, E-253: rank growth of nu^k P in several groups, verdict constant on every group swept at n = 10, 11, 12; not stated in the literature, E-251; workshop cycle 001 planning)*
 
 For a Nakayama algebra of finite global dimension, a periodic Coxeter transformation Phi does not force Phi^m = shift. **Falsifiable:** one swept group whose nu^k P stays bounded for every k although Phi is periodic gives the counter-direction. **Would settle it:** a published statement of either direction (phase 1), or a proof that the rank growth is exact for a whole family.
 
@@ -642,6 +642,8 @@ outside a quipu class is a *single* overlapping cluster, usually against an end.
 A normal form fitted to those may say nothing about a quiver long enough to hold
 two clusters far from both ends.
 
+
+**Conference 136 (round 136):** H-017b's key form is closed without a run (E-342: the registered test has no power at E-303 scale and a full n = 11 census costs ~130 CPU-h with a relation-length confound); H-017 itself stays OPEN on min defect >= 1.
 
 **Amendment (round 119, E-314; idea, not run).** Proposed sub-statement H-017b: at n = 10, 11 the depth-5 defect of monomial quipu members depends on the Coxeter key beyond the source LNA's own features. Test: per-LNA mean defect, between-key variance after regressing out LNA features, key labels permuted among LNAs; about 15 LNAs per n; minimum detectable effect delta* fixed first by a planted-defect control; a non-significant result reads "not detected at power 0.8 for delta >= delta*", never "key irrelevant". Full text: `workshop/rounds/119/maverick.md`, last section. An OVERNIGHT proposal, not run.
 ---

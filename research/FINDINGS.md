@@ -5,6 +5,19 @@ See [`README.md`](README.md) for conventions.
 
 ---
 
+## F-058 — Periodic Coxeter transformation does not imply fractionally Calabi-Yau for LNAs: kA_15/rad^3, kA_15/rad^8, kA_14/rad^5, N_14(4), N_14(6) and three n = 10-11 groups are not FCY, by a finite two-shift certificate confirmed by two independent nu implementations (n = 14-15 scope; uniserial-only groups on one prime plus char 0)
+*2026-11-23* · *workshop round 136 (conference ledger), chair; evidence refereed in rounds 134 (scholar, refereed by maverick) and 135 (maverick, refereed by scholar)*
+
+Evidence: E-346, E-347; earlier support E-245, E-246, E-253, E-339 (H-025; CONFIRMED at this scope).
+
+**The claim, at its scope.** On kA_15/rad^3 (m = 144: nu^m S_5 ~ S_5[160], nu^m P_2 ~ P_2[162]) two different shifts of nu^m at one m rule out nu^a ~ [b] (160a = 144b = 162a), so the algebra is not fractionally Calabi-Yau although its Coxeter transformation is periodic. Same for kA_15/rad^8, kA_14/rad^5, N_14(4), N_14(6) (on uniserials) and three of the six n = 10-11 groups (040404000, 45050400, 050404400). Fields: GF(2), GF(3), GF(1000003), GF(2^31-1); characteristic 0 by the referee's base-change argument (not re-run). A second, independent nu (E-347) agrees object by object (6600 and 9108 uniserial pairs, 0 disagreements; the codes share only the Kupisch series and the cohomology-dimension convention); identity-as-nu is caught 648 of 648; hypersurface controls return one shift.
+
+**What it does not say.** Why there are two nu-orbit families; anything for the three groups 34504030, 50505000, 334504030 (one shift only, no conclusion); a second prime for the uniserial-only groups 040404000, 45050400, N_14(4), N_14(6) (GF(2^31-1) and char 0; GF(2) on N_14(4), N_14(6) only in nu2); an FCY size control at n = 14-15 returning one shift (skeptic); the shared convention loophole (maverick); Nikulin 1.13.3 UNVERIFIED does not enter this certificate.
+
+Reproduce: `timeout 10m .venv/bin/python workshop/rounds/134/scholar_two_slopes.py 3333333333330 144` and `timeout 10m .venv/bin/python workshop/rounds/135/maverick_nu2.py` (arguments in the E-entries).
+
+---
+
 ## F-057 — Key-guarded walks leave their derived class: a key-kept J != 0 (non-tilting) step crosses at n = 11 (pure F, depth 6, key group of 72) and n = 12 (F/R, group of 47); "derived inequivalent" rests on the SNF(S) / Phi necessity chain (E-308, E-272), not on a direct proof
 *2026-11-19* · *workshop round 132 (conference ledger), chair; evidence refereed in rounds 122 (E-318), 125 (toolsmith, refereed by skeptic), 129 (maverick, refereed by skeptic; theorist, refereed by experimentalist), 131 (theorist, refereed by experimentalist)*
 

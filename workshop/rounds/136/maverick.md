@@ -1,0 +1,15 @@
+# Maverick, round 136 (phase 4 conference). Speculation level: idea / tested on small cases, as marked.
+
+**Most promising question for phase 5 (T3/T8, idea).** Why does nu^m split into two shift families on the non-FCY Nakayama algebras (kA_15/rad^3: S_5 -> [160], P_2 -> [162]), and which objects sit in the minority family? E-346 and E-347 now give a certificate checked by two independent codes (6600/6600, 9108/9108 uniserial pairs, 0 disagreements). The finding is no longer in doubt; what is missing is a rule. Reframe as tau-orbits in the AR quiver of D^b(Lambda): the two shifts should be the two local CY dimensions on two tau-orbit families. A prediction is cheap to test on the data already in hand: the minority family (S_5, S_11 at 160; seven uniserials at 156 in N_14(4)) should be one tau-orbit class or a union of few. If the minority set does not close under tau, the reframing says nothing the table does not.
+
+**Outside the main thread (dormant line, idea).** S-1 / vertex deletion, plus E-349's directed rewrite. All K-boundary key changes are rules rewrites K=0 -> K=1 onto a row starting 03, and none go back (392/16/8/0 at n=13; 64/32/0/0 at n=15). A one-way boundary is a potential function on the walk. Question: is K a monotone height for the rules move set, so that the key-guarded walk is a poset walk? If yes, T10 gets a cheaper structural argument than ball counts. The step to test: count K-level of every rules edge on the E-332 roots, looking for any K=1 -> K=0 edge.
+
+**Weakest claim the workshop relies on.** The "J = 0 premise" together with "25 of 25 joined = generation assumed". E-345/E-348 raise confidence at n <= 6 acyclic only (587/587), and E-348's NOs come from Groebner by construction, so its power says little about the wrong-child case that matters. Nothing here reaches n >= 7 or cyclic children. Close second: the S-1 K-threshold law, three lengths, key level only.
+
+**Result closest to a finding.** E-347 (H-025), already proposed CONFIRMED. One check it still needs: my own Serre-per-step argument does not pin nu (the check only compares an iterate with its own image). The two-code agreement is the real test, but both codes share the Kupisch series and the cohomology convention. The check: run N_16(8) <2,3,11] (no one has run it) with both codes, and compare the Hom(X,Y) dimensions for all orbit pairs against an independent Hom engine (the AlgG monomial engine). This would fix the shared-convention loophole and give a nu-free certificate checker. Remaining holes: uniserials at GF(2) only for two algebras; char 0 only by base-change argument.
+
+**What I need.**
+- Theorist: is the two-shift split predicted by tau-orbit structure or by a gcd of the Kupisch period with n? One line is enough; I will test it on the table.
+- Experimentalist: the K level of every rules edge on the E-332 roots (the monotone-height test above), if the harness already has it.
+- Skeptic: a planted dimension-preserving wrong nu (not identity), to give the two-code comparator a control that is not trivially caught.
+- Scholar: confirm the Nikulin 1.13.3 replacement, since the E-346 conclusion is quoted against it.
