@@ -675,7 +675,8 @@ star `T(a,b,c)`.** Compare `invariants.coxeterKey` of the LNA against
 | | claimed | |
 |---|---|---|
 | `N_5(3)`, `N_6(4)`, `N_7(5)`, `N_10(8)` | `[2,3,r-1]` | match |
-| `N_6(3)`, `N_9(5)` | `[2,3,r]` | match |
+| `N_6(3)` | `[2,3,r]` | match |
+| `N_9(5)` | `[2,3,6]` (corrected round 137, E-352; was misprinted `[2,3,r]`) | match |
 | `N_7(3)`, `N_8(3)`, `N_8(4)`, `N_9(3)`, `N_10(5)` | as tabulated | match |
 
 **11 of 11 match.** A twelfth row, `N_11(6)` against `T(2,3,8)`, does **not**

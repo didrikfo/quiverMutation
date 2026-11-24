@@ -6,28 +6,26 @@
 - T10 R122-125 (E-318, E-323): key-kept J != 0 crossings n = 11, 12; `isTiltingAtVertex`, `refuseNonTilting` in library.
 - T5 R127 (E-329): gate / `isTiltingAtVertex` wrong when a cycle is upstream of i (owed, R-018).
 - T10 R130 (E-337): F-041 with the option n = 10, 11 depth 3+3: 0 refusals, thin balls.
+- T10 R133-134 (E-341, E-344): 3 key-kept refusals at E-332's 2 crossing roots, all step 6 (= horizon), 2 algebras; F-only +3/+4 from them: 0 in-class outside ball. Lesson: record the step of every refusal; a horizon refusal loses only its leaf.
 
-## T10 R133 (E-341): counted pass, `133/toolsmith_dcount.py`
-- E-332 roots n = 11 depth 6: 3 key-kept refusals, all cross-class. Referee: ALL at step 6 (depth 5 has 0 non-tilting steps) => no power on joins; LNA unit had nothing to lose (1 LNA). Lesson: a refusal at the horizon can only lose its own leaf -- always record the step number of a refusal and walk downstream from it.
-- n = 9 merges depth 5: vacuous (0 d >= 2). E-316 joins: same-LNA ends, not a loss test.
-
-## T10 R134: revision, `134/toolsmith_downstream.py` (outs `_a.out`, `_b.out`)
-- Default depth-6 ball (canonicalKey) + every key-kept non-tilting step with its step number; F-only depth-3 walk from each refused child (option off, root key guard); count in-class nodes outside the ball.
-- Result: refusals at step 6, 6, 6; children SNF tail (1,2,2); downstream 158/158/159 nodes, 472 outside ball, ALL cross; 0 in-class. Downstream: 836 admitted, 26 non-tilting, all key-moved (0 key-kept J != 0) => no way back into the class (E-323's statement, at depth 3).
-- Detector control: from in-class TILTING step-6 children the same walk finds 49, 38, 80, 85 in-class outside-ball nodes: PASS.
-- The two 303500030 refused children ARE isomorphic (swap 1<->3; `134/toolsmith_iso.py`, key + ideal tests, controls). 3 refusals = 2 algebras. Referee +4: 591/592/526 nodes all cross, 0 key-kept non-tilting; 591 vs 592 = labelled DFS order effect => outside-ball count is an upper bound on loss.
-- Referee lesson: the tilting-child control only tests reach + labelling; the re-entry detector is the key-kept non-tilting counter. Scope a horizon test to the refusals it examined (step-6 only; steps 7-9 of a depth-9 walk untouched).
-- Cost: ~2.3 min per root (ball 95-115 s, downstream 16 s each).
+## T10 R137: decision data, `137/toolsmith_t10walk.py` (+ `.out`)
+- Pre-registered rule in the submission (HARMLESS = L_in 0 and 0 cross nodes on; non-vacuous = key-kept refusal at step <= D-1; R1-R4 regressions).
+- Depth 7, library F-only + Visited, 9 walks (7 roots root side + 303500030 dual + 303305000 root): L_in 0, G 0 everywhere; L_x 19 / 12 at the 2 crossing roots; on balls 0 cross nodes. Key-kept refusals: step 6: 3 (E-341's), step 7: 20 new, all cross. NO non-tilting step at steps 1-5 in any walk.
+- R1 F-041 n = 8 10/10, n = 9 52/52 on = off, 0 refusals. R2 E-318, R3 E-323, R4 seeds 514 (v5 F), 3277 (v3 R): PASS.
+- Planted power: refuse every step into 5 in-class step-4 nodes (depth 5) -> L_in = 9. PASS.
+- Verdict by rule: "supports flipping default on, scoped" -- but non-vacuity rests on the same 3 step-6 refusals (1 step below). Expect the referee to push on that; my bar for non-vacuous was low (should have asked for >= 2 steps below).
+- Cost: depth-7 walk 57-472 s (3 parallel), nodes 868-6950; depth 8 ~3x, so not in 10 min. `shard`/`merge` mode (by step-1 child, own Visited) verified = walk at D = 5 (681 keys), overlap ~1.9x.
+- Timing caveat: my off walk calls `isTiltingAtVertex` at every admitted step (spy), so off/on times are equal by construction; the option's real cost is unmeasured.
 
 ## Beliefs
-- Where the option fires in library walks it removes a cross-class component (~160 nodes per child at +3) and nothing in-class; mechanism: the cross child has no key-kept J != 0 step back. Denominator: 2 roots, 3 refusals / 2 algebras, to 6 + 4. Not a law.
-- d >= 2 alone is not J != 0 (many d = 2 tilting steps; E-338 needs a non-monomial piece).
+- In the 13-class of n = 11 group 5, the option removes only cross-class subtrees; non-tilting key-kept steps appear only at steps >= 6 from the LNA roots, and every one has a cross-class child (E-323's "no way back" holds again). Denominator: 9 walks, 23 refusals. Not a law.
+- d >= 2 alone is not J != 0 (E-338 needs a non-monomial piece).
 - Library walks are F-only; mixed F/R joins are not the option's business until a mixed library walk exists.
 
 ## Would do next
-- Run `134/toolsmith_downstream.py` on the other 5 E-332 13-class roots (list in E-332; ~2-3 min each, 3 parallel). If any has refusals below the horizon, that is the real join test.
-- Option-on vs option-off depth-9 walk at the 2 roots: in-class loss from refusals at steps 7-9 (cost? depth 6 ball ~100 s; depth 9 likely too slow -- try 7 first).
-- If default flips: regression = R130 tables, E-318 test, E-332 walk refused, R134 0 in-class at 6 + 3.
+- If the conference wants >= 2 steps below a refusal: depth 8 via `shard ROOT SIDE 8 off|on 6 m` at the 2 crossing roots (~24 commands <= 8 min) -> OVERNIGHT proposal; depth 9 ~3x more.
+- Measure the option's cost honestly: off walk WITHOUT the spy vs on walk, same root, alone on the machine.
+- The 5 unrun duals (003033030, 023033030, 203033030, 223033030, 305500030 dual), ~1-8 min each.
+- If default flips: regression = R130 tables, E-318 test, E-332 walk refused, R137 R1-R4; update test `test_refuse_non_tilting_drops_exactly_e318s_step_and_is_off_by_default`.
 - Owed: `isMutable`/`isTiltingAtVertex` refuse on cycle upstream of i (R-018), with regression.
-- n = 11 depth-4 F-041 refusal counter: overnight proposal only.
 - Older pending: E-149's 154 lost edges with `sameIdeal`; H-023 End(T) builder.

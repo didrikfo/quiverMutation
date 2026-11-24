@@ -160,6 +160,16 @@ def isMutable(quiver, relations, vertex, allowParallelArrows = True):
     Since the relations name their arrows there is nothing left to refuse, and
     `allowParallelArrows = False` restores the old gate for measuring what the
     change does -- not for producing answers.
+
+    On an acyclic quiver the exact tilting test is `mutation.isTiltingAtVertex`
+    (no nonzero *element* into `vertex` killed by every arrow out, where this
+    asks only about *paths*); at a vertex with an arrow out it implies this
+    gate, so the two together are that test alone (research E-080, E-327;
+    workshop round 137).  Both assume each relation has one source and one
+    target (`arrowPaths.isIllegalRelation` False): with the non-uniform
+    relation abd + cd on 1->2->3->5, 4->3, both say yes at 3, and with the
+    same ideal split as abd, cd both say no.  Coefficients are rationals: a residue mod p such as
+    32002 for -1 is a different algebra (research E-312, R-016).
     """
     if quiver.has_edge(vertex, vertex):
         return False

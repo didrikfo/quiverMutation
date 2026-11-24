@@ -6,6 +6,29 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-352 — backlog / literature: the 2112.15587 summary (l. 127, 235) matches the v2 LaTeX; of the four secondary-only UNVERIFIED primaries only Anick 1982 is load-bearing (H-023, OPEN); Λ(n,n-1) ≃ kD_n proved for all n ≥ 4 (Euler form positive definite, det 4; Brüstle Thm 1.1 + 1.2), checked at n = 4..14
+*2026-11-24* · **`.venv/bin/python workshop/rounds/137/scholar_dn.py` (and `scholar_citedeps.py`; `workshop/rounds/137/scholar.md`)** · *workshop round 137, scholar, refereed by maverick (minor revision, answered)*
+
+Scope: LMR 2112.15587v2 and KLM 1203.5505v1 LaTeX; record scan by keyword over FINDINGS, HYPOTHESES, EXPERIMENTS, RETRACTIONS (12 Nikulin, 11 Anick entries); primaries themselves unread. Power: the D_n script refuses N_9(3) (semidefinite) and N_12(3) (not PH) and matches N_7(3), N_8(3) to E, not D (4 of 4 controls). Result: **Nikulin 1979 and BGS retired** (every use is the "would follow" direction; every NO uses that an isometry preserves q_S); **Happel-Seidel retired with a re-derivation note** (table = LMR Thm 4.4, conjecture-free; symmetry = KLM Thm 6.11; Λ(n,n-1) ≃ kD_n as above); **Anick 1982 carried** as "monomial case re-derived in E-240; general case UNVERIFIED" (needed by H-023 only). Side finding: F-044's row "N_9(5) | [2,3,r]" is a copying slip, N_9(5) is [2,3,6] (corrected in place). Literature-file edit: Thm 4.4 non-PH route noted for N_14(4), N_14(6), N_14(5), N_16(8). Owed: Nikulin 1.9.4 numbering unchecked.
+
+---
+
+## E-351 — H-030 / T11: on a finite acyclic quiver with relations that have one source and one target, `isTiltingAtVertex` is exactly the Hom tilting criterion at every vertex (43 972 (algebra, vertex, side) cases, 4 000 random algebras n = 4-7, 0 failures), and with an arrow out of v it implies the gate; E-327's 298 337 of 298 337 is a theorem there
+
+*2026-11-24* · **`timeout 10m .venv/bin/python workshop/rounds/137/theorist_t11.py` (and `theorist_nonuniform.py`; `workshop/rounds/137/theorist.md`)** · *workshop round 137, theorist, refereed by experimentalist (minor revision, answered)*
+
+Scope: proof for any finite acyclic Q and any ideal; the code reading holds only when `arrowPaths.isIllegalRelation` is False (a non-uniform relation abd + cd at v = 3 makes the function return True where Hom says False; the gate says True as well); F side (R = F on the dual). Mostly a rediscovery of E-124, E-128 (L1, L2), E-130, E-171; new are the self-contained proof (acyclicity used once, to kill Hom(Y,Y[-1])) and the code reading. Power: Hom engine says NO on E-080 and YES on abd = acd; a planted Y missing an out-arrow breaks Lemma 1; a planted path-only test disagrees with Hom on 372 cases. Consequence: H-030's over-admissions are exactly "J_i != 0 with no path in J_i" (E-080 shape on seed 7, E-112's circuit on 3277), not a presentation dependence; the gate should not call the test by default (wrong on cyclic quivers, E-329). `isMutable` docstring states the precondition. Not claimed: cyclic quivers; child = End(T) (H-023).
+
+---
+
+## E-350 — H-032 / T10: `refuseNonTilting` costs no in-class node at E-332's n = 11 roots (10 depth-7 F-only walks) only because no in-class key-kept refusal occurs there, but at E-316's 19 n = 9 in-class J != 0 steps it loses 93-180 in-class nodes per depth-4 walk (2 226 in all; the step's own child in 19 of 19); default stays off
+
+*2026-11-24* · **`timeout 10m .venv/bin/python workshop/rounds/137/toolsmith_t10walk.py` (modes and arguments in `workshop/rounds/137/toolsmith.md`; `toolsmith_e316check.py`, `toolsmith_e316lost.py`)** · *workshop round 137, toolsmith, refereed by skeptic (minor revision, answered)*
+
+Scope: (A) n = 11, key group 5, 13-class only, E-332's 7 roots root side plus 3 duals (4 duals not run), depth 7 (8, 9 not run); (B) n = 9 F-010 group, the 19 E-316 steps, depth 4 only; in-class = SNF(C + C^T) and signature. Decision rule pre-registered before running; (B) is a post-hoc extension of "HARMFUL anywhere", made at the referee's request. (A): L_in = 0 and G = 0 at all 10; L_x = 19 and 12 at the two crossing roots; all 23 key-kept refusals (21 distinct children) are cross-class, so (A) cannot detect the realistic loss mode. (B): L_in 93-180 per walk, L_x = G = 0; 1 929 lost nodes via the E-316 step alone, 297 via a second non-tilting step (uncertified). No LNA-to-LNA merge is lost (E-318, E-341). Regressions: F-041 n = 8, 9 unchanged (10 of 10, 52 of 65), E-318/E-323 children reached off and not on, seeds 514/3277 refused. Power: planted in-class loss (5 nodes) caught, L_in = 9; (B) says YES on 19 of 19. Cost +6% at depth 6. Not run: depth 8 (sharded mode `shard`/`merge` added; overnight proposal in the submission, not approved).
+
+---
+
 ## E-349 — H-026 / S-1: on five lone-3 key classes not used in E-325 (n = 13 h = 1, 4; n = 15 h = 2, 4, 5; head end, key level) no `rules`/`mut`/`der` move edge with both ends at K >= 1 changes the image key; every key change on the K = 0 / K >= 1 boundary is a directed `rules` rewrite K = 0 -> K = 1 onto a row starting 03 (none in reverse), 392 / 16 / 8 / 0 at n = 13 h = 1..4 and 64 / 32 / 0 / 0 at n = 15 h = 2..5
 *2026-11-22* · **`timeout 10m .venv/bin/python workshop/rounds/135/experimentalist_boundary.py` (and `experimentalist_boundary_dir.py`, `experimentalist_bridge.py`, one call per class; full list in `workshop/rounds/135/experimentalist.md`)** · *workshop round 135, experimentalist, refereed by skeptic (minor revision, answered)*
 

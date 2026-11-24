@@ -5,6 +5,12 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 137 -- 2026-11-24 -- ordinary (cycle 2, phase 5)
+- **toolsmith (T10):** `refuseNonTilting` loses 0 in-class nodes at E-332's n = 11 roots (10 depth-7 walks), but only because no in-class refusal occurs there; at E-316's 19 n = 9 in-class J != 0 steps it loses 93-180 in-class nodes per depth-4 walk (the step's own child 19 of 19). Default stays off. Accepted, narrowed (E-350).
+- **theorist (T11):** the injectivity test is exactly the Hom tilting criterion on acyclic quivers with one-source/one-target relations (43 972 cases, 0 failures; proof, mostly a rediscovery); E-327's agreement is a theorem; a non-uniform relation breaks it. H-030 closed as SUPPORTED (E-351).
+- **scholar (backlog):** 2112.15587 summary confirmed; Nikulin 1979, BGS retired, Happel-Seidel retired with re-derivation (Λ(n,n-1) ≃ kD_n proved for all n ≥ 4), Anick 1982 carried for H-023 (E-352); F-044's N_9(5) row corrected to [2,3,6].
+- All three were minor revisions, answered. Promoted E-350 to E-352; no questions for the human; no overnight run approved.
+
 ## Round 136 -- 2026-11-23 -- conference
 Phase 4 (cycle 2) conference: six position statements, no new research. Step 0.5: no open questions from round 135.
 - **Ledger:** **F-058** written (H-025 CONFIRMED, scoped: kA_15/rad^3, kA_15/rad^8, kA_14/rad^5, N_14(4), N_14(6) and three n = 10-11 groups are not fractionally CY, by a two-shift certificate checked by two independent nu codes; open points in its body: second prime for the uniserial-only groups, an FCY size control at n = 14-15, the three one-shift groups).
