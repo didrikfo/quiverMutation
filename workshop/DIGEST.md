@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 138 -- 2026-11-25 -- ordinary (cycle 2, phase 5: backlog and replication)
+Three independent rebuilds of this cycle's findings, all accepted after minor revision.
+- **skeptic (E-353):** F-058's FCY size control passes: kA_15/rad^2, kA_14/rad^3 (m = 144), kA_14/rad^2 (m = 60) return all S, P at one pre-registered shift in both nu codes; the same harness gives two shifts on kA_15/rad^3. m = 132 is controlled only partly (no proved-FCY LNA returns there).
+- **experimentalist (E-354):** F-057 (a) reproduces with own code at n = 11: end node is exactly the ideal of 403033030 (closes `sameIdeal`), SNF tails (1,2,4) / (1,2,2), 72 = 13 + 59. The NO still rests on E-308 / E-272.
+- **maverick (E-355):** GF(2), GF(3) reproduce the uniserial-only certificates in both codes; among uniserials each shift family is one periodic tau-orbit (two per algebra, six algebras).
+- Consequences: F-058 and F-057 open items updated; new caveat that nu2's uniserial returns compare dimension vectors (bimodule code is exact and agrees). No retraction, no overnight change.
+- Questions for the human: none.
+
 ## Round 137 -- 2026-11-24 -- ordinary (cycle 2, phase 5)
 - **toolsmith (T10):** `refuseNonTilting` loses 0 in-class nodes at E-332's n = 11 roots (10 depth-7 walks), but only because no in-class refusal occurs there; at E-316's 19 n = 9 in-class J != 0 steps it loses 93-180 in-class nodes per depth-4 walk (the step's own child 19 of 19). Default stays off. Accepted, narrowed (E-350).
 - **theorist (T11):** the injectivity test is exactly the Hom tilting criterion on acyclic quivers with one-source/one-target relations (43 972 cases, 0 failures; proof, mostly a rediscovery); E-327's agreement is a theorem; a non-uniform relation breaks it. H-030 closed as SUPPORTED (E-351).

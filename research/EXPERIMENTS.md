@@ -6,6 +6,27 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-355 — H-025 / T3: GF(2) and GF(3) reproduce the uniserial two-shift certificates of 040404000, 45050400, N_14(4), N_14(6) in both nu codes (8 + 8 runs, 0 disagreements); among uniserials each shift family is exactly one periodic nu-orbit, with tau^p ~ [r] for two different (p, r) on six certificate algebras (n = 10-15; non-uniserial objects untested)
+*2026-11-25* · **`.venv/bin/python workshop/rounds/138/maverick_tau.py <REL> <m>`; second prime: `workshop/rounds/135/maverick_nu2.py` and `workshop/rounds/134/scholar_uniserial.py --prime p` (`workshop/rounds/138/maverick.md`)** · *workshop round 138, maverick, refereed by toolsmith (minor revision, answered)*
+
+Scope: every uniserial of 040404000 (m = 72), 45050400 (84), N_14(4), N_14(6) (132) at GF(2), GF(3), end state at m only; tau-orbit test on uniserials, k <= m, GF(2^31-1), on 050404400 (also m = 48, 72), 040404000, 45050400, N_14(4), N_14(6), N_15(3), control N_11(4). Power: the certificate says one shift on hypersurface controls N_14(3), N_11(4) at both primes; the identity plant is not caught by a second prime (E-347's loophole, cross-code check is the defence); the orbit detector says NO on N_11(4) (7 orbits, one shift). Result: shifts 80/90, 98/108, 154/156, 154/156 at both primes, same returning sets in both codes, so F-058's "second prime for the uniserial-only groups" item is closed. Orbits: two returning orbits per algebra, (p, r) = (8, 2)/(6, 1), (9, 1)/(4, 1), (7, 2)/(6, 1), (11, 2)/(6, 1) twice, (8, 1)/(9, 1); at 050404400 family 1 the first return p = 8 is twice the reduced denominator of 30/24, so (p, r) is not read off E-346. The module AR-sequence route has no case at n = 14-15 and no returning member at n = 10-11. Not said: why two families; non-uniserial objects; the three one-shift groups.
+
+---
+
+## E-354 — H-032 / F-057 / T10: independent rebuild at n = 11: the end node of the recorded 10-step walk is presented by exactly the monomial ideal of LNA 403033030 (closes F-057's open `sameIdeal` item), and own-code Coxeter key, SNF(C + C^T) tails (1,2,4) / (1,2,2) for 500033030 = dual(303305000) / 403033030, the SNF change at step 6 of both recorded walks, and E-318's 72 = 13 + 59 split reproduce
+*2026-11-25* · **`.venv/bin/python workshop/rounds/138/experimentalist_f057.py` (`workshop/rounds/138/experimentalist.md`)** · *workshop round 138, experimentalist, refereed by scholar (minor revision, answered)*
+
+Scope: n = 11; the recorded paths only; census of the 16 796 n = 11 LNAs for the key group. Not re-run: the search, J / Hom, n = 12, other roots. Power: planted one-entry Cartan error changes the key (1 of 1); SNF comparator agrees with sympy on 300 of 300 matrices, says "same" on 50 of 50 unimodular congruences, "separated" on E-318's pair. No control whose derived-inequivalence NO is known independently of the Cartan-level chain: every NO rests on E-308 (Ladkani 1001.4765 Lemma 3.5) / E-272 (math/0702060, Grothendieck groups); D_10 = 8 / 4 is the same invariant computed a second way. The "NO does not depend on the walk" point was already made by the E-318 and E-332 referees.
+
+---
+
+## E-353 — H-025 / T3: F-058's FCY size control passes: kA_15/rad^2, kA_14/rad^3 (m = 144) and kA_14/rad^2 (m = 60) return all S, P with one pre-registered shift in both nu codes; at m = 132 only 2 S,P and 3 uniserials of N_14(3) are controlled; the certificate objects of all five n = 14-15 algebras stay no larger than the controls' (n = 14-15)
+*2026-11-25* · **`.venv/bin/python workshop/rounds/138/skeptic_orbitsize.py` and `workshop/rounds/134/scholar_two_slopes.py`, `workshop/rounds/135/maverick_nu2.py` (pre-registration `workshop/rounds/138/skeptic_prereg.txt`; `workshop/rounds/138/skeptic.md`)** · *workshop round 138, skeptic, refereed by theorist (minor revision, answered)*
+
+Scope: n = 15 N_15(2), n = 14 N_14(3), N_14(2); all S, P in both codes, uniserials in nu2; GF(2^31-1), GF(2) in nu2 at m = 144 and (N_14(2)) 60; the two codes agree on 4176 and 3888 pairs (m = 144, 132) and 1620 of 1620 (N_14(2), m = 60). Shifts as predicted before running: 126 (N_15(2), 30 of 30), 156 (N_14(3), 28 of 28), 52 (N_14(2) at m = 60, 28 of 28 and 27 of 27); no integer return where the prediction is not an integer. Power: the same harness gives two shifts (160, 162) on N_15(3) in both codes, where NO is true (E-339). Largest non-returning size S_6 of N_15(3), 75 summands; the certificate objects of N_15(3), N_15(8), N_14(4), N_14(6) peak at 10, 4, 7, 5 summands. Not controlled: a full return at m = 132 (none of A_14, A_15, D_14, D_15, N_14(3) returns there; by the Coxeter-number argument, D_n not run), other primes, char 0; nu2's uniserial return compares dimension vectors in one degree, not isomorphism classes (matters for the uniserial-only certificates N_14(4), N_14(6)).
+
+---
+
 ## E-352 — backlog / literature: the 2112.15587 summary (l. 127, 235) matches the v2 LaTeX; of the four secondary-only UNVERIFIED primaries only Anick 1982 is load-bearing (H-023, OPEN); Λ(n,n-1) ≃ kD_n proved for all n ≥ 4 (Euler form positive definite, det 4; Brüstle Thm 1.1 + 1.2), checked at n = 4..14
 *2026-11-24* · **`.venv/bin/python workshop/rounds/137/scholar_dn.py` (and `scholar_citedeps.py`; `workshop/rounds/137/scholar.md`)** · *workshop round 137, scholar, refereed by maverick (minor revision, answered)*
 

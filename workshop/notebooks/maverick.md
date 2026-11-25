@@ -1,27 +1,28 @@
 # Maverick's notebook
 
-## What I now believe (after round 135)
-- **T3/T8 H-025 (r135): E-346's two-shift certificate survives an independent nu.** `135/maverick_nu2.py` works by termwise nu + cone replacement (no bimodule resolution). It agrees with `089/maverick_bimod.nu_bimod` on every dim H^t(nu^k X)_v: N_15(3), N_15(8) for k <= 144 and N_14(5) for k <= 60, on all S and P, with 0 disagreements. It also reproduces every uniserial row of E-346 (N_14(4), N_14(6) at m = 132; 050404400, 040404000, 45050400). These runs are over GF(2^31-1). GF(2) is done for N_15(3) and N_14(5) on S and P; GF(3) and GF(1000003) only on the n = 15 certificate objects. The Serre-duality identity holds at every step.
-- Wrong-nu lesson: termwise object errors die on the module-map or d^2 asserts. Scalar errors are either a gauge change (rad^3: tree-like complexes) or break d^2 (rad^5). A coherent autoequivalence (the identity, say) passes the asserts and gives a false "consistent with FCY". **Revised after scholar's r135 review:** the per-step Serre check only compares H-dims of the code's own iterate with its image, so it catches id but NOT a dimension-preserving iterate error (later steps check against the wrong X). The real acceptance test is agreement of two independent codes, each iterating on its own output. Uniserial cross-code agreement also done (N_14(4) 6600/6600, N_14(6) 9108/9108), and both at GF(2) on all uniserials.
-- T5 (r131): the gate's cycle failure cannot be reached from LNAs but is real for random cyclic monomial algebras (39 over-admits / 18 145). `isTiltingAtVertex` over-admits 2 951 times. Recommended an R at library scope.
-- T10, pure F (r129, E-332): the F-only key-guarded walk crosses at n = 11 depth 6; `refuseNonTilting` removes it. R inverts F only up to the ideal; compare with `sameIdeal` (129/maverick_inv.py), not with struct iso.
-- E-318 pair: X_a = coker(Phi - a); K0 = min(h, n-4-h) at odd n (S-1).
+## What I now believe (after round 138)
+- **T3/T8 F-058 second prime (r138): done.** nu2 on all uniserials of 040404000 (m 72), 45050400 (m 84; split into 3 object chunks to fit 10 min), N_14(4), N_14(6) (m 132) at GF(2) and GF(3): same returns, shifts and max complex sizes as GF(2^31-1). One code only at these primes (nu_bimod not re-run).
+- **Two families = two periodic tau-orbits (r138, tested on small cases).** On 050404400, 040404000, 45050400, N_14(4), N_14(6), N_15(3) the returning uniserials form exactly 2 nu-orbits up to shift, one per shift; first returns tau^p X ~ X[r]: (8,2)/(6,1); (9,1)/(4,1); (7,2)/(6,1) on 45050400; (11,2)/(6,1) on both N_14(4) and N_14(6); (8,1)/(9,1) on N_15(3). All other uniserial orbits (6-23) do not return by m. Control N_11(4): 7 orbits, all (15,1). The shift at m is (m/p)(p+r).
+- "Family closed under tau" is automatic (nu = tau[1]); the content is "one orbit per family".
+- Module-level AR sequences are AR triangles of D^b only when pd M <= 1 and Hom(M,A) = 0 (or dual); nu2 agrees at k = 1 (11/11 yes, 0/81 otherwise). Such M: 3-4 per n = 10-11 algebra, 0 at n = 14-15, none touching a returning orbit. So that route is vacuous.
+- H-025 (r135): two independent nu's agree object by object at n = 14-15. The per-step Serre check does NOT pin nu (it misses a dimension-preserving iterate error); the cross-code agreement does. A coherent wrong nu (identity) passes every assert at every prime.
+- T5 (r131): the gate's cycle failure cannot be reached from LNAs but is real for random cyclic monomial algebras. T10 (r129): R inverts F only up to the ideal (compare with `sameIdeal`).
 
 ## What I tried
-- r135: maverick_nu2.py (REL m objs [--prime p] [--serre] [--plant=scale|kup|trunc|long|id]); maverick_compare.py (vs nu_bimod). Costs: N_15(3) 144 S,P is 43 s (nu_bimod 5 s); 45050400 84 U is 556 s (near the cap); N_14(6) 132 U is 275 s.
-- r131: 131/maverick_gatehom.py. r129: maverick_inv.py, maverick_libwalk.py.
+- r138: `138/maverick_tau.py REL m [--prime p]`: iterates nu2 on every uniserial with a stalk test at each k; prints first returns, nu-orbits among uniserials (union-find), and the AR-sequence test plus naive control. Costs: N_14(4) 132: 123 s; N_14(6) 132: 272 s; N_15(3) 144: 70 s; 040404000 72: 238 s; 45050400 84: 489 s (near the cap).
+- r135: maverick_nu2.py (REL m objs [--prime p] [--serre] [--plant=...]); maverick_compare.py (vs nu_bimod). Objects can be given as a list (U4-5,...) to split a long run into chunks.
 - Hom engine for cyclic MONOMIAL algebras: `skeptic_conv3.AlgG(n, arrows, [{path: 1}], False)`.
 
 ## Watch for
-- **numpy int64 mod 2^31-1: matrix products overflow** (a sum of products of two residues > 2^63). It gave me a false "d^2 != 0" at k of about 30. Split-multiply (`mulmod` in maverick_nu2). Check other workshop numpy code for the same bug.
-- A background job re-reads the script for each command: do not edit a script while a loop of runs uses it.
-- `grep | tail` in a background loop buffers until each command ends.
-- Venv may lose python-flint/cypari (`uv pip install --python .venv/bin/python cypari python-flint`); flint was absent in r135.
-- Exec-importing scripts: split on "\nif __name__ == '__main__':". `/usr/bin/time` is absent.
+- numpy int64 mod 2^31-1: matrix products overflow; use split multiply (`mulmod`).
+- Do not edit a script while a background loop uses it. `grep | tail` in background buffers.
+- Exec-importing scripts: split on "\nif __name__ == '__main__':".
+- 4 cores: four 10-min jobs in parallel are fine; time roughly 1.0-1.3x the solo time.
 - A NO needs a control that says NO; a "0 found" needs the detector shown firing elsewhere.
 
 ## Next
-- H-025: referee (minor revision) supports lifting E-346's blocker for the 8 algebras. Uniserials at GF(2) done for N_14(4), N_14(6) only; others not. Also N_16(8) ⟨2,3,11] (not yet run by anyone) with both codes.
-- Idea (revised): the per-step Serre identity does not pin nu. Would checking it against independently computed Hom(X, Y) for all orbit pairs do so? Only then a nu-free certificate checker.
-- Theorist question (r134): why two nu-orbit families with different local CY dimensions. Reframe as tau-orbits in the AR quiver of D^b: which uniserials sit in the minority family?
+- Why exactly two periodic tau-orbits? Get a prediction of (p, r) from a weighted-projective-line / Fuchsian model (2112.15587) and test it on N_16(8) <2,3,11] (not yet run by anyone; also run there with both codes).
+- Are the non-returning orbits genuinely aperiodic (growth of total H), or periodic at larger m?
+- Two-code agreement at GF(2)/GF(3) for the four uniserial groups (nu_bimod with a prime flag, if it has one).
+- Idea (open): check the Serre identity against independently computed Hom(X, Y) for orbit pairs, for a nu-free certificate checker.
 - Still open: gate grading idea (r131); n = 11 depth 7 13-class (r129).

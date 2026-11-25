@@ -1,0 +1,20 @@
+REL 040404000 n 11 P 2
+040404000 m 72 objects 42 returns 6 shifts [80, 90] {80: ['U1-4', 'U4-7', 'U5-8', 'U8-11'], 90: ['U2-3', 'U9-10']} max summands 334 245s
+REL 040404000 n 11 P 3
+040404000 m 72 objects 42 returns 6 shifts [80, 90] {80: ['U1-4', 'U4-7', 'U5-8', 'U8-11'], 90: ['U2-3', 'U9-10']} max summands 334 246s
+REL 444444444400 n 14 P 3
+444444444400 m 132 objects 50 returns 9 shifts [154, 156] {154: ['U4-5', 'U10-11'], 156: ['U1-3', 'U2-2', 'U3-6', 'U6-9', 'U9-12', 'U12-14', 'U13-13']} max summands 102 102s
+REL 666666660000 n 14 P 3
+666666660000 m 132 objects 69 returns 10 shifts [154, 156] {154: ['U6-7', 'U6-9', 'U8-9'], 156: ['U1-5', 'U2-2', 'U4-4', 'U5-10', 'U10-14', 'U11-11', 'U13-13']} max summands 84 254s
+REL 45050400 n 10 P 2
+45050400 m 84 objects 15 returns 2 shifts [108] {108: ['U1-3', 'U3-8']} max summands 404 207s
+REL 45050400 n 10 P 2
+45050400 m 84 objects 14 returns 3 shifts [98] {98: ['U4-5', 'U4-7', 'U6-7']} max summands 403 171s
+REL 45050400 n 10 P 2
+45050400 m 84 objects 10 returns 1 shifts [108] {108: ['U8-10']} max summands 402 154s
+REL 45050400 n 10 P 3
+45050400 m 84 objects 15 returns 2 shifts [108] {108: ['U1-3', 'U3-8']} max summands 404 163s
+REL 45050400 n 10 P 3
+45050400 m 84 objects 14 returns 3 shifts [98] {98: ['U4-5', 'U4-7', 'U6-7']} max summands 403 128s
+REL 45050400 n 10 P 3
+45050400 m 84 objects 10 returns 1 shifts [108] {108: ['U8-10']} max summands 402 110s

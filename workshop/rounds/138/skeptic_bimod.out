@@ -1,0 +1,34 @@
+2222222222222 n=15 m=16: 30 of 30 simples/projectives return as X[c]; shifts [14]  (0s)
+  c = 14: S_1 P_1 S_2 P_2 S_3 P_3 S_4 P_4 S_5 P_5 S_6 P_6 S_7 P_7 S_8 P_8 S_9 P_9 S_10 P_10 S_11 P_11 S_12 P_12 S_13 P_13 S_14 P_14 S_15 P_15
+VERDICT: single shift: consistent with FCY (no conclusion)
+[wall 0 s]
+2222222222222 n=15 m=144: 30 of 30 simples/projectives return as X[c]; shifts [126]  (1s)
+  c = 126: S_1 P_1 S_2 P_2 S_3 P_3 S_4 P_4 S_5 P_5 S_6 P_6 S_7 P_7 S_8 P_8 S_9 P_9 S_10 P_10 S_11 P_11 S_12 P_12 S_13 P_13 S_14 P_14 S_15 P_15
+VERDICT: single shift: consistent with FCY (no conclusion)
+[wall 1 s]
+2222222222222 n=15 m=132: 0 of 30 simples/projectives return as X[c]; shifts []  (1s)
+VERDICT: no returns: no conclusion
+[wall 1 s]
+2222222222222 n=15 m=60: 0 of 30 simples/projectives return as X[c]; shifts []  (0s)
+VERDICT: no returns: no conclusion
+[wall 0 s]
+333333333330 n=14 m=144: 28 of 28 simples/projectives return as X[c]; shifts [156]  (1s)
+  c = 156: S_1 P_1 S_2 P_2 S_3 P_3 S_4 P_4 S_5 P_5 S_6 P_6 S_7 P_7 S_8 P_8 S_9 P_9 S_10 P_10 S_11 P_11 S_12 P_12 S_13 P_13 S_14 P_14
+VERDICT: single shift: consistent with FCY (no conclusion)
+[wall 1 s]
+333333333330 n=14 m=132: 2 of 28 simples/projectives return as X[c]; shifts [143]  (1s)
+  c = 143: S_7 S_8
+VERDICT: single shift: consistent with FCY (no conclusion)
+[wall 1 s]
+333333333330 n=14 m=60: 2 of 28 simples/projectives return as X[c]; shifts [65]  (0s)
+  c = 65: S_7 S_8
+VERDICT: single shift: consistent with FCY (no conclusion)
+[wall 0 s]
+3333333333330 n=15 m=144: 9 of 30 simples/projectives return as X[c]; shifts [160, 162]  (5s)
+  c = 160: S_5 S_11
+  c = 162: P_2 P_4 P_6 P_8 P_10 P_12 P_14
+VERDICT: two shifts at one m => not fractionally CY (no a >= 1, b with nu^a ~ [b])
+[wall 5 s]
+7777777700000 n=15 m=144: 0 of 30 simples/projectives return as X[c]; shifts []  (1s)
+VERDICT: no returns: no conclusion
+[wall 1 s]

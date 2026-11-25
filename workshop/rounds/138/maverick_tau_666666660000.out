@@ -1,0 +1,48 @@
+REL 666666660000 n 14 P 2147483647 m 132 U [6, 7, 8, 9, 10, 11, 12, 13, 14, 14, 14, 14, 14, 14]
+iterated 69 uniserials 272s
+  returns (1, 5) first (p,q) = (11, 13) tau^p ~ [q-p] with q-p = 2 at m: 156
+  returns (2, 2) first (p,q) = (11, 13) tau^p ~ [q-p] with q-p = 2 at m: 156
+  returns (4, 4) first (p,q) = (11, 13) tau^p ~ [q-p] with q-p = 2 at m: 156
+  returns (5, 10) first (p,q) = (11, 13) tau^p ~ [q-p] with q-p = 2 at m: 156
+  returns (6, 7) first (p,q) = (6, 7) tau^p ~ [q-p] with q-p = 1 at m: 154
+  returns (6, 9) first (p,q) = (6, 7) tau^p ~ [q-p] with q-p = 1 at m: 154
+  returns (8, 9) first (p,q) = (6, 7) tau^p ~ [q-p] with q-p = 1 at m: 154
+  returns (10, 14) first (p,q) = (11, 13) tau^p ~ [q-p] with q-p = 2 at m: 156
+  returns (11, 11) first (p,q) = (11, 13) tau^p ~ [q-p] with q-p = 2 at m: 156
+  returns (13, 13) first (p,q) = (11, 13) tau^p ~ [q-p] with q-p = 2 at m: 156
+  nu-orbits up to shift among uniserials (k <= m): 17
+    size 14 returning at m 0 first returns [] members 1-1 1-4 1-6 2-3 3-4 4-5 4-9 6-11 9-14 10-11 11-12 11-14 12-13 14-14
+    size 12 returning at m 0 first returns [] members 1-2 1-3 2-4 2-5 2-7 3-8 7-12 8-13 10-13 11-13 12-14 13-14
+    size 10 returning at m 0 first returns [] members 3-3 5-5 5-9 6-6 6-10 7-7 8-8 9-9 10-10 12-12
+    size 7 returning at m 7 first returns [(11, 13)] members 1-5 2-2 4-4 5-10 10-14 11-11 13-13
+    size 4 returning at m 0 first returns [] members 3-5 3-7 8-12 10-12
+    size 4 returning at m 0 first returns [] members 5-7 6-8 7-9 8-10
+    size 3 returning at m 0 first returns [] members 5-8 7-8 7-10
+    size 3 returning at m 3 first returns [(6, 7)] members 6-7 6-9 8-9
+    size 2 returning at m 0 first returns [] members 2-6 9-13
+    size 2 returning at m 0 first returns [] members 4-7 8-11
+    size 2 returning at m 0 first returns [] members 5-6 9-10
+    size 1 returning at m 0 first returns [] members 3-6
+    size 1 returning at m 0 first returns [] members 4-6
+    size 1 returning at m 0 first returns [] members 4-8
+    size 1 returning at m 0 first returns [] members 7-11
+    size 1 returning at m 0 first returns [] members 9-11
+    size 1 returning at m 0 first returns [] members 9-12
+  condition (pd<=1, Hom(M,A)=0): 0 of 55 non-projective; H(nu M) = tau_A M[1] on 0 of 0
+  (outside the condition H(nu M) = tau_A M[1] anyway on 0 of 55)
+  dual condition (id<=1, Hom(DA,N)=0): 0; H(nu tau_A^-1 N) = N[1] on 0 of 0
+  AR-triangle test (condition or dual condition): 0 sequences, members agree 0, disagree 0 (sequences with no returning member skipped)
+  naive control (all non-projective): 55 sequences, members agree 28, disagree 74 (sequences with no returning member skipped)
+     disagree: M (1, 1) neighbour (1, 1) shift(M) 156 shift(nb) None
+     disagree: M (1, 1) neighbour (1, 2) shift(M) 156 shift(nb) None
+     disagree: M (1, 2) neighbour (1, 2) shift(M) 156 shift(nb) None
+     disagree: M (1, 2) neighbour (2, 3) shift(M) 156 shift(nb) None
+     disagree: M (1, 2) neighbour (1, 3) shift(M) 156 shift(nb) None
+     disagree: M (1, 4) neighbour (1, 4) shift(M) 156 shift(nb) None
+     disagree: M (1, 4) neighbour (2, 5) shift(M) 156 shift(nb) None
+     disagree: M (1, 4) neighbour (2, 4) shift(M) 156 shift(nb) None
+     disagree: M (1, 5) neighbour (2, 6) shift(M) 156 shift(nb) None
+     disagree: M (1, 5) neighbour (1, 6) shift(M) 156 shift(nb) None
+     disagree: M (1, 5) neighbour (2, 5) shift(M) 156 shift(nb) None
+     disagree: M (2, 2) neighbour (3, 3) shift(M) 156 shift(nb) None
+done 272s

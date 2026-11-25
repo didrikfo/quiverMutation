@@ -1,0 +1,36 @@
+WALK b (join, 10 steps): start dual(303305000) = LNA 500033030, own Cartan == own LNA Cartan; SNF(S) (0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 4) sig (9, 1) key (1, 1, -2, -3, 0, 3, 3, 0, -3, -2, 1, 1)
+  d=1  F6   arrows 11 rels  6 mono False det 1 keyKept True  SNF tail (1, 2, 4) sig (9, 1)  lib Cartan C^T, lib key == own True, Cartan same over GF(2,3,5) True
+  d=2  F11  arrows 12 rels  8 mono False det 1 keyKept True  SNF tail (1, 2, 4) sig (9, 1)  lib Cartan C^T, lib key == own True, Cartan same over GF(2,3,5) True
+  d=3  F7   arrows 12 rels  7 mono False det 1 keyKept True  SNF tail (1, 2, 4) sig (9, 1)  lib Cartan C^T, lib key == own True, Cartan same over GF(2,3,5) True
+  d=4  F11  arrows 13 rels  8 mono False det 1 keyKept True  SNF tail (1, 2, 4) sig (9, 1)  lib Cartan C^T, lib key == own True, Cartan same over GF(2,3,5) True
+  d=5  F7   arrows 11 rels  6 mono False det 1 keyKept True  SNF tail (1, 2, 4) sig (9, 1)  lib Cartan C^T, lib key == own True, Cartan same over GF(2,3,5) True
+  d=6  F7   arrows 12 rels  7 mono False det 1 keyKept True  SNF tail (1, 2, 2) sig (9, 1)  lib Cartan C^T, lib key == own True, Cartan same over GF(2,3,5) True   <-- SNF(S) CHANGES
+  d=7  F3   arrows 11 rels  6 mono False det 1 keyKept True  SNF tail (1, 2, 2) sig (9, 1)  lib Cartan C^T, lib key == own True, Cartan same over GF(2,3,5) True
+  d=8  F3   arrows 11 rels  8 mono False det 1 keyKept True  SNF tail (1, 2, 2) sig (9, 1)  lib Cartan C^T, lib key == own True, Cartan same over GF(2,3,5) True
+  d=9  F4   arrows 10 rels  6 mono True  det 1 keyKept True  SNF tail (1, 2, 2) sig (9, 1)  lib Cartan C^T, lib key == own True, Cartan same over GF(2,3,5) True
+  d=10 F7   arrows 10 rels  5 mono True  det 1 keyKept True  SNF tail (1, 2, 2) sig (9, 1)  lib Cartan C^T, lib key == own True, Cartan same over GF(2,3,5) True
+  end node reads as LNA 403033030 (dual reading 303303400); own Cartan (path order) == LNA Cartan from that name: True
+  from scratch: LNA 403033030 key == start key True; SNF(S) (1, 2, 2) vs start (1, 2, 4) -> separated True
+  SNF-free check: det S = 0 / 0; D_10 = gcd of all 10x10 minors of S = 8 / 4 (start / end)
+WALK a (crossing only, 6 steps): start root(303500030) = LNA 303500030, own Cartan == own LNA Cartan; SNF(S) (0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 4) sig (9, 1) key (1, 1, -2, -3, 0, 3, 3, 0, -3, -2, 1, 1)
+  d=1  F1   arrows 11 rels  5 mono False det 1 keyKept True  SNF tail (1, 2, 4) sig (9, 1)  lib Cartan C^T, lib key == own True, Cartan same over GF(2,3,5) True
+  d=2  F1   arrows 11 rels  5 mono False det 1 keyKept True  SNF tail (1, 2, 4) sig (9, 1)  lib Cartan C^T, lib key == own True, Cartan same over GF(2,3,5) True
+  d=3  F4   arrows 11 rels  5 mono False det 1 keyKept True  SNF tail (1, 2, 4) sig (9, 1)  lib Cartan C^T, lib key == own True, Cartan same over GF(2,3,5) True
+  d=4  F3   arrows 11 rels  5 mono False det 1 keyKept True  SNF tail (1, 2, 4) sig (9, 1)  lib Cartan C^T, lib key == own True, Cartan same over GF(2,3,5) True
+  d=5  F1   arrows 11 rels  4 mono False det 1 keyKept True  SNF tail (1, 2, 4) sig (9, 1)  lib Cartan C^T, lib key == own True, Cartan same over GF(2,3,5) True
+  d=6  F8   arrows 12 rels  5 mono False det 1 keyKept True  SNF tail (1, 2, 2) sig (9, 1)  lib Cartan C^T, lib key == own True, Cartan same over GF(2,3,5) True   <-- SNF(S) CHANGES
+  end node is not a linear monomial A_n presentation
+CENSUS n = 11: 16796 LNAs (no length-1 relations), 79 keys, 3s
+  exact Fraction key re-check: 72 of 72 group members equal; 0 of 286 sampled non-members equal (must be 0)
+  duality-closed: True; 38 duality orbits
+  key of 303305000: group of 72 LNAs; split by SNF(C+C^T): {(1, 2, 4): 13, (1, 2, 2): 59}
+    SNF tail (1, 2, 2) (59): 030033030 030233030 030330030 030330230 030330330 230033030 230233030 230330030 230330230 230330330 300330300 300330302 300330400 300340030 300403030 300440030 302330300 302330302 302330400 302340030 302403030 302440030 303300300 303300302 303300400 303302300 303302302 303302400 303303330 303303400 303304030 303304400 303333030 303400030 303400230 303400330 303403030 304030030 304030230 304030330 304400030 304400230 304400330 304440030 330330300 330330302 330330400 330340030 330403030 330440030 333033030 340033030 400033030 400233030 400330030 400330230 400330330 403033030 440033030
+    SNF tail (1, 2, 4) (13): 003033030 023033030 203033030 223033030 303303000 303303002 303303020 303303022 303305000 303500030 305003030 305500030 500033030
+CONTROL snf vs sympy: 0 of 300 random integer matrices disagree
+CONTROL congruence U^T S U (truth: same SNF): 50 of 50 same
+CONTROL pair 303500030 / 500033030: key equal True, SNF tails (1, 2, 4) / (1, 2, 4) -> separated False
+CONTROL pair 003033030 / 303500030: key equal True, SNF tails (1, 2, 4) / (1, 2, 4) -> separated False
+CONTROL pair 403033030 / 400330330: key equal True, SNF tails (1, 2, 2) / (1, 2, 2) -> separated False
+CONTROL pair 003033030 / 030330030: key equal True, SNF tails (1, 2, 4) / (1, 2, 2) -> separated True
+CONTROL planted Cartan entry (end LNA, C[1][6] += 1): key still equal to start key False
+total 16s

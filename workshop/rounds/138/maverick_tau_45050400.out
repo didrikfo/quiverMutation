@@ -1,0 +1,50 @@
+REL 45050400 n 10 P 2147483647 m 84 U [4, 6, 8, 8, 9, 9, 10, 10, 10, 10]
+iterated 39 uniserials 489s
+  returns (1, 3) first (p,q) = (7, 9) tau^p ~ [q-p] with q-p = 2 at m: 108
+  returns (3, 8) first (p,q) = (7, 9) tau^p ~ [q-p] with q-p = 2 at m: 108
+  returns (4, 5) first (p,q) = (6, 7) tau^p ~ [q-p] with q-p = 1 at m: 98
+  returns (4, 7) first (p,q) = (6, 7) tau^p ~ [q-p] with q-p = 1 at m: 98
+  returns (6, 7) first (p,q) = (6, 7) tau^p ~ [q-p] with q-p = 1 at m: 98
+  returns (8, 10) first (p,q) = (7, 9) tau^p ~ [q-p] with q-p = 2 at m: 108
+  nu-orbits up to shift among uniserials (k <= m): 23
+    size 3 returning at m 0 first returns [] members 1-1 1-4 4-8
+    size 3 returning at m 0 first returns [] members 1-2 2-6 6-9
+    size 3 returning at m 3 first returns [(7, 9)] members 1-3 3-8 8-10
+    size 3 returning at m 0 first returns [] members 2-5 5-9 9-10
+    size 3 returning at m 0 first returns [] members 3-7 7-10 10-10
+    size 3 returning at m 3 first returns [(6, 7)] members 4-5 4-7 6-7
+    size 2 returning at m 0 first returns [] members 2-3 8-9
+    size 2 returning at m 0 first returns [] members 3-3 4-4
+    size 2 returning at m 0 first returns [] members 5-5 6-6
+    size 2 returning at m 0 first returns [] members 7-7 8-8
+    size 1 returning at m 0 first returns [] members 2-2
+    size 1 returning at m 0 first returns [] members 2-4
+    size 1 returning at m 0 first returns [] members 3-4
+    size 1 returning at m 0 first returns [] members 3-5
+    size 1 returning at m 0 first returns [] members 3-6
+    size 1 returning at m 0 first returns [] members 4-6
+    size 1 returning at m 0 first returns [] members 5-6
+    size 1 returning at m 0 first returns [] members 5-7
+    size 1 returning at m 0 first returns [] members 5-8
+    size 1 returning at m 0 first returns [] members 6-8
+    size 1 returning at m 0 first returns [] members 7-8
+    size 1 returning at m 0 first returns [] members 7-9
+    size 1 returning at m 0 first returns [] members 9-9
+  condition (pd<=1, Hom(M,A)=0): 3 of 29 non-projective; H(nu M) = tau_A M[1] on 3 of 3
+  (outside the condition H(nu M) = tau_A M[1] anyway on 0 of 26)
+  dual condition (id<=1, Hom(DA,N)=0): 3; H(nu tau_A^-1 N) = N[1] on 3 of 3
+  AR-triangle test (condition or dual condition): 3 sequences, members agree 0, disagree 0 (sequences with no returning member skipped)
+  naive control (all non-projective): 29 sequences, members agree 16, disagree 46 (sequences with no returning member skipped)
+     disagree: M (1, 2) neighbour (1, 2) shift(M) 108 shift(nb) None
+     disagree: M (1, 2) neighbour (2, 3) shift(M) 108 shift(nb) None
+     disagree: M (1, 2) neighbour (2, 2) shift(M) 108 shift(nb) None
+     disagree: M (1, 3) neighbour (2, 4) shift(M) 108 shift(nb) None
+     disagree: M (1, 3) neighbour (1, 4) shift(M) 108 shift(nb) None
+     disagree: M (1, 3) neighbour (2, 3) shift(M) 108 shift(nb) None
+     disagree: M (3, 4) neighbour (3, 4) shift(M) 98 shift(nb) None
+     disagree: M (3, 4) neighbour (3, 5) shift(M) 98 shift(nb) None
+     disagree: M (3, 4) neighbour (4, 4) shift(M) 98 shift(nb) None
+     disagree: M (3, 5) neighbour (3, 5) shift(M) 98 shift(nb) None
+     disagree: M (3, 5) neighbour (4, 6) shift(M) 98 shift(nb) None
+     disagree: M (3, 5) neighbour (3, 6) shift(M) 98 shift(nb) None
+done 489s

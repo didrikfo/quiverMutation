@@ -1,0 +1,36 @@
+Round 138 skeptic: pre-registration for the F-058 FCY size control (written before any run).
+
+Test: E-346 two-shift certificate (rounds/134/scholar_two_slopes.py, bimodule nu) and E-347 (rounds/135/maverick_nu2.py,
+termwise nu + cones). Objects: all simples and projectives (S,P). Verdict "two shifts at one m" = not FCY.
+
+Logic used for predictions: if nu^a ~ [b] as functors and nu^m X ~ X[c], then X[a c] ~ X[m b], so c = m b / a.
+Hence on an FCY algebra, at ANY m every returning object has the same shift c = m b / a, and if m b / a is not an
+integer, no object returns.
+
+PRIMARY controls (truth FCY, proved independently of this code and of LMR's conjectures):
+ C1  N_15(2) = kA_15/rad^2, REL 2222222222222 (13 digits).  N_n(2) is derived equivalent to kA_n (Happel-Seidel,
+     "N_n(2) is of type A_n", research/literature/2112.15587 and happel-seidel file). For Dynkin type with Coxeter number h,
+     tau^{-h} = [2], so nu^h = [h - 2]: A_15, h = 16, nu^16 = [14].
+     Prediction at m = 144: all 30 of 30 S,P return, single shift c = 144*14/16 = 126. At m = 16: c = 14.
+     At m = 132 (N_14(4)/N_14(6)'s m): 132*14/16 = 115.5 not an integer => 0 returns.  At m = 60: 52.5 => 0 returns.
+ C2  N_14(3) = kA_14/rad^3, REL 333333333330, hypersurface <2,3,9] (LMR Thm 6.3(2), Lenzing 1909.10362 Prop 3.9;
+     E-346 measured nu^24 = [26] on all S,P).  Same n as the n = 14 certificates.
+     Prediction: m = 144 -> all 28 return, c = 156; m = 132 -> c = 143 (132*26/24 = 143, integer, so objects may return,
+     all with 143; I predict all 28 since 132 = 5*24 + 12 and nu^12 = [13] if the "half period" holds -- the number of
+     returns at 132 is NOT pre-registered, only "one shift, = 143");  m = 60 -> c = 65, one shift.
+ Both codes on C1, C2 at m = 144 (and C2 at 132, 60); maverick_nu2 also --prime 2 on C1, C2 at 144.
+ Object-by-object: maverick_compare.py on C1 at 144 if time allows.
+
+Meaning of outcomes (decided now):
+ - Any primary control giving TWO shifts at one m (either code, any field): the certificate is unsound at n = 14-15 / large m;
+   F-058's n = 14-15 NOs are suspended until the cause is found (retraction candidate). This is the outcome the control exists to catch.
+ - One shift but != the predicted c, or a non-integer-predicted m giving returns: a code/convention error; F-058 is not
+   refuted directly (two shifts still exclude FCY whatever the shift convention, if the shifts are right), but the codes'
+   shift readout is then untrusted and the certificate would need re-derivation. Reported as a defect.
+ - Fewer than all S,P returning at m = 144 on C1/C2: code error (FCY with m a multiple of the period returns everything).
+ - All as predicted: the size control passes; closes the "FCY size control at n = 14-15" open item of F-058. It is a
+   YES-side check (no false NO at this size/m), not power; power (NO where NO is true) is N_15(3) at m = 144
+   (not FCY by E-339's proof, independent of the code), rerun as the NO control.
+SECONDARY (informational, no verdict weight): N_15(7), REL 7777777700000. Neither piecewise hereditary nor Fuchsian per LMR;
+ my UNVERIFIED recollection (Vaso: kA_n/rad^l is d-representation-finite when n = d l / 2 + 1, d even; Herschend-Iyama:
+ d-RF => twisted FCY) says FCY. A two-shift result there refutes my recollection, not the code.
