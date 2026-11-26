@@ -1,0 +1,23 @@
+n=9 a=2223030 b=2400230 lam=1.7816 |detS|=12 libC=True qS_differ=True cross: cong=False nvec=1 nsol=0 rank=9 | ctrl a2=2203030 cong=True nvec=9 nsol=8 | planted cong=True nsol=8 failedU=0 1s
+n=10 a=22240030 b=22303000 lam=2.0306 |detS|=28 libC=True qS_differ=True cross: cong=False nvec=8 nsol=0 rank=12 | ctrl a2=22040030 cong=True nvec=11 nsol=6 | planted cong=True nsol=6 failedU=0 5s
+n=10 a=22223030 b=22302300 lam=1.8098 |detS|=16 libC=True qS_differ=True cross: cong=False nvec=5 nsol=0 rank=12 | ctrl a2=22203030 cong=True nvec=13 nsol=6 | planted cong=True nsol=6 failedU=0 1s
+n=11 a=222303030 b=230400230 lam=2.3193 |detS|=52 libC=True qS_differ=True cross: cong=False nvec=2 nsol=0 rank=11 | ctrl a2=220303030 cong=True nvec=6 nsol=4 | planted cong=True nsol=6 failedU=0 19s
+n=11 a=223023030 b=302240030 lam=2.1257 |detS|=32 libC=True qS_differ=True cross: cong=False nvec=156 nsol=0 rank=17 | ctrl a2=223003030 cong=True nvec=129 nsol=6 | planted cong=True nsol=6 failedU=0 4s
+n=11 a=222223030 b=224002230 lam=1.8238 |detS|=20 libC=True qS_differ=True cross: cong=False nvec=2 nsol=0 rank=11 | ctrl a2=222203030 cong=True nvec=8 nsol=6 | planted cong=True nsol=6 failedU=0 1s
+n=11 a=222230300 b=224002300 lam=2.0062 |detS|=32 libC=True qS_differ=True cross: cong=False nvec=1 nsol=0 rank=11 | ctrl a2=222230302 cong=True nvec=4 nsol=3 | planted cong=True nsol=3 failedU=0 1s
+n=12 a=2230303000 b=2400400230 lam=2.4596 |detS|=84 libC=True qS_differ=True cross: cong=False nvec=11 nsol=0 rank=14 | ctrl a2=2230303020 cong=True nvec=14 nsol=6 | planted cong=True nsol=4 failedU=0 80s
+n=12 a=2222303030 b=2302500030 lam=2.3286 |detS|=64 libC=True qS_differ=True cross: cong=False nvec=11 nsol=0 rank=14 | ctrl a2=2220303030 cong=True nvec=15 nsol=4 | planted cong=True nsol=4 failedU=0 2s
+n=12 a=2302304000 b=2400240030 lam=2.3575 |detS|=60 libC=True qS_differ=True cross: cong=False nvec=18 nsol=0 rank=14 | ctrl a2=2302304002 cong=True nvec=25 nsol=6 | planted cong=True nsol=6 failedU=0 3s
+n=12 a=2230302300 b=2304002230 lam=2.2671 |detS|=52 libC=True qS_differ=True cross: cong=False nvec=8 nsol=0 rank=14 | ctrl a2=2230302302 cong=True nvec=9 nsol=3 | planted cong=True nsol=3 failedU=0 2s
+n=12 a=2230230300 b=2240023030 lam=2.2489 |detS|=48 libC=True qS_differ=True cross: cong=False nvec=7 nsol=0 rank=14 | ctrl a2=2230230302 cong=True nvec=20 nsol=3 | planted cong=True nsol=2 failedU=0 3s
+n=12 a=2222303000 b=2250002300 lam=2.0810 |detS|=48 libC=True qS_differ=True cross: cong=False nvec=6 nsol=0 rank=14 | ctrl a2=2222303020 cong=True nvec=9 nsol=3 | planted cong=True nsol=2 failedU=0 2s
+n=12 a=2222230300 b=2223024000 lam=2.0149 |detS|=39 libC=True qS_differ=True cross: cong=False nvec=3 nsol=0 rank=12 | ctrl a2=2222230302 cong=True nvec=3 nsol=3 | planted cong=True nsol=3 failedU=0 2s
+n=12 a=2222240030 b=2230240000 lam=2.0582 |detS|=44 libC=True qS_differ=True cross: cong=False nvec=3 nsol=0 rank=14 | ctrl a2=2222040030 cong=True nvec=12 nsol=6 | planted cong=True nsol=6 failedU=0 2s
+n=12 a=2223023000 b=2250002230 lam=1.9165 |detS|=32 libC=True qS_differ=True cross: cong=False nvec=7 nsol=0 rank=14 | ctrl a2=2223023020 cong=True nvec=24 nsol=3 | planted cong=True nsol=3 failedU=0 3s
+n=12 a=2222302300 b=2224002230 lam=1.8688 |detS|=28 libC=True qS_differ=True cross: cong=False nvec=3 nsol=0 rank=14 | ctrl a2=2222302302 cong=True nvec=12 nsol=3 | planted cong=True nsol=4 failedU=0 2s
+n=12 a=2230223000 b=2240022230 lam=1.7884 |detS|=20 libC=True qS_differ=True cross: cong=False nvec=8 nsol=0 rank=14 | ctrl a2=2230223020 cong=True nvec=21 nsol=7 | planted cong=True nsol=7 failedU=0 3s
+n=12 a=2230222300 b=2400222230 lam=1.6610 |detS|=12 libC=True qS_differ=True cross: cong=False nvec=6 nsol=0 rank=14 | ctrl a2=2230222302 cong=True nvec=12 nsol=3 | planted cong=True nsol=3 failedU=0 2s
+
+real	2m20.919s
+user	2m20.035s
+sys	0m0.194s

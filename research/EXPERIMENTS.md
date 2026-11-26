@@ -6,6 +6,27 @@ nothing, which are recorded precisely so they are not repeated. See
 
 ---
 
+## E-358 — backlog / literature / F-056: the "Happel-Seidel, UNVERIFIED" input D^b(B_n) ~ D^b(kD_n) now has an arXiv-sourced route (Scherotzke 0906.4987v1 Thm 5.7 for Λ(n,n-1) ~ kD_n, n >= 4, with Fosse Cor. 4.6); it still rests on unread primaries (BGS A/B, Happel's book I.5.5/I.5.6, Vossieck 1.1); the owed file for 1310.1907 (v2) is written (n = 4..20 witness checks)
+*2026-11-26* · **`.venv/bin/python workshop/rounds/139/scholar_scherotzke.py`, `scholar_isometry.py`, `scholar_shape.py 20`** · *workshop round 139, scholar, refereed by experimentalist (minor revision, answered)*
+
+Scope: Scherotzke 0906.4987v1, 0902.0518 v1-v3, Hubery-Krause 1310.1907v2 read in LaTeX and PDF; K0 shift-parity checks n = 4..14, isometry search n = 4..7, explicit witness n = 4..20 (17 of 17, det -1). Power: shift-parity test refuses 10 of 10 controls; the isometry search refuses 6 of 6 (weak: decided by root count); A_n-type controls are N_n(2), not kA_n itself. Result: the label on F-056 can read "Scherotzke Thm 5.7 + Fosse Cor. 4.6; BGS A/B, Happel I.5.5/I.5.6, Vossieck 1.1 unread" instead of "UNVERIFIED"; [S] in Scherotzke matches 0902.0518 v2/v3 only (in v1 the results are Thm 3.7, Cor. 3.9, Thm 3.15). Third route (Happel 5.12 via Hubery-Krause Thm 7.4) needs k algebraically closed and N_n(n-1) simply connected (not checked in a source). Literature file: `research/literature/1310.1907-categorification-non-crossing-partitions.md`. Not said: F-056's statement is unchanged; E-352's Brüstle-route proof for Λ(n,n-1) ~ kD_n is a second route.
+
+---
+
+## E-357 — H-032 / F-057 / T10: the nine J = 0 steps of the E-332 walk (and five more on the second root) at n = 11 are tilting by a full Hom complex, by own-code Hom(T,T[-1]) and by `isTiltingAtVertex`, 0 disagreements in 140 step evaluations; all three say NO on 22 known non-tilting controls (n = 11; Cartan level for child vs End(T))
+*2026-11-26* · **`.venv/bin/python -W ignore workshop/rounds/139/toolsmith_homj0.py all`** · *workshop round 139, toolsmith, refereed by skeptic (accept)*
+
+Scope: E-332's walk dual(303305000) . F6 F11 F7 F11 F7 F7* F3 F3 F4 F7 (9 J = 0 steps) and root 303500030 . F1 F1 F4 F3 F1 F8* (5 J = 0 steps), one vertex, F side, every parent acyclic with legal relations (asserted). Not covered: other walks, R steps, cyclic parents, whether the child IS End(T) (H-023). Power: NO on the walk's J != 0 steps (2), E-316's 19 J != 0 steps (H[-1] = 2, 3, 4), E-080 (1); referee's planted wrong child gave a Cartan mismatch on 9 of 9. Result: F-057's open "Hom check of the nine J = 0 steps" is closed; the result is forced by E-351 and tests code, since the three verdicts compute one quantity. (The author's text says 139 evaluations; the run makes 140.)
+
+---
+
+## E-356 — H-024 / F-055 / T3: independent rebuild of the Phi-equivariant Z-congruence test (own code, no pari, no import) says NO on 19 of 19 q_S-separated pairs and YES (exact integer P) on 19 of 19 controls at n = 9..12, slack 0.5 and 5; verdicts equal E-292's 38 of 38 (n = 9..12)
+*2026-11-26* · **`timeout 10m .venv/bin/python -W ignore workshop/rounds/139/theorist_zcong.py 0.5` (and `5`)** · *workshop round 139, theorist, refereed by skeptic (minor revision, answered)*
+
+Scope: the 19 cross pairs and 19 controls of E-292; planted YES pairs 19 of 19. Not covered: lam < 1.5, the group of 140 as one of the 19, interval arithmetic (float majorant). Power: YES side only; the NO side rests on the own q_S certificate (no q_S-independent NO control). Result: verdicts 38 of 38 equal; vector counts equal on 73 of 76 cells (the referee's count), the differences caused by E-269's `maverick_iso140.py:42`, which adds 0.1 to the slack (`int(BOUND*SC) + 10**5`); at slack 0.6 and 5.1 all 76 cells equal. The group of 140 (q_S equal, search only) also gives NO at slack 0.5, 5, 30. F-055's gaps (planted power at a second group, lam < 1.5) are unchanged.
+
+---
+
 ## E-355 — H-025 / T3: GF(2) and GF(3) reproduce the uniserial two-shift certificates of 040404000, 45050400, N_14(4), N_14(6) in both nu codes (8 + 8 runs, 0 disagreements); among uniserials each shift family is exactly one periodic nu-orbit, with tau^p ~ [r] for two different (p, r) on six certificate algebras (n = 10-15; non-uniserial objects untested)
 *2026-11-25* · **`.venv/bin/python workshop/rounds/138/maverick_tau.py <REL> <m>`; second prime: `workshop/rounds/135/maverick_nu2.py` and `workshop/rounds/134/scholar_uniserial.py --prime p` (`workshop/rounds/138/maverick.md`)** · *workshop round 138, maverick, refereed by toolsmith (minor revision, answered)*
 

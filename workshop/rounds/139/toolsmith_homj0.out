@@ -1,0 +1,156 @@
+== target: E-332 / F-057 (a) 10-step walk, and the second root (5 J = 0 + 1 J != 0)
+walk b dual(303305000) d1  F6                J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+walk b dual(303305000) d2  F11               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+walk b dual(303305000) d3  F7                J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+walk b dual(303305000) d4  F11               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+walk b dual(303305000) d5  F7                J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+walk b dual(303305000) d6  F7                J 1 | LIB False | HOM H[-2,-1,1,2] 0 1 0 0 tilt False | OWN H[-1] 1 (YY 0) appr True  tilt False | End0~child True  illegalRel False
+walk b dual(303305000) d7  F3                J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+walk b dual(303305000) d8  F3                J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+walk b dual(303305000) d9  F4                J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+walk b dual(303305000) d10 F7                J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+walk a 303500030 d1  F1                      J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+walk a 303500030 d2  F1                      J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+walk a 303500030 d3  F4                      J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+walk a 303500030 d4  F3                      J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+walk a 303500030 d5  F1                      J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+walk a 303500030 d6  F8                      J 1 | LIB False | HOM H[-2,-1,1,2] 0 1 0 0 tilt False | OWN H[-1] 1 (YY 0) appr True  tilt False | End0~child True  illegalRel False
+== C3 / YES control (hand-built, theorist_jsilt.build)
+C3 E-080 abde=acde @4 F                      J 1 | LIB False | HOM H[-2,-1,1,2] 0 1 0 0 tilt False | OWN H[-1] 1 (YY 0) appr True  tilt False | End0~child True  illegalRel False
+YES abd=acd @4 F                             J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+== C2: E-316 19 n = 9 key-kept J != 0 steps (path moves checked too: they are the J = 0 side of the joins)
+E-233 root(3060000) d1 F1                    J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-233 root(3060000) d2 R9                    J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-233 root(3060000) d3 R8                    J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-233 root(3060000) d4 R8                    J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-233 root(3060000) d5 R8                    J 3 | LIB False | HOM H[-2,-1,1,2] 0 3 0 0 tilt False | OWN H[-1] 3 (YY 0) appr True  tilt False | End0~child True  illegalRel False
+E-234 1275 root(3060000) d1 F1               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1275 root(3060000) d2 F4               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1275 root(3060000) d3 R9               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1275 root(3060000) d4 R8               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1275 root(3060000) d5 R8               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1275 root(3060000) d6 R8               J 2 | LIB False | HOM H[-2,-1,1,2] 0 2 0 0 tilt False | OWN H[-1] 2 (YY 0) appr True  tilt False | End0~child True  illegalRel False
+E-234 1433 root(3060000) d1 F1               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1433 root(3060000) d2 F5               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1433 root(3060000) d3 R9               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1433 root(3060000) d4 R8               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1433 root(3060000) d5 R8               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1433 root(3060000) d6 R8               J 2 | LIB False | HOM H[-2,-1,1,2] 0 2 0 0 tilt False | OWN H[-1] 2 (YY 0) appr True  tilt False | End0~child True  illegalRel False
+E-234 1746 root(3060000) d1 F1               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1746 root(3060000) d2 R5               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1746 root(3060000) d3 R9               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1746 root(3060000) d4 R8               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1746 root(3060000) d5 R8               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1746 root(3060000) d6 R8               J 2 | LIB False | HOM H[-2,-1,1,2] 0 2 0 0 tilt False | OWN H[-1] 2 (YY 0) appr True  tilt False | End0~child True  illegalRel False
+E-234 1818 root(3060000) d1 F1               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1818 root(3060000) d2 R6               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1818 root(3060000) d3 R9               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1818 root(3060000) d4 R8               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1818 root(3060000) d5 R8               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1818 root(3060000) d6 R8               J 2 | LIB False | HOM H[-2,-1,1,2] 0 2 0 0 tilt False | OWN H[-1] 2 (YY 0) appr True  tilt False | End0~child True  illegalRel False
+E-234 1915 root(3060000) d1 F1               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1915 root(3060000) d2 R8               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1915 root(3060000) d3 R9               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1915 root(3060000) d4 F8               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1915 root(3060000) d5 R9               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1915 root(3060000) d6 R9               J 3 | LIB False | HOM H[-2,-1,1,2] 0 3 0 0 tilt False | OWN H[-1] 3 (YY 0) appr True  tilt False | End0~child True  illegalRel False
+E-234 1932 root(3060000) d1 F1               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1932 root(3060000) d2 R8               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1932 root(3060000) d3 R9               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1932 root(3060000) d4 R9               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1932 root(3060000) d5 R8               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1932 root(3060000) d6 R8               J 3 | LIB False | HOM H[-2,-1,1,2] 0 3 0 0 tilt False | OWN H[-1] 3 (YY 0) appr True  tilt False | End0~child True  illegalRel False
+E-234 1970 root(3060000) d1 F1               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1970 root(3060000) d2 R9               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1970 root(3060000) d3 F1               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1970 root(3060000) d4 R8               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1970 root(3060000) d5 R8               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 1970 root(3060000) d6 R8               J 4 | LIB False | HOM H[-2,-1,1,2] 0 4 0 0 tilt False | OWN H[-1] 4 (YY 0) appr True  tilt False | End0~child True  illegalRel False
+E-234 2003 root(3060000) d1 F1               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 2003 root(3060000) d2 R9               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 2003 root(3060000) d3 F3               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 2003 root(3060000) d4 R8               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 2003 root(3060000) d5 R8               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 2003 root(3060000) d6 R8               J 4 | LIB False | HOM H[-2,-1,1,2] 0 4 0 0 tilt False | OWN H[-1] 4 (YY 0) appr True  tilt False | End0~child True  illegalRel False
+E-234 4551 root(3060000) d1 R8               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 4551 root(3060000) d2 R9               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 4551 root(3060000) d3 R9               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 4551 root(3060000) d4 F1               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 4551 root(3060000) d5 R8               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 4551 root(3060000) d6 R8               J 3 | LIB False | HOM H[-2,-1,1,2] 0 3 0 0 tilt False | OWN H[-1] 3 (YY 0) appr True  tilt False | End0~child True  illegalRel False
+E-234 4722 root(3060000) d1 R9               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 4722 root(3060000) d2 R8               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 4722 root(3060000) d3 R8               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 4722 root(3060000) d4 F1               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 4722 root(3060000) d5 F8               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-234 4722 root(3060000) d6 R1               J 3 | LIB False | HOM H[-2,-1,1,2] 0 3 0 0 tilt False | OWN H[-1] 3 (YY 0) appr True  tilt False | End0~child True  illegalRel False
+E-239 2026 root(3304000) d1 F2               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-239 2026 root(3304000) d2 R8               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-239 2026 root(3304000) d3 R9               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-239 2026 root(3304000) d4 R7               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-239 2026 root(3304000) d5 R7               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-239 2026 root(3304000) d6 R7               J 2 | LIB False | HOM H[-2,-1,1,2] 0 2 0 0 tilt False | OWN H[-1] 2 (YY 0) appr True  tilt False | End0~child True  illegalRel False
+E-244 4606 root(3304000) d1 F2               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 4606 root(3304000) d2 F1               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 4606 root(3304000) d3 R8               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 4606 root(3304000) d4 R9               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 4606 root(3304000) d5 R7               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 4606 root(3304000) d6 R7               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 4606 root(3304000) d7 R7               J 2 | LIB False | HOM H[-2,-1,1,2] 0 2 0 0 tilt False | OWN H[-1] 2 (YY 0) appr True  tilt False | End0~child True  illegalRel False
+E-244 8063 root(3304000) d1 F2               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 8063 root(3304000) d2 R8               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 8063 root(3304000) d3 R7               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 8063 root(3304000) d4 R9               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 8063 root(3304000) d5 F7               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 8063 root(3304000) d6 R9               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 8063 root(3304000) d7 R9               J 2 | LIB False | HOM H[-2,-1,1,2] 0 2 0 0 tilt False | OWN H[-1] 2 (YY 0) appr True  tilt False | End0~child True  illegalRel False
+E-244 8170 root(3304000) d1 F2               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 8170 root(3304000) d2 R8               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 8170 root(3304000) d3 R9               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 8170 root(3304000) d4 F2               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 8170 root(3304000) d5 R7               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 8170 root(3304000) d6 R7               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 8170 root(3304000) d7 R7               J 4 | LIB False | HOM H[-2,-1,1,2] 0 4 0 0 tilt False | OWN H[-1] 4 (YY 0) appr True  tilt False | End0~child True  illegalRel False
+E-244 8196 root(3304000) d1 F2               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 8196 root(3304000) d2 R8               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 8196 root(3304000) d3 R9               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 8196 root(3304000) d4 F4               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 8196 root(3304000) d5 R7               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 8196 root(3304000) d6 R7               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 8196 root(3304000) d7 R7               J 4 | LIB False | HOM H[-2,-1,1,2] 0 4 0 0 tilt False | OWN H[-1] 4 (YY 0) appr True  tilt False | End0~child True  illegalRel False
+E-244 8427 root(3304000) d1 F2               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 8427 root(3304000) d2 R9               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 8427 root(3304000) d3 R8               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 8427 root(3304000) d4 R7               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 8427 root(3304000) d5 R9               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 8427 root(3304000) d6 R7               J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 8427 root(3304000) d7 R7               J 2 | LIB False | HOM H[-2,-1,1,2] 0 2 0 0 tilt False | OWN H[-1] 2 (YY 0) appr True  tilt False | End0~child True  illegalRel False
+E-244 11123 root(3304000) d1 R8              J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 11123 root(3304000) d2 R9              J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 11123 root(3304000) d3 R7              J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 11123 root(3304000) d4 R7              J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 11123 root(3304000) d5 F2              J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 11123 root(3304000) d6 F7              J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-244 11123 root(3304000) d7 R2              J 2 | LIB False | HOM H[-2,-1,1,2] 0 2 0 0 tilt False | OWN H[-1] 2 (YY 0) appr True  tilt False | End0~child True  illegalRel False
+E-254 root(2400230) d1 F1                    J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-254 root(2400230) d2 F1                    J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-254 root(2400230) d3 F2                    J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-254 root(2400230) d4 F3                    J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-254 root(2400230) d5 R9                    J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-254 root(2400230) d6 R7                    J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-254 root(2400230) d7 R9                    J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-254 root(2400230) d8 F3                    J 0 | LIB True  | HOM H[-2,-1,1,2] 0 0 0 0 tilt True  | OWN H[-1] 0 (YY 0) appr True  tilt True  | End0~child True  illegalRel False
+E-254 root(2400230) d9 F3                    J 2 | LIB False | HOM H[-2,-1,1,2] 0 2 0 0 tilt False | OWN H[-1] 2 (YY 0) appr True  tilt False | End0~child True  illegalRel False
+TALLY (class, J, LIB, HOM, OWN, all agree, End0 ~ child Cartan, silting) -> count
+   ('C1 control J!=0 (walk a step 6)', 'J=1', 'LIB False', 'HOM False', 'OWN False', 'agree True', 'End0~child True', 'silting True') 1
+   ('C1 control J!=0 (walk b step 6)', 'J=1', 'LIB False', 'HOM False', 'OWN False', 'agree True', 'End0~child True', 'silting True') 1
+   ('C2 control E-316 step', 'J=2', 'LIB False', 'HOM False', 'OWN False', 'agree True', 'End0~child True', 'silting True') 10
+   ('C2 control E-316 step', 'J=3', 'LIB False', 'HOM False', 'OWN False', 'agree True', 'End0~child True', 'silting True') 5
+   ('C2 control E-316 step', 'J=4', 'LIB False', 'HOM False', 'OWN False', 'agree True', 'End0~child True', 'silting True') 4
+   ('C3 control E-080', 'J=1', 'LIB False', 'HOM False', 'OWN False', 'agree True', 'End0~child True', 'silting True') 1
+   ('E-316 path move (J=0 expected)', 'J=0', 'LIB True', 'HOM True', 'OWN True', 'agree True', 'End0~child True', 'silting True') 103
+   ('TARGET walk b J=0', 'J=0', 'LIB True', 'HOM True', 'OWN True', 'agree True', 'End0~child True', 'silting True') 9
+   ('YES control abd=acd', 'J=0', 'LIB True', 'HOM True', 'OWN True', 'agree True', 'End0~child True', 'silting True') 1
+   ('secondary walk a J=0', 'J=0', 'LIB True', 'HOM True', 'OWN True', 'agree True', 'End0~child True', 'silting True') 5
+DISAGREEMENTS: 0 []
+time 3s

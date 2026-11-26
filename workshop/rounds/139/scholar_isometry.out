@@ -1,0 +1,19 @@
+N_4(3) vs kD_4: roots 24 (D_n has 24); isometry FOUND
+   P^-1 columns = [[-1, -1, -1, 0], [0, -1, 0, 0], [1, 1, 0, 0], [0, 0, 0, -1]]
+N_5(4) vs kD_5: roots 40 (D_n has 40); isometry FOUND
+   P^-1 columns = [[-1, -1, -1, -1, 0], [0, 0, 0, 0, 1], [1, 0, 0, 0, -1], [0, 1, 0, 0, 0], [0, 0, 1, 0, 0]]
+N_6(5) vs kD_6: roots 60 (D_n has 60); isometry FOUND
+   P^-1 columns = [[-1, -1, -1, -1, -1, 0], [0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 0, -1], [0, 1, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0], [0, 0, 0, 1, 0, 0]]
+N_7(6) vs kD_7: roots 84 (D_n has 84); isometry FOUND
+   P^-1 columns = [[-1, -1, -1, -1, -1, -1, 0], [0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0, -1], [0, 1, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0]]
+controls (must be NONE):
+  N_5(2) vs kD_5: roots 30; isometry NONE, OK
+  N_6(2) vs kD_6: roots 42; isometry NONE, OK
+  N_6(4) vs kD_6: roots 72; isometry NONE, OK
+  N_7(5) vs kD_7: roots 126; isometry NONE, OK
+  N_5(4) vs kA_5: roots 40; isometry NONE, OK
+  N_6(5) vs kA_6: roots 60; isometry NONE, OK
+
+real	1m57.045s
+user	1m56.262s
+sys	0m0.108s

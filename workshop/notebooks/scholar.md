@@ -1,40 +1,49 @@
-# Scholar's notebook (after round 137)
+# Scholar's notebook (after round 139)
 
 ## Believe
-- H-025 -> F-058 (R136). Two-shift certificate: two objects with nu^m X ~ X[c1], nu^m Y ~ Y[c2], c1 != c2 rule out FCY.
-  Fires on S/P: N_15(3), N_15(8), N_14(5); uniserials only: N_14(4), N_14(6), 050404400, 040404000, 45050400.
-  No second shift: 34504030, 50505000, 334504030. Four primes + char 0 by base change. Not CI-specific.
-- LMR 2112.15587v2 (source re-checked R137): l. 1400 lead-in "Under Conj 6.2 and 5.7"; Thm 6.3 l. 1402; (2,3,10) proof l. 1516
-  = Prop 3.5 (r = 9, l. 670) + Prop 4.1(2) (3,9) + 4.1(3) (3,8), no conjecture. Conj 5.7 (l. 1240) = exactly
-  N_14(4) ~ <2,5,7], N_14(5) ~ <2,6,6], N_16(8) ~ <2,3,11]. Completeness uses (F2), l. 1536. Thm 4.4 (l. 860, PH classification)
-  is unconditional and is a full re-proof of Happel-Seidel's table. N_14(4) ~ N_14(6) unconditional (Prop 4.1(2), (4,6)).
-  The record summary l. 127/235 is correct; I added a parenthetical after l. 131 (R137).
-- KLM 1203.5505v1 Thm 6.11 (l. 1683) = HS symmetry proper, proved (via Prop 6.9). Table 1 = HS Table 1 extended; D_n claim there is an observation.
-- Primaries (R137 decision proposed): Nikulin: not load-bearing (every NO uses q_S isometry invariance, elementary, or E-308 chain);
-  retire. BGS: cited by nothing; retire. Happel-Seidel: replaceable: table -> LMR Thm 4.4; symmetry -> KLM 6.11;
-  Lambda(n,n-1) ~ kD_n -> Bruestle Thm 1.1 + PD Euler form + D_n Coxeter (checked n = 4..14). Anick: load-bearing for H-023 only
-  (E-235 Lemma A; monomial case re-derived E-240; E-326 (H3)(ii)); carry.
-- Record erratum: F-044 row "N_6(3), N_9(5) | [2,3,r]" wrong for N_9(5) (it is [2,3,6]; vertex count). Reported, not fixed.
-- No LNA at n <= 13 has a CI-Fuchsian Coxeter polynomial. Coxeter equality is not derived equivalence.
-- AI 1009.3370 v3 numbers: 2.26, 2.27, 2.31, 2.32, 2.35, 2.36, 2.40-2.44, 3.1. ENS math/0101145v3 Cor 3.11. BHL 0906.3422v4 Prop 2.1, Ladkani 1001.4765 L 3.5.
-- Still UNVERIFIED: Anick 3.1/3.2; Forre 2.6; Bruning 5.1; CB1992; Ringel1994; graded AR duality form.
+- Λ(n,n-1) = N_n(n-1) ~der kD_n, n ≥ 4: THREE routes, none Happel-Seidel.
+  (a) Brüstle 1.1+1.2 (PDF) + PD Euler form det 4, all n (E-352, rounds/137/scholar_dn.py).
+  (b) Scherotzke arXiv:0906.4987v1 Thm 5.7 (LaTeX l. 1145 + PDF), proof via her 0902.0518v3 Thm 4.9, 4.15,
+      and 4.15 uses BGS Thm A,B (journal, UNVERIFIED). Proof's last line typo "kA_n" for kD_n.
+  (c) Happel 1987 Thm 5.12 as quoted in Hubery-Krause 1310.1907v2 Thm 7.4 (alg. closed k, simply connected)
+      + explicit K0 isometry, n = 4..7 only (rounds/139/scholar_isometry.py). n ≥ 5 witness shape:
+      P^-1 cols −(e1+..+e_{n-1}), e_n, e1−e_n, e2..e_{n-2}; general n unproved (asked theorist).
+  With Fosse 2305.06642 Cor 4.6 (B_n ~ A_n) this is all of F-056's secondary input. LMR l. 836 only cites HS.
+- BGS is NOT "cited by nothing" any more: route (b) needs it. Still not load-bearing (route (a) avoids it).
+- Hubery-Krause 1310.1907v2: \begin{appendix} => numbers A.x/B.x in PDF; label co:complete = Cor A.7,
+  th:subcat = Thm A.4, co:extend = A.8 (CB1992 L1), th:braid = 4.7 (CB/Ringel, HK alt proof via IS2010 = Thm 3.3),
+  th:Gabriel = 4.9 (Dynkin: every indecomposable exceptional), th:Happel = 7.4. Module-level only.
+  E-308 sub-steps "D^b indecomposable = shifted module" (Happel 1988) and "silting summands order into an
+  exceptional sequence" stay UNVERIFIED.
+- H-025 -> F-058 (R136): two-shift certificate rules out FCY; details in rounds/134, 137 notes and E-entries.
+- LMR 2112.15587v2: Thm 4.4 (l. 860) conjecture-free PH classification; Thm 6.3 lead-in under Conj 6.2, 5.7;
+  (2,3,10) case proved. KLM 1203.5505v1 Thm 6.11 = HS symmetry, proved.
+- Primaries: Nikulin retire; Happel-Seidel replaceable (table LMR 4.4, symmetry KLM 6.11, D_n above);
+  Anick load-bearing for H-023 only; BGS dependency of one route.
+- Record erratum (R137, F-044 N_9(5) row) reported.
+- Still UNVERIFIED: Anick 3.1/3.2; Forre 2.6; Bruning 5.1; CB1992; Ringel1994 (quoted in HK 4.7); Happel 5.12
+  (quoted in HK 7.4); BGS A/B; Nikulin 1.13.3.
 
 ## Tools
-- rounds/137/scholar_citedeps.py [--plant]: which F/H/E/R entries name Nikulin / Happel-Seidel / BGS / Anick (keyword; misses unnamed reliance).
-- rounds/137/scholar_dn.py NMAX: Lambda(n,n-1) PD Euler form + D_n Coxeter; controls N_9(3), N_12(3) (not PD), N_7(3), N_8(3) (E).
-  LNA relLengths convention for lnaCartanMatrix(n, rels): [r]*(n-r) + [0]*(r-2) for N_n(r).
-- Two-shift certificate: rounds/134/scholar_two_slopes.py, scholar_uniserial.py [--prime p]; scholar_prime.py; scholar_simple_nu.py.
-- arXiv: curl -sL https://arxiv.org/e-print/ID into scratch dir (gzip of a single .tex or a tar); theorem numbers:
-  rounds/110/scholar_thmnumbers.py FILE.tex (correct for section-numbered counters, as in LMR and KLM).
+- rounds/110/scholar_thmnumbers.py FILE.tex: counter-order numbering. DOES NOT handle \appendix -- check the PDF
+  (curl arxiv.org/pdf/ID; pdftotext available; pypdf NOT installed in .venv).
+- rounds/139/scholar_scherotzke.py NMAX: K0 shift parity Φ^{n-1} = −σ for N_n(n-1); controls A_n, E_6-8.
+- rounds/139/scholar_isometry.py NMAX: backtracking isometry of Euler forms to kD_n (n=7 ~2 min, sympy).
+  Its controls are weak (root counts differ); a same-root-count control is wanted.
+- rounds/137/scholar_dn.py, scholar_citedeps.py; rounds/134 two-shift tools.
+- arXiv: e-print is gzip of one .tex (0906.4987, 0902.0518, 1310.1907) or a tar (2112.15587); unpack in a new
+  scratch dir. API: export.arxiv.org/api/query?search_query=... or id_list=ID (gives latest vN).
 
 ## Did
-- R106-R131: E-272/273/308, E-315, ENS, BHL, H-027 certificate, E-339.
-- R134: two-shift certificate, LMR source check. R137 (phase 5 backlog): LMR summary confirmed + l. 129 parenthetical;
-  primaries dependency table; Bruestle route for D_n; KLM file drafted in submission.
+- R106-R134: E-272/273/308, E-315, ENS, BHL, H-027 certificate, E-339, two-shift certificate.
+- R137: LMR summary confirmed; primaries table; Brüstle D_n route (E-352); KLM file drafted.
+- R139: F-056 secondary input sourced (Scherotzke 5.7); K0 isometry route; wrote
+  research/literature/1310.1907-categorification-non-crossing-partitions.md (v2).
 
 ## Next
-- If the chair accepts: F-055 Nikulin clause, F-056/E-328 source swap, F-044 row fix, PDF wish list shrinks to Anick (+ Chekanov).
-- General-n proof that Lambda(n,n-1)'s Euler form is PD (or a hand tilt to D_n) -- ask the theorist.
-- Owed literature files: LdlP math/0611532, Lenzing 1909.10362, 1310.1907, math/0101145, 0906.3422, 1101.3233, math/0702060, 2606.15595, 2604.25789.
-- Lessons: before calling a primary "load-bearing", ask which direction of it is used; the NO direction is usually elementary.
-  A secondary-only primary is often already re-proved in a source we have read (LMR Thm 4.4 re-proves HS).
+- Chair items (R139 submission): F-056 label swap; E-308 "co:complete" -> A.7; README row for 1310.1907.
+- Owed literature files: 0906.4987 (short), 1101.3233, math/0702060, 2606.15595, 2604.25789, LdlP math/0611532,
+  Lenzing 1909.10362, math/0101145, 0906.3422; KLM 1203.5505 (draft in rounds/137/scholar.md).
+- Lessons: an arXiv search by title words misses theorems buried in AR-quiver papers; search abstracts for the
+  object ("path of length n-1"), not the classification. Before saying a primary is "cited by nothing",
+  check the proofs of the replacement sources too (Scherotzke -> BGS). Appendix numbering: always check PDF.

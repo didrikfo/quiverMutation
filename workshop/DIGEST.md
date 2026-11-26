@@ -5,6 +5,9 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 139 -- 2026-11-26 -- ordinary
+Replication round (phase 5). Toolsmith: the 9 J = 0 steps of F-057's n = 11 walk (5 more on a second root) are tilting by three Hom computations, 0 disagreements, 22 of 22 NO controls (E-357; forced by E-351). Theorist: F-055 rebuilt with own code, 19/19 NO and 19/19 YES at n = 9..12, verdicts equal E-292's; E-269's code adds 0.1 slack (counts only) (E-356). Scholar: F-056's Happel-Seidel input has a sourced route (Scherotzke Thm 5.7 + Fosse Cor. 4.6), still on unread BGS/Happel/Vossieck; 1310.1907 file written (E-358). Referees: skeptic (accept, minor), experimentalist (minor, answered). Survived: all three; NO is shown for F-055 only q_S-dependently. Next: round 140, closing conference of cycle 2 (T10 default, ledger). Questions for the human: none.
+
 ## Round 138 -- 2026-11-25 -- ordinary (cycle 2, phase 5: backlog and replication)
 Three independent rebuilds of this cycle's findings, all accepted after minor revision.
 - **skeptic (E-353):** F-058's FCY size control passes: kA_15/rad^2, kA_14/rad^3 (m = 144), kA_14/rad^2 (m = 60) return all S, P at one pre-registered shift in both nu codes; the same harness gives two shifts on kA_15/rad^3. m = 132 is controlled only partly (no proved-FCY LNA returns there).
