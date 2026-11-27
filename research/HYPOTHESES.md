@@ -34,7 +34,7 @@ For a Construction-2.2 parent with a degree-1 loop f at i whose differential is 
 ---
 
 ## H-029 — The first-step (arrows, relations) delta of an H-020 class-B floating rule is a function of the rule alone (proposed round 118)
-*2026-11-05* · **SUPPORTED** *(per rule: widths 5-7 at lengths <= w+3 and widths 8-9 at lengths <= w+4, 106 of 106 rules, E-335; registered cross-width falsifier passes without power; no proof of locality; E-310)* · *workshop round 118, skeptic*
+*2026-11-05* · **SUPPORTED, RETIRED at the round-140 closing conference (no width >= 10 cases exist to test; cycle 2 backlog)** *(per rule: widths 5-7 at lengths <= w+3 and widths 8-9 at lengths <= w+4, 106 of 106 rules, E-335; registered cross-width falsifier passes without power; no proof of locality; E-310)* · *workshop round 118, skeptic*
 
 For a class-B floating rule d (notLNA at step 1) at widths 5-6, lengths <= 8, the first mutation changes (arrows, relations) by (1,1) or (1,2), a number fixed by d alone, but not by len(added) - 1 (E-286) and by none of 15 hand-made 1-2-feature predictors beyond the best of 400 label shuffles (0.872 vs shuffled max 0.872; 19 of 400). **Falsifiable:** build the rule table at widths <= 7 and predict the delta at widths 8-9, lengths 9-10 (about 10 min per width); one wrong prediction refutes the 'function of the rule' reading at that width. This is the sharpened form of E-286's H3/H4.
 

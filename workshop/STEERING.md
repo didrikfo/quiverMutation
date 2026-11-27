@@ -245,3 +245,4 @@ The format stays open to change at each cycle retrospective.
 - round 112, question 1 (PDFs of Nikulin 1979, Happel-Seidel, BGS, Anick 1982) (applied, round 113): citations stay UNVERIFIED, no action -- decided by the chair of round 113; no answer from the human
 - round 113, question 1 (PDFs of Nikulin 1979, Happel-Seidel, BGS, Anick 1982) (applied, round 114): citations stay UNVERIFIED, no action -- decided by the chair of round 114; no answer from the human
 - round 129, question 1 (`refuseNonTilting` default): no, keep it off; document the crossing; toolsmith runs F-041 at n = 10, 11 with it on first -- decided by the chair of round 130; no answer from the human (applied, round 130)
+- round 140 (closing conference): `refuseNonTilting` default stays off; depth-8 T10 overnight run not approved; no OVERNIGHT.md change -- decided by the chair of round 140; no question was open

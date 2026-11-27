@@ -31,7 +31,7 @@ Reproduce: `timeout 10m .venv/bin/python -W ignore workshop/rounds/129/maverick_
 
 ---
 
-## F-056 — At n = 5, 6, 7 the shortest E-287/E-289 paths from B_n to A_n are chains of irreducible silting mutations, hence of tilting mutations; the one secondary input is D^b(B_n) ~ D^b(kD_n) (Happel-Seidel, UNVERIFIED)
+## F-056 — At n = 5, 6, 7 the shortest E-287/E-289 paths from B_n to A_n are chains of irreducible silting mutations, hence of tilting mutations; the one secondary input is D^b(B_n) ~ D^b(kD_n) (Scherotzke 0906.4987 Thm 5.7 + Fosse Cor. 4.6, E-358; three primaries unread)
 *2026-11-15* · *workshop round 128 (conference ledger), chair; evidence refereed in round 126 (scholar, refereed by theorist) and reproduced by the theorist*
 
 Evidence: E-328, E-287, E-289, E-285, E-280; Aihara-Iyama Prop 2.36, Thm 2.35, Thm 2.31 matched in the sources (E-308).

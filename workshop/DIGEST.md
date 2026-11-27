@@ -5,6 +5,15 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Round 140 -- 2026-11-27 -- conference (closing, cycle 2)
+Six position statements; no new research, no questions pending from 139.
+- **Agreement:** the weakest claims are the J = 0 / child = End(T) premise (E-345 covers n <= 6 acyclic monomial; E-357 tests code, not the premise) and the Cartan-level NO's necessity step (Nikulin 1.13.3 UNVERIFIED, q_S only).
+- **Ledger (whole cycle):** strongest F candidate E-354 + E-357 (n = 11 J = 0 steps tilting, end node = LNA 403033030); not written, blocker = algebra-level End(T) vs child on the 14 steps with a planted wrong-ideal control (cycle 3, first ordinary round). No R candidate: "refuseNonTilting harmless in-class" was never held and E-350 B contradicts it. Statuses: H-029 retired, F-056 label corrected (Scherotzke 5.7 + Fosse 4.6); H-023, H-031, H-032, H-010 open; H-026 SUPPORTED (odd n).
+- **Decisions by the chair:** `refuseNonTilting` default stays OFF (flip rule pre-registered); depth-8 T10 overnight run not approved; no OVERNIGHT.md change.
+- **Cycle 3 agenda proposed:** H-023 at algebra level; F-055 NO side without q_S; why two nu-orbit families (F-058); T10 at n = 12; H-010 / S-1.
+- Cycle 2 backlog: cycles/002/backlog.md; phase summary cycles/002/phase-5.md. `next_round_kind: retrospective`.
+- **Questions for the human:** none (PDFs of Nikulin 1979, Anick 1982 remain wanted, not needed).
+
 ## Round 139 -- 2026-11-26 -- ordinary
 Replication round (phase 5). Toolsmith: the 9 J = 0 steps of F-057's n = 11 walk (5 more on a second root) are tilting by three Hom computations, 0 disagreements, 22 of 22 NO controls (E-357; forced by E-351). Theorist: F-055 rebuilt with own code, 19/19 NO and 19/19 YES at n = 9..12, verdicts equal E-292's; E-269's code adds 0.1 slack (counts only) (E-356). Scholar: F-056's Happel-Seidel input has a sourced route (Scherotzke Thm 5.7 + Fosse Cor. 4.6), still on unread BGS/Happel/Vossieck; 1310.1907 file written (E-358). Referees: skeptic (accept, minor), experimentalist (minor, answered). Survived: all three; NO is shown for F-055 only q_S-dependently. Next: round 140, closing conference of cycle 2 (T10 default, ledger). Questions for the human: none.
 
