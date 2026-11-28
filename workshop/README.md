@@ -59,8 +59,11 @@ planning ── phase 1 ── phase 2 ── phase 3 ── phase 4 ── phas
 * **Phases** are plain research by default. The planning step may give a
   phase, part of one, or some personas a focus: **literature** (finding and
   reading papers, checking claims against them) or **backlog** (settling,
-  retiring or converting open items). Cycle 1 used a fixed literature phase
-  first and a backlog phase last; since cycle 2 nothing is fixed.
+  retiring or converting open items), **replication** (rebuilding the
+  cycle's results by a non-author) or a **problem session** (every slot on
+  one question). Cycle 1 used a fixed literature phase first and a backlog
+  phase last; since cycle 2 nothing is fixed. Owed library changes go first
+  in the next cycle.
 * **The cycle's last conference** always marks every open item settled,
   retired, converted or carried over.
 * **Cycle retrospective** (by the dispatcher session): what worked, and

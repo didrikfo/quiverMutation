@@ -5,6 +5,14 @@ human coming back after a while: what was claimed, what survived review, what
 was promoted into `research/`, what the chair needs from you. Each entry at
 most `max_digest_entry_lines` lines, linking to `rounds/NNN/` for the rest.
 
+## Cycle 2 retrospective -- 2026-11-28 -- rounds 121-140 (dispatcher)
+`cycles/002/retrospective.md` (copy: `retrospectives/004-cycle-002.md`). 20 rounds, 44 E-entries, **4 F-entries** (F-055..F-058, the first since the workshop began), 2 retractions (R-017, R-018), 5 status changes (H-015 REFUTED; H-025, H-027 CONFIRMED; H-029, H-030 SUPPORTED). Reviews: 4 accept, 38 minor, 3 major.
+- **Cost (real).** Ordinary rounds with opus personas $10.69-$20.72, mean $16.41 (about $5 on sonnet before); conferences $2.43; planning $4.90; cycle $263.
+- **Plan outcomes.** T10 met and exceeded (crossing at n = 11, F-057); H-030 and the F-entry rebuilds met; H-023 and H-026 not met (no F-entry; H-023 is the weakest claim for a second cycle).
+- **Format.** Opus plus scoped findings turned controlled results into findings. The phase-5 replication rebuilt all four F-entries cheaply and narrowed three scopes, with no retraction. Not working: owed code carried again (since round 127); long runs never decided.
+- **Changes.** Replication and problem session are now named focuses in `CYCLE.md`. Owed code goes first in the next cycle and is never carried a third time. Models, daily rate and phase shape are unchanged.
+- Next: cycle 3 planning (rounds 141-160). **Steer it by editing `cycles/003/plan.md` or `STEERING.md` once the plan is out**; the cost per round and any long run are your call (retrospective, "For the human").
+
 ## Round 140 -- 2026-11-27 -- conference (closing, cycle 2)
 Six position statements; no new research, no questions pending from 139.
 - **Agreement:** the weakest claims are the J = 0 / child = End(T) premise (E-345 covers n <= 6 acyclic monomial; E-357 tests code, not the premise) and the Cartan-level NO's necessity step (Nikulin 1.13.3 UNVERIFIED, q_S only).

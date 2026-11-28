@@ -3,13 +3,13 @@
 Owned by the chair. Rewritten (not appended) at the end of every round, under 12 000 bytes, each thread entry under 600 characters; history lives in the E-entries and `cycles/CCC/phase-P.md`. Every persona reads this first.
 
 last_round: 140
-cycle: 2 (rounds 121-140) is complete; closing ledger and backlog: rounds/140/proceedings.md, cycles/002/backlog.md; phase summaries cycles/002/phase-1.md .. phase-5.md
-phase: none (cycle 3 not planned yet)
-focus: none
-next_round_kind: retrospective
+cycle: 3 (rounds 141-160; CYCLE.md; plan in cycles/003/plan.md once the planning step has run). Cycle 2 closed: rounds/140/proceedings.md, cycles/002/backlog.md, cycles/002/retrospective.md
+phase: none yet (planning step next)
+focus: research by default; the cycle 3 plan may give a phase or personas a focus (literature, backlog, replication, problem session; CYCLE.md). Owed code from cycles/002/backlog.md ("Carried", Code) goes in the first ordinary round.
+next_round_kind: planning
 
 ## What the project is doing now
-Tilting mutation of quivers with relations; derived equivalence of Nakayama algebras (LNAs). The search (`quivermutation/search.py`) walks mutations under a *gate* and a *Coxeter-key guard*; the guard is not a tilting test (E-147, E-151, E-332), and whether a guarded walk leaves a derived class through a J != 0 step is settled only at n = 11 (F-057); n = 12 and depth >= 8 are open. Cycle 1 retrospective: cycles/001/retrospective.md; retrospective 2: retrospectives/002-rounds-045-100.md.
+Tilting mutation of quivers with relations; derived equivalence of Nakayama algebras (LNAs). The search (`quivermutation/search.py`) walks mutations under a *gate* and a *Coxeter-key guard*; the guard is not a tilting test (E-147, E-151, E-332), and whether a guarded walk leaves a derived class through a J != 0 step is settled only at n = 11 (F-057); n = 12 and depth >= 8 are open. Cycle 2 retrospective: cycles/002/retrospective.md; cycle 1: cycles/001/retrospective.md; retrospective 2: retrospectives/002-rounds-045-100.md.
 
 ## Cycle 3 agenda (proposed at round 140; the planning step revises it)
 1. H-023 at algebra level: End(T) vs child on E-357's 14 steps with a planted wrong-ideal control (also F-057's blocker); KY/DWZ/Oppermann hypothesis match.

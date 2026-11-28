@@ -19,7 +19,11 @@ planning step ── phase 1 ── phase 2 ── phase 3 ── phase 4 ──
 Cycle 1 (rounds 101-120) ran with fixed focuses (literature, research x 3,
 backlog); its retrospective (`cycles/001/retrospective.md`) found both
 special phases useful, the literature one largely as a catch-up, and the
-human's plan of 2026-11-03 made plain research the default.
+human's plan of 2026-11-03 made plain research the default. Cycle 2
+(rounds 121-140) ran research phases with a literature part in phase 1 and
+backlog and replication in phase 5; its retrospective
+(`cycles/002/retrospective.md`) made *replication* and *problem session*
+named focuses and put owed code first.
 
 ## Where a round is in its cycle
 
@@ -80,7 +84,17 @@ than a grep.
      which rounds or personas. Decide it from the plans; do not add a focus
      the plans do not argue for. Cycle 1's retrospective found a backlog
      sweep near the end of a cycle closed long-pending items that nothing
-     else closed; consider one.
+     else closed; cycle 2's found that a replication part in the last phase
+     rebuilt every F-entry cheaply and sharpened each one's scope; consider
+     both whenever the cycle is likely to write F-entries. A question that
+     has been the weakest claim for a whole cycle is a candidate for a
+     problem-session phase.
+   * **Owed code first.** Every library or docstring change the last
+     cycle's closing backlog carried is scheduled in the first ordinary
+     round of phase 1 (the toolsmith's slot unless the plan says who). A
+     change carried twice is never carried a third time: the conference
+     chair of that phase makes it or declines it with a reason recorded in
+     `research/`.
    * **Loose agenda**: ranked threads, owners, first questions. Not
      binding: phase conferences change it.
    * **Reading list**, if any phase or persona has a literature focus.
@@ -145,6 +159,32 @@ The research backlog, not the code backlog.
 * **Consequences.** A pending consequence for library code or a docstring
   is done in this phase or explicitly declined with a reason; it does not
   carry over silently.
+
+### Replication (when the plan gives it)
+
+* **Call.** Each assignment takes one result of the cycle (an F-entry, an
+  author-only E-entry, a result a conference relies on) and rebuilds it by a
+  persona who did not write it, with code written for the purpose (not the
+  author's scripts; shared library functions are allowed and named). Prefer
+  the results the next cycle will build on.
+* **Work.** The submission states, for each rebuilt claim: *reproduced*,
+  *reproduced at a narrower scope* (say which), or *not reproduced*, with
+  the numbers side by side and any input the rebuild still takes from the
+  original (a citation, a pickle, an enumeration).
+* **Consequences.** A narrower scope changes the F-entry's title or open
+  point in the same round; *not reproduced* goes to the conference as an
+  R-candidate.
+
+### Problem session (when the plan gives it)
+
+* **Call.** Every slot works on one question, named by its H-entry. The
+  call splits it: which step of the argument, which lemma, which experiment
+  or counterexample search each persona takes, so that no two slots do the
+  same thing. The breadth and suggested-question slots are suspended.
+* **Conference.** It decides one of: *proved* (written as an F-entry at its
+  scope), *refuted*, or *the exact missing step* (one statement, written as
+  an H-entry if it is not one already). "More work needed" is not an
+  outcome.
 
 ### The cycle's last conference (always)
 
